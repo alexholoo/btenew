@@ -1,0 +1,122 @@
+2. PO with all the optional tags in it, 2 PO lines (exclude SWL and EU tags)
+ 
+<?xml version="1.0" encoding="UTF-8" ?>
+<SynnexB2B>
+  <Credential>
+    <UserID>YOUR ID</UserID>
+    <Password>YOUR PASSWORD</Password>
+  </Credential>
+
+  <OrderRequest>
+    <CustomerNumber>YOUR ACCOUNT NUMBER</CustomerNumber>
+    <PONumber>XMLTEST-075419820</PONumber>
+
+    <PODateTime>2004-03-28T08:22:11</PODateTime>
+    <ExpectedDate>2004-03-30</ExpectedDate>
+    <ExpectedShipDate>2004-04-19</ExpectedShipDate>
+
+    <DropShipFlag>Y</DropShipFlag>
+    <SpecialHandle>Y</SpecialHandle>
+    <BackOrderFlag>Y</BackOrderFlag>
+    <BackOrderWarehouseSelection>FIRST</BackOrderWarehouseSelection>
+
+    <ShipComplete>Y</ShipComplete>
+    <POLineShipComplete>Y</POLineShipComplete>
+
+    <WarehouseSplit>N</WarehouseSplit>
+    <ShipFromWarehouse>4</ShipFromWarehouse>
+
+    <SpecialPriceType>VendorPromotion</SpecialPriceType>
+    <SpecialPriceReferenceNumber>DNO12345</SpecialPriceReferenceNumber>
+    <SynnexB2BAssignedID>60020</SynnexB2BAssignedID>
+
+    <Shipment>
+      <ShipTo>
+        <AddressName1>DUDE UNIVERSITY</AddressName1>
+        <AddressName2>MEDICAL SCHOOL</AddressName2>
+        <AddressLine1>3687 UNIVERSITY AVE.</AddressLine1>
+        <AddressLine2>ROOM 502</AddressLine2>
+        <City>FREMONT</City>
+        <State>CA</State>
+        <ZipCode>94539</ZipCode>
+        <Country>US</Country>
+      </ShipTo>
+
+      <ShipToContact>
+        <ContactName>Kevin Lee</ContactName>
+        <PhoneNumber>510 668 3488</PhoneNumber>
+        <EmailAddress>kevinlee@dude.edu</EmailAddress>
+      </ShipToContact>
+
+      <ShipMethod>
+        <Code>F2</Code>
+        <Description>FedEx 2Day</Description>
+      </ShipMethod>
+
+      <FreightAccountNumber>987654</FreightAccountNumber>
+    </Shipment>
+            
+    <Payment>
+      <BillTo code="YOUR ACCOUNT NUMBER">
+        <AddressName1>COMPUTER INCREDIBLE</AddressName1>
+        <AddressName2>ACCOUNT PAYABLE</AddressName2>
+        <AddressLine1>4000 POWEL ST.</AddressLine1>
+        <AddressLine2>SUITE 200</AddressLine2>
+        <City>EMERYVILLE</City>
+        <State>CA</State>
+        <ZipCode>94608</ZipCode>
+        <Country>US</Country>
+        <SynnexLocationNumber>23</SynnexLocationNumber>
+      </BillTo>
+              
+      <PaymentTerm code="NET30">NET 30 IBM CC</PaymentTerm>
+
+      <CreditCard>
+        <Type>VISA</Type>
+        <Number>983498673456123</Number>
+        <ExpirationMonth>02</ExpirationMonth>
+        <ExpirationYear>05</ExpirationYear>
+        <FirstName>MICHAEL</FirstName>
+        <LastName>RICH</LastName>
+        <AddressLine1>123 NEVERLAND DR.</AddressLine1>
+        <AddressLine2>SUITE 200</AddressLine2>
+        <City>SANTA BARBRA</City>
+        <State>CA</State>
+        <ZipCode>34056</ZipCode>
+        <Country>US</Country>
+        <Phone>5101234567</Phone>
+      </CreditCard>
+    </Payment>
+
+    <EndUserPONumber>108-3421</EndUserPONumber>
+    <Comment>This PO is what we talked in yesterday conference call</Comment>
+    <Comment>Call me in case you can not deliver this PO on time </Comment>
+    <ShipComment>referencenumber: ABCDEF</ShipComment>
+    <ShipComment>Receiving dock reference number: 345GD32</ShipComment>
+
+    <Items>
+      <Item lineNumber="1">
+        <SKU>1964624</SKU>
+        <CustomerPartNumber>Customer Part Number</CustomerPartNumber>
+        <ProductName>EPHOME USE 11.0 STD LIC EXP BAND F</ProductName>
+        <UnitPrice>3.88</UnitPrice>
+        <OrderQuantity>1</OrderQuantity>
+        <Comment>this is comment 1 of PO line1</Comment>
+        <Comment>this is comment 2 of PO line1</Comment>
+        <ShipFromWarehouse>2</ShipFromWarehouse>
+        <SpecialPriceReferenceNumber>DNO12345</SpecialPriceReferenceNumber>
+      </Item>
+      <Item lineNumber="2">
+        <SKU>1703750</SKU>
+        <CustomerPartNumber>Customer Part Number</CustomerPartNumber>
+        <ProductName>OEnterprise 2007 English OLP NL</ProductName>
+        <UnitPrice>514.10</UnitPrice>
+        <OrderQuantity>1</OrderQuantity>
+        <Comment>this is comment 1 of PO line2</Comment>
+        <Comment>this is comment 2 of PO line2</Comment>
+        <ShipFromWarehouse>2</ShipFromWarehouse>
+        <SpecialPriceReferenceNumber>DNO12345</SpecialPriceReferenceNumber>
+      </Item>
+    </Items>
+  </OrderRequest>
+</SynnexB2B>

@@ -1,0 +1,15 @@
+9. PO Response - PO error out due to customer send from unregistered IP address
+ 
+This is the extra security control we added for URL ec.synnex.com/SynnexXML/PO, we only 
+accept the PO send from the IP addresses which previous provided by our customers
+ 
+<?xml version="1.0" encoding="UTF-8"?>
+<SynnexB2B>
+  <OrderResponse>
+    <ErrorMessage>IP Address Invalid</ErrorMessage>
+    <ErrorDetail>IP address:71.5.55.58 not defined. 
+                We only accept PO from the IP address
+                provided by customer due to security reason.
+    </ErrorDetail>
+  </OrderResponse>
+</SynnexB2B>

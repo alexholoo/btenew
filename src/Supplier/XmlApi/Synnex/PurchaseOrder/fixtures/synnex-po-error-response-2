@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<priceResponse>
+    <customerNo>1150897</customerNo>
+    <userName>roy@btecanada.com</userName>
+    <PriceAvailabilityList>
+        <synnexSKU>123456</synnexSKU>
+        <status>Not found</status>
+        <lineNumber>1</lineNumber>
+    </PriceAvailabilityList>
+</priceResponse>
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<priceResponse>
+    <customerNo>1150897</customerNo>
+    <userName>roy@btecanada.com</userName>
+    <PriceAvailabilityList>
+        <synnexSKU>5530299</synnexSKU>
+        <mfgPN>CM100DM</mfgPN>
+        <status>Not authorized</status>
+        <GlobalProductStatusCode>Not authorized</GlobalProductStatusCode>
+        <lineNumber>1</lineNumber>
+    </PriceAvailabilityList>
+    <PriceAvailabilityList>
+        <synnexSKU>4502585</synnexSKU>
+        <status>Discontinued</status>
+        <GlobalProductStatusCode>Discontinued</GlobalProductStatusCode>
+        <lineNumber>2</lineNumber>
+    </PriceAvailabilityList>
+</priceResponse>
+

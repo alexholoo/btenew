@@ -1,0 +1,39 @@
+7. PO Response - PO stopped in manual handling area (requires manual processing by Synnex Sales)
+ 
+If a Customer PO cannot be automatically fulfilled (**Price discrepancy, Customer **
+Auto fill not turned on)
+ 
+** Price Discrepancy tolerance is 1c in US, 2c in CANADA (Outside of tolerance inbound PO will 
+   stop for manual pro cessing)
+** Synnex Sales has the ability to manually process all Electronic orders if by customer request
+ 
+<?xml version="1.0" encoding="UTF-8"?>
+<SynnexB2B>
+  <OrderResponse>
+    <CustomerNumber>YOUR ACCOUNT NUMBER</CustomerNumber>
+    <PONumber>1130878166261A</PONumber>
+    <Code>accepted</Code>
+    <ResponseDateTime>2005-11-01T13:00:10</ResponseDateTime>
+    <ResponseElapsedTime>2.878s</ResponseElapsedTime>
+    <Items>
+      <Item lineNumber="1">
+        <SKU>108725</SKU>
+        <OrderQuantity>1</OrderQuantity>
+        <Code>accepted</Code>
+        <OrderNumber>1050714</OrderNumber>
+        <OrderType>99</OrderType>
+        <ShipFromWarehouse />
+        <SynnexInternalReference>POLINEQC,A-SALESPND---PRICEVAR,A-SALESPND</SynnexInternalReference>
+      </Item>
+    </Items>
+  </OrderResponse>
+</SynnexB2B>
+ 
+ 
+PLEASE NOTE: 
+ 
+Possible order type values are:
+ 
+SO = Sales order
+BO = Backorder
+99 = Quotation (Manual PO processing required by SYNNEX Sales Rep

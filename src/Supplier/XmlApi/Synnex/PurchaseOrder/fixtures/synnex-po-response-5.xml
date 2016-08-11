@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SynnexB2B>
+  <OrderResponse>
+  <CustomerNumber>YOUR ACCOUNT NUMBER</CustomerNumber>
+  <PONumber>POTEST01</PONumber>
+  <Code>accepted</Code>
+  <ResponseDateTime>2005-11-29T15:01:08</ResponseDateTime>
+  <ResponseElapsedTime>13.533s</ResponseElapsedTime>
+  
+  <Items>
+    <Item lineNumber="1">
+      <SKU>1060464</SKU>
+      <OrderQuantity>1</OrderQuantity>
+      <Code>accepted</Code>
+      <OrderNumber>16351210</OrderNumber>
+      <OrderType>SO</OrderType>
+      <ShipFromWarehouse/>
+      <SynnexInternalReference>SALESORDER,A-CIS---SOLINE,A-CIS</SynnexInternalReference>
+    </Item>
+  </Items>
+</OrderResponse>
+</SynnexB2B>

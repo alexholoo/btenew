@@ -1,0 +1,50 @@
+A Simple PO with only required data elements in it, one PO line. 
+ 
+<?xml version="1.0" encoding="UTF-8" ?>
+<SynnexB2B>
+  <Credential>
+    <UserID>YOUR ID</UserID>
+    <Password>YOUR PASSWORD</Password>
+  </Credential>
+     
+  <OrderRequest>
+    <CustomerNumber>YOUR ACCOUNT NUMBER</CustomerNumber>
+    <PONumber>1130878166261</PONumber>
+    <DropShipFlag>N</DropShipFlag>
+    <Shipment>
+      <ShipFromWarehouse>2</ShipFromWarehouse>
+      <ShipTo>
+        <AddressName1>Manners Industry, Inc.</AddressName1>
+        <AddressName2 />
+        <AddressLine1>118 Clarence Street</AddressLine1>
+        <City>Fredericksburg</City>
+        <State>VA</State>
+        <ZipCode>22407</ZipCode>
+        <Country>US</Country>
+      </ShipTo>
+      <ShipToContact>
+        <ContactName>Edwin D Manners</ContactName>
+        <PhoneNumber>541-785-0923</PhoneNumber>
+        <EmailAddress>ed@manners.com</EmailAddress>
+      </ShipToContact>
+      <ShipMethod>
+        <Code>FX</Code>
+      </ShipMethod>
+    </Shipment>
+            
+    <Payment>
+      <BillTo code="YOUR ACCOUNT NUMBER"></BillTo>
+    </Payment>
+
+    <EndUserPONumber>75654</EndUserPONumber>
+            
+    <Comment>Please ship this ASAP!</Comment>
+    <Items>
+      <Item lineNumber="1">
+        <SKU>108725</SKU>
+        <UnitPrice>7.47</UnitPrice>
+        <OrderQuantity>1</OrderQuantity>
+      </Item>
+    </Items>
+  </OrderRequest>
+</SynnexB2B>

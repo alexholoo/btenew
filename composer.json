@@ -1,0 +1,13 @@
+{
+    "require": {
+        "php": ">=5.4",
+        "ext-phalcon": ">=2.0.9",
+        "phalcon/devtools": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Supplier\\": "src/Supplier/",
+            "Utility\\":  "src/Utility/" 
+        }
+    }
+}
