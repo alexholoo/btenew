@@ -3,11 +3,12 @@
 {% block main %}
 <header class="jumbotron subhead clearfix" id="searchbox">
   <form role="form" method="post">
-    <div class="col-sm-12">
-      <h2>Shipment search</h2>
-    </div>
     
-    <div class="form-group">
+    <div>
+      <div class="col-sm-12">
+        <h2>Shipment search</h2>
+      </div>
+
       <div class="col-sm-10">  
         <input autofocus required type="text" pattern=".{3,}" title="3 characters minimum" class="form-control" name="keyword" placeholder="Enter order number or customer name/address">
       </div>
@@ -30,7 +31,7 @@
 
 {% if data is not empty %}
   Search result for <b>{{ keyword }}</b>:
-  <table class="table table-bordered table-striped table-hover">
+  <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>Order ID</th>
