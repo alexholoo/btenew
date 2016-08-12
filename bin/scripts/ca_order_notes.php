@@ -33,7 +33,6 @@ while(($fields = fgetcsv($fh))) {
                 'date'          => $date,
                 'order_id'      => $order_id,
                 'stock_status'  => $stock_status,
-                'stock_status'  => $stock_status,
                 'express'       => $express,
                 'qty'           => $qty,
                 'supplier'      => $supplier,
