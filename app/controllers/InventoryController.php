@@ -10,7 +10,7 @@ class InventoryController extends ControllerBase
         $this->view->searchby = 'partnum';
 
         if ($this->request->isPost()) {
-            $keyword = $this->request->getPost('keyword', 'striptags');
+            $keyword = $this->request->getPost('keyword', 'trim');
             $searchby = $this->request->getPost('searchby');
 
             $this->view->keyword = $keyword;
