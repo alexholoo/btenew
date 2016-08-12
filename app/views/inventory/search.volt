@@ -3,20 +3,20 @@
 {% block main %}
 <header class="jumbotron subhead clearfix" id="searchbox">
   <form role="form" method="post">
-    
+
       <div class="col-sm-12">
         <h2 style="margin-top: 0;">Inventory search</h2>
       </div>
 
-      <div class="col-sm-10">  
+      <div class="col-sm-10">
         <input autofocus required type="text" class="form-control" name="keyword" placeholder="Enter PartNumber/UPC/Location/Quantity">
       </div>
-      
-      <div class="col-sm-2">  
+
+      <div class="col-sm-2">
         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search </button>
       </div>
 
-      <div class="col-sm-12">  
+      <div class="col-sm-12">
         <label class="radio-inline">
           <input type="radio" name="searchby" value="partnum" {% if searchby == 'partnum' %}checked{% endif %}>Part number
         </label>
@@ -46,7 +46,7 @@
         <th>Qty</th>
         <th>SN #</th>
         <th>Note</th>
-        <th>Action</th>
+        <!-- <th>Action</th> -->
       </tr>
     </thead>
     <tbody>
@@ -60,10 +60,12 @@
         <td>{{ inventory['qty'] }}</td>
         <td>{{ inventory['sn'] }}</td>
         <td>{{ inventory['note'] }}</td>
+        <!--
         <td>
           <a href="#" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit </a>
-          <!-- <a href="#" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </a> -->
+          <a href="#" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </a>
         </td>
+        -->
       </tr>
     {% endfor  %}
 
