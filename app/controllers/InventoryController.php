@@ -21,8 +21,8 @@ class InventoryController extends ControllerBase
                 $sql = 'SELECT * FROM inventory WHERE partnum LIKE ?';
                 $result = $this->db->query($sql, array("%$keyword%"));
             } elseif ($searchby == 'upc') {
-                $sql = 'SELECT * FROM inventory WHERE upc = ?';
-                $result = $this->db->query($sql, array($keyword));
+                $sql = 'SELECT * FROM inventory WHERE upc LIKE ?';
+                $result = $this->db->query($sql, array("%$keyword"));
             } elseif ($searchby == 'location') {
                 $sql = "SELECT * FROM inventory WHERE location = ?";
                 $result = $this->db->query($sql, array($keyword));
