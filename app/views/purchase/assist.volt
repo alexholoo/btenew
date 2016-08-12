@@ -2,27 +2,27 @@
 
 {% block main %}
 {% if data is not empty %}
+  <h2>Purchase assistance</h2>
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>Date</th>
         <th>Order ID</th>
         <th>Qty</th>
-        <th>Supplier SKU</th>
         <th>MPN</th>
         <th>Note</th>
         <th>Related SKU</th>
         <th>Dimension</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
 
     {% for purchase in data %}
-      <tr{% if purchase['stock_status'] == 'overstock' %} class="info"{% endif %} data-id="{{ purchase['id'] }}">
-        <td{% if purchase['express'] %} class="warning"{% endif %}>{{ purchase['date'] }}</td>
+      <tr{% if purchase['stock_status'] == 'overstock' %} class="warning"{% endif %} data-id="{{ purchase['id'] }}">
+        <td{% if purchase['express'] %} class="danger"{% endif %}>{{ purchase['date'] }}</td>
         <td>{{ purchase['order_id'] }}</td>
         <td>{{ purchase['qty'] }}</td>
-        <td>{{ purchase['supplier_sku'] }}</td>
         <td>{{ purchase['mpn'] }}</td>
         <td>{{ purchase['notes'] }}</td>
         <td>
@@ -38,8 +38,14 @@
           {% endif %}
         </td>
         <td>{{ purchase['dimension'] }}</td>
+        <td>
+          <!-- TODO: hide the button if purchase was made -->
+          {% if loop.index % 3 %}
+            <a href="#" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> Go </a>
+          {% endif %}
+        </td>
       </tr>
-    {% endfor  %}
+    {% endfor %}
 
     </tbody>
   </table>
