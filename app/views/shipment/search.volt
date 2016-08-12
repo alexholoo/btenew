@@ -4,9 +4,8 @@
 <header class="jumbotron subhead clearfix" id="searchbox">
   <form role="form" method="post">
     
-    <div>
       <div class="col-sm-12">
-        <h2>Shipment search</h2>
+        <h2 style="margin-top: 0;">Shipment search</h2>
       </div>
 
       <div class="col-sm-10">  
@@ -25,7 +24,7 @@
           <input type="radio" name="searchby" value="name_or_address" {% if searchby == 'name_or_address' %}checked{% endif %}>Customer name or address
         </label>
       </div>
-    </div>
+
   </form>
 </header>
 
