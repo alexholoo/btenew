@@ -3,6 +3,7 @@
 {% block main %}
 {% if data is not empty %}
   <h2>Purchase assistance</h2>
+  <h3>TOOD: filter</h3>
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -12,7 +13,7 @@
         <th>MPN</th>
         <th>Note</th>
         <th>Related SKU</th>
-        <th>Dimension</th>
+        <th>Decision</th>
         <th>Action</th>
       </tr>
     </thead>
