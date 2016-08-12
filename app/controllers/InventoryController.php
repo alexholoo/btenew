@@ -44,4 +44,41 @@ class InventoryController extends ControllerBase
             $this->view->data = $data;
         }
     }
+
+    public function addAction()
+    {
+        $this->view->disable();
+
+        // TODO: who is doing this? add a new column(userid) to table.
+        if ($this->request->isPost()) {
+            $partnum  = $this->request->getPost('partnum');
+            $upc      = $this->request->getPost('upc');
+            $location = $this->request->getPost('location');
+            $qty      = $this->request->getPost('qty', 'int');
+
+            $response = new \Phalcon\Http\Response();
+
+            try {
+                $success = $this->db->insertAsDict('inventory',
+                    array(
+                        'partnum'  => $partnum,
+                        'upc'      => $upc,
+                        'location' => $location,
+                        'qty'      => $qty,
+                        'sn'       => '',
+                        'note'     => '',
+                    )
+                );
+            } catch (Exception $e) {
+                $response->setContent(json_encode([
+                    'status'  => 'error',
+                    'message' => $e->getMessage()]
+                ));
+                return $response;
+            }
+
+            $response->setContent(json_encode(['status' => 'OK']));
+            return $response;
+        }
+    }
 }
