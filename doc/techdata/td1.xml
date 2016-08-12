@@ -1,0 +1,276 @@
+<XML_PriceAvailability_Submit>
+      <Header>
+            <UserName>567861</UserName>  
+            <Password>bteTDxml2014</Password>
+            <ResponseVersion>1.4</ResponseVersion>
+      </Header>
+      <Detail>
+            <LineInfo>
+                  <RefIDQual>VP</RefIDQual>
+                  <RefID>296460</RefID>
+            </LineInfo>
+            <LineInfo>
+                  <RefIDQual>VP</RefIDQual>
+                  <RefID>180054</RefID>
+            </LineInfo>
+      </Detail>
+</XML_PriceAvailability_Submit>
+  
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE XML_PriceAvailability_Response SYSTEM "XML_PriceAvailability_Response.dtd">
+<XML_PriceAvailability_Response>
+    <Header>
+        <TransSetIDCode>846REC</TransSetIDCode>
+        <TransControlID />
+        <ResponseVersion>1.4</ResponseVersion>
+    </Header>
+    <Detail>
+        <LineInfo>
+            <RefIDQual1>VP</RefIDQual1>
+            <RefID1>296460</RefID1>
+            <ErrorInfo>
+                <RefIDQual3>1Q</RefIDQual3>
+                <RefID3>0</RefID3>
+                <ErrorDesc>ITEM NOT FOUND</ErrorDesc>
+            </ErrorInfo>
+        </LineInfo>
+        <LineInfo>
+            <RefIDQual1>VP</RefIDQual1>
+            <RefID1>180054</RefID1>
+            <ErrorInfo>
+                <RefIDQual3>1Q</RefIDQual3>
+                <RefID3>0</RefID3>
+                <ErrorDesc>ITEM NOT FOUND</ErrorDesc>
+            </ErrorInfo>
+        </LineInfo>
+    </Detail>
+    <Summary>
+        <NbrOfSegments>5</NbrOfSegments>
+    </Summary>
+</XML_PriceAvailability_Response>
+
+
+<XML_PriceAvailability_Response>
+   <Header>
+       <TransSetIDCode>846REC</TransSetIDCode>
+       <TransControlID>10000</TransControlID>
+       <ResponseVersion>1.4</ResponseVersion>
+   </Header>
+   <Detail>
+       <LineInfo>
+            <AssignedID>001</AssignedID>
+            <RefIDQual1>VP</RefIDQual1>
+            <RefID1>180054</RefID1>
+            <RefIDQual2>MG</RefIDQual2>
+            <RefID2>GSX-230</RefID2>
+            <ProductDesc>GSX-230 24-PIN PRINTER</ProductDesc>
+            <PriceIDCode1>CON</PriceIDCode1>
+            <UnitPrice1>$194.18</UnitPrice1>
+            <PriceIDCode2>MSR</PriceIDCode2>
+            <UnitPrice2>$299.00</UnitPrice2>
+            <ProductWeight>10.000</ProductWeight>  
+            <ItemStatus> ACTIVE</ItemStatus>
+            <WhseInfo>
+                 <IDCode>MIAMI, FL</IDCode>
+                 <WhseCode>A1</WhseCode>
+                 <Qty>4485</Qty>
+                 <TotalOnOrderQty>10</TotalOnOrderQty>
+                 <OnOrderQty>10</OnOrderQty>
+                 <OnOrderETADate>11/30/03</OnOrderETADate>
+            </WhseInfo>
+            <WhseInfo>
+                 <IDCode>SWEDESBORO, NJ</IDCode>
+                 <WhseCode>A3</WhseCode>
+                 <Qty>310</Qty>
+                 <TotalOnOrderQty>110</TotalOnOrderQty>
+             </WhseInfo>
+             <WhseInfo>
+                 <IDCode>FONTANA, CA</IDCode>
+                 <WhseCode>A6</WhseCode>
+                 <Qty>0</Qty>
+            </WhseInfo>          
+         </LineInfo>
+   </Detail>
+   <Summary>
+       <NbrOfSegments>9</NbrOfSegments>
+   </Summary>
+</XML_PriceAvailability_Response> 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE XML_PriceAvailability_Response SYSTEM "XML_PriceAvailability_Response.dtd">
+<XML_PriceAvailability_Response>
+    <Header>
+        <TransSetIDCode>846REC</TransSetIDCode>
+        <TransControlID />
+        <ResponseVersion>1.4</ResponseVersion>
+    </Header>
+    <Detail>
+        <LineInfo>
+            <RefIDQual1>VP</RefIDQual1>
+            <RefID1>0105A8</RefID1>
+            <RefIDQual2>MG</RefIDQual2>
+            <RefID2>VFG6005N</RefID2>
+            <RefIDQual4>UP</RefIDQual4>
+            <RefID4>760559119201</RefID4>
+            <ProductDesc>VFG6005N 4 PT VPN FW GTW WLS N</ProductDesc>
+            <PriceIDCode1>CON</PriceIDCode1>
+            <UnitPrice1>$126.71</UnitPrice1>
+            <PriceIDCode2>MSR</PriceIDCode2>
+            <UnitPrice2>$187.84</UnitPrice2>
+            <RequiredEndUserInfo>N</RequiredEndUserInfo>
+            <RequiredLicenseInfo>N</RequiredLicenseInfo>
+            <ProductWeight>1.600</ProductWeight>
+            <ItemStatus>ACTIVE</ItemStatus>
+            <WhseInfo>
+                <IDCode>MISSISSAUGA, ON</IDCode>
+                <WhseCode>A1</WhseCode>
+                <Qty>0</Qty>
+            </WhseInfo>
+            <WhseInfo>
+                <IDCode>RICHMOND, BC</IDCode>
+                <WhseCode>A2</WhseCode>
+                <Qty>0</Qty>
+            </WhseInfo>
+        </LineInfo>
+        <LineInfo>
+            <RefIDQual1>VP</RefIDQual1>
+            <RefID1>4723104</RefID1>
+            <ErrorInfo>
+                <RefIDQual3>1Q</RefIDQual3>
+                <RefID3>0</RefID3>
+                <ErrorDesc>ITEM NOT FOUND</ErrorDesc>
+            </ErrorInfo>
+        </LineInfo>
+    </Detail>
+    <Summary>
+        <NbrOfSegments>5</NbrOfSegments>
+    </Summary>
+</XML_PriceAvailability_Response>
+
+<pre><?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE XML_PriceAvailability_Response SYSTEM "XML_PriceAvailability_Response.dtd">
+<XML_PriceAvailability_Response>
+  <Header>
+    <TransSetIDCode>846REC</TransSetIDCode>
+    <TransControlID />
+    <ResponseVersion>1.4</ResponseVersion>
+  </Header>
+  <Detail>
+    <LineInfo>
+      <RefIDQual1>VP</RefIDQual1>
+      <RefID1>0105A8</RefID1>
+      <RefIDQual2>MG</RefIDQual2>
+      <RefID2>VFG6005N</RefID2>
+      <RefIDQual4>UP</RefIDQual4>
+      <RefID4>760559119201</RefID4>
+      <ProductDesc>VFG6005N 4 PT VPN FW GTW WLS N</ProductDesc>
+      <PriceIDCode1>CON</PriceIDCode1>
+      <UnitPrice1>$126.71</UnitPrice1>
+      <PriceIDCode2>MSR</PriceIDCode2>
+      <UnitPrice2>$187.84</UnitPrice2>
+      <RequiredEndUserInfo>N</RequiredEndUserInfo>
+      <RequiredLicenseInfo>N</RequiredLicenseInfo>
+      <ProductWeight>1.600</ProductWeight>
+      <ItemStatus>ACTIVE</ItemStatus>
+      <WhseInfo>
+        <IDCode>MISSISSAUGA, ON</IDCode>
+        <WhseCode>A1</WhseCode>
+        <Qty>0</Qty>
+      </WhseInfo>
+      <WhseInfo>
+        <IDCode>RICHMOND, BC</IDCode>
+        <WhseCode>A2</WhseCode>
+        <Qty>0</Qty>
+      </WhseInfo>
+    </LineInfo>
+    <LineInfo>
+      <RefIDQual1>VP</RefIDQual1>
+      <RefID1>4723104</RefID1>
+      <ErrorInfo>
+        <RefIDQual3>1Q</RefIDQual3>
+        <RefID3>0</RefID3>
+        <ErrorDesc>ITEM NOT FOUND</ErrorDesc>
+      </ErrorInfo>
+    </LineInfo>
+  </Detail>
+  <Summary>
+    <NbrOfSegments>5</NbrOfSegments>
+  </Summary>
+</XML_PriceAvailability_Response></pre>
+<pre>SimpleXMLElement Object
+(
+    [Header] => SimpleXMLElement Object
+        (
+            [TransSetIDCode] => 846REC
+            [TransControlID] => SimpleXMLElement Object
+                (
+                )
+
+            [ResponseVersion] => 1.4
+        )
+
+    [Detail] => SimpleXMLElement Object
+        (
+            [LineInfo] => Array
+                (
+                    [0] => SimpleXMLElement Object
+                        (
+                            [RefIDQual1] => VP
+                            [RefID1] => 0105A8
+                            [RefIDQual2] => MG
+                            [RefID2] => VFG6005N
+                            [RefIDQual4] => UP
+                            [RefID4] => 760559119201
+                            [ProductDesc] => VFG6005N 4 PT VPN FW GTW WLS N
+                            [PriceIDCode1] => CON
+                            [UnitPrice1] => $126.71
+                            [PriceIDCode2] => MSR
+                            [UnitPrice2] => $187.84
+                            [RequiredEndUserInfo] => N
+                            [RequiredLicenseInfo] => N
+                            [ProductWeight] => 1.600
+                            [ItemStatus] => ACTIVE
+                            [WhseInfo] => Array
+                                (
+                                    [0] => SimpleXMLElement Object
+                                        (
+                                            [IDCode] => MISSISSAUGA, ON
+                                            [WhseCode] => A1
+                                            [Qty] => 0
+                                        )
+
+                                    [1] => SimpleXMLElement Object
+                                        (
+                                            [IDCode] => RICHMOND, BC
+                                            [WhseCode] => A2
+                                            [Qty] => 0
+                                        )
+
+                                )
+
+                        )
+
+                    [1] => SimpleXMLElement Object
+                        (
+                            [RefIDQual1] => VP
+                            [RefID1] => 4723104
+                            [ErrorInfo] => SimpleXMLElement Object
+                                (
+                                    [RefIDQual3] => 1Q
+                                    [RefID3] => 0
+                                    [ErrorDesc] => ITEM NOT FOUND
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [Summary] => SimpleXMLElement Object
+        (
+            [NbrOfSegments] => 5
+        )
+
+)
+</pre>
