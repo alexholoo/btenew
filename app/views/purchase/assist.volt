@@ -13,14 +13,15 @@
         <th>Note</th>
         <th>Related SKU</th>
         <th>Decision</th>
+        <th>Info</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
 
     {% for purchase in data %}
-      <tr{% if purchase['stock_status'] == 'overstock' %} class="warning"{% endif %} data-id="{{ purchase['id'] }}">
-        <td{% if purchase['express'] %} class="danger"{% endif %}>{{ purchase['date'] }}</td>
+      <tr data-id="{{ purchase['id'] }}">
+        <td>{{ purchase['date'] }}</td>
         <td>{{ purchase['order_id'] }}</td>
         <td>{{ purchase['qty'] }}</td>
         <td>{{ purchase['notes'] }}</td>
@@ -37,6 +38,14 @@
           {% endif %}
         </td>
         <td>{{ purchase['dimension'] }}</td>
+        <td>
+          {% if purchase['stock_status'] == 'overstock' %}
+            <span class="label label-success"><span class="glyphicon glyphicon-home"></span></span>
+          {% endif %}
+          {% if purchase['express'] %}
+            <span class="label label-danger"><span class="glyphicon glyphicon-flash"></span></span>
+          {% endif %}
+        </td>
         <td>
           <!-- TODO: hide the button if purchase was made -->
           {% if loop.index % 3 %}
