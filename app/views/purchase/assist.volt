@@ -2,7 +2,7 @@
 
 {% block main %}
 {% if data is not empty %}
-  <h2>Purchase assistance</h2>
+  <h2>Purchase assistant</h2>
   <h3>TOOD: filter</h3>
   <table class="table table-bordered table-hover">
     <thead>
@@ -10,7 +10,6 @@
         <th>Date</th>
         <th>Order ID</th>
         <th>Qty</th>
-        <th>MPN</th>
         <th>Note</th>
         <th>Related SKU</th>
         <th>Decision</th>
@@ -24,7 +23,6 @@
         <td{% if purchase['express'] %} class="danger"{% endif %}>{{ purchase['date'] }}</td>
         <td>{{ purchase['order_id'] }}</td>
         <td>{{ purchase['qty'] }}</td>
-        <td>{{ purchase['mpn'] }}</td>
         <td>{{ purchase['notes'] }}</td>
         <td>
           {% if purchase['related_sku'] is not empty %}
