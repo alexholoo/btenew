@@ -33,7 +33,7 @@
                 <option value="{{ sku }}"{% if sku == purchase['supplier_sku'] %} selected{% endif %}>{{ sku }}</option>
               {% endfor %}
             </select>
-            {{ purchase['related_sku'] | length }}
+            <span class="badge">{{ purchase['related_sku'] | length }}</span>
           {% else %}
             &nbsp;
           {% endif %}
