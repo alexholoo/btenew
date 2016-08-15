@@ -3,7 +3,35 @@
 {% block main %}
 {% if data is not empty %}
   <h2>Purchase assistant</h2>
-  <h3>TOOD: filter</h3>
+  <div class="well">
+    <form class="form-inline" role="form">
+      <div class="form-group col-xs-3">
+        <label for="sel1" class="control-label">Date:</label>
+        <select class="form-control" id="sel1">
+          <option value="">All</option>
+          <option value="">2016-08-15</option>
+          <option value="">2016-08-14</option>
+          <option value="">2016-08-13</option>
+          <option value="">2016-08-12</option>
+        </select>
+      </div>
+      <div class="form-group col-xs-3">
+        <label for="sel2" class="control-label">Purchase:</label>
+        <select class="form-control" id="sel2">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="purchased">Purchased</option>
+        </select>
+      </div>
+      <div class="checkbox col-xs-2">
+        <label><input type="checkbox"> Overstock </label>
+      </div>
+      <div class="checkbox col-xs-2">
+        <label><input type="checkbox"> Express </label>
+      </div>
+      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filter </button>
+    </form>
+  </div>
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -48,7 +76,7 @@
         </td>
         <td>
           <!-- TODO: hide the button if purchase was made -->
-          {% if loop.index % 3 %}
+          {% if purchase['related_sku'] is not empty %}
             <a href="#" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> Go </a>
           {% endif %}
         </td>
