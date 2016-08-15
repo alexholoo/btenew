@@ -50,7 +50,7 @@
     {% for purchase in orders %}
       <tr data-id="{{ purchase['id'] }}" data-order-id="{{ purchase['order_id'] }}">
         <td>{{ purchase['date'] }}</td>
-        <td>{{ purchase['order_id'] }}</td>
+        <td class="order-id"><a href="javascript:void(0)">{{ purchase['order_id'] }}</a></td>
         <td>{{ purchase['qty'] }}</td>
         <td>{{ purchase['notes'] }}</td>
         <td>
@@ -74,7 +74,7 @@
             <span class="label label-danger"><span class="glyphicon glyphicon-flash"></span></span>
           {% endif %}
         </td>
-        <td>
+        <td class="action">
           {% if purchase['related_sku'] is not empty and purchase['status'] != 'purchased' %}
             <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> Go </button>
           {% endif %}
@@ -121,7 +121,7 @@ function showError(msg) {
 {% endblock %}
 
 {% block docready %}
-  $('td button').click(function() {
+  $('.action button').click(function() {
     // TODO: show loading
     var row = $(this).closest('tr')
     var sku = row.find('select').val();
