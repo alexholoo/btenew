@@ -12,8 +12,7 @@
 
     <style type="text/css">
       {# body { font-family: Verdana,sans-serif; } #}
-      {% block csscode %}
-      {% endblock %}
+      {% block csscode %}{% endblock %}
     </style>
 
     <!-- FAVICONS -->
@@ -26,8 +25,7 @@
 <body>
     {% include "partials/navigation.volt" %}
 
-    {% block sidebar %}
-    {% endblock %}
+    {% block sidebar %}{% endblock %}
 
     <div class="container main-container">
         <?php $this->flashSession->output(); ?>

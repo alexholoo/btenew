@@ -89,5 +89,4 @@
   {% else %}
     No purchase information found.
   {% endif %}
-
 {% endblock %}
