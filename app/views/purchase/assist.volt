@@ -75,8 +75,7 @@
           {% endif %}
         </td>
         <td>
-          <!-- TODO: hide the button if purchase was made -->
-          {% if purchase['related_sku'] is not empty %}
+          {% if purchase['related_sku'] is not empty and purchase['status'] != 'purchased' %}
             <a href="#" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> Go </a>
           {% endif %}
         </td>
