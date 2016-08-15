@@ -31,7 +31,7 @@
     </form>
   </div>
 
-  {% if data is not empty %}
+  {% if orders is not empty %}
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -47,7 +47,7 @@
     </thead>
     <tbody>
 
-    {% for purchase in data %}
+    {% for purchase in orders %}
       <tr data-id="{{ purchase['id'] }}" data-order-id="{{ purchase['order_id'] }}">
         <td>{{ purchase['date'] }}</td>
         <td>{{ purchase['order_id'] }}</td>
@@ -84,7 +84,7 @@
 
     </tbody>
   </table>
-  {{ data | length }} rows found.
+  {{ orders | length }} rows found.
   {% else %}
     No purchase information found.
   {% endif %}
@@ -113,7 +113,7 @@
 
 {% block jscode %}
 function showToast(msg) {
-  $('.toast').text(msg).fadeIn(400).delay(3000).fadeOut(400);
+  $('.toast').removeClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
 }
 function showError(msg) {
   $('.toast').addClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
@@ -124,7 +124,10 @@ function showError(msg) {
   $('td button').click(function() {
     // TODO: show loading
     var row = $(this).closest('tr')
-    $.post('/purchase/order', 'order_id=' + row.data('order-id'),
+    var sku = row.find('select').val();
+
+    $.post('/purchase/order',
+        { 'order_id': row.data('order-id'), 'sku': sku },
         function(data) {
           if (data.status == 'OK') {
             row.remove();
