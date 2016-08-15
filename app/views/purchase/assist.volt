@@ -48,7 +48,7 @@
     <tbody>
 
     {% for purchase in data %}
-      <tr data-id="{{ purchase['id'] }}">
+      <tr data-id="{{ purchase['id'] }}" data-order-id="{{ purchase['order_id'] }}">
         <td>{{ purchase['date'] }}</td>
         <td>{{ purchase['order_id'] }}</td>
         <td>{{ purchase['qty'] }}</td>
@@ -76,7 +76,7 @@
         </td>
         <td>
           {% if purchase['related_sku'] is not empty and purchase['status'] != 'purchased' %}
-            <a href="#" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> Go </a>
+            <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> Go </button>
           {% endif %}
         </td>
       </tr>
@@ -88,4 +88,56 @@
   {% else %}
     No purchase information found.
   {% endif %}
+{% endblock %}
+
+{% block csscode %}
+  .toast {
+    position: fixed;
+    right: 30px;
+    top: 60px;
+    background-color: #008800;
+    color: #F0F0F0;
+    font-family: Calibri;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 2px;
+    -webkit-box-shadow: 5px 5px 20px -1px rgba(56, 56, 56, 1);
+    -moz-box-shadow: 5px 5px 20px -1px rgba(56, 56, 56, 1);
+    box-shadow: 5px 5px 20px -1px rgba(56, 56, 56, 1);
+  }
+  .error {
+    background-color: #880000;
+  }
+{% endblock %}
+
+{% block jscode %}
+function showToast(msg) {
+  $('.toast').text(msg).fadeIn(400).delay(3000).fadeOut(400);
+}
+function showError(msg) {
+  $('.toast').addClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
+}
+{% endblock %}
+
+{% block docready %}
+  $('td button').click(function() {
+    // TODO: show loading
+    var row = $(this).closest('tr')
+    $.post('/purchase/order', 'order_id=' + row.data('order-id'),
+        function(data) {
+          if (data.status == 'OK') {
+            row.remove();
+            showToast('Order purchased successfully');
+          } else {
+            row.addClass('danger');
+            showError(data.message);
+          }
+        },
+        'json'
+    )
+    .fail(function() {
+      alert("error");
+    });
+  })
 {% endblock %}

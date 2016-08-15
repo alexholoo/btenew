@@ -69,4 +69,25 @@ class PurchaseController extends ControllerBase
         $this->view->express = $express;
         $this->view->data = $data;
     }
+
+    public function orderAction()
+    {
+        $this->view->disable();
+
+        if ($this->request->isPost()) {
+            $orderId = $this->request->getPost('order_id');
+            // TODO: make a xmlapi call to purchase
+            // make sure the order is not purchased (pending)
+
+            // mark the order as 'purchased' to prevent purchase twice
+            $sql = "UPDATE ca_order_notes SET status='purchased' WHERE order_id=?";
+            $result = $this->db->query($sql, array($orderId));
+
+            // pass result to frontend
+            $response = new \Phalcon\Http\Response();
+            $response->setContent(json_encode(['status' => 'OK']));
+            //$response->setContent(json_encode(['status' => 'error', 'message' => 'Oops! Something went wrong']));
+            return $response;
+        }
+    }
 }
