@@ -1,37 +1,37 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
-{% if data is not empty %}
   <h2>Purchase assistant</h2>
   <div class="well">
-    <form class="form-inline" role="form">
+    <form class="form-inline" role="form" method="POST">
       <div class="form-group col-xs-3">
         <label for="sel1" class="control-label">Date:</label>
-        <select class="form-control" id="sel1">
-          <option value="">All</option>
-          <option value="">2016-08-15</option>
-          <option value="">2016-08-14</option>
-          <option value="">2016-08-13</option>
-          <option value="">2016-08-12</option>
+        <select class="form-control" id="sel1" name="date">
+          <option value="all">All</option>
+          {% for d in orderDates %}
+          <option value="{{ d }}"{% if d == date %} selected{% endif %}>{{ d }}</option>
+          {% endfor %}
         </select>
       </div>
       <div class="form-group col-xs-3">
         <label for="sel2" class="control-label">Purchase:</label>
-        <select class="form-control" id="sel2">
+        <select class="form-control" id="sel2" name="stage">
           <option value="all">All</option>
-          <option value="pending">Pending</option>
-          <option value="purchased">Purchased</option>
+          <option value="pending"{% if stage == 'pending' %} selected{% endif %}>Pending</option>
+          <option value="purchased"{% if stage == 'purchased' %} selected{% endif %}>Purchased</option>
         </select>
       </div>
       <div class="checkbox col-xs-2">
-        <label><input type="checkbox"> Overstock </label>
+        <label><input type="checkbox" name="overstock" value="1"{% if overstock == 1 %} checked{% endif %}> Overstock </label>
       </div>
       <div class="checkbox col-xs-2">
-        <label><input type="checkbox"> Express </label>
+        <label><input type="checkbox" name="express" value="1"{% if express == 1 %} checked{% endif %}> Express </label>
       </div>
       <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filter </button>
     </form>
   </div>
+
+  {% if data is not empty %}
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -85,9 +85,9 @@
 
     </tbody>
   </table>
-
-{% else %}
-  No purchase information found.
-{% endif %}
+  {{ data | length }} rows found.
+  {% else %}
+    No purchase information found.
+  {% endif %}
 
 {% endblock %}
