@@ -36,12 +36,11 @@ class PurchaseController extends ControllerBase
             // TODO: make a xmlapi call to purchase
             // make sure the order is not purchased (pending)
 
-            $this->markOrderPurchased($orderId);
-
             // pass result to frontend
             if (substr($sku, 0, 2) == 'TD') {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
             } else {
+                $this->markOrderPurchased($orderId, $sku);
                 $this->response->setJsonContent(['status' => 'OK']);
             }
             return $this->response;
@@ -101,11 +100,11 @@ class PurchaseController extends ControllerBase
         return $dates;
     }
 
-    protected function markOrderPurchased($orderId)
+    protected function markOrderPurchased($orderId, $sku)
     {
         // mark the order as 'purchased' to prevent purchase twice
-        $sql = "UPDATE ca_order_notes SET status='purchased' WHERE order_id=?";
-        $result = $this->db->query($sql, array($orderId));
+        $sql = "UPDATE ca_order_notes SET status='purchased', actual_sku=? WHERE order_id=?";
+        $result = $this->db->query($sql, array($sku, $orderId));
         return $result;
     }
 }

@@ -53,15 +53,19 @@
         <td>{{ purchase['qty'] }}</td>
         <td>{{ purchase['notes'] }}</td>
         <td>
-          {% if purchase['related_sku'] is not empty %}
-            <select style="min-width: 85%;">
-              {% for sku in purchase['related_sku'] %}
-                <option value="{{ sku }}"{% if sku == purchase['supplier_sku'] %} selected{% endif %}>{{ sku }}</option>
-              {% endfor %}
-            </select>
-            <span class="badge">{{ purchase['related_sku'] | length }}</span>
+          {% if purchase['status'] == 'purchased' %}
+            {{ purchase['actual_sku'] }}
           {% else %}
-            &nbsp;
+            {% if purchase['related_sku'] is not empty %}
+              <select style="min-width: 85%;">
+                {% for sku in purchase['related_sku'] %}
+                  <option value="{{ sku }}"{% if sku == purchase['supplier_sku'] %} selected{% endif %}>{{ sku }}</option>
+                {% endfor %}
+              </select>
+              <span class="badge">{{ purchase['related_sku'] | length }}</span>
+            {% else %}
+              &nbsp;
+            {% endif %}
           {% endif %}
         </td>
         <td>{{ purchase['dimension'] }}</td>
@@ -106,32 +110,57 @@
 function showToast(msg) {
   $('.toast').removeClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
 }
+
 function showError(msg) {
   $('.toast').addClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
+}
+
+function makePurchase(row, orderId, sku) {
+  $.post('/purchase/order',
+    { 'order_id': row.data('order-id'), 'sku': sku },
+    function(data) {
+      if (data.status == 'OK') {
+        row.remove();
+        showToast('Order purchased successfully');
+      } else {
+        row.addClass('danger');
+        showError(data.message);
+      }
+    },
+    'json'
+  )
+  .fail(function() {
+    alert("error");
+  });
 }
 {% endblock %}
 
 {% block docready %}
   $('.action button').click(function() {
     // TODO: show loading
-    var row = $(this).closest('tr')
+    var row = $(this).closest('tr');
+    var orderId = row.data('order-id');
     var sku = row.find('select').val();
 
-    $.post('/purchase/order',
-        { 'order_id': row.data('order-id'), 'sku': sku },
-        function(data) {
-          if (data.status == 'OK') {
-            row.remove();
-            showToast('Order purchased successfully');
-          } else {
-            row.addClass('danger');
-            showError(data.message);
-          }
-        },
-        'json'
-    )
-    .fail(function() {
-      alert("error");
-    });
-  })
+    row.addClass('info');
+
+    layer.confirm(
+      'Are you going to make the purchase?<br><br><b>' + sku + '</b>',
+      {
+        title: 'Confirmation',
+        btn: ['Yes', 'No'],
+        closeBtn: 0,
+        skin: 'layui-layer-molv'
+      },
+      function(index) {
+        row.removeClass('info');
+        makePurchase(row, orderId, sku);
+        layer.close(index);
+      },
+      function(index) {
+        row.removeClass('info');
+        layer.close(index);
+      }
+    );
+  });
 {% endblock %}
