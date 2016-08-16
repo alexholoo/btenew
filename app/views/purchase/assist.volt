@@ -83,6 +83,19 @@
   {% else %}
     No purchase information found.
   {% endif %}
+
+    <div id="dialog2" style="display:none; padding: 20px;">
+      <form class="form" role="form">
+        <div class="form-group">
+          <label for="tab_title">Title</label><br />
+          <input type="text" name="tab_title" id="tab_title" value="">
+        </div>
+        <div class="form-group">
+          <label for="tab_content">Content</label><br />
+          <textarea name="tab_content" id="tab_content" cols="65"></textarea>
+        </div>
+      </form>
+    </div>
 {% endblock %}
 
 {% block csscode %}
@@ -144,23 +157,13 @@ function makePurchase(row, orderId, sku) {
 
     row.addClass('info');
 
-    layer.confirm(
-      'Are you going to make the purchase?<br><br><b>' + sku + '</b>',
-      {
-        title: 'Confirmation',
-        btn: ['Yes', 'No'],
-        closeBtn: 0,
-        skin: 'layui-layer-molv'
-      },
-      function(index) {
-        row.removeClass('info');
-        makePurchase(row, orderId, sku);
-        layer.close(index);
-      },
-      function(index) {
-        row.removeClass('info');
-        layer.close(index);
-      }
-    );
+    layer.open({
+      type: 1,
+      area: ['480px', '320px'],
+      title: 'Confirmation',
+      btn: ['Purchase', 'Cancel'],
+      skin: 'layui-layer-molv',
+      content: $('#dialog2')
+    })
   });
 {% endblock %}
