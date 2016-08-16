@@ -41,7 +41,6 @@
         <th>Note</th>
         <th>Related SKU</th>
         <th>Decision</th>
-        <th>Info</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -49,7 +48,7 @@
 
     {% for purchase in orders %}
       <tr data-id="{{ purchase['id'] }}" data-order-id="{{ purchase['order_id'] }}">
-        <td>{{ purchase['date'] }}</td>
+        <td{% if purchase['express'] %} class="text-danger"{% endif %}>{{ purchase['date'] }}</td>
         <td class="order-id"><a href="javascript:void(0)">{{ purchase['order_id'] }}</a></td>
         <td>{{ purchase['qty'] }}</td>
         <td>{{ purchase['notes'] }}</td>
@@ -66,14 +65,6 @@
           {% endif %}
         </td>
         <td>{{ purchase['dimension'] }}</td>
-        <td>
-          {% if purchase['stock_status'] == 'overstock' %}
-            <span class="label label-success"><span class="glyphicon glyphicon-home"></span></span>
-          {% endif %}
-          {% if purchase['express'] %}
-            <span class="label label-danger"><span class="glyphicon glyphicon-flash"></span></span>
-          {% endif %}
-        </td>
         <td class="action">
           {% if purchase['related_sku'] is not empty and purchase['status'] != 'purchased' %}
             <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> Go </button>
