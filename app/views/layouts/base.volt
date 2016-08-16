@@ -39,6 +39,7 @@
     {% block jsfile %}
       {{ javascript_include('/lib/jquery/jquery-3.1.0.min.js') }}
       {{ javascript_include('/lib/bootstrap/3.3.7/js/bootstrap.min.js') }}
+      {{ javascript_include('/lib/layer/layer.js') }}
     {% endblock %}
 
     <script type="text/javascript">
