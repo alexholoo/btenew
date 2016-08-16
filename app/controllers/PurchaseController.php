@@ -39,13 +39,12 @@ class PurchaseController extends ControllerBase
             $this->markOrderPurchased($orderId);
 
             // pass result to frontend
-            $response = new \Phalcon\Http\Response();
             if (substr($sku, 0, 2) == 'TD') {
-                $response->setContent(json_encode(['status' => 'error', 'message' => 'Unknown supplier']));
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
             } else {
-                $response->setContent(json_encode(['status' => 'OK']));
+                $this->response->setJsonContent(['status' => 'OK']);
             }
-            return $response;
+            return $this->response;
         }
     }
 

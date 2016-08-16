@@ -56,8 +56,6 @@ class InventoryController extends ControllerBase
             $location = $this->request->getPost('location');
             $qty      = $this->request->getPost('qty', 'int');
 
-            $response = new \Phalcon\Http\Response();
-
             try {
                 $success = $this->db->insertAsDict('inventory',
                     array(
@@ -70,15 +68,15 @@ class InventoryController extends ControllerBase
                     )
                 );
             } catch (Exception $e) {
-                $response->setContent(json_encode([
-                    'status'  => 'error',
-                    'message' => $e->getMessage()]
-                ));
-                return $response;
+                $this->response->setJsonContent([
+                    'status'  => 'ERROR',
+                    'message' => $e->getMessage()
+                ]);
+                return $this->response;
             }
 
-            $response->setContent(json_encode(['status' => 'OK']));
-            return $response;
+            $this->response->setJsonContent(['status' => 'OK']);
+            return $this->response;
         }
     }
 }
