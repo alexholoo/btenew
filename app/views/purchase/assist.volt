@@ -87,7 +87,7 @@
 {% endblock %}
 
 {% block csscode %}
-  .toast {
+  #toast {
     position: fixed;
     right: 30px;
     top: 60px;
@@ -102,18 +102,18 @@
     -moz-box-shadow: 5px 5px 20px -1px rgba(56, 56, 56, 1);
     box-shadow: 5px 5px 20px -1px rgba(56, 56, 56, 1);
   }
-  .error {
+  #toast.error {
     background-color: #880000;
   }
 {% endblock %}
 
 {% block jscode %}
 function showToast(msg) {
-  $('.toast').removeClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
+  $('#toast').removeClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
 }
 
 function showError(msg) {
-  $('.toast').addClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
+  $('#toast').addClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
 }
 
 function makePurchase(row, orderId, sku) {

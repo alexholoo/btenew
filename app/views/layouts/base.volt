@@ -34,7 +34,7 @@
 
     {# loading icon placholder #}
     <div id="loading" style="display:none;"></div>
-    <div class='toast' style='display:none'></div>
+    <div id='toast' style='display:none'></div>
 
     {% block jsfile %}
       {{ javascript_include('/lib/jquery/jquery-3.1.0.min.js') }}
