@@ -52,7 +52,7 @@
         <td class="order-id"><a href="javascript:void(0)">{{ purchase['order_id'] }}</a></td>
         <td>{{ purchase['qty'] }}</td>
         <td>{{ purchase['notes'] }}</td>
-        <td>
+        <td class="sku">
           {% if purchase['status'] == 'purchased' %}
             {{ purchase['actual_sku'] }}
           {% else %}
@@ -62,7 +62,7 @@
                   <option value="{{ sku }}"{% if sku == purchase['supplier_sku'] %} selected{% endif %}>{{ sku }}</option>
                 {% endfor %}
               </select>
-              <span class="badge">{{ purchase['related_sku'] | length }}</span>
+              <button class="btn btn-xs btn-warning">{{ purchase['related_sku'] | length }}</button>
             {% else %}
               &nbsp;
             {% endif %}
@@ -103,6 +103,22 @@ function makePurchase(data, success, fail) {
     alert("error");
   });
 }
+
+function getPriceAvail(data, success, fail) {
+  $.post('/purchase/priceAvail', data,
+    function(res) {
+      if (res.status == 'OK') {
+        success();
+      } else {
+        fail();
+      }
+    },
+    'json'
+  )
+  .fail(function() {
+    alert("error");
+  });
+}
 {% endblock %}
 
 {% block docready %}
@@ -135,6 +151,36 @@ function makePurchase(data, success, fail) {
       content: '<div style="padding: 20px;">' +
                '<label for="comment">Purchase note</label><br />' +
                '<textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>' +
+               '</div>'
+    })
+  });
+
+  $('.sku button').click(function() {
+    var tr = $(this).closest('tr');
+    var td = $(this).parent();
+
+    var sku = [];
+    td.find("select option").each(function() {
+        sku.push($(this).val());
+    });
+
+    tr.addClass('info');
+
+    layer.open({
+      type: 1,
+      area: ['640px', '400px'],
+      title: 'Price and Availability',
+      skin: 'layui-layer-lan',
+      moveType: 1,
+      btn: ['OK', 'Cancel'],
+      yes: function(index, layero) {
+        layer.close(index);
+      },
+      end: function(index, layero) {
+        tr.removeClass('info');
+      },
+      content: '<div style="padding: 20px;">' +
+               sku.join('<br>') +
                '</div>'
     })
   });

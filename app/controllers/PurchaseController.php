@@ -32,6 +32,7 @@ class PurchaseController extends ControllerBase
         if ($this->request->isPost()) {
             $orderId = $this->request->getPost('order_id');
             $sku = $this->request->getPost('sku');
+            $comment = $this->request->getPost('comment');
 
             // TODO: make a xmlapi call to purchase
             // make sure the order is not purchased (pending)
