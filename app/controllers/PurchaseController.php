@@ -48,6 +48,24 @@ class PurchaseController extends ControllerBase
         }
     }
 
+    public function priceAvailAction()
+    {
+        $this->view->disable();
+
+        if ($this->request->isPost()) {
+            $sku = $this->request->getPost('sku');
+
+            // TODO: make a xmlapi call to get price and availability
+
+            $data = $this->getPriceAvailability($sku);
+
+            // $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $data]);
+
+            return $this->response;
+        }
+    }
+
     protected function getPurchaseOrders($date, $stage, $overstock, $express)
     {
         $sql = 'SELECT * FROM ca_order_notes';
@@ -107,5 +125,10 @@ class PurchaseController extends ControllerBase
         $sql = "UPDATE ca_order_notes SET status='purchased', actual_sku=? WHERE order_id=?";
         $result = $this->db->query($sql, array($sku, $orderId));
         return $result;
+    }
+
+    protected function getPriceAvailability($sku)
+    {
+        return $sku;
     }
 }

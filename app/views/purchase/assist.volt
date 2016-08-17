@@ -105,10 +105,11 @@ function makePurchase(data, success, fail) {
 }
 
 function getPriceAvail(data, success, fail) {
-  $.post('/purchase/priceAvail', data,
+  $.post('/purchase/priceAvail', { sku: data },
     function(res) {
       if (res.status == 'OK') {
-        success();
+      console.log(res);
+        success(res.data);
       } else {
         fail();
       }
@@ -166,22 +167,27 @@ function getPriceAvail(data, success, fail) {
 
     tr.addClass('info');
 
-    layer.open({
-      type: 1,
-      area: ['640px', '400px'],
-      title: 'Price and Availability',
-      skin: 'layui-layer-lan',
-      moveType: 1,
-      btn: ['OK', 'Cancel'],
-      yes: function(index, layero) {
-        layer.close(index);
+    getPriceAvail(sku,
+      function(data) {
+        layer.open({
+          type: 1,
+          area: ['640px', '400px'],
+          title: 'Price and Availability',
+          skin: 'layui-layer-lan',
+          moveType: 1,
+          btn: ['OK', 'Cancel'],
+          yes: function(index, layero) {
+            layer.close(index);
+          },
+          end: function(index, layero) {
+            tr.removeClass('info');
+          },
+          content: '<div style="padding: 20px;">' +
+                   data.join('<br>') +
+                   '</div>'
+        })
       },
-      end: function(index, layero) {
-        tr.removeClass('info');
-      },
-      content: '<div style="padding: 20px;">' +
-               sku.join('<br>') +
-               '</div>'
-    })
+      function() { }
+    );
   });
 {% endblock %}
