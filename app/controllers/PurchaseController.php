@@ -3,6 +3,11 @@ namespace App\Controllers;
 
 class PurchaseController extends ControllerBase
 {
+    public function initialize()
+    {
+        $this->view->pageTitle = 'Purchase Assistant';
+    }
+
     public function assistAction()
     {
         $date = date('Y-m-d'); //'all';
