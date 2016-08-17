@@ -83,39 +83,9 @@
   {% else %}
     No purchase information found.
   {% endif %}
-
-{% endblock %}
-
-{% block csscode %}
-  #toast {
-    position: fixed;
-    right: 30px;
-    top: 60px;
-    background-color: #008800;
-    color: #F0F0F0;
-    font-family: Calibri;
-    font-size: 20px;
-    padding: 10px;
-    text-align: center;
-    border-radius: 2px;
-    -webkit-box-shadow: 5px 5px 20px -1px rgba(56, 56, 56, 1);
-    -moz-box-shadow: 5px 5px 20px -1px rgba(56, 56, 56, 1);
-    box-shadow: 5px 5px 20px -1px rgba(56, 56, 56, 1);
-  }
-  #toast.error {
-    background-color: #880000;
-  }
 {% endblock %}
 
 {% block jscode %}
-function showToast(msg) {
-  $('#toast').removeClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
-}
-
-function showError(msg) {
-  $('#toast').addClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
-}
-
 function makePurchase(row, orderId, sku) {
   $.post('/purchase/order',
     { 'order_id': row.data('order-id'), 'sku': sku },
