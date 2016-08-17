@@ -86,16 +86,15 @@
 {% endblock %}
 
 {% block jscode %}
-function makePurchase(row, orderId, sku) {
-  $.post('/purchase/order',
-    { 'order_id': row.data('order-id'), 'sku': sku },
-    function(data) {
-      if (data.status == 'OK') {
-        row.remove();
+function makePurchase(data, success, fail) {
+  $.post('/purchase/order', data,
+    function(res) {
+      if (res.status == 'OK') {
+        success();
         showToast('Order purchased successfully');
       } else {
-        row.addClass('danger');
-        showError(data.message);
+        fail();
+        showError(res.message);
       }
     },
     'json'
@@ -109,19 +108,30 @@ function makePurchase(row, orderId, sku) {
 {% block docready %}
   $('.action button').click(function() {
     // TODO: show loading
-    var row = $(this).closest('tr');
-    var orderId = row.data('order-id');
-    var sku = row.find('select').val();
+    var tr = $(this).closest('tr');
+    var orderId = tr.data('order-id');
+    var sku = tr.find('select').val();
 
-    row.addClass('info');
+    tr.addClass('info');
 
     layer.open({
       type: 1,
       area: ['480px', '240px'],
       title: 'Input',
-      btn: ['Purchase', 'Cancel'],
       skin: 'layui-layer-molv',
-      cancel: function() { row.removeClass('info'); },
+      moveType: 1,
+      btn: ['Purchase', 'Cancel'],
+      yes: function(index, layero) {
+        var comment = layero.find('#comment').val();
+        makePurchase({ 'order_id': orderId, 'sku': sku, 'comment': comment },
+            function() { tr.remove(); },
+            function() { tr.addClass('danger'); }
+        );
+        layer.close(index);
+      },
+      end: function(index, layero) {
+        tr.removeClass('info');
+      },
       content: '<div style="padding: 20px;">' +
                '<label for="comment">Purchase note</label><br />' +
                '<textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>' +
