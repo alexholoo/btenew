@@ -154,7 +154,7 @@ function makePurchase(row, orderId, sku) {
       cancel: function() { row.removeClass('info'); },
       content: '<div style="padding: 20px;">' +
                '<label for="comment">Purchase note</label><br />' +
-               '<textarea name="comment" id="comment" cols="65"></textarea>' +
+               '<textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>' +
                '</div>'
     })
   });
