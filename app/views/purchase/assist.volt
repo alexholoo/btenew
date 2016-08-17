@@ -84,18 +84,6 @@
     No purchase information found.
   {% endif %}
 
-    <div id="dialog2" style="display:none; padding: 20px;">
-      <form class="form" role="form">
-        <div class="form-group">
-          <label for="tab_title">Title</label><br />
-          <input type="text" name="tab_title" id="tab_title" value="">
-        </div>
-        <div class="form-group">
-          <label for="tab_content">Content</label><br />
-          <textarea name="tab_content" id="tab_content" cols="65"></textarea>
-        </div>
-      </form>
-    </div>
 {% endblock %}
 
 {% block csscode %}
@@ -159,11 +147,15 @@ function makePurchase(row, orderId, sku) {
 
     layer.open({
       type: 1,
-      area: ['480px', '320px'],
-      title: 'Confirmation',
+      area: ['480px', '240px'],
+      title: 'Input',
       btn: ['Purchase', 'Cancel'],
       skin: 'layui-layer-molv',
-      content: $('#dialog2')
+      cancel: function() { row.removeClass('info'); },
+      content: '<div style="padding: 20px;">' +
+               '<label for="comment">Purchase note</label><br />' +
+               '<textarea name="comment" id="comment" cols="65"></textarea>' +
+               '</div>'
     })
   });
 {% endblock %}
