@@ -12,6 +12,8 @@ use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
 use Phalcon\Logger\Adapter\File as FileLogger;
 use Phalcon\Logger\Formatter\Line as FormatterLine;
+use Phalcon\Logger;
+use Phalcon\Events\Manager as EventsManager;
 
 use App\Auth\Auth;
 use App\Acl\Acl;
@@ -69,12 +71,28 @@ $di->set('view', function () use ($config) {
  * Database connection is created based in the parameters defined in the configuration file
  */
 $di->set('db', function () use ($config) {
-    return new DbAdapter(array(
+    $eventsManager = new EventsManager();
+
+    $logger = new FileLogger(APP_DIR . "/logs/db.log");
+
+    // Listen all the database events
+    $eventsManager->attach('db', function ($event, $connection) use ($logger) {
+        if ($event->getType() == 'beforeQuery') {
+            $logger->log($connection->getSQLStatement(), Logger::INFO);
+        }
+    });
+
+    $connection = new DbAdapter(array(
         'host' => $config->database->host,
         'username' => $config->database->username,
         'password' => $config->database->password,
         'dbname' => $config->database->dbname
     ));
+
+    // Assign the eventsManager to the db adapter instance
+    $connection->setEventsManager($eventsManager);
+
+    return $connection;
 });
 
 /**
