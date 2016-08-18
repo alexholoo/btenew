@@ -86,108 +86,109 @@
 {% endblock %}
 
 {% block jscode %}
-function ajaxCall(url, data, success, fail) {
-  $.post(url, data, function(res) {
-      if (res.status == 'OK') {
-      console.log(res);
-        success(res.data);
-      } else {
-        fail(res.message);
-      }
-    }, 'json'
-  )
-  .fail(function() {
-    alert("error");
-  });
+function makePurchase(data, success, fail, done) {
+  layer.open({
+    title: 'Input',
+    area: ['480px', '240px'],
+    btn: ['Purchase', 'Cancel'],
+    yes: function(index, layero) {
+      var comment = layero.find('#comment').val();
+      data.comment = comment;
+      ajaxCall('/purchase/make', data, success, fail);
+      layer.close(index);
+    },
+    end: function(index, layero) {
+      done();
+    },
+    content: '<div style="padding: 20px;">' +
+             '<label for="comment">Purchase note</label><br />' +
+             '<textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>' +
+             '</div>'
+  })
 }
 
-function makePurchase(data, success, fail) {
-  $.post('/purchase/make', data,
-    function(res) {
-      if (res.status == 'OK') {
-        success();
-        showToast('Order purchased successfully');
-      } else {
-        fail();
-        showError(res.message);
-      }
+function getPriceAvail(data, done) {
+  ajaxCall('/purchase/priceAvail', { sku: data },
+    function(data) {
+      layer.open({
+        title: 'Price and Availability',
+        area: ['640px', '400px'],
+        btn: ['OK', 'Cancel'],
+        yes: function(index, layero) {
+          layer.close(index);
+        },
+        end: function(index, layero) {
+          done();
+        },
+        content: '<div style="padding: 20px;">' +
+                 data.join('<br>') +
+                 '</div>'
+      })
     },
-    'json'
-  )
-  .fail(function() {
-    alert("error");
-  });
+    function(message) {
+      done();
+      showError(message);
+    }
+  );
 }
 
-function getPriceAvail(data, success, fail) {
-  $.post('/purchase/priceAvail', { sku: data },
-    function(res) {
-      if (res.status == 'OK') {
-      console.log(res);
-        success(res.data);
-      } else {
-        fail();
-      }
+function getOrderDetail(orderId, done) {
+  ajaxCall('/purchase/orderDetail', { orderId: orderId },
+    function(data) {
+      layer.open({
+        title: 'Order Info',
+        area: ['600px', '400px'],
+        btn: ['Close'],
+        yes: function(index, layero) {
+          layer.close(index);
+        },
+        end: function(index, layero) {
+          done();
+        },
+        content: '<div style="padding: 20px;">' +
+                 data +
+                 '</div>'
+      })
     },
-    'json'
-  )
-  .fail(function() {
-    alert("error");
-  });
-}
-
-function getOrderDetail(orderId, success, fail) {
-  $.post('/purchase/orderDetail', { orderId: orderId },
-    function(res) {
-      if (res.status == 'OK') {
-      console.log(res);
-        success(res.data);
-      } else {
-        fail(res.message);
-      }
-    },
-    'json'
-  )
-  .fail(function() {
-    alert("error");
-  });
+    function(message) {
+      done();
+      showError(message);
+    }
+  );
 }
 {% endblock %}
 
 {% block docready %}
+  layer.config({
+    type: 1,
+    moveType: 1,
+    skin: 'layui-layer-molv',
+  });
+
+  // click on action button
   $('.action button').click(function() {
-    // TODO: show loading
     var tr = $(this).closest('tr');
     var orderId = tr.data('order-id');
     var sku = tr.find('select').val();
 
     tr.addClass('info');
 
-    layer.open({
-      type: 1,
-      area: ['480px', '240px'],
-      title: 'Input',
-      skin: 'layui-layer-molv',
-      moveType: 1,
-      btn: ['Purchase', 'Cancel'],
-      yes: function(index, layero) {
-        var comment = layero.find('#comment').val();
-        makePurchase({ 'order_id': orderId, 'sku': sku, 'comment': comment },
-            function() { tr.remove(); },
-            function() { tr.addClass('danger'); }
-        );
-        layer.close(index);
+    makePurchase({ 'order_id': orderId, 'sku': sku },
+      function() {
+        showToast('Order purchased successfully');
+        tr.remove();
       },
-      end: function(index, layero) {
+      function(message) {
+        showError(message);
+        tr.addClass('danger');
+      },
+      function() {
         tr.removeClass('info');
-      },
-      content: '<div style="padding: 20px;">' +
-               '<label for="comment">Purchase note</label><br />' +
-               '<textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>' +
-               '</div>'
-    })
+      }
+    );
   });
 
+  // click on sku button
   $('.sku button').click(function() {
     var tr = $(this).closest('tr');
     var td = $(this).parent();
@@ -199,57 +200,20 @@ function getOrderDetail(orderId, success, fail) {
 
     tr.addClass('info');
 
-    getPriceAvail(sku,
-      function(data) {
-        layer.open({
-          type: 1,
-          area: ['640px', '400px'],
-          title: 'Price and Availability',
-          skin: 'layui-layer-molv',
-          moveType: 1,
-          btn: ['OK', 'Cancel'],
-          yes: function(index, layero) {
-            layer.close(index);
-          },
-          end: function(index, layero) {
-            tr.removeClass('info');
-          },
-          content: '<div style="padding: 20px;">' +
-                   data.join('<br>') +
-                   '</div>'
-        })
-      },
-      function() { }
-    );
+    getPriceAvail(sku, function() {
+      tr.removeClass('info');
+    });
   });
 
+  // click on order id
   $('.order-id a').click(function() {
     var tr = $(this).closest('tr');
     var orderId = tr.data('order-id');
 
     tr.addClass('info');
 
-    getOrderDetail(orderId,
-      function(data) {
-        layer.open({
-          type: 1,
-          area: ['600px', '400px'],
-          title: 'Order Info',
-          skin: 'layui-layer-molv',
-          moveType: 1,
-          btn: ['Close'],
-          yes: function(index, layero) {
-            layer.close(index);
-          },
-          end: function(index, layero) {
-            tr.removeClass('info');
-          },
-          content: '<div style="padding: 20px;">' +
-                   data +
-                   '</div>'
-        })
-      },
-      function() { }
-    );
+    getOrderDetail(orderId, function() {
+      tr.removeClass('info');
+    });
   });
 {% endblock %}

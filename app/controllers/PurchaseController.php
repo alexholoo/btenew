@@ -158,7 +158,6 @@ class PurchaseController extends ControllerBase
 
     protected function getOrderDetail($orderId)
     {
-        return false;
         return $orderId;
     }
 }
