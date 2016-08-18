@@ -52,12 +52,12 @@
         <td class="order-id"><a href="javascript:void(0)">{{ purchase['order_id'] }}</a></td>
         <td>{{ purchase['qty'] }}</td>
         <td>{{ purchase['notes'] }}</td>
-        <td class="sku">
+        <td class="sku" nowrap style="white-space:nowrap">
           {% if purchase['status'] == 'purchased' %}
             {{ purchase['actual_sku'] }}
           {% else %}
             {% if purchase['related_sku'] is not empty %}
-              <select style="min-width: 85%;">
+              <select style="min-width: 85%; max-width: 85%;">
                 {% for sku in purchase['related_sku'] %}
                   <option value="{{ sku }}"{% if sku == purchase['supplier_sku'] %} selected{% endif %}>{{ sku }}</option>
                 {% endfor %}
