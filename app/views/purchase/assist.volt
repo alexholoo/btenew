@@ -132,12 +132,51 @@ function getPriceAvail(data, done) {
   );
 }
 
+function orderDetailString(order)
+{
+    return `<div style="padding: 20px 20px 0 20px;">
+      <table class="table table-bordered table-condensed">
+      <caption>Order ID: <b>${order.orderId}</b></caption>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Market</th>
+          <th>SKU</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Express</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${order.date}</td>
+          <td>${order.channel}</td>
+          <td>${order.sku}</td>
+          <td>${order.price}</td>
+          <td>${order.qty}</td>
+          <td>${order.express}</td>
+        </tr>
+      </tbody>
+      </table>
+
+      <table class="table table-condensed">
+      <caption>Customer Information</caption>
+      <tbody>
+        <tr><td><b>Name</b></td><td>${order.buyer}</td></tr>
+        <tr><td><b>Address</b></td><td>${order.address}</td></tr>
+        <tr><td><b>&nbsp;</b></td><td>${order.city}, ${order.province}, ${order.postalcode}, ${order.country}</td></tr>
+        <tr><td><b>Phone</b></td><td>${order.phone}</td></tr>
+        <tr><td><b>Email</b></td><td>${order.email}</td></tr>
+      </table>
+      </div>`;
+}
+
 function getOrderDetail(orderId, done) {
   ajaxCall('/purchase/orderDetail', { orderId: orderId },
     function(data) {
       layer.open({
         title: 'Order Info',
-        area: ['600px', '400px'],
+        area: ['550px', '450px'],
         btn: ['Close'],
         yes: function(index, layero) {
           layer.close(index);
@@ -145,9 +184,7 @@ function getOrderDetail(orderId, done) {
         end: function(index, layero) {
           done();
         },
-        content: '<div style="padding: 20px;">' +
-                 data +
-                 '</div>'
+        content: orderDetailString(data)
       })
     },
     function(message) {

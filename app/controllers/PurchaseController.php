@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Orders;
+
 class PurchaseController extends ControllerBase
 {
     public function initialize()
@@ -81,6 +83,7 @@ class PurchaseController extends ControllerBase
             $data = $this->getOrderDetail($orderId);
 
             if ($data) {
+                $this->response->setContentType('application/json', 'utf-8');
                 $this->response->setJsonContent(['status' => 'OK', 'data' => $data]);
             } else {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
@@ -158,6 +161,10 @@ class PurchaseController extends ControllerBase
 
     protected function getOrderDetail($orderId)
     {
-        return $orderId;
+        $order = Orders::findFirst("orderId='$orderId'");
+        if ($order) {
+            return array_map("utf8_encode", $order->toArray());
+        }
+        return false;
     }
 }
