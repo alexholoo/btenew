@@ -86,8 +86,23 @@
 {% endblock %}
 
 {% block jscode %}
+function ajaxCall(url, data, success, fail) {
+  $.post(url, data, function(res) {
+      if (res.status == 'OK') {
+      console.log(res);
+        success(res.data);
+      } else {
+        fail(res.message);
+      }
+    }, 'json'
+  )
+  .fail(function() {
+    alert("error");
+  });
+}
+
 function makePurchase(data, success, fail) {
-  $.post('/purchase/order', data,
+  $.post('/purchase/make', data,
     function(res) {
       if (res.status == 'OK') {
         success();
@@ -112,6 +127,23 @@ function getPriceAvail(data, success, fail) {
         success(res.data);
       } else {
         fail();
+      }
+    },
+    'json'
+  )
+  .fail(function() {
+    alert("error");
+  });
+}
+
+function getOrderDetail(orderId, success, fail) {
+  $.post('/purchase/orderDetail', { orderId: orderId },
+    function(res) {
+      if (res.status == 'OK') {
+      console.log(res);
+        success(res.data);
+      } else {
+        fail(res.message);
       }
     },
     'json'
@@ -173,7 +205,7 @@ function getPriceAvail(data, success, fail) {
           type: 1,
           area: ['640px', '400px'],
           title: 'Price and Availability',
-          skin: 'layui-layer-lan',
+          skin: 'layui-layer-molv',
           moveType: 1,
           btn: ['OK', 'Cancel'],
           yes: function(index, layero) {
@@ -184,6 +216,36 @@ function getPriceAvail(data, success, fail) {
           },
           content: '<div style="padding: 20px;">' +
                    data.join('<br>') +
+                   '</div>'
+        })
+      },
+      function() { }
+    );
+  });
+
+  $('.order-id a').click(function() {
+    var tr = $(this).closest('tr');
+    var orderId = tr.data('order-id');
+
+    tr.addClass('info');
+
+    getOrderDetail(orderId,
+      function(data) {
+        layer.open({
+          type: 1,
+          area: ['600px', '400px'],
+          title: 'Order Info',
+          skin: 'layui-layer-molv',
+          moveType: 1,
+          btn: ['Close'],
+          yes: function(index, layero) {
+            layer.close(index);
+          },
+          end: function(index, layero) {
+            tr.removeClass('info');
+          },
+          content: '<div style="padding: 20px;">' +
+                   data +
                    '</div>'
         })
       },

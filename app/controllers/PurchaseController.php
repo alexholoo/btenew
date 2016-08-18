@@ -30,7 +30,7 @@ class PurchaseController extends ControllerBase
         $this->view->orders = $this->getPurchaseOrders($date, $stage, $overstock, $express);
     }
 
-    public function orderAction()
+    public function makeAction()
     {
         $this->view->disable();
 
@@ -66,6 +66,25 @@ class PurchaseController extends ControllerBase
 
             // $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
             $this->response->setJsonContent(['status' => 'OK', 'data' => $data]);
+
+            return $this->response;
+        }
+    }
+
+    public function orderDetailAction()
+    {
+        $this->view->disable();
+
+        if ($this->request->isPost()) {
+            $orderId = $this->request->getPost('orderId');
+
+            $data = $this->getOrderDetail($orderId);
+
+            if ($data) {
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $data]);
+            } else {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
+            }
 
             return $this->response;
         }
@@ -135,5 +154,11 @@ class PurchaseController extends ControllerBase
     protected function getPriceAvailability($sku)
     {
         return $sku;
+    }
+
+    protected function getOrderDetail($orderId)
+    {
+        return false;
+        return $orderId;
     }
 }
