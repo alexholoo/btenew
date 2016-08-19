@@ -107,22 +107,46 @@ function makePurchase(data, success, fail, done) {
   })
 }
 
+function priceAvailString(items)
+{
+    var content = '';
+
+    for (sku in items) {
+      content += `<tr>
+          <td>${sku}</td>
+          <td>$26.77/$0.01</td>
+          <td>MISSISSAUGA, ON</td>
+          <td>105</td>
+        </tr>`;
+    }
+
+    return `<div style="padding: 20px;">
+      <table class="table table-bordered table-condensed">
+      <thead>
+        <tr>
+          <th align="left">PartNum</th>
+          <th align="left">Price</th>
+          <th align="left">Branch</th>
+          <th align="left">Qty</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${content}
+      </tbody>
+      </table>
+      </div>`;
+}
+
 function getPriceAvail(data, done) {
   ajaxCall('/purchase/priceAvail', { sku: data },
-    function(data) {
+    function(res) {
       layer.open({
         title: 'Price and Availability',
-        area: ['640px', '400px'],
+        area: ['600px', 'auto'],
         btn: ['OK', 'Cancel'],
-        yes: function(index, layero) {
-          layer.close(index);
-        },
-        end: function(index, layero) {
-          done();
-        },
-        content: '<div style="padding: 20px;">' +
-                 data.join('<br>') +
-                 '</div>'
+        yes: function(index, layero) { layer.close(index); },
+        end: function(index, layero) { done(); },
+        content: priceAvailString(res)
       })
     },
     function(message) {
