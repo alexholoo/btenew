@@ -171,6 +171,31 @@ class PurchaseController extends ControllerBase
             ];
         }
 
+        return $this->sortPriceAvailability($data);
+    }
+
+    protected function sortPriceAvailability($data)
+    {
+        $lowPriceFirst = function($a, $b) {
+            if ($a['price'] == $b['price']) {
+                return 0;
+            }
+            return ($a['price'] < $b['price']) ? -1 : 1; // ASC
+        };
+
+        $maxQtyFirst = function($a, $b) {
+            if ($a['qty'] == $b['qty']) {
+                return 0;
+            }
+            return ($a['qty'] < $b['qty']) ? 1 : -1; // DESC
+        };
+
+        foreach ($data as &$item) {
+            usort($item['avail'], $maxQtyFirst);
+        }
+
+        usort($data, $lowPriceFirst);
+
         return $data;
     }
 
