@@ -198,7 +198,7 @@ function orderDetailHtml(order) {
           <td>${order.sku}</td>
           <td>${order.price}</td>
           <td>${order.qty}</td>
-          <td>${order.express}</td>
+          <td>${order.express == 1 ? 'Yes' : '&nbsp;'}</td>
         </tr>
       </tbody>
       </table>
