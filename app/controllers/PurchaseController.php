@@ -39,10 +39,13 @@ class PurchaseController extends ControllerBase
         if ($this->request->isPost()) {
             $orderId = $this->request->getPost('order_id');
             $sku = $this->request->getPost('sku');
+            $branch = $this->request->getPost('branch');
+            $qty = $this->request->getPost('qty');
             $comment = $this->request->getPost('comment');
 
             // TODO: make a xmlapi call to purchase
             // make sure the order is not purchased (pending)
+            // make sure the order is not cancelled on amazon
 
             // pass result to frontend
             if (substr($sku, 0, 2) == 'TD') {
