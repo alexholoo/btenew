@@ -134,7 +134,7 @@ function getPriceAvail(data, done) {
 
 function orderDetailString(order)
 {
-    return `<div style="padding: 20px 20px 0 20px;">
+    return `<div style="padding: 0 20px;">
       <table class="table table-bordered table-condensed">
       <caption>Order ID: <b>${order.orderId}</b></caption>
       <thead>
@@ -176,8 +176,9 @@ function getOrderDetail(orderId, done) {
     function(data) {
       layer.open({
         title: 'Order Info',
-        area: ['550px', '450px'],
+        area: ['550px', 'auto'],
         btn: ['Close'],
+        shadeClose: true,
         yes: function(index, layero) {
           layer.close(index);
         },
