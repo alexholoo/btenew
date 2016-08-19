@@ -107,23 +107,26 @@ function makePurchase(data, success, fail, done) {
   })
 }
 
-function priceAvailString(items)
-{
+function priceAvailString(items) {
     var content = '';
 
-    for (sku in items) {
-      content += `<tr>
-          <td>${sku}</td>
-          <td>$26.77/$0.01</td>
-          <td>MISSISSAUGA, ON</td>
-          <td>105</td>
+    for (var i=0; i<items.length; i++) {
+      for (var a=0; a<items[i].avail.length; a++) {
+        content += `<tr>
+          <td><input type="radio" name="sku" value="${items[i].sku}"></td>
+          <td>${a==0 ? items[i].sku : '&nbsp;'}</td>
+          <td>${a==0 ? items[i].price : '&nbsp;'}</td>
+          <td>${items[i].avail[a].branch}</td>
+          <td>${items[i].avail[a].qty}</td>
         </tr>`;
+      }
     }
 
     return `<div style="padding: 20px;">
       <table class="table table-bordered table-condensed">
       <thead>
         <tr>
+          <th align="left">&nbsp;</th>
           <th align="left">PartNum</th>
           <th align="left">Price</th>
           <th align="left">Branch</th>
@@ -156,8 +159,7 @@ function getPriceAvail(data, done) {
   );
 }
 
-function orderDetailString(order)
-{
+function orderDetailString(order) {
     return `<div style="padding: 20px 20px 0 20px;">
       <table class="table table-bordered table-condensed">
       <caption>Order ID: <b>${order.orderId}</b></caption>

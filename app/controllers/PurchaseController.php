@@ -154,9 +154,24 @@ class PurchaseController extends ControllerBase
         return $result;
     }
 
-    protected function getPriceAvailability($sku)
+    protected function getPriceAvailability($items)
     {
-        return $sku;
+        $data = [];
+
+        // mockup of data format of price avail
+        foreach ($items as $sku) {
+            $data[] = [
+                'sku' => $sku,
+                'price' => rand(30, 200),
+                'avail' => [
+                    [ 'branch' => 'MISSISSAUGA', 'qty' => rand(10, 30) ],
+                    [ 'branch' => 'RICHMOND',    'qty' => rand(10, 50) ],
+                    [ 'branch' => 'MARKHAM',     'qty' => rand(10, 70) ],
+                ]
+            ];
+        }
+
+        return $data;
     }
 
     protected function getOrderDetail($orderId)
