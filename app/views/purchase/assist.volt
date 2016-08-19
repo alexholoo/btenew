@@ -116,8 +116,8 @@ function priceAvailHtml(items) {
 
     for (var i=0; i<items.length; i++) {
       for (var a=0; a<items[i].avail.length; a++) {
-        content += `<tr>
-          <td><input type="radio" name="sku" value="${items[i].sku}"></td>
+        content += `<tr data-sku="${items[i].sku}" data-branch="${items[i].avail[a].branch}">
+          <td><input type="radio"></td>
           <td>${a==0 ? items[i].sku : '&nbsp;'}</td>
           <td>${a==0 ? items[i].price : '&nbsp;'}</td>
           <td>${items[i].avail[a].branch}</td>
