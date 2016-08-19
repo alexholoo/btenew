@@ -86,10 +86,17 @@
 {% endblock %}
 
 {% block jscode %}
+function purchaseNoteHtml() {
+    return `<div style="padding: 20px;">
+       <label for="comment">Purchase note</label><br />
+       <textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>
+     </div>`;
+}
+
 function makePurchase(data, success, fail, done) {
   layer.open({
     title: 'Input',
-    area: ['480px', '240px'],
+    area: ['480px', 'auto'],
     btn: ['Purchase', 'Cancel'],
     yes: function(index, layero) {
       var comment = layero.find('#comment').val();
@@ -100,14 +107,11 @@ function makePurchase(data, success, fail, done) {
     end: function(index, layero) {
       done();
     },
-    content: '<div style="padding: 20px;">' +
-             '<label for="comment">Purchase note</label><br />' +
-             '<textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>' +
-             '</div>'
+    content: purchaseNoteHtml()
   })
 }
 
-function priceAvailString(items) {
+function priceAvailHtml(items) {
     var content = '';
 
     for (var i=0; i<items.length; i++) {
@@ -149,7 +153,7 @@ function getPriceAvail(data, done) {
         btn: ['OK', 'Cancel'],
         yes: function(index, layero) { layer.close(index); },
         end: function(index, layero) { done(); },
-        content: priceAvailString(res)
+        content: priceAvailHtml(res)
       })
     },
     function(message) {
@@ -159,7 +163,7 @@ function getPriceAvail(data, done) {
   );
 }
 
-function orderDetailString(order) {
+function orderDetailHtml(order) {
     return `<div style="padding: 20px 20px 0 20px;">
       <table class="table table-bordered table-condensed">
       <caption>Order ID: <b>${order.orderId}</b></caption>
@@ -207,7 +211,7 @@ function getOrderDetail(orderId, done) {
         end: function(index, layero) {
           done();
         },
-        content: orderDetailString(data)
+        content: orderDetailHtml(data)
       })
     },
     function(message) {
