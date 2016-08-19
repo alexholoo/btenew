@@ -47,10 +47,10 @@
     <tbody>
 
     {% for purchase in orders %}
-      <tr data-id="{{ purchase['id'] }}" data-order-id="{{ purchase['order_id'] }}">
+      <tr data-order-id="{{ purchase['order_id'] }}" data-qty="{{ purchase['qty'] }}">
         <td{% if purchase['express'] %} class="text-danger"{% endif %}>{{ purchase['date'] }}</td>
         <td class="order-id"><a href="javascript:void(0)">{{ purchase['order_id'] }}</a></td>
-        <td>{{ purchase['qty'] }}</td>
+        <td class="qty">{{ purchase['qty'] }}</td>
         <td>{{ purchase['notes'] }}</td>
         <td class="sku" nowrap style="white-space:nowrap">
           {% if purchase['status'] == 'purchased' %}
@@ -86,8 +86,13 @@
 {% endblock %}
 
 {% block jscode %}
-function purchaseNoteHtml() {
+function purchaseNoteHtml(data) {
     return `<div style="padding: 20px;">
+       <table class="table table-condensed">
+         <tr><td><b>SKU: </b></td><td>${data.sku ? data.sku : '-'}</td></tr>
+         <tr><td><b>Branch: </b></td><td>${data.branch ? data.branch: '-'}</td></tr>
+         <tr><td><b>Qty: </b></td><td>${data.qty? data.qty: '-'}</td></tr>
+       </table>
        <label for="comment">Purchase note</label><br />
        <textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>
      </div>`;
@@ -95,7 +100,7 @@ function purchaseNoteHtml() {
 
 function makePurchase(data, success, fail, done) {
   layer.open({
-    title: 'Input',
+    title: 'Confirmation',
     area: ['480px', 'auto'],
     btn: ['Purchase', 'Cancel'],
     yes: function(index, layero) {
@@ -107,7 +112,7 @@ function makePurchase(data, success, fail, done) {
     end: function(index, layero) {
       done();
     },
-    content: purchaseNoteHtml()
+    content: purchaseNoteHtml(data)
   })
 }
 
@@ -117,7 +122,7 @@ function priceAvailHtml(items) {
     for (var i=0; i<items.length; i++) {
       for (var a=0; a<items[i].avail.length; a++) {
         content += `<tr data-sku="${items[i].sku}" data-branch="${items[i].avail[a].branch}">
-          <td><input type="radio"></td>
+          <td><input type="radio" name="skubranch"></td>
           <td>${a==0 ? items[i].sku : '&nbsp;'}</td>
           <td>${a==0 ? items[i].price : '&nbsp;'}</td>
           <td>${items[i].avail[a].branch}</td>
@@ -144,14 +149,23 @@ function priceAvailHtml(items) {
       </div>`;
 }
 
-function getPriceAvail(data, done) {
+function getPriceAvail(data, selected, done) {
   ajaxCall('/purchase/priceAvail', { sku: data },
     function(res) {
       layer.open({
         title: 'Price and Availability',
         area: ['600px', 'auto'],
         btn: ['OK', 'Cancel'],
-        yes: function(index, layero) { layer.close(index); },
+        yes: function(index, layero) {
+          var radio = layero.find('input[type=radio]:checked');
+          if (radio.length) {
+            var tr = radio.closest('tr');
+            var sku = tr.data('sku');
+            var branch = tr.data('branch');
+            selected({sku: sku, branch: branch});
+          }
+          layer.close(index);
+        },
         end: function(index, layero) { done(); },
         content: priceAvailHtml(res)
       })
@@ -231,13 +245,21 @@ function getOrderDetail(orderId, done) {
 
   // click on action button
   $('.action button').click(function() {
+    $('tr').removeClass('info');
+
     var tr = $(this).closest('tr');
     var orderId = tr.data('order-id');
-    var sku = tr.find('select').val();
+    var sku = tr.data('sku');
+    var qty = tr.data('qty');
+    var branch = tr.data('branch');
+
+    if (!sku) {
+        sku = tr.find('select').val();
+    }
 
     tr.addClass('info');
 
-    makePurchase({ 'order_id': orderId, 'sku': sku },
+    makePurchase({ order_id: orderId, sku: sku, branch: branch, qty: qty },
       function() {
         showToast('Order purchased successfully');
         tr.remove();
@@ -247,13 +269,15 @@ function getOrderDetail(orderId, done) {
         tr.addClass('danger');
       },
       function() {
-        tr.removeClass('info');
+        /*tr.removeClass('info');*/
       }
     );
   });
 
   // click on sku button
   $('.sku button').click(function() {
+    $('tr').removeClass('info');
+
     var tr = $(this).closest('tr');
     var td = $(this).parent();
 
@@ -264,20 +288,28 @@ function getOrderDetail(orderId, done) {
 
     tr.addClass('info');
 
-    getPriceAvail(sku, function() {
-      tr.removeClass('info');
-    });
+    getPriceAvail(sku,
+      function(sel) {
+        if (sel.sku) {
+          tr.data(sel);
+          tr.find('select').val(sel.sku);
+        }
+      },
+      function() { /*tr.removeClass('info');*/}
+    );
   });
 
   // click on order id
   $('.order-id a').click(function() {
+    $('tr').removeClass('info');
+
     var tr = $(this).closest('tr');
     var orderId = tr.data('order-id');
 
     tr.addClass('info');
 
     getOrderDetail(orderId, function() {
-      tr.removeClass('info');
+      /*tr.removeClass('info');*/
     });
   });
 {% endblock %}
