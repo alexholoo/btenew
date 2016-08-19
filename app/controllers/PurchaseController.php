@@ -39,9 +39,17 @@ class PurchaseController extends ControllerBase
         if ($this->request->isPost()) {
             $orderId = $this->request->getPost('order_id');
             $sku = $this->request->getPost('sku');
-            $branch = $this->request->getPost('branch');
+            $branch = $this->request->getPost('branch', null, '');
             $qty = $this->request->getPost('qty');
             $comment = $this->request->getPost('comment');
+
+            $order = Orders::findFirst("orderId='$orderId'");
+            if ($order) {
+                $orderInfo = $order->toArray();
+                $orderInfo['branch'] = $branch;
+                $orderInfo['comment'] = $comment;
+                fpr($orderInfo);
+            }
 
             // TODO: make a xmlapi call to purchase
             // make sure the order is not purchased (pending)
