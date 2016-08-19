@@ -87,15 +87,15 @@
 
 {% block jscode %}
 function purchaseNoteHtml(data) {
-    return `<div style="padding: 20px;">
-       <table class="table table-condensed">
-         <tr><td><b>SKU: </b></td><td>${data.sku ? data.sku : '-'}</td></tr>
-         <tr><td><b>Branch: </b></td><td>${data.branch ? data.branch: '-'}</td></tr>
-         <tr><td><b>Qty: </b></td><td>${data.qty? data.qty: '-'}</td></tr>
-       </table>
-       <label for="comment">Purchase note</label><br />
-       <textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>
-     </div>`;
+  return `<div style="padding: 20px;">
+     <table class="table table-condensed">
+       <tr><td><b>SKU: </b></td><td>${data.sku ? data.sku : '-'}</td></tr>
+       <tr><td><b>Branch: </b></td><td>${data.branch ? data.branch: '-'}</td></tr>
+       <tr><td><b>Qty: </b></td><td>${data.qty? data.qty: '-'}</td></tr>
+     </table>
+     <label for="comment">Purchase note</label><br />
+     <textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>
+   </div>`;
 }
 
 function makePurchase(data, success, fail, done) {
@@ -117,36 +117,36 @@ function makePurchase(data, success, fail, done) {
 }
 
 function priceAvailHtml(items) {
-    var content = '';
+  var content = '';
 
-    for (var i=0; i<items.length; i++) {
-      for (var a=0; a<items[i].avail.length; a++) {
-        content += `<tr data-sku="${items[i].sku}" data-branch="${items[i].avail[a].branch}">
-          <td><input type="radio" name="skubranch"></td>
-          <td>${a==0 ? items[i].sku : '&nbsp;'}</td>
-          <td>${a==0 ? items[i].price : '&nbsp;'}</td>
-          <td>${items[i].avail[a].branch}</td>
-          <td>${items[i].avail[a].qty}</td>
-        </tr>`;
-      }
+  for (var i=0; i<items.length; i++) {
+    for (var a=0; a<items[i].avail.length; a++) {
+      content += `<tr data-sku="${items[i].sku}" data-branch="${items[i].avail[a].branch}">
+        <td><input type="radio" name="skubranch"></td>
+        <td>${a==0 ? items[i].sku : '&nbsp;'}</td>
+        <td>${a==0 ? items[i].price : '&nbsp;'}</td>
+        <td>${items[i].avail[a].branch}</td>
+        <td>${items[i].avail[a].qty}</td>
+      </tr>`;
     }
+  }
 
-    return `<div style="padding: 20px;">
-      <table class="table table-bordered table-condensed">
-      <thead>
-        <tr>
-          <th align="left">&nbsp;</th>
-          <th align="left">PartNum</th>
-          <th align="left">Price</th>
-          <th align="left">Branch</th>
-          <th align="left">Qty</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${content}
-      </tbody>
-      </table>
-      </div>`;
+  return `<div style="padding: 20px;">
+    <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th align="left">&nbsp;</th>
+        <th align="left">PartNum</th>
+        <th align="left">Price</th>
+        <th align="left">Branch</th>
+        <th align="left">Qty</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${content}
+    </tbody>
+    </table>
+    </div>`;
 }
 
 function getPriceAvail(data, selected, done) {
@@ -178,41 +178,41 @@ function getPriceAvail(data, selected, done) {
 }
 
 function orderDetailHtml(order) {
-    return `<div style="padding: 20px 20px 0 20px;">
-      <table class="table table-bordered table-condensed">
-      <caption>Order ID: <b>${order.orderId}</b></caption>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Market</th>
-          <th>SKU</th>
-          <th>Price</th>
-          <th>Qty</th>
-          <th>Express</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>${order.date}</td>
-          <td>${order.channel}</td>
-          <td>${order.sku}</td>
-          <td>${order.price}</td>
-          <td>${order.qty}</td>
-          <td>${order.express == 1 ? 'Yes' : '&nbsp;'}</td>
-        </tr>
-      </tbody>
-      </table>
+  return `<div style="padding: 20px 20px 0 20px;">
+    <table class="table table-bordered table-condensed">
+    <caption>Order ID: <b>${order.orderId}</b></caption>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Market</th>
+        <th>SKU</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Express</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>${order.date}</td>
+        <td>${order.channel}</td>
+        <td>${order.sku}</td>
+        <td>${order.price}</td>
+        <td>${order.qty}</td>
+        <td>${order.express == 1 ? 'Yes' : '&nbsp;'}</td>
+      </tr>
+    </tbody>
+    </table>
 
-      <table class="table table-condensed">
-      <caption>Customer Information</caption>
-      <tbody>
-        <tr><td><b>Name</b></td><td>${order.buyer}</td></tr>
-        <tr><td><b>Address</b></td><td>${order.address}</td></tr>
-        <tr><td><b>&nbsp;</b></td><td>${order.city}, ${order.province}, ${order.postalcode}, ${order.country}</td></tr>
-        <tr><td><b>Phone</b></td><td>${order.phone}</td></tr>
-        <tr><td><b>Email</b></td><td>${order.email}</td></tr>
-      </table>
-      </div>`;
+    <table class="table table-condensed">
+    <caption>Customer Information</caption>
+    <tbody>
+      <tr><td><b>Name</b></td><td>${order.buyer}</td></tr>
+      <tr><td><b>Address</b></td><td>${order.address}</td></tr>
+      <tr><td><b>&nbsp;</b></td><td>${order.city}, ${order.province}, ${order.postalcode}, ${order.country}</td></tr>
+      <tr><td><b>Phone</b></td><td>${order.phone}</td></tr>
+      <tr><td><b>Email</b></td><td>${order.email}</td></tr>
+    </table>
+    </div>`;
 }
 
 function getOrderDetail(orderId, done) {
