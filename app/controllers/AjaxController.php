@@ -3,9 +3,6 @@ namespace App\Controllers;
 
 use App\Models\Orders;
 
-// TODO:
-// 2. change config/routes.php to set method to POST/AJAX
-
 class AjaxController extends ControllerBase
 {
     public function initialize()
