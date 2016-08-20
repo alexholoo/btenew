@@ -4,14 +4,19 @@
  */
 $router = new Phalcon\Mvc\Router();
 
-$router->add('/confirm/{code}/{email}', array(
-    'controller' => 'user_control',
-    'action' => 'confirmEmail'
-));
+$router->add('/ajax/order/detail', [
+    'controller' => 'ajax',
+    'action' => 'orderDetail'
+]);
 
-$router->add('/reset-password/{code}/{email}', array(
-    'controller' => 'user_control',
-    'action' => 'resetPassword'
-));
+$router->add('/ajax/make/purchase', [
+    'controller' => 'ajax',
+    'action' => 'makePurchase'
+]);
+
+$router->add('/ajax/price/avail', [
+    'controller' => 'ajax',
+    'action' => 'priceAvail'
+]);
 
 return $router;
