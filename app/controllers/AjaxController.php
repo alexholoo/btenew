@@ -4,7 +4,6 @@ namespace App\Controllers;
 use App\Models\Orders;
 
 // TODO:
-// 1. change urls in purchase/index.volt
 // 2. change config/routes.php to set method to POST/AJAX
 // 3. delete code in PurchaseController
 

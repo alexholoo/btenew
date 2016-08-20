@@ -106,7 +106,7 @@ function makePurchase(data, success, fail, done) {
     yes: function(index, layero) {
       var comment = layero.find('#comment').val();
       data.comment = comment;
-      ajaxCall('/purchase/make', data, success, fail);
+      ajaxCall('/ajax/make/purchase', data, success, fail);
       layer.close(index);
     },
     end: function(index, layero) {
@@ -150,7 +150,7 @@ function priceAvailHtml(items) {
 }
 
 function getPriceAvail(data, selected, done) {
-  ajaxCall('/purchase/priceAvail', { sku: data },
+  ajaxCall('/ajax/price/avail', { sku: data },
     function(res) {
       layer.open({
         title: 'Price and Availability',
@@ -221,7 +221,7 @@ function orderDetailHtml(order) {
 }
 
 function getOrderDetail(orderId, done) {
-  ajaxCall('/purchase/orderDetail', { orderId: orderId },
+  ajaxCall('/ajax/order/detail', { orderId: orderId },
     function(data) {
       layer.open({
         title: false,
