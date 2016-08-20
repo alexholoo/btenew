@@ -166,6 +166,11 @@ function getPriceAvail(data, selected, done) {
           }
           layer.close(index);
         },
+        success: function(layero, index){
+          layero.find('table tr').click(function(){
+            $(this).find('input[type=radio]').prop('checked', true);
+          });
+        },
         end: function(index, layero) { done(); },
         content: priceAvailHtml(res)
       })
