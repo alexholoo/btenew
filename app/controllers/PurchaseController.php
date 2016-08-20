@@ -10,7 +10,7 @@ class PurchaseController extends ControllerBase
         $this->view->pageTitle = 'Purchase Assistant';
     }
 
-    public function assistAction()
+    public function indexAction()
     {
         $date = date('Y-m-d'); //'all';
         $stage = 'all';
