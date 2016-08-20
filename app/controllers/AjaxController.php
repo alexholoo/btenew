@@ -5,7 +5,6 @@ use App\Models\Orders;
 
 // TODO:
 // 2. change config/routes.php to set method to POST/AJAX
-// 3. delete code in PurchaseController
 
 class AjaxController extends ControllerBase
 {
@@ -87,59 +86,6 @@ class AjaxController extends ControllerBase
     }
 
     /* ===== internal methods ===== */
-
-    protected function getPurchaseOrders($date, $stage, $overstock, $express)
-    {
-        $sql = 'SELECT * FROM ca_order_notes';
-
-        $where = [];
-
-        if ($date != 'all') {
-            $where[] = "date = '$date'";
-        }
-
-        if ($stage != 'all') {
-            $where[] = "status = '$stage'";
-        }
-
-        if ($overstock) {
-            $where[] = "stock_status = 'overstock'";
-        }
-
-        if ($express) {
-            $where[] = "express = 1";
-        }
-
-        if ($where) {
-            $sql .= ' WHERE ' . implode(' AND ', $where);
-        }
-
-        $result = $this->db->query($sql);
-
-        $data = [];
-        while ($row = $result->fetch(\Phalcon\Db::FETCH_ASSOC)) {
-            $row['related_sku'] = explode('|', $row['related_sku']);
-            $row['related_sku'] = array_map('trim', $row['related_sku']);
-            $row['related_sku'] = array_filter($row['related_sku']);
-
-            $data[] = $row;
-        }
-
-        return $data;
-    }
-
-    protected function getOrderDates()
-    {
-        $sql = 'SELECT DISTINCT date FROM ca_order_notes ORDER BY date DESC';
-        $result = $this->db->query($sql);
-
-        $dates = [];
-        while ($row = $result->fetch(\Phalcon\Db::FETCH_ASSOC)) {
-            $dates[] = $row['date'];
-        }
-
-        return $dates;
-    }
 
     protected function markOrderPurchased($orderId, $sku)
     {
