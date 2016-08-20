@@ -19,4 +19,14 @@ $router->add('/ajax/price/avail', [
     'action' => 'priceAvail'
 ]);
 
+$router->add('/purchase/assist', [
+    'controller' => 'purchase',
+    'action' => 'index'
+]);
+
+$router->add('/dropship', [
+    'controller' => 'purchase',
+    'action' => 'index'
+]);
+
 return $router;
