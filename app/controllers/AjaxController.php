@@ -83,6 +83,12 @@ class AjaxController extends ControllerBase
         }
     }
 
+    public function priceListDetailAction()
+    {
+    }
+
+    /* ===== internal methods ===== */
+
     protected function getPurchaseOrders($date, $stage, $overstock, $express)
     {
         $sql = 'SELECT * FROM ca_order_notes';

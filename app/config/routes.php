@@ -19,6 +19,12 @@ $router->add('/ajax/price/avail', [
     'action' => 'priceAvail'
 ]);
 
+$router->add('/ajax/pricelist/detail', [
+    'controller' => 'ajax',
+    'action' => 'priceListDetail'
+]);
+
+// aliases
 $router->add('/purchase/assist', [
     'controller' => 'purchase',
     'action' => 'index'
