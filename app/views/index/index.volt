@@ -7,7 +7,7 @@
 		<p class="lead">This is a awesome website</p>
 
 		<div align="right">
-      {{ link_to('session/signup', '<i class="icon-ok icon-white"></i> Create an Account', 'class': 'btn btn-primary btn-large') }}
+            {{ link_to('#', '<i class="icon-ok icon-white"></i> Create an Account', 'class': 'btn btn-primary btn-large') }}
 		</div>
 	</div>
 </header>
