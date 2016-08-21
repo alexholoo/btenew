@@ -25,6 +25,17 @@ class Str
         return (substr($haystack, -$length) === $needle);
     }
 
+    /**
+     * Escape special XML characters
+     * @return string with escaped XML characters
+     */
+    public static function escapeXML($str)
+    {
+        $from = array( "&", "<", ">", "'", "\"");
+        $to = array( "&amp;", "&lt;", "&gt;", "&#039;", "&quot;");
+        return str_replace($from, $to, $str);
+    }
+
     /*
     public static function startsWith($haystack, $needle) {
         // search backwards starting from haystack length characters from the end
