@@ -18,19 +18,19 @@ class InventoryController extends ControllerBase
 
             // ORM doesn't help for the special queries
             if ($searchby == 'partnum') {
-                $sql = 'SELECT * FROM inventory WHERE partnum LIKE ?';
+                $sql = 'SELECT * FROM inventory_location WHERE partnum LIKE ?';
                 $result = $this->db->query($sql, array("%$keyword%"));
             } elseif ($searchby == 'upc') {
-                $sql = 'SELECT * FROM inventory WHERE upc LIKE ?';
+                $sql = 'SELECT * FROM inventory_location WHERE upc LIKE ?';
                 $result = $this->db->query($sql, array("%$keyword"));
             } elseif ($searchby == 'location') {
-                $sql = "SELECT * FROM inventory WHERE location = ?";
+                $sql = "SELECT * FROM inventory_location WHERE location = ?";
                 $result = $this->db->query($sql, array($keyword));
             } elseif ($searchby == 'qty') {
                 if (!ctype_digit($keyword)) {
                     return;
                 }
-                $sql = "SELECT * FROM inventory WHERE qty >= ?";
+                $sql = "SELECT * FROM inventory_location WHERE qty >= ?";
                 $result = $this->db->query($sql, array($keyword));
             } else {
                 return;
@@ -57,7 +57,7 @@ class InventoryController extends ControllerBase
             $qty      = $this->request->getPost('qty', 'int');
 
             try {
-                $success = $this->db->insertAsDict('inventory',
+                $success = $this->db->insertAsDict('inventory_location',
                     array(
                         'partnum'  => $partnum,
                         'upc'      => $upc,
