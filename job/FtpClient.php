@@ -496,6 +496,7 @@ class FtpClient
      */
     private function _error($line)
     {
+        error_log(date('Y-m-d H:i:s ') . $line . "\n", 3, './ftp.log');
     }
 }
 // END FTP Class
