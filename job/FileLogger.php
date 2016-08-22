@@ -65,7 +65,7 @@ class FileLogger
     }
 }
 
-$logger = new FileLogger('zzz.log');
-$logger->info('Hello, start working');
-$logger->debug('working ended');
-$logger->notice('working ended');
+//$logger = new FileLogger('zzz.log');
+//$logger->info('Hello, start working');
+//$logger->debug('working ended');
+//$logger->notice('working ended');
