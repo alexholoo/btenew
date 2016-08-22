@@ -1,17 +1,17 @@
 <?php
 
 /**
- * FTP Class
+ * FtpClient Class
  */
 class FtpClient
 {
-    var $hostname   = '';
-    var $username   = '';
-    var $password   = '';
-    var $port       = 21;
-    var $passive    = TRUE;
-    var $debug      = FALSE;
-    var $conn_id    = FALSE;
+    protected $hostname   = '';
+    protected $username   = '';
+    protected $password   = '';
+    protected $port       = 21;
+    protected $passive    = TRUE;
+    protected $debug      = FALSE;
+    protected $conn_id    = FALSE;
 
     /**
      * Constructor - Sets Preferences
