@@ -17,6 +17,8 @@ class MainTask extends \Phalcon\Cli\Task
         echo __METHOD__, PHP_EOL;
 
         print_r($params);
+
+        error_log(date('Y-m-d H:i:s ') . __METHOD__ . "\n", 3, 'e:/job.log');
     }
 
     public function chainAction(array $params)
