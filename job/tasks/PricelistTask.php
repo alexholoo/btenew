@@ -4,7 +4,7 @@ class PricelistTask extends \Phalcon\Cli\Task
 {
     public function mainAction()
     {
-        echo "Missing action\n";
+        echo "Missing action.\n";
     }
 
     /**
@@ -13,7 +13,8 @@ class PricelistTask extends \Phalcon\Cli\Task
     public function downloadAction(array $params)
     {
         if (empty($params)) {
-            echo "Missing supplier\n";
+            // TODO: download all pricelists, see MainTask::chainAction
+            echo "Missing supplier ID.\n";
             return;
         }
 
@@ -26,7 +27,8 @@ class PricelistTask extends \Phalcon\Cli\Task
     public function importAction(array $params)
     {
         if (empty($params)) {
-            echo "Missing supplier\n";
+            // TODO: import all pricelists, see MainTask::chainAction
+            echo "Missing supplier ID.\n";
             return;
         }
 
@@ -55,11 +57,12 @@ class PricelistTask extends \Phalcon\Cli\Task
         $ftp = new FtpClient($config);
         if ($ftp->connect()) {
             $ftp->download($remoteFile, $localFile);
+            $ftp->close();
         }
 
         // if it is zip file, unzip it
 
-        echo "Download completed, ", number_format(microtime(true) - $start, 4), " seconds elapsed.\n";
+        echo "Download completed, ", $this->elapsed(), " seconds elapsed.\n";
     }
 
     protected function importPricelist($supplier)
@@ -74,7 +77,7 @@ class PricelistTask extends \Phalcon\Cli\Task
             $this->$method();
         }
 
-        echo "Import completed, ", number_format(microtime(true) - $start, 4), " seconds elapsed.\n";
+        echo "Import completed, ",  $this->elapsed(), " seconds elapsed.\n";
     }
 
     protected function importPricelist_DH()
@@ -146,5 +149,10 @@ class PricelistTask extends \Phalcon\Cli\Task
     protected function log($line)
     {
         error_log(date('Y-m-d H:i:s ') . $line . "\n", 3, './tasks.log');
+    }
+
+    protected function elapsed($start)
+    {
+        return number_format(microtime(true) - $start, 4);
     }
 }
