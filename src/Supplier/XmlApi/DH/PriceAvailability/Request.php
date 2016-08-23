@@ -21,6 +21,10 @@ class Request
 
     public function addPartnum($partnum)
     {
+        if (substr($partnum, 0, 3) == 'DH-') {
+            $partnum = substr($partnum, 3);
+        }
+
         $this->partnums[] = $partnum;
     }
 
