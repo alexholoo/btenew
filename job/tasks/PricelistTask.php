@@ -62,7 +62,7 @@ class PricelistTask extends \Phalcon\Cli\Task
 
         // if it is zip file, unzip it
 
-        echo "Download completed, ", $this->elapsed(), " seconds elapsed.\n";
+        echo "Download completed, ", $this->elapsed($start), " seconds elapsed.\n";
     }
 
     protected function importPricelist($supplier)
@@ -77,7 +77,7 @@ class PricelistTask extends \Phalcon\Cli\Task
             $this->$method();
         }
 
-        echo "Import completed, ",  $this->elapsed(), " seconds elapsed.\n";
+        echo "Import completed, ",  $this->elapsed($start), " seconds elapsed.\n";
     }
 
     protected function importPricelist_DH()
