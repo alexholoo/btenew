@@ -119,7 +119,10 @@ class PricelistTask extends \Phalcon\Cli\Task
             $item['rebate_end_date'] = ($item['rebate_end_date'] == '?') ? NULL : date('Y-m-d', strtotime($item['rebate_end_date']));
 
             try {
-                $success = $this->db->insertAsDict('pricelist_dh', $item);
+                $sql = $this->genInsertSql('pricelist_dh', $item,
+                    'ON DUPLICATE KEY UPDATE is_new=0, updatedon=NOW()');
+
+                $success = $this->db->execute($sql);
                 if (!$success) {
                     echo $item['sku'], PHP_EOL;
                 }
@@ -154,5 +157,15 @@ class PricelistTask extends \Phalcon\Cli\Task
     protected function elapsed($start)
     {
         return number_format(microtime(true) - $start, 4);
+    }
+
+    protected function genInsertSql($table, $item, $extra = '')
+    {
+        $columns = '`' . implode('`, `', array_keys($item)) . '`';
+        $values = "('" . implode("', '", array_map('addslashes', array_values($item))) . "')";
+
+        $query = "INSERT INTO `$table` ($columns) VALUES $values $extra";
+
+        return $query;
     }
 }
