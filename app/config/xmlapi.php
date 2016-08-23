@@ -5,6 +5,7 @@ return array(
         'url'      => 'https://www.dandh.ca/dhXML/xmlDispatch',
         'username' => '800712XML',
         'password' => 'BTE@xml2013',
+        'dropship' => 'DONTKNOW',
     ),
 
     'synnex' => array(
