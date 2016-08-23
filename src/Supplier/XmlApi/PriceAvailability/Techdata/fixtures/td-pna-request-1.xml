@@ -1,0 +1,17 @@
+<XML_PriceAvailability_Submit>
+      <Header>
+            <UserName>567861</UserName>  
+            <Password>bteTDxml2014</Password>
+            <ResponseVersion>1.4</ResponseVersion>
+      </Header>
+      <Detail>
+            <LineInfo>
+                  <RefIDQual>VP</RefIDQual>
+                  <RefID>296460</RefID>
+            </LineInfo>
+            <LineInfo>
+                  <RefIDQual>VP</RefIDQual>
+                  <RefID>180054</RefID>
+            </LineInfo>
+      </Detail>
+</XML_PriceAvailability_Submit>
