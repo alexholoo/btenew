@@ -135,6 +135,10 @@ class Request
         $price = $this->order['price'];
         $qty   = $this->order['qty'];
 
+        if (substr($sku, 0, 4) == 'SYN-') {
+            $sku = substr($sku, 4);
+        }
+
         $lines = array();
         $lines[] = '<Items>';
         $lines[] =   '<Item lineNumber="1">';

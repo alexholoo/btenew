@@ -27,25 +27,24 @@ $order = [
     'contact' => 'Sam Wang',
     'phone' => '800-900-1020',
     'email' => 'samwang@email.com',
-    'sku' => '357869',
+    'sku' => 'SYN-357869',
     'price' => '32.98',
     'qty' => '1',
 ];
 
 $request->addOrder($order);
 
-#pr($request->toXml());
+pr($request->toXml());
 
 
 
-$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/fixtures/synnex-po-response-5.xml');
+#$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/fixtures/synnex-po-response-5.xml');
 #$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/fixtures/synnex-po-response-6.xml');
 #$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/fixtures/synnex-po-response-7.xml');
 #$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/fixtures/synnex-po-response-8.xml');
 #$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/fixtures/synnex-po-response-9.xml');
 
-$response = new \Supplier\XmlApi\PurchaseOrder\Synnex\Response($xml);
+#$response = new \Supplier\XmlApi\PurchaseOrder\Synnex\Response($xml);
 //pr($response);
-$x = $response->parseXml();
-pr($x);
-
+#$x = $response->parseXml();
+#pr($x);
