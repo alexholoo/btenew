@@ -60,11 +60,26 @@ class Response
             if (empty($item->UNITPRICE))
                 $item->UNITPRICE = 99999;
 
+            /**
+             * $item = [
+             *     'sku'   => '...',
+             *     'price' => '...',
+             *     'avail' => [
+             *         [ 'branch' => 'BRANCH-1', 'qty' => 1 ],
+             *         [ 'branch' => 'BRANCH-1', 'qty' => 2 ],
+             *         [ 'branch' => 'BRANCH-1', 'qty' => 3 ],
+             *     ]
+             * ];
+             */
             $this->items[] = array(
-                'partnum'     => strval($item->PARTNUM),
-                'price'       => strval($item->UNITPRICE),
-                'qty'         => strval($item->BRANCHQTY->QTY),
-                'branch'      => strval($item->BRANCHQTY->BRANCH),
+                'sku'   => strval($item->PARTNUM),
+                'price' => strval($item->UNITPRICE),
+                'avail' => [
+                    [
+                        'branch' => strval($item->BRANCHQTY->BRANCH),
+                        'qty'    => strval($item->BRANCHQTY->QTY),
+                    ]
+                ],
                 'instockDate' => strval($item->BRANCHQTY->INSTOCKDATE),
                 'totalQty'    => strval($item->TOTALQTY),
             );
@@ -86,6 +101,6 @@ class Response
      */
     public function getItems()
     {
-        return $this->items;
+        return $this->items[0];
     }
 }

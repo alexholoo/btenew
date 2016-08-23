@@ -15,7 +15,7 @@ $client = new \Supplier\XmlApi\DH\PriceAvailability\Client($config['dh']);
 
 $request = $client->createRequest();
 $request->addPartnum('DH-00WG660CA');
-$request->addPartnum('DH-00WG685CA');
+#$request->addPartnum('DH-00WG685CA');
 
 $response = $client->sendRequest($request);
 $items = $response->getItems();
