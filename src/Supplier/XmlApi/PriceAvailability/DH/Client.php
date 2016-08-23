@@ -1,6 +1,6 @@
 <?php
 
-namespace Supplier\XmlApi\DH\PriceAvailability;
+namespace Supplier\XmlApi\PriceAvailability\DH;
 
 use Supplier\XmlApi\Client as XmlApiClient;
 
@@ -15,7 +15,7 @@ class Client extends XmlApiClient
     public function createRequest($partnum = null)
     {
         /**
-         * @var Supplier\XmlApi\DH\PriceAvailability\Request
+         * @var Supplier\XmlApi\PriceAvailability\DH\Request
          */
         $request = new Request($this->config);
 
@@ -27,7 +27,7 @@ class Client extends XmlApiClient
     }
 
     /**
-     * @param Supplier\XmlApi\DH\PriceAvailability\Request $request
+     * @param Supplier\XmlApi\PriceAvailability\DH\Request $request
      */
     public function sendRequest($request)
     {
@@ -39,7 +39,7 @@ class Client extends XmlApiClient
         $response = $this->curlPost($url, $xml);
 
         /**
-         * @var Supplier\XmlApi\DH\PriceAvailability\Response
+         * @var Supplier\XmlApi\PriceAvailability\DH\Response
          */
         return new Response($response);
     }

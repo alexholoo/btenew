@@ -1,6 +1,6 @@
 <?php
 
-namespace Supplier\XmlApi\Synnex\PurchaseOrder;
+namespace Supplier\XmlApi\PurchaseOrder\Synnex;
 
 class Response
 {

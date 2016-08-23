@@ -1,6 +1,6 @@
 <?php
 
-namespace Supplier\XmlApi\Synnex\PurchaseOrder;
+namespace Supplier\XmlApi\PurchaseOrder\Synnex;
 
 use Supplier\XmlApi\Client as XmlApiClient;
 
@@ -15,7 +15,7 @@ class Client extends XmlApiClient
     public function createRequest($order = null)
     {
         /**
-         * @var Supplier\XmlApi\Synnex\PurchaseOrder\Request
+         * @var Supplier\XmlApi\PurchaseOrder\Synnex\Request
          */
         $request = new Request($this->config);
 
@@ -27,7 +27,7 @@ class Client extends XmlApiClient
     }
 
     /**
-     * @param Supplier\XmlApi\Synnex\PurchaseOrder\Request $request
+     * @param Supplier\XmlApi\PurchaseOrder\Synnex\Request $request
      */
     public function sendRequest($request)
     {
@@ -39,7 +39,7 @@ class Client extends XmlApiClient
         $response = $this->curlPost($url, $xml);
 
         /**
-         * @var Supplier\XmlApi\Synnex\PurchaseOrder\Response
+         * @var Supplier\XmlApi\PurchaseOrder\Synnex\Response
          */
         return new Response($response);
     }

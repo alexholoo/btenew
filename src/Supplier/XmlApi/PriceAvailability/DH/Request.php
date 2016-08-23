@@ -1,6 +1,6 @@
 <?php
 
-namespace Supplier\XmlApi\DH\PriceAvailability;
+namespace Supplier\XmlApi\PriceAvailability\DH;
 
 class Request
 {

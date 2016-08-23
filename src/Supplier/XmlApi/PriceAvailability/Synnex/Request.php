@@ -1,6 +1,6 @@
 <?php
 
-namespace Supplier\XmlApi\Synnex\PriceAvailability;
+namespace Supplier\XmlApi\PriceAvailability\Synnex;
 
 class Request
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Supplier\XmlApi\Synnex\PriceAvailability;
+namespace Supplier\XmlApi\PriceAvailability\Synnex;
 
-use Supplier\XmlApi\Synnex\Warehouse;
+use Supplier\XmlApi\PurchaseOrder\Synnex\Warehouse;
 
 class Response
 {

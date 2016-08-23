@@ -1,6 +1,6 @@
 <?php
 
-namespace Supplier\XmlApi\Synnex;
+namespace Supplier\XmlApi\PurchaseOrder\Synnex;
 
 class Warehouse
 {
