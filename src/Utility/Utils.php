@@ -54,7 +54,7 @@ class Utils
         include("views/$__file.tpl");
         $content = ob_get_contents();
         ob_end_clean();
-        
+
         if (empty($__layout)) {
             $__layout = 'layout';
         }

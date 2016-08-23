@@ -5,7 +5,7 @@
     <PONumber>1130878166261A</PONumber>
     <Code>rejected</Code>
     <Reason>This PO# already exists in our system for your account,
-therefore we are rejecting this request to prevent a duplicate shipment. 
+therefore we are rejecting this request to prevent a duplicate shipment.
 Please call your SYNNEX sales rep if any questions.
     </Reason>
     <ResponseDateTime>2005-11-01T13:03:58</ResponseDateTime>
@@ -15,7 +15,7 @@ Please call your SYNNEX sales rep if any questions.
         <SKU>108725</SKU>
         <OrderQuantity>1</OrderQuantity>
         <Code>rejected</Code>
-        <Reason>This PO# already exists in our system for your account, 
+        <Reason>This PO# already exists in our system for your account,
 therefore we are rejecting this request to prevent a duplicate shipment.
 Please call your SYNNEX sales rep if any questions.
         </Reason>

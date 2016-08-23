@@ -53,7 +53,7 @@ class Request
     protected function makePartnumList()
     {
         $lines = array();
-	
+
         foreach ($this->partnums as $partnum) {
             $lines[] = "<PARTNUM>$partnum</PARTNUM>";
         }

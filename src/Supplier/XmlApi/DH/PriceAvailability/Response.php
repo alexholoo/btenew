@@ -39,7 +39,7 @@ class Response
      */
     public function __construct($xmldoc)
     {
-        $this->xmldoc = $xmldoc; 
+        $this->xmldoc = $xmldoc;
         $this->parseXml();
     }
 
@@ -48,17 +48,17 @@ class Response
      */
     public function parseXml()
     {
-        $xml = simplexml_load_string($this->xmldoc); 
+        $xml = simplexml_load_string($this->xmldoc);
 
         $this->items = array();
         $this->status = $xml->STATUS;
 
         foreach ($xml->ITEM as $item) {
             if (empty($item->BRANCHQTY->QTY))
-                $item->BRANCHQTY->QTY = 0; 
-                
+                $item->BRANCHQTY->QTY = 0;
+
             if (empty($item->UNITPRICE))
-                $item->UNITPRICE = 99999; 
+                $item->UNITPRICE = 99999;
 
             $this->items[] = array(
                 'partnum'     => strval($item->PARTNUM),

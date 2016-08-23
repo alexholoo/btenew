@@ -23,7 +23,7 @@ class Response
 
     public function __construct($xmldoc)
     {
-        $this->xmldoc = $xmldoc; 
+        $this->xmldoc = $xmldoc;
     }
 
     /**
@@ -31,7 +31,7 @@ class Response
      */
     public function parseXml()
     {
-        $xml = simplexml_load_string($this->xmldoc); 
+        $xml = simplexml_load_string($this->xmldoc);
 
         #$xml->customerNo
         #$xml->userName

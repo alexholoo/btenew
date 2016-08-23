@@ -64,7 +64,7 @@ class Request
             $lines[] =   "<lineNumber>".($i+1)."</lineNumber>";
             $lines[] = '</skuList>';
         }
-	
+
         return implode("\n", $lines);
     }
 }

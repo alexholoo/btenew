@@ -4,7 +4,7 @@ namespace Supplier\XmlApi\Synnex\PurchaseOrder;
 
 use Supplier\XmlApi\Client as XmlApiClient;
 
-class Client extends XmlApiClient 
+class Client extends XmlApiClient
 {
     const PROD_URL = 'https://ec.synnex.ca/SynnexXML/PO';
     const TEST_URL = 'https://testec.synnex.ca/SynnexXML/PO';
