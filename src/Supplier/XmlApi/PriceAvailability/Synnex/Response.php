@@ -50,7 +50,7 @@ class Response
              * ];
              */
             $item = [];
-            $item['sku'] = strval($x->synnexSKU);
+            $item['sku'] = 'SYN-' . strval($x->synnexSKU);
             $item['status'] = strval($x->status);
             $item['price'] = strval($x->price);
             $item['totalQty'] = strval($x->totalQuantity);

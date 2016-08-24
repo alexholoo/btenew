@@ -9,14 +9,14 @@ require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/Response.php'
 
 $config = include __DIR__ . '/app/config/xmlapi.php';
 
-function pr($d) { var_export($d); echo EOL; }
+function pr($d) { print_r($d); echo EOL; }
 
 $client = new \Supplier\XmlApi\PriceAvailability\Techdata\Client($config['techdata']);
 
 $request = $client->createRequest();
 $request->addPartnum('TD-00WG660CA');
 #$request->addPartnum('TD-00WG685CA');
-pr($request->toXml());
+#pr($request->toXml());
 
 #$response = $client->sendRequest($request);
 #$items = $response->getItems();
@@ -24,7 +24,7 @@ pr($request->toXml());
 
 
 // Response-1
-#$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/fixtures/td-pna-response-1.xml');
-#$response = new \Supplier\XmlApi\PriceAvailability\Techdata\Response($xml);
-#$x = $response->parseXml();
-#pr($x);
+$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/fixtures/td-pna-response-2.xml');
+$response = new \Supplier\XmlApi\PriceAvailability\Techdata\Response($xml);
+$x = $response->parseXml();
+pr($x);

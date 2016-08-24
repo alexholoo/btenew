@@ -45,6 +45,31 @@ class Response
          *     ]
          * ];
          */
+        foreach ($xml->Detail->LineInfo as $x) {
+            if ($x->ErrorInfo) {
+                //continue;
+            }
+
+            $item = [];
+            $item['sku']   = 'TD-' . strval($x->RefID1);
+            $item['price'] = strval($x->UnitPrice1); // $x->UnitPrice2;
+            $item['avail'] = [];
+
+            #$x->ProductWeight
+            #$x->ItemStatus
+
+            foreach ($x->WhseInfo as $branch) {
+                if ($branch->Qty > 0) {
+                    #$branch->WhseCode
+                    $item['avail'][] = [
+                        'branch' => strval($branch->IDCode),
+                        'qty'    => strval($branch->Qty),
+                    ];
+                }
+            }
+
+            $this->items[] = $item;
+        }
 
         return $this->items;
     }
