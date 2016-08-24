@@ -39,23 +39,28 @@ class PricelistTask extends \Phalcon\Cli\Task
 
     protected function downloadPricelist($supplier)
     {
+        $config = $this->config->ftp[$supplier];
+
+        if (!$config) {
+            echo "Incorrect supplier ID: $supplier\n";
+            return;
+        }
+
         $start = microtime(true);
 
         echo "Start download pricelist: $supplier\n";
 
-        $info = $this->config->ftp[$supplier];
-
-        $config = [
-            'hostname' => $info['Host'],
-            'username' => $info['User'],
-            'password' => $info['Pass'],
+        $account = [
+            'hostname' => $config['Host'],
+            'username' => $config['User'],
+            'password' => $config['Pass'],
         ];
 
-        $remoteFile = $info['File'];
-        $localFile  = $info['Save'];
+        $remoteFile = $config['File'];
+        $localFile  = $config['Save'];
 
-        $ftp = new FtpClient($config);
-        if ($ftp->connect()) {
+        $ftp = new FtpClient();
+        if ($ftp->connect($account)) {
             $ftp->download($remoteFile, $localFile);
             $ftp->close();
         }
@@ -67,17 +72,16 @@ class PricelistTask extends \Phalcon\Cli\Task
 
     protected function importPricelist($supplier)
     {
-        $start = microtime(true);
-
-        echo "Start import pricelist: $supplier\n";
-
         $method = "importPricelist_$supplier";
 
         if (method_exists($this, $method)) {
+            $start = microtime(true);
+            echo "Start import pricelist: $supplier\n";
             $this->$method();
+            echo "Import completed, ",  $this->elapsed($start), " seconds elapsed.\n";
+        } else {
+            echo "Incorrect supplier ID: $supplier\n";
         }
-
-        echo "Import completed, ",  $this->elapsed($start), " seconds elapsed.\n";
     }
 
     protected function importPricelist_DH()
