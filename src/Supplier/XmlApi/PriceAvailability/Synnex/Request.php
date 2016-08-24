@@ -27,6 +27,10 @@ class Request
      */
     public function addPartnum($partnum)
     {
+        if (substr($partnum, 0, 4) == 'SYN-') {
+            $partnum = substr($partnum, 4);
+        }
+
         $this->partnums[] = $partnum;
     }
 
