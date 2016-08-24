@@ -119,8 +119,7 @@ class PricelistTask extends \Phalcon\Cli\Task
             $item['rebate_end_date'] = ($item['rebate_end_date'] == '?') ? NULL : date('Y-m-d', strtotime($item['rebate_end_date']));
 
             try {
-                $sql = $this->genInsertSql('pricelist_dh', $item,
-                    'ON DUPLICATE KEY UPDATE is_new=0, updatedon=NOW()');
+                $sql = $this->genInsertSql('pricelist_dh', $item);
 
                 $success = $this->db->execute($sql);
                 if (!$success) {
@@ -159,12 +158,14 @@ class PricelistTask extends \Phalcon\Cli\Task
         return number_format(microtime(true) - $start, 4);
     }
 
-    protected function genInsertSql($table, $item, $extra = '')
+    protected function genInsertSql($table, $item)
     {
         $columns = '`' . implode('`, `', array_keys($item)) . '`';
         $values = "('" . implode("', '", array_map('addslashes', array_values($item))) . "')";
+        $update = implode(', ', array_map(function($name) { return "$name=VALUES($name)"; }, array_keys($item)));
 
-        $query = "INSERT INTO `$table` ($columns) VALUES $values $extra";
+        $query = "INSERT INTO `$table` ($columns) VALUES $values "
+               . "ON DUPLICATE KEY UPDATE $update, is_new=0, updatedon=NOW()";
 
         return $query;
     }
