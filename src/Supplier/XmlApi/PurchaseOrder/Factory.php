@@ -20,12 +20,29 @@ class Factory
 
         switch($supplier) {
         case 'DH':
-            $client = DH\Client($this->config)
+            $client = \Supplier\XmlApi\PurchaseOrder\DH\Client($this->config)
             break;
+
         case 'SYN':
         case 'SYNNEX':
-            $client = Synnex\Client($this->config)
+            $client = \Supplier\XmlApi\PurchaseOrder\Synnex\Client($this->config)
             break;
+
+        case 'ING':
+        case 'INGRAM':
+            $client = \Supplier\XmlApi\PurchaseOrder\Ingram\Client($this->config)
+            break;
+
+        case 'TD':
+        case 'Techdata':
+            $client = \Supplier\XmlApi\PurchaseOrder\Techdata\Client($this->config)
+            break;
+
+        case 'AS':
+        case 'ASI':
+            $client = \Supplier\XmlApi\PurchaseOrder\ASI\Client($this->config)
+            break;
+
         default:
             throw \Exception('Unknown supplier ID: ' . $supplier);
             break;
@@ -34,3 +51,4 @@ class Factory
         return $client;
     }
 }
+
