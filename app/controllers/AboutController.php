@@ -1,8 +1,8 @@
 <?php
 namespace App\Controllers;
 
-use Supplier\XmlApi\Synnex\PurchaseOrder\Client as SynnexPOClient;
-use Supplier\XmlApi\Synnex\PriceAvailability\Client as SynnexPAClient;
+use Supplier\XmlApi\PurchaseOrder\Synnex\Client as SynnexPOClient;
+use Supplier\XmlApi\PriceAvailability\Synnex\Client as SynnexPAClient;
 
 /**
  * Display the "About" page.
