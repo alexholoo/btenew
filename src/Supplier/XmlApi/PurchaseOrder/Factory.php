@@ -20,27 +20,27 @@ class Factory
 
         switch($supplier) {
         case 'DH':
-            $client = \Supplier\XmlApi\PurchaseOrder\DH\Client($this->config)
+            $client = new \Supplier\XmlApi\PurchaseOrder\DH\Client($this->config); // [$supplier]?
             break;
 
         case 'SYN':
         case 'SYNNEX':
-            $client = \Supplier\XmlApi\PurchaseOrder\Synnex\Client($this->config)
+            $client = new \Supplier\XmlApi\PurchaseOrder\Synnex\Client($this->config); // [$supplier]?
             break;
 
         case 'ING':
         case 'INGRAM':
-            $client = \Supplier\XmlApi\PurchaseOrder\Ingram\Client($this->config)
+            $client = new \Supplier\XmlApi\PurchaseOrder\Ingram\Client($this->config); // [$supplier]?
             break;
 
         case 'TD':
         case 'Techdata':
-            $client = \Supplier\XmlApi\PurchaseOrder\Techdata\Client($this->config)
+            $client = new \Supplier\XmlApi\PurchaseOrder\Techdata\Client($this->config); // [$supplier]?
             break;
 
         case 'AS':
         case 'ASI':
-            $client = \Supplier\XmlApi\PurchaseOrder\ASI\Client($this->config)
+            $client = new \Supplier\XmlApi\PurchaseOrder\ASI\Client($this->config); // [$supplier]?
             break;
 
         default:
