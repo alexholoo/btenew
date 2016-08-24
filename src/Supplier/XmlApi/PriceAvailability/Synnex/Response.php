@@ -24,6 +24,7 @@ class Response
     public function __construct($xmldoc)
     {
         $this->xmldoc = $xmldoc;
+        $this->parseXml();
     }
 
     /**
@@ -37,6 +38,17 @@ class Response
         #$xml->userName
 
         foreach ($xml->PriceAvailabilityList as $x) {
+            /**
+             * $item = [
+             *     'sku'   => '...',
+             *     'price' => '...',
+             *     'avail' => [
+             *         [ 'branch' => 'BRANCH-1', 'qty' => 1 ],
+             *         [ 'branch' => 'BRANCH-1', 'qty' => 2 ],
+             *         [ 'branch' => 'BRANCH-1', 'qty' => 3 ],
+             *     ]
+             * ];
+             */
             $item = [];
             $item['sku'] = strval($x->synnexSKU);
             $item['status'] = strval($x->status);
@@ -48,13 +60,14 @@ class Response
             #$x->description;
             #$x->GlobalProductStatusCode;
 
-            $item['warehouses'] = [];
-
             $warehouses = $x->AvailabilityByWarehouse;
             foreach($warehouses as $warehouse) {
                 $info = $warehouse->warehouseInfo;
                 if ($warehouse->qty > 0) {
-                    $item['warehouses'][Warehouse::getName($info->number)] = strval($warehouse->qty);
+                    $item['avail'][] = [
+                        'branch' => strval($info->city), // Warehouse::getName($info->number),
+                        'qty'    => strval($warehouse->qty),
+                    ];
                 }
 
                 #$info->zipcode;
@@ -66,5 +79,21 @@ class Response
         }
 
         return $this->items;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items[0];
     }
 }

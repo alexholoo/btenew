@@ -9,7 +9,7 @@ require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/DH/Response.php';
 
 $config = include __DIR__ . '/app/config/xmlapi.php';
 
-function pr($d) { var_export($d); echo EOL; }
+function pr($d) { print_r($d); echo EOL; }
 
 $client = new \Supplier\XmlApi\PriceAvailability\DH\Client($config['dh']);
 
