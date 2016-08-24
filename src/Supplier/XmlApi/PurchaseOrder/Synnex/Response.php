@@ -57,7 +57,7 @@ class Response
         foreach ($xml->OrderResponse->Items as $item) {
             $order = [];
 
-            $order['sku'] = strval($item->Item->SKU);
+            $order['sku'] = 'SYN-' . strval($item->Item->SKU);
             $order['qty'] = strval($item->Item->OrderQuantity);
             $order['code'] = strval($item->Item->Code);
 

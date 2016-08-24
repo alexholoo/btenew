@@ -14,8 +14,8 @@ function pr($d) { print_r($d); echo EOL; }
 $client = new \Supplier\XmlApi\PriceAvailability\Ingram\Client($config['techdata']);
 
 $request = $client->createRequest();
-$request->addPartnum('TD-00WG660CA');
-#$request->addPartnum('TD-00WG685CA');
+$request->addPartnum('ING-00WG660CA');
+#$request->addPartnum('ING-00WG685CA');
 #pr($request->toXml());
 
 #$response = $client->sendRequest($request);
