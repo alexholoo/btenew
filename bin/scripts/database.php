@@ -18,9 +18,9 @@ $db = new \Phalcon\Db\Adapter\Pdo\Mysql(
 
 function genInsertSql($table, $columns, $data)
 {
-    $columns = '`' . implode('`, `', $columns) . '`';
+    $columnList = '`' . implode('`, `', $columns) . '`';
 
-    $query = "INSERT INTO `$table` ($columns) VALUES\n";
+    $query = "INSERT INTO `$table` ($columnList) VALUES\n";
 
     $values = array();
 
@@ -31,7 +31,11 @@ function genInsertSql($table, $columns, $data)
         $values[] = "('" . implode("', '", $row). "')";
     }
 
-    return $query . implode(",\n", $values) . ';';
+    $update = implode(', ',
+        array_map(function($name) {
+            return "`$name`=VALUES(`$name`)";
+        }, $columns)
+    );
+
+    return $query . implode(",\n", $values) . "\nON DUPLICATE KEY UPDATE " . $update . ';';
 }
-
-
