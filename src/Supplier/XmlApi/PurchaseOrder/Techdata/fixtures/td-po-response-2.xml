@@ -1,0 +1,10 @@
+<XML_Order_Response>
+    <Header>
+        <TransSetIDCode>855</TransSetIDCode>
+        <TransControlID>1234567890</TransControlID>
+        <ResponseVersion>1.3</ResponseVersion>
+        <PurposeCode>00</PurposeCode>
+        <PONbr>XML SCENARIO-69</PONbr>
+        <RefID>6293734</RefID>
+    </Header>
+</XML_Order_Response> 
