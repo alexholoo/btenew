@@ -33,13 +33,13 @@ $order = [
     'branch' => 'Toronto',
 ];
 
-$request->addOrder($order);
+#$request->addOrder($order);
 
-pr($request->toXml());
+#pr($request->toXml());
 
 
-#$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/DH/fixtures/dh-po-response-1.xml');
-#$response = new \Supplier\XmlApi\PurchaseOrder\DH\Response($xml);
+$xml = file_get_contents(__DIR__ . './src/Supplier/XmlApi/PurchaseOrder/DH/fixtures/dh-order-entry-response-2');
+$response = new \Supplier\XmlApi\PurchaseOrder\DH\Response($xml);
 //pr($response);
 #$x = $response->parseXml();
-#pr($x);
+pr($response);

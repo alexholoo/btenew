@@ -25,6 +25,7 @@ class Response
     public function __construct($xmldoc)
     {
         $this->xmldoc = $xmldoc;
+        $this->parseXml();
     }
 
     /**
@@ -33,6 +34,11 @@ class Response
     public function parseXml()
     {
         $xml = simplexml_load_string($this->xmldoc);
+
+        $this->status = strval($xml->STATUS);
+        $this->orders = strval($xml->ORDERNUM);
+        $this->errMessage = strval($xml->MESSAGE);
+
         return $this->orders;
     }
 
@@ -51,4 +57,3 @@ class Response
         return $this->errorMessage;
     }
 }
-
