@@ -1,43 +1,43 @@
 <OrderResponse> 
-   <Version >2.0</Version> 
-   <TransactionHeader > 
+   <Version>2.0</Version> 
+   <TransactionHeader> 
       <SenderID>123456789</SenderID> 
       <ReceiverID>987654321</ReceiverID> 
-      <ErrorStatus ErrorNumber=””></ErrorStatus> 
-      <DocumentID>{9D25E715-F65E-432F-A773-9E22FEA8FBDF} </DocumentID> 
-      <TransactionID >12345</TransactionID > 
-      <TimeStamp >2003-07-07T00:00:00</TimeStamp> 
-  </TransactionHeader> 
-  <OrderInfo> 
+      <ErrorStatus ErrorNumber=??></ErrorStatus> 
+      <DocumentID>{9D25E715-F65E-432F-A773-9E22FEA8FBDF}</DocumentID> 
+      <TransactionID>12345</TransactionID> 
+      <TimeStamp>2003-07-07T00:00:00</TimeStamp> 
+   </TransactionHeader> 
+   <OrderInfo> 
      <OrderNumbers> 
        <BranchOrderNumber>2048043<BranchOrderNumber> 
-     <CustomerPO>2323232</CustomerPO> 
-     <ShipToAttention>ShipToAttention_1</ShipToAttention> 
-       <ThirdPartyFreightAccount ></ThirdPartyFreight > 
-       <ShipToAddress1>Red House Company</AddressLine1 > 
-       <ShipToAddress2>55 Elm Street </AddressLine2 > 
-       <ShipToAddress3> </AddressLine3 > 
+       <CustomerPO>2323232</CustomerPO> 
+       <ShipToAttention>ShipToAttention_1</ShipToAttention> 
+       <ThirdPartyFreightAccount></ThirdPartyFreight> 
+       <ShipToAddress1>Red House Company</AddressLine1> 
+       <ShipToAddress2>55 Elm Street </AddressLine2> 
+       <ShipToAddress3></AddressLine3> 
        <ShipToCity>Toronto</ShipToCity> 
        <ShipToProvince>ON</ShipToProvince> 
        <ShipToPostalCode>MK8 8DF</ShipToPostalCode> 
-     <ShipToSuffix></ShipToSuffix> 
-       <AddressErrorMessage AddressErrorType=””/> 
+       <ShipToSuffix></ShipToSuffix> 
+       <AddressErrorMessage AddressErrorType=??/> 
        <ContractNumber><ContractNumber> 
        <OrderSuffix Suffix="11"> 
          <DistributionWeight>45</DistributionWeight> 
-         <SuffixErrorResponse SuffixErrorType=”” /> 
+         <SuffixErrorResponse SuffixErrorType=?? /> 
          <Carrier CarrierCode="CT">CITY LINK NEXTDAY</Carrier> 
          <LineInformation> 
            <ProductLine> 
               <LineError/> 
               <SKU>123321</SKU> 
-             <ManufacturerPartNumber>50730</ManufacturerPartNumber> 
-          <UPC>0757120507307</UPC> 
-          <CustomerPartNumber>G0123456</CustomerPartNumber> 
-          <RequestedPrice>34.99</RequestedPrice> 
+              <ManufacturerPartNumber>50730</ManufacturerPartNumber> 
+              <UPC>0757120507307</UPC> 
+              <CustomerPartNumber>G0123456</CustomerPartNumber> 
+              <RequestedPrice>34.99</RequestedPrice> 
               <UnitPrice>34.99</UnitPrice> 
               <IngramLineNumber>020</IngramLineNumber> 
-          <CustomerLineNumber>Cus</CustomerLineNumber> 
+              <CustomerLineNumber>Cus</CustomerLineNumber> 
               <ShipFromBranch>20</ShipFromBranch> 
               <OrderQuantity>10</OrderQuantity> 
               <AllocatedQuantity>9</AllocatedQuantity> 
@@ -46,7 +46,7 @@
               <PriceDerivedFlag/> 
               <ForeignCurrency>0</ForeignCurrency> 
               <FreightRate>12.50</FreightRate> 
-              <TransitDays >1</TransitDays > 
+              <TransitDays>1</TransitDays> 
               <LineBillToSuffix>200</LineBillToSuffix> 
            </ProductLine> 
            <CommentLine> 
