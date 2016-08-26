@@ -2,6 +2,15 @@
 
 namespace Supplier\XmlApi\PriceAvailability;
 
+use Supplier\Prefix;
+use Supplier\ConfigKey;
+
+use Supplier\XmlApi\PriceAvailability\DH\Client as DHClient;
+use Supplier\XmlApi\PriceAvailability\Synnex\Client as SynnexClient;
+use Supplier\XmlApi\PriceAvailability\Ingram\Client as IngramClient;
+use Supplier\XmlApi\PriceAvailability\Techdata\Client as TechdataClient;
+use Supplier\XmlApi\PriceAvailability\ASI\Client as ASIClient;
+
 class Factory
 {
     protected $config;

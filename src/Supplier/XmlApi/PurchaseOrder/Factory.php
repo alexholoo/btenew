@@ -2,6 +2,15 @@
 
 namespace Supplier\XmlApi\PurchaseOrder;
 
+use Supplier\Prefix;
+use Supplier\ConfigKey;
+
+use Supplier\XmlApi\PurchaseOrder\DH\Client as DHClient;
+use Supplier\XmlApi\PurchaseOrder\Synnex\Client as SynnexClient;
+use Supplier\XmlApi\PurchaseOrder\Ingram\Client as IngramClient;
+use Supplier\XmlApi\PurchaseOrder\Techdata\Client as TechdataClient;
+use Supplier\XmlApi\PurchaseOrder\ASI\Client as ASIClient;
+
 class Factory
 {
     protected $config;
