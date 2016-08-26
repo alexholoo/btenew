@@ -13,11 +13,11 @@ namespace Supplier;
  */
 class Prefix
 {
-    const DH       = 'DH';
-    const ASI      = 'AS';
-    const INGRAM   = 'ING';
-    const SYNEX    = 'SYN';
-    const TECHDATA = 'TD';
+    const DH       = 'DH-';
+    const ASI      = 'AS-';
+    const INGRAM   = 'ING-';
+    const SYNNEX   = 'SYN-';
+    const TECHDATA = 'TD-';
 
     public static function all()
     {
@@ -25,7 +25,7 @@ class Prefix
             self::DH,
             self::ASI,
             self::INGRAM,
-            self::SYNEX,
+            self::SYNNEX,
             self::TECHDATA
         ];
     }

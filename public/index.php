@@ -12,6 +12,11 @@ try {
 
     include 'trace.php';
 
+    /**
+     * include autoload earlier, so we can use class-constants in config.php
+     */
+    require_once __DIR__ . '/../vendor/autoload.php';
+
 	/**
 	 * Read the configuration
 	 */
