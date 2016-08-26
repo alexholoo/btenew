@@ -6,8 +6,8 @@ use Supplier\XmlApi\Client as XmlApiClient;
 
 class Client extends XmlApiClient
 {
-    const PROD_URL = '';
-    const TEST_URL = '';
+    const PROD_URL = 'https://newport.ingrammicro.com/mustang';
+    const TEST_URL = 'https://newport.ingrammicro.com/mustang';
 
     /**
      * @param array|null $order
@@ -31,8 +31,7 @@ class Client extends XmlApiClient
      */
     public function sendRequest($request)
     {
-        $url = self::PROD_URL;
-        $url = self::TEST_URL;
+        $url = $this->getEndpoint();
 
         $xml = $request->toXml();
 
@@ -43,5 +42,10 @@ class Client extends XmlApiClient
          */
         return new Response($response);
     }
-}
 
+    public function getEndpoint()
+    {
+        return self::TEST_URL;
+        return self::PROD_URL;
+    }
+}

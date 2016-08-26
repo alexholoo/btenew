@@ -31,8 +31,7 @@ class Client extends XmlApiClient
      */
     public function sendRequest($request)
     {
-        $url = self::PROD_URL;
-        $url = self::TEST_URL;
+        $url = $this->getEndpoint();
 
         $xml = $request->toXml();
 
@@ -42,5 +41,11 @@ class Client extends XmlApiClient
          * @var Supplier\XmlApi\PriceAvailability\DH\Response
          */
         return new Response($response);
+    }
+
+    public function getEndpoint()
+    {
+        return self::TEST_URL;
+        return self::PROD_URL;
     }
 }

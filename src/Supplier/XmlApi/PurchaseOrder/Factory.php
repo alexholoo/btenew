@@ -18,6 +18,8 @@ class Factory
         $parts = explode('-', $sku);
         $supplier = strtoupper($parts[0]);
 
+        // TODO: use Supplier\Prefix and Supplier\ConfigKey
+
         switch($supplier) {
         case 'DH':
             $client = new \Supplier\XmlApi\PurchaseOrder\DH\Client($this->config); // [$supplier]?
