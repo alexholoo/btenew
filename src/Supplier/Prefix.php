@@ -13,11 +13,11 @@ namespace Supplier;
  */
 class Prefix
 {
-    const DH       = 'DH-';
-    const ASI      = 'AS-';
-    const INGRAM   = 'ING-';
-    const SYNNEX   = 'SYN-';
-    const TECHDATA = 'TD-';
+    const DH       = 'DH';  // no '-' suffix
+    const ASI      = 'AS';  // no '-' suffix
+    const INGRAM   = 'ING'; // no '-' suffix
+    const SYNNEX   = 'SYN'; // no '-' suffix
+    const TECHDATA = 'TD';  // no '-' suffix
 
     public static function all()
     {

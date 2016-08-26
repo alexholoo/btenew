@@ -19,28 +19,29 @@ class Factory
         $supplier = strtoupper($parts[0]);
 
         switch($supplier) {
-        case 'DH':
-            $client = new \Supplier\XmlApi\PriceAvailability\DH\Client($this->config); // [$supplier]?
+        case \Supplier\Prefix::DH:
+            $config = $this->config['xmlapi'][\Supplier\ConfigKey::DH];
+            $client = new \Supplier\XmlApi\PriceAvailability\DH\Client($config);
             break;
 
-        case 'SYN':
-        case 'SYNNEX':
-            $client = new \Supplier\XmlApi\PriceAvailability\Synnex\Client($this->config); // [$supplier]?
+        case \Supplier\Prefix::SYNNEX:
+            $config = $this->config['xmlapi'][\Supplier\ConfigKey::SYNNEX];
+            $client = new \Supplier\XmlApi\PriceAvailability\Synnex\Client($config);
             break;
 
-        case 'ING':
-        case 'INGRAM':
-            $client = new \Supplier\XmlApi\PriceAvailability\Ingram\Client($this->config); // [$supplier]?
+        case \Supplier\Prefix::INGRAM:
+            $config = $this->config['xmlapi'][\Supplier\ConfigKey::INGRAM];
+            $client = new \Supplier\XmlApi\PriceAvailability\Ingram\Client($config);
             break;
 
-        case 'TD':
-        case 'Techdata':
-            $client = new \Supplier\XmlApi\PriceAvailability\Techdata\Client($this->config); // [$supplier]?
+        case \Supplier\Prefix::TECHDATA:
+            $config = $this->config['xmlapi'][\Supplier\ConfigKey::TECHDATA];
+            $client = new \Supplier\XmlApi\PriceAvailability\Techdata\Client($config);
             break;
 
-        case 'AS':
-        case 'ASI':
-            $client = new \Supplier\XmlApi\PriceAvailability\ASI\Client($this->config); // [$supplier]?
+        case \Supplier\Prefix::ASI:
+            $config = $this->config['xmlapi'][\Supplier\ConfigKey::ASI];
+            $client = new \Supplier\XmlApi\PriceAvailability\ASI\Client($config);
             break;
 
         default:

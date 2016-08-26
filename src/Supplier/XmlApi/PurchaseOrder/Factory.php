@@ -18,31 +18,26 @@ class Factory
         $parts = explode('-', $sku);
         $supplier = strtoupper($parts[0]);
 
-        // TODO: use Supplier\Prefix and Supplier\ConfigKey
-
         switch($supplier) {
-        case 'DH':
-            $client = new \Supplier\XmlApi\PurchaseOrder\DH\Client($this->config); // [$supplier]?
+        case \Supplier\Prefix::DH:
+            $config = $this->config['xmlapi'][\Supplier\ConfigKey::DH];
+            $client = new \Supplier\XmlApi\PurchaseOrder\DH\Client($config);
             break;
 
-        case 'SYN':
-        case 'SYNNEX':
-            $client = new \Supplier\XmlApi\PurchaseOrder\Synnex\Client($this->config); // [$supplier]?
+        case \Supplier\Prefix::SYNNEX:
+            $client = new \Supplier\XmlApi\PurchaseOrder\Synnex\Client($config);
             break;
 
-        case 'ING':
-        case 'INGRAM':
-            $client = new \Supplier\XmlApi\PurchaseOrder\Ingram\Client($this->config); // [$supplier]?
+        case \Supplier\Prefix::INGRAM:
+            $client = new \Supplier\XmlApi\PurchaseOrder\Ingram\Client($config);
             break;
 
-        case 'TD':
-        case 'Techdata':
-            $client = new \Supplier\XmlApi\PurchaseOrder\Techdata\Client($this->config); // [$supplier]?
+        case \Supplier\Prefix::TECHDATA:
+            $client = new \Supplier\XmlApi\PurchaseOrder\Techdata\Client($config);
             break;
 
-        case 'AS':
-        case 'ASI':
-            $client = new \Supplier\XmlApi\PurchaseOrder\ASI\Client($this->config); // [$supplier]?
+        case \Supplier\Prefix::ASI:
+            $client = new \Supplier\XmlApi\PurchaseOrder\ASI\Client($config);
             break;
 
         default:
