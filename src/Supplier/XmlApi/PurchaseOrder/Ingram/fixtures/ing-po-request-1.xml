@@ -1,65 +1,65 @@
-<OrderRequest> 
-  <Version>2.0</Version> 
-  <TransactionHeader> 
-     <SenderID>123456789</SenderID> 
-     <ReceiverID>987654321</ReceiverID> 
-     <CountryCode>FT</CountryCode> 
-     <LoginID>CA3833HHD</LoginID> 
-     <Password>Re887Jky52</Password> 
-     <TransactionID>54321</TransactionID> 
-     </TransactionHeader> 
-     <OrderHeaderInformation> 
-     <BillToSuffix /> 
-     <AddressingInformation> 
-       <CustomerPO>CustomerPO_1</CustomerPO> 
-       <ShipToAttention>Mrs Jones</ShipToAttention> 
-       <EndUserPO>EndUserPO_1</EndUserPO> 
-       <ShipTo> 
-         <Address> 
-           <ShipToAddress1>Red House Company</ShipToAddress1> 
-           <ShipToAddress2>55 Elm Street</ShipToAddress2> 
-           <ShipToAddress3></ShipToAddress3> 
-           <ShipToCity>Toronto </ShipToCity> 
-           <ShipToProvince>ON</ShipToProvince> 
-           <ShipToPostalCode>SW1 3IM</ShipToPostalCode> 
-         </Address> 
-       </ShipTo> 
-     </AddressingInformation> 
-     <ProcessingOptions> 
-       <CarrierCode>PI</CarrierCode> 
-       <AutoRelease>0</AutoRelease> 
-       <ThirdPartyFreightAccount></ThirdPartyFreightAccount> 
-       <KillOrderAfterLineError>N</KillOrderAfterLineError> 
-       <ShipmentOptions> 
-         <BackOrderFlag>Y </BackOrderFlag> 
-         <SplitShipmentFlag>N</SplitShipmentFlag> 
-         <SplitLine>N</SplitLine> 
-         <ShipFromBranches>20</ShipFromBranches> 
-         <DeliveryDate>20090701</DeliveryDate> 
-       </ShipmentOptions> 
-     </ProcessingOptions> 
-     <DynamicMessage> 
-       <MessageLines>Please deliver to Mrs Jones</MessageLines> 
-     </DynamicMessage> 
-  </OrderHeaderInformation> 
-  <OrderLineInformation> 
-     <ProductLine> 
-       <SKU>123321</SKU> 
-       <Quantity>1</Quantity> 
-       <CustomerLineNumber /> 
-       <ReservedInventory> 
-          <ReserveCode>C</ReserveCode> 
-          <ReserveSequence>01</ReserveSequence> 
-       </ReservedInventory> 
-       <CustomerPartNumber></CustomerPartNumber> 
-       <UPC></UPC> 
-       <ManufacturerPartNumber></ManufacturerPartNumber> 
-       <ShipFromBranchAtLine>10</ShipFromBranchAtLine> 
-       <RequestedPrice>25.00</RequestedPrice> 
-     </ProductLine> 
-     <CommentLine> 
-        <CommentText>Handle with care</CommentText> 
-     </CommentLine> 
-   </OrderLineInformation> 
-   <ShowDetail>2</ShowDetail> 
-</OrderRequest> 
+<OrderRequest>
+  <Version>2.0</Version>
+  <TransactionHeader>
+     <SenderID>123456789</SenderID>
+     <ReceiverID>987654321</ReceiverID>
+     <CountryCode>FT</CountryCode>
+     <LoginID>CA3833HHD</LoginID>
+     <Password>Re887Jky52</Password>
+     <TransactionID>54321</TransactionID>
+  </TransactionHeader>
+  <OrderHeaderInformation>
+     <BillToSuffix />
+     <AddressingInformation>
+       <CustomerPO>CustomerPO_1</CustomerPO>
+       <ShipToAttention>Mrs Jones</ShipToAttention>
+       <EndUserPO>EndUserPO_1</EndUserPO>
+       <ShipTo>
+         <Address>
+           <ShipToAddress1>Red House Company</ShipToAddress1>
+           <ShipToAddress2>55 Elm Street</ShipToAddress2>
+           <ShipToAddress3></ShipToAddress3>
+           <ShipToCity>Toronto </ShipToCity>
+           <ShipToProvince>ON</ShipToProvince>
+           <ShipToPostalCode>SW1 3IM</ShipToPostalCode>
+         </Address>
+       </ShipTo>
+     </AddressingInformation>
+     <ProcessingOptions>
+       <CarrierCode>PI</CarrierCode>
+       <AutoRelease>0</AutoRelease>
+       <ThirdPartyFreightAccount></ThirdPartyFreightAccount>
+       <KillOrderAfterLineError>N</KillOrderAfterLineError>
+       <ShipmentOptions>
+         <BackOrderFlag>Y </BackOrderFlag>
+         <SplitShipmentFlag>N</SplitShipmentFlag>
+         <SplitLine>N</SplitLine>
+         <ShipFromBranches>20</ShipFromBranches>
+         <DeliveryDate>20090701</DeliveryDate>
+       </ShipmentOptions>
+     </ProcessingOptions>
+     <DynamicMessage>
+       <MessageLines>Please deliver to Mrs Jones</MessageLines>
+     </DynamicMessage>
+  </OrderHeaderInformation>
+  <OrderLineInformation>
+     <ProductLine>
+       <SKU>123321</SKU>
+       <Quantity>1</Quantity>
+       <CustomerLineNumber />
+       <ReservedInventory>
+          <ReserveCode>C</ReserveCode>
+          <ReserveSequence>01</ReserveSequence>
+       </ReservedInventory>
+       <CustomerPartNumber></CustomerPartNumber>
+       <UPC></UPC>
+       <ManufacturerPartNumber></ManufacturerPartNumber>
+       <ShipFromBranchAtLine>10</ShipFromBranchAtLine>
+       <RequestedPrice>25.00</RequestedPrice>
+     </ProductLine>
+     <CommentLine>
+        <CommentText>Handle with care</CommentText>
+     </CommentLine>
+  </OrderLineInformation>
+  <ShowDetail>2</ShowDetail>
+</OrderRequest>
