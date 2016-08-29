@@ -3,6 +3,7 @@
 const EOL = PHP_EOL;
 
 require __DIR__ . '/src/Supplier/XmlApi/Client.php';
+require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Client.php';
 require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/Client.php';
 require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/Request.php';
 require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/Response.php';

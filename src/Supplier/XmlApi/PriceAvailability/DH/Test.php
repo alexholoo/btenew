@@ -2,11 +2,6 @@
 
 const EOL = PHP_EOL;
 
-require __DIR__ . '/src/Supplier/XmlApi/Client.php';
-require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/DH/Client.php';
-require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/DH/Request.php';
-require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/DH/Response.php';
-
 require __DIR__ . '/public/init.php';
 
 $config = include __DIR__ . '/app/config/xmlapi.php';
