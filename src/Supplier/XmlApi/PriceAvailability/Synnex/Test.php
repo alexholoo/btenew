@@ -13,10 +13,11 @@ $client = new \Supplier\XmlApi\PriceAvailability\Synnex\Client($config['synnex']
 $request = $client->createRequest();
 $request->addPartnum('SYN-5471137');
 #$request->addPartnum('SYN-5497540');
+pr($request->toXml());
 $response = $client->sendRequest($request);
 pr($response);
 $items = $response->getItems();
-pr($items);
+#pr($items);
 
 //pr($request->toXml());
 
