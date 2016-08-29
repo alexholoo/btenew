@@ -23,16 +23,16 @@ return new Config([
         'publicUrl' => 'http://btelocal',
         'cryptSalt' => 'eEAfR|_&G&f,+vU]:jFr!!A&+71w1Ms9~8_4L!<@[N@DyaIP_2My|:+.u>/6m,$D'
     ],
-    'mail' => [
-        'fromName' => 'BTE',
-        'fromEmail' => 'info@btecanada.com',
-        'smtp' => [
-            'server' => 'smtp.gmail.com',
-            'port' => 587,
-            'security' => 'tls',
-            'username' => '',
-            'password' => ''
-        ]
+    'bte' => [
+        'name' => 'BTE Computer Inc',
+        'contact' => 'Roy Zhang',
+        'phone' => '',
+        'email' => 'roy@btecanada.com',
+        'address' => 'Unit 5, 270 Esna Park Dr',
+        'zipcode' => 'L3R 1H3',
+        'city' => 'Markham',
+        'province' => 'ON',
+        'country' => 'Canada',
     ],
     'amazon' => [
         'AWSAccessKeyId' => '',
@@ -41,7 +41,7 @@ return new Config([
     'logger' => [
         'path'     => APP_DIR . '/logs/',
         'format'   => '%date% [%type%] %message%',
-        'date'     => 'D j H:i:s',
+        'date'     => 'Y-m-d H:i:s',
         'logLevel' => Logger::DEBUG,
         'filename' => 'application.log',
     ],
