@@ -34,12 +34,16 @@ class Client extends XmlApiClient
 
         $xml = $request->toXml();
 
-        $response = $this->curlPost($url, $xml);
+        $res = $this->curlPost($url, $xml);
 
         /**
          * @var Supplier\XmlApi\PriceAvailability\Techdata\Response
          */
-        return new Response($response);
+        $response = new Response($res);
+
+        $this->saveLog($url, $request, $response);
+
+        return $response;
     }
 
     public function getEndpoint()

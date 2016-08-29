@@ -25,6 +25,11 @@ class Response
         $this->parseXml();
     }
 
+    public function getXmlDoc()
+    {
+        return $this->xmldoc;
+    }
+
     /**
      * @return array
      */
@@ -76,6 +81,8 @@ class Response
 
             $this->items[] = $item;
         }
+
+        $this->status = 'OK';
 
         return $this->items;
     }

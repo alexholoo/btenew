@@ -21,11 +21,12 @@ class Request
 
     public function addPartnum($partnum)
     {
-        if (substr($partnum, 0, 3) == 'TD-') {
-            $partnum = substr($partnum, 3);
-        }
-
         $this->partnums[] = $partnum;
+    }
+
+    public function getPartnum()
+    {
+        return $this->partnums[0];
     }
 
     public function toXml()
@@ -65,6 +66,10 @@ class Request
 
         $lines[] = "<Detail>";
         foreach ($this->partnums as $partnum) {
+            if (substr($partnum, 0, 3) == 'TD-') {
+                $partnum = substr($partnum, 3);
+            }
+
             $lines[] = "  <LineInfo>";
             $lines[] = "    <RefIDQual>VP</RefIDQual>";
             $lines[] = "    <RefID>$partnum</RefID>";
