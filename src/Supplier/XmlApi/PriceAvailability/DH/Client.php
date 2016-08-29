@@ -7,7 +7,6 @@ use Supplier\XmlApi\Client as XmlApiClient;
 class Client extends XmlApiClient
 {
     const PROD_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
-    const TEST_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
 
     /**
      * @param string|null $partnum
@@ -35,17 +34,20 @@ class Client extends XmlApiClient
 
         $xml = $request->toXml();
 
-        $response = $this->curlPost($url, $xml);
+        $res = $this->curlPost($url, $xml);
 
         /**
          * @var Supplier\XmlApi\PriceAvailability\DH\Response
          */
-        return new Response($response);
+        $response = new Response($res);
+
+        $this->saveLog($url, $request, $response);
+
+        return $response;
     }
 
     public function getEndpoint()
     {
-        return self::TEST_URL;
         return self::PROD_URL;
     }
 }
