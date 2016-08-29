@@ -11,8 +11,8 @@ function pr($d) { print_r($d); echo EOL; }
 $client = new \Supplier\XmlApi\PriceAvailability\Synnex\Client($config['synnex']);
 
 $request = $client->createRequest();
-$request->addPartnum('SYN-11223344');
-#$request->addPartnum('SYN-22334455');
+$request->addPartnum('SYN-5471137');
+#$request->addPartnum('SYN-5497540');
 $response = $client->sendRequest($request);
 pr($response);
 $items = $response->getItems();
