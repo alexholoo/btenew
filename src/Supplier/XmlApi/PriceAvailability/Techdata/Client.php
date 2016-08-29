@@ -7,7 +7,6 @@ use Supplier\XmlApi\Client as XmlApiClient;
 class Client extends XmlApiClient
 {
     const PROD_URL = 'https://tdxml.techdata.com/xmlservlet';
-    const TEST_URL = 'https://tdxml.techdata.com/xmlservlet';
 
     /**
      * @param string|null $partnum
@@ -45,7 +44,6 @@ class Client extends XmlApiClient
 
     public function getEndpoint()
     {
-        return self::TEST_URL;
         return self::PROD_URL;
     }
 }

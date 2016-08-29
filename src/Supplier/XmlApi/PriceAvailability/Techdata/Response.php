@@ -34,6 +34,12 @@ class Response
 
         $this->items = array();
 
+        if ($xml->Detail->LineInfo->ErrorInfo) {
+            $this->status = 'ERROR'; // ?
+            $this->errorMessage = strval($xml->Detail->LineInfo->ErrorInfo->ErrorDesc);
+            return $this->items;
+        }
+
         /**
          * $item = [
          *     'sku'   => '...',

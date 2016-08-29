@@ -16,17 +16,16 @@ function pr($d) { print_r($d); echo EOL; }
 $client = new \Supplier\XmlApi\PriceAvailability\Techdata\Client($config['techdata']);
 
 $request = $client->createRequest();
-$request->addPartnum('TD-00WG660CA');
-#$request->addPartnum('TD-00WG685CA');
+$request->addPartnum('TD-1892ZJ');
 #pr($request->toXml());
 
-#$response = $client->sendRequest($request);
-#$items = $response->getItems();
-#pr($items);
+$response = $client->sendRequest($request);
+$items = $response->getItems();
+pr($items);
 
 
 // Response-1
-$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/fixtures/td-pna-response-2.xml');
-$response = new \Supplier\XmlApi\PriceAvailability\Techdata\Response($xml);
-$x = $response->parseXml();
-pr($x);
+#$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/fixtures/td-pna-response-2.xml');
+#$response = new \Supplier\XmlApi\PriceAvailability\Techdata\Response($xml);
+#$x = $response->parseXml();
+#pr($x);
