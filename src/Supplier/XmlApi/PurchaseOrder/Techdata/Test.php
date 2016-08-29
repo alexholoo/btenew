@@ -35,13 +35,13 @@ $order = [
     'branch' => 'Toronto',
 ];
 
-#$request->addOrder($order);
+$request->addOrder($order);
 
-#pr($request->toXml());
+pr($request->toXml());
 
 
 $xml = file_get_contents(__DIR__ . './src/Supplier/XmlApi/PurchaseOrder/Techdata/fixtures/td-po-response-1.xml');
 $response = new \Supplier\XmlApi\PurchaseOrder\Techdata\Response($xml);
 //pr($response);
 #$x = $response->parseXml();
-pr($response);
+#pr($response);

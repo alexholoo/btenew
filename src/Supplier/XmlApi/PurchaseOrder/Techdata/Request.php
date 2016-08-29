@@ -36,7 +36,7 @@ class Request
         return implode("\n", $lines);
     }
 
-    public function login()
+    public function header()
     {
         $lines = array();
 
@@ -45,15 +45,15 @@ class Request
 
         $orderNo = $this->order['orderNo'];
         $address = $this->order['address'];
-        $city = $this->order['city'];
-        $state = $this->order['state'];
-        $postalCode = $this->order['zipcode'];
+        $city    = $this->order['city'];
+        $state   = $this->order['state'];
+        $zipcode = $this->order['zipcode'];
         $country = $this->order['country'];
         $contact = $this->order['contact'];
 
         $lines[] = "<Header>";
         $lines[] = "  <UserName>$userid</UserName>";
-        $lines[] = "  <Password>$password</Password>";
+        $lines[] = "  <Password>$passwd</Password>";
         $lines[] = "  <ResponseVersion>1.6</ResponseVersion>";
         $lines[] = "  <OrderTypeCode>BS</OrderTypeCode>"; // ??
         $lines[] = "  <PONbr>$orderNo</PONbr>";
@@ -64,7 +64,7 @@ class Request
         $lines[] = "  </AddrInfo>";
         $lines[] = "  <CityName>$city</CityName>";
         $lines[] = "  <StateProvinceCode>$state</StateProvinceCode>";
-        $lines[] = "  <PostalCode>$postalCode</PostalCode>";
+        $lines[] = "  <PostalCode>$zipcode</PostalCode>";
         $lines[] = "  <ContactName>$contact</ContactName>";
         $lines[] = "</Header>";
 
