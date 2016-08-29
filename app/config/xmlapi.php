@@ -19,7 +19,7 @@ return array(
     \Supplier\ConfigKey::INGRAM => array(
         'url'      => 'https://newport.ingrammicro.com',
         'loginId'  => 'TrEv8fEbes',
-        'password' => 'YA2eQaThud',
+        'password' => 'FVnbx25601',
     ),
 
     \Supplier\ConfigKey::TECHDATA => array(

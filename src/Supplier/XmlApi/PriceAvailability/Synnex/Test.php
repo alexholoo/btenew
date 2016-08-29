@@ -22,21 +22,25 @@ $client = new \Supplier\XmlApi\PriceAvailability\Synnex\Client($config['synnex']
 $request = $client->createRequest();
 $request->addPartnum('SYN-11223344');
 #$request->addPartnum('SYN-22334455');
+$response = $client->sendRequest($request);
+pr($response);
+$items = $response->getItems();
+pr($items);
 
 //pr($request->toXml());
 
 
 // Response-1
-$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Synnex/fixtures/price-response-1.xml');
-$response = new \Supplier\XmlApi\PriceAvailability\Synnex\Response($xml);
-#$x = $response->parseXml();
-$x = $response->getItems();
-#pr($x);
-
+#$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Synnex/fixtures/price-response-1.xml');
+#$response = new \Supplier\XmlApi\PriceAvailability\Synnex\Response($xml);
+##$x = $response->parseXml();
+#$x = $response->getItems();
+##pr($x);
+#
 
 // Response-2
-$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Synnex/fixtures/price-response-2.xml');
-$response = new \Supplier\XmlApi\PriceAvailability\Synnex\Response($xml);
-$x = $response->getItems();
-pr($x);
+#$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Synnex/fixtures/price-response-2.xml');
+#$response = new \Supplier\XmlApi\PriceAvailability\Synnex\Response($xml);
+#$x = $response->getItems();
+#pr($x);
 

@@ -31,9 +31,6 @@ class Request
 
     public function toXml()
     {
-        $username = $this->config['username'];
-        $password = $this->config['password'];
-
         $lines = array();
 
         $lines[] = "<PNARequest>";
@@ -48,7 +45,7 @@ class Request
 
     protected function header()
     {
-        $username = $this->config['username'];
+        $loginId = $this->config['loginId'];
         $password = $this->config['password'];
 
         $lines = array();
@@ -57,7 +54,7 @@ class Request
         $lines[] = "  <SenderID>ME</SenderID>";          // ??
         $lines[] = "  <ReceiverID>YOU</ReceiverID>";     // ??
         $lines[] = "  <CountryCode>CA</CountryCode>";    // ??
-        $lines[] = "  <LoginID>$username</LoginID>";
+        $lines[] = "  <LoginID>$loginId</LoginID>";
         $lines[] = "  <Password>$password</Password>";
         $lines[] = "  <TransactionID>1</TransactionID>"; // ??
         $lines[] = "</TransactionHeader>";

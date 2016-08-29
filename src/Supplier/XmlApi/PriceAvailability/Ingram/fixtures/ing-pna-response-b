@@ -1,0 +1,33 @@
+<PNAResponse>
+<Version>2.0</Version>
+<TransactionHeader>
+  <SenderID>YOU</SenderID>
+  <ReceiverID>ME</ReceiverID>
+  <ErrorStatus ErrorNumber=""></ErrorStatus>
+  <DocumentID>{2C9A5AE7-61A8-43DF-A8C2-590D47FE49C2}</DocumentID>
+  <TransactionID>1</TransactionID>
+  <TimeStamp>2016-08-29T12:43:11</TimeStamp>
+</TransactionHeader>
+<PriceAndAvailability SKU="36438W" Quantity="">
+  <Price></Price>
+  <SpecialPriceFlag></SpecialPriceFlag>
+  <ManufacturerPartNumber></ManufacturerPartNumber>
+  <ManufacturerPartNumberOccurs></ManufacturerPartNumberOccurs>
+  <VendorNumber></VendorNumber>
+  <Description></Description>
+  <ReserveInventoryFlag>N</ReserveInventoryFlag>
+  <AvailableRebQty>NaN</AvailableRebQty>
+  <Branch Name="Vancouver" ID="10">
+    <Availability>0</Availability>
+    <OnOrder>0</OnOrder>
+    <ETADate></ETADate>
+  </Branch>
+  <Branch Name="Toronto" ID="40">
+    <Availability>66</Availability>
+    <OnOrder>0</OnOrder>
+    <ETADate></ETADate>
+  </Branch>
+  <UPC>0888228604749</UPC>
+  <CustomerPartNumber>36438W</CustomerPartNumber>
+</PriceAndAvailability>
+</PNAResponse>
