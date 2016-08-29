@@ -56,7 +56,7 @@ class Response
         $xml = simplexml_load_string($this->xmldoc);
 
         $this->items = array();
-        $this->status = $xml->STATUS;
+        $this->status = strval($xml->STATUS);
 
         foreach ($xml->ITEM as $item) {
             if (empty($item->BRANCHQTY->QTY))
