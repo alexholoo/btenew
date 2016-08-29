@@ -27,6 +27,11 @@ class Response
         $this->parseXml();
     }
 
+    public function getXmlDoc()
+    {
+        return $this->xmldoc;
+    }
+
     /**
      * @return array
      */
