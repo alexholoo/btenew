@@ -51,9 +51,9 @@ class Request
         $lines = array();
 
         $lines[] = "<TransactionHeader>";
-        $lines[] = "  <SenderID>ME</SenderID>";          // ??
-        $lines[] = "  <ReceiverID>YOU</ReceiverID>";     // ??
-        $lines[] = "  <CountryCode>CA</CountryCode>";    // ??
+        $lines[] = "  <SenderID>ME</SenderID>";          // ME
+        $lines[] = "  <ReceiverID>YOU</ReceiverID>";     // YOU
+        $lines[] = "  <CountryCode>FT</CountryCode>";    // not CA
         $lines[] = "  <LoginID>$loginId</LoginID>";
         $lines[] = "  <Password>$password</Password>";
         $lines[] = "  <TransactionID>1</TransactionID>"; // ??

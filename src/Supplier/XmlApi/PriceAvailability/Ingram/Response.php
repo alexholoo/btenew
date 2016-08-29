@@ -60,6 +60,7 @@ class Response
             $item = [];
             $item['sku'] = strval($x['SKU']);
             $item['price'] = strval($x->Price);
+            $item['avail'] = [];
 
             foreach ($x->Branch as $branch) {
                 #$branchID   = strval($branch['ID']);
@@ -74,6 +75,8 @@ class Response
 
             $this->items[] = $item;
         }
+
+        $this->status = 'OK';
 
         return $this->items;
     }
