@@ -7,6 +7,8 @@ require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Techdata/Client.php';
 require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Techdata/Request.php';
 require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Techdata/Response.php';
 
+require __DIR__ . '/vendor/autoload.php';
+
 $config = include __DIR__ . '/app/config/xmlapi.php';
 
 function pr($d) { print_r($d); echo EOL; }
