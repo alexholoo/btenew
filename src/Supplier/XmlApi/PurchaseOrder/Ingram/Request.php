@@ -29,69 +29,11 @@ class Request
         $lines = array();
 
         $lines[] = "<OrderRequest>";
-        $lines[] = "  <Version>2.0</Version>";
-        $lines[] = "  <TransactionHeader>";
-        $lines[] = "     <SenderID>123456789</SenderID>";
-        $lines[] = "     <ReceiverID>987654321</ReceiverID>";
-        $lines[] = "     <CountryCode>FT</CountryCode>";
-        $lines[] = "     <LoginID>CA3833HHD</LoginID>";
-        $lines[] = "     <Password>Re887Jky52</Password>";
-        $lines[] = "     <TransactionID>54321</TransactionID>";
-        $lines[] = "  </TransactionHeader>";
-        $lines[] = "  <OrderHeaderInformation>";
-        $lines[] = "     <BillToSuffix />";
-        $lines[] = "     <AddressingInformation>";
-        $lines[] = "       <CustomerPO>CustomerPO_1</CustomerPO>";
-        $lines[] = "       <ShipToAttention>Mrs Jones</ShipToAttention>";
-        $lines[] = "       <EndUserPO>EndUserPO_1</EndUserPO>";
-        $lines[] = "       <ShipTo>";
-        $lines[] = "         <Address>";
-        $lines[] = "           <ShipToAddress1>Red House Company</ShipToAddress1>";
-        $lines[] = "           <ShipToAddress2>55 Elm Street</ShipToAddress2>";
-        $lines[] = "           <ShipToAddress3></ShipToAddress3>";
-        $lines[] = "           <ShipToCity>Toronto </ShipToCity>";
-        $lines[] = "           <ShipToProvince>ON</ShipToProvince>";
-        $lines[] = "           <ShipToPostalCode>SW1 3IM</ShipToPostalCode>";
-        $lines[] = "         </Address>";
-        $lines[] = "       </ShipTo>";
-        $lines[] = "     </AddressingInformation>";
-        $lines[] = "     <ProcessingOptions>";
-        $lines[] = "       <CarrierCode>PI</CarrierCode>";
-        $lines[] = "       <AutoRelease>0</AutoRelease>";
-        $lines[] = "       <ThirdPartyFreightAccount></ThirdPartyFreightAccount>";
-        $lines[] = "       <KillOrderAfterLineError>N</KillOrderAfterLineError>";
-        $lines[] = "       <ShipmentOptions>";
-        $lines[] = "         <BackOrderFlag>Y </BackOrderFlag>";
-        $lines[] = "         <SplitShipmentFlag>N</SplitShipmentFlag>";
-        $lines[] = "         <SplitLine>N</SplitLine>";
-        $lines[] = "         <ShipFromBranches>20</ShipFromBranches>";
-        $lines[] = "         <DeliveryDate>20090701</DeliveryDate>";
-        $lines[] = "       </ShipmentOptions>";
-        $lines[] = "     </ProcessingOptions>";
-        $lines[] = "     <DynamicMessage>";
-        $lines[] = "       <MessageLines>Please deliver to Mrs Jones</MessageLines>";
-        $lines[] = "     </DynamicMessage>";
-        $lines[] = "  </OrderHeaderInformation>";
-        $lines[] = "  <OrderLineInformation>";
-        $lines[] = "     <ProductLine>";
-        $lines[] = "       <SKU>123321</SKU>";
-        $lines[] = "       <Quantity>1</Quantity>";
-        $lines[] = "       <CustomerLineNumber />";
-        $lines[] = "       <ReservedInventory>";
-        $lines[] = "          <ReserveCode>C</ReserveCode>";
-        $lines[] = "          <ReserveSequence>01</ReserveSequence>";
-        $lines[] = "       </ReservedInventory>";
-        $lines[] = "       <CustomerPartNumber></CustomerPartNumber>";
-        $lines[] = "       <UPC></UPC>";
-        $lines[] = "       <ManufacturerPartNumber></ManufacturerPartNumber>";
-        $lines[] = "       <ShipFromBranchAtLine>10</ShipFromBranchAtLine>";
-        $lines[] = "       <RequestedPrice>25.00</RequestedPrice>";
-        $lines[] = "     </ProductLine>";
-        $lines[] = "     <CommentLine>";
-        $lines[] = "        <CommentText>Handle with care</CommentText>";
-        $lines[] = "     </CommentLine>";
-        $lines[] = "  </OrderLineInformation>";
-        $lines[] = "  <ShowDetail>2</ShowDetail>";
+        $lines[] = "<Version>2.0</Version>";
+        $lines[] = $this->login();
+        $lines[] = $this->orderHeader();
+        $lines[] = $this->orderLine();
+        $lines[] = "<ShowDetail>2</ShowDetail>";
         $lines[] = "</OrderRequest>";
 
         return implode("\n", $lines);
@@ -104,6 +46,14 @@ class Request
         $userid = $this->config['username'];
         $passwd = $this->config['password'];
 
+        $lines[] = "<TransactionHeader>";
+        $lines[] = "   <SenderID></SenderID>";
+        $lines[] = "   <ReceiverID></ReceiverID>";
+        $lines[] = "   <CountryCode>CA</CountryCode>";
+        $lines[] = "   <LoginID>$userid</LoginID>";
+        $lines[] = "   <Password>$password</Password>";
+        $lines[] = "   <TransactionID></TransactionID>";
+        $lines[] = "</TransactionHeader>";
 
         return implode("\n", $lines);
     }
@@ -112,17 +62,83 @@ class Request
     {
         $lines = array();
 
+        $orderNo = $this->order['orderNo'];
+        $contact = $this->order['contact'];
+        $address = $this->order['address'];
+        $city    = $this->order['city'];
+        $state   = $this->order['state'];
+        $zipcode = $this->order['zipcode'];
+        $branch  = $this->order['branch'];
+
+        $lines[] = "<OrderHeaderInformation>";
+        $lines[] = "  <BillToSuffix />";
+        $lines[] = "  <AddressingInformation>";
+        $lines[] = "    <CustomerPO>$orderNo</CustomerPO>";
+        $lines[] = "    <ShipToAttention>$contact</ShipToAttention>";
+        $lines[] = "    <EndUserPO>$orderNo</EndUserPO>";
+        $lines[] = "    <ShipTo>";
+        $lines[] = "      <Address>";
+        $lines[] = "        <ShipToAddress1></ShipToAddress1>";
+        $lines[] = "        <ShipToAddress2>$address</ShipToAddress2>";
+        $lines[] = "        <ShipToAddress3></ShipToAddress3>";
+        $lines[] = "        <ShipToCity>$city</ShipToCity>";
+        $lines[] = "        <ShipToProvince>$state</ShipToProvince>";
+        $lines[] = "        <ShipToPostalCode>$zipcode</ShipToPostalCode>";
+        $lines[] = "      </Address>";
+        $lines[] = "    </ShipTo>";
+        $lines[] = "  </AddressingInformation>";
+        $lines[] = "  <ProcessingOptions>";
+        $lines[] = "    <CarrierCode>PI</CarrierCode>";
+        $lines[] = "    <AutoRelease>0</AutoRelease>";
+        $lines[] = "    <ThirdPartyFreightAccount></ThirdPartyFreightAccount>";
+        $lines[] = "    <KillOrderAfterLineError>N</KillOrderAfterLineError>";
+        $lines[] = "    <ShipmentOptions>";
+        $lines[] = "      <BackOrderFlag>Y</BackOrderFlag>";
+        $lines[] = "      <SplitShipmentFlag>N</SplitShipmentFlag>";
+        $lines[] = "      <SplitLine>N</SplitLine>";
+        $lines[] = "      <ShipFromBranches>$branch</ShipFromBranches>";
+        $lines[] = "      <DeliveryDate></DeliveryDate>";
+        $lines[] = "    </ShipmentOptions>";
+        $lines[] = "  </ProcessingOptions>";
+        $lines[] = "  <DynamicMessage>";
+        $lines[] = "    <MessageLines></MessageLines>";
+        $lines[] = "  </DynamicMessage>";
+        $lines[] = "</OrderHeaderInformation>";
 
         return implode("\n", $lines);
     }
 
-    public function orderItems()
+    public function orderLine()
     {
         $lines = array();
 
-        if (substr($sku, 0, 3) == 'ING-') {
-            $sku = substr($sku, 3);
+        $sku = $this->order['sku'];
+        $qty = $this->order['qty'];
+        $comment = $this->order['comment'];
+
+        if (substr($sku, 0, 4) == 'ING-') {
+            $sku = substr($sku, 4);
         }
+
+        $lines[] = "<OrderLineInformation>";
+        $lines[] = "  <ProductLine>";
+        $lines[] = "    <SKU>$sku</SKU>";
+        $lines[] = "    <Quantity>$qty</Quantity>";
+        $lines[] = "    <CustomerLineNumber />";
+        $lines[] = "    <ReservedInventory>";
+        $lines[] = "      <ReserveCode>C</ReserveCode>";
+        $lines[] = "      <ReserveSequence>01</ReserveSequence>";
+        $lines[] = "    </ReservedInventory>";
+        $lines[] = "    <CustomerPartNumber></CustomerPartNumber>";
+        $lines[] = "    <UPC></UPC>";
+        $lines[] = "    <ManufacturerPartNumber></ManufacturerPartNumber>";
+        $lines[] = "    <ShipFromBranchAtLine>10</ShipFromBranchAtLine>";
+        $lines[] = "    <RequestedPrice></RequestedPrice>";
+        $lines[] = "  </ProductLine>";
+        $lines[] = "  <CommentLine>";
+        $lines[] = "    <CommentText>$comment</CommentText>";
+        $lines[] = "  </CommentLine>";
+        $lines[] = "</OrderLineInformation>";
 
         return implode("\n", $lines);
     }

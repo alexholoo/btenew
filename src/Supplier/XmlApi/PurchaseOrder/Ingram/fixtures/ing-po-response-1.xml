@@ -3,29 +3,29 @@
    <TransactionHeader>
       <SenderID>123456789</SenderID>
       <ReceiverID>987654321</ReceiverID>
-      <ErrorStatus ErrorNumber=??></ErrorStatus>
+      <ErrorStatus ErrorNumber=""></ErrorStatus>
       <DocumentID>{9D25E715-F65E-432F-A773-9E22FEA8FBDF}</DocumentID>
       <TransactionID>12345</TransactionID>
       <TimeStamp>2003-07-07T00:00:00</TimeStamp>
    </TransactionHeader>
    <OrderInfo>
      <OrderNumbers>
-       <BranchOrderNumber>2048043<BranchOrderNumber>
+       <BranchOrderNumber>2048043</BranchOrderNumber>
        <CustomerPO>2323232</CustomerPO>
        <ShipToAttention>ShipToAttention_1</ShipToAttention>
-       <ThirdPartyFreightAccount></ThirdPartyFreight>
-       <ShipToAddress1>Red House Company</AddressLine1>
-       <ShipToAddress2>55 Elm Street </AddressLine2>
-       <ShipToAddress3></AddressLine3>
+       <ThirdPartyFreightAccount></ThirdPartyFreightAccount>
+       <ShipToAddress1>Red House Company</ShipToAddress1>
+       <ShipToAddress2>55 Elm Street </ShipToAddress2>
+       <ShipToAddress3></ShipToAddress3>
        <ShipToCity>Toronto</ShipToCity>
        <ShipToProvince>ON</ShipToProvince>
        <ShipToPostalCode>MK8 8DF</ShipToPostalCode>
        <ShipToSuffix></ShipToSuffix>
-       <AddressErrorMessage AddressErrorType=??/>
-       <ContractNumber><ContractNumber>
+       <AddressErrorMessage AddressErrorType="" />
+       <ContractNumber></ContractNumber>
        <OrderSuffix Suffix="11">
          <DistributionWeight>45</DistributionWeight>
-         <SuffixErrorResponse SuffixErrorType=?? />
+         <SuffixErrorResponse SuffixErrorType="" />
          <Carrier CarrierCode="CT">CITY LINK NEXTDAY</Carrier>
          <LineInformation>
            <ProductLine>

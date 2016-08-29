@@ -35,7 +35,7 @@ $order = [
     'branch' => 'Toronto',
 ];
 
-#$request->addOrder($order);
+$request->addOrder($order);
 
 #pr($request->toXml());
 
@@ -44,4 +44,6 @@ $xml = file_get_contents(__DIR__ . './src/Supplier/XmlApi/PurchaseOrder/Ingram/f
 $response = new \Supplier\XmlApi\PurchaseOrder\Ingram\Response($xml);
 //pr($response);
 #$x = $response->parseXml();
-pr($response);
+pr($response->getOrders());
+pr($response->getStatus());
+pr($response->getErrorMessage());
