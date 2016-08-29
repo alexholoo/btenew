@@ -9,7 +9,7 @@ require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Synnex/Response.php';
 require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/Warehouse.php';
 require __DIR__ . '/public/trace.php';
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/public/init.php';
 
 use Supplier\XmlApi\Synnex\Warehouse;
 

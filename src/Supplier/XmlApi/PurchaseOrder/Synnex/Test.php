@@ -7,7 +7,7 @@ require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/Client.php';
 require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/Request.php';
 require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/Response.php';
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/public/init.php';
 
 $config = include __DIR__ . '/app/config/xmlapi.php';
 

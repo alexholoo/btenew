@@ -7,7 +7,7 @@ require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Ingram/Client.php';
 require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Ingram/Request.php';
 require __DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Ingram/Response.php';
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/public/init.php';
 
 $config = include __DIR__ . '/app/config/xmlapi.php';
 
