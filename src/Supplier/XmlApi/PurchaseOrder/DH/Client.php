@@ -2,9 +2,9 @@
 
 namespace Supplier\XmlApi\PurchaseOrder\DH;
 
-use Supplier\XmlApi\Client as XmlApiClient;
+use Supplier\XmlApi\PurchaseOrder\Client as PurchaseOrderClient;
 
-class Client extends XmlApiClient
+class Client extends PurchaseOrderClient
 {
     const PROD_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
     const TEST_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
@@ -35,12 +35,16 @@ class Client extends XmlApiClient
 
         $xml = $request->toXml();
 
-        $response = $this->curlPost($url, $xml);
+        $res = $this->curlPost($url, $xml);
 
         /**
          * @var Supplier\XmlApi\PurchaseOrder\DH\Response
          */
-        return new Response($response);
+        $response = new Response($res);
+
+        $this->saveLog($url, $request, $response);
+
+        return $response;
     }
 
     public function getEndpoint()

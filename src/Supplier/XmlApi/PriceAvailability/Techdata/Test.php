@@ -2,10 +2,11 @@
 
 const EOL = PHP_EOL;
 
-require __DIR__ . '/src/Supplier/XmlApi/Client.php';
-require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/Client.php';
-require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/Request.php';
-require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/Response.php';
+#require __DIR__ . '/src/Supplier/XmlApi/Client.php';
+#require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Client.php';
+#require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/Client.php';
+#require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/Request.php';
+#require __DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Techdata/Response.php';
 
 require __DIR__ . '/public/init.php';
 
@@ -18,7 +19,6 @@ $client = new \Supplier\XmlApi\PriceAvailability\Techdata\Client($config['techda
 $request = $client->createRequest();
 $request->addPartnum('TD-1892ZJ');
 #pr($request->toXml());
-
 $response = $client->sendRequest($request);
 $items = $response->getItems();
 pr($items);

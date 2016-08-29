@@ -2,9 +2,9 @@
 
 namespace Supplier\XmlApi\PriceAvailability\Synnex;
 
-use Supplier\XmlApi\Client as XmlApiClient;
+use Supplier\XmlApi\PriceAvailability\Client as PriceAvailabilityClient;
 
-class Client extends XmlApiClient
+class Client extends PriceAvailabilityClient
 {
     const PROD_URL = 'https://ec.synnex.ca/SynnexXML/PriceAvailability';
     const TEST_URL = 'https://testec.synnex.ca/SynnexXML/PriceAvailability';

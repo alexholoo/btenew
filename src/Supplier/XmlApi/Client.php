@@ -4,7 +4,7 @@ namespace Supplier\XmlApi;
 
 use Phalcon\Di;
 
-class Client
+abstract class Client
 {
     /**
      * @var array
@@ -59,18 +59,5 @@ class Client
         $result = file_get_contents($url, NULL, $context);
 
         return $result;
-    }
-
-    protected function saveLog($url, $request, $response)
-    {
-        $this->db->insertAsDict('xmlapi_pna_log',
-            [
-                'sku' => $request->getPartnum(),
-                'url' => $url,
-                'request' => $request->toXml(),
-                'response' => $response->getXmlDoc(),
-                'status' => $response->getStatus(),
-            ]
-        );
     }
 }

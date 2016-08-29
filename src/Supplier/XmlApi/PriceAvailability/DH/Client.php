@@ -2,9 +2,9 @@
 
 namespace Supplier\XmlApi\PriceAvailability\DH;
 
-use Supplier\XmlApi\Client as XmlApiClient;
+use Supplier\XmlApi\PriceAvailability\Client as PriceAvailabilityClient;
 
-class Client extends XmlApiClient
+class Client extends PriceAvailabilityClient
 {
     const PROD_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
 
