@@ -43,7 +43,7 @@ class Client extends XmlApiClient
         return new Response($response);
     }
 
-    public function getEndpoint(()
+    public function getEndpoint()
     {
         return self::TEST_URL;
         return self::PROD_URL;
