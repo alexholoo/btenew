@@ -37,7 +37,7 @@ class Response
 
         $this->status = strval($xml->STATUS);
         $this->orders = strval($xml->ORDERNUM);
-        $this->errMessage = strval($xml->MESSAGE);
+        $this->errorMessage = strval($xml->MESSAGE);
 
         return $this->orders;
     }
