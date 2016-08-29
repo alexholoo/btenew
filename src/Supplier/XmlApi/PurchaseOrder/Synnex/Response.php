@@ -40,7 +40,7 @@ class Response
         $xml = simplexml_load_string($this->xmldoc);
 
         if ($xml->OrderResponse->ErrorMessage) {
-            $this->status = 'error';
+            $this->status = 'ERROR';
             $this->errorMessage = strval($xml->OrderResponse->ErrorMessage);
             $this->errorDetail = strval($xml->OrderResponse->ErrorDetail);
             return;
