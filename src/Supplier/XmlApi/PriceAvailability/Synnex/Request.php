@@ -27,11 +27,12 @@ class Request
      */
     public function addPartnum($partnum)
     {
-        if (substr($partnum, 0, 4) == 'SYN-') {
-            $partnum = substr($partnum, 4);
-        }
-
         $this->partnums[] = $partnum;
+    }
+
+    public function getPartnum()
+    {
+        return $this->partnums[0];
     }
 
     /**
@@ -63,6 +64,10 @@ class Request
         $lines = array();
 
         foreach ($this->partnums as $i => $partnum) {
+            if (substr($partnum, 0, 4) == 'SYN-') {
+                $partnum = substr($partnum, 4);
+            }
+
             $lines[] = '<skuList>';
             $lines[] =   "<synnexSKU>$partnum</synnexSKU>";
             $lines[] =   "<lineNumber>".($i+1)."</lineNumber>";

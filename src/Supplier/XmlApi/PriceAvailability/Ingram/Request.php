@@ -21,11 +21,12 @@ class Request
 
     public function addPartnum($partnum)
     {
-        if (substr($partnum, 0, 4) == 'ING-') {
-            $partnum = substr($partnum, 4);
-        }
-
         $this->partnums[] = $partnum;
+    }
+
+    public function getPartnum()
+    {
+        return $this->partnums[0];
     }
 
     public function toXml()
@@ -69,6 +70,10 @@ class Request
         $lines = array();
 
         foreach ($this->partnums as $partnum) {
+            if (substr($partnum, 0, 4) == 'ING-') {
+                $partnum = substr($partnum, 4);
+            }
+
             $lines[] = '<PNAInformation SKU="'. $partnum . '" Quantity="" />';
         }
 
