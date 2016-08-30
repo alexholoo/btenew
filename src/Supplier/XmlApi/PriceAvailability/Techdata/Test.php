@@ -11,7 +11,8 @@ function pr($d) { print_r($d); echo EOL; }
 $client = new \Supplier\XmlApi\PriceAvailability\Techdata\Client($config['techdata']);
 
 $request = $client->createRequest();
-$request->addPartnum('TD-1892ZJ');
+#$request->addPartnum('TD-1892ZJ');
+$request->addPartnum('TD-0331ZE');
 #pr($request->toXml());
 $response = $client->sendRequest($request);
 $items = $response->getItems();

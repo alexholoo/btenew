@@ -11,9 +11,8 @@ function pr($d) { print_r($d); echo EOL; }
 $client = new \Supplier\XmlApi\PriceAvailability\Ingram\Client($config['ingram']);
 
 $request = $client->createRequest();
-$request->addPartnum('ING-36438W');
-$request->addPartnum('ING-26129Z');
-$request->addPartnum('ING-75873Z');
+#$request->addPartnum('ING-36438W');
+$request->addPartnum('ING-69905Z');
 #pr($request->toXml());
 $response = $client->sendRequest($request);
 #pr($response);
