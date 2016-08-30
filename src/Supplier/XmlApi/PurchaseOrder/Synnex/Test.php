@@ -4,8 +4,6 @@ require __DIR__ . '/public/init.php';
 
 $config = include __DIR__ . '/app/config/xmlapi.php';
 
-function pr($d) { print_r($d); echo EOL; }
-
 $client = new \Supplier\XmlApi\PurchaseOrder\Synnex\Client($config['synnex']);
 
 $request = $client->createRequest();
@@ -28,14 +26,12 @@ $order = [
 ];
 
 $request->addOrder($order);
-
-pr($request->toXml());
-fpr($request->toXml());
+//dpr($request->toXml());
 
 $response = $client->sendRequest($request);
-fpr($response->getXmlDoc());
-pr($response->getXmlDoc());
-
+//pr($response->getXmlDoc());
+pr($response->getStatus());
+pr($response->getOrders());
 
 #$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/fixtures/synnex-po-response-5.xml');
 #$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/fixtures/synnex-po-response-6.xml');

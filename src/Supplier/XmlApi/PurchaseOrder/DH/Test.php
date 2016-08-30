@@ -4,8 +4,6 @@ require __DIR__ . '/public/init.php';
 
 $config = include __DIR__ . '/app/config/xmlapi.php';
 
-function pr($d) { print_r($d); echo EOL; }
-
 $client = new \Supplier\XmlApi\PurchaseOrder\DH\Client($config['dh']);
 
 $request = $client->createRequest();

@@ -2,9 +2,8 @@
 
 require __DIR__ . '/public/init.php';
 
-function pr($d) { print_r($d); echo EOL; }
-
 $config = include __DIR__ . '/app/config/xmlapi.php';
+
 $client = new \Supplier\XmlApi\PriceAvailability\DH\Client($config['dh']);
 
 #or
