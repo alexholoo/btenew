@@ -9,12 +9,13 @@ function pr($d) { print_r($d); echo EOL; }
 $client = new \Supplier\XmlApi\PriceAvailability\Synnex\Client($config['synnex']);
 
 $request = $client->createRequest();
-$request->addPartnum('SYN-5471137');
-$request->addPartnum('SYN-5497540');
-pr($request->toXml());
+$request->addPartnum('SYN-5590245');
+#$request->addPartnum('SYN-5471137');
+#$request->addPartnum('SYN-5497540');
+//pr($request->toXml());
 
 $response = $client->sendRequest($request);
-pr($response->getXmlDoc());
+//pr($response->getXmlDoc());
 pr($response->getItems());
 
 
