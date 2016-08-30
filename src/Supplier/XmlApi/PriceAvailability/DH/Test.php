@@ -4,11 +4,16 @@ const EOL = PHP_EOL;
 
 require __DIR__ . '/public/init.php';
 
-$config = include __DIR__ . '/app/config/xmlapi.php';
-
 function pr($d) { print_r($d); echo EOL; }
 
+$config = include __DIR__ . '/app/config/xmlapi.php';
 $client = new \Supplier\XmlApi\PriceAvailability\DH\Client($config['dh']);
+
+#or
+
+#use Supplier\XmlApi\PriceAvailability\Factory;
+#$factory = new \Supplier\XmlApi\PriceAvailability\Factory($config);
+#$client = $factory->createClient('dh');
 
 $request = $client->createRequest();
  $request->addPartnum('DH-HLL2360DWCA');

@@ -20,7 +20,7 @@ class Factory
         $this->config = $config;
     }
 
-    public function create($sku)
+    public function createClient($sku)
     {
         $client = NULL;
 
