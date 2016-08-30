@@ -24,6 +24,11 @@ class Request
         $this->order = $order;
     }
 
+    public function getSku()
+    {
+        return $this->order['sku'];
+    }
+
     public function toXml()
     {
         $lines = array();
@@ -96,7 +101,7 @@ class Request
         $lines[] = '<Shipment>';
         #lines[] =   "<ShipFromWarehouse>$warehouse</ShipFromWarehouse>";
         $lines[] =   '<ShipTo>';
-        #lines[] =     "<AddressName1>Manners Industry, Inc.</AddressName1>";
+        $lines[] =     "<AddressName1>$contact</AddressName1>";
         #lines[] =     "<AddressName2 />";
         $lines[] =     "<AddressLine1>$address</AddressLine1>";
         $lines[] =     "<City>$city</City>";

@@ -24,6 +24,11 @@ class Request
         $this->order = $order;
     }
 
+    public function getSku()
+    {
+        return $this->order['sku'];
+    }
+
     public function toXml()
     {
         $lines = array();

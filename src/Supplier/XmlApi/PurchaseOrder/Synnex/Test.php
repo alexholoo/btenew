@@ -11,7 +11,7 @@ $client = new \Supplier\XmlApi\PurchaseOrder\Synnex\Client($config['synnex']);
 $request = $client->createRequest();
 
 $order = [
-    'orderNo' => '11223344',
+    'orderNo' => '11223341',
     'endUserPoNumber' => '',
     'comment' => 'Please ship ASAP!',
     'address' => '123 Esna Park',
@@ -30,7 +30,11 @@ $order = [
 $request->addOrder($order);
 
 pr($request->toXml());
+fpr($request->toXml());
 
+$response = $client->sendRequest($request);
+fpr($response->getXmlDoc());
+pr($response->getXmlDoc());
 
 
 #$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PurchaseOrder/Synnex/fixtures/synnex-po-response-5.xml');
