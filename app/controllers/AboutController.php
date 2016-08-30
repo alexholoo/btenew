@@ -25,6 +25,9 @@ class AboutController extends ControllerBase
         //$req->addOrder([]);
         //fpr($req->toXml());
         
+        $amazonService = $this->AmazonService;
+        $amazonService->doSomething();
+
         $cl = new SynnexPAClient($config['xmlapi']['synnex']);
         $req = $cl->createRequest();
         $req->addPartnum('5530299');

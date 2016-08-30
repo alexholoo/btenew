@@ -15,6 +15,16 @@ use Phalcon\Logger\Formatter\Line as FormatterLine;
 use Phalcon\Logger;
 use Phalcon\Events\Manager as EventsManager;
 
+use Service\ProductService;
+use Service\InventoryServi;
+use Service\OrderService;
+use Service\PurchaseService;
+use Service\ShipmentService;
+use Service\AmazonService;
+use Service\EbayService;
+use Service\NeweggService;
+use Service\RakutenService;
+
 use App\Auth\Auth;
 use App\Acl\Acl;
 use App\Mail\Mail;
@@ -186,4 +196,46 @@ $di->set('logger', function ($filename = null, $format = null) use ($config) {
     $logger->setLogLevel($config->get('logger')->logLevel);
 
     return $logger;
+});
+
+/**
+ * Services for business logics
+ */
+$di->setShared('ProductService', function() {
+    return new ProductService();
+});
+
+$di->setShared('InventoryService', function() {
+    return new InventoryService();
+});
+
+$di->setShared('OrderService', function() {
+    return new OrderService();
+});
+
+$di->setShared('PurchaseService', function() {
+    return new PurchaseService();
+});
+
+$di->setShared('ShipmentService', function() {
+    return new ShipmentService();
+});
+
+/**
+ * Marketplace related services
+ */
+$di->setShared('AmazonService', function() {
+    return new AmazonService();
+});
+
+$di->setShared('EbayService', function() {
+    return new EbayService();
+});
+
+$di->setShared('NeweggService', function() {
+    return new NeweggService();
+});
+
+$di->setShared('RakutenService', function() {
+    return new RakutenService();
 });
