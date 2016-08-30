@@ -1,7 +1,5 @@
 <?php
 
-const EOL = PHP_EOL;
-
 require __DIR__ . '/public/init.php';
 
 $config = include __DIR__ . '/app/config/xmlapi.php';
@@ -14,12 +12,12 @@ $request = $client->createRequest();
 $request->addPartnum('SYN-5471137');
 #$request->addPartnum('SYN-5497540');
 pr($request->toXml());
+
 $response = $client->sendRequest($request);
-pr($response);
+pr($response->getXmlDoc());
+
 $items = $response->getItems();
 #pr($items);
-
-//pr($request->toXml());
 
 
 // Response-1
@@ -35,4 +33,3 @@ $items = $response->getItems();
 #$response = new \Supplier\XmlApi\PriceAvailability\Synnex\Response($xml);
 #$x = $response->getItems();
 #pr($x);
-

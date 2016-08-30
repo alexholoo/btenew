@@ -1,7 +1,5 @@
 <?php
 
-const EOL = PHP_EOL;
-
 require __DIR__ . '/public/init.php';
 
 function pr($d) { print_r($d); echo EOL; }
@@ -22,6 +20,6 @@ $request = $client->createRequest();
 #$request->addPartnum('DH-DEFNANOSBKW');
 
 $response = $client->sendRequest($request);
-pr($response);
+pr($response->getXmlDoc());
 $items = $response->getItems();
 pr($items);

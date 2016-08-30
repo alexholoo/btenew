@@ -1,7 +1,5 @@
 <?php
 
-const EOL = PHP_EOL;
-
 require __DIR__ . '/public/init.php';
 
 $config = include __DIR__ . '/app/config/xmlapi.php';

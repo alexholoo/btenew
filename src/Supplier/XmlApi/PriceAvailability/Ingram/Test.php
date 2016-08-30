@@ -1,7 +1,5 @@
 <?php
 
-const EOL = PHP_EOL;
-
 require __DIR__ . '/public/init.php';
 
 $config = include __DIR__ . '/app/config/xmlapi.php';
@@ -15,7 +13,7 @@ $request = $client->createRequest();
 $request->addPartnum('ING-69905Z');
 #pr($request->toXml());
 $response = $client->sendRequest($request);
-#pr($response);
+#pr($response->getXmlDoc());
 $items = $response->getItems();
 pr($items);
 

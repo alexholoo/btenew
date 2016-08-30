@@ -2,6 +2,8 @@
 
 error_reporting(E_ALL);
 
+const EOL = PHP_EOL;
+
 try {
     /**
      * Define some useful constants
