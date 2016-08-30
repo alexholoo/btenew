@@ -25,6 +25,7 @@ class Response
     public function __construct($xmldoc)
     {
         $this->xmldoc = $xmldoc;
+        $this->parseXml();
     }
 
     public function getXmlDoc()
