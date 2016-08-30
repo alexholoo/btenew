@@ -25,7 +25,7 @@ abstract class Client
      * @param  string $url
      * @param  string $data
      */
-    public function curlPost($url, $data)
+    public function curlPost($url, $data, $options = [])
     {
         $ch = curl_init();
 
@@ -34,7 +34,10 @@ abstract class Client
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: text/plain'));
+
+        foreach ($options as $key => $value) {
+            curl_setopt($ch, $key, $value);
+        }
 
         $result = curl_exec($ch);
         curl_close($ch);

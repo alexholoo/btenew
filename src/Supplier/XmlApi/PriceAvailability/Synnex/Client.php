@@ -35,7 +35,9 @@ class Client extends PriceAvailabilityClient
 
         $xml = $request->toXml();
 
-        $res = $this->curlPost($url, $xml);
+        $res = $this->curlPost($url, $xml, array(
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
+        ));
 
         /**
          * @var Supplier\XmlApi\PriceAvailability\Synnex\Response
