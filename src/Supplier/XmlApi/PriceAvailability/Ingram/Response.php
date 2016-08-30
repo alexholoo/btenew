@@ -58,7 +58,7 @@ class Response
          */
         foreach ($xml->PriceAndAvailability as $x) {
             $item = [];
-            $item['sku'] = strval($x['SKU']);
+            $item['sku'] = 'ING-'.strval($x['SKU']);
             $item['price'] = strval($x->Price);
             $item['avail'] = [];
 
