@@ -77,7 +77,7 @@ class Response
              * ];
              */
             $this->items[] = array(
-                'sku'   => strval($item->PARTNUM),
+                'sku'   => 'DH-'. strval($item->PARTNUM),
                 'price' => strval($item->UNITPRICE),
                 'avail' => [
                     [
