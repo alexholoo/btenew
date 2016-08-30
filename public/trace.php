@@ -2,8 +2,17 @@
 
 if (!function_exists('fpr')) {
 
-# function pr($var)
-# function dpr() { }
+function pr($var) // Same as dpr()
+{
+    dpr($var);
+}
+
+function dpr($var) // print and log
+{
+    print_r($var);
+    echo PHP_EOL;
+    fpr($var);
+}
 
 function fpr()
 {
