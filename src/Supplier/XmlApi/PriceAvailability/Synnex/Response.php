@@ -59,6 +59,7 @@ class Response
             $item['status'] = strval($x->status);
             $item['price'] = strval($x->price);
             $item['totalQty'] = strval($x->totalQuantity);
+            $item['avail'] = [];
 
             #item['mfgPN'] = $x->mfgPN;
             #item['mfgCode'] = $x->mfgCode;

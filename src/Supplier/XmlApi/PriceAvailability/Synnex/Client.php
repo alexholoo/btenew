@@ -49,7 +49,7 @@ class Client extends PriceAvailabilityClient
 
     public function getEndpoint()
     {
-        return self::TEST_URL;
         return self::PROD_URL;
+        return self::TEST_URL;
     }
 }

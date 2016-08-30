@@ -10,22 +10,20 @@ $client = new \Supplier\XmlApi\PriceAvailability\Synnex\Client($config['synnex']
 
 $request = $client->createRequest();
 $request->addPartnum('SYN-5471137');
-#$request->addPartnum('SYN-5497540');
+$request->addPartnum('SYN-5497540');
 pr($request->toXml());
 
 $response = $client->sendRequest($request);
 pr($response->getXmlDoc());
-
-$items = $response->getItems();
-#pr($items);
+pr($response->getItems());
 
 
 // Response-1
 #$xml = file_get_contents(__DIR__ . '/src/Supplier/XmlApi/PriceAvailability/Synnex/fixtures/price-response-1.xml');
 #$response = new \Supplier\XmlApi\PriceAvailability\Synnex\Response($xml);
-##$x = $response->parseXml();
+#$x = $response->parseXml();
 #$x = $response->getItems();
-##pr($x);
+#pr($x);
 #
 
 // Response-2
