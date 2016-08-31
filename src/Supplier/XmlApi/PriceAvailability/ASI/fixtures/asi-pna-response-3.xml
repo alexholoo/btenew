@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<ASIInventory>
+    <error>
+         <code>101</code>
+         <message>No inventory found</message>
+    </error>
+</ASIInventory>
