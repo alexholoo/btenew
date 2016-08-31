@@ -31,6 +31,10 @@ class Client extends PriceAvailabilityClient
      */
     public function sendRequest($request)
     {
+        if ($res = $this->queryLog($request->getPartnum())) {
+            return new Response($res);
+        }
+
         $url = $this->getEndpoint();
 
         $xml = $request->toXml();
