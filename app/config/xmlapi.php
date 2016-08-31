@@ -27,4 +27,10 @@ return array(
         'username' => '567861',
         'password' => 'bteTDxml2014',
     ),
+
+    \Supplier\ConfigKey::ASI => array(
+        'url'      => 'https://www.asipartner.com/partneraccess/xml/price.asp',
+        'CID'      => '75692',
+        'CERT'     => '1FN9HRY3GDN5OMJ',
+    ),
 );
