@@ -24,6 +24,7 @@ use Service\AmazonService;
 use Service\EbayService;
 use Service\NeweggService;
 use Service\RakutenService;
+use Service\PriceAvailService;
 
 use App\Auth\Auth;
 use App\Acl\Acl;
@@ -219,6 +220,10 @@ $di->setShared('PurchaseService', function() {
 
 $di->setShared('ShipmentService', function() {
     return new ShipmentService();
+});
+
+$di->setShared('PriceAvailService', function() {
+    return new PriceAvailService();
 });
 
 /**
