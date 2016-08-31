@@ -2,6 +2,8 @@
 namespace App\Controllers;
 
 use App\Models\Orders;
+use Supplier\XmlApi\PriceAvailability\Factory as PriceAvailFactory;
+use Supplier\XmlApi\PurchaseOrder\Factory as PurchaseOrderFactory;
 
 class AjaxController extends ControllerBase
 {
@@ -96,17 +98,26 @@ class AjaxController extends ControllerBase
     {
         $data = [];
 
-        // mockup of data format of price avail
+        $factory = new PriceAvailFactory($this->config);
+
         foreach ($items as $sku) {
-            $data[] = [
-                'sku' => $sku,
-                'price' => rand(30, 200),
-                'avail' => [
-                    [ 'branch' => 'MISSISSAUGA', 'qty' => rand(10, 30) ],
-                    [ 'branch' => 'RICHMOND',    'qty' => rand(10, 50) ],
-                    [ 'branch' => 'MARKHAM',     'qty' => rand(10, 70) ],
-                ]
-            ];
+            $client = $factory->createClient($sku);
+            $request = $client->createRequest();
+            $request->addPartnum($sku);
+            $response = $client->sendRequest($request);
+
+            $data[] = $response->getItems();
+
+            // mockup data format of price avail
+            #$data[] = [
+            #    'sku' => $sku,
+            #    'price' => rand(30, 200),
+            #    'avail' => [
+            #        [ 'branch' => 'MISSISSAUGA', 'qty' => rand(10, 30) ],
+            #        [ 'branch' => 'RICHMOND',    'qty' => rand(10, 50) ],
+            #        [ 'branch' => 'MARKHAM',     'qty' => rand(10, 70) ],
+            #    ]
+            #];
         }
 
         return $this->sortPriceAvailability($data);

@@ -293,6 +293,8 @@ function getOrderDetail(orderId, done) {
 
     tr.addClass('info');
 
+    var loading = layer.load(1, { shade: false });
+
     getPriceAvail(sku,
       function(sel) {
         if (sel.sku) {
@@ -300,7 +302,10 @@ function getOrderDetail(orderId, done) {
           tr.find('select').val(sel.sku);
         }
       },
-      function() { /*tr.removeClass('info');*/}
+      function() {
+        layer.close(loading);
+        /*tr.removeClass('info');*/
+      }
     );
   });
 
