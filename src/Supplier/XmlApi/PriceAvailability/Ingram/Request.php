@@ -2,6 +2,8 @@
 
 namespace Supplier\XmlApi\PriceAvailability\Ingram;
 
+use Utility\Utils;
+
 class Request
 {
     /**
@@ -40,7 +42,7 @@ class Request
         $lines[] = "<ShowDetail>2</ShowDetail>";
         $lines[] = "</PNARequest>";
 
-        return implode("\n", $lines);
+        return Utils::formatXml(implode("\n", $lines));
     }
 
     protected function header()
@@ -51,12 +53,12 @@ class Request
         $lines = array();
 
         $lines[] = "<TransactionHeader>";
-        $lines[] = "  <SenderID>ME</SenderID>";          // ME
-        $lines[] = "  <ReceiverID>YOU</ReceiverID>";     // YOU
-        $lines[] = "  <CountryCode>FT</CountryCode>";    // not CA
-        $lines[] = "  <LoginID>$loginId</LoginID>";
-        $lines[] = "  <Password>$password</Password>";
-        $lines[] = "  <TransactionID>1</TransactionID>"; // ??
+        $lines[] =   "<SenderID>ME</SenderID>";          // ME
+        $lines[] =   "<ReceiverID>YOU</ReceiverID>";     // YOU
+        $lines[] =   "<CountryCode>FT</CountryCode>";    // not CA
+        $lines[] =   "<LoginID>$loginId</LoginID>";
+        $lines[] =   "<Password>$password</Password>";
+        $lines[] =   "<TransactionID>1</TransactionID>"; // ??
         $lines[] = "</TransactionHeader>";
 
         return implode("\n", $lines);

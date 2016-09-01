@@ -2,6 +2,8 @@
 
 namespace Supplier\XmlApi\PriceAvailability\Techdata;
 
+use Utility\Utils;
+
 class Request
 {
     /**
@@ -41,7 +43,7 @@ class Request
         $lines[] = $this->detail();
         $lines[] = "</XML_PriceAvailability_Submit>";
 
-        return implode("\n", $lines);
+        return Utils::formatXml(implode("\n", $lines));
     }
 
     protected function header()
@@ -52,9 +54,9 @@ class Request
         $lines = array();
 
         $lines[] = "<Header>";
-        $lines[] = "  <UserName>$username</UserName>";
-        $lines[] = "  <Password>$password</Password>";
-        $lines[] = "  <ResponseVersion>1.4</ResponseVersion>";
+        $lines[] =   "<UserName>$username</UserName>";
+        $lines[] =   "<Password>$password</Password>";
+        $lines[] =   "<ResponseVersion>1.4</ResponseVersion>";
         $lines[] = "</Header>";
 
         return implode("\n", $lines);
@@ -70,10 +72,10 @@ class Request
                 $partnum = substr($partnum, 3);
             }
 
-            $lines[] = "  <LineInfo>";
-            $lines[] = "    <RefIDQual>VP</RefIDQual>";
-            $lines[] = "    <RefID>$partnum</RefID>";
-            $lines[] = "  </LineInfo>";
+            $lines[] = "<LineInfo>";
+            $lines[] =   "<RefIDQual>VP</RefIDQual>";
+            $lines[] =   "<RefID>$partnum</RefID>";
+            $lines[] = "</LineInfo>";
         }
         $lines[] = "</Detail>";
 

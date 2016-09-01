@@ -2,6 +2,8 @@
 
 namespace Supplier\XmlApi\PurchaseOrder\DH;
 
+use Utility\Utils;
+
 class Request
 {
     /**
@@ -40,7 +42,7 @@ class Request
         $lines[] = $this->orderItems();
         $lines[] = '</XMLFORMPOST>';
 
-        return implode("\n", $lines);
+        return Utils::formatXml(implode("\n", $lines));
     }
 
     public function login()
@@ -74,22 +76,22 @@ class Request
         $comment = $this->order['comment'];
 
         $lines[] = "<ORDERHEADER>";
-        $lines[] = "  <ONLYBRANCH></ONLYBRANCH>";
-        $lines[] = "  <BRANCHES>3</BRANCHES>";
-        $lines[] = "  <PARTSHIPALLOW>N</PARTSHIPALLOW>";
-        $lines[] = "  <BACKORDERALLOW>N</BACKORDERALLOW>";
-        $lines[] = "  <DROPSHIPPW>$dropShipPassword</DROPSHIPPW>";
-        $lines[] = "  <SHIPTONAME>$contact</SHIPTONAME>";
-        $lines[] = "  <SHIPTOATTN></SHIPTOATTN>";
-        $lines[] = "  <SHIPTOADDRESS>$address</SHIPTOADDRESS>";
-        $lines[] = "  <SHIPTOADDRESS2></SHIPTOADDRESS2>";
-        $lines[] = "  <SHIPTOCITY>$city</SHIPTOCITY>";
-        $lines[] = "  <SHIPTOPROVINCE>$state</SHIPTOPROVINCE>";
-        $lines[] = "  <SHIPTOPOSTALCODE>$postalcode</SHIPTOPOSTALCODE>";
-        $lines[] = "  <SHIPCARRIER>Purolator</SHIPCARRIER>";
-        $lines[] = "  <SHIPSERVICE>Ground</SHIPSERVICE>";
-        $lines[] = "  <PONUM>$orderNo</PONUM>";
-        $lines[] = "  <REMARKS>$comment</REMARKS>";
+        $lines[] =   "<ONLYBRANCH></ONLYBRANCH>";
+        $lines[] =   "<BRANCHES>3</BRANCHES>";
+        $lines[] =   "<PARTSHIPALLOW>N</PARTSHIPALLOW>";
+        $lines[] =   "<BACKORDERALLOW>N</BACKORDERALLOW>";
+        $lines[] =   "<DROPSHIPPW>$dropShipPassword</DROPSHIPPW>";
+        $lines[] =   "<SHIPTONAME>$contact</SHIPTONAME>";
+        $lines[] =   "<SHIPTOATTN></SHIPTOATTN>";
+        $lines[] =   "<SHIPTOADDRESS>$address</SHIPTOADDRESS>";
+        $lines[] =   "<SHIPTOADDRESS2></SHIPTOADDRESS2>";
+        $lines[] =   "<SHIPTOCITY>$city</SHIPTOCITY>";
+        $lines[] =   "<SHIPTOPROVINCE>$state</SHIPTOPROVINCE>";
+        $lines[] =   "<SHIPTOPOSTALCODE>$postalcode</SHIPTOPOSTALCODE>";
+        $lines[] =   "<SHIPCARRIER>Purolator</SHIPCARRIER>";
+        $lines[] =   "<SHIPSERVICE>Ground</SHIPSERVICE>";
+        $lines[] =   "<PONUM>$orderNo</PONUM>";
+        $lines[] =   "<REMARKS>$comment</REMARKS>";
         $lines[] = "</ORDERHEADER>";
 
         return implode("\n", $lines);
@@ -108,13 +110,13 @@ class Request
         }
 
         $lines[] = "<ORDERITEMS>";
-        $lines[] = "  <ITEM>";
-        $lines[] = "    <PARTNUM>$sku</PARTNUM>";
-        $lines[] = "    <QTY>$qty</QTY>";
+        $lines[] =   "<ITEM>";
+        $lines[] =     "<PARTNUM>$sku</PARTNUM>";
+        $lines[] =     "<QTY>$qty</QTY>";
         if ($branch) {
-            $lines[] = "    <BRANCH>$branch</BRANCH>";
+            $lines[] = "<BRANCH>$branch</BRANCH>";
         }
-        $lines[] = "  </ITEM>";
+        $lines[] =   "</ITEM>";
         $lines[] = "</ORDERITEMS>";
 
         return implode("\n", $lines);

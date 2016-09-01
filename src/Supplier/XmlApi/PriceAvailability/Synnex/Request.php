@@ -2,6 +2,8 @@
 
 namespace Supplier\XmlApi\PriceAvailability\Synnex;
 
+use Utility\Utils;
+
 class Request
 {
     /**
@@ -53,7 +55,7 @@ class Request
         $lines[] =   $this->makePartnumList();
         $lines[] = '</priceRequest>';
 
-        return implode("\n", $lines);
+        return Utils::formatXml(implode("\n", $lines));
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace Supplier\XmlApi\PriceAvailability\ASI;
 
+use Utility\Utils;
+
 class Request
 {
     /**

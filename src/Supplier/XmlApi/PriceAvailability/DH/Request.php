@@ -2,6 +2,8 @@
 
 namespace Supplier\XmlApi\PriceAvailability\DH;
 
+use Utility\Utils;
+
 class Request
 {
     /**
@@ -45,7 +47,7 @@ class Request
         $lines[] =   $this->makePartnumList();
         $lines[] = "</XMLFORMPOST>";
 
-        $xmldoc = implode("\n", $lines);
+        $xmldoc = Utils::formatXml(implode("\n", $lines));
 
         return "xmlDoc=" . $xmldoc;
         return "xmlDoc=" . rawurlencode($xmldoc);
