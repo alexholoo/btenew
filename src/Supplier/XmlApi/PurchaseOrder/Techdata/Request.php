@@ -48,13 +48,13 @@ class Request
         $userid = $this->config['username'];
         $passwd = $this->config['password'];
 
-        $orderNo = $this->order['orderNo'];
+        $orderNo = $this->order['orderId'];
         $address = $this->order['address'];
         $city    = $this->order['city'];
-        $state   = $this->order['state'];
-        $zipcode = $this->order['zipcode'];
+        $state   = $this->order['province'];
+        $zipcode = $this->order['postalcode'];
         $country = $this->order['country'];
-        $contact = $this->order['contact'];
+        $contact = $this->order['buyer'];
         $phone   = $this->order['phone'];
         $email   = $this->order['email'];
 

@@ -64,12 +64,12 @@ class Request
 
         $dropShipPassword = $this->config['dropship'];
 
-        $orderNo = $this->order['orderNo'];
-        $contact = $this->order['contact'];
+        $orderNo = $this->order['orderId'];
+        $contact = $this->order['buyer'];
         $address = $this->order['address'];
         $city = $this->order['city'];
-        $state = $this->order['state'];
-        $postalcode = $this->order['zipcode'];
+        $state = $this->order['province'];
+        $postalcode = $this->order['postalcode'];
         $country = $this->order['country'];
         $comment = $this->order['comment'];
 

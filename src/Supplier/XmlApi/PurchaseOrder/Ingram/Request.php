@@ -67,12 +67,12 @@ class Request
     {
         $lines = array();
 
-        $orderNo = $this->order['orderNo'];
-        $contact = $this->order['contact'];
+        $orderNo = $this->order['orderId'];
+        $contact = $this->order['buyer'];
         $address = $this->order['address'];
         $city    = $this->order['city'];
-        $state   = $this->order['state'];
-        $zipcode = $this->order['zipcode'];
+        $state   = $this->order['province'];
+        $zipcode = $this->order['postalcode'];
         $branch  = $this->order['branch'];
 
         $lines[] = "<OrderHeaderInformation>";
