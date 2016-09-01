@@ -58,7 +58,7 @@ class Request
     protected function orderRequest()
     {
         $customerNo = $this->config['customerNo'];
-        $poNumber   = $this->order['orderNo'];
+        $poNumber   = $this->order['orderId'];
 
         $lines = array();
         $lines[] = '<OrderRequest>';
@@ -89,10 +89,10 @@ class Request
         #warehouse  = $this->order['warehouse'];
         $address    = $this->order['address'];
         $city       = $this->order['city'];
-        $state      = $this->order['state'];
-        $zipcode    = $this->order['zipcode'];
+        $state      = $this->order['province'];
+        $zipcode    = $this->order['postalcode'];
         $country    = $this->order['country'];
-        $contact    = $this->order['contact'];
+        $contact    = $this->order['buyer'];
         $phone      = $this->order['phone'];
         $email      = $this->order['email'];
         #shipMethod = $this->order['shipMethod'];
@@ -137,7 +137,7 @@ class Request
     protected function items()
     {
         $sku   = $this->order['sku'];
-        $price = $this->order['price'];
+        $price = 1.0; // $this->order['price'];
         $qty   = $this->order['qty'];
 
         if (substr($sku, 0, 4) == 'SYN-') {

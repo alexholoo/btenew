@@ -54,7 +54,8 @@ class Response
         $this->orders['code'] = strval($xml->OrderResponse->Code);
 
         if ($xml->OrderResponse->Code == 'rejected') {
-            $this->orders['reason'] = strval($xml->OrderResponse->Reason);
+            $this->status = 'ERROR';
+            $this->errorMessage = strval($xml->OrderResponse->Reason);
         }
 
         #echo $xml->OrderResponse->ResponseDateTime, EOL;

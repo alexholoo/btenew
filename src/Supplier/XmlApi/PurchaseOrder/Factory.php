@@ -34,20 +34,24 @@ class Factory
             break;
 
         case \Supplier\Prefix::SYNNEX:
+            $config = $this->config['xmlapi'][\Supplier\ConfigKey::SYNNEX];
             $client = new \Supplier\XmlApi\PurchaseOrder\Synnex\Client($config);
             break;
 
         case \Supplier\Prefix::INGRAM:
+            $config = $this->config['xmlapi'][\Supplier\ConfigKey::INGRAM];
             $client = new \Supplier\XmlApi\PurchaseOrder\Ingram\Client($config);
             break;
 
         case \Supplier\Prefix::TECHDATA:
+            $config = $this->config['xmlapi'][\Supplier\ConfigKey::TECHDATA];
             $client = new \Supplier\XmlApi\PurchaseOrder\Techdata\Client($config);
             break;
 
         case \Supplier\Prefix::ASI:
-            $client = new \Supplier\XmlApi\PurchaseOrder\ASI\Client($config);
-            break;
+            #$config = $this->config['xmlapi'][\Supplier\ConfigKey::ASI];
+            #$client = new \Supplier\XmlApi\PurchaseOrder\ASI\Client($config);
+            #break;
 
         default:
             throw \Exception('Unknown supplier ID: ' . $supplier);

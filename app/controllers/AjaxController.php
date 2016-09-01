@@ -30,7 +30,7 @@ class AjaxController extends ControllerBase
             $orderInfo = $order->toArray();
             $orderInfo['branch'] = $branch;
             $orderInfo['comment'] = $comment;
-            fpr($orderInfo);
+            #fpr($orderInfo);
 
             // TODO: temp code
             if (substr($sku, 0, 3) != 'SYN') {
@@ -57,13 +57,14 @@ class AjaxController extends ControllerBase
                 $client = $factory->createClient($sku);
                 $request = $client->createRequest();
                 $request->addOrder($orderInfo);
-fpr($request->toXml());
+                #fpr($request->toXml());
+
                 $response = $client->sendRequest($request);
                 $status = $response->getStatus();
+                fpr($response->getXmlDoc());
 
                 if ($status == 'ERROR') {
                     $errorMessage = $response->getErrorMessage();
-                    fpr($response->getXmlDoc());
                     $this->response->setJsonContent(['status' => 'ERROR', 'message' => $errorMessage]);
                 } else {
                     $this->markOrderPurchased($orderId, $sku);
