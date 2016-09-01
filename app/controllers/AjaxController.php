@@ -19,27 +19,60 @@ class AjaxController extends ControllerBase
             $sku = $this->request->getPost('sku');
             $branch = $this->request->getPost('branch', null, '');
             $qty = $this->request->getPost('qty');
-            $comment = $this->request->getPost('comment');
+            $comment = $this->request->getPost('comment', null, '');
 
             $order = Orders::findFirst("orderId='$orderId'");
-            if ($order) {
-                $orderInfo = $order->toArray();
-                $orderInfo['branch'] = $branch;
-                $orderInfo['comment'] = $comment;
-                fpr($orderInfo);
+            if (!$order) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
+                return $this->response;
             }
 
-            // TODO: make a xmlapi call to purchase
-            // make sure the order is not purchased (pending)
-            // make sure the order is not cancelled on amazon
+            $orderInfo = $order->toArray();
+            $orderInfo['branch'] = $branch;
+            $orderInfo['comment'] = $comment;
+            fpr($orderInfo);
 
-            // pass result to frontend
-            if (substr($sku, 0, 2) == 'TD') {
+            // TODO: temp code
+            if (substr($sku, 0, 3) != 'SYN') {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
-            } else {
-                $this->markOrderPurchased($orderId, $sku);
-                $this->response->setJsonContent(['status' => 'OK']);
+                return $this->response;
             }
+
+            // Make sure the order is pending (not purchased)
+            if ($this->isOrderPurchased($orderId)) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been purchased']);
+                return $this->response;
+            }
+
+            // Make sure the order is not cancelled on amazon
+            if ($this->isOrderCancelled($orderInfo)) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been cancelled']);
+                return $this->response;
+            }
+
+            // Make XmlApi call for purchasing
+            try {
+                $factory = new PurchaseOrderFactory($this->config);
+
+                $client = $factory->createClient($sku);
+                $request = $client->createRequest();
+                $request->addOrder($orderInfo);
+fpr($request->toXml());
+                $response = $client->sendRequest($request);
+                $status = $response->getStatus();
+
+                if ($status == 'ERROR') {
+                    $errorMessage = $response->getErrorMessage();
+                    fpr($response->getXmlDoc());
+                    $this->response->setJsonContent(['status' => 'ERROR', 'message' => $errorMessage]);
+                } else {
+                    $this->markOrderPurchased($orderId, $sku);
+                    $this->response->setJsonContent(['status' => 'OK']);
+                }
+            } catch (\Exception $e) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => $e->getMessage()]);
+            }
+
             return $this->response;
         }
     }
@@ -49,8 +82,7 @@ class AjaxController extends ControllerBase
         if ($this->request->isPost()) {
             $sku = $this->request->getPost('sku');
 
-            // TODO: make a xmlapi call to get price and availability
-
+            // Make a xmlapi call to get price and availability
             $data = $this->getPriceAvailability($sku);
 
             // $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
@@ -92,6 +124,32 @@ class AjaxController extends ControllerBase
         $sql = "UPDATE ca_order_notes SET status='purchased', actual_sku=? WHERE order_id=?";
         $result = $this->db->query($sql, array($sku, $orderId));
         return $result;
+    }
+
+    protected function isOrderPending($orderId)
+    {
+        $sql = "SELECT status FROM ca_order_notes WHERE order_id=? LIMIT 1";
+        $result = $this->db->query($sql, array($orderId))->fetch();
+        return $result['status'] == 'pending';
+    }
+
+    protected function isOrderPurchased($orderId)
+    {
+        $sql = "SELECT status FROM ca_order_notes WHERE order_id=? LIMIT 1";
+        $result = $this->db->query($sql, array($orderId))->fetch();
+        return $result['status'] == 'purchased';
+    }
+
+    protected function isOrderCancelled($order)
+    {
+        $channel = $order['channel'];
+        $orderId = $order['orderId'];
+
+        if (substr($channel, 0, 6) == 'Amazon') {
+            return false; // not cancelled
+        }
+
+        return true; // cancelled
     }
 
     protected function getPriceAvailability($items)
