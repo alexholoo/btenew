@@ -2,6 +2,8 @@
 
 namespace Supplier\XmlApi\PurchaseOrder\Synnex;
 
+use Utility\Utils;
+
 class Request
 {
     /**
@@ -38,7 +40,7 @@ class Request
         $lines[] = $this->orderRequest();
         $lines[] = '</SynnexB2B>';
 
-        return implode("\n", $lines);
+        return Utils::formatXml(implode("\n", $lines));
     }
 
     protected function credential()
@@ -69,7 +71,8 @@ class Request
         $lines[] = $this->shipment();
         $lines[] = $this->payment();
 
-        if (($endUserPoNumber = $this->order['endUserPoNumber'])) {
+        if (isset($this->order['endUserPoNumber'])) {
+            $endUserPoNumber = $this->order['endUserPoNumber'];
             $lines[] = "<EndUserPONumber>$endUserPoNumber</EndUserPONumber>";
         }
 

@@ -16,8 +16,12 @@ class Utils
          return false;
     }
 
-    public static function deleteOldFiles($dir, $interval = strtotime('-10 days'))
+    public static function deleteOldFiles($dir, $interval)
     {
+        if (!$interval) {
+            $interval = strtotime('-10 days');
+        }
+
         // cycle through all files in the directory
         foreach (glob($dir."*") as $file) {
             // if file is too old then delete it ***/
@@ -59,5 +63,15 @@ class Utils
             $__layout = 'layout';
         }
         include("views/$__layout.tpl");
+    }
+
+    public static function formatXml($xml)
+    {
+        $dom = new \DOMDocument('1.0');
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($xml);
+        $xml = $dom->saveXML();
+        return $xml;
     }
 }
