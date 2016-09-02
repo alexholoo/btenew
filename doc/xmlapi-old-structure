@@ -1,6 +1,3 @@
-./src/Supplier/ConfigKey.php
-./src/Supplier/Prefix.php
-./src/Supplier/Supplier.php
 ./src/Supplier/XmlApi/Client.php
 
 ./src/Supplier/XmlApi/PriceAvailability/Client.php
@@ -49,7 +46,6 @@
 ./src/Supplier/XmlApi/PurchaseOrder/Synnex/Client.php
 ./src/Supplier/XmlApi/PurchaseOrder/Synnex/Request.php
 ./src/Supplier/XmlApi/PurchaseOrder/Synnex/Response.php
-./src/Supplier/XmlApi/PurchaseOrder/Synnex/Warehouse.php
 ./src/Supplier/XmlApi/PurchaseOrder/Synnex/Test.php
 
 ./src/Supplier/XmlApi/PurchaseOrder/Techdata/Client.php
