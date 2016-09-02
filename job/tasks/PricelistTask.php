@@ -156,7 +156,7 @@ class PricelistTask extends \Phalcon\Cli\Task
             $item = array_combine($columns, $fields);
 
             if ($item['qty'] == 0) {
-                continue;
+                //continue;
             }
 
             $item['sku'] = 'SYN-' . $item['sku'];
