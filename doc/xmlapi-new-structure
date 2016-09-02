@@ -1,0 +1,50 @@
+./src/Supplier/ConfigKey.php
+./src/Supplier/Prefix.php
+./src/Supplier/Supplier.php
+
+./src/Supplier/XmlApiClient.php
+./src/Supplier/XmlRequest.php  // abstract ./src/Supplier/Model/Request.php 
+./src/Supplier/XmlResponse.php // abstract ./src/Supplier/Model/Response.php 
+
+./src/Supplier/Purchase/Order.php
+
+--------------------------------------------------------------------------------
+#/src/Supplier/XmlApi/PriceAvailability/Client.php => PriceAvailabilityLog
+#/src/Supplier/XmlApi/PurchaseOrder/Client.php => PurchaseOrderLog
+#/src/Supplier/XmlApi/PriceAvailability/Factory.php
+#/src/Supplier/XmlApi/PurchaseOrder/Factory.php
+--------------------------------------------------------------------------------
+
+./src/Supplier/ASI/XmlApiClient.php
+./src/Supplier/ASI/PriceAvailabilityRequest.php    // ./src/Supplier/ASI/Model/PriceAvailabilityRequest.php
+./src/Supplier/ASI/PriceAvailabilityResponse.php
+./src/Supplier/ASI/Test.php
+
+./src/Supplier/DH/XmlApiClient.php
+./src/Supplier/DH/PriceAvailabilityRequest.php
+./src/Supplier/DH/PriceAvailabilityResponse.php
+./src/Supplier/DH/PurchaseOrderRequest.php
+./src/Supplier/DH/PurchaseOrderResponse.php
+./src/Supplier/DH/Test.php
+
+./src/Supplier/Ingram/XmlApiClient.php
+./src/Supplier/Ingram/PriceAvailabilityRequest.php
+./src/Supplier/Ingram/PriceAvailabilityResponse.php
+./src/Supplier/Ingram/PurchaseOrderRequest.php
+./src/Supplier/Ingram/PurchaseOrderResponse.php
+./src/Supplier/Ingram/Test.php
+
+./src/Supplier/Synnex/XmlApiClient.php
+./src/Supplier/Synnex/PriceAvailabilityRequest.php
+./src/Supplier/Synnex/PriceAvailabilityResponse.php
+./src/Supplier/Synnex/PurchaseOrderRequest.php
+./src/Supplier/Synnex/PurchaseOrderResponse.php
+./src/Supplier/Synnex/Warehouse.php
+./src/Supplier/Synnex/Test.php
+
+./src/Supplier/Techdata/XmlApiClient.php
+./src/Supplier/Techdata/PriceAvailabilityRequest.php
+./src/Supplier/Techdata/PriceAvailabilityResponse.php
+./src/Supplier/Techdata/PurchaseOrderRequest.php
+./src/Supplier/Techdata/PurchaseOrderResponse.php
+./src/Supplier/Techdata/Test.php
