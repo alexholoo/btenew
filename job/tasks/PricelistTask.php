@@ -86,32 +86,15 @@ class PricelistTask extends \Phalcon\Cli\Task
 
     protected function importPricelist_DH()
     {
-        $columns = array(
-            'stock_status',     // 'StockStatus',
-            'qty',              // 'Qty',
-            'rebate_flag',      // 'RebateFlag',
-            'rebate_end_date',  // 'RebateEndDate',
-            'sku',              // 'SKU',
-            'mpn',              // 'MPN',
-            'upc',              // 'UPC',
-            'subcategory',      // 'SubCategory',
-            'vendor',           // 'Vendor',
-            'cost',             // 'Cost',
-            'rebate_amount',    // 'RebateAmount',
-            'reserved',         // 'Reserved',
-            'freight',          // 'Freight',
-            'ship_via',         // 'ShipVia',
-            'weight',           // 'Weight',
-            'short_desc',       // 'ShortDesc',
-            'long_desc',        // 'LongDesc',
-        );
+        $columns = include(__DIR__ . '/pricelist-columns-dh.php');
 
-        $fp = fopen('./DH-ITEMLIST', 'r');
+        $fp = fopen(__DIR__ . '/DH-ITEMLIST', 'r');
         if ($fp === FALSE) {
             $this->log('Failed to open DH-ITEMLIST');
             return;
         }
 
+        $items = [];
         while (($fields = fgetcsv($fp, 0, '|'))) {
             if (count($fields) != count($columns)) {
                 continue;
@@ -122,22 +105,90 @@ class PricelistTask extends \Phalcon\Cli\Task
             $item['sku'] = 'DH-' . $item['sku'];
             $item['rebate_end_date'] = ($item['rebate_end_date'] == '?') ? NULL : date('Y-m-d', strtotime($item['rebate_end_date']));
 
-            try {
-                $sql = $this->genInsertSql('pricelist_dh', $item);
+            $items[] = array_values($item);
 
-                $success = $this->db->execute($sql);
-                if (!$success) {
-                    echo $item['sku'], PHP_EOL;
+            if (count($items) == 1000) {
+                try {
+                    $sql = $this->genInsertSql('pricelist_dh', $columns, $items);
+
+                    $success = $this->db->execute($sql);
+                    if (!$success) {
+                        echo $item['sku'], PHP_EOL;
+                    }
+
+                    $items = [];
+                } catch (Exception $e) {
+                    echo $e->getMessage(), PHP_EOL;
                 }
+            }
+        }
+
+        if (count($items)) {
+            try {
+                $sql = $this->genInsertSql('pricelist_dh', $columns, $items);
+                $success = $this->db->execute($sql);
             } catch (Exception $e) {
                 echo $e->getMessage(), PHP_EOL;
             }
         }
+
         fclose($fp);
     }
 
     protected function importPricelist_SYN()
     {
+        $columns = include(__DIR__ . '/pricelist-columns-syn.php');
+
+        $fp = fopen(__DIR__ . '/1150897.ap', 'r');
+
+        if ($fp === FALSE) {
+            $this->log('Failed to open 1150897.ap');
+            return;
+        }
+
+        $items = [];
+        while (($fields = fgetcsv($fp, 0, '~'))) {
+            if (count($fields) != count($columns)) {
+                echo 'Incorrect number of columns: ', $fields[0], PHP_EOL;
+                continue;
+            }
+
+            $item = array_combine($columns, $fields);
+
+            if ($item['qty'] == 0) {
+                continue;
+            }
+
+            $item['sku'] = 'SYN-' . $item['sku'];
+
+            $items[] = array_values($item);
+
+            if (count($items) == 1000) {
+                try {
+                    $sql = $this->genInsertSql('pricelist_syn', $columns, $items);
+
+                    $success = $this->db->execute($sql);
+                    if (!$success) {
+                        echo $item['sku'], PHP_EOL;
+                    }
+
+                    $items = [];
+                } catch (Exception $e) {
+                    echo $e->getMessage(), PHP_EOL;
+                }
+            }
+        }
+
+        if (count($items)) {
+            try {
+                $sql = $this->genInsertSql('pricelist_syn', $columns, $items);
+                $success = $this->db->execute($sql);
+            } catch (Exception $e) {
+                echo $e->getMessage(), PHP_EOL;
+            }
+        }
+
+        fclose($fp);
     }
 
     protected function importPricelist_AS()
@@ -161,7 +212,7 @@ class PricelistTask extends \Phalcon\Cli\Task
     {
         return number_format(microtime(true) - $start, 4);
     }
-
+/*
     protected function genInsertSql($table, $item)
     {
         $columns = '`' . implode('`, `', array_keys($item)) . '`';
@@ -172,5 +223,29 @@ class PricelistTask extends \Phalcon\Cli\Task
                . "ON DUPLICATE KEY UPDATE $update, is_new=0, updatedon=NOW()";
 
         return $query;
+    }
+*/
+    protected function genInsertSql($table, $columns, $data)
+    {
+        $columnList = '`' . implode('`, `', $columns) . '`';
+
+        $query = "INSERT INTO `$table` ($columnList) VALUES\n";
+
+        $values = array();
+
+        foreach($data as $row) {
+            foreach($row as &$val) {
+                $val = addslashes($val);
+            }
+            $values[] = "('" . implode("', '", $row). "')";
+        }
+
+        $update = implode(', ',
+            array_map(function($name) {
+                return "`$name`=VALUES(`$name`)";
+            }, $columns)
+        );
+
+        return $query . implode(",\n", $values) . "\nON DUPLICATE KEY UPDATE $update, is_new=0, updatedon=NOW()";
     }
 }
