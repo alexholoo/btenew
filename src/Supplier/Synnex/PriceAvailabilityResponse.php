@@ -19,48 +19,43 @@ class PriceAvailabilityResponse extends BaseResponse
         #$xml->customerNo
         #$xml->userName
 
-        foreach ($xml->PriceAvailabilityList as $x) {
-            /**
-             * $item = [
-             *     'sku'   => '...',
-             *     'price' => '...',
-             *     'avail' => [
-             *         [ 'branch' => 'BRANCH-1', 'qty' => 1 ],
-             *         [ 'branch' => 'BRANCH-1', 'qty' => 2 ],
-             *         [ 'branch' => 'BRANCH-1', 'qty' => 3 ],
-             *     ]
-             * ];
-             */
-            $item = [];
-            $item['sku'] = 'SYN-' . strval($x->synnexSKU);
-            $item['status'] = strval($x->status);
-            $item['price'] = strval($x->price);
-            $item['totalQty'] = strval($x->totalQuantity);
-            $item['avail'] = [];
+        $result = new PriceAvailabilityResult();
 
-            #item['mfgPN'] = $x->mfgPN;
-            #item['mfgCode'] = $x->mfgCode;
+        foreach ($xml->PriceAvailabilityList as $x) {
+            $item = new PriceAvailabilityItem();
+
+            $item->sku      = 'SYN-' . strval($x->synnexSKU);
+            $item->price    = strval($x->price);
+            $item->status   = strval($x->status);
+            $item->totalQty = strval($x->totalQuantity);
+
+            #$x->mfgPN;
+            #$x->mfgCode;
             #$x->description;
             #$x->GlobalProductStatusCode;
 
             $warehouses = $x->AvailabilityByWarehouse;
+
             foreach($warehouses as $warehouse) {
                 $info = $warehouse->warehouseInfo;
-                if ($warehouse->qty > 0) {
-                    $item['avail'][] = [
-                        'branch' => strval($info->city), // Warehouse::getName($info->number),
-                        'qty'    => strval($warehouse->qty),
-                    ];
-                }
+
+                #if ($warehouse->qty > 0) {
+                $item->avail[] = [
+                    'branch' => strval($info->city), // Warehouse::getName($info->number),
+                    'qty'    => strval($warehouse->qty),
+                ];
+                #}
 
                 #$info->zipcode;
                 #$info->city;
                 #$info->addr;
             }
 
-            $this->items[] = $item;
+            $result->add($item);
         }
 
-        return $this->items;
+        $result->status = Response::STATUS_OK;
+
+        return $result;
     }
 }

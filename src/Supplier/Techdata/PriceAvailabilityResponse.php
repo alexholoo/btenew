@@ -16,53 +16,51 @@ class PriceAvailabilityResponse extends BaseResponse
     {
         $xml = simplexml_load_string($this->xmldoc);
 
-        $this->items = array();
+        $result = new PriceAvailabilityResult();
 
-        if ($xml->Detail->LineInfo->ErrorInfo) {
-            $this->status = 'ERROR'; // ?
-            $this->errorMessage = strval($xml->Detail->LineInfo->ErrorInfo->ErrorDesc);
-            return $this->items;
-        }
-
-        /**
-         * $item = [
-         *     'sku'   => '...',
-         *     'price' => '...',
-         *     'avail' => [
-         *         [ 'branch' => 'BRANCH-1', 'qty' => 1 ],
-         *         [ 'branch' => 'BRANCH-1', 'qty' => 2 ],
-         *         [ 'branch' => 'BRANCH-1', 'qty' => 3 ],
-         *     ]
-         * ];
-         */
         foreach ($xml->Detail->LineInfo as $x) {
+            $item = new PriceAvailabilityItem();
+
+            $item->sku = 'TD-' . strval($x->RefID1);
+
             if ($x->ErrorInfo) {
-                //continue;
+                $item->status = strval($x->ErrorInfo->ErrorDesc);
+                continue;
             }
 
-            $item = [];
-            $item['sku']   = 'TD-' . strval($x->RefID1);
-            $item['price'] = strval($x->UnitPrice1); // $x->UnitPrice2;
-            $item['avail'] = [];
-
-            #$x->ProductWeight
-            #$x->ItemStatus
+            $item->price  = strval($x->UnitPrice1); // ?
+            $item->price1 = strval($x->UnitPrice1); // ?
+            $item->price2 = strval($x->UnitPrice2); // ?
+            $item->status = strval($x->ItemStatus);
+            $item->weight = strval($x->ProductWeight);
 
             foreach ($x->WhseInfo as $branch) {
-                if ($branch->Qty > 0) {
-                    #$branch->WhseCode
-                    $item['avail'][] = [
-                        'branch' => strval($branch->IDCode),
-                        'qty'    => strval($branch->Qty),
-                    ];
+                #if ($branch->Qty == 0) {
+                #    continue;
+                #}
+
+                $item->avail[] = [
+                    'branch' => strval($branch->IDCode),
+                    'qty'    => strval($branch->Qty),
+                   #'code'   => strval($branch->WhseCode),
+                ];
+
+                if ($branch->TotalOnOrderQty) {
+                   #$item->avail['TotalOnOrderQty'] = strval($branch->TotalOnOrderQty);
+                }
+                if ($branch->OnOrderQty) {
+                   #$item->avail['OnOrderQty'] = strval($branch->OnOrderQty);
+                }
+                if ($branch->OnOrderETADate) {
+                   #$item->avail['OnOrderETADate'] = strval($branch->OnOrderETADate);
                 }
             }
 
-            $this->items[] = $item;
+            $result->add($item);
         }
 
-        $this->status = 'OK';
+        $result->status = Response::STATUS_OK;
 
-        return $this->items;
+        return $return;
     }
 }
