@@ -23,6 +23,9 @@ class PriceAvailabilityRequest extends BaseRequest
         return Utils::formatXml(implode("\n", $lines));
     }
 
+    /**
+     * @return string
+     */
     protected function header()
     {
         $loginId = $this->config['loginId'];
@@ -42,6 +45,9 @@ class PriceAvailabilityRequest extends BaseRequest
         return implode("\n", $lines);
     }
 
+    /**
+     * @return string
+     */
     protected function partnumList()
     {
         $lines = array();

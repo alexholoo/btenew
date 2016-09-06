@@ -11,9 +11,6 @@ class PriceAvailabilityRequest extends BaseRequest
      */
     public function toXml()
     {
-        $username = $this->config['username'];
-        $password = $this->config['password'];
-
         $lines = array();
 
         $lines[] = "<XML_PriceAvailability_Submit>";
@@ -24,6 +21,9 @@ class PriceAvailabilityRequest extends BaseRequest
         return Utils::formatXml(implode("\n", $lines));
     }
 
+    /**
+     * @return string
+     */
     protected function header()
     {
         $username = $this->config['username'];
@@ -40,6 +40,9 @@ class PriceAvailabilityRequest extends BaseRequest
         return implode("\n", $lines);
     }
 
+    /**
+     * @return string
+     */
     protected function detail()
     {
         $lines = array();

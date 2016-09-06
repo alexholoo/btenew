@@ -29,9 +29,9 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
         $request->addPartnum($sku);
 
-        $xml = $request->toXml();
+        $params = $request->toXml();
 
-        $res = $this->curlPost($url, $xml);
+        $res = $this->httpGet($url . $params);
 
         $response = new PriceAvailabilityResponse($res);
 
@@ -46,5 +46,19 @@ class Client extends BaseClient
     public function purchaseOrder($order);
     {
         throw \Exception('Purchase Order not supported for ASI');
+    }
+
+    protected function httpGet($url)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return $result;
     }
 }

@@ -21,7 +21,7 @@ class PriceAvailabilityRequest extends BaseRequest
         $lines[] =   "<customerNo>$customerNo</customerNo>";
         $lines[] =   "<userName>$username</userName>";
         $lines[] =   "<password>$password</password>";
-        $lines[] =   $this->makePartnumList();
+        $lines[] =   $this->partnumList();
         $lines[] = '</priceRequest>';
 
         return Utils::formatXml(implode("\n", $lines));
@@ -30,7 +30,7 @@ class PriceAvailabilityRequest extends BaseRequest
     /**
      * @return string
      */
-    protected function makePartnumList()
+    protected function partnumList()
     {
         $lines = array();
 

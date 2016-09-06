@@ -16,4 +16,9 @@ abstract class Request
     {
         $this->config = $config;
     }
+
+    /**
+     * @return string
+     */
+    abstract public function toXml();
 }

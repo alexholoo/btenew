@@ -23,16 +23,19 @@ class PriceAvailabilityRequest extends BaseRequest
         $lines[] =   "<USERID>$username</USERID>";
         $lines[] =   "<PASSWORD>$password</PASSWORD>";
         $lines[] =   "</LOGIN>";
-        $lines[] =   $this->makePartnumList();
+        $lines[] =   $this->partnumList();
         $lines[] = "</XMLFORMPOST>";
 
         $xmldoc = Utils::formatXml(implode("\n", $lines));
 
         return "xmlDoc=" . $xmldoc;
-        return "xmlDoc=" . rawurlencode($xmldoc);
+       #return "xmlDoc=" . rawurlencode($xmldoc);
     }
 
-    protected function makePartnumList()
+    /**
+     * @return string
+     */
+    protected function partnumList()
     {
         $lines = array();
 
