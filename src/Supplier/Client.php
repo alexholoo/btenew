@@ -8,11 +8,17 @@ abstract class Client
 {
     /**
      * constructor
+     *
+     * @param array $config
      */
-    public function __construct()
+    public function __construct($config = [])
     {
-         $this->di = Di::getDefault();
-         $this->config = $this->di->get('config');
+        $this->config = $config;
+
+        if (!$config) {
+            $this->di = Di::getDefault();
+            $this->config = $this->di->get('config');
+        }
     }
 
     /**
@@ -42,11 +48,13 @@ abstract class Client
 
     /**
      * @param  string $sku
+     * @return Supplier\Model\PriceAvailabilityResult
      */
     abstract public function getPriceAvailability($sku);
 
     /**
      * @param  Supplier\Model\Order $order
+     * @return Supplier\Model\PurchaseOrderResult
      */
     abstract public function purchaseOrder($order);
 }

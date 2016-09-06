@@ -32,11 +32,11 @@ class Order
         $this->date     = Arr::get($order, 'date');
         $this->orderId  = Arr::get($order, 'orderId');
         $this->express  = Arr::get($order, 'express');
-        $this->contact  = Arr::get($order, 'buyer');
+        $this->contact  = Arr::get($order, 'buyer'); // !
         $this->address  = Arr::get($order, 'address');
         $this->city     = Arr::get($order, 'city');
         $this->province = Arr::get($order, 'province');
-        $this->zipcode  = Arr::get($order, 'postalcode');
+        $this->zipcode  = Arr::get($order, 'postalcode'); // !
         $this->country  = Arr::get($order, 'country');
         $this->phone    = Arr::get($order, 'phone');
         $this->email    = Arr::get($order, 'email');
