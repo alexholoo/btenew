@@ -7,15 +7,7 @@ use Supplier\Model\Response;
 abstract class PurchaeOrderResponse extends Response
 {
     /**
-     * @var string
+     * @return Supplier\Model\PurchaseOrderResult
      */
-    protected $orderNo;
-
-    /**
-     * @return string
-     */
-    public function getOrderNo()
-    {
-        return $this->orderNo;
-    }
+    abstract public function parseXml();
 }

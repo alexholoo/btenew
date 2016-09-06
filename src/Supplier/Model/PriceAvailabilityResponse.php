@@ -7,25 +7,7 @@ use Supplier\Model\Response;
 abstract class PriceAvailabilityResponse extends Response
 {
     /**
-     * @var arary
-     *
-     * $item = [
-     *     'sku'   => '...',
-     *     'price' => '...',
-     *     'avail' => [
-     *         [ 'branch' => 'BRANCH-1', 'qty' => 1 ],
-     *         [ 'branch' => 'BRANCH-1', 'qty' => 2 ],
-     *         [ 'branch' => 'BRANCH-1', 'qty' => 3 ],
-     *     ]
-     * ];
+     * @return Supplier\Model\PriceAvailabilityResult
      */
-    protected $items = array();
-
-    /**
-     * @return array
-     */
-    public function getItems()
-    {
-        return $this->items[0];
-    }
+    abstract public function parseXml();
 }

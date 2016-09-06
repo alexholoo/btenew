@@ -9,7 +9,6 @@ use Supplier\ConfigKey;
 
 class Client extends BaseClient
 {
-    const PA_TEST_URL = 'https://www.asipartner.com/partneraccess/xml/price.asp';
     const PA_PROD_URL = 'https://www.asipartner.com/partneraccess/xml/price.asp';
 
     const PO_TEST_URL = '';
@@ -20,7 +19,7 @@ class Client extends BaseClient
      */
     public function getPriceAvailability($sku)
     {
-        $url = self::PA_TEST_URL;
+        $url = self::PA_PROD_URL;
 
         $request = new PriceAvailabilityRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
