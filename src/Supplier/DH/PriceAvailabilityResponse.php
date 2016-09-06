@@ -18,55 +18,62 @@ class PriceAvailabilityResponse extends BaseResponse
          *  <?xml version="1.0" encoding="UTF-8" ?>
          *  <XMLRESPONSE>
          *  <ITEM>
-         *      <PARTNUM>01SSC8592</PARTNUM>
-         *      <BRANCHQTY>
-         *          <BRANCH>Mississauga</BRANCH>
-         *          <QTY>0</QTY>
-         *          <INSTOCKDATE></INSTOCKDATE>
-         *      </BRANCHQTY>
-         *      <TOTALQTY>0</TOTALQTY>
+         *     <PARTNUM>52T</PARTNUM>
+         *     <UNITPRICE>6.63</UNITPRICE>
+         *     <BRANCHQTY>
+         *         <BRANCH>Toronto</BRANCH>
+         *         <QTY>84</QTY>
+         *         <INSTOCKDATE />
+         *     </BRANCHQTY>
+         *     <TOTALQTY>84</TOTALQTY>
          *  </ITEM>
-         *  <ITEM>...</ITEM>
+         *  <ITEM>
+         *     <PARTNUM>123ABC</PARTNUM>
+         *     <MESSAGE>Invalid Item Number</MESSAGE>
+         *  </ITEM>
          *  <STATUS>success</STATUS>
          *  </XMLRESPONSE>
          */
         $xml = simplexml_load_string($this->xmldoc);
 
-        $this->items = array();
-        $this->status = strval($xml->STATUS);
+        $result = new PriceAvailabilityResult();
 
-        foreach ($xml->ITEM as $item) {
-            if (empty($item->BRANCHQTY->QTY))
-                $item->BRANCHQTY->QTY = 0;
-
-            if (empty($item->UNITPRICE))
-                $item->UNITPRICE = 99999;
-
-            /**
-             * $item = [
-             *     'sku'   => '...',
-             *     'price' => '...',
-             *     'avail' => [
-             *         [ 'branch' => 'BRANCH-1', 'qty' => 1 ],
-             *         [ 'branch' => 'BRANCH-1', 'qty' => 2 ],
-             *         [ 'branch' => 'BRANCH-1', 'qty' => 3 ],
-             *     ]
-             * ];
-             */
-            $this->items[] = array(
-                'sku'   => 'DH-'. strval($item->PARTNUM),
-                'price' => strval($item->UNITPRICE),
-                'avail' => [
-                    [
-                        'branch' => strval($item->BRANCHQTY->BRANCH),
-                        'qty'    => strval($item->BRANCHQTY->QTY),
-                    ]
-                ],
-                'instockDate' => strval($item->BRANCHQTY->INSTOCKDATE),
-                'totalQty'    => strval($item->TOTALQTY),
-            );
+        $result->status = strval($xml->STATUS);
+        if ($result->status == 'success') {
+            $result->status = Response::STATUS_OK;
         }
 
-        return $this->items;
+        foreach ($xml->ITEM as $xitem) {
+            $item = new PriceAvailabilityItem();
+
+            if (empty($xitem->UNITPRICE)) {
+                $xitem->UNITPRICE = 99999;
+            }
+
+            $item->sku   = 'DH-'. strval($xitem->PARTNUM);
+            $item->price = strval($xitem->UNITPRICE);
+
+            if ($xitem->BRANCHQTY) {
+                $item->avail = [
+                    [
+                        'branch' => strval($xitem->BRANCHQTY->BRANCH),
+                        'qty'    => strval($xitem->BRANCHQTY->QTY),
+                    ]
+                ];
+                $item->instockDate = strval($xitem->BRANCHQTY->INSTOCKDATE);
+            };
+
+            if ($xitem->TOTALQTY) {
+                $item->totalQty = strval($xitem->TOTALQTY);
+            }
+
+            if ($xitem->MESSAGE) {
+                $item->status = strval($xitem->MESSAGE);
+            }
+
+            $result->add($item);
+        }
+
+        return $result;
     }
 }
