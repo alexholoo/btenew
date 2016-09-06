@@ -7,54 +7,43 @@ class PriceAvailabilityResult
     /**
      * @var string
      */
-    public $sku;
-
-    /**
-     * @var string
-     */
     public $status;
 
     /**
      * @var string
      */
-    public $price;
+    public $errorMessage;
 
     /**
-     * @var array
-     *
-     * avail => [
-     *     [ 'branch' => 'BRANCH-1', 'qty' => 1 ],
-     *     [ 'branch' => 'BRANCH-1', 'qty' => 2 ],
-     *     [ 'branch' => 'BRANCH-1', 'qty' => 3 ],
-     * ]
+     * @var array of Supplier\PriceAvailabilityItem
      */
-    public $avail;
+    protected $items = [];
 
     /**
-     * @return integer
+     * @param Supplier\PriceAvailabilityItem $item
      */
-    public function getTotalQty()
+    public function add($item)
     {
-        $totalQty = 0;
+        $this->items[] = $item;
+    }
 
-        foreach ($this->avail as $avail) {
-            $totalQty += $avail['qty'];
+    /**
+     * @return Supplier\PriceAvailabilityItem
+     */
+    public function getFirst()
+    {
+        if (count($this->items) > 0) {
+            return $this->items[0];
         }
 
-        return $totalQty;
+        return [];
     }
 
     /**
      * @return array
      */
-    public function toArray()
+    public function getItems()
     {
-        $avail = array_filter($this->avail, function($val) { return $val['qty']; });
-
-        return [
-            'sku'   => $this->sku,
-            'price' => $this->price,
-            'avail' => $avial,
-        ];
+        return $this->items;
     }
 }

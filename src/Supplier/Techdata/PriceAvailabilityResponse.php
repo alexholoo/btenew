@@ -2,12 +2,15 @@
 
 namespace Supplier\Techdata;
 
+use Supplier\Model\Response;
+use Supplier\Model\PriceAvailabilityItem;
+use Supplier\Model\PriceAvailabilityResult;
 use Supplier\Model\PriceAvailabilityResponse as BaseResponse;
 
 class PriceAvailabilityResponse extends BaseResponse
 {
     /**
-     * @return array
+     * @return Supplier\Model\PriceAvailabilityResult
      */
     public function parseXml()
     {
