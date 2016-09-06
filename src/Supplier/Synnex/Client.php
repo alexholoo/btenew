@@ -7,27 +7,26 @@ use Supplier\PriceAvailabilityLog;
 
 class Client extends BaseClient
 {
-    const PA_TEST_URL = '';
-    const PA_PROD_URL = '';
+    const PA_TEST_URL = 'https://testec.synnex.ca/SynnexXML/PriceAvailability';
+    const PA_PROD_URL = 'https://ec.synnex.ca/SynnexXML/PriceAvailability';
 
-    const PO_TEST_URL = '';
-    const PO_PROD_URL = '';
+    const PO_TEST_URL = 'https://testec.synnex.ca/SynnexXML/PO';
+    const PO_PROD_URL = 'https://ec.synnex.ca/SynnexXML/PO';
 
     /**
      * @param  string $sku
      */
     public function getPriceAvailability($sku)
     {
-        $url = 'https://ec.synnex.ca/SynnexXML/PriceAvailability';
-        $url = 'https://testec.synnex.ca/SynnexXML/PriceAvailability';
+        if ($res = PriceAvailabilityLog::query($sku)) {
+            return new PriceAvailabilityResponse($res);
+        }
+
+        $url = self::PA_PROD_URL;
 
         $request = new PriceAvailabilityRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
         $request->addPartnum($sku);
-
-        if ($res = PriceAvailabilityLog::query($sku)) {
-            return new PriceAvailabilityResponse($res);
-        }
 
         $xml = $request->toXml();
 
@@ -45,8 +44,7 @@ class Client extends BaseClient
      */
     public function purchaseOrder($order);
     {
-        $url = 'https://ec.synnex.ca/SynnexXML/PO';
-        $url = 'https://testec.synnex.ca/SynnexXML/PO';
+        $url = self::PO_TEST_URL;
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);

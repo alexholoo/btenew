@@ -9,26 +9,25 @@ use Supplier\ConfigKey;
 
 class Client extends BaseClient
 {
-    const PA_TEST_URL = '';
-    const PA_PROD_URL = '';
+    const PA_PROD_URL = 'https://newport.ingrammicro.com/mustang';
 
-    const PO_TEST_URL = '';
-    const PO_PROD_URL = '';
+    const PO_TEST_URL = 'https://newport.ingrammicro.com/mustang';
+    const PO_PROD_URL = 'https://newport.ingrammicro.com/mustang';
 
     /**
      * @param  string $sku
      */
     public function getPriceAvailability($sku)
     {
-        $url = 'https://newport.ingrammicro.com/mustang';
+        if ($res = PriceAvailabilityLog::query($sku)) {
+            return new PriceAvailabilityResponse($res);
+        }
+
+        $url = self::PA_PROD_URL;
 
         $request = new PriceAvailabilityRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::INGRAM]);
         $request->addPartnum($sku);
-
-        if ($res = PriceAvailabilityLog::query($sku)) {
-            return new PriceAvailabilityResponse($res);
-        }
 
         $xml = $request->toXml();
 
@@ -46,7 +45,7 @@ class Client extends BaseClient
      */
     public function purchaseOrder($order);
     {
-        $url = 'https://newport.ingrammicro.com/mustang';
+        $url = self::PO_TEST_URL;
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::INGRAM]);

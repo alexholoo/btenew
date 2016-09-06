@@ -7,26 +7,25 @@ use Supplier\PriceAvailabilityLog;
 
 class Client extends BaseClient
 {
-    const PA_TEST_URL = '';
-    const PA_PROD_URL = '';
+    const PA_PROD_URL = 'https://tdxml.techdata.com/xmlservlet';
 
-    const PO_TEST_URL = '';
-    const PO_PROD_URL = '';
+    const PO_TEST_URL = 'https://tdxml.techdata.com/xmlservlet';
+    const PO_PROD_URL = 'https://tdxml.techdata.com/xmlservlet';
 
     /**
      * @param  string $sku
      */
     public function getPriceAvailability($sku)
     {
-        $url = 'https://tdxml.techdata.com/xmlservlet';
-
-        $request = new PriceAvailabilityRequest();
-        $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
-        $request->addPartnum($sku);
+        $url = self::PA_PROD_URL;
 
         if ($res = PriceAvailabilityLog::query($sku)) {
             return new PriceAvailabilityResponse($res);
         }
+
+        $request = new PriceAvailabilityRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
+        $request->addPartnum($sku);
 
         $xml = $request->toXml();
 
@@ -44,7 +43,7 @@ class Client extends BaseClient
      */
     public function purchaseOrder($order);
     {
-        $url = 'https://tdxml.techdata.com/xmlservlet';
+        $url = self::PO_TEST_URL;
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);

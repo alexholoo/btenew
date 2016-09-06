@@ -19,15 +19,15 @@ class Client extends BaseClient
      */
     public function getPriceAvailability($sku)
     {
+        if ($res = PriceAvailabilityLog::query($sku)) {
+            return new PriceAvailabilityResponse($res);
+        }
+
         $url = self::PA_PROD_URL;
 
         $request = new PriceAvailabilityRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
         $request->addPartnum($sku);
-
-        if ($res = PriceAvailabilityLog::query($sku)) {
-            return new PriceAvailabilityResponse($res);
-        }
 
         $xml = $request->toXml();
 
