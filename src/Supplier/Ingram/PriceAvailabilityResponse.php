@@ -16,47 +16,41 @@ class PriceAvailabilityResponse extends BaseResponse
     {
         $xml = simplexml_load_string($this->xmldoc);
 
-        $this->items = array();
+        $result = new PriceAvailabilityResult();
 
-        $this->status = strval($xml->TransactionHeader->ErrorStatus['ErrorNumber']);
-        if (!empty($this->status)) {
-            $this->error = strval($xml->TransactionHeader->ErrorStatus);
-            return $this->items;
+        $result->status = strval($xml->TransactionHeader->ErrorStatus['ErrorNumber']);
+
+        if (!empty($result->status)) {
+            $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = strval($xml->TransactionHeader->ErrorStatus);
+            return $result;
         }
 
-        /**
-         * $item = [
-         *     'sku'   => '...',
-         *     'price' => '...',
-         *     'avail' => [
-         *         [ 'branch' => 'BRANCH-1', 'qty' => 1 ],
-         *         [ 'branch' => 'BRANCH-1', 'qty' => 2 ],
-         *         [ 'branch' => 'BRANCH-1', 'qty' => 3 ],
-         *     ]
-         * ];
-         */
         foreach ($xml->PriceAndAvailability as $x) {
-            $item = [];
-            $item['sku'] = 'ING-'.strval($x['SKU']);
-            $item['price'] = strval($x->Price);
-            $item['avail'] = [];
+            $item = new PriceAvailabilityItem();
+
+            $item->sku   = 'ING-'.strval($x['SKU']);
+            $item->price = strval($x->Price);
 
             foreach ($x->Branch as $branch) {
-                #$branchID   = strval($branch['ID']);
-                #$branchName = strval($branch['Name']);
-                if ($branch->Availability > 0) {
-                    $item['avail'][] = [
-                        'branch' => strval($branch['Name']),
-                        'qty'    => strval($branch->Availability),
-                    ];
-                }
+                #if ($branch->Availability > 0) {
+                $item->avail[] = [
+                   #'id'      => strval($branch['ID']),
+                    'branch'  => strval($branch['Name']),
+                    'qty'     => strval($branch->Availability),
+                   #'OnOrder' => strval($branch->OnOrder),
+                   #'ETADate' => strval($branch->ETADate),
+                ];
+                #}
             }
 
-            $this->items[] = $item;
+            $item->upc = strval($x->UPC);
+
+            $result->add($item);
         }
 
-        $this->status = 'OK';
+        $this->status = Response::STATUS_OK;
 
-        return $this->items;
+        return $result;
     }
 }
