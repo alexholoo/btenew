@@ -38,7 +38,7 @@ class PurchaseOrderRequest extends BaseRequest
     protected function orderRequest()
     {
         $customerNo = $this->config['customerNo'];
-        $poNumber   = $this->order['orderId'];
+        $poNumber   = $this->order->orderId;
 
         $lines = array();
         $lines[] = '<OrderRequest>';
@@ -49,12 +49,12 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] = $this->shipment();
         $lines[] = $this->payment();
 
-        if (isset($this->order['endUserPoNumber'])) {
-            $endUserPoNumber = $this->order['endUserPoNumber'];
+        if (isset($this->order->endUserPoNumber)) {
+            $endUserPoNumber = $this->order->endUserPoNumber;
             $lines[] = "<EndUserPONumber>$endUserPoNumber</EndUserPONumber>";
         }
 
-        if (($comment = $this->order['comment'])) {
+        if (($comment = $this->order->comment)) {
             $lines[] = "<Comment>$comment</Comment>";
         }
 
@@ -67,20 +67,20 @@ class PurchaseOrderRequest extends BaseRequest
 
     protected function shipment()
     {
-        #warehouse  = $this->order['warehouse'];
-        $address    = $this->order['address'];
-        $city       = $this->order['city'];
-        $state      = $this->order['province'];
-        $zipcode    = $this->order['postalcode'];
-        $country    = $this->order['country'];
-        $contact    = $this->order['buyer'];
-        $phone      = $this->order['phone'];
-        $email      = $this->order['email'];
-        #shipMethod = $this->order['shipMethod'];
+        $address    = $this->order->address;
+        $city       = $this->order->city;
+        $state      = $this->order->province;
+        $zipcode    = $this->order->zipcode;
+        $country    = $this->order->country;
+        $contact    = $this->order->contact;
+        $phone      = $this->order->phone;
+        $email      = $this->order->email;
+        $branch     = $this->order->branch;
+        #shipMethod = $this->order->shipMethod;
 
         $lines = array();
         $lines[] = '<Shipment>';
-        #lines[] =   "<ShipFromWarehouse>$warehouse</ShipFromWarehouse>";
+        #lines[] =   "<ShipFromWarehouse>$branch</ShipFromWarehouse>";
         $lines[] =   '<ShipTo>';
         $lines[] =     "<AddressName1>$contact</AddressName1>";
         #lines[] =     "<AddressName2 />";
@@ -117,9 +117,9 @@ class PurchaseOrderRequest extends BaseRequest
 
     protected function items()
     {
-        $sku   = $this->order['sku'];
-        $price = 1.0; // $this->order['price'];
-        $qty   = $this->order['qty'];
+        $sku   = $this->order->sku;
+        $price = 1.0; // $this->order->price;
+        $qty   = $this->order->qty;
 
         if (substr($sku, 0, 4) == 'SYN-') {
             $sku = substr($sku, 4);

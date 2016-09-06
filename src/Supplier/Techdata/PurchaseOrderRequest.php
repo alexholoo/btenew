@@ -28,21 +28,21 @@ class PurchaseOrderRequest extends BaseRequest
         $userid = $this->config['username'];
         $passwd = $this->config['password'];
 
-        $orderNo = $this->order['orderId'];
-        $address = $this->order['address'];
-        $city    = $this->order['city'];
-        $state   = $this->order['province'];
-        $zipcode = $this->order['postalcode'];
-        $country = $this->order['country'];
-        $contact = $this->order['buyer'];
-        $phone   = $this->order['phone'];
-        $email   = $this->order['email'];
+        $orderId = $this->order->orderId;
+        $address = $this->order->address;
+        $city    = $this->order->city;
+        $state   = $this->order->province;
+        $zipcode = $this->order->zipcode;
+        $country = $this->order->country;
+        $contact = $this->order->contact;
+        $phone   = $this->order->phone;
+        $email   = $this->order->email;
 
         $lines[] = "<Header>";
         $lines[] =   "<UserName>$userid</UserName>";
         $lines[] =   "<Password>$passwd</Password>";
         $lines[] =   "<ResponseVersion>1.6</ResponseVersion>";
-        $lines[] =   "<PONbr>$orderNo</PONbr>";
+        $lines[] =   "<PONbr>$orderId</PONbr>";
         $lines[] =   "<EndUserInfo>";
         $lines[] =     "<EuiContactName>$contact</EuiContactName>";
         $lines[] =     "<EuiPhoneNbr>$phone</EuiPhoneNbr>";
@@ -69,10 +69,10 @@ class PurchaseOrderRequest extends BaseRequest
     {
         $lines = array();
 
-        $sku = $this->order['sku'];
-        $qty = $this->order['qty'];
-        $branch = $this->order['branch'];
-        $comment = $this->order['comment'];
+        $sku = $this->order->sku;
+        $qty = $this->order->qty;
+        $branch = $this->order->branch;
+        $comment = $this->order->comment;
 
         if (substr($sku, 0, 3) == 'TD-') {
             $sku = substr($sku, 3);

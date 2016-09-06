@@ -42,16 +42,16 @@ class PurchaseOrderRequest extends Request
     {
         $lines = array();
 
-        $dropShipPassword = $this->config['dropship'];
+        $dropShipPassword = $this->config['dropshippw'];
 
-        $orderNo = $this->order['orderId'];
-        $contact = $this->order['buyer'];
-        $address = $this->order['address'];
-        $city = $this->order['city'];
-        $state = $this->order['province'];
-        $postalcode = $this->order['postalcode'];
-        $country = $this->order['country'];
-        $comment = $this->order['comment'];
+        $orderId = $this->order->orderId;
+        $contact = $this->order->contact;
+        $address = $this->order->address;
+        $city    = $this->order->city;
+        $state   = $this->order->province;
+        $zipcode = $this->order->zipcode;
+        $country = $this->order->country;
+        $comment = $this->order->comment;
 
         $lines[] = "<ORDERHEADER>";
         $lines[] =   "<ONLYBRANCH></ONLYBRANCH>";
@@ -65,10 +65,10 @@ class PurchaseOrderRequest extends Request
         $lines[] =   "<SHIPTOADDRESS2></SHIPTOADDRESS2>";
         $lines[] =   "<SHIPTOCITY>$city</SHIPTOCITY>";
         $lines[] =   "<SHIPTOPROVINCE>$state</SHIPTOPROVINCE>";
-        $lines[] =   "<SHIPTOPOSTALCODE>$postalcode</SHIPTOPOSTALCODE>";
+        $lines[] =   "<SHIPTOPOSTALCODE>$zipcode</SHIPTOPOSTALCODE>";
         $lines[] =   "<SHIPCARRIER>Purolator</SHIPCARRIER>";
         $lines[] =   "<SHIPSERVICE>Ground</SHIPSERVICE>";
-        $lines[] =   "<PONUM>$orderNo</PONUM>";
+        $lines[] =   "<PONUM>$orderId</PONUM>";
         $lines[] =   "<REMARKS>$comment</REMARKS>";
         $lines[] = "</ORDERHEADER>";
 
@@ -79,9 +79,9 @@ class PurchaseOrderRequest extends Request
     {
         $lines = array();
 
-        $sku = $this->order['sku'];
-        $qty = $this->order['qty'];
-        $branch = $this->order['branch'];
+        $sku = $this->order->sku;
+        $qty = $this->order->qty;
+        $branch = $this->order->branch;
 
         if (substr($sku, 0, 3) == 'DH-') {
             $sku = substr($sku, 3);

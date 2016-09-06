@@ -47,20 +47,20 @@ class PurchaseOrderRequest extends BaseRequest
     {
         $lines = array();
 
-        $orderNo = $this->order['orderId'];
-        $contact = $this->order['buyer'];
-        $address = $this->order['address'];
-        $city    = $this->order['city'];
-        $state   = $this->order['province'];
-        $zipcode = $this->order['postalcode'];
-        $branch  = $this->order['branch'];
+        $orderId = $this->order->orderId;
+        $contact = $this->order->contact;
+        $address = $this->order->address;
+        $city    = $this->order->city;
+        $state   = $this->order->province;
+        $zipcode = $this->order->zipcode;
+        $branch  = $this->order->branch;
 
         $lines[] = "<OrderHeaderInformation>";
         $lines[] =   "<BillToSuffix />";
         $lines[] =   "<AddressingInformation>";
-        $lines[] =     "<CustomerPO>$orderNo</CustomerPO>";
+        $lines[] =     "<CustomerPO>$orderId</CustomerPO>";
         $lines[] =     "<ShipToAttention>$contact</ShipToAttention>";
-        $lines[] =     "<EndUserPO>$orderNo</EndUserPO>";
+        $lines[] =     "<EndUserPO>$orderId</EndUserPO>";
         $lines[] =     "<ShipTo>";
         $lines[] =       "<Address>";
         $lines[] =         "<ShipToAddress1></ShipToAddress1>";
@@ -97,9 +97,9 @@ class PurchaseOrderRequest extends BaseRequest
     {
         $lines = array();
 
-        $sku = $this->order['sku'];
-        $qty = $this->order['qty'];
-        $comment = $this->order['comment'];
+        $sku = $this->order->sku;
+        $qty = $this->order->qty;
+        $comment = $this->order->comment;
 
         if (substr($sku, 0, 4) == 'ING-') {
             $sku = substr($sku, 4);

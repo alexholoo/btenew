@@ -2,6 +2,7 @@
 
 namespace Supplier\Model;
 
+use Supplier\Model\Order;
 use Supplier\Model\Request;
 
 abstract class PurchaseOrderRequest extends Request
@@ -12,11 +13,11 @@ abstract class PurchaseOrderRequest extends Request
     protected $order;
 
     /**
-     * @param Supplier\Model\Order $order
+     * @param array $order
      */
     public function addOrder($order)
     {
-        $this->order = $order;
+        $this->order = new Order($order);
     }
 
     /**
