@@ -2,21 +2,29 @@
 
 namespace Supplier\DH;
 
+use Supplier\Model\Response;
+use Supplier\Model\PurchaseOrderResult;
 use Supplier\Model\PurchaseOrderResponse as BaseResponse;
 
 class PurchaseOrderResponse extends BaseResponse
 {
     /**
-     * @return array
+     * @return Supplier\Model\PurchaseOrderResult
      */
     public function parseXml()
     {
         $xml = simplexml_load_string($this->xmldoc);
 
-        $this->status = strval($xml->STATUS);
-        $this->orders = strval($xml->ORDERNUM);
-        $this->errorMessage = strval($xml->MESSAGE);
+        $result = new PurchaseOrderResult();
 
-        return $this->orders;
+        $result->status = strval($xml->STATUS);
+        $result->orderNo = strval($xml->ORDERNUM);
+        $result->errorMessage = strval($xml->MESSAGE);
+
+        if ($result->status == 'success') {
+            $result->status = Response::STATUS_OK;
+        }
+
+        return $result;
     }
 }

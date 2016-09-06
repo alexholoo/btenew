@@ -2,16 +2,19 @@
 
 namespace Supplier\Synnex;
 
+use Supplier\Model\PurchaseOrderResult;
 use Supplier\Model\PurchaseOrderResponse as BaseResponse;
 
 class PurchaseOrderResponse extends BaseResponse
 {
     /**
-     * @return array
+     * @return Supplier\Model\PurchaseOrderResult
      */
     public function parseXml()
     {
         $xml = simplexml_load_string($this->xmldoc);
+
+        $result = new PurchaseOrderResult();
 
         if ($xml->OrderResponse->ErrorMessage) {
             $this->status = 'ERROR';
