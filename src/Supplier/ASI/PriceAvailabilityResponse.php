@@ -16,45 +16,30 @@ class PriceAvailabilityResponse extends BaseResponse
     {
         $xml = simplexml_load_string($this->xmldoc);
 
-        $this->items = array();
+        $result = new PriceAvailabilityResult();
 
         if ($xml->error) {
-            $this->status = 'ERROR';
-            $this->errorMessage = $xml->error->message;
-            return;
+            $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = $xml->error->message;
+            return $result;
         }
 
-        /**
-         * $item = [
-         *     'sku'   => '...',
-         *     'price' => '...',
-         *     'avail' => [
-         *         [ 'branch' => 'BRANCH-1', 'qty' => 1 ],
-         *         [ 'branch' => 'BRANCH-1', 'qty' => 2 ],
-         *         [ 'branch' => 'BRANCH-1', 'qty' => 3 ],
-         *     ]
-         * ];
-         */
-        $item = array(
-            'sku'    => 'AS-'. strval($xml->Inventory['SKU']),
-            'price'  => strval($xml->Inventory->Price),
-            'avail'  => [ ],
-            'status' => strval($xml->Inventory->Status),
-        );
+        $item = new PriceAvailabilityItem();
+
+        $item->sku    => 'AS-'. strval($xml->Inventory['SKU']);
+        $item->price  => strval($xml->Inventory->Price);
+        $item->status => strval($xml->Inventory->Status);
 
         foreach($xml->Inventory->Qty->Branch as $branch) {
-            if ($branch > 0) {
-                $item['avail'][] = [
-                    'branch' => strval($branch['Name']),
-                    'qty'    => strval($branch),
-                ];
-            }
+            $item->avail[] = [
+                'branch' => strval($branch['Name']),
+                'qty'    => strval($branch),
+            ];
         }
 
-        $this->status = 'OK';
+        $result->add($item);
+        $result->status = Response::STATUS_OK;
 
-        $this->items[] = $item;
-
-        return $this->items;
+        return $result;
     }
 }
