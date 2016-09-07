@@ -61,6 +61,6 @@ class PriceAvailabilityResponse extends BaseResponse
 
         $result->status = Response::STATUS_OK;
 
-        return $return;
+        return $result;
     }
 }

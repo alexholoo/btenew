@@ -2,6 +2,7 @@
 
 namespace Supplier\Ingram;
 
+use Utility\Utils;
 use Supplier\Model\PurchaseOrderRequest as BaseRequest;
 
 class PurchaseOrderRequest extends BaseRequest
@@ -28,7 +29,7 @@ class PurchaseOrderRequest extends BaseRequest
     {
         $lines = array();
 
-        $userid = $this->config['username'];
+        $userid = $this->config['loginId'];
         $passwd = $this->config['password'];
 
         $lines[] = "<TransactionHeader>";
@@ -36,7 +37,7 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =    "<ReceiverID></ReceiverID>";
         $lines[] =    "<CountryCode>CA</CountryCode>";
         $lines[] =    "<LoginID>$userid</LoginID>";
-        $lines[] =    "<Password>$password</Password>";
+        $lines[] =    "<Password>$passwd</Password>";
         $lines[] =    "<TransactionID></TransactionID>";
         $lines[] = "</TransactionHeader>";
 
