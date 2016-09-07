@@ -26,9 +26,9 @@ class PriceAvailabilityResponse extends BaseResponse
 
         $item = new PriceAvailabilityItem();
 
-        $item->sku    => 'AS-'. strval($xml->Inventory['SKU']);
-        $item->price  => strval($xml->Inventory->Price);
-        $item->status => strval($xml->Inventory->Status);
+        $item->sku    = 'AS-'. strval($xml->Inventory['SKU']);
+        $item->price  = strval($xml->Inventory->Price);
+        $item->status = strval($xml->Inventory->Status);
 
         foreach($xml->Inventory->Qty->Branch as $branch) {
             $item->avail[] = [

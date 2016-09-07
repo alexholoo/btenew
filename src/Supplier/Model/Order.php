@@ -1,6 +1,6 @@
 <?php
 
-use Supplier\Model;
+namespace Supplier\Model;
 
 use Utility\Arr;
 

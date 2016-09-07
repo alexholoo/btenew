@@ -1,6 +1,6 @@
 <?php
 
-namepspace Supplier\Model;
+namespace Supplier\Model;
 
 class PriceAvailabilityResult
 {
