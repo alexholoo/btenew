@@ -4,6 +4,7 @@ namespace Supplier\Synnex;
 
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
+use Supplier\PurchaseOrderLog;
 use Supplier\ConfigKey;
 
 class Client extends BaseClient
@@ -55,7 +56,9 @@ class Client extends BaseClient
 
         $xml = $request->toXml();
 
-        $res = $this->curlPost($url, $xml);
+        $res = $this->curlPost($url, $xml, array(
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
+        ));
 
         $response = new PurchaseOrderResponse($res);
 
