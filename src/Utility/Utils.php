@@ -32,6 +32,15 @@ class Utils
         }
     }
 
+    // remove the '$' in front of price
+    public static function tidyPrice($price)
+    {
+        $price = trim($price);
+        $price = str_replace('$', '', $price);
+        $price = str_replace(',', '', $price);
+        return $price;
+    }
+
     public static function renderView($__file, $__data)
     {
         ob_start();

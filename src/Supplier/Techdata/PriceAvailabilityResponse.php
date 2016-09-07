@@ -2,6 +2,7 @@
 
 namespace Supplier\Techdata;
 
+use Utility\Utils;
 use Supplier\Model\Response;
 use Supplier\Model\PriceAvailabilityItem;
 use Supplier\Model\PriceAvailabilityResult;
@@ -28,9 +29,9 @@ class PriceAvailabilityResponse extends BaseResponse
                 continue;
             }
 
-            $item->price  = strval($x->UnitPrice1); // ?
-            $item->price1 = strval($x->UnitPrice1); // ?
-            $item->price2 = strval($x->UnitPrice2); // ?
+            $item->price  = Utils::tidyPrice(strval($x->UnitPrice1)); // ?
+            $item->price1 = Utils::tidyPrice(strval($x->UnitPrice1)); // ?
+            $item->price2 = Utils::tidyPrice(strval($x->UnitPrice2)); // ?
             $item->status = strval($x->ItemStatus);
             $item->weight = strval($x->ProductWeight);
 
