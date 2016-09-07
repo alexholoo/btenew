@@ -2,9 +2,10 @@
 
 namespace Supplier\DH;
 
+use Utility\Utils;
 use Supplier\Model\PurchaseOrderRequest as BaseRequest;
 
-class PurchaseOrderRequest extends Request
+class PurchaseOrderRequest extends BaseRequest
 {
     /**
      * @return string

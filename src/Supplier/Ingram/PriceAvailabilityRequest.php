@@ -2,6 +2,7 @@
 
 namespace Supplier\Ingram;
 
+use Utility\Utils;
 use Supplier\Model\PriceAvailabilityRequest as BaseRequest;
 
 class PriceAvailabilityRequest extends BaseRequest

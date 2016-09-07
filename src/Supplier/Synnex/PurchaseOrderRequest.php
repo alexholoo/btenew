@@ -2,6 +2,7 @@
 
 namespace Supplier\Synnex;
 
+use Utility\Utils;
 use Supplier\Model\PurchaseOrderRequest as BaseRequest;
 
 class PurchaseOrderRequest extends BaseRequest
