@@ -43,7 +43,7 @@ class Client extends BaseClient
     /**
      * @param  Supplier\Model\Order $order
      */
-    public function purchaseOrder($order);
+    public function purchaseOrder($order)
     {
         throw \Exception('Purchase Order not supported for ASI');
     }

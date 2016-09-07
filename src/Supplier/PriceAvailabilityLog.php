@@ -11,7 +11,7 @@ class PriceAvailabilityLog
     {
         $db = Di::getDefault()->get('db');
 
-        $this->db->insertAsDict('xmlapi_pna_log',
+        $db->insertAsDict('xmlapi_pna_log',
             [
                 'sku' => $request->getPartnum(),
                 'url' => $url,
