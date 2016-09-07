@@ -4,6 +4,7 @@ namespace Supplier\Techdata;
 
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
+use Supplier\ConfigKey;
 
 class Client extends BaseClient
 {
@@ -41,7 +42,7 @@ class Client extends BaseClient
     /**
      * @param  Supplier\Model\Order $order
      */
-    public function purchaseOrder($order);
+    public function purchaseOrder($order)
     {
         $url = self::PO_TEST_URL;
 

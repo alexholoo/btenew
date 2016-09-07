@@ -43,7 +43,7 @@ class Client extends BaseClient
     /**
      * @param  Supplier\Model\Order $order
      */
-    public function purchaseOrder($order);
+    public function purchaseOrder($order)
     {
         $url = self::PO_TEST_URL;
 
