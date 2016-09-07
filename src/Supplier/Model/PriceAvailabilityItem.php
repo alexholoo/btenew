@@ -54,7 +54,7 @@ class PriceAvailabilityItem
         return [
             'sku'   => $this->sku,
             'price' => $this->price,
-            'avail' => $avial,
+            'avail' => $avail,
         ];
     }
 }

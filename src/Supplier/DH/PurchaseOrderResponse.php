@@ -25,6 +25,10 @@ class PurchaseOrderResponse extends BaseResponse
             $result->status = Response::STATUS_OK;
         }
 
+        if ($result->status == 'failure') {
+            $result->status = Response::STATUS_ERROR;
+        }
+
         return $result;
     }
 }

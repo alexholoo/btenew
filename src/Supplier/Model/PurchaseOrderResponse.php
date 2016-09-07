@@ -4,7 +4,7 @@ namespace Supplier\Model;
 
 use Supplier\Model\Response;
 
-abstract class PurchaeOrderResponse extends Response
+abstract class PurchaseOrderResponse extends Response
 {
     /**
      * @return Supplier\Model\PurchaseOrderResult

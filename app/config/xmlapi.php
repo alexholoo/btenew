@@ -2,10 +2,10 @@
 
 return array(
     \Supplier\ConfigKey::DH => array(
-        'url'      => 'https://www.dandh.ca/dhXML/xmlDispatch',
-        'username' => '800712XML',
-        'password' => 'BTE@xml2013',
-        'dropship' => 'DONTKNOW',
+        'url'        => 'https://www.dandh.ca/dhXML/xmlDispatch',
+        'username'   => '800712XML',
+        'password'   => 'BTE@xml2013',
+        'dropshippw' => 'DONTKNOW',
     ),
 
     \Supplier\ConfigKey::SYNNEX => array(
