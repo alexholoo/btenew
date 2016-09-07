@@ -17,46 +17,32 @@ class PurchaseOrderResponse extends BaseResponse
 
         $result = new PurchaseOrderResult();
 
+        $result->status = strval($xml->OrderResponse->Code);
+
+        // fatal error (username/password/ip/xml error)
         if ($xml->OrderResponse->ErrorMessage) {
-            $this->status = 'ERROR';
-            $this->errorMessage = strval($xml->OrderResponse->ErrorMessage);
-            $this->errorDetail = strval($xml->OrderResponse->ErrorDetail);
-            return;
+            $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = strval($xml->OrderResponse->ErrorMessage);
+            $result->errorDetail = strval($xml->OrderResponse->ErrorDetail);
+            return $result;
         }
 
-        $this->status = strval($xml->OrderResponse->Code);
-
-        #this->orders['customerNumber'] = strval($xml->OrderResponse->CustomerNumber);
-        $this->orders['poNumber'] = strval($xml->OrderResponse->PONumber);
-        $this->orders['code'] = strval($xml->OrderResponse->Code);
+        if ($xml->OrderResponse->Code == 'accepted') {
+            $result->status = Response::STATUS_OK;
+        }
 
         if ($xml->OrderResponse->Code == 'rejected') {
-            $this->status = 'ERROR';
-            $this->errorMessage = strval($xml->OrderResponse->Reason);
+            $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = strval($xml->OrderResponse->Reason);
         }
 
-        #echo $xml->OrderResponse->ResponseDateTime, EOL;
-        #echo $xml->OrderResponse->ResponseElapsedTime, EOL;
+        $item = $xml->OrderResponse->Items[0];
 
-        foreach ($xml->OrderResponse->Items as $item) {
-            $order = [];
+        $result->orderNo = strval($item->Item->OrderNumber);
+        $result->orderType = strval($item->Item->OrderType);
 
-            $order['sku'] = 'SYN-' . strval($item->Item->SKU);
-            $order['qty'] = strval($item->Item->OrderQuantity);
-            $order['code'] = strval($item->Item->Code);
+        #shipFrom = strval($item->Item->ShipFromWarehouse);
 
-            if ($item->Item->Code == 'rejected') {
-                $order['reason'] = strval($item->Item->Reason);
-            }
-
-            $order['orderNo'] = strval($item->Item->OrderNumber);
-            $order['orderType'] = strval($item->Item->OrderType);
-            $order['shipFrom'] = strval($item->Item->ShipFromWarehouse);
-            #order['synnexRef'] = strval($item->Item->SynnexInternalReference);
-
-            $this->orders['items'][] = $order;
-        }
-
-        return $this->orders;
+        return $result;
     }
 }
