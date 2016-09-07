@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SynnexB2B>
+  <OrderResponse>
+    <ErrorMessage>Client.IncompleteXML</ErrorMessage>
+    <ErrorDetail>
+        (1)OrderRequest/PONumber: String value required
+        (2)OrderRequest/Shipment/ShipTo/AddressLine1: String value required
+        (3)OrderRequest/Shipment/ShipTo/City: String value required
+        (4)OrderRequest/Shipment/ShipTo/ZipCode|State:  Please fill in ZipCode and State while ShipToCountry equals &apos;US&apos;,&apos;CA&apos; or &apos;MX&apos;
+        (5): Product to be ordered not specified.Please provide a value for any one of the following fields: SKU, SynnexPartNumber, ManufacturerPartNumber, CustomerPartNumber
+        (6)OrderRequest/Items/Item[0]/UnitPrice: Float value required
+        (7)OrderRequest/Items/Item[0]/OrderQuantity: Integer value required
+     </ErrorDetail>
+  </OrderResponse>
+</SynnexB2B>
+

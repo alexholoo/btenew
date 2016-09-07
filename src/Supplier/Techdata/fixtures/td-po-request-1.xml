@@ -1,0 +1,26 @@
+<XML_Order_Submit>
+    <Header>
+        <UserName>yourUserID</UserName>
+        <Password>yourPassword</Password>
+        <ResponseVersion>1.6</ResponseVersion>
+        <OrderTypeCode>BS</OrderTypeCode>
+        <PONbr>2342385.2</PONbr>
+        <SalesRequirementCode>BK</SalesRequirementCode>
+        <Name>eCOMMERCE</Name>
+        <AddrInfo>
+            <Addr>5350 TECH DATA DR</Addr>
+        </AddrInfo>
+        <CityName>CLEARWATER</CityName>
+        <StateProvinceCode>FL</StateProvinceCode>
+        <PostalCode>33760</PostalCode>
+        <ContactName>John Q. Public</ContactName>
+    </Header>
+    <Detail>
+        <LineInfo>
+            <QtyOrdered>125</QtyOrdered>
+            <ProductIDQual>VP</ProductIDQual>
+            <ProductID>884554</ProductID>
+            <IDCode>01</IDCode>
+        </LineInfo>
+    </Detail>
+</XML_Order_Submit>

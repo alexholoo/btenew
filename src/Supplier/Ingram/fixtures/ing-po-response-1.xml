@@ -1,0 +1,60 @@
+<OrderResponse>
+   <Version>2.0</Version>
+   <TransactionHeader>
+      <SenderID>123456789</SenderID>
+      <ReceiverID>987654321</ReceiverID>
+      <ErrorStatus ErrorNumber=""></ErrorStatus>
+      <DocumentID>{9D25E715-F65E-432F-A773-9E22FEA8FBDF}</DocumentID>
+      <TransactionID>12345</TransactionID>
+      <TimeStamp>2003-07-07T00:00:00</TimeStamp>
+   </TransactionHeader>
+   <OrderInfo>
+     <OrderNumbers>
+       <BranchOrderNumber>2048043</BranchOrderNumber>
+       <CustomerPO>2323232</CustomerPO>
+       <ShipToAttention>ShipToAttention_1</ShipToAttention>
+       <ThirdPartyFreightAccount></ThirdPartyFreightAccount>
+       <ShipToAddress1>Red House Company</ShipToAddress1>
+       <ShipToAddress2>55 Elm Street </ShipToAddress2>
+       <ShipToAddress3></ShipToAddress3>
+       <ShipToCity>Toronto</ShipToCity>
+       <ShipToProvince>ON</ShipToProvince>
+       <ShipToPostalCode>MK8 8DF</ShipToPostalCode>
+       <ShipToSuffix></ShipToSuffix>
+       <AddressErrorMessage AddressErrorType="" />
+       <ContractNumber></ContractNumber>
+       <OrderSuffix Suffix="11">
+         <DistributionWeight>45</DistributionWeight>
+         <SuffixErrorResponse SuffixErrorType="" />
+         <Carrier CarrierCode="CT">CITY LINK NEXTDAY</Carrier>
+         <LineInformation>
+           <ProductLine>
+              <LineError/>
+              <SKU>123321</SKU>
+              <ManufacturerPartNumber>50730</ManufacturerPartNumber>
+              <UPC>0757120507307</UPC>
+              <CustomerPartNumber>G0123456</CustomerPartNumber>
+              <RequestedPrice>34.99</RequestedPrice>
+              <UnitPrice>34.99</UnitPrice>
+              <IngramLineNumber>020</IngramLineNumber>
+              <CustomerLineNumber>Cus</CustomerLineNumber>
+              <ShipFromBranch>20</ShipFromBranch>
+              <OrderQuantity>10</OrderQuantity>
+              <AllocatedQuantity>9</AllocatedQuantity>
+              <BackOrderedQuantity>1</BackOrderedQuantity>
+              <BackOrderETADate>12/07/2003</BackOrderETADate>
+              <PriceDerivedFlag/>
+              <ForeignCurrency>0</ForeignCurrency>
+              <FreightRate>12.50</FreightRate>
+              <TransitDays>1</TransitDays>
+              <LineBillToSuffix>200</LineBillToSuffix>
+           </ProductLine>
+           <CommentLine>
+              <CommentText>please deliver to grey door</CommentText>
+              <CommentLineNumber>001</CommentLineNumber>
+           </CommentLine>
+         </LineInformation>
+       </OrderSuffix>
+     </OrderNumbers>
+  </OrderInfo>
+</OrderResponse>

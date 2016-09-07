@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<PNAResponse>
+    <Version>2.0</Version>
+    <TransactionHeader>
+        <SenderID>YOU</SenderID>
+        <ReceiverID>ME</ReceiverID>
+        <ErrorStatus ErrorNumber=""></ErrorStatus>
+        <DocumentID>{826EB4EC-ED45-49C3-A741-C5187DAA29A8}</DocumentID>
+        <TransactionID>1</TransactionID>
+        <TimeStamp>2014-06-11T16:59:53</TimeStamp>
+    </TransactionHeader>
+    <PriceAndAvailability SKU="T42794" Quantity="">
+        <Price>18.65</Price>
+        <SpecialPriceFlag></SpecialPriceFlag>
+        <ManufacturerPartNumber>AVP-6</ManufacturerPartNumber>
+        <ManufacturerPartNumberOccurs></ManufacturerPartNumberOccurs>
+        <VendorNumber>Q410</VendorNumber>
+        <Description>MIDLAND DESKTOP CHARGER</Description>
+        <ReserveInventoryFlag>Y</ReserveInventoryFlag>
+        <AvailableRebQty>0</AvailableRebQty>
+        <Branch Name="Vancouver" ID="10">
+            <Availability>0</Availability>
+            <OnOrder>0</OnOrder>
+            <ETADate></ETADate>
+        </Branch>
+        <Branch Name="Toronto" ID="40">
+            <Availability>1</Availability>
+            <OnOrder>0</OnOrder>
+            <ETADate></ETADate>
+        </Branch>
+        <UPC>0046014298750</UPC>
+        <CustomerPartNumber></CustomerPartNumber>
+    </PriceAndAvailability>
+    <PriceAndAvailability SKU="64678S" Quantity="">
+        <Price>70.80</Price>
+        <SpecialPriceFlag>Y</SpecialPriceFlag>
+        <ManufacturerPartNumber>J9802A#ABA</ManufacturerPartNumber>
+        <ManufacturerPartNumberOccurs></ManufacturerPartNumberOccurs>
+        <VendorNumber>4366</VendorNumber>
+        <Description>1810-8G V2 8PORT WEB MNG</Description>
+        <ReserveInventoryFlag>Y</ReserveInventoryFlag>
+        <AvailableRebQty>0</AvailableRebQty>
+        <Branch Name="Vancouver" ID="10">
+            <Availability>-1</Availability>
+            <OnOrder>40</OnOrder>
+            <ETADate>2014-06-20</ETADate>
+        </Branch>
+        <Branch Name="Toronto" ID="40">
+            <Availability>-3</Availability>
+            <OnOrder>72</OnOrder>
+            <ETADate>2014-06-20</ETADate>
+        </Branch>
+        <UPC>0887111275219</UPC>
+        <CustomerPartNumber></CustomerPartNumber>
+    </PriceAndAvailability>
+</PNAResponse>

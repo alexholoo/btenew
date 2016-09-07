@@ -1,0 +1,10 @@
+<XMLFORMPOST> 
+  <REQUEST>orderStatus</REQUEST> 
+  <LOGIN> 
+    <USERID>youruserid</USERID> 
+    <PASSWORD>yourpassword</PASSWORD> 
+  </LOGIN> 
+  <STATUSREQUEST> 
+    <PONUM>yourPOnumber</PONUM> 
+  </STATUSREQUEST> 
+</XMLFORMPOST>

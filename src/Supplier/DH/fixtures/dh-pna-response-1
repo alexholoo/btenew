@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<XMLRESPONSE> 
+    <ITEM> 
+       <PARTNUM>52T</PARTNUM> 
+       <UNITPRICE>6.63</UNITPRICE> 
+       <BRANCHQTY> 
+           <BRANCH>Toronto</BRANCH> 
+           <QTY>84</QTY> 
+           <INSTOCKDATE /> 
+       </BRANCHQTY> 
+       <TOTALQTY>84</TOTALQTY> 
+    </ITEM> 
+    <ITEM> 
+       <PARTNUM>123ABC</PARTNUM> 
+       <MESSAGE>Invalid Item Number</MESSAGE> 
+    </ITEM> 
+ <STATUS>success</STATUS> 
+</XMLRESPONSE> 

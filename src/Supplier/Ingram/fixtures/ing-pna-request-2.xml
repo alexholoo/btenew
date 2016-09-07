@@ -1,0 +1,16 @@
+<PNARequest>
+  <Version>2.0</Version>
+  <TransactionHeader>
+    <SenderID>MD</SenderID>
+    <ReceiverID>YOU</ReceiverID>
+    <CountryCode>CA</CountryCode>
+    <LoginID>TrEv8fEbes</LoginID>
+    <Password>YA2eQaThud</Password>
+    <TransactionID>1</TransactionID>
+  </TransactionHeader>
+  <PNAInformation CustomerPartNumber="E0123456" Quantity="1"/>
+  <PNAInformation ManufacturerPartNumber="RG0322" Quantity="1"/>
+  <PNAInformation UPC="0760884154205" Quantity="1"/>
+  <PNAInformation SKU="123512" Quantity="" />
+  <ShowDetail>2</ShowDetail>
+</PNARequest>
