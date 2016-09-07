@@ -97,6 +97,63 @@ function testPurchaseOrderResponse()
 
 function realPurchaseOrder()
 {
+    /*
+      When placing test orders, please follow these steps to ensure that your orders are not
+      released:
+
+      - Advise your Ingram Sales representative in advance of placing any test orders.
+      - Place your orders on an Ecommerce Customer HOLD, by indicating ‘H’ as the
+        Autorelease value (Note: Dtype Order Requests don’t contain the Autorelease element,
+        however, these orders will trigger another HOLD in our system automatically.)
+      - Specify the CustomerPO as “TEST PO ONLY – DO NOT SHIP”
+      - Indicate within order on a Comment Line that the order is only a test. For example
+      - <CommentText>TEST PO ONLY – DO NOT SHIP</CommentText>
+      - Communicate any test orders to your IM Sales Representative, so that these are not
+        shipped and can be voided.
+    */
+
+    // Testing SKUs for Canadian Partners
+    $sku = 'ING-21593L'; // This sku is stocked and is in stock.
+    $sku = 'ING-21592L'; // This sku will have 0 stock available in any of the ALCs
+    $sku = 'ING-21594L'; // This SKU has a product class code of “X”(Directship SKUs).
+                         // SKUs with this class code can only be ordered via the
+                         // Dtype Order Request xml transaction.
+                         // Licensing and warranty products are examples of class X SKUs.
+
+    #$config = include __DIR__ . '/app/config/xmlapi.php';
+    $config = include __DIR__ . '/app/config/config.php';  // !!
+
+    $order = [ // this comes from ca_order_notes
+        'id' => '2754',
+        'channel' => 'Amazon-ACA',
+        'date' => '2016-08-29',
+        'orderId' => '701-3707503-5766610',
+        'mgnOrderId' => '',
+        'express' => '0',
+        'buyer' => 'Sam Wang',
+        'address' => '123 Esna Park',
+        'city' => 'Toronto',
+        'province' => 'ON',
+        'postalcode' => 'R3B 0J7',
+        'country' => 'CA',
+        'phone' => '800-900-1020',
+        'email' => 'samwang@email.com',
+        'sku' => $sku,
+        'price' => '87.39',
+        'qty' => '1',
+        'shipping' => '0.00',
+        'mgnInvoiceId' => 'n/a',
+        // extra info from user
+        'branch' => '',
+        'comment' => 'TEST PO ONLY – DO NOT SHIP',
+    ];
+
+    $client = new Client($config);
+#   $response = $client->purchaseOrder($order);
+
+    $result = $response->parseXml();
+
+    pr($result);
 }
 
 #testPriceAvailabilityRequest();
