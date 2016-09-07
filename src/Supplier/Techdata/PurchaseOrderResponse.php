@@ -2,6 +2,7 @@
 
 namespace Supplier\Techdata;
 
+use Supplier\Model\Response;
 use Supplier\Model\PurchaseOrderResult;
 use Supplier\Model\PurchaseOrderResponse as BaseResponse;
 

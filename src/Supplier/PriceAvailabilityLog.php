@@ -17,7 +17,7 @@ class PriceAvailabilityLog
                 'url' => $url,
                 'request' => $request->toXml(),
                 'response' => $response->getXmlDoc(),
-                'status' => $response->getStatus(),
+               #'status' => $response->getStatus(),
             ]
         );
     }
