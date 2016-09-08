@@ -32,8 +32,8 @@ class PurchaseOrderRequest extends BaseRequest
         $passwd = $this->config['password'];
 
         $lines[] = "<LOGIN>";
-        $lines[] = "  <USERID>$userid</USERID>";
-        $lines[] = "  <PASSWORD>$passwd</PASSWORD>";
+        $lines[] =   "<USERID>$userid</USERID>";
+        $lines[] =   "<PASSWORD>$passwd</PASSWORD>";
         $lines[] = "</LOGIN>";
 
         return implode("\n", $lines);
@@ -54,11 +54,18 @@ class PurchaseOrderRequest extends BaseRequest
         $country = $this->order->country;
         $comment = $this->order->comment;
 
+        $partShip    = $this->config['partship'];
+        $backOrder   = $this->config['backorder'];
+        $shipCarrier = $this->config['shipcarrier'];
+        $shipService = $this->config['shipservice'];
+        $onlyBranch  = $this->config['onlybranch'];
+        $branches    = $this->config['branches'];
+
         $lines[] = "<ORDERHEADER>";
-        $lines[] =   "<ONLYBRANCH></ONLYBRANCH>";
-        $lines[] =   "<BRANCHES>3</BRANCHES>";
-        $lines[] =   "<PARTSHIPALLOW>N</PARTSHIPALLOW>";
-        $lines[] =   "<BACKORDERALLOW>N</BACKORDERALLOW>";
+        $lines[] =   "<ONLYBRANCH>$onlyBranch</ONLYBRANCH>";
+        $lines[] =   "<BRANCHES>$branches</BRANCHES>";
+        $lines[] =   "<PARTSHIPALLOW>$partShip</PARTSHIPALLOW>";
+        $lines[] =   "<BACKORDERALLOW>$backOrder</BACKORDERALLOW>";
         $lines[] =   "<DROPSHIPPW>$dropShipPassword</DROPSHIPPW>";
         $lines[] =   "<SHIPTONAME>$contact</SHIPTONAME>";
         $lines[] =   "<SHIPTOATTN></SHIPTOATTN>";
@@ -67,8 +74,8 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =   "<SHIPTOCITY>$city</SHIPTOCITY>";
         $lines[] =   "<SHIPTOPROVINCE>$state</SHIPTOPROVINCE>";
         $lines[] =   "<SHIPTOPOSTALCODE>$zipcode</SHIPTOPOSTALCODE>";
-        $lines[] =   "<SHIPCARRIER>Purolator</SHIPCARRIER>";
-        $lines[] =   "<SHIPSERVICE>Ground</SHIPSERVICE>";
+        $lines[] =   "<SHIPCARRIER>$shipCarrier</SHIPCARRIER>";
+        $lines[] =   "<SHIPSERVICE>$shipService</SHIPSERVICE>";
         $lines[] =   "<PONUM>$orderId</PONUM>";
         $lines[] =   "<REMARKS>$comment</REMARKS>";
         $lines[] = "</ORDERHEADER>";

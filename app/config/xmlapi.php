@@ -2,10 +2,16 @@
 
 return array(
     \Supplier\ConfigKey::DH => array(
-        'url'        => 'https://www.dandh.ca/dhXML/xmlDispatch',
-        'username'   => '800712XML',
-        'password'   => 'BTE@xml2013',
-        'dropshippw' => 'DONTKNOW',
+        'url'         => 'https://www.dandh.ca/dhXML/xmlDispatch',
+        'username'    => '800712XML',
+        'password'    => 'BTE@xml2013',
+        'dropshippw'  => '',
+        'partship'    => 'N',
+        'backorder'   => 'N',
+        'shipcarrier' => 'Purolator', // Pickup/Purolator/UPS
+        'shipservice' => 'Ground', // Pickup/Ground/2nd Day Air/Next Day Air
+        'onlybranch'  => '';  // Toronto
+        'branches'    => '3'; // 1-7
     ),
 
     \Supplier\ConfigKey::SYNNEX => array(
