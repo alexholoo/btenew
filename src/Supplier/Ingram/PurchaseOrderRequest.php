@@ -56,19 +56,28 @@ class PurchaseOrderRequest extends BaseRequest
         $zipcode = $this->order->zipcode;
         $branch  = $this->order->branch;
 
-        $customerPO    = $this->order->customerPO;
+        $customerPO    = $orderId;
+        $endUserPO     = $orderId;
         $autoRelease   = $this->config['autoRelease'];
         $carrierCode   = $this->config['carrierCode'];
         $backOrder     = $this->config['backOrder'];
         $splitShipment = $this->config['splitShipment'];
         $splitLine     = $this->config['splitLine'];
 
+        if ($this->order->customerPO) {
+            $customerPO = $this->order->customerPO;
+        }
+
+        if ($this->order->endUserPO) {
+            $endUserPO = $this->order->endUserPO;
+        }
+
         $lines[] = "<OrderHeaderInformation>";
         $lines[] =   "<BillToSuffix />";
         $lines[] =   "<AddressingInformation>";
         $lines[] =     "<CustomerPO>$customerPO</CustomerPO>";
         $lines[] =     "<ShipToAttention>$contact</ShipToAttention>";
-        $lines[] =     "<EndUserPO>$orderId</EndUserPO>";
+        $lines[] =     "<EndUserPO>$endUserPO</EndUserPO>";
         $lines[] =     "<ShipTo>";
         $lines[] =       "<Address>";
         $lines[] =         "<ShipToAddress1></ShipToAddress1>";
