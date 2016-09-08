@@ -23,6 +23,7 @@ class Order
     public $qty;
     public $shipping;   // shipping fee
 
+    public $customerPO;
     public $branch;     // the warehouse ship from
     public $comment;
 
@@ -44,5 +45,9 @@ class Order
         $this->price    = Arr::get($order, 'price');
         $this->qty      = Arr::get($order, 'qty');
         $this->shipping = Arr::get($order, 'shipping');
+
+        $this->branch     = Arr::get($order, 'branch');
+        $this->comment    = Arr::get($order, 'comment');
+        $this->customerPO = Arr::get($order, 'customerPO');
     }
 }
