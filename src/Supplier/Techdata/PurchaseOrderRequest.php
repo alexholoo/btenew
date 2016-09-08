@@ -55,7 +55,7 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =     "<EuiStateProvinceCode>$state</EuiStateProvinceCode>";
         $lines[] =     "<EuiPostalCode>$zipcode</EuiPostalCode>";
         $lines[] =     "<EuiCountryCode>$country</EuiCountryCode>";
-        $lines[] =     "<EuiDropShipType>D</EuiDropShipType>";
+        $lines[] =     "<EuiDropShipType>D</EuiDropShipType>"; // Reserved for future use
         $lines[] =     "<EuiContactEmailAddr1>$email</EuiContactEmailAddr1>";
         $lines[] =   "</EndUserInfo>";
         $lines[] =   "<MyOrderTracker>";
@@ -82,10 +82,10 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] = "<Detail>";
         $lines[] =   "<LineInfo>";
         $lines[] =     "<QtyOrdered>$qty</QtyOrdered>";
-        $lines[] =     "<ProductIDQual>VP</ProductIDQual>"; // ??
+        $lines[] =     "<ProductIDQual>VP</ProductIDQual>"; // VP - sku is Tech Data item number
         $lines[] =     "<ProductID>$sku</ProductID>";
-        $lines[] =     "<WhseCode>$branch</WhseCode>"; // ??
-        $lines[] =     "<IDCode>01</IDCode>"; // ??
+        $lines[] =     "<WhseCode>$branch</WhseCode>"; // Optional - Tech Data warehouse
+        $lines[] =     "<IDCode>01</IDCode>"; // TODO: Ship via code
         $lines[] =     "<OrderMessageLine>$comment</OrderMessageLine>"; // ??
         $lines[] =   "</LineInfo>";
         $lines[] = "</Detail>";
