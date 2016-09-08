@@ -13,28 +13,24 @@ class Warehouse
 
     public static function getName($code)
     {
-        switch($code) {
-        case self::HALIFAX:
-            $name = 'Halifax';
-            break;
-        case self::GUELPH:
-            $name = 'Guelph';
-            break;
-        case self::CALGARY:
-            $name = 'Calgary';
-            break;
-        case self::MARKHAM:
-            $name = 'Markham';
-            break;
-        case self::RICHMOND:
-            $name = 'Richmond BC';
-            break;
-        default:
-            $name = "Warehouse($code)";
-            break;
+        $warehouses = self::all();
+
+        $name = "Warehouse($code)";
+        if (isset($warehouses[$code])) {
+            $name = $warehouses[$code];
         }
 
         return $name;
-        #eturn $name."($code)";
+    }
+
+    public static function all()
+    {
+        return [
+            self::HALIFAX  => 'Halifax',
+            self::GUELPH   => 'Guelph',
+            self::CALGARY  => 'Calgary',
+            self::MARKHAM  => 'Markham',
+            self::RICHMOND => 'Richmond BC',
+        ];
     }
 }
