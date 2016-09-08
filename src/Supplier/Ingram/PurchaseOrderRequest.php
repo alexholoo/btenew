@@ -35,7 +35,7 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] = "<TransactionHeader>";
         $lines[] =    "<SenderID></SenderID>";
         $lines[] =    "<ReceiverID></ReceiverID>";
-        $lines[] =    "<CountryCode>CA</CountryCode>";
+        $lines[] =    "<CountryCode>FT</CountryCode>";  // FT=>CA, MD=>US
         $lines[] =    "<LoginID>$userid</LoginID>";
         $lines[] =    "<Password>$passwd</Password>";
         $lines[] =    "<TransactionID></TransactionID>";
@@ -56,10 +56,17 @@ class PurchaseOrderRequest extends BaseRequest
         $zipcode = $this->order->zipcode;
         $branch  = $this->order->branch;
 
+        $customerPO    = $this->order->customerPO;
+        $autoRelease   = $this->config['autoRelease'];
+        $carrierCode   = $this->config['carrierCode'];
+        $backOrder     = $this->config['backOrder'];
+        $splitShipment = $this->config['splitShipment'];
+        $splitLine     = $this->config['splitLine'];
+
         $lines[] = "<OrderHeaderInformation>";
         $lines[] =   "<BillToSuffix />";
         $lines[] =   "<AddressingInformation>";
-        $lines[] =     "<CustomerPO>$orderId</CustomerPO>";
+        $lines[] =     "<CustomerPO>$customerPO</CustomerPO>";
         $lines[] =     "<ShipToAttention>$contact</ShipToAttention>";
         $lines[] =     "<EndUserPO>$orderId</EndUserPO>";
         $lines[] =     "<ShipTo>";
@@ -74,15 +81,15 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =     "</ShipTo>";
         $lines[] =   "</AddressingInformation>";
         $lines[] =   "<ProcessingOptions>";
-        $lines[] =     "<CarrierCode>PI</CarrierCode>";
-        $lines[] =     "<AutoRelease>0</AutoRelease>";
-        $lines[] =     "<ThirdPartyFreightAccount></ThirdPartyFreightAccount>";
+        $lines[] =     "<CarrierCode>$carrierCode</CarrierCode>";
+        $lines[] =     "<AutoRelease>$autoRelease</AutoRelease>";
+       #$lines[] =     "<ThirdPartyFreightAccount></ThirdPartyFreightAccount>";
         $lines[] =     "<KillOrderAfterLineError>N</KillOrderAfterLineError>";
         $lines[] =     "<ShipmentOptions>";
-        $lines[] =       "<BackOrderFlag>Y</BackOrderFlag>";
-        $lines[] =       "<SplitShipmentFlag>N</SplitShipmentFlag>";
-        $lines[] =       "<SplitLine>N</SplitLine>";
-        $lines[] =       "<ShipFromBranches>$branch</ShipFromBranches>";
+        $lines[] =       "<BackOrderFlag>$backOrder</BackOrderFlag>";
+        $lines[] =       "<SplitShipmentFlag>$splitShipment</SplitShipmentFlag>";
+        $lines[] =       "<SplitLine>$splitLine</SplitLine>";
+       #$lines[] =       "<ShipFromBranches>$branch</ShipFromBranches>";
         $lines[] =       "<DeliveryDate></DeliveryDate>";
         $lines[] =     "</ShipmentOptions>";
         $lines[] =   "</ProcessingOptions>";
@@ -101,6 +108,7 @@ class PurchaseOrderRequest extends BaseRequest
         $sku = $this->order->sku;
         $qty = $this->order->qty;
         $comment = $this->order->comment;
+        $branch  = $this->order->branch;
 
         if (substr($sku, 0, 4) == 'ING-') {
             $sku = substr($sku, 4);
@@ -111,15 +119,15 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =     "<SKU>$sku</SKU>";
         $lines[] =     "<Quantity>$qty</Quantity>";
         $lines[] =     "<CustomerLineNumber />";
-        $lines[] =     "<ReservedInventory>";
-        $lines[] =       "<ReserveCode>C</ReserveCode>";
-        $lines[] =       "<ReserveSequence>01</ReserveSequence>";
-        $lines[] =     "</ReservedInventory>";
-        $lines[] =     "<CustomerPartNumber></CustomerPartNumber>";
-        $lines[] =     "<UPC></UPC>";
-        $lines[] =     "<ManufacturerPartNumber></ManufacturerPartNumber>";
-        $lines[] =     "<ShipFromBranchAtLine>10</ShipFromBranchAtLine>";
-        $lines[] =     "<RequestedPrice></RequestedPrice>";
+       #$lines[] =     "<ReservedInventory>";
+       #$lines[] =       "<ReserveCode></ReserveCode>"; // ??
+       #$lines[] =       "<ReserveSequence></ReserveSequence>"; // ??
+       #$lines[] =     "</ReservedInventory>";
+       #$lines[] =     "<CustomerPartNumber></CustomerPartNumber>";
+       #$lines[] =     "<UPC></UPC>";
+       #$lines[] =     "<ManufacturerPartNumber></ManufacturerPartNumber>";
+       #$lines[] =     "<ShipFromBranchAtLine>$branch</ShipFromBranchAtLine>";
+       #$lines[] =     "<RequestedPrice></RequestedPrice>";
         $lines[] =   "</ProductLine>";
         $lines[] =   "<CommentLine>";
         $lines[] =     "<CommentText>$comment</CommentText>";
