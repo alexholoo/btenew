@@ -76,11 +76,11 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =   "<BillToSuffix />";
         $lines[] =   "<AddressingInformation>";
         $lines[] =     "<CustomerPO>$customerPO</CustomerPO>";
-        $lines[] =     "<ShipToAttention>$contact</ShipToAttention>";
+        $lines[] =     "<ShipToAttention></ShipToAttention>";
         $lines[] =     "<EndUserPO>$endUserPO</EndUserPO>";
         $lines[] =     "<ShipTo>";
         $lines[] =       "<Address>";
-        $lines[] =         "<ShipToAddress1></ShipToAddress1>";
+        $lines[] =         "<ShipToAddress1>$contact</ShipToAddress1>";
         $lines[] =         "<ShipToAddress2>$address</ShipToAddress2>";
         $lines[] =         "<ShipToAddress3></ShipToAddress3>";
         $lines[] =         "<ShipToCity>$city</ShipToCity>";
@@ -93,7 +93,7 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =     "<CarrierCode>$carrierCode</CarrierCode>";
         $lines[] =     "<AutoRelease>$autoRelease</AutoRelease>";
        #$lines[] =     "<ThirdPartyFreightAccount></ThirdPartyFreightAccount>";
-        $lines[] =     "<KillOrderAfterLineError>N</KillOrderAfterLineError>";
+       #$lines[] =     "<KillOrderAfterLineError>N</KillOrderAfterLineError>";
         $lines[] =     "<ShipmentOptions>";
         $lines[] =       "<BackOrderFlag>$backOrder</BackOrderFlag>";
         $lines[] =       "<SplitShipmentFlag>$splitShipment</SplitShipmentFlag>";
