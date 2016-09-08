@@ -40,6 +40,8 @@ class PurchaseOrderRequest extends BaseRequest
     {
         $customerNo = $this->config['customerNo'];
         $poNumber   = $this->order->orderId;
+        $endUserPO  = $this->order->endUserPO;
+        $comment    = $this->order->comment;
 
         $lines = array();
         $lines[] = '<OrderRequest>';
@@ -50,12 +52,11 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] = $this->shipment();
         $lines[] = $this->payment();
 
-        if (isset($this->order->endUserPoNumber)) {
-            $endUserPoNumber = $this->order->endUserPoNumber;
-            $lines[] = "<EndUserPONumber>$endUserPoNumber</EndUserPONumber>";
+        if ($endUserPO) {
+            $lines[] = "<EndUserPONumber>$endUserPO</EndUserPONumber>";
         }
 
-        if (($comment = $this->order->comment)) {
+        if ($comment) {
             $lines[] = "<Comment>$comment</Comment>";
         }
 
@@ -77,7 +78,7 @@ class PurchaseOrderRequest extends BaseRequest
         $phone      = $this->order->phone;
         $email      = $this->order->email;
         $branch     = $this->order->branch;
-        #shipMethod = $this->order->shipMethod;
+        #shipMethod = $this->config['shipmethod'];
 
         $lines = array();
         $lines[] = '<Shipment>';
