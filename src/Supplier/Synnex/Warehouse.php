@@ -23,6 +23,18 @@ class Warehouse
         return $name;
     }
 
+    public static function getCode($name)
+    {
+        $warehouses = array_flip(self::all());
+
+        $code = '';
+        if (isset($warehouses[$name])) {
+            $code = $warehouses[$name];
+        }
+
+        return $code;
+    }
+
     public static function all()
     {
         return [
