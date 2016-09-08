@@ -20,6 +20,11 @@ return array(
         'url'      => 'https://newport.ingrammicro.com',
         'loginId'  => 'TrEv8fEbes',
         'password' => 'FVnbx25601',
+        'autoRelease' => 'H', // 0,1
+        'carrierCode' => 'PI',
+        'backOrder' => 'Y',
+        'splitShipment' => 'N',
+        'splitLine' => 'N',
     ),
 
     \Supplier\ConfigKey::TECHDATA => array(
