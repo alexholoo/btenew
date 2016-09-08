@@ -75,6 +75,35 @@ function importFtpConfig($db)
     }
 }
 
+function importBteConfig($db)
+{
+    $bteInfo = [
+        'name' => 'BTE Computer Inc',
+        'contact' => 'Roy Zhang',
+        'phone' => '',
+        'email' => 'roy@btecanada.com',
+        'address' => 'Unit 5, 270 Esna Park Dr',
+        'zipcode' => 'L3R 1H3',
+        'city' => 'Markham',
+        'province' => 'ON',
+        'country' => 'Canada',
+    ];
+
+    foreach ($bteInfo as $name => $value) {
+        try {
+            $db->insertAsDict('config', [
+                'supplier' => 'bte',
+                'section'  => 'info',
+                'name'     => $name,
+                'value'    => $value,
+                'desc'     => '',
+            ]);
+        } catch (Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
+    }
+}
+
 function loadConfig($db)
 {
     static $config = [];
@@ -100,10 +129,11 @@ function loadConfig($db)
 
 $db->execute('TRUNCATE TABLE config');
 
+importBteConfig($db);
 importXmlConfig($db);
 importFtpConfig($db);
 
 $cfg = loadConfig($db);
-print_r($cfg);
+#print_r($cfg);
 
 echo "DONE\n";
