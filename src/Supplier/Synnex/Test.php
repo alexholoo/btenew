@@ -50,11 +50,9 @@ function realPriceAvailability()
     pr($result->getFirst());
 }
 
-function testPurchaseOrderRequest()
+function getOrder()
 {
-    $config = include __DIR__ . '/app/config/xmlapi.php';
-
-    $order = [ // this comes from ca_order_notes
+    return [ // this comes from ca_order_notes
         'id' => '2754',
         'channel' => 'Amazon-ACA',
         'date' => '2016-08-29',
@@ -76,8 +74,15 @@ function testPurchaseOrderRequest()
         'mgnInvoiceId' => 'n/a',
         // extra info from user
         'branch' => '',
-        'comment' => 'Please ship ASAP!',
+        'comment' => 'TEST PO ONLY - DO NOT SHIP',
     ];
+}
+
+function testPurchaseOrderRequest()
+{
+    $config = include __DIR__ . '/app/config/xmlapi.php';
+
+    $order = getOrder();
 
     $request = new Supplier\Synnex\PurchaseOrderRequest();
     $request->setConfig($config[ConfigKey::SYNNEX]);
