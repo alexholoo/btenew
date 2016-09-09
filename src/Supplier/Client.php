@@ -13,10 +13,10 @@ abstract class Client
      */
     public function __construct($config = [])
     {
+        $this->di = Di::getDefault();
         $this->config = $config;
 
         if (!$config) {
-            $this->di = Di::getDefault();
             $this->config = $this->di->get('config');
         }
     }
