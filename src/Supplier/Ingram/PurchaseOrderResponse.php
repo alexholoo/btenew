@@ -20,12 +20,14 @@ class PurchaseOrderResponse extends BaseResponse
         $result->status = Response::STATUS_OK;
 
         $errnum = strval($xml->TransactionHeader->ErrorStatus['ErrorNumber']);
-        if (!empty($errnum)) {
+        $result->errorMessage = strval($xml->TransactionHeader->ErrorStatus);
+        if (!empty($errnum) || $result->errorMessage) {
             $result->status = Response::STATUS_ERROR;
-            $result->errorMessage = strval($xml->TransactionHeader->ErrorStatus);
         }
 
-        $result->orderNo = strval($xml->OrderInfo->OrderNumbers->BranchOrderNumber);
+        if ($xml->OrderInfo) {
+            $result->orderNo = strval($xml->OrderInfo->OrderNumbers->BranchOrderNumber);
+        }
 
         return $result;
     }

@@ -54,7 +54,7 @@ function getOrder()
         'id' => '2754',
         'channel' => 'Amazon-ACA',
         'date' => '2016-08-29',
-        'orderId' => '701-3707503-5766610',
+        'orderId' => '702-6000945-2557',//809',
         'mgnOrderId' => '',
         'express' => '0',
         'buyer' => 'Sam Wang',
@@ -73,7 +73,7 @@ function getOrder()
         // extra info from user
         'branch' => '',
         'comment' => 'TEST PO ONLY - DO NOT SHIP',
-        'customerPO' => 'TEST PO ONLY - DO NOT SHIP',
+        'customerPO' => '', //'TEST PO ONLY - DO NOT SHIP',
     ];
 }
 
@@ -119,12 +119,13 @@ function realPurchaseOrder()
     */
 
     // Testing SKUs for Canadian Partners
+    $sku = 'ING-21592L'; // This sku will have 0 stock available in any of the ALCs
     $sku = 'ING-21593L'; // This sku is stocked and is in stock.
     $sku = 'ING-21594L'; // This SKU has a product class code of “X”(Directship SKUs).
                          // SKUs with this class code can only be ordered via the
                          // Dtype Order Request xml transaction.
                          // Licensing and warranty products are examples of class X SKUs.
-    $sku = 'ING-21592L'; // This sku will have 0 stock available in any of the ALCs
+#   $sku = 'ING-69905Z';
 
     #$config = include __DIR__ . '/app/config/xmlapi.php';
     $config = include __DIR__ . '/app/config/config.php';  // !!
@@ -146,4 +147,4 @@ function realPurchaseOrder()
 
 #testPurchaseOrderRequest();
 #testPurchaseOrderResponse();
-#realPurchaseOrder();
+ realPurchaseOrder();

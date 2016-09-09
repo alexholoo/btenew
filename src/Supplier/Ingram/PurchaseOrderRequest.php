@@ -98,7 +98,7 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =       "<BackOrderFlag>$backOrder</BackOrderFlag>";
         $lines[] =       "<SplitShipmentFlag>$splitShipment</SplitShipmentFlag>";
         $lines[] =       "<SplitLine>$splitLine</SplitLine>";
-       #$lines[] =       "<ShipFromBranches>$branch</ShipFromBranches>";
+        $lines[] =       "<ShipFromBranches>$branch</ShipFromBranches>";
         $lines[] =       "<DeliveryDate></DeliveryDate>";
         $lines[] =     "</ShipmentOptions>";
         $lines[] =   "</ProcessingOptions>";
