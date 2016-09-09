@@ -30,26 +30,26 @@ class Order
 
     public function __construct($order)
     {
-        $this->channel    = Arr::get($order, 'channel');
-        $this->date       = Arr::get($order, 'date');
-        $this->orderId    = Arr::get($order, 'orderId');
-        $this->express    = Arr::get($order, 'express');
-        $this->contact    = Arr::get($order, 'buyer'); // !
-        $this->address    = Arr::get($order, 'address');
-        $this->city       = Arr::get($order, 'city');
-        $this->province   = Arr::get($order, 'province');
-        $this->zipcode    = Arr::get($order, 'postalcode'); // !
-        $this->country    = Arr::get($order, 'country');
-        $this->phone      = Arr::get($order, 'phone');
-        $this->email      = Arr::get($order, 'email');
-        $this->sku        = Arr::get($order, 'sku');
-        $this->price      = Arr::get($order, 'price');
-        $this->qty        = Arr::get($order, 'qty');
-        $this->shipping   = Arr::get($order, 'shipping');
+        $this->channel    = Arr::val($order, 'channel');
+        $this->date       = Arr::val($order, 'date');
+        $this->orderId    = Arr::val($order, 'orderId');
+        $this->express    = Arr::val($order, 'express');
+        $this->contact    = Arr::val($order, 'buyer'); // !
+        $this->address    = Arr::val($order, 'address');
+        $this->city       = Arr::val($order, 'city');
+        $this->province   = Arr::val($order, 'province');
+        $this->zipcode    = Arr::val($order, 'postalcode'); // !
+        $this->country    = Arr::val($order, 'country');
+        $this->phone      = Arr::val($order, 'phone');
+        $this->email      = Arr::val($order, 'email');
+        $this->sku        = Arr::val($order, 'sku');
+        $this->price      = Arr::val($order, 'price');
+        $this->qty        = Arr::val($order, 'qty');
+        $this->shipping   = Arr::val($order, 'shipping');
 
-        $this->branch     = Arr::get($order, 'branch');
-        $this->comment    = Arr::get($order, 'comment');
-        $this->customerPO = Arr::get($order, 'customerPO');
-        $this->endUserPO  = Arr::get($order, 'endUserPO');
+        $this->branch     = Arr::val($order, 'branch');
+        $this->comment    = Arr::val($order, 'comment');
+        $this->customerPO = Arr::val($order, 'customerPO');
+        $this->endUserPO  = Arr::val($order, 'endUserPO');
     }
 }

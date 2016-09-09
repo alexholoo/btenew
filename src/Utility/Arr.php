@@ -6,7 +6,7 @@ class Arr
 {
     public static function val($array, $key, $default = null)
     {
-        if (isset($array[$key])) {
+        if (is_array($array) && isset($array[$key])) {
            return $array[$key];
         }
 
@@ -15,7 +15,7 @@ class Arr
 
     public static function get($array, $key, $default = null)
     {
-        if (isset($array[$key])) {
+        if (is_array($array) && isset($array[$key])) {
            return $array[$key];
         }
 
