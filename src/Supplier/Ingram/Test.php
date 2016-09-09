@@ -55,7 +55,7 @@ function getOrder()
         'id' => '2754',
         'channel' => 'Amazon-ACA',
         'date' => '2016-08-29',
-        'orderId' => '702-6000945-2557',//809',
+        'orderId' => '702-6000945-2557809',
         'mgnOrderId' => '',
         'express' => '0',
         'buyer' => 'Sam Wang',
@@ -144,10 +144,11 @@ function realPurchaseOrder()
 
 function testOrderNumberMapper()
 {
-    echo strlen('1609090319559852'), PHP_EOL;
+#   echo strlen('1609090319559852'), PHP_EOL;
+#   echo strlen('70260009452557809'), PHP_EOL;
     echo OrderNumberMapper::getFakeOrderNo('702-6000945-2557809'), PHP_EOL;
-    echo OrderNumberMapper::getRealOrderNo('1609090318132100'), PHP_EOL;
-    echo OrderNumberMapper::getRealOrderNo('1609090319559852'), PHP_EOL;
+    echo OrderNumberMapper::getRealOrderNo('70260009452557809'), PHP_EOL;
+    echo OrderNumberMapper::getFakeOrderNo('702-6000945-2557809000'), PHP_EOL;
 }
 
 #testPriceAvailabilityRequest();
@@ -157,4 +158,4 @@ function testOrderNumberMapper()
 #testPurchaseOrderRequest();
 #testPurchaseOrderResponse();
 #realPurchaseOrder();
-#testOrderNumberMapper();
+ testOrderNumberMapper();

@@ -56,13 +56,16 @@ class PurchaseOrderRequest extends BaseRequest
         $zipcode = $this->order->zipcode;
         $branch  = $this->order->branch;
 
-        $customerPO    = $orderId;
-        $endUserPO     = $orderId;
         $autoRelease   = $this->config['autoRelease'];
         $carrierCode   = $this->config['carrierCode'];
         $backOrder     = $this->config['backOrder'];
         $splitShipment = $this->config['splitShipment'];
         $splitLine     = $this->config['splitLine'];
+
+        $fakeOrderId = OrderNumberMapper::getFakeOrderNo($orderId);
+
+        $customerPO    = $fakeOrderId;
+        $endUserPO     = $fakeOrderId;
 
         if ($this->order->customerPO) {
             $customerPO = $this->order->customerPO;
