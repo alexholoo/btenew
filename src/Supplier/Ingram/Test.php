@@ -8,6 +8,7 @@ use Supplier\Ingram\PriceAvailabilityRequest;
 use Supplier\Ingram\PriceAvailabilityResponse;
 use Supplier\Ingram\PurchaseOrderRequest;
 use Supplier\Ingram\PurchaseOrderResponse;
+use Supplier\Ingram\OrderNumberMapper;
 
 function testPriceAvailabilityRequest()
 {
@@ -141,10 +142,19 @@ function realPurchaseOrder()
     pr($result);
 }
 
+function testOrderNumberMapper()
+{
+    echo strlen('1609090319559852'), PHP_EOL;
+    echo OrderNumberMapper::getFakeOrderNo('702-6000945-2557809'), PHP_EOL;
+    echo OrderNumberMapper::getRealOrderNo('1609090318132100'), PHP_EOL;
+    echo OrderNumberMapper::getRealOrderNo('1609090319559852'), PHP_EOL;
+}
+
 #testPriceAvailabilityRequest();
 #testPriceAvailabilityResponse();
 #realPriceAvailability();
 
 #testPurchaseOrderRequest();
 #testPurchaseOrderResponse();
- realPurchaseOrder();
+#realPurchaseOrder();
+#testOrderNumberMapper();
