@@ -84,7 +84,8 @@ $di->set('view', function () use ($config) {
 $di->set('db', function () use ($config) {
     $eventsManager = new EventsManager();
 
-    $logger = new FileLogger(APP_DIR . "/logs/db.log");
+    $today = date('Y-m-d');
+    $logger = new FileLogger(APP_DIR . "/logs/db-$today.log");
 
     // Listen all the database events
     $eventsManager->attach('db', function ($event, $connection) use ($logger) {
@@ -186,8 +187,10 @@ $di->set('acl', function () {
  * Logger service
  */
 $di->set('logger', function ($filename = null, $format = null) use ($config) {
+    $today    = date('Y-m-d');
     $format   = $format ?: $config->get('logger')->format;
-    $filename = trim($filename ?: $config->get('logger')->filename, '\\/');
+#   $filename = trim($filename ?: $config->get('logger')->filename, '\\/');
+    $filename = trim($filename ?: "app-$today.log", '\\/');
     $path     = rtrim($config->get('logger')->path, '\\/') . DIRECTORY_SEPARATOR;
 
     $formatter = new FormatterLine($format, $config->get('logger')->date);
