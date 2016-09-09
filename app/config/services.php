@@ -26,9 +26,9 @@ use Service\NeweggService;
 use Service\RakutenService;
 use Service\PriceAvailService;
 
-use App\Auth\Auth;
-use App\Acl\Acl;
-use App\Mail\Mail;
+use App\Library\Auth\Auth;
+use App\Library\Acl\Acl;
+use App\Library\Mail\Mail;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
