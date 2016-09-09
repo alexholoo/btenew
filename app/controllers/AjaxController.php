@@ -2,8 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\Orders;
-use Supplier\XmlApi\PriceAvailability\Factory as PriceAvailFactory;
-use Supplier\XmlApi\PurchaseOrder\Factory as PurchaseOrderFactory;
+use Supplier\Factory;
 
 class AjaxController extends ControllerBase
 {
@@ -28,17 +27,19 @@ class AjaxController extends ControllerBase
             }
 
             $orderInfo = $order->toArray();
+            $orderInfo['sku'] = $sku; // it might be different
+            $orderInfo['sku'] = 'ING-21594L';
             $orderInfo['branch'] = $branch;
             $orderInfo['comment'] = $comment;
             #fpr($orderInfo);
 
             // TODO: temp code
-            if (substr($sku, 0, 3) != 'SYN') {
+            if (((substr($sku, 0, 3) != 'SYN') || (substr($sku, 0, 3) != 'ING')) {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
                 return $this->response;
             }
 
-            // Make sure the order is pending (not purchased)
+            // Make sure the order is pending (not purchased yet)
             if ($this->isOrderPurchased($orderId)) {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been purchased']);
                 return $this->response;
@@ -52,16 +53,9 @@ class AjaxController extends ControllerBase
 
             // Make XmlApi call for purchasing
             try {
-                $factory = new PurchaseOrderFactory($this->config);
-
-                $client = $factory->createClient($sku);
-                $request = $client->createRequest();
-                $request->addOrder($orderInfo);
-                #fpr($request->toXml());
-
-                $response = $client->sendRequest($request);
-                $status = $response->getStatus();
-                fpr($response->getXmlDoc());
+                $client = Factory::createClient($sku, 'PO');
+                $result = $client->purchaseOrder($orderInfo);
+                $status = $result->getStatus();
 
                 if ($status == 'ERROR') {
                     $errorMessage = $response->getErrorMessage();

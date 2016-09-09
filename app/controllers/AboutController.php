@@ -1,8 +1,11 @@
 <?php
 namespace App\Controllers;
 
-use Supplier\XmlApi\PurchaseOrder\Synnex\Client as SynnexPOClient;
-use Supplier\XmlApi\PriceAvailability\Synnex\Client as SynnexPAClient;
+use Supplier\Factory;
+use Supplier\DH\Client       as DHClient;
+use Supplier\Synnex\Client   as SynnexClient;
+use Supplier\Ingram\Client   as IngramClient;
+use Supplier\Techdata\Client as TechdataClient;
 
 /**
  * Display the "About" page.
@@ -14,24 +17,17 @@ class AboutController extends ControllerBase
      */
     public function indexAction()
     {
-        $config = $this->config->toArray();
+        //$config = $this->config->toArray();
         //fpr($config['xmlapi']['synnex']);
         //
         //$config = $this->config->xmlapi->toArray();
         //fpr($config['synnex']);
 
-        //$cl = new Client($config['xmlapi']['synnex']);
-        //$req = $cl->createRequest();
-        //$req->addOrder([]);
-        //fpr($req->toXml());
-        
-        $amazonService = $this->AmazonService;
-        $amazonService->doSomething();
+        //$amazonService = $this->AmazonService;
+        //$amazonService->doSomething();
 
-        $cl = new SynnexPAClient($config['xmlapi']['synnex']);
-        $req = $cl->createRequest();
-        $req->addPartnum('5530299');
-        $req->addPartnum('4502585');
+        $client = new SynnexClient();
+        $client->getPriceAvailability();
         //fpr($req->toXml());
     }
 }
