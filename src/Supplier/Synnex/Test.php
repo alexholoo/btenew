@@ -43,9 +43,7 @@ function realPriceAvailability()
     $config = include __DIR__ . '/app/config/config.php';  // ??
 
     $client = new Client($config);
-    $response = $client->getPriceAvailability($sku);
-
-    $result = $response->parseXml();
+    $result = $client->getPriceAvailability($sku);
 
     pr($result->getFirst());
 }
@@ -120,7 +118,7 @@ function realPurchaseOrder()
 
 #testPriceAvailabilityRequest();
 #testPriceAvailabilityResponse();
-#realPriceAvailability();
+ realPriceAvailability();
 
 #testPurchaseOrderRequest();
 #testPurchaseOrderResponse();

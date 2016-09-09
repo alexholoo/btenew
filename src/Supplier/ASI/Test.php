@@ -42,9 +42,7 @@ function realPriceAvailability()
     $client = new Client($config);
     #$client = Factory::createClient($sku, 'PA');
 
-    $response = $client->getPriceAvailability($sku);
-
-    $result = $response->parseXml();
+    $result = $client->getPriceAvailability($sku);
 
     pr($result->getFirst()->toArray());
 }

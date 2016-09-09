@@ -20,7 +20,7 @@ class Client extends BaseClient
     public function getPriceAvailability($sku)
     {
         if ($res = PriceAvailabilityLog::query($sku)) {
-            $resonse = new PriceAvailabilityResponse($res);
+            $response = new PriceAvailabilityResponse($res);
             $this->request = null;
             $this->response = $response;
             return $response->parseXml();
