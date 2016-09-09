@@ -19,27 +19,32 @@ class Client extends BaseClient
      */
     public function getPriceAvailability($sku)
     {
-        $url = self::PA_PROD_URL;
-
         if ($res = PriceAvailabilityLog::query($sku)) {
-            return new PriceAvailabilityResponse($res);
+            $resonse = new PriceAvailabilityResponse($res);
+            $this->request = null;
+            $this->response = $response;
+            return $response->parseXml();
         }
+
+        $url = self::PA_PROD_URL;
 
         $request = new PriceAvailabilityRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
         $request->addPartnum($sku);
 
         $xml = $request->toXml();
-        $this->di->get('logger')->debug($xml);
 
         $res = $this->curlPost($url, $xml);
 
         $response = new PriceAvailabilityResponse($res);
-        $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
+        $result = $response->parseXml();
 
         PriceAvailabilityLog::save($url, $request, $response);
 
-        return $response;
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
     }
 
     /**
@@ -54,14 +59,21 @@ class Client extends BaseClient
         $request->addOrder($order);
 
         $xml = $request->toXml();
+        $this->di->get('logger')->debug($xml);
 
         $res = $this->curlPost($url, $xml);
 
         $response = new PurchaseOrderResponse($res);
+        $result = $response->parseXml();
+
+        $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
 
         PurchaseOrderLog::save($url, $request, $response);
         PriceAvailabilityLog::invalidate($order['sku']);
 
-        return $response;
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
     }
 }

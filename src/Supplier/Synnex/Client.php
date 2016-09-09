@@ -22,7 +22,10 @@ class Client extends BaseClient
     public function getPriceAvailability($sku)
     {
         if ($res = PriceAvailabilityLog::query($sku)) {
-            return new PriceAvailabilityResponse($res);
+            $resonse = new PriceAvailabilityResponse($res);
+            $this->request = null;
+            $this->response = $response;
+            return $response->parseXml();
         }
 
         $url = self::PA_PROD_URL;
@@ -38,10 +41,14 @@ class Client extends BaseClient
         ));
 
         $response = new PriceAvailabilityResponse($res);
+        $result = $response->parseXml();
 
         PriceAvailabilityLog::save($url, $request, $response);
 
-        return $response;
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
     }
 
     /**
@@ -63,11 +70,16 @@ class Client extends BaseClient
         ));
 
         $response = new PurchaseOrderResponse($res);
+        $result = $response->parseXml();
+
         $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
 
         PurchaseOrderLog::save($url, $request, $response);
         PriceAvailabilityLog::invalidate($order['sku']);
 
-        return $response;
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
     }
 }

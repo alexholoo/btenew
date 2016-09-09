@@ -7,6 +7,16 @@ use Phalcon\Di;
 abstract class Client
 {
     /**
+     * @return Supplier\Model\Request
+     */
+    protected $request;
+
+    /**
+     * @return Supplier\Model\Response
+     */
+    protected $response;
+
+    /**
      * constructor
      *
      * @param array $config
@@ -44,6 +54,22 @@ abstract class Client
         curl_close($ch);
 
         return $result;
+    }
+
+    /**
+     * @return Supplier\Model\Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * @return Supplier\Model\Response
+     */
+    public function getResponse()
+    {
+        return $this->response;
     }
 
     /**
