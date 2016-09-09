@@ -63,6 +63,7 @@ class Client extends BaseClient
         $response = new PurchaseOrderResponse($res);
 
         PurchaseOrderLog::save($url, $request, $response);
+        PriceAvailabilityLog::invalidate($order['sku']);
 
         return $response;
     }
