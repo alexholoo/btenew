@@ -1,5 +1,5 @@
 <?php
-namespace App\Mail;
+namespace App\Library\Mail;
 
 use Phalcon\Mvc\User\Component;
 use Swift_Message as Message;

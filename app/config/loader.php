@@ -11,7 +11,7 @@ $loader->registerNamespaces([
     'App\Models'      => $config->application->modelsDir,
     'App\Controllers' => $config->application->controllersDir,
     'App\Forms'       => $config->application->formsDir,
-    'App'             => $config->application->libraryDir
+    'App\Library'     => $config->application->libraryDir
 ]);
 
 $loader->register();

@@ -1,5 +1,5 @@
 <?php
-namespace App\Auth;
+namespace App\Library\Auth;
 
 use Phalcon\Mvc\User\Component;
 use App\Models\Users;

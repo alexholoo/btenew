@@ -1,5 +1,5 @@
 <?php
-namespace App\Acl;
+namespace App\Library\Acl;
 
 use Phalcon\Mvc\User\Component;
 use Phalcon\Acl\Adapter\Memory as AclMemory;
