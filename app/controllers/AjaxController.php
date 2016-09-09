@@ -25,16 +25,16 @@ class AjaxController extends ControllerBase
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
                 return $this->response;
             }
-
+$sku = 'ING-21594L';
             $orderInfo = $order->toArray();
             $orderInfo['sku'] = $sku; // it might be different
             $orderInfo['sku'] = 'ING-21594L';
             $orderInfo['branch'] = $branch;
             $orderInfo['comment'] = $comment;
-            #fpr($orderInfo);
+             fpr($orderInfo);
 
             // TODO: temp code
-            if (((substr($sku, 0, 3) != 'SYN') || (substr($sku, 0, 3) != 'ING')) {
+            if ((substr($sku, 0, 3) != 'SYN') && (substr($sku, 0, 3) != 'ING')) {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
                 return $this->response;
             }
@@ -58,7 +58,7 @@ class AjaxController extends ControllerBase
                 $status = $result->getStatus();
 
                 if ($status == 'ERROR') {
-                    $errorMessage = $response->getErrorMessage();
+                    $errorMessage = $result->getErrorMessage();
                     $this->response->setJsonContent(['status' => 'ERROR', 'message' => $errorMessage]);
                 } else {
                     $this->markOrderPurchased($orderId, $sku);
