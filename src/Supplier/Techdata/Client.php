@@ -2,6 +2,7 @@
 
 namespace Supplier\Techdata;
 
+use Utility\Utils;
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
 use Supplier\ConfigKey;
@@ -29,10 +30,12 @@ class Client extends BaseClient
         $request->addPartnum($sku);
 
         $xml = $request->toXml();
+        $this->di->get('logger')->debug($xml);
 
         $res = $this->curlPost($url, $xml);
 
         $response = new PriceAvailabilityResponse($res);
+        $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
 
         PriceAvailabilityLog::save($url, $request, $response);
 

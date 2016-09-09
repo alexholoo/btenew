@@ -2,6 +2,7 @@
 
 namespace Supplier\Synnex;
 
+use Utility\Utils;
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
 use Supplier\PurchaseOrderLog;
@@ -55,12 +56,14 @@ class Client extends BaseClient
         $request->addOrder($order);
 
         $xml = $request->toXml();
+        $this->di->get('logger')->debug($xml);
 
         $res = $this->curlPost($url, $xml, array(
             CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
         ));
 
         $response = new PurchaseOrderResponse($res);
+        $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
 
         PurchaseOrderLog::save($url, $request, $response);
         PriceAvailabilityLog::invalidate($order['sku']);
