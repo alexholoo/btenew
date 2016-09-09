@@ -11,8 +11,6 @@ use Supplier\ConfigKey;
 class Client extends BaseClient
 {
     const PA_PROD_URL = 'https://newport.ingrammicro.com/mustang';
-
-    const PO_TEST_URL = 'https://newport.ingrammicro.com/mustang';
     const PO_PROD_URL = 'https://newport.ingrammicro.com/mustang';
 
     /**
@@ -46,7 +44,7 @@ class Client extends BaseClient
      */
     public function purchaseOrder($order)
     {
-        $url = self::PO_TEST_URL;
+        $url = self::PO_PROD_URL;
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::INGRAM]);
