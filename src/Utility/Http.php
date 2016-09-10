@@ -37,8 +37,12 @@ class Http
         return $result;
     }
 
-    public static function curlPost($url, $data)
+    public static function curlPost($url, $data, $options = [])
     {
+        if (is_array($data)) {
+            $data = http_build_query($data);
+        }
+
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -46,6 +50,10 @@ class Http
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        foreach ($options as $key => $value) {
+            curl_setopt($ch, $key, $value);
+        }
 
         $result = curl_exec($ch);
         curl_close($ch);
