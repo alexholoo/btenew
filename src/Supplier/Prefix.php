@@ -29,4 +29,15 @@ class Prefix
             self::TECHDATA
         ];
     }
+
+    public static function fromSku($sku)
+    {
+        $parts = explode('-', $sku);
+        $supplier = strtoupper($parts[0]);
+
+        // TODO: unknown supplier
+        // TODO: freeshipping prefix
+
+        return $supplier;
+    }
 }
