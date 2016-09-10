@@ -11,7 +11,7 @@ class Factory
     {
         $client = NULL;
 
-        $supplier = \Supplier\Prefix::fromSku($sku):
+        $supplier = \Supplier\Prefix::fromSku($sku);
 
         switch($supplier) {
         case \Supplier\Prefix::DH:
