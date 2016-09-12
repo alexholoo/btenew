@@ -57,6 +57,7 @@ class PriceAvailabilityResponse extends BaseResponse
                 $item->avail = [
                     [
                         'branch' => strval($xitem->BRANCHQTY->BRANCH),
+                        'code'   => strval($xitem->BRANCHQTY->BRANCH),
                         'qty'    => strval($xitem->BRANCHQTY->QTY),
                     ]
                 ];

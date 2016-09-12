@@ -42,6 +42,7 @@ class PriceAvailabilityResponse extends BaseResponse
                 #if ($warehouse->qty > 0) {
                 $item->avail[] = [
                     'branch' => strval($info->city), // Warehouse::getName($info->number),
+                    'code'   => strval($info->number),
                     'qty'    => strval($warehouse->qty),
                 ];
                 #}
