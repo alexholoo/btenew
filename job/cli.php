@@ -29,8 +29,8 @@ if (is_readable(APP_PATH . '/config/config.php')) {
     $di->set('config', new \Phalcon\Config($config));
 }
 
-include APP_PATH . '/FileLogger.php';
-include APP_PATH . '/FtpClient.php';
+include APP_PATH . '/tasks/FileLogger.php';
+include APP_PATH . '/tasks/FtpClient.php';
 
 $di->setShared('db', function() use ($di) {
     $type = strtolower($di->get('config')->database->adapter);
