@@ -16,7 +16,7 @@ class AjaxController extends ControllerBase
         if ($this->request->isPost()) {
             $orderId = $this->request->getPost('order_id');
             $sku = $this->request->getPost('sku');
-            $branch = $this->request->getPost('branch', null, '');
+            $branch = $this->request->getPost('code', null, '');
             $qty = $this->request->getPost('qty');
             $comment = $this->request->getPost('comment', null, '');
 
