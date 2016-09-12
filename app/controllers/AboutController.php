@@ -34,5 +34,9 @@ class AboutController extends ControllerBase
         //$this->queue->put(array(
         //    'TestJob' => __METHOD__ . '-' . rand(),
         //));
+
+        $this->queue->put(array(
+            'PriceAvailJob' => 0,
+        ));
     }
 }
