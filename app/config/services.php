@@ -202,6 +202,29 @@ $di->set('logger', function ($filename = null, $format = null) use ($config) {
     return $logger;
 });
 
+class DummyServer
+{
+    public function put($job)
+    {
+        return true;
+    }
+}
+
+$di->setShared('queue', function () use ($config) {
+    if (isset($config->beanstalk->disabled) && $config->beanstalk->disabled) {
+        return new DummyServer();
+    }
+
+    $queue = new Phalcon\Queue\Beanstalk(
+        array(
+            'host' => 'localhost',
+            'port' => '11300'
+        )
+    );
+
+    return $queue;
+});
+
 /**
  * Services for business logics
  */

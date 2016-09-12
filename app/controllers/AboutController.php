@@ -26,8 +26,13 @@ class AboutController extends ControllerBase
         //$amazonService = $this->AmazonService;
         //$amazonService->doSomething();
 
-        $client = new SynnexClient();
-        $client->getPriceAvailability();
+        //$client = new SynnexClient();
+        //$client->getPriceAvailability();
         //fpr($req->toXml());
+
+        // why is so slow?
+        //$this->queue->put(array(
+        //    'TestJob' => __METHOD__ . '-' . rand(),
+        //));
     }
 }
