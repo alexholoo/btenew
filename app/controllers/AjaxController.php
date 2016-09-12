@@ -25,13 +25,14 @@ class AjaxController extends ControllerBase
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
                 return $this->response;
             }
-$sku = 'ING-21594L';
+
             $orderInfo = $order->toArray();
             $orderInfo['sku'] = $sku; // it might be different
-            $orderInfo['sku'] = 'ING-21594L';
             $orderInfo['branch'] = $branch;
             $orderInfo['comment'] = $comment;
              fpr($orderInfo);
+$this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing']);
+return $this->response;
 
             // TODO: temp code
             if ((substr($sku, 0, 3) != 'SYN') && (substr($sku, 0, 3) != 'ING')) {
