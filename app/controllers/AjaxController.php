@@ -78,11 +78,15 @@ return $this->response;
         if ($this->request->isPost()) {
             $sku = $this->request->getPost('sku');
 
-            // Make a xmlapi call to get price and availability
-            $data = $this->getPriceAvailability($sku);
+            try {
+                // Make a xmlapi call to get price and availability
+                $data = $this->getPriceAvailability($sku);
 
-            // $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
-            $this->response->setJsonContent(['status' => 'OK', 'data' => $data]);
+                // $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $data]);
+            } catch (\Exception $e) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => $e->getMessage()]);
+            }
 
             return $this->response;
         }

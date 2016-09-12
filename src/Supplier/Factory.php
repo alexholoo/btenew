@@ -36,7 +36,7 @@ class Factory
             break;
 
         default:
-            throw new \Exception('Unknown supplier ID: ' . $supplier);
+            throw new \Exception('Unknown supplier: ' . $supplier);
             break;
         }
 
