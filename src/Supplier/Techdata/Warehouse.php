@@ -4,6 +4,9 @@ namespace Supplier\Techdata;
 
 class Warehouse
 {
+    const MISSISSAUGA = 'A1'; 
+    const RICHMOND    = 'A2'; 
+
     public static function getName($code)
     {
         $warehouses = self::all();
@@ -17,12 +20,24 @@ class Warehouse
         return $name;
     }
 
+    public static function getCode($name)
+    {
+        $warehouses = array_flip(self::all());
+
+        $code = '';
+        if (isset($warehouses[$name])) {
+            $code = $warehouses[$name];
+        }
+
+        return $code;
+    }
+
     public static function all()
     {
         return [
-            'A1' => 'Mississauga', // ON
-            'A2' => 'Richmond', // BC
-            '99' => 'Vendor Drop-Ship/Software Licensing',
+            self::MISSISSAUGA => 'MISSISSAUGA, ON',
+            self::RICHMOND    => 'RICHMOND, BC',
+        #   '99' => 'Vendor Drop-Ship/Software Licensing',
         ];
     }
 }
