@@ -14,7 +14,9 @@ class Order
     public $address;
     public $city;
     public $province;
+    public $state;
     public $zipcode;
+    public $postalcode;
     public $country;
     public $phone;
     public $email;
@@ -38,7 +40,9 @@ class Order
         $this->address    = Arr::val($order, 'address');
         $this->city       = Arr::val($order, 'city');
         $this->province   = Arr::val($order, 'province');
-        $this->zipcode    = Arr::val($order, 'postalcode'); // !
+        $this->state      = $this->province;
+        $this->postalcode = Arr::val($order, 'postalcode');
+        $this->zipcode    = $this->postalcode;
         $this->country    = Arr::val($order, 'country');
         $this->phone      = Arr::val($order, 'phone');
         $this->email      = Arr::val($order, 'email');

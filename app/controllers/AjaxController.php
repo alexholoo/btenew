@@ -53,7 +53,7 @@ $sku = 'ING-21594L';
 
             // Make XmlApi call for purchasing
             try {
-                $client = Factory::createClient($sku, 'PO');
+                $client = Factory::createClient($sku);
                 $result = $client->purchaseOrder($orderInfo);
                 $status = $result->getStatus();
 
@@ -151,15 +151,10 @@ $sku = 'ING-21594L';
     {
         $data = [];
 
-        $factory = new PriceAvailFactory($this->config);
-
         foreach ($items as $sku) {
-            $client = $factory->createClient($sku);
-            $request = $client->createRequest();
-            $request->addPartnum($sku);
-            $response = $client->sendRequest($request);
-
-            $data[] = $response->getItems();
+            $client = Factory::createClient($sku);
+            $result = $client->getPriceAvailability($sku);
+            $data[] = $result->getFirst()->toArray();
 
             // mockup data format of price avail
             #$data[] = [
