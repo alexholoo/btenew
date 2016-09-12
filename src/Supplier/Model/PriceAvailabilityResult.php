@@ -15,12 +15,12 @@ class PriceAvailabilityResult
     public $errorMessage;
 
     /**
-     * @var array of Supplier\PriceAvailabilityItem
+     * @var array of Supplier\Model\PriceAvailabilityItem
      */
     protected $items = [];
 
     /**
-     * @param Supplier\PriceAvailabilityItem $item
+     * @param Supplier\Model\PriceAvailabilityItem $item
      */
     public function add($item)
     {
@@ -28,7 +28,7 @@ class PriceAvailabilityResult
     }
 
     /**
-     * @return Supplier\PriceAvailabilityItem
+     * @return Supplier\Model\PriceAvailabilityItem
      */
     public function getFirst()
     {
@@ -36,7 +36,7 @@ class PriceAvailabilityResult
             return $this->items[0];
         }
 
-        return [];
+        return new PriceAvailabilityItem();
     }
 
     /**
