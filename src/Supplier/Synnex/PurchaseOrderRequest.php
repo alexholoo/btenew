@@ -57,6 +57,7 @@ class PurchaseOrderRequest extends BaseRequest
         }
 
         if ($comment) {
+            $comment = htmlspecialchars($comment);
             $lines[] = "<Comment>$comment</Comment>";
         }
 
