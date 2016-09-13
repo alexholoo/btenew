@@ -81,13 +81,13 @@ class Client extends BaseClient
         return $result;
     }
 
-    public function getOrderStatus($sku)
+    public function getOrderStatus($orderId)
     {
         $url = self::OS_PROD_URL;
 
         $request = new OrderStatusRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::DH]);
-        $request->addPartnum($sku);
+        $request->setOrder($orderId);
 
         $xml = $request->toXml();
 
