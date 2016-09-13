@@ -77,6 +77,20 @@ class ConfigService extends Injectable
         $sql = "UPDATE config SET value=? WHERE supplier=? AND section=? AND name=?";
         $this->db->execute($sql, array($value, $supplier, $section, $name));
 
+        if ($this->db->affectedRows() == 0) {
+            try {
+                $this->db->insertAsDict('config', [
+                    'supplier' => $supplier,
+                    'section'  => $section,
+                    'name'     => $name,
+                    'value'    => $value,
+                    'desc'     => '',
+                ]);
+            } catch (\Exception $e) {
+                //echo $e->getMessage(), EOL;
+            }
+        }
+
         // force to reload config from database
         $this->config = [];
     }
