@@ -52,7 +52,7 @@ class PurchaseOrderRequest extends BaseRequest
         $state   = $this->order->province;
         $zipcode = $this->order->zipcode;
         $country = $this->order->country;
-        $comment = $this->order->comment;
+        $comment = htmlspecialchars($this->order->comment);
 
         $partShip    = $this->config['partship'];
         $backOrder   = $this->config['backorder'];

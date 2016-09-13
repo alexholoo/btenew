@@ -41,7 +41,7 @@ class PurchaseOrderRequest extends BaseRequest
         $customerNo = $this->config['customerNo'];
         $poNumber   = $this->order->orderId;
         $endUserPO  = $this->order->endUserPO;
-        $comment    = $this->order->comment;
+        $comment    = htmlspecialchars($this->order->comment);
 
         $lines = array();
         $lines[] = '<OrderRequest>';
@@ -57,7 +57,6 @@ class PurchaseOrderRequest extends BaseRequest
         }
 
         if ($comment) {
-            $comment = htmlspecialchars($comment);
             $lines[] = "<Comment>$comment</Comment>";
         }
 
