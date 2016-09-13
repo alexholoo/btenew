@@ -15,6 +15,9 @@ class Client extends BaseClient
     const PO_TEST_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
     const PO_PROD_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
 
+    const OS_TEST_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
+    const OS_PROD_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
+
     /**
      * @param  string $sku
      */
@@ -71,6 +74,29 @@ class Client extends BaseClient
 
         PurchaseOrderLog::save($url, $request, $response);
         PriceAvailabilityLog::invalidate($order['sku']);
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
+    }
+
+    public function getOrderStatus($sku)
+    {
+        $url = self::OS_PROD_URL;
+
+        $request = new OrderStatusRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::DH]);
+        $request->addPartnum($sku);
+
+        $xml = $request->toXml();
+
+        $res = $this->curlPost($url, $xml);
+
+        $response = new PriceAvailabilityResponse($res);
+        $result = $response->parseXml();
+
+        PriceAvailabilityLog::save($url, $request, $response);
 
         $this->request = $request;
         $this->response = $response;

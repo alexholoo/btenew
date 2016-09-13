@@ -55,6 +55,11 @@ class Client extends BaseClient
         throw \Exception('Purchase Order not supported for ASI');
     }
 
+    public function getOrderStatus($sku)
+    {
+        throw \Exception('Order Status not supported for ASI');
+    }
+
     protected function httpGet($url)
     {
         $ch = curl_init();

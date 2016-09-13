@@ -76,4 +76,8 @@ class Client extends BaseClient
 
         return $result;
     }
+
+    public function getOrderStatus($sku)
+    {
+    }
 }
