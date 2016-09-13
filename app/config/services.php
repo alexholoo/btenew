@@ -21,6 +21,7 @@ use Service\InventoryServi;
 use Service\OrderService;
 use Service\PurchaseService;
 use Service\ShipmentService;
+use Service\ConfigService;
 use Service\AmazonService;
 use Service\EbayService;
 use Service\NeweggService;
@@ -229,6 +230,10 @@ $di->setShared('queue', function () use ($config) {
 /**
  * Services for business logics
  */
+$di->setShared('ConfigService', function() {
+    return new ConfigService();
+});
+
 $di->setShared('ProductService', function() {
     return new ProductService();
 });
