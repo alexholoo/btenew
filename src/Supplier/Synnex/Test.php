@@ -109,9 +109,7 @@ function realPurchaseOrder()
     $order = getOrder();
 
     $client = new Client($config);
-    $response = $client->purchaseOrder($order);
-
-    $result = $response->parseXml();
+    $result = $client->purchaseOrder($order);
 
     pr($result);
 }
@@ -120,6 +118,6 @@ function realPurchaseOrder()
 #testPriceAvailabilityResponse();
 #realPriceAvailability();
 
- testPurchaseOrderRequest();
+#testPurchaseOrderRequest();
 #testPurchaseOrderResponse();
 #realPurchaseOrder();

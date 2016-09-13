@@ -94,6 +94,12 @@ function testPurchaseOrderRequest()
 function testPurchaseOrderResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/Ingram/fixtures/ing-po-response-1.xml');
+/*
+$xml=<<<EOS
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ERROR Number="20001">Invalid Inbound XML Document</ERROR>
+EOS;
+*/
     $response = new Supplier\Ingram\PurchaseOrderResponse($xml);
     $result = $response->parseXml();
 
@@ -154,6 +160,6 @@ function testOrderNumberMapper()
 #realPriceAvailability();
 
 #testPurchaseOrderRequest();
-#testPurchaseOrderResponse();
+ testPurchaseOrderResponse();
 #realPurchaseOrder();
 #testOrderNumberMapper();
