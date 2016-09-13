@@ -7,5 +7,11 @@ class TestJob extends Job
         echo __METHOD__, ' ';
         print_r($args);
         echo PHP_EOL;
+
+        if ($args < 10) {
+            $this->queue->put(array(
+                'TestJob' => $args+1,
+            ));
+        }
     }
 }
