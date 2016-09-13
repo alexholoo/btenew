@@ -38,5 +38,10 @@ class AboutController extends ControllerBase
         $this->queue->put(array(
             'PriceAvailJob' => 0,
         ));
+
+        #$price = $this->PricelistService->getPrice('SYN-6108179');
+        #fpr($price);
+        #$title = $this->PricelistService->getTitle('SYN-6108179');
+        #fpr($title);
     }
 }

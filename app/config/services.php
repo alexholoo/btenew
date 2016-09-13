@@ -16,6 +16,7 @@ use Phalcon\Logger;
 use Phalcon\Events\Manager as EventsManager;
 
 use Service\ProductService;
+use Service\PricelistService;
 use Service\InventoryServi;
 use Service\OrderService;
 use Service\PurchaseService;
@@ -230,6 +231,10 @@ $di->setShared('queue', function () use ($config) {
  */
 $di->setShared('ProductService', function() {
     return new ProductService();
+});
+
+$di->setShared('PricelistService', function() {
+    return new PricelistService();
 });
 
 $di->setShared('InventoryService', function() {
