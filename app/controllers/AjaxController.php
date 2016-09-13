@@ -31,8 +31,9 @@ class AjaxController extends ControllerBase
             $orderInfo['branch'] = $branch;
             $orderInfo['comment'] = $comment;
              fpr($orderInfo);
-$this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing']);
-return $this->response;
+
+#$this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing']);
+#return $this->response;
 
             // TODO: temp code
             if ((substr($sku, 0, 3) != 'SYN') && (substr($sku, 0, 3) != 'ING')) {
