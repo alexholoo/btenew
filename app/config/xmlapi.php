@@ -20,6 +20,7 @@ return array(
         'accountNo'  => 'UNKNOWN',
         'username'   => 'roy@btecanada.com',
         'password'   => 'Bte@sNx052016',
+        'shipmethod' => 'WHS',
     ),
 
     \Supplier\ConfigKey::INGRAM => array(
