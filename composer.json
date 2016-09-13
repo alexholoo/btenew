@@ -3,6 +3,7 @@
         "php": ">=5.4",
         "ext-phalcon": ">=2.0.9",
         "phalcon/devtools": "dev-master",
+        "chrisboulton/php-resque": "1.2.x",
         "cpigroup/php-amazon-mws": "1.3.0"
     },
     "autoload": {
