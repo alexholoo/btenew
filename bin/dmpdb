@@ -1,0 +1,3 @@
+# !/bin/bash
+
+/c/xampp/mysql/bin/mysqldump -d -h localhost -u root --no-data bte > /e/LHS/btedb-`date +%Y-%m-%d`.sql
