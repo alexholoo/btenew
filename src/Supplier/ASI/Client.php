@@ -14,6 +14,8 @@ class Client extends BaseClient
     const PO_TEST_URL = '';
     const PO_PROD_URL = '';
 
+    const OS_PROD_URL = '';
+
     /**
      * @param  string $sku
      */

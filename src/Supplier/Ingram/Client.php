@@ -12,6 +12,7 @@ class Client extends BaseClient
 {
     const PA_PROD_URL = 'https://newport.ingrammicro.com/mustang';
     const PO_PROD_URL = 'https://newport.ingrammicro.com/mustang';
+    const OS_PROD_URL = 'https://newport.ingrammicro.com/mustang';
 
     /**
      * @param  string $sku
@@ -76,7 +77,24 @@ class Client extends BaseClient
         return $result;
     }
 
-    public function getOrderStatus($sku)
+    public function getOrderStatus($orderId)
     {
+        $url = self::OS_PROD_URL;
+
+        $request = new OrderTrackingRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::INGRAM]);
+        $request->setOrder($orderId);
+
+        $xml = $request->toXml();
+
+        $res = $this->curlPost($url, $xml);
+
+        $response = new OrderTrackingResponse($res);
+        $result = $response->parseXml();
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
     }
 }

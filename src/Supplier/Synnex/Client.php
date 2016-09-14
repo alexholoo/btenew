@@ -16,6 +16,8 @@ class Client extends BaseClient
     const PO_TEST_URL = 'https://testec.synnex.ca/SynnexXML/PO';
     const PO_PROD_URL = 'https://ec.synnex.ca/SynnexXML/PO';
 
+    const OS_PROD_URL = 'https://ec.synnex.ca/SynnexXML/';
+
     /**
      * @param  string $sku
      */
@@ -83,7 +85,24 @@ class Client extends BaseClient
         return $result;
     }
 
-    public function getOrderStatus($sku)
+    public function getOrderStatus($orderId)
     {
+        $url = self::OS_PROD_URL;
+
+        $request = new OrderStatusRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
+        $request->setOrder($orderId);
+
+        $xml = $request->toXml();
+
+        $res = $this->curlPost($url, $xml);
+
+        $response = new OrderStatusResponse($res);
+        $result = $response->parseXml();
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
     }
 }

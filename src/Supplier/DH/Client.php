@@ -93,10 +93,8 @@ class Client extends BaseClient
 
         $res = $this->curlPost($url, $xml);
 
-        $response = new PriceAvailabilityResponse($res);
+        $response = new OrderStatusResponse($res);
         $result = $response->parseXml();
-
-        PriceAvailabilityLog::save($url, $request, $response);
 
         $this->request = $request;
         $this->response = $response;
