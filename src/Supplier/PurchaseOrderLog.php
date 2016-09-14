@@ -6,7 +6,7 @@ use Phalcon\Di;
 
 class PurchaseOrderLog
 {
-    public static function save($url, $request, $response)
+    public static function saveXml($url, $request, $response)
     {
         $db = Di::getDefault()->get('db');
 
@@ -19,5 +19,23 @@ class PurchaseOrderLog
                #'status' => $response->getStatus(),
             ]
         );
+    }
+
+    public static function save($sku, $orderId, $poNumber)
+    {
+        $db = Di::getDefault()->get('db');
+
+        try {
+            $db->insertAsDict('purchase_order_log',
+                [
+                    'sku' => $sku,
+                    'orderid' => $orderId,
+                    'ponumber' => $poNumber,
+                ]
+            );
+        } catch (\Exception $e) {
+            $logger = Di::getDefault()->get('logger');
+            $logger->error($e->getMessage());
+        }
     }
 }

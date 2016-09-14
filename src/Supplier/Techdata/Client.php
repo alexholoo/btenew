@@ -6,6 +6,7 @@ use Utility\Utils;
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
 use Supplier\ConfigKey;
+use Supplier\Model\Response;
 
 class Client extends BaseClient
 {
@@ -68,8 +69,12 @@ class Client extends BaseClient
 
         $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
 
-        PurchaseOrderLog::save($url, $request, $response);
-        PriceAvailabilityLog::invalidate($order['sku']);
+        PurchaseOrderLog::saveXml($url, $request, $response);
+
+        if ($result->status == Response::STATUS_OK) {
+            PurchaseOrderLog::save($order['sku'], $order['orderId'], $result->orderNo);
+            PriceAvailabilityLog::invalidate($order['sku']);
+        }
 
         $this->request = $request;
         $this->response = $response;
