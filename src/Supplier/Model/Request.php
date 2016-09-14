@@ -5,9 +5,22 @@ namespace Supplier\Model;
 abstract class Request
 {
     /**
+     * @var \Supplier\Client
+     */
+    protected $client;
+
+    /**
      * @var array
      */
     protected $config;
+
+    /**
+     * @param \Supplier\Client $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
 
     /**
      * @param array $config
