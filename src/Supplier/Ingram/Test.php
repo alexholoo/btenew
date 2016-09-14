@@ -139,9 +139,7 @@ function realPurchaseOrder()
     $order['sku'] = $sku;
 
     $client = new Client($config);
-    $response = $client->purchaseOrder($order);
-
-    $result = $response->parseXml();
+    $result = $client->purchaseOrder($order);
 
     pr($result);
 }
