@@ -33,6 +33,7 @@ class PriceAvailabilityResponse extends BaseResponse
         foreach($xml->Inventory->Qty->Branch as $branch) {
             $item->avail[] = [
                 'branch' => strval($branch['Name']),
+                'code'   => strval($branch['Code']),
                 'qty'    => strval($branch),
             ];
         }

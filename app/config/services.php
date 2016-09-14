@@ -16,10 +16,12 @@ use Phalcon\Logger;
 use Phalcon\Events\Manager as EventsManager;
 
 use Service\ProductService;
+use Service\PricelistService;
 use Service\InventoryServi;
 use Service\OrderService;
 use Service\PurchaseService;
 use Service\ShipmentService;
+use Service\ConfigService;
 use Service\AmazonService;
 use Service\EbayService;
 use Service\NeweggService;
@@ -202,11 +204,42 @@ $di->set('logger', function ($filename = null, $format = null) use ($config) {
     return $logger;
 });
 
+class DummyServer
+{
+    public function put($job)
+    {
+        return true;
+    }
+}
+
+$di->setShared('queue', function () use ($config) {
+    if (isset($config->beanstalk->disabled) && $config->beanstalk->disabled) {
+        return new DummyServer();
+    }
+
+    $queue = new Phalcon\Queue\Beanstalk(
+        array(
+            'host' => 'localhost',
+            'port' => '11300'
+        )
+    );
+
+    return $queue;
+});
+
 /**
  * Services for business logics
  */
+$di->setShared('ConfigService', function() {
+    return new ConfigService();
+});
+
 $di->setShared('ProductService', function() {
     return new ProductService();
+});
+
+$di->setShared('PricelistService', function() {
+    return new PricelistService();
 });
 
 $di->setShared('InventoryService', function() {

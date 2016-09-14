@@ -121,7 +121,7 @@ function priceAvailHtml(items) {
 
   for (var i=0; i<items.length; i++) {
     for (var a=0; a<items[i].avail.length; a++) {
-      content += `<tr data-sku="${items[i].sku}" data-branch="${items[i].avail[a].branch}">
+      content += `<tr data-sku="${items[i].sku}" data-branch="${items[i].avail[a].branch}" data-branch-code="${items[i].avail[a].code}">
         <td><input type="radio" name="skubranch"></td>
         <td>${a==0 ? items[i].sku : '&nbsp;'}</td>
         <td>${a==0 ? items[i].price : '&nbsp;'}</td>
@@ -162,7 +162,8 @@ function getPriceAvail(data, selected, done) {
             var tr = radio.closest('tr');
             var sku = tr.data('sku');
             var branch = tr.data('branch');
-            selected({sku: sku, branch: branch});
+            var code = tr.data('branch-code');
+            selected({sku: sku, branch: branch, code: code});
           }
           layer.close(index);
         },
@@ -257,6 +258,7 @@ function getOrderDetail(orderId, done) {
     var sku = tr.data('sku');
     var qty = tr.data('qty');
     var branch = tr.data('branch');
+    var code = tr.data('code');
 
     if (!sku) {
         sku = tr.find('select').val();
@@ -264,7 +266,7 @@ function getOrderDetail(orderId, done) {
 
     tr.addClass('info');
 
-    makePurchase({ order_id: orderId, sku: sku, branch: branch, qty: qty },
+    makePurchase({ order_id: orderId, sku: sku, branch: branch, code: code, qty: qty },
       function() {
         showToast('Order purchased successfully');
         tr.remove();

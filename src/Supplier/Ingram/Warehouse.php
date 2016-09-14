@@ -5,8 +5,8 @@ namespace Supplier\Ingram;
 class Warehouse
 {
     // Canada
-    const MISSISSAUGA = 40;
-    const VANCOUVER   = 10;
+    const TORONTO   = 40;
+    const VANCOUVER = 10;
 
     public static function getName($code)
     {
@@ -35,8 +35,8 @@ class Warehouse
     public static function all()
     {
         return [
-            self::MISSISSAUGA => 'Mississauga',
-            self::VANCOUVER   => 'Vancouver',
+            self::TORONTO   => 'Toronto',
+            self::VANCOUVER => 'Vancouver',
         ];
     }
 }

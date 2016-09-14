@@ -35,8 +35,8 @@ class PriceAvailabilityResponse extends BaseResponse
             foreach ($x->Branch as $branch) {
                 #if ($branch->Availability > 0) {
                 $item->avail[] = [
-                   #'id'      => strval($branch['ID']),
                     'branch'  => strval($branch['Name']),
+                    'code'    => strval($branch['ID']),
                     'qty'     => strval($branch->Availability),
                    #'OnOrder' => strval($branch->OnOrder),
                    #'ETADate' => strval($branch->ETADate),

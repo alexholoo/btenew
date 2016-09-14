@@ -17,6 +17,13 @@ class PurchaseOrderResponse extends BaseResponse
 
         $result = new PurchaseOrderResult();
 
+        // Fatal error: Invalid Inbound XML Document
+        if (isset($xml['Number'])) {
+            $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = strval($xml);
+            return $result;
+        }
+
         $result->status = Response::STATUS_OK;
 
         $errnum = strval($xml->TransactionHeader->ErrorStatus['ErrorNumber']);

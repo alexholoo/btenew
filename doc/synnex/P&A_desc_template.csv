@@ -1,0 +1,217 @@
+F00        Trading Partner Code,                             1150897
+F01        Detail Record ID,                                 ~DTL
+F02        Manufacturer Part#,                               ~HJA-00756
+F03        SYNNEX Internal Use,                              ~MST-HJA-00756
+F04        SYNNEX SKU #,                                     ~4973148
+F05        Status Code,                                      ~A
+F06        Part Description,                                 ~Microsoft BizTalkServerBranch License/SoftwareAssurancePack Government OLP 2Lice
+F07        Manufacturer Name,                                ~MICROSOFT SWL
+F08        SYNNEX Internal Use,                              ~2757
+F09        Qty on Hand (Total),                              ~0
+F10        SYNNEX Internal Use,                              ~0
+F11        SYNNEX Internal Use,                              ~0
+F12        Contract Price (With Promo/Rebate),               ~1668.45
+F13        MSRP,                                             ~1926.00
+F14        Warehouse Qty on Hand,                            ~0
+F15        Warehouse Qty on Hand,                            ~0
+F16        Returnable Flag (Y/N),                            ~Y
+F17        Warehouse Qty on Hand,                            ~0
+F18        Parcel Shippable,                                 ~N
+F19        Warehouse Qty on Hand,                            ~0
+F20        Unit Cost  (w/o Promo/Rebate),                    ~1668.45
+F21        Warehouse Qty on Hand,                            ~0
+F22        Media Type,                                       ~SWL
+F23        Warehouse Qty on Hand,                            ~0
+F24        SYNNEX CAT Code,                                  ~011091239
+F25        Warehouse Qty on Hand,                            ~0
+F26        SYNNEX Internal Use,                              ~5855
+F27        Ship Weight,                                      ~0.00
+F28        Serialized Flag,                                  ~N
+F29        Warehouse Qty on Hand,                            ~0.00
+F30        Warehouse Qty on Hand,                            ~0.00
+F31        Warehouse Qty on Hand,                            ~0.00
+F32        SYNNEX Reserved Use,                              ~
+F33        UPC Code,                                         ~
+F34        UNSPSC Code,                                      ~43231500
+F35        SYNNEX Internal Use,                              ~OB
+F36        SKU Created Date,                                 ~20130321
+F37        One Source Flag,                                  ~YNN
+F38        ETA Date,                                         ~20160829
+F39        ABC Code,                                         ~B
+F40        Kit/Stand Alone Flag,                             ~S
+F41        State GOV Price,                                  ~
+F42        Federal GOV Price,                                ~
+F43        EDUcational Price,                                ~
+F44        TAA Flag,                                         ~
+F45        GSA Pricing,                                      ~
+F46        Promotion Flag,                                   ~N
+F47        Promotion Comment,                                ~
+F48        Promotion Expiration Date,                        ~
+F49        Long Description (1),                             ~Microsoft BizTalkServerBranch License/SoftwareAssurancePack Government OLP 2Lice
+F50        Long Description (2),                             ~nses NoLevel CoreLic Qualified
+F51        Long Description (3),                             ~
+F52        Length,                                           ~0.00
+F53        Width,                                            ~0.00
+F54        Height,                                           ~0.00
+F55        SYNNEX Reserved Use,                              ~
+F56        GSA NTE Price,                                    ~
+F57        Platform Type,                                    ~
+F58        Product Description (FR),                         ~
+F59        Warehouse Qty on Hand,                            ~
+F60        Warehouse Qty on Hand,                            ~
+F61        SYNNEX Reserved Use,                              ~
+F62        SYNNEX Reserved Use,                              ~
+F63        SYNNEX Reserved Use,                              ~
+F64        Replacement Sku,                                  ~
+F65        Minimum Order Qty,                                ~
+F66        Purchasing Requirements,                          ~
+F67        Gov Class,                                        ~
+F68        Warehouse Qty on Hand,                            ~
+F69        MFG Drop Ship Warehouse QTY                       ~
+F70                                                          ~
+
+
+1150897
+~DTL
+~HJA-00757
+~MST-HJA-00757
+~4973149
+~A
+~Microsoft BizTalkServerBranch SoftwareAssurance Government OLP 2Licenses NoLevel
+~MICROSOFT SWL
+~2757
+~0
+~0
+~0
+~556.10
+~642.00
+~0
+~0
+~Y
+~0
+~N
+~0
+~556.10
+~0
+~SWL
+~0
+~011091239
+~0
+~5855
+~0.00
+~N
+~0.00
+~0.00
+~0.00
+~
+~
+~43231500
+~OB
+~20130321
+~YNN
+~20160829
+~B
+~S
+~
+~
+~
+~
+~
+~N
+~
+~
+~Microsoft BizTalkServerBranch SoftwareAssurance Government OLP 2Licenses NoLevel
+~ CoreLic Qualified
+~
+~0.00
+~0.00
+~0.00
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+
+1150897
+~DTL
+~HJA-00705
+~MST-HJA-00705
+~4973157
+~A
+~Microsoft BizTalkServerBranch Sngl License/SoftwareAssurancePack OLP 2Licenses N
+~MICROSOFT SWL
+~2757
+~0
+~0
+~0
+~2195.13
+~2533.00
+~0
+~0
+~Y
+~0
+~N
+~0
+~2195.13
+~0
+~SWL
+~0
+~011091239
+~0
+~5800
+~0.00
+~N
+~0.00
+~0.00
+~0.00
+~
+~
+~43231500
+~OB
+~20130321
+~YNN
+~20160829
+~B
+~S
+~
+~
+~
+~
+~
+~N
+~
+~
+~Microsoft BizTalkServerBranch Sngl License/SoftwareAssurancePack OLP 2Licenses N
+~oLevel CoreLic Qualified
+~
+~0.00
+~0.00
+~0.00
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+

@@ -42,8 +42,8 @@ class PriceAvailabilityResponse extends BaseResponse
 
                 $item->avail[] = [
                     'branch' => strval($branch->IDCode),
+                    'code'   => strval($branch->WhseCode),
                     'qty'    => strval($branch->Qty),
-                   #'code'   => strval($branch->WhseCode),
                 ];
 
                 if ($branch->TotalOnOrderQty) {

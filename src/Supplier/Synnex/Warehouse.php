@@ -38,11 +38,11 @@ class Warehouse
     public static function all()
     {
         return [
-            self::HALIFAX  => 'Halifax',
-            self::GUELPH   => 'Guelph',
-            self::CALGARY  => 'Calgary',
-            self::MARKHAM  => 'Markham',
-            self::RICHMOND => 'Richmond BC',
+            self::HALIFAX  => 'Halifax, NS',
+            self::GUELPH   => 'Guelph, ON',
+            self::CALGARY  => 'Calgary, AB',
+            self::MARKHAM  => 'Markham, ON',
+            self::RICHMOND => 'Richmond, BC',
         ];
     }
 }

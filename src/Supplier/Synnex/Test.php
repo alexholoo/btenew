@@ -72,7 +72,7 @@ function getOrder()
         'mgnInvoiceId' => 'n/a',
         // extra info from user
         'branch' => '',
-        'comment' => 'TEST PO ONLY - DO NOT SHIP',
+        'comment' => 'Price match D&H $335.55',
     ];
 }
 
@@ -109,16 +109,14 @@ function realPurchaseOrder()
     $order = getOrder();
 
     $client = new Client($config);
-    $response = $client->purchaseOrder($order);
-
-    $result = $response->parseXml();
+    $result = $client->purchaseOrder($order);
 
     pr($result);
 }
 
 #testPriceAvailabilityRequest();
 #testPriceAvailabilityResponse();
- realPriceAvailability();
+#realPriceAvailability();
 
 #testPurchaseOrderRequest();
 #testPurchaseOrderResponse();

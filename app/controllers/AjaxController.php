@@ -16,7 +16,7 @@ class AjaxController extends ControllerBase
         if ($this->request->isPost()) {
             $orderId = $this->request->getPost('order_id');
             $sku = $this->request->getPost('sku');
-            $branch = $this->request->getPost('branch', null, '');
+            $branch = $this->request->getPost('code', null, '');
             $qty = $this->request->getPost('qty');
             $comment = $this->request->getPost('comment', null, '');
 
@@ -25,13 +25,16 @@ class AjaxController extends ControllerBase
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
                 return $this->response;
             }
-$sku = 'ING-21594L';
+
             $orderInfo = $order->toArray();
             $orderInfo['sku'] = $sku; // it might be different
-            $orderInfo['sku'] = 'ING-21594L';
+            $orderInfo['price'] = $this->PricelistService->getPrice($sku); // Synnex need this
             $orderInfo['branch'] = $branch;
             $orderInfo['comment'] = $comment;
              fpr($orderInfo);
+
+#$this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing']);
+#return $this->response;
 
             // TODO: temp code
             if ((substr($sku, 0, 3) != 'SYN') && (substr($sku, 0, 3) != 'ING')) {
@@ -77,11 +80,15 @@ $sku = 'ING-21594L';
         if ($this->request->isPost()) {
             $sku = $this->request->getPost('sku');
 
-            // Make a xmlapi call to get price and availability
-            $data = $this->getPriceAvailability($sku);
+            try {
+                // Make a xmlapi call to get price and availability
+                $data = $this->getPriceAvailability($sku);
 
-            // $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
-            $this->response->setJsonContent(['status' => 'OK', 'data' => $data]);
+                // $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $data]);
+            } catch (\Exception $e) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => $e->getMessage()]);
+            }
 
             return $this->response;
         }

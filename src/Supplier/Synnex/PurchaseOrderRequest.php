@@ -41,7 +41,7 @@ class PurchaseOrderRequest extends BaseRequest
         $customerNo = $this->config['customerNo'];
         $poNumber   = $this->order->orderId;
         $endUserPO  = $this->order->endUserPO;
-        $comment    = $this->order->comment;
+        $comment    = htmlspecialchars($this->order->comment);
 
         $lines = array();
         $lines[] = '<OrderRequest>';
@@ -50,7 +50,7 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =   '<DropShipFlag>Y</DropShipFlag>';
 
         $lines[] = $this->shipment();
-        $lines[] = $this->payment();
+        #lines[] = $this->payment();
 
         if ($endUserPO) {
             $lines[] = "<EndUserPONumber>$endUserPO</EndUserPONumber>";
@@ -78,11 +78,11 @@ class PurchaseOrderRequest extends BaseRequest
         $phone      = $this->order->phone;
         $email      = $this->order->email;
         $branch     = $this->order->branch;
-        #shipMethod = $this->config['shipmethod'];
+        $shipMethod = $this->config['shipmethod'];
 
         $lines = array();
         $lines[] = '<Shipment>';
-        #lines[] =   "<ShipFromWarehouse>$branch</ShipFromWarehouse>";
+        $lines[] =   "<ShipFromWarehouse>$branch</ShipFromWarehouse>";
         $lines[] =   '<ShipTo>';
         $lines[] =     "<AddressName1>$contact</AddressName1>";
         #lines[] =     "<AddressName2 />";
@@ -97,9 +97,9 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =     "<PhoneNumber>$phone</PhoneNumber>";
         $lines[] =     "<EmailAddress>$email</EmailAddress>";
         $lines[] =   '</ShipToContact>';
-        #lines[] =   '<ShipMethod>';
-        #lines[] =     "<Code>$shipMethod</Code>";
-        #lines[] =   '</ShipMethod>';
+        $lines[] =   '<ShipMethod>';
+        $lines[] =     "<Code>$shipMethod</Code>";
+        $lines[] =   '</ShipMethod>';
         $lines[] = '</Shipment>';
 
         return implode("\n", $lines);
@@ -120,7 +120,7 @@ class PurchaseOrderRequest extends BaseRequest
     protected function items()
     {
         $sku   = $this->order->sku;
-        $price = 1.0; // $this->order->price;
+        $price = $this->order->price;
         $qty   = $this->order->qty;
 
         if (substr($sku, 0, 4) == 'SYN-') {

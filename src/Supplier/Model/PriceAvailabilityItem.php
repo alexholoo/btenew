@@ -23,9 +23,9 @@ class PriceAvailabilityItem
      * @var array
      *
      * avail => [
-     *     [ 'branch' => 'BRANCH-1', 'qty' => 1 ],
-     *     [ 'branch' => 'BRANCH-1', 'qty' => 2 ],
-     *     [ 'branch' => 'BRANCH-1', 'qty' => 3 ],
+     *     [ 'branch' => 'BRANCH-1', 'code' => '11', 'qty' => 1 ],
+     *     [ 'branch' => 'BRANCH-1', 'code' => '22', 'qty' => 2 ],
+     *     [ 'branch' => 'BRANCH-1', 'code' => '33', 'qty' => 3 ],
      * ]
      */
     public $avail = [];
