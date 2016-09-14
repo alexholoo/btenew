@@ -18,7 +18,7 @@ function fpr()
 {
     static $first = true;
 
-    $filename = dirname(__DIR__) . '/zzz.log';
+    $filename = dirname(__DIR__) . '/app/logs/zzz.log';
 
     if ($first) {
         $first = false;
