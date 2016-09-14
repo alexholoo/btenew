@@ -5,6 +5,7 @@ namespace Supplier\Techdata;
 use Utility\Utils;
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
+use Supplier\PurchaseOrderLog;
 use Supplier\ConfigKey;
 use Supplier\Model\Response;
 

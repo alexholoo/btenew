@@ -64,14 +64,14 @@ function getOrder()
         'country' => 'CA',
         'phone' => '800-900-1020',
         'email' => 'samwang@email.com',
-        'sku' => 'TD-357869',
+        'sku' => 'TD-1218ZS',
         'price' => '87.39',
         'qty' => '1',
         'shipping' => '0.00',
         'mgnInvoiceId' => 'n/a',
         // extra info from user
         'branch' => '',
-        'comment' => 'TEST PO ONLY - DO NOT SHIP',
+        'comment' => 'TEST PO ONLY & DO NOT SHIP',
     ];
 }
 
@@ -102,6 +102,14 @@ function testPurchaseOrderResponse()
 
 function realPurchaseOrder()
 {
+    $config = include __DIR__ . '/app/config/config.php';
+
+    $order = getOrder();
+
+    $client = new Client($config);
+    $result = $client->purchaseOrder($order);
+
+    pr($result);
 }
 
 #testPriceAvailabilityRequest();
