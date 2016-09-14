@@ -10,8 +10,8 @@ return array(
         'backorder'   => 'N',
         'shipcarrier' => 'Purolator', // Pickup/Purolator/UPS
         'shipservice' => 'Ground', // Pickup/Ground/2nd Day Air/Next Day Air
-        'onlybranch'  => '',  // Toronto
-        'branches'    => '3', // 1-7
+        'onlybranch'  => 'Toronto',  // Toronto
+        'branches'    => '', // 3, 1-7
     ),
 
     \Supplier\ConfigKey::SYNNEX => array(
