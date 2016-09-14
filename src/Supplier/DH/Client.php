@@ -35,7 +35,9 @@ class Client extends BaseClient
 
         $xml = $request->toXml();
 
-        $res = $this->curlPost($url, $xml);
+        $res = $this->curlPost($url, $xml, array(
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
+        ));
 
         $response = new PriceAvailabilityResponse($res);
         $result = $response->parseXml();
@@ -62,7 +64,9 @@ class Client extends BaseClient
         $xml = $request->toXml();
         $this->di->get('logger')->debug($xml);
 
-        $res = $this->curlPost($url, $xml);
+        $res = $this->curlPost($url, $xml, array(
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
+        ));
 
         $response = new PurchaseOrderResponse($res);
         $result = $response->parseXml();

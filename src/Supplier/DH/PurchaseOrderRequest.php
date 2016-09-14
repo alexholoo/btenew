@@ -21,7 +21,12 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] = $this->orderItems();
         $lines[] = '</XMLFORMPOST>';
 
-        return Utils::formatXml(implode("\n", $lines));
+        $xmldoc = Utils::formatXml(implode("\n", $lines));
+
+        return $xmldoc;
+
+       #return "xmlDoc=" . $xmldoc; // Post an HTML form
+       #return "xmlDoc=" . rawurlencode($xmldoc); // More safer way to post an HTML form
     }
 
     public function login()

@@ -28,8 +28,10 @@ class PriceAvailabilityRequest extends BaseRequest
 
         $xmldoc = Utils::formatXml(implode("\n", $lines));
 
-        return "xmlDoc=" . $xmldoc;
-       #return "xmlDoc=" . rawurlencode($xmldoc);
+        return $xmldoc;
+
+       #return "xmlDoc=" . $xmldoc; // Post an HTML form
+       #return "xmlDoc=" . rawurlencode($xmldoc); // More safer way to post an HTML form
     }
 
     /**

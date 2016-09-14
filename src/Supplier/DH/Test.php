@@ -57,7 +57,7 @@ function getOrder()
         'id' => '2754',
         'channel' => 'Amazon-ACA',
         'date' => '2016-08-29',
-        'orderId' => '701-3707503-5766610',
+        'orderId' => '701-3707503-5766613',
         'mgnOrderId' => '',
         'express' => '0',
         'buyer' => 'Sam Wang',
@@ -68,14 +68,14 @@ function getOrder()
         'country' => 'CA',
         'phone' => '800-900-1020',
         'email' => 'samwang@email.com',
-        'sku' => 'DH-5530287',
+        'sku' => 'DH-VG248QECA',
         'price' => '87.39',
         'qty' => '1',
         'shipping' => '0.00',
         'mgnInvoiceId' => 'n/a',
         // extra info from user
         'branch' => '',
-        'comment' => 'TEST PO ONLY - DO NOT SHIP',
+        'comment' => 'TEST PO ONLY & DO NOT SHIP',
     ];
 }
 
@@ -106,6 +106,18 @@ function testPurchaseOrderResponse()
 
 function realPurchaseOrder()
 {
+    $config = include __DIR__ . '/app/config/config.php';
+
+    // Test Account
+    $config['xmlapi']['dh']['username'] = '800712TSTXML';
+    $config['xmlapi']['dh']['password'] = 'BTE@dh2015';
+
+    $order = getOrder();
+
+    $client = new Client($config);
+    $result = $client->purchaseOrder($order);
+
+    pr($result);
 }
 
 #testPriceAvailabilityRequest();
