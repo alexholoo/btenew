@@ -31,6 +31,11 @@ abstract class Request
     }
 
     /**
+     * @return boolean
+     */
+    abstract protected function initConfig();
+
+    /**
      * @return string
      */
     abstract public function toXml();

@@ -138,4 +138,16 @@ class PurchaseOrderRequest extends BaseRequest
 
         return implode("\n", $lines);
     }
+
+    /**
+     * @return boolean
+     */
+    protected function initConfig()
+    {
+        if (!$this->config) {
+            $this->config = $this->client->getXmlApiConfig(\Supplier\ConfigKey::SYNNEX);
+            return true;
+        }
+        return false;
+    }
 }

@@ -21,4 +21,16 @@ class PriceAvailabilityRequest extends BaseRequest
 
         return "?CID=$cid&CERT=$cert&SKU=$sku";
     }
+
+    /**
+     * @return boolean
+     */
+    protected function initConfig()
+    {
+        if (!$this->config) {
+            $this->config = $this->client->getXmlApiConfig(\Supplier\ConfigKey::ASI);
+            return true;
+        }
+        return false;
+    }
 }
