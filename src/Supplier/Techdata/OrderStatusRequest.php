@@ -24,7 +24,7 @@ class OrderStatusRequest extends BaseRequest
         // 02 	    Order/Invoice Detail
         // 03 	    Shipment/Invoice Detail
 
-        $purposeCode = '01';
+        $purposeCode = '03';
 
         $lines = array();
         $lines[] = '<XML_OrderStatus_Submit>';
@@ -40,7 +40,7 @@ class OrderStatusRequest extends BaseRequest
         $lines[] =   '<EDIInd>N</EDIInd>';
         $lines[] =   '<NonEDIInd>Y</NonEDIInd>';
         $lines[] =   '<RefInfo>';
-        $lines[] =      '<RefIDQual>PO</RefIDQual>'; // see comment below
+        $lines[] =      '<RefIDQual>ON</RefIDQual>'; // see comment below
         $lines[] =      "<RefID>$orderId</RefID>";
         $lines[] =   '</RefInfo>';
         $lines[] = '</Detail>';
