@@ -7,12 +7,17 @@ use Phalcon\Di;
 abstract class Client
 {
     /**
-     * @return Supplier\Model\Request
+     * @var array
+     */
+    protected $config;
+
+    /**
+     * @var Supplier\Model\Request
      */
     protected $request;
 
     /**
-     * @return Supplier\Model\Response
+     * @var Supplier\Model\Response
      */
     protected $response;
 
@@ -55,6 +60,22 @@ abstract class Client
         curl_close($ch);
 
         return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @return array
+     */
+    public function getXmlApiConfig($supplier)
+    {
+        return $this->config['xmlapi'][$supplier];
     }
 
     /**
