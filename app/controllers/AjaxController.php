@@ -36,11 +36,11 @@ class AjaxController extends ControllerBase
 #$this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing']);
 #return $this->response;
 
-            // TODO: temp code
-            if ((substr($sku, 0, 3) != 'SYN') && (substr($sku, 0, 3) != 'ING')) {
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
-                return $this->response;
-            }
+#// TODO: temp code
+#if ((substr($sku, 0, 3) != 'SYN') && (substr($sku, 0, 3) != 'ING')) {
+#    $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
+#    return $this->response;
+#}
 
             // Make sure the order is pending (not purchased yet)
             if ($this->isOrderPurchased($orderId)) {
