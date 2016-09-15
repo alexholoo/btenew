@@ -27,7 +27,7 @@ return array(
         'url'      => 'https://newport.ingrammicro.com',
         'loginId'  => 'TrEv8fEbes',
         'password' => 'FVnbx25601',
-        'autoRelease' => 'H', // 0,1
+        'autoRelease' => '1', // 0,1,H
         'carrierCode' => 'PI',
         'backOrder' => 'Y',
         'splitShipment' => 'N',

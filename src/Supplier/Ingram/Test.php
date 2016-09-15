@@ -134,6 +134,7 @@ function realPurchaseOrder()
 
     #$config = include __DIR__ . '/app/config/xmlapi.php';
     $config = include __DIR__ . '/app/config/config.php';  // !!
+    $config['xmlapi']['ingram']['autoRelease'] = 'H';
 
     $order = getOrder();
     $order['sku'] = $sku;
@@ -158,6 +159,6 @@ function testOrderNumberMapper()
 #realPriceAvailability();
 
 #testPurchaseOrderRequest();
- testPurchaseOrderResponse();
+#testPurchaseOrderResponse();
 #realPurchaseOrder();
 #testOrderNumberMapper();
