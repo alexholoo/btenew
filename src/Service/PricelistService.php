@@ -19,7 +19,8 @@ class PricelistService extends Injectable
         $supplier = $this->getSupplier($sku);
 
         $priceFieldMap = [
-            'dh' => 'cost'
+            'dh'  => 'cost',
+            'ing' => 'customer_price',
         ];
 
         $priceField = 'price';
@@ -49,7 +50,8 @@ class PricelistService extends Injectable
         $supplier = $this->getSupplier($sku);
 
         $titleFieldMap = [
-            'dh' => 'short_desc'
+            'dh'  => 'short_desc',
+            'ing' => 'part_desc_1',
         ];
 
         $titleField = 'title';
