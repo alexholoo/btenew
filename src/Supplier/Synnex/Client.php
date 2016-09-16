@@ -57,8 +57,8 @@ class Client extends BaseClient
      */
     public function purchaseOrder($order)
     {
-        $url = self::PO_PROD_URL;
         $url = self::PO_TEST_URL;
+        $url = self::PO_PROD_URL;
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);

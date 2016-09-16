@@ -64,7 +64,7 @@ function getOrder()
         'country' => 'CA',
         'phone' => '800-900-1020',
         'email' => 'samwang@email.com',
-        'sku' => 'TD-1218ZS',
+        'sku' => 'TD-1218ZS-222', // not found, remove -222
         'price' => '87.39',
         'qty' => '1',
         'shipping' => '0.00',
