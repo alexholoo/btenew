@@ -2,12 +2,13 @@
 
 require 'database.php';
 
-if (!($fh = @fopen('w:/out/shipping/all_mgn_orders.csv', 'rb'))) {
-    echo 'Failed to open file: all_mgn_orders.csv';
+$file = 'w:/out/shipping/all_mgn_orders.csv';
+if (!($fh = @fopen($file, 'rb'))) {
+    echo "Failed to open file: $file\n";
     exit;
 }
 
-echo "loading all_mgn_orders.csv\n";
+echo "loading $file\n";
 
 fgetcsv($fh); // skip the first line
 
@@ -64,7 +65,7 @@ while(($fields = fgetcsv($fh))) {
         $count++;
 
     } catch (Exception $e) {
-        echo $e->getMessage(), EOL;
+        //echo $e->getMessage(), EOL;
     }
 }
 
