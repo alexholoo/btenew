@@ -88,9 +88,9 @@ class PricelistTask extends \Phalcon\Cli\Task
     {
         $columns = include(__DIR__ . '/pricelist-columns-dh.php');
 
-        $fp = fopen(__DIR__ . '/DH-ITEMLIST', 'r');
-        if ($fp === FALSE) {
-            $this->log('Failed to open DH-ITEMLIST');
+        $file = __DIR__ . '/DH-ITEMLIST';
+        if (($fp = @fopen($file, 'r')) === FALSE) {
+            $this->log("Failed to open $file");
             return;
         }
 
@@ -139,10 +139,9 @@ class PricelistTask extends \Phalcon\Cli\Task
     {
         $columns = include(__DIR__ . '/pricelist-columns-syn.php');
 
-        $fp = fopen(__DIR__ . '/1150897.ap', 'r');
-
-        if ($fp === FALSE) {
-            $this->log('Failed to open 1150897.ap');
+        $file = __DIR__ . '/1150897.ap';
+        if (($fp = @fopen($file, 'r')) === FALSE) {
+            $this->log("Failed to open $file");
             return;
         }
 
@@ -156,7 +155,7 @@ class PricelistTask extends \Phalcon\Cli\Task
             $item = array_combine($columns, $fields);
 
             if ($item['qty'] == 0) {
-                //continue;
+                continue;
             }
 
             $item['sku'] = 'SYN-' . $item['sku'];
@@ -205,7 +204,8 @@ class PricelistTask extends \Phalcon\Cli\Task
 
     protected function log($line)
     {
-        error_log(date('Y-m-d H:i:s ') . $line . "\n", 3, './tasks.log');
+        echo $line, PHP_EOL;
+        error_log(date('Y-m-d H:i:s ') . $line . "\n", 3, APP_PATH . '/tasks.log');
     }
 
     protected function elapsed($start)
