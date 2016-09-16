@@ -23,7 +23,7 @@ class AboutController extends ControllerBase
         //$config = $this->config->xmlapi->toArray();
         //fpr($config['synnex']);
 #
-        //$amazonService = $this->AmazonService;
+        //$amazonService = $this->amazonService;
         //$amazonService->doSomething();
 #
         //$client = new SynnexClient();
@@ -39,20 +39,20 @@ class AboutController extends ControllerBase
         #    'PriceAvailJob' => 0,
         #));
 #
-        #$val = $this->ConfigService->get('dh.xmlapi.username');
+        #$val = $this->configService->get('dh.xmlapi.username');
         #fpr($val);
 
-        #$val = $this->ConfigService->get('dh.xmlapi');
+        #$val = $this->configService->get('dh.xmlapi');
         #fpr($val);
 
-        #$val = $this->ConfigService->get('dh');
+        #$val = $this->configService->get('dh');
         #fpr($val);
 
-        #$val = $this->ConfigService->get('supp.comm.tett');
+        #$val = $this->configService->get('supp.comm.tett');
         #fpr($val);
 
-        #$this->ConfigService->set('supp.comm.tett', 'new-value');
-        #$val = $this->ConfigService->get('supp.comm.tett');
+        #$this->configService->set('supp.comm.tett', 'new-value');
+        #$val = $this->configService->get('supp.comm.tett');
         #fpr($val);
 #
 /*
@@ -67,8 +67,8 @@ class AboutController extends ControllerBase
             'TD-8427CJ',
         ];
         foreach ($skus as $sku) {
-            $price = $this->PricelistService->getPrice($sku);
-            $title = $this->PricelistService->getTitle($sku);
+            $price = $this->pricelistService->getPrice($sku);
+            $title = $this->pricelistService->getTitle($sku);
             fpr("sku=$sku, price=$price, title=`$title`");
         }
 //*/

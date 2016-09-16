@@ -10,7 +10,7 @@ class AmazonService extends Injectable
     {
         fpr(__FILE__."\n".__METHOD__);
 
-        $ebayService = $this->di->get('EbayService');
+        $ebayService = $this->di->get('ebayService');
         $ebayService->doSomething();
     }
 }

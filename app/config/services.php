@@ -230,53 +230,53 @@ $di->setShared('queue', function () use ($config) {
 /**
  * Services for business logics
  */
-$di->setShared('ConfigService', function() {
+$di->setShared('configService', function() {
     return new ConfigService();
 });
 
-$di->setShared('ProductService', function() {
+$di->setShared('productService', function() {
     return new ProductService();
 });
 
-$di->setShared('PricelistService', function() {
+$di->setShared('pricelistService', function() {
     return new PricelistService();
 });
 
-$di->setShared('InventoryService', function() {
+$di->setShared('inventoryService', function() {
     return new InventoryService();
 });
 
-$di->setShared('OrderService', function() {
+$di->setShared('orderService', function() {
     return new OrderService();
 });
 
-$di->setShared('PurchaseService', function() {
+$di->setShared('purchaseService', function() {
     return new PurchaseService();
 });
 
-$di->setShared('ShipmentService', function() {
+$di->setShared('shipmentService', function() {
     return new ShipmentService();
 });
 
-$di->setShared('PriceAvailService', function() {
+$di->setShared('priceAvailService', function() {
     return new PriceAvailService();
 });
 
 /**
  * Marketplace related services
  */
-$di->setShared('AmazonService', function() {
+$di->setShared('amazonService', function() {
     return new AmazonService();
 });
 
-$di->setShared('EbayService', function() {
+$di->setShared('ebayService', function() {
     return new EbayService();
 });
 
-$di->setShared('NeweggService', function() {
+$di->setShared('neweggService', function() {
     return new NeweggService();
 });
 
-$di->setShared('RakutenService', function() {
+$di->setShared('rakutenService', function() {
     return new RakutenService();
 });

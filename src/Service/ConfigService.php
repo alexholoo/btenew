@@ -40,9 +40,9 @@ class ConfigService extends Injectable
     /**
      * usage:
      *
-     *   $val = $this->ConfigService->get('dh.xmlapi.username');
-     *   $cfg = $this->ConfigService->get('dh.xmlapi');
-     *   $cfg = $this->ConfigService->get('dh');
+     *   $val = $this->configService->get('dh.xmlapi.username');
+     *   $cfg = $this->configService->get('dh.xmlapi');
+     *   $cfg = $this->configService->get('dh');
      *
      * @param  string $key
      * @return string
@@ -56,7 +56,7 @@ class ConfigService extends Injectable
     /**
      * usage:
      *
-     *   $this->ConfigService->set('dh.xmlapi.username', 'newvalue');
+     *   $this->configService->set('dh.xmlapi.username', 'newvalue');
      *
      * @param  string $key
      * @param  string $value
