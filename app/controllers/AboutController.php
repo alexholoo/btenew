@@ -31,9 +31,10 @@ class AboutController extends ControllerBase
         //fpr($req->toXml());
 #
         // why is so slow?
-        //$this->queue->put(array(
-        //    'TestJob' => __METHOD__ . '-' . rand(),
-        //));
+        $this->queue->put(array(
+            'Test' => __METHOD__ . '-' . rand(),
+        ));
+        exec('psexec -d php-cgi.exe ../job/beanstalk/Test.php');
 #
         #$this->queue->put(array(
         #    'PriceAvailJob' => 0,
