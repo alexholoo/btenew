@@ -60,6 +60,10 @@ class Client extends BaseClient
         $url = self::PO_TEST_URL;
         $url = self::PO_PROD_URL;
 
+        $result = $this->getPriceAvailability($order['sku']);
+        $item = $result->getFirst();
+        $order['price'] = $item->price;
+
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
         $request->addOrder($order);

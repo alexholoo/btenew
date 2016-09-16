@@ -28,7 +28,7 @@ class AjaxController extends ControllerBase
 
             $orderInfo = $order->toArray();
             $orderInfo['sku'] = $sku; // it might be different
-            $orderInfo['price'] = $this->pricelistService->getPrice($sku); // Synnex need this
+            #orderInfo['price'] = $this->pricelistService->getPrice($sku); // Synnex need this
             $orderInfo['branch'] = $branch;
             $orderInfo['comment'] = $comment;
              fpr($orderInfo);
