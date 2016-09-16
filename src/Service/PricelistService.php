@@ -18,15 +18,22 @@ class PricelistService extends Injectable
     {
         $supplier = $this->getSupplier($sku);
 
-if ($supplier !== 'syn') return 1.11;
+        $priceFieldMap = [
+            'dh' => 'cost'
+        ];
 
-        $sql = "SELECT price FROM pricelist_$supplier WHERE sku='$sku' LIMIT 1";
+        $priceField = 'title';
+        if (isset($priceFieldMap[$supplier])) {
+            $priceField = $priceFieldMap[$supplier];
+        }
+
+        $sql = "SELECT $priceField FROM pricelist_$supplier WHERE sku='$sku' LIMIT 1";
 
         $price = 0;
 
         $result = $this->db->fetchOne($sql);
         if ($result) {
-            $price = $result['price'];
+            $price = $result[$priceField];
         }
 
         return $price;
@@ -41,15 +48,22 @@ if ($supplier !== 'syn') return 1.11;
     {
         $supplier = $this->getSupplier($sku);
 
-if ($supplier !== 'syn') return $supplier;
+        $titleFieldMap = [
+            'dh' => 'short_desc'
+        ];
 
-        $sql = "SELECT title FROM pricelist_$supplier WHERE sku='$sku' LIMIT 1";
+        $titleField = 'title';
+        if (isset($titleFieldMap[$supplier])) {
+            $titleField = $titleFieldMap[$supplier];
+        }
+
+        $sql = "SELECT $titleField FROM pricelist_$supplier WHERE sku='$sku' LIMIT 1";
 
         $title = '';
 
         $result = $this->db->fetchOne($sql);
         if ($result) {
-            $title = $result['title'];
+            $title = $result[$titleField];
         }
 
         return $title;

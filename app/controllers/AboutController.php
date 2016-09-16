@@ -59,5 +59,10 @@ class AboutController extends ControllerBase
         #fpr($price);
         #$title = $this->PricelistService->getTitle('SYN-6108179');
         #fpr($title);
+
+        #$price = $this->PricelistService->getPrice('DH-0013C003CA');
+        #fpr($price);
+        #$title = $this->PricelistService->getTitle('DH-0013C003CA');
+        #fpr($title);
     }
 }
