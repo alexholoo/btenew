@@ -55,19 +55,22 @@ class AboutController extends ControllerBase
         #$val = $this->ConfigService->get('supp.comm.tett');
         #fpr($val);
 #
-        #$price = $this->PricelistService->getPrice('SYN-6108179');
-        #fpr($price);
-        #$title = $this->PricelistService->getTitle('SYN-6108179');
-        #fpr($title);
-
-        #$price = $this->PricelistService->getPrice('DH-0013C003CA');
-        #fpr($price);
-        #$title = $this->PricelistService->getTitle('DH-0013C003CA');
-        #fpr($title);
-
-        #$price = $this->PricelistService->getPrice('ING-4058CG');
-        #fpr($price);
-        #$title = $this->PricelistService->getTitle('ING-4058CG');
-        #fpr($title);
+/*
+        $skus = [
+            'AS-4058CG',
+            'BTE-ST-AS-NB12-TP200SA',
+            'DH-0013C003CA',
+            'EP-EE-HD-VT-D400SU3BK',
+            'ING-4058CG',
+            'SYN-6108179',
+            'TAK-EPS.PTR.INK.ART1430',
+            'TD-8427CJ',
+        ];
+        foreach ($skus as $sku) {
+            $price = $this->PricelistService->getPrice($sku);
+            $title = $this->PricelistService->getTitle($sku);
+            fpr("sku=$sku, price=$price, title=`$title`");
+        }
+//*/
     }
 }
