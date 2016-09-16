@@ -1,5 +1,6 @@
 <?php
-/**
- * exec('psexec -d php-cgi.exe ../bin/scripts/test.php');
- */
-error_log(__FILE__ . PHP_EOL, 3, 'test.log');
+
+for ($i=0; $i<10; $i++) {
+    echo __FILE__, ' ', $i, PHP_EOL;
+    sleep(1);
+}

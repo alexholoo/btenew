@@ -8,9 +8,6 @@ $queue = new Phalcon\Queue\Beanstalk(
     )
 );
 
-include __DIR__ . '/../public/init.php';
-include __DIR__ . "/beanstalk/Job.php"; // Base Class
-
 while (1) {
     while (($job = $queue->peekReady()) !== false) {
 
@@ -22,7 +19,7 @@ while (1) {
 
         $file = __DIR__ . "/beanstalk/$class.php";
 
-        exec('psexec -d php-cgi.exe ' . $file);
+        exec('psexec -d php.exe ' . $file);
 
         $job->delete();
     }
