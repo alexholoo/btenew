@@ -22,7 +22,7 @@ class PricelistService extends Injectable
             'dh' => 'cost'
         ];
 
-        $priceField = 'title';
+        $priceField = 'price';
         if (isset($priceFieldMap[$supplier])) {
             $priceField = $priceFieldMap[$supplier];
         }
