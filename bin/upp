@@ -1,0 +1,9 @@
+# !/bin/bash
+
+cp /cygdrive/w/data/csv/1150897.ap job/tasks/
+php job/cli.php pricelist import syn
+rm job/tasks/1150897.ap
+
+cp /cygdrive/w/data/csv/DH-ITEMLIST job/tasks/
+php job/cli.php pricelist import dh
+rm job/tasks/DH-ITEMLIST

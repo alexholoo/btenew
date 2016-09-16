@@ -1,0 +1,4 @@
+# !/bin/bash
+
+php bin/scripts/ca_order_notes.php
+php bin/scripts/all_mgn_orders.php
