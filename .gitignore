@@ -7,6 +7,7 @@ app/cache/metaData/*.php
 app/cache/
 app/logs/
 vendor/
+job/tasks.log
 *.tmp
 zzz.log
 filelist
