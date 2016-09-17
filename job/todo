@@ -1,0 +1,13 @@
+./job/config/config.php
+
+./job/classes/Job.php
+./job/classes/FileLogger.php
+./job/classes/FtpClient.php
+
+./job/pricelist/pricelist-columns-dh.php
+./job/pricelist/pricelist-columns-ing.php
+./job/pricelist/pricelist-columns-syn.php
+./job/pricelist/download.php
+./job/pricelist/import.php
+
+./job/xmlapi/price-availability.php
