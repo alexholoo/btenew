@@ -1,8 +1,8 @@
 <?php
 namespace App\Controllers;
 
+use Supplier\Supplier;
 use App\Models\Orders;
-use Supplier\Factory;
 
 class AjaxController extends ControllerBase
 {
@@ -56,7 +56,7 @@ class AjaxController extends ControllerBase
 
             // Make XmlApi call for purchasing
             try {
-                $client = Factory::createClient($sku);
+                $client = Supplier::createClient($sku);
                 if (!$client) {
                     throw new \Exception("Cannot purchase order for $sku");
                 }
@@ -163,13 +163,12 @@ class AjaxController extends ControllerBase
         $data = [];
 
         foreach ($items as $sku) {
-            $client = Factory::createClient($sku);
+            $client = Supplier::createClient($sku);
             if ($client) {
                 $result = $client->getPriceAvailability($sku);
                 $data[] = $result->getFirst()->toArray();
             }
 
-            // mockup data format of price avail
             #$data[] = [
             #    'sku' => $sku,
             #    'price' => rand(30, 200),

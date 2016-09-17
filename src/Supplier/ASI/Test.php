@@ -3,7 +3,7 @@
 require __DIR__ . '/public/init.php';
 
 use Supplier\ConfigKey;
-use Supplier\Factory;
+use Supplier\Supplier;
 use Supplier\ASI\Client;
 use Supplier\ASI\PriceAvailabilityRequest;
 use Supplier\ASI\PriceAvailabilityResponse;
@@ -40,7 +40,7 @@ function realPriceAvailability()
     $config = include __DIR__ . '/app/config/config.php';  // ??
 
     $client = new Client($config);
-    #$client = Factory::createClient($sku, 'PA');
+    #$client = Supplier::createClient($sku);
 
     $result = $client->getPriceAvailability($sku);
 

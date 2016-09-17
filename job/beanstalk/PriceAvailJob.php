@@ -1,5 +1,7 @@
 <?php
 
+use Supplier\Supplier;
+
 class PriceAvailJob extends Job
 {
     public function run($args)
@@ -9,7 +11,7 @@ class PriceAvailJob extends Job
         foreach ($skus as $sku) {
             try {
                 echo 'Price & Availability for ', $sku, PHP_EOL;
-                $client = \Supplier\Factory::createClient($sku);
+                $client = Supplier::createClient($sku);
                 if ($client) {
                     $client->getPriceAvailability($sku);
                 }

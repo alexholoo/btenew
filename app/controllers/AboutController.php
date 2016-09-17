@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use Supplier\Factory;
+use Supplier\Supplier;
 use Supplier\DH\Client       as DHClient;
 use Supplier\Synnex\Client   as SynnexClient;
 use Supplier\Ingram\Client   as IngramClient;
