@@ -6,6 +6,13 @@ use Phalcon\Di;
 
 class PriceAvailabilityLog
 {
+    protected static $ttl = 3600;
+
+    public static function setTTL($hours)
+    {
+        self::$ttl = $hours * 3600;
+    }
+
     // TODO: all of these methods should be moved into PriceAvailService
     public static function save($url, $request, $response)
     {
@@ -34,7 +41,7 @@ class PriceAvailabilityLog
             $row = $result->fetch(\Phalcon\Db::FETCH_ASSOC);
 
             $time = strtotime($row['time']);
-            if (time() - $time < 3600) {
+            if (time() - $time < self::$ttl) {
                 return $row['response'];
             }
         }
