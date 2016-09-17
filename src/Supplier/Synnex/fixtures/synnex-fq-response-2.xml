@@ -1,0 +1,66 @@
+<?xml version="1.0"?> 
+<SynnexB2B> 
+    <FreightQuoteResponse version=¡±2.0¡±> 
+       <CustomerNumber>YOUR ACCOUNT NUMBER</CustomerNumber> 
+       <ResponseDateTime>2003-06-24T19:29:06</ResponseDateTime> 
+       <ResponseElapsedTime>6.814s</ResponseElapsedTime> 
+       <TotalWeight>32.50</TotalWeight> 
+       <TotalSales>1655.40</TotalSales> 
+       <FreeFreightThreshold>1000.00</FreeFreightThreshold> 
+       <ShipFromWarehouse> 
+          <Number>30</Number> 
+          <ZipCode>M8Z 5T5</ZipCode> 
+          <City>Etobicoke, ON</City> 
+          <Addr>100 Bramshott Rd.</Addr> 
+       </ShipFromWarehouse> 
+       <ShipTo> 
+          <AddressName1>Manners Industry, Inc.</AddressName1> 
+          <AddressName2 /> 
+          <AddressLine1>118 Clarence Street</AddressLine1> 
+          <City>Fredericksburg</City> 
+          <State>VA</State> 
+          <ZipCode>22407</ZipCode> 
+          <Country>US</Country> 
+          <AddressType>Commercial</AddressType> 
+       </Shipto> 
+          <ShipMethodCode>PUG</ShipMethodCode> 
+          <ShipMethodDescription>Purolator Ground Delivery</ShipMethodDescription> 
+          <ServiceLevel>2</ServiceLevel> 
+          <Items> 
+              <Item lineNumber="1"> 
+                 <SKU>108725</SKU> 
+                 <MfgPartNumber>ABCED354</MfgPartNumber> 
+                 <Description>Laser Jet ABCED354 30 PPM</Description> 
+                 <Quantity>1</Quantity> 
+              </Item> 
+              <Item lineNumber="2"> 
+                 <SKU>108798</SKU> 
+                 <ManufacturerPartNumber>ABCED660</ManufacturerPartNumber> 
+                 <Description>Laser Jet ABCED660 60 PPM</Description> 
+                 <Quantity>2</Quantity> 
+              </Item> 
+          </Items>
+          <AvailableShipMethods> 
+              <AvailableShipMethod code=¡±PUG¡±> 
+                 <ShipMethodDescription>Purolator Ground Delivery</ShipMethodDescription> 
+                 <ServiceLevel>1</ServiceLevel> 
+                 <Freight>12.50</Freight> 
+              </AvailableShipMethod> 
+              <AvailableShipMethod code=¡± DE ¡±> 
+                 <ShipMethodDescription>Dynamex Local Delivery</ShipMethodDescription> 
+                 <ServiceLevel>0</ServiceLevel> 
+                 <Freight>5.36</Freight> 
+              </AvailableShipMethod> 
+              <AvailableShipMethod code=¡±UPG¡±> 
+                 <ShipMethodDescription> UPS Ground</ShipMethodDescription> 
+                 <ServiceLevel>1</ServiceLevel>
+                 <Freight>6.79</Freight> 
+              </AvailableShipMethod> 
+              <OtherCharges> 
+                 <MinOrderFee>0</MinOrderFee> 
+                 <CODFee>0</CODFee> 
+              </OtherCharges> 
+              <SynnexInternalReference>SPID 3456282, batch_no 4672535, 
+                 version 16253</SynnexInternalReference> 
+    </FreightQuoteResponse> 
+</SynnexB2B>

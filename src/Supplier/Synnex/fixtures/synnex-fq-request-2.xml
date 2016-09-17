@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<SynnexB2B> 
+    <Credential> 
+       <UserID>YOUR ID</UserID> 
+       <Password>YOUR PASSWORD</Password> 
+    </Credential> 
+    <FreightQuoteRequest version=¡°2.0¡±> 
+       <CustomerNumber>YOUR ACCOUNT NUMBER</CustomerNumber> 
+       <CustomerName>ABC Computer</CustomerName> 
+       <RequestDateTime>2001-08-28T08:22:11</RequestDateTime> 
+       <ShipFromWarehouse>30</ShipFromWarehouse> 
+       <ShipTo> 
+          <AddressName1>Manners Industry, Inc.</AddressName1> 
+          <AddressName2/> 
+          <AddressLine1>118 Clarence Street</AddressLine1> 
+          <City>Fredericksburg</City> 
+          <State>VA</State> 
+          <ZipCode>22407</ZipCode> 
+          <Country>US</Country> 
+       </Shipto> 
+          <ShipMethodCode></ShipMethodCode> 
+          <ServiceLevel>2</ServiceLevel> 
+          <Items> 
+              <Item lineNumber="1"> 
+                 <SKU>108725</SKU> 
+                 <MfgPartNumber>ABCED354</MfgPartNumber> 
+                 <Description>Laser Jet ABCED354 30 PPM</Description> 
+                 <Quantity>1</Quantity> 
+              </Item> 
+              <Item lineNumber="2"> 
+                 <SKU>108798</SKU> 
+                 <MfgPartNumber>ABCED660</MfgPartNumber> 
+                 <Description>Laser Jet ABCED660 60 PPM</Description> 
+                 <Quantity>2</Quantity> 
+              </Item> 
+          </Items> 
+    </FreightQuoteRequest> 
+</SynnexB2B>

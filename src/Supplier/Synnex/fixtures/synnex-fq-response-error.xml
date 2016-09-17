@@ -1,0 +1,7 @@
+<?xml version="1.0"?> 
+<SynnexB2B> 
+    <FreightQuoteResponse version=¡±1.0¡±> 
+       <ErrorMessage>No Result Found</ErrorMessage> 
+       <ErrorDetail>We do not have any ship method meet your request</ErrorDetail> 
+    </FreightQuoteResponse> 
+</SynnexB2B>
