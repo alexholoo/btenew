@@ -4,6 +4,8 @@ namespace Supplier;
 
 class Factory
 {
+    protected static $cache = [];
+
     /**
      * @param string $sku
      */
@@ -12,6 +14,10 @@ class Factory
         $client = NULL;
 
         $supplier = \Supplier\Prefix::fromSku($sku);
+
+        if (isset(self::$cache[$supplier])) {
+            return self::$cache[$supplier];
+        }
 
         switch($supplier) {
         case \Supplier\Prefix::DH:
@@ -35,9 +41,11 @@ class Factory
             break;
 
         default:
-            throw new \Exception('Unknown supplier: ' . $supplier);
+            //throw new \Exception('Unknown supplier: ' . $supplier);
             break;
         }
+
+        self::$cache[$supplier] = $client;
 
         return $client;
     }
