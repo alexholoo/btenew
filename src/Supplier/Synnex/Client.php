@@ -17,6 +17,9 @@ class Client extends BaseClient
     const PO_TEST_URL = 'https://testec.synnex.ca/SynnexXML/PO';
     const PO_PROD_URL = 'https://ec.synnex.ca/SynnexXML/PO';
 
+    const FQ_PROD_URL = 'https://ec.synnex.ca/SynnexXML/FreightQuote';
+    const FQ_TEST_URL = 'https://testec.synnex.ca/SynnexXML/FreightQuote';
+
     /**
      * @param  string $sku
      */
@@ -90,6 +93,33 @@ class Client extends BaseClient
             PurchaseOrderLog::save($order['sku'], $order['orderId'], $result->orderNo);
             PriceAvailabilityLog::invalidate($order['sku']);
         }
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
+    }
+
+    /**
+     * @param  Supplier\Model\Order $order
+     */
+    public function getFreightQuote($order)
+    {
+        $url = self::FQ_PROD_URL;
+        $url = self::FQ_TEST_URL;
+
+        $request = new FreightQuoteRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
+        $request->addOrder($order);
+
+        $xml = $request->toXml();
+
+        $res = $this->curlPost($url, $xml, array(
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
+        ));
+
+        $response = new FreightQuoteResponse($res);
+        $result = $response->parseXml();
 
         $this->request = $request;
         $this->response = $response;
