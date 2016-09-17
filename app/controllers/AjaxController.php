@@ -57,6 +57,10 @@ class AjaxController extends ControllerBase
             // Make XmlApi call for purchasing
             try {
                 $client = Factory::createClient($sku);
+                if (!$client) {
+                    throw new \Exception("Cannot purchase order for $sku");
+                }
+
                 $result = $client->purchaseOrder($orderInfo);
                 $status = $result->getStatus();
 
@@ -160,8 +164,10 @@ class AjaxController extends ControllerBase
 
         foreach ($items as $sku) {
             $client = Factory::createClient($sku);
-            $result = $client->getPriceAvailability($sku);
-            $data[] = $result->getFirst()->toArray();
+            if ($client) {
+                $result = $client->getPriceAvailability($sku);
+                $data[] = $result->getFirst()->toArray();
+            }
 
             // mockup data format of price avail
             #$data[] = [
