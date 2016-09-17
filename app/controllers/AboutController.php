@@ -39,18 +39,19 @@ class AboutController extends ControllerBase
         #    'PriceAvailJob' => 0,
         #));
 #
-        #$val = $this->configService->get('dh.xmlapi.username');
-        #fpr($val);
-
-        #$val = $this->configService->get('dh.xmlapi');
-        #fpr($val);
-
-        #$val = $this->configService->get('dh');
-        #fpr($val);
-
+/*
+        $keys = [
+            'dh.xmlapi.username',
+            'dh.xmlapi',
+            'dh',
+        ];
+        foreach ($keys as $key) {
+            $val = $this->configService->get($key);
+            fpr($val);
+        }
+//*/
         #$val = $this->configService->get('supp.comm.tett');
         #fpr($val);
-
         #$this->configService->set('supp.comm.tett', 'new-value');
         #$val = $this->configService->get('supp.comm.tett');
         #fpr($val);
@@ -72,5 +73,6 @@ class AboutController extends ControllerBase
             fpr("sku=$sku, price=$price, title=`$title`");
         }
 //*/
+        //$this->runJob('job/Test');
     }
 }

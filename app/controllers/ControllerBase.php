@@ -61,4 +61,11 @@ class ControllerBase extends Controller
             }
         }
     }
+
+    public function runJob($name)
+    {
+        // $name looks like 'job/Test'
+        // exec('psexec -d c:/xampp/php/php ../job/Test.php');
+        exec("psexec -d c:/xampp/php/php ../$name.php");
+    }
 }
