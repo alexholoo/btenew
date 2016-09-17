@@ -10,7 +10,9 @@ class PriceAvailJob extends Job
             try {
                 echo 'Price & Availability for ', $sku, PHP_EOL;
                 $client = \Supplier\Factory::createClient($sku);
-                $client->getPriceAvailability($sku);
+                if ($client) {
+                    $client->getPriceAvailability($sku);
+                }
             } catch (Exception $e) {
                 echo $e->getMessage(), PHP_EOL;
             }
