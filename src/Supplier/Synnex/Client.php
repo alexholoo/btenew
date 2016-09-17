@@ -62,7 +62,11 @@ class Client extends BaseClient
 
         $result = $this->getPriceAvailability($order['sku']);
         $item = $result->getFirst();
-        $order['price'] = $item->price;
+        if ($item->price) {
+            $order['price'] = $item->price;
+        } else {
+            $order['price'] = 1.0; // $order['price'] * 0.5;
+        }
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
