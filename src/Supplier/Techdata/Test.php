@@ -107,6 +107,9 @@ function realPurchaseOrder()
 {
     $config = include __DIR__ . '/app/config/config.php';
 
+    #$config['xmlapi']['techdata']['username'] = '500055';
+    #$config['xmlapi']['techdata']['password'] = 'testing2';
+
     $order = getOrder();
 
     $client = new Client($config);
