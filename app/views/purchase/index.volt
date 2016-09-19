@@ -175,6 +175,7 @@ function getPriceAvail(data, selected, done) {
         end: function(index, layero) { done(); },
         content: priceAvailHtml(res)
       })
+      done();
     },
     function(message) {
       done();
