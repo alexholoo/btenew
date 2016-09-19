@@ -6,7 +6,7 @@ use Phalcon\Di;
 
 class PriceAvailabilityLog
 {
-    protected static $ttl = 3600;
+    protected static $ttl = 7200;
 
     public static function setTTL($hours)
     {
