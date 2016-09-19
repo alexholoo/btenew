@@ -11,9 +11,10 @@ use Supplier\Model\Response;
 
 class Client extends BaseClient
 {
+    const PA_TEST_URL = 'http://tdxml.cstenet.com/xmlservlet';
     const PA_PROD_URL = 'https://tdxml.techdata.com/xmlservlet';
 
-    const PO_TEST_URL = 'https://tdxml.techdata.com/xmlservlet';
+    const PO_TEST_URL = 'http://tdxml.cstenet.com/xmlservlet';
     const PO_PROD_URL = 'https://tdxml.techdata.com/xmlservlet';
 
     /**
@@ -28,6 +29,7 @@ class Client extends BaseClient
             return $response->parseXml();
         }
 
+        $url = self::PA_TEST_URL;
         $url = self::PA_PROD_URL;
 
         $request = new PriceAvailabilityRequest();
@@ -55,6 +57,7 @@ class Client extends BaseClient
     public function purchaseOrder($order)
     {
         $url = self::PO_TEST_URL;
+        $url = self::PO_PROD_URL;
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);

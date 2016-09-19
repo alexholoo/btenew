@@ -35,11 +35,14 @@ function testPriceAvailabilityResponse()
 
 function realPriceAvailability()
 {
-    $sku = 'TD-0331ZE';
     $sku = 'TD-1892ZJ';
+    $sku = 'TD-0331ZE';
 
     #$config = include __DIR__ . '/app/config/xmlapi.php'; // ??
     $config = include __DIR__ . '/app/config/config.php';  // ??
+
+    #$config['xmlapi']['techdata']['username'] = '500055';
+    #$config['xmlapi']['techdata']['password'] = 'testing2';
 
     $client = new Client($config);
     $result = $client->getPriceAvailability($sku);
