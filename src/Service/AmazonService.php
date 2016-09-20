@@ -23,7 +23,7 @@ class AmazonService extends Injectable
         $orderId = $order['orderId'];
         //$orderId = '701-8728845-2735459'; // Canceled
 
-        $order = new \AmazonOrder('bte-amazon-ca');
+        $order = new \AmazonOrder($store);
         $order->setOrderId($orderId);
         $order->fetchOrder();
 
