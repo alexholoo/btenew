@@ -49,7 +49,7 @@ class AjaxController extends ControllerBase
             }
 
             // Make sure the order is not cancelled on amazon
-            if ($this->isOrderCancelled($orderInfo)) {
+            if ($this->isOrderCanceled($orderInfo)) {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been cancelled']);
                 return $this->response;
             }
@@ -146,16 +146,16 @@ class AjaxController extends ControllerBase
         return $result['status'] == 'purchased';
     }
 
-    protected function isOrderCancelled($order)
+    protected function isOrderCanceled($order)
     {
         $channel = $order['channel'];
         $orderId = $order['orderId'];
 
-        if (substr($channel, 0, 6) == 'Amazon') {
+        if (substr($channel, 0, 6) != 'Amazon') {
             return false; // not cancelled
         }
 
-        return true; // cancelled
+        return $this->amazonService->isOrderCanceled($order);
     }
 
     protected function getPriceAvailability($items)
