@@ -14,11 +14,7 @@ class AmazonService extends Injectable
 
     public function isOrderCanceled($order)
     {
-        $store = 'bte-amazon-ca';
-
-        if ($order['channel'] == 'Amazon-US') {
-            $store = 'bte-amazon-us';
-        }
+        $store = $this->getStore($order);
 
         $orderId = $order['orderId'];
         //$orderId = '701-8728845-2735459'; // Canceled
@@ -28,6 +24,17 @@ class AmazonService extends Injectable
         $order->fetchOrder();
 
         return $order->getOrderStatus() == 'Canceled';
+    }
+
+    protected function getStore($order)
+    {
+        $store = 'bte-amazon-ca';
+
+        if ($order['channel'] == 'Amazon-US') {
+            $store = 'bte-amazon-us';
+        }
+
+        return $store;
     }
 
     public function doSomething()
