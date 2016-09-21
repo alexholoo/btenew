@@ -5,6 +5,9 @@
   <div class="well">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group col-xs-3">
+        <input class="form-control" name="orderId" placeholder="Order number" type="text">
+      </div>
+      <div class="form-group col-xs-3">
         <label for="sel1" class="control-label">Date:</label>
         <select class="form-control" id="sel1" name="date">
           <option value="all">All</option>
@@ -79,7 +82,7 @@
 
     </tbody>
   </table>
-  {{ orders | length }} rows found.
+  {{ orders | length }} orders found.
   {% else %}
     No purchase information found.
   {% endif %}

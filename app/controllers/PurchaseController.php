@@ -12,28 +12,38 @@ class PurchaseController extends ControllerBase
 
     public function indexAction()
     {
-        $date = date('Y-m-d'); //'all';
-        $stage = 'all';
-        $overstock = '0';
-        $express = '0';
+        $params = [
+            'date' => date('Y-m-d'), //'all';
+            'stage' => 'all',
+            'overstock' => '0',
+            'express' => '0',
+            'orderId' => '',
+        ];
 
         if ($this->request->isPost()) {
-            $date = $this->request->getPost('date');
-            $stage = $this->request->getPost('stage');
-            $overstock = $this->request->getPost('overstock');
-            $express = $this->request->getPost('express');
+            $params['date'] = $this->request->getPost('date');
+            $params['stage'] = $this->request->getPost('stage');
+            $params['overstock'] = $this->request->getPost('overstock');
+            $params['express'] = $this->request->getPost('express');
+            $params['orderId'] = $this->request->getPost('orderId');
         }
 
-        $this->view->date = $date;
-        $this->view->stage = $stage;
-        $this->view->overstock = $overstock;
-        $this->view->express = $express;
+        $this->view->date = $params['date'];
+        $this->view->stage = $params['stage'];
+        $this->view->overstock = $params['overstock'];
+        $this->view->express = $params['express'];
         $this->view->orderDates = $this->getOrderDates();
-        $this->view->orders = $this->getPurchaseOrders($date, $stage, $overstock, $express);
+        $this->view->orders = $this->getPurchaseOrders($params);
     }
 
-    protected function getPurchaseOrders($date, $stage, $overstock, $express)
+    protected function getPurchaseOrders($params)
     {
+        $date      = $params['date'];
+        $stage     = $params['stage'];
+        $overstock = $params['overstock'];
+        $express   = $params['express'];
+        $orderId   = $params['orderId'];
+
         $sql = 'SELECT * FROM ca_order_notes';
 
         $where = [];
@@ -52,6 +62,11 @@ class PurchaseController extends ControllerBase
 
         if ($express) {
             $where[] = "express = 1";
+        }
+
+        if ($orderId) {
+            $where = []; // ignore all other conditions
+            $where[] = "order_id LIKE '%$orderId' ORDER BY id DESC";
         }
 
         if ($where) {
