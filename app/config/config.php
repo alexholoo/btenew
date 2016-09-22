@@ -26,9 +26,9 @@ return new Config([
     'bte' => [
         'name' => 'BTE Computer Inc',
         'contact' => 'Roy Zhang',
-        'phone' => '',
+        'phone' => '905-480-0618',
         'email' => 'roy@btecanada.com',
-        'address' => 'Unit 5, 270 Esna Park Dr',
+        'address' => 'Unit 5, 270 Esna Park Dr.',
         'zipcode' => 'L3R 1H3',
         'city' => 'Markham',
         'province' => 'ON',
