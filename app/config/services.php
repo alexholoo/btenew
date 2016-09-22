@@ -84,17 +84,17 @@ $di->set('view', function () use ($config) {
  * Database connection is created based in the parameters defined in the configuration file
  */
 $di->set('db', function () use ($config) {
-    $eventsManager = new EventsManager();
+    //$eventsManager = new EventsManager();
 
-    $today = date('Y-m-d');
-    $logger = new FileLogger(APP_DIR . "/logs/db-$today.log");
+    //$today = date('Y-m-d');
+    //$logger = new FileLogger(APP_DIR . "/logs/db-$today.log");
 
     // Listen all the database events
-    $eventsManager->attach('db', function ($event, $connection) use ($logger) {
-        if ($event->getType() == 'beforeQuery') {
-            $logger->log($connection->getSQLStatement(), Logger::INFO);
-        }
-    });
+    //$eventsManager->attach('db', function ($event, $connection) use ($logger) {
+        //if ($event->getType() == 'beforeQuery') {
+        //    $logger->log($connection->getSQLStatement(), Logger::INFO);
+        //}
+    //});
 
     $connection = new DbAdapter(array(
         'host' => $config->database->host,
@@ -104,7 +104,7 @@ $di->set('db', function () use ($config) {
     ));
 
     // Assign the eventsManager to the db adapter instance
-    $connection->setEventsManager($eventsManager);
+    //$connection->setEventsManager($eventsManager);
 
     return $connection;
 });
