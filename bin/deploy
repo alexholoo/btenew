@@ -1,0 +1,2 @@
+# !/bin/bash
+rsync  -v -rlt -z --chmod=a=rw,Da+x --delete "/cygdrive/C/xampp/htdocs/btenew/" "Deployment@192.168.0.12::btenew"
