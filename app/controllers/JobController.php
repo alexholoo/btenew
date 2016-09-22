@@ -20,4 +20,10 @@ class JobController extends ControllerBase
         $this->runJob('job/Test');
         // exec('psexec -d c:/xampp/php/php ../job/Test.php');
     }
+
+    public function orderImportAction()
+    {
+        $this->runJob('bin/scripts/ca_order_notes');
+        $this->runJob('bin/scripts/all_mgn_orders');
+    }
 }
