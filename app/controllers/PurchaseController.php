@@ -89,7 +89,7 @@ class PurchaseController extends ControllerBase
 
     protected function getOrderDates()
     {
-        $sql = 'SELECT DISTINCT date FROM ca_order_notes ORDER BY date DESC';
+        $sql = 'SELECT DISTINCT date FROM ca_order_notes ORDER BY date DESC LIMIT 30';
         $result = $this->db->query($sql);
 
         $dates = [];
