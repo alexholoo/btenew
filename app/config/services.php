@@ -32,6 +32,9 @@ use App\Library\Auth\Auth;
 use App\Library\Acl\Acl;
 use App\Library\Mail\Mail;
 
+use App\Plugins\NotFoundPlugin;
+use UserPlugin\Plugin\Security as SecurityPlugin;
+
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
@@ -41,6 +44,9 @@ $di = new FactoryDefault();
  * Register the global configuration as config
  */
 $di->set('config', $config);
+
+$evtMgr = new EventsManager();
+$evtMgr->enablePriorities(true);
 
 /**
  * The URL component is used to generate all kind of urls in the application
@@ -126,9 +132,14 @@ $di->set('crypt', function () use ($config) {
 /**
  * Dispatcher use a default namespace
  */
-$di->set('dispatcher', function () {
+$di->set('dispatcher', function () use ($evtMgr) {
+    $evtMgr->attach('dispatch:beforeException', new NotFoundPlugin);
+#   $evtMgr->attach('dispatch:beforeDispatch',  new SecurityPlugin($di));
+
     $dispatcher = new Dispatcher();
     $dispatcher->setDefaultNamespace('App\Controllers');
+    $dispatcher->setEventsManager($evtMgr);
+
     return $dispatcher;
 });
 

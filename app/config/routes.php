@@ -37,4 +37,7 @@ $router->add('/dropship', [
     'action' => 'index'
 ]);
 
+# this never works, NotFoundPlugins works, see servers.php
+# $router->notFound(["controller" => "error", "action" => "error404"]);
+
 return $router;
