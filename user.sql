@@ -10,7 +10,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table solar.users
+-- Dumping structure for table bte.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(80) NOT NULL,
@@ -22,13 +22,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updatedon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table solar.users: ~2 rows (approximately)
+-- Dumping data for table bte.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `active`, `createdon`, `updatedon`) VALUES
-	(1, 'testuser', 'testuser@email.com', '6ad14ba9986e3615423dfca256d04e3f', 0, 'Y', '2016-09-24 09:48:37', '2016-09-24 09:48:37'),
-	(2, 'testadmin', 'testadmin@email.com', '0192023a7bbd73250516f069df18b500', 0, 'Y', '2016-09-24 09:48:37', '2016-09-24 09:48:37');
+	(1, 'testuser', 'testuser@email.com', 'e606e38b0d8c19b24cf0ee3808183162ea7cd63ff7912dbb22b5e803286b4446', 0, 'Y', '2016-09-24 09:48:37', '2016-09-24 09:48:37'),
+	(2, 'testadmin', 'testadmin@email.com', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 0, 'Y', '2016-09-24 09:48:37', '2016-09-24 09:48:37');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
