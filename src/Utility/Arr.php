@@ -89,27 +89,19 @@ class Arr
      * Flatten a multi-dimensional array into a single level.
      *
      * @param  array  $array
-     * @param  int  $depth
      * @return array
      */
-    public static function flatten($array, $depth = INF)
+    public static function flatten($array)
     {
-        $result = [];
+        $iter = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($array));
 
-        foreach ($array as $item) {
-            #$item = $item instanceof Collection ? $item->all() : $item;
-
-            if (is_array($item)) {
-                if ($depth === 1) {
-                    $result = array_merge($result, $item);
-                    continue;
-                }
-
-                $result = array_merge($result, static::flatten($item, $depth - 1));
-                continue;
+        $result = array();
+        foreach ($iter as $leafValue) {
+            $keys = array();
+            foreach (range(0, $iter->getDepth()) as $depth) {
+                $keys[] = $iter->getSubIterator($depth)->key();
             }
-
-            $result[] = $item;
+            $result[join('.', $keys)] = $leafValue;
         }
 
         return $result;
