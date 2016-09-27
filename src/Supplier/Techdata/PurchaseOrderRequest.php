@@ -3,6 +3,7 @@
 namespace Supplier\Techdata;
 
 use Utility\Utils;
+use Utility\CanadaProvince;
 use Supplier\Model\PurchaseOrderRequest as BaseRequest;
 
 class PurchaseOrderRequest extends BaseRequest
@@ -38,6 +39,8 @@ class PurchaseOrderRequest extends BaseRequest
         $contact = $this->order->contact;
         $phone   = $this->order->phone;
         $email   = $this->order->email;
+
+        $state = CanadaProvince::nameToCode($state);
 
         $lines[] = "<Header>";
         $lines[] =   "<UserName>$username</UserName>";
