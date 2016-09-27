@@ -26,19 +26,19 @@ class CanadaProvince
     public static function codeToName($code)
     {
         $map = array_combine(self::$codes, self::$names);
-        $code = strtoupper($code);
-        return isset($map[$code]) ? $map[$code] : $code;
+        $key = strtoupper($code);
+        return isset($map[$key]) ? $map[$key] : $code;
     }
 
     public static function nameToCode($name)
     {
         $map = array_combine(self::$names, self::$codes);
-        $key = ucwords(mb_strtolower($name));
+        $key = preg_replace('/ {2,}|\s/', ' ', trim(ucwords(mb_strtolower($name))));
         return isset($map[$key]) ? $map[$key] : $name;
     }
 }
 
 //echo CanadaProvince::codeToName('qc');
 //echo CanadaProvince::nameToCode('Québec');
-//echo CanadaProvince::nameToCode('british columbia');
-//echo CanadaProvince::nameToCode('nova scotia');
+//echo CanadaProvince::nameToCode(' british  columbia ');
+//echo CanadaProvince::nameToCode(' nova   scotia ');
