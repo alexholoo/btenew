@@ -1,5 +1,7 @@
 <?php
 
+namespace Utility;
+
 class FileLogger
 {
     const EMERG  = 'EMERG';  // LOG_EMERG   system is unusable

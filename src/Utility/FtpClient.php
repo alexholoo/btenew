@@ -1,5 +1,7 @@
 <?php
 
+namespace Utility;
+
 /**
  * FtpClient Class
  */

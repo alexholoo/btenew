@@ -1,5 +1,7 @@
 <?php
 
+namespace Utility;
+
 class AmericaState
 {
     static $codeNames = [
