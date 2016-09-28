@@ -1,74 +1,32 @@
 <?php
 
-class PricelistTask extends \Phalcon\Cli\Task
+class PricelistImportJob
 {
-    public function mainAction()
+    public function __construct()
     {
-        echo "Missing action.\n";
+        $this->di = \Phalcon\Di::getDefault();
+        $this->db = $this->di->get('db');
+        $this->queue = $this->di->get('queue');
     }
 
-    /**
-     * @param array $params
-     */
-    public function downloadAction(array $params)
+    public function run($arg = '')
     {
-        if (empty($params)) {
-            // TODO: download all pricelists, see MainTask::chainAction
-            echo "Missing supplier ID.\n";
-            return;
+        global $argv;
+
+        if (empty($arg) && isset($argv[1])) {
+            $arg = $argv[1];
         }
 
-        $this->downloadPricelist(strtoupper($params[0]));
-    }
-
-    /**
-     * @param array $params
-     */
-    public function importAction(array $params)
-    {
-        if (empty($params)) {
+        if (empty($arg)) {
             // TODO: import all pricelists, see MainTask::chainAction
-            echo "Missing supplier ID.\n";
+            $this->log("Missing supplier ID.");
             return;
         }
 
-        $this->importPricelist(strtoupper($params[0]));
+        $this->importPricelist(strtoupper($arg));
     }
 
     /** ===== internal methods ===== **/
-
-    protected function downloadPricelist($supplier)
-    {
-        $config = $this->config->ftp[$supplier];
-
-        if (!$config) {
-            echo "Incorrect supplier ID: $supplier\n";
-            return;
-        }
-
-        $start = microtime(true);
-
-        echo "Start download pricelist: $supplier\n";
-
-        $account = [
-            'hostname' => $config['Host'],
-            'username' => $config['User'],
-            'password' => $config['Pass'],
-        ];
-
-        $remoteFile = $config['File'];
-        $localFile  = $config['Save'];
-
-        $ftp = new FtpClient();
-        if ($ftp->connect($account)) {
-            $ftp->download($remoteFile, $localFile);
-            $ftp->close();
-        }
-
-        // if it is zip file, unzip it
-
-        echo "Download completed, ", $this->elapsed($start), " seconds elapsed.\n";
-    }
 
     protected function importPricelist($supplier)
     {
@@ -76,19 +34,19 @@ class PricelistTask extends \Phalcon\Cli\Task
 
         if (method_exists($this, $method)) {
             $start = microtime(true);
-            echo "Start import pricelist: $supplier\n";
+            $this->log("Start import pricelist: $supplier");
             $this->$method();
-            echo "Import completed, ",  $this->elapsed($start), " seconds elapsed.\n";
+            $this->log("Import completed, ". $this->elapsed($start) ." seconds elapsed.");
         } else {
-            echo "Incorrect supplier ID: $supplier\n";
+            $this->log("Incorrect supplier ID: $supplier");
         }
     }
 
     protected function importPricelist_DH()
     {
-        $columns = include(__DIR__ . '/pricelist-columns-dh.php');
+        $columns = include(__DIR__ . '/config/pricelist-columns-dh.php');
 
-        $file = __DIR__ . '/DH-ITEMLIST';
+        $file = 'E:/BTE/pricelist/DH-ITEMLIST';
         if (($fp = @fopen($file, 'r')) === FALSE) {
             $this->log("Failed to open $file");
             return;
@@ -113,12 +71,12 @@ class PricelistTask extends \Phalcon\Cli\Task
 
                     $success = $this->db->execute($sql);
                     if (!$success) {
-                        echo $item['sku'], PHP_EOL;
+                        $this->log(__METHOD__ . ' ' .$item['sku']);
                     }
 
                     $items = [];
                 } catch (Exception $e) {
-                    echo $e->getMessage(), PHP_EOL;
+                    $this->log($e->getMessage());
                 }
             }
         }
@@ -128,7 +86,7 @@ class PricelistTask extends \Phalcon\Cli\Task
                 $sql = $this->genInsertSql('pricelist_dh', $columns, $items);
                 $success = $this->db->execute($sql);
             } catch (Exception $e) {
-                echo $e->getMessage(), PHP_EOL;
+                $this->log($e->getMessage());
             }
         }
 
@@ -137,9 +95,9 @@ class PricelistTask extends \Phalcon\Cli\Task
 
     protected function importPricelist_SYN()
     {
-        $columns = include(__DIR__ . '/pricelist-columns-syn.php');
+        $columns = include(__DIR__ . '/config/pricelist-columns-syn.php');
 
-        $file = __DIR__ . '/1150897.ap';
+        $file = 'E:/BTE/pricelist/1150897.ap';
         if (($fp = @fopen($file, 'r')) === FALSE) {
             $this->log("Failed to open $file");
             return;
@@ -148,14 +106,14 @@ class PricelistTask extends \Phalcon\Cli\Task
         $items = [];
         while (($fields = fgetcsv($fp, 0, '~'))) {
             if (count($fields) != count($columns)) {
-                echo 'Incorrect number of columns: ', $fields[0], PHP_EOL;
+                $this->log('Incorrect number of columns: '. $fields[0]);
                 continue;
             }
 
             $item = array_combine($columns, $fields);
 
             if ($item['qty'] == 0) {
-                continue;
+                //continue;
             }
 
             $item['sku'] = 'SYN-' . $item['sku'];
@@ -168,12 +126,12 @@ class PricelistTask extends \Phalcon\Cli\Task
 
                     $success = $this->db->execute($sql);
                     if (!$success) {
-                        echo $item['sku'], PHP_EOL;
+                        $this->log(__METHOD__. ' ' .$item['sku']);
                     }
 
                     $items = [];
                 } catch (Exception $e) {
-                    echo $e->getMessage(), PHP_EOL;
+                    $this->log($e->getMessage());
                 }
             }
         }
@@ -183,7 +141,7 @@ class PricelistTask extends \Phalcon\Cli\Task
                 $sql = $this->genInsertSql('pricelist_syn', $columns, $items);
                 $success = $this->db->execute($sql);
             } catch (Exception $e) {
-                echo $e->getMessage(), PHP_EOL;
+                $this->log($e->getMessage());
             }
         }
 
@@ -204,8 +162,18 @@ class PricelistTask extends \Phalcon\Cli\Task
 
     protected function log($line)
     {
-        echo $line, PHP_EOL;
-        error_log(date('Y-m-d H:i:s ') . $line . "\n", 3, APP_PATH . '/tasks.log');
+        static $first = true;
+
+        $line = date('Y-m-d H:i:s '). $line ."\n";
+
+        if ($first) {
+            $first = false;
+            $line = "\n". $line;
+        }
+
+        echo $line;
+
+        error_log($line, 3, APP_DIR . '/logs/job.log');
     }
 
     protected function elapsed($start)
@@ -249,3 +217,8 @@ class PricelistTask extends \Phalcon\Cli\Task
         return $query . implode(",\n", $values) . "\nON DUPLICATE KEY UPDATE $update, is_new=0, updatedon=NOW()";
     }
 }
+
+include __DIR__ . '/../public/init.php';
+
+$job = new PricelistImportJob();
+$job->run();
