@@ -306,5 +306,9 @@ class Client
 #
 #$config = include 'config/config.php';
 #$client = new Client($config['bte']);
+
 #$res = $client->getMyeBaySelling(1);
 #print_r(Utils::formatXml($res));
+
+#$res = $client->geteBayDetails();
+#print_r($res);
