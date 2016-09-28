@@ -27,7 +27,7 @@ return [
     // sandbox (test) environment
     'sandbox' => [
         'devID' => 'xxxxxxxx',
-        'appID' => 'xxxxxxxxx';
+        'appID' => 'xxxxxxxxx',
         'certID' => 'xxxxxxxxxxxxxx',
         // set the Server to use (Sandbox or Production)
         'serverUrl' => 'https://api.sandbox.ebay.com/ws/api.dll',

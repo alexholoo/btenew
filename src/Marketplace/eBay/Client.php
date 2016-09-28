@@ -45,7 +45,7 @@ class Client
     /**
      * setSite
      */
-    public function setVerb($siteID)
+    public function setSite($siteID)
     {
         $this->siteID = $siteID;
     }
@@ -133,7 +133,7 @@ class Client
         $lines[] =   "<RequesterCredentials>";
         $lines[] =     "<eBayAuthToken>{$this->requestToken}</eBayAuthToken>";
         $lines[] =   "</RequesterCredentials>";
-        $lines[] =   "<ActiveList>"
+        $lines[] =   "<ActiveList>";
         $lines[] =     "<Include>true</Include>";
         $lines[] =     "<DetailLevel>ReturnAll</DetailLevel>";
         $lines[] =     "<Pagination>";
@@ -153,3 +153,10 @@ class Client
         //return $result;
     }
 }
+
+#include '../../../public/init.php';
+#
+#$config = include 'config/config.php';
+#$client = new Client($config['bte']);
+#$res = $client->getMyeBaySelling(1);
+#print_r($res);

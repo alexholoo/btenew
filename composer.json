@@ -10,6 +10,7 @@
     "autoload": {
         "psr-4": {
             "Supplier\\": "src/Supplier/",
+            "Marketplace\\": "src/Marketplace/",
             "Service\\": "src/Service/",
             "Utility\\":  "src/Utility/" 
         }
