@@ -8,6 +8,7 @@ app/cache/
 app/logs/
 app/config/xmlapi.php
 src/Marketplace/eBay/config/config.php
+job/config/config.php
 vendor/
 job/tasks.log
 *.tmp
