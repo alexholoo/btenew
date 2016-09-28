@@ -6,6 +6,8 @@ app/cache/volt/*.php
 app/cache/metaData/*.php
 app/cache/
 app/logs/
+app/config/xmlapi.php
+src/Marketplace/eBay/config/config.php
 vendor/
 job/tasks.log
 *.tmp
