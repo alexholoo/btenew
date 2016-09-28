@@ -30,8 +30,8 @@ class Client
 
         $this->compatLevel  = self::COMPATABILITY_LEVEL;
 
-        $this->siteID       = Arr::val($config, 'siteID', Site::US);
-        $this->verb         = Arr::val($config, 'callName');
+        $this->siteID       = Arr::val($config, 'siteID', Site::CA);
+       #$this->verb         = Arr::val($config, 'callName');
     }
 
     /**
@@ -122,5 +122,34 @@ class Client
         );
 
         return $headers;
+    }
+
+    public function getMyeBaySelling($page)
+    {
+        $lines = [];
+
+        $lines[] = '<?xml version="1.0" encoding="utf-8" ?>';
+        $lines[] = '<GetMyeBaySellingRequest xmlns="urn:ebay:apis:eBLBaseComponents">';
+        $lines[] =   "<RequesterCredentials>";
+        $lines[] =     "<eBayAuthToken>{$this->requestToken}</eBayAuthToken>";
+        $lines[] =   "</RequesterCredentials>";
+        $lines[] =   "<ActiveList>"
+        $lines[] =     "<Include>true</Include>";
+        $lines[] =     "<DetailLevel>ReturnAll</DetailLevel>";
+        $lines[] =     "<Pagination>";
+        $lines[] =       "<EntriesPerPage>200</EntriesPerPage>";
+        $lines[] =       "<PageNumber>$page</PageNumber>";
+        $lines[] =     "</Pagination>";
+        $lines[] =   "</ActiveList>";
+        $lines[] = '</GetMyeBaySellingRequest>';
+
+        $request = implode("\n", $lines);
+
+        $this->setVerb('GetMyeBaySelling'); //ucfirst(__FUNCTION__)
+        $response = $this->sendHttpRequest($request);
+
+        // TODO: prase response to result;
+        return $response;
+        //return $result;
     }
 }
