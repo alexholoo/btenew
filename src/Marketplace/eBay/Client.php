@@ -3,6 +3,7 @@
 namespace Marketplace\eBay;
 
 use Utility\Arr;
+use Utility\Utils;
 
 class Client
 {
@@ -159,4 +160,4 @@ class Client
 #$config = include 'config/config.php';
 #$client = new Client($config['bte']);
 #$res = $client->getMyeBaySelling(1);
-#print_r($res);
+#print_r(Utils::formatXml($res));
