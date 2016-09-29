@@ -83,4 +83,42 @@ class Utils
         $xml = $dom->saveXML();
         return $xml;
     }
+
+    /**
+     * http://stackoverflow.com/questions/4708248/formatting-phone-numbers-in-php
+     */
+    public static function formatPhoneNumber($number)
+    {
+        $num = str_replace(['-', '.', ' ', '(', ')'], '', $number);
+
+        // +11234567890
+        if (preg_match('/^\+\d(\d{3})(\d{3})(\d{4})$/', $num, $matches)) {
+            $result = $matches[1]. '-' .$matches[2]. '-' .$matches[3];
+            return $result;
+        }
+
+        // 1234567890
+        if (preg_match('/^(\d{3})(\d{3})(\d{4})$/', $num, $matches)) {
+            $result = $matches[1]. '-' .$matches[2]. '-' .$matches[3];
+            return $result;
+        }
+
+        return $number;
+    }
+
+    public static function formatCanadaZipCode($zipcode)
+    {
+        $code = str_replace(' ', '', strtoupper($zipcode));
+
+        if (preg_match('/[A-Z]\d[A-Z]\d[A-Z]\d/', $code)) {
+            return substr($code, 0, 3). ' ' .substr($code, 3);
+        }
+
+        return $zipcode;
+    }
+
+    public static function formatCanadaPostalCode($code)
+    {
+        return self::formatCanadaPostalCode($code);
+    }
 }
