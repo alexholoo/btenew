@@ -119,7 +119,7 @@ class PurchaseOrderRequest extends BaseRequest
 
         $sku = $this->order->sku;
         $qty = $this->order->qty;
-        $comment = htmlspecialchars($this->order->comment);
+        $comment = $this->order->comment;
         $branch  = $this->order->branch;
 
         if (substr($sku, 0, 4) == 'ING-') {

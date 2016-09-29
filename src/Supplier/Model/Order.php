@@ -55,5 +55,14 @@ class Order
         $this->comment    = Arr::val($order, 'comment');
         $this->customerPO = Arr::val($order, 'customerPO');
         $this->endUserPO  = Arr::val($order, 'endUserPO');
+
+        $this->contact    = htmlspecialchars($this->contact);
+        $this->address    = htmlspecialchars($this->address);
+        $this->city       = htmlspecialchars($this->city);
+        $this->province   = htmlspecialchars($this->province);
+        $this->state      = htmlspecialchars($this->state);
+        $this->country    = htmlspecialchars($this->country);
+        $this->email      = htmlspecialchars($this->email);
+        $this->comment    = htmlspecialchars($this->comment);
     }
 }

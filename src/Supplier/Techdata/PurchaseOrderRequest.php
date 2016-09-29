@@ -72,7 +72,7 @@ class PurchaseOrderRequest extends BaseRequest
         $sku = $this->order->sku;
         $qty = $this->order->qty;
         $branch = $this->order->branch;
-        $comment = htmlspecialchars($this->order->comment);
+        $comment = $this->order->comment;
 
         if (substr($sku, 0, 3) == 'TD-') {
             $sku = substr($sku, 3);
