@@ -18,7 +18,6 @@ class PricelistImportJob
         }
 
         if (empty($arg)) {
-            // TODO: import all pricelists, see MainTask::chainAction
             $this->log("Missing supplier ID.");
             return;
         }
