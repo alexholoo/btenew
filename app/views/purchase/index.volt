@@ -97,7 +97,7 @@ function purchaseNoteHtml(data) {
        <tr><td><b>Qty: </b></td><td>${data.qty? data.qty: '-'}</td></tr>
      </table>
      <label for="comment">Purchase note</label><br />
-     <textarea id="comment" style="width: 440px; height: 80px; resize: none;"></textarea>
+     <textarea id="comment" style="width: 440px; height: 80px; resize: none;">${ (data.sku.substr(0, 2) == 'DH') ? 'Drop ship' : ''}</textarea>
    </div>`;
 }
 
