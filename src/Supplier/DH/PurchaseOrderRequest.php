@@ -56,6 +56,7 @@ class PurchaseOrderRequest extends BaseRequest
         $city    = $this->order->city;
         $state   = $this->order->province;
         $zipcode = $this->order->zipcode;
+        $phone   = $this->order->phone;
         $country = $this->order->country;
         $comment = $this->order->comment;
 
@@ -73,7 +74,7 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =   "<BACKORDERALLOW>$backOrder</BACKORDERALLOW>";
         $lines[] =   "<DROPSHIPPW>$dropShipPassword</DROPSHIPPW>";
         $lines[] =   "<SHIPTONAME>$contact</SHIPTONAME>";
-        $lines[] =   "<SHIPTOATTN></SHIPTOATTN>";
+        $lines[] =   "<SHIPTOATTN>$phone</SHIPTOATTN>";
         $lines[] =   "<SHIPTOADDRESS>$address</SHIPTOADDRESS>";
         $lines[] =   "<SHIPTOADDRESS2></SHIPTOADDRESS2>";
         $lines[] =   "<SHIPTOCITY>$city</SHIPTOCITY>";
