@@ -74,9 +74,9 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =   "<BACKORDERALLOW>$backOrder</BACKORDERALLOW>";
         $lines[] =   "<DROPSHIPPW>$dropShipPassword</DROPSHIPPW>";
         $lines[] =   "<SHIPTONAME>$contact</SHIPTONAME>";
-        $lines[] =   "<SHIPTOATTN>$phone</SHIPTOATTN>";
+        $lines[] =   "<SHIPTOATTN></SHIPTOATTN>";
         $lines[] =   "<SHIPTOADDRESS>$address</SHIPTOADDRESS>";
-        $lines[] =   "<SHIPTOADDRESS2></SHIPTOADDRESS2>";
+        $lines[] =   "<SHIPTOADDRESS2>$phone</SHIPTOADDRESS2>";
         $lines[] =   "<SHIPTOCITY>$city</SHIPTOCITY>";
         $lines[] =   "<SHIPTOPROVINCE>$state</SHIPTOPROVINCE>";
         $lines[] =   "<SHIPTOPOSTALCODE>$zipcode</SHIPTOPOSTALCODE>";
