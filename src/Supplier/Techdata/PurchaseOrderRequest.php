@@ -2,8 +2,8 @@
 
 namespace Supplier\Techdata;
 
-use Utility\Utils;
-use Utility\CanadaProvince;
+use Toolkit\Utils;
+use Toolkit\CanadaProvince;
 use Supplier\Model\PurchaseOrderRequest as BaseRequest;
 
 class PurchaseOrderRequest extends BaseRequest

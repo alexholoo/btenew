@@ -2,8 +2,8 @@
 
 namespace Marketplace\eBay;
 
-use Utility\Arr;
-use Utility\Utils;
+use Toolkit\Arr;
+use Toolkit\Utils;
 
 class Client
 {

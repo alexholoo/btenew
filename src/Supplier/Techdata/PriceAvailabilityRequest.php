@@ -2,7 +2,7 @@
 
 namespace Supplier\Techdata;
 
-use Utility\Utils;
+use Toolkit\Utils;
 use Supplier\Model\PriceAvailabilityRequest as BaseRequest;
 
 class PriceAvailabilityRequest extends BaseRequest

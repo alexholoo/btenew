@@ -1,6 +1,6 @@
 <?php
 
-namespace Utility;
+namespace Toolkit;
 
 /**
  * FtpClient Class

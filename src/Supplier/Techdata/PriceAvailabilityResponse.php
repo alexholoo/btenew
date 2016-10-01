@@ -2,7 +2,7 @@
 
 namespace Supplier\Techdata;
 
-use Utility\Utils;
+use Toolkit\Utils;
 use Supplier\Model\Response;
 use Supplier\Model\PriceAvailabilityItem;
 use Supplier\Model\PriceAvailabilityResult;

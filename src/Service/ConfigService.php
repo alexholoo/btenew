@@ -2,7 +2,7 @@
 
 namespace Service;
 
-use Utility\Arr;
+use Toolkit\Arr;
 use Phalcon\Di\Injectable;
 
 class ConfigService extends Injectable

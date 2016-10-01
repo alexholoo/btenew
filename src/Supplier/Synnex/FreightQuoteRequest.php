@@ -2,7 +2,7 @@
 
 namespace Supplier\Synnex;
 
-use Utility\Utils;
+use Toolkit\Utils;
 use Supplier\Model\Request as BaseRequest;
 
 class FreightQuoteRequest extends BaseRequest

@@ -2,7 +2,7 @@
 
 namespace Supplier\DH;
 
-use Utility\Utils;
+use Toolkit\Utils;
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
 use Supplier\PurchaseOrderLog;

@@ -2,7 +2,7 @@
 
 namespace Supplier\Model;
 
-use Utility\Arr;
+use Toolkit\Arr;
 
 class Order
 {
