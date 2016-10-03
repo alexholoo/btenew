@@ -92,9 +92,9 @@ SKU-AAA, aaa.00
 
 SKU-444, 444.00, 44
 */
-$csvfile = new CsvFileReader('e:/test.csv', true);
-//$csvfile->setDelimiter("\t");
-$csvfile->setColumns(array("SKU", "Price", "Qty"));
-while ($fields = $csvfile->read()) {
-    var_export($fields);
-}
+#$csvfile = new CsvFileReader('e:/test.csv', true);
+#//$csvfile->setDelimiter("\t");
+#$csvfile->setColumns(array("SKU", "Price", "Qty"));
+#while ($fields = $csvfile->read()) {
+#    var_export($fields);
+#}
