@@ -48,6 +48,10 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =   "<ResponseVersion>1.6</ResponseVersion>";
         $lines[] =   "<OrderTypeCode>DS</OrderTypeCode>";
         $lines[] =   "<PONbr>$orderId</PONbr>";
+        $lines[] =   "<RefNbrs>";
+        $lines[] =     "<RefIDQual>EU</RefIDQual>";
+        $lines[] =     "<RefID>$orderId</RefID>";
+        $lines[] =   "</RefNbrs>";
         $lines[] =   "<SalesRequirementCode/>";
         #lines[] =   "<RequestOrderConfirmation>Y</RequestOrderConfirmation>";
         $lines[] =   "<Name>$contact</Name>";
