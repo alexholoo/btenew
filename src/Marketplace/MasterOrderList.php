@@ -35,11 +35,11 @@ class MasterOrderList
     {
         $filename = 'E:/BTE/orders/all_mgn_orders.csv';
 
-        $csvWriter = new CsvFileWriter($filename, $this->csvTitle);
-        $csvWriter->setFilemode(CsvFileWriter::MODE_CREATE);
+        $this->csvWriter = new CsvFileWriter($filename, $this->csvTitle);
+        $this->csvWriter->setFilemode(CsvFileWriter::MODE_CREATE);
 
-        $csvReader = new CsvFileReader($filename, true);
-        $csvReader->setColumns($this->csvTitle);
+        $this->csvReader = new CsvFileReader($filename, true);
+        $this->csvReader->setColumns($this->csvTitle);
     }
 
     public function read()
