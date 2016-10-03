@@ -9,13 +9,13 @@ class CurrencyExchangeRate
         $url = "http://finance.yahoo.com/d/quotes.csv?f=l1d1t1&s={$from}{$to}=X";
         $handle = fopen($url, 'r');
 
-        $exchangeRate = 1.25;
+        $exchangeRate = 1.00; // 1.25
 
         if ($handle) {
             $result = fgetcsv($handle);
 
             if (isset($result[0])) {
-                $exchangeRate = $result[0]-0.02;
+                $exchangeRate = $result[0];
             }
 
             fclose($handle);
