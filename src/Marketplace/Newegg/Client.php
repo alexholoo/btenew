@@ -8,23 +8,38 @@ class Client
 {
     protected $di;
     protected $db;
+    protected $site;
     protected $config;
 
-    public function __construct($config = [])
+    public function __construct($site, $config = [])
     {
         // TODO: di & db
-        $this->config = $config;
+        $this->site = $site = strtoupper($site);
+
+        if ($config) {
+            $this->config = $config;
+        } else {
+            $config = require APP_DIR . '/config/newegg.php';
+            $this->config = $config[strtoupper($site)];
+        }
     }
 
     public function getOrders($days = 10)
     {
         $ftp = new FtpClient($this->config);
 
-        $ftp->connect();
+        if (!$ftp->connect()) {
+            echo "Failed to login Newegg {$this->site} FTP server", PHP_EOL;
+            return;
+        }
 
         $files = $ftp->listFiles('/Outbound/OrderList/');
 
-		$localFolder = 'E:/BTE/orders/newegg/order_ca/';
+        if ($this->site == 'CA') {
+            $localFolder = 'E:/BTE/orders/newegg/order_ca/';
+        } else if ($this->site == 'US') {
+            $localFolder = 'E:/BTE/orders/newegg/order_us/';
+        }
 
         foreach ($files as $file) {
 
@@ -51,6 +66,7 @@ class Client
 
 #include '../../../public/init.php';
 #
-#$config = include APP_DIR . '/config/newegg.php';
-#$client = new Client($config['CA']);
+#//$config = include APP_DIR . '/config/newegg.php';
+#//$client = new Client('CA');
+#$client = new Client('US');
 #$client->getOrders();
