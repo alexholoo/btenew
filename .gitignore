@@ -7,7 +7,11 @@ app/cache/metaData/*.php
 app/cache/
 app/logs/
 app/config/xmlapi.php
-src/Marketplace/eBay/config/config.php
+app/config/ebay.php
+app/config/amazon.php
+app/config/newegg.php
+app/config/rakuten.php
+app/config/ftp.php
 job/config/config.php
 vendor/
 job/tasks.log
