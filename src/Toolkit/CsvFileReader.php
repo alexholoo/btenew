@@ -6,12 +6,12 @@ class CsvFileReader
 {
     protected $filename;
     protected $delimiter = ',';
-    protected $hasHeadline = false;
+    protected $hasHeadline = true;
     protected $headline = [];
     protected $columns = [];
     protected $handle;
 
-    public function __construct($filename = '', $hasHeadline = false)
+    public function __construct($filename = '', $hasHeadline = true)
     {
         $this->filename = $filename;
         $this->hasHeadline = $hasHeadline;
