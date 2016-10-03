@@ -294,7 +294,7 @@ class FtpClient
      * @param   string
      * @return  bool
      */
-    public function delete_file($filepath)
+    public function deleteFile($filepath)
     {
         if (!$this->_is_conn()) {
             return FALSE;
@@ -320,7 +320,7 @@ class FtpClient
      * @param   string
      * @return  bool
      */
-    public function delete_dir($filepath)
+    public function deleteDir($filepath)
     {
         if (!$this->_is_conn()) {
             return FALSE;
@@ -329,14 +329,14 @@ class FtpClient
         // Add a trailing slash to the file path if needed
         $filepath = preg_replace("/(.+?)\/*$/", "\\1/",  $filepath);
 
-        $list = $this->list_files($filepath);
+        $list = $this->listFiles($filepath);
 
         if ($list !== FALSE AND count($list) > 0) {
             foreach ($list as $item) {
                 // If we can't delete the item it's probaly a folder so
-                // we'll recursively call delete_dir()
+                // we'll recursively call deleteDir()
                 if (!@ftp_delete($this->conn_id, $item)) {
-                    $this->delete_dir($item);
+                    $this->deleteDir($item);
                 }
             }
         }
@@ -393,7 +393,7 @@ class FtpClient
      * @access  public
      * @return  array
      */
-    public function list_files($path = '.')
+    public function listFiles($path = '.')
     {
         if (!$this->_is_conn()) {
             return FALSE;
