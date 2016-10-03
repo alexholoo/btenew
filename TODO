@@ -1,0 +1,87 @@
+- BTEServer 安裝切換到XAMPP
+
+- Synnex Freight => /ajax/synnex/freight直接返回html(select/options)
+
+- Utliity => Toolkit, 需要composer update
+
+- CsvFileReader, 參考CsvFileWriter
+    hasHeadline
+    headline = [], 來自文件，很少用到，不可靠，
+    columns = [], 標準定義，改善可讀性，同時用於防止文件格式變化，過濾非法數據
+    delimiter
+    filename
+    handle
+    (forEachLine/forEachRow w/ callback or yield)
+    讀入一行後需做trim處理
+
+- 所有配置文件都放到app/config/下, .gitignore
+    amazon.php (用mklink建立鏈接到vendor/cpigroup/amazon下)
+    ebay.php
+    newegg.php
+    rakuten.php
+    ftp.php
+
+- 建表newegg_orders，記録原始信息，導入現有的orders
+    filename
+    site=CA|US
+    OrderList中的所有字段
+
+- Marketplace\MasterOrderList (=> all_mgn_orders)
+
+  Marketplace\eBay\Client (->getOrders())
+  Marketplace\Amazon\Client (->getOrders())
+  
+  Marketplace\Rakuten\Client
+  Marketplace\Rakuten\OrderList (包含CsvFileReader實例)
+  Marketplace\Rakuten\MasterOrderList (包含CsvFileWriter實例)
+  
+  Marketplace\Newegg\Client
+  Marketplace\Newegg\OrderList      // OrderListFile/OrderReport/OrderReportFile
+  Marketplace\Newegg\MasterOrderList
+
+    $orderList = new Marketplace\Newegg\OrderList(); // csvfile
+    $row = $orderList->getStdFields();
+    $masterList.append($row); // write
+
+    // $list = new new Marketplace\Newegg\OrderList();
+    // foreach ($list as $fields) {
+    // }
+
+  以上暫不放到Service中，放到Marketplace中
+
+- Utils::mergeFiles('*.csv', filename)
+
+- Shipment/AddressBook
+
+- 用Promise改進前端Ajax調用代碼，使之清晰易讀
+- Vue 2.0
+- 選Vue組件庫，嘗試將Vue用於前端的可能性
+
+- 大致需要以下Job
+    獲取Amazon(CA/US)訂單
+    更新Amazon(CA/US)Tracking
+    更新Amazon(CA/US)Inventory 加新貨
+
+    獲取NewEgg(CA/US)訂單
+    更新NewEgg(CA/US)Tracking
+    更新NewEgg(CA/US)Inventory 加新貨
+
+    獲取eBay(CA/US)訂單
+    更新eBay(CA/US)Tracking
+    更新eBay(CA/US)Inventory 加新貨
+
+    獲取Rakuten(CA/US)訂單
+    更新Rakuten(CA/US)Tracking
+    更新Rakuten(CA/US)Inventory 加新貨
+
+- Newegg order的處理過程
+    ftp下載(CA/US)訂單文件
+    合併成newegg_ca_orders和newegg_us_orders兩個文件
+    合併到all_mgn_orders中
+    (落地文件仍保留，但不是好的做法，爭取都用數據庫表示)
+
+- 完全理解eBay API 和 Amazon MWS
+  官方開發包，官方文檔，非官方開發包(github)
+
+- 建立migration
+- deploy之後如何清空cache
