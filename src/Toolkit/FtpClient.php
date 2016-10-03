@@ -118,7 +118,7 @@ class FtpClient
      * @param   bool
      * @return  bool
      */
-    public function changedir($path = '', $supress_debug = FALSE)
+    public function changeDir($path = '', $supress_debug = FALSE)
     {
         if ($path == '' OR ! $this->_is_conn()) {
             return FALSE;
@@ -423,9 +423,9 @@ class FtpClient
         // Open the local file path
         if ($fp = @opendir($locpath)) {
             // Attempt to open the remote file path.
-            if (!$this->changedir($rempath, TRUE)) {
+            if (!$this->changeDir($rempath, TRUE)) {
                 // If it doesn't exist we'll attempt to create the direcotory
-                if (!$this->mkdir($rempath) OR ! $this->changedir($rempath)) {
+                if (!$this->mkdir($rempath) OR ! $this->changeDir($rempath)) {
                     return FALSE;
                 }
             }
