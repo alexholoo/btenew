@@ -125,6 +125,30 @@ class Client
         return $headers;
     }
 
+    public function geteBayOfficialTime()
+    {
+        $lines = [];
+
+        $lines[] = '<?xml version="1.0" encoding="utf-8"?>';
+        $lines[] = '<GeteBayOfficialTimeRequest xmlns="urn:ebay:apis:eBLBaseComponents">';
+        $lines[] =   "<RequesterCredentials>";
+        $lines[] =     "<eBayAuthToken>{$this->userToken}</eBayAuthToken>";
+        $lines[] =   "</RequesterCredentials>";
+        $lines[] =   '<ErrorLanguage>en_US</ErrorLanguage>';
+        #lines[] =   '<MessageID></MessageID>';
+        $lines[] =   "<Version>{$this->apiVersion}</Version>";
+        $lines[] =   '<WarningLevel>High</WarningLevel>';
+        $lines[] = '</GeteBayOfficialTimeRequest>';
+
+        $request = implode("\n", $lines);
+
+        $this->setVerb('GeteBayOfficialTime'); //ucfirst(__FUNCTION__)
+        $response = $this->sendHttpRequest($request);
+
+        // TODO: prase response to result, return $result;
+        return simplexml_load_string($response);
+    }
+
     public function getMyeBaySelling($page)
     {
         $lines = [];
@@ -302,13 +326,16 @@ class Client
     }
 }
 
-#include '../../../public/init.php';
+#include './public/init.php';
 #
-#$config = include 'config/config.php';
+#$config = include './app/config/ebay.php';
 #$client = new Client($config['bte']);
+#
+#$res = $client->geteBayOfficialTime();
+#print_r($res);
 
 #$res = $client->getMyeBaySelling(1);
-#print_r(Utils::formatXml($res));
+#print_r($res);
 
 #$res = $client->geteBayDetails();
 #print_r($res);

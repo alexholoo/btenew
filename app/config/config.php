@@ -46,5 +46,5 @@ return new Config([
         'filename' => 'application.log',
     ],
 
-    'xmlapi' => include 'xmlapi.php',
+    'xmlapi' => include __DIR__ . '/xmlapi.php',
 ]);
