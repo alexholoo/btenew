@@ -2,3 +2,6 @@
 
 php bin/scripts/ca_order_notes.php
 php bin/scripts/all_mgn_orders.php
+
+cp 'w:/out/purchasing/ca_order_notes.csv' /e/BTE/orders/
+cp 'w:/out/shipping/all_mgn_orders.csv'   /e/BTE/orders/
