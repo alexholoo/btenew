@@ -2,9 +2,20 @@
 
 include './public/init.php';
 
-$config = include APP_DIR . '/config/rakuten.php';
+function testClient()
+{
+    $config = include APP_DIR . '/config/rakuten.php';
 
-$client = new Marketplace\Rakuten\Client('CA'); // not avail
-$client = new Marketplace\Rakuten\Client('US');
+    $client = new Marketplace\Rakuten\Client('CA'); // not avail
+    $client = new Marketplace\Rakuten\Client('US');
 
-$client->getOrders();
+    $client->getOrders();
+}
+#testClient();
+
+function testMasterOrderList()
+{
+    $m = new Marketplace\Rakuten\MasterOrderList('US');
+    $m->generate();
+}
+testMasterOrderList();
