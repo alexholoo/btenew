@@ -325,17 +325,3 @@ class Client
         return simplexml_load_string($response);
     }
 }
-
-#include './public/init.php';
-#
-#$config = include './app/config/ebay.php';
-#$client = new Client($config['bte']);
-#
-#$res = $client->geteBayOfficialTime();
-#print_r($res);
-
-#$res = $client->getMyeBaySelling(1);
-#print_r($res);
-
-#$res = $client->geteBayDetails();
-#print_r($res);
