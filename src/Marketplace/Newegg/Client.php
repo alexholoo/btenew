@@ -36,9 +36,9 @@ class Client
         $files = $ftp->listFiles('/Outbound/OrderList/');
 
         if ($this->site == 'CA') {
-            $localFolder = 'E:/BTE/orders/newegg/order_ca/';
+            $localFolder = 'E:/BTE/orders/newegg/orders_ca/';
         } else if ($this->site == 'US') {
-            $localFolder = 'E:/BTE/orders/newegg/order_us/';
+            $localFolder = 'E:/BTE/orders/newegg/orders_us/';
         }
 
         foreach ($files as $file) {

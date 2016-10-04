@@ -36,9 +36,9 @@ class Client
         $files = $ftp->listFiles('/Orders/');
 
         if ($this->site == 'CA') {
-            $localFolder = 'E:/BTE/orders/rakuten/order_ca/';
+            $localFolder = 'E:/BTE/orders/rakuten/orders_ca/';
         } else if ($this->site == 'US') {
-            $localFolder = 'E:/BTE/orders/rakuten/order_us/';
+            $localFolder = 'E:/BTE/orders/rakuten/orders_us/';
         }
 
         $rakutenPrefix ='23267604_';
