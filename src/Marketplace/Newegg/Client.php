@@ -63,10 +63,3 @@ class Client
         // TODO
     }
 }
-
-#include '../../../public/init.php';
-#
-#//$config = include APP_DIR . '/config/newegg.php';
-#//$client = new Client('CA');
-#$client = new Client('US');
-#$client->getOrders();
