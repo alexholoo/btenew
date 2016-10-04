@@ -60,10 +60,3 @@ class Client
         // TODO
     }
 }
-
-#include '../../../public/init.php';
-#
-#//$config = include APP_DIR . '/config/rakuten.php';
-#$client = new Client('CA'); // not avail
-#$client = new Client('US');
-#$client->getOrders();
