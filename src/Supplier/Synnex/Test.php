@@ -133,6 +133,7 @@ function testFreightQuoteRequest()
 function testFreightQuoteResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-fq-response-3.xml');
+   #$xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-fq-response-error.xml');
     $response = new Supplier\Synnex\FreightQuoteResponse($xml);
     $result = $response->parseXml();
 

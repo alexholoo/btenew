@@ -15,6 +15,12 @@ class FreightQuoteResponse extends BaseResponse
 
         $result = new FreightQuoteResult();
 
+        if ($xml->FreightQuoteResponse->ErrorMessage) {
+            $result->errorMessage = strval($xml->FreightQuoteResponse->ErrorMessage);
+            $result->errorDetail  = strval($xml->FreightQuoteResponse->ErrorDetail);
+            return $result;
+        }
+
         $shipMethods = $xml->FreightQuoteResponse->AvailableShipMethods->AvailableShipMethod;
 
         foreach ($shipMethods as $shipMethod) {
