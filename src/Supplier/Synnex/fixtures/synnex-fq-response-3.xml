@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SynnexB2B>
+  <FreightQuoteResponse>
+    <CustomerNumber>1150897</CustomerNumber>
+    <ResponseElapsedTime>6.99s</ResponseElapsedTime>
+    <TotalWeight>1.00</TotalWeight>
+    <TotalSales>80.83</TotalSales>
+    <FreeFreightThreshold>0.0</FreeFreightThreshold>
+    <ShipFromWarehouse>
+      <Number>57</Number>
+      <ZipCode>L3R 0Z9</ZipCode>
+      <City>Markham, ON</City>
+      <Addr>4011 14th Avenue</Addr>
+    </ShipFromWarehouse>
+    <ShipToZipCode>M9W 5Z9</ShipToZipCode>
+    <ShipMethodCode></ShipMethodCode>
+    <ShipMethodDescription></ShipMethodDescription>
+    <ServiceLevel>2</ServiceLevel>
+    <Items>
+      <item lineNumber="1">
+        <SKU>5637038</SKU>
+        <MfgPartNumber>203500-03</MfgPartNumber>
+        <Description>HEADSET 5200/R CAN,EAS, VOYAGER,CAN,EAS</Description>
+        <Quantity>1</Quantity>
+      </item>
+    </Items>
+    <AvailableShipMethods>
+      <AvailableShipMethod code="FDXH">
+        <ShipMethodDescription>FedEx Express</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>5.44</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="L12G">
+        <ShipMethodDescription>Loomis Express 12:00 - Ground</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>5.77</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="L18G">
+        <ShipMethodDescription>Loomis Express 18:00 - Ground</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>4.68</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="LM9G">
+        <ShipMethodDescription>Loomis Express 9:00 - Ground</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>6.65</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="LMG">
+        <ShipMethodDescription>Loomis Ground</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>4.51</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="P10X">
+        <ShipMethodDescription>Purolator Express 10:30am</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>8.38</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="P9X">
+        <ShipMethodDescription>Purolator Express 9:00am</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>12.86</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="PSA">
+        <ShipMethodDescription>Purolator Saturday</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>16.70</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="PUX">
+        <ShipMethodDescription>Purolator Express Ground</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>4.82</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="UPG">
+        <ShipMethodDescription>UPS Standard</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>4.77</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="UPX">
+        <ShipMethodDescription>UPS Express Saver</ShipMethodDescription>
+        <ServiceLevel>1</ServiceLevel>
+        <Freight>6.51</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="WCET">
+        <ShipMethodDescription>Pick-Up in Etobicoke</ShipMethodDescription>
+        <ServiceLevel>0</ServiceLevel>
+        <Freight>0.00</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="WCGU">
+        <ShipMethodDescription>Pick-Up Guelph</ShipMethodDescription>
+        <ServiceLevel>0</ServiceLevel>
+        <Freight>0.00</Freight>
+      </AvailableShipMethod>
+      <AvailableShipMethod code="WCMK">
+        <ShipMethodDescription>Pick-Up in Markham</ShipMethodDescription>
+        <ServiceLevel>0</ServiceLevel>
+        <Freight>0.00</Freight>
+      </AvailableShipMethod>
+    </AvailableShipMethods>
+    <OtherCharges>
+      <MinOrderFee>0.00</MinOrderFee>
+      <CODFee>0.00</CODFee>
+    </OtherCharges>
+    <SynnexInternalReference></SynnexInternalReference>
+  </FreightQuoteResponse>
+</SynnexB2B>

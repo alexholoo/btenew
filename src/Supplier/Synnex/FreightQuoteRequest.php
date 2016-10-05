@@ -3,10 +3,24 @@
 namespace Supplier\Synnex;
 
 use Toolkit\Utils;
+use Supplier\Model\Order;
 use Supplier\Model\Request as BaseRequest;
 
 class FreightQuoteRequest extends BaseRequest
 {
+    /**
+     * @var Supplier\Model\Order
+     */
+    protected $order;
+
+    /**
+     * @param array $order
+     */
+    public function addOrder($order)
+    {
+        $this->order = new Order($order);
+    }
+
     /**
      * @return string
      */
@@ -28,6 +42,7 @@ class FreightQuoteRequest extends BaseRequest
         $password = $this->config['password'];
 
         $lines = array();
+
         $lines[] = '<Credential>';
         $lines[] =   "<UserID>$username</UserID>";
         $lines[] =   "<Password>$password</Password>";
@@ -39,6 +54,34 @@ class FreightQuoteRequest extends BaseRequest
     protected function freightQuoteRequest()
     {
         $lines = array();
+
+        $customerNo = $this->config['customerNo'];
+        $zipcode    = $this->order->zipcode;
+        $sku        = $this->order->sku;
+        $qty        = $this->order->qty;
+        $branch     = $this->order->branch;
+
+        if (substr($sku, 0, 4) == 'SYN-') {
+            $sku = substr($sku, 4);
+        }
+
+        $lines[] = '<FreightQuoteRequest version="1.0">';
+        $lines[] =    "<CustomerNumber>$customerNo</CustomerNumber>";
+        $lines[] =    '<CustomerName>BTE Computer</CustomerName>';
+        #lines[] =    '<RequestDateTime>2001-08-28T08:22:11</RequestDateTime>';
+        $lines[] =    "<ShipFromWarehouse>$branch</ShipFromWarehouse>";
+        $lines[] =    "<ShipToZipCode>$zipcode</ShipToZipCode>";
+        $lines[] =    '<ShipMethodCode></ShipMethodCode>';
+        $lines[] =    '<ServiceLevel>2</ServiceLevel>';
+        $lines[] =    '<Items>';
+        $lines[] =       '<Item lineNumber="1">';
+        $lines[] =           "<SKU>$sku</SKU>";
+        #lines[] =           '<MfgPartNumber></MfgPartNumber>';
+        #lines[] =           '<Description></Description>';
+        $lines[] =           "<Quantity>$qty</Quantity>";
+        $lines[] =       '</Item>';
+        $lines[] =    '</Items>';
+        $lines[] = '</FreightQuoteRequest>';
 
         return implode("\n", $lines);
     }

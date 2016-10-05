@@ -61,17 +61,17 @@ function getOrder()
         'address' => '123 Esna Park',
         'city' => 'Toronto',
         'province' => 'ON',
-        'postalcode' => 'R3B 0J7',
+        'postalcode' => 'M9W 5Z9',
         'country' => 'CA',
         'phone' => '800-900-1020',
         'email' => 'samwang@email.com',
-        'sku' => 'SYN-357869',
+        'sku' => 'SYN-5637038',
         'price' => '87.39',
         'qty' => '1',
         'shipping' => '0.00',
         'mgnInvoiceId' => 'n/a',
         // extra info from user
-        'branch' => '',
+        'branch' => '57',
         'comment' => 'Price match D&H $335.55',
     ];
 }
@@ -114,6 +114,44 @@ function realPurchaseOrder()
     pr($result);
 }
 
+function testFreightQuoteRequest()
+{
+    $config = include __DIR__ . '/app/config/xmlapi.php';
+
+    $order = getOrder();
+
+    $request = new Supplier\Synnex\FreightQuoteRequest();
+    $request->setConfig($config[ConfigKey::SYNNEX]);
+    $request->addOrder($order);
+
+    $xml = $request->toXml();
+
+    echo $xml;
+}
+
+function testFreightQuoteResponse()
+{
+    $xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-fq-response-3.xml');
+    $response = new Supplier\Synnex\FreightQuoteResponse($xml);
+    $result = $response->parseXml();
+
+    //pr($xml);
+    pr($result);
+}
+
+function realFreightQuote()
+{
+    #$config = include __DIR__ . '/app/config/xmlapi.php';
+    $config = include './app/config/config.php';  // !!
+
+    $order = getOrder();
+
+    $client = new Client($config);
+    $result = $client->getFreightQuote($order);
+
+    pr($result);
+}
+
 #testPriceAvailabilityRequest();
 #testPriceAvailabilityResponse();
 #realPriceAvailability();
@@ -121,3 +159,7 @@ function realPurchaseOrder()
 #testPurchaseOrderRequest();
 #testPurchaseOrderResponse();
 #realPurchaseOrder();
+
+#testFreightQuoteRequest();
+#testFreightQuoteResponse();
+#realFreightQuote();
