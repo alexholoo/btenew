@@ -45,7 +45,7 @@ class FreightQuoteResult
         // generate html
         $lines = [];
 
-        $lines[] = "<select name=\"$name\">";
+        #lines[] = "<select name=\"$name\">";
 
         foreach ($shipMethods as $shipMethod) {
             $code    = $shipMethod['Code'];
@@ -57,7 +57,7 @@ class FreightQuoteResult
         }
 
         $lines[] = '<option value="WHS">Auto</option>';
-        $lines[] = '</select>';
+        #lines[] = '</select>';
 
         $html = implode("\n", $lines);
 
