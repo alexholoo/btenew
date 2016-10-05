@@ -132,7 +132,7 @@ function purchaseNoteHtml(data) {
 
 function makePurchase(data, success, fail, done) {
   layer.open({
-    title: 'Confirmation',
+    title: 'Purchase',
     area: ['480px', 'auto'],
     btn: ['Purchase', 'Cancel'],
     yes: function(index, layero) {
