@@ -22,4 +22,26 @@ class FreightQuoteResult
     {
         return $this->shipMethods;
     }
+
+    public function toHtml($name)
+    {
+        $lines = [];
+
+        $lines[] = "<select name=\"$name\">";
+        $lines[] = '<option value="WHS">Auto</option>';
+
+        foreach ($this->shipMethods as $shipMethod) {
+            $code    = $shipMethod['Code'];
+            $desc    = $shipMethod['Description'];
+            $freight = $shipMethod['Freight'];
+
+            $lines[] = "<option value=\"$code\">$desc - $freight</option>";
+        }
+
+        $lines[] = '</select>';
+
+        $html = implode("\n", $lines);
+
+        return $html;
+    }
 }

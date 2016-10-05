@@ -26,6 +26,11 @@ $router->add('/ajax/pricelist/detail', [
     'action' => 'priceListDetail'
 ])->via(array("POST"));
 
+$router->add('/ajax/freight/quote', [
+    'controller' => 'ajax',
+    'action' => 'freightQuote'
+])->via(array("POST"));
+
 // aliases
 $router->add('/purchase/assist', [
     'controller' => 'purchase',

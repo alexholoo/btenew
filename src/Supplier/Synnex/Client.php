@@ -105,8 +105,8 @@ class Client extends BaseClient
      */
     public function getFreightQuote($order)
     {
-        $url = self::FQ_PROD_URL;
         $url = self::FQ_TEST_URL;
+        $url = self::FQ_PROD_URL;
 
         $request = new FreightQuoteRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
