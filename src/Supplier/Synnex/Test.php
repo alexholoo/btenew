@@ -136,7 +136,8 @@ function testFreightQuoteResponse()
     $result = $response->parseXml();
 
     //pr($xml);
-    pr($result);
+    //pr($result);
+    pr($result->toHtml('ship_method'));
 }
 
 function realFreightQuote()

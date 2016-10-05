@@ -25,12 +25,30 @@ class FreightQuoteResult
 
     public function toHtml($name)
     {
+        // remove 'Pick-Up'
+        $shipMethods = array_filter($this->shipMethods,
+            function ($val) {
+                return strpos($val['Description'], 'Pick-Up') === false;
+            }
+        );
+
+        // sort by cost
+        $lowPriceFirst = function($a, $b) {
+            if ($a['Freight'] == $b['Freight']) {
+                return 0;
+            }
+            return ($a['Freight'] < $b['Freight']) ? -1 : 1; // ASC
+        };
+
+        usort($shipMethods, $lowPriceFirst);
+
+        // generate html
         $lines = [];
 
         $lines[] = "<select name=\"$name\">";
         $lines[] = '<option value="WHS">Auto</option>';
 
-        foreach ($this->shipMethods as $shipMethod) {
+        foreach ($shipMethods as $shipMethod) {
             $code    = $shipMethod['Code'];
             $desc    = $shipMethod['Description'];
             $freight = $shipMethod['Freight'];
