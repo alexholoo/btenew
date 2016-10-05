@@ -80,6 +80,10 @@ class PurchaseOrderRequest extends BaseRequest
         $branch     = $this->order->branch;
         $shipMethod = $this->config['shipmethod'];
 
+        if ($this->order->shipMethod) {
+            $shipMethod = $this->order->shipMethod;
+        }
+
         $lines = array();
         $lines[] = '<Shipment>';
         $lines[] =   "<ShipFromWarehouse>$branch</ShipFromWarehouse>";

@@ -24,6 +24,7 @@ class Order
     public $price;
     public $qty;
     public $shipping;   // shipping fee
+    public $shipMethod;
 
     public $customerPO;
     public $endUserPO;
@@ -50,12 +51,14 @@ class Order
         $this->price      = Arr::val($order, 'price');
         $this->qty        = Arr::val($order, 'qty');
         $this->shipping   = Arr::val($order, 'shipping');
+        $this->shipMethod = Arr::val($order, 'shipMethod');
 
         $this->branch     = Arr::val($order, 'branch');
         $this->comment    = Arr::val($order, 'comment');
         $this->customerPO = Arr::val($order, 'customerPO');
         $this->endUserPO  = Arr::val($order, 'endUserPO');
 
+        // xml safe text
         $this->contact    = htmlspecialchars($this->contact);
         $this->address    = htmlspecialchars($this->address);
         $this->city       = htmlspecialchars($this->city);

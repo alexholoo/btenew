@@ -73,6 +73,7 @@ function getOrder()
         // extra info from user
         'branch' => '57',
         'comment' => 'Price match D&H $335.55',
+        'shipMethod' => 'UPX',
     ];
 }
 

@@ -19,6 +19,7 @@ class AjaxController extends ControllerBase
             $branch = $this->request->getPost('code', null, '');
             $qty = $this->request->getPost('qty');
             $comment = $this->request->getPost('comment', null, '');
+            $shipMethod = $this->request->getPost('ship_method', null, '');
 
             $order = Orders::findFirst("orderId='$orderId'");
             if (!$order) {
@@ -31,6 +32,7 @@ class AjaxController extends ControllerBase
             #orderInfo['price'] = $this->pricelistService->getPrice($sku); // Synnex need this
             $orderInfo['branch'] = $branch;
             $orderInfo['comment'] = $comment;
+            $orderInfo['shipMethod'] = $shipMethod;
              fpr($orderInfo);
 
 #$this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing']);
