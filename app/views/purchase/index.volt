@@ -89,13 +89,42 @@
 {% endblock %}
 
 {% block jscode %}
+function getShipMethods(data) {
+  var shipMethod = '';
+
+  if (data.sku.substr(0, 3) != 'SYN') {
+    return shipMethod;
+  }
+
+  var loading = layer.load(1, { shade: false });
+
+  $.ajax({
+    type: 'POST',
+    url: '/ajax/freight/quote',
+    data: data,
+    async: false,
+    success: function(res) {
+      layer.close(loading);
+      shipMethod = `
+        <label>Ship Method</label>
+        <select name="ship_method" style="float:right;width:320px;">
+        ${res.data}
+        </select><br><br>`;
+    }
+  });
+
+  return shipMethod;
+}
+
 function purchaseNoteHtml(data) {
+  var shipMethod = getShipMethods(data);
   return `<div style="padding: 20px;">
      <table class="table table-condensed">
        <tr><td><b>SKU: </b></td><td>${data.sku ? data.sku : '-'}</td></tr>
        <tr><td><b>Branch: </b></td><td>${data.branch ? data.branch: '-'}</td></tr>
        <tr><td><b>Qty: </b></td><td>${data.qty? data.qty: '-'}</td></tr>
      </table>
+     ${shipMethod}
      <label for="comment">Purchase note</label><br />
      <textarea id="comment" style="width: 440px; height: 80px; resize: none;">${ (data.sku.substr(0, 2) == 'DH') ? 'Drop ship' : ''}</textarea>
    </div>`;
