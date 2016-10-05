@@ -107,7 +107,7 @@ function getShipMethods(data) {
       layer.close(loading);
       shipMethod = `
         <label>Ship Method</label>
-        <select name="ship_method" style="float:right;width:320px;">
+        <select id="ship-method" style="float:right;width:320px;">
         ${res.data}
         </select><br><br>`;
     }
@@ -138,6 +138,10 @@ function makePurchase(data, success, fail, done) {
     yes: function(index, layero) {
       var comment = layero.find('#comment').val();
       data.comment = comment;
+
+      var shipMethod = layero.find('#ship-method option:selected').val();
+      data.shipMethod = shipMethod;
+
       ajaxCall('/ajax/make/purchase', data, success, fail);
       layer.close(index);
     },

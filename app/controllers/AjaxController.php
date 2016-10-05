@@ -19,7 +19,7 @@ class AjaxController extends ControllerBase
             $branch = $this->request->getPost('code', null, '');
             $qty = $this->request->getPost('qty');
             $comment = $this->request->getPost('comment', null, '');
-            $shipMethod = $this->request->getPost('ship_method', null, '');
+            $shipMethod = $this->request->getPost('shipMethod', null, '');
 
             $order = Orders::findFirst("orderId='$orderId'");
             if (!$order) {
