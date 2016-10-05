@@ -46,16 +46,17 @@ class FreightQuoteResult
         $lines = [];
 
         $lines[] = "<select name=\"$name\">";
-        $lines[] = '<option value="WHS">Auto</option>';
 
         foreach ($shipMethods as $shipMethod) {
             $code    = $shipMethod['Code'];
             $desc    = $shipMethod['Description'];
+            $level   = $shipMethod['ServiceLevel'];
             $freight = $shipMethod['Freight'];
 
-            $lines[] = "<option value=\"$code\">$desc - $freight</option>";
+            $lines[] = "<option value=\"$code\">$desc - ({$level}d) - $freight</option>";
         }
 
+        $lines[] = '<option value="WHS">Auto</option>';
         $lines[] = '</select>';
 
         $html = implode("\n", $lines);
