@@ -72,7 +72,7 @@ class FreightQuoteRequest extends BaseRequest
         $lines[] =    "<ShipFromWarehouse>$branch</ShipFromWarehouse>";
         $lines[] =    "<ShipToZipCode>$zipcode</ShipToZipCode>";
         $lines[] =    '<ShipMethodCode></ShipMethodCode>';
-        $lines[] =    '<ServiceLevel>2</ServiceLevel>';
+        $lines[] =    '<ServiceLevel></ServiceLevel>';
         $lines[] =    '<Items>';
         $lines[] =       '<Item lineNumber="1">';
         $lines[] =           "<SKU>$sku</SKU>";
