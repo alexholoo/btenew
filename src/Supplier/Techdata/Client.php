@@ -17,6 +17,8 @@ class Client extends BaseClient
     const PO_TEST_URL = 'http://tdxml.cstenet.com/xmlservlet';
     const PO_PROD_URL = 'https://tdxml.techdata.com/xmlservlet';
 
+    const OS_PROD_URL = 'https://tdxml.techdata.com/xmlservlet';
+
     /**
      * @param  string $sku
      */
@@ -79,6 +81,27 @@ class Client extends BaseClient
             PurchaseOrderLog::save($order['sku'], $order['orderId'], $result->orderNo);
             PriceAvailabilityLog::invalidate($order['sku']);
         }
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
+    }
+
+    public function getOrderStatus($orderId)
+    {
+        $url = self::OS_PROD_URL;
+
+        $request = new OrderStatusRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
+        $request->setOrder($orderId);
+
+        $xml = $request->toXml();
+
+        $res = $this->curlPost($url, $xml);
+
+        $response = new OrderStatusResponse($res);
+        $result = $response->parseXml();
 
         $this->request = $request;
         $this->response = $response;

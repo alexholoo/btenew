@@ -105,4 +105,10 @@ abstract class Client
      * @return Supplier\Model\PurchaseOrderResult
      */
     abstract public function purchaseOrder($order);
+
+    /**
+     * @param  string $sku
+     * @return Supplier\Model\OrderQueryRequest
+     */
+    abstract public function getOrderStatus($sku);
 }

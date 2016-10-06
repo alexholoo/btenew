@@ -20,6 +20,8 @@ class Client extends BaseClient
     const FQ_PROD_URL = 'https://ec.synnex.ca/SynnexXML/FreightQuote';
     const FQ_TEST_URL = 'https://testec.synnex.ca/SynnexXML/FreightQuote';
 
+    const OS_PROD_URL = 'https://ec.synnex.ca/SynnexXML/';
+
     /**
      * @param  string $sku
      */
@@ -119,6 +121,27 @@ class Client extends BaseClient
         ));
 
         $response = new FreightQuoteResponse($res);
+        $result = $response->parseXml();
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
+    }
+
+    public function getOrderStatus($orderId)
+    {
+        $url = self::OS_PROD_URL;
+
+        $request = new OrderStatusRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
+        $request->setOrder($orderId);
+
+        $xml = $request->toXml();
+
+        $res = $this->curlPost($url, $xml);
+
+        $response = new OrderStatusResponse($res);
         $result = $response->parseXml();
 
         $this->request = $request;
