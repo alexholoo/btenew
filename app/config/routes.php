@@ -42,6 +42,11 @@ $router->add('/dropship', [
     'action' => 'index'
 ]);
 
+$router->add('/fbaitems', [
+    'controller' => 'amazon',
+    'action' => 'fbaitems'
+]);
+
 # this never works, NotFoundPlugins works, see servers.php
 # $router->notFound(["controller" => "error", "action" => "error404"]);
 
