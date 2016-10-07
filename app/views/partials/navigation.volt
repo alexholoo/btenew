@@ -17,6 +17,7 @@
             <li><a href="/shipment/search">Shipment search</a></li>
             <li><a href="/inventory/search">Inventory search</a></li>
             <li><a href="/purchase/assist">Purchase assistance</a></li>
+            <li><a href="/fbaitems">Generate FBA lines</a></li>
           </ul>
         </li>
         <li><a href="/about">About</a></li>
