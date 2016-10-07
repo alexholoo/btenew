@@ -65,7 +65,9 @@
         <td>{{ item['mpn'] }}</td>
         <td>{{ item['source'] }}</td>
         <td>{{ item['source_sku'] }}</td>
-        <td>{{ item['id'] }}</td>
+        <td class="delete">
+          <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+        </td>
         <td>{{ item['upc'] }}</td>
       </tr>
     {% endfor %}
@@ -80,4 +82,11 @@
 
 {% block docready %}
 $('[data-toggle="tooltip"]').tooltip();
+
+$('.delete button').click(function() {
+    var tr = $(this).closest('tr');
+    var index = tr.index();
+    tr.remove();
+    ajaxCall('/ajax/fbaitem/delete', { index: index });
+});
 {% endblock %}

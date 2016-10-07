@@ -31,6 +31,11 @@ $router->add('/ajax/freight/quote', [
     'action' => 'freightQuote'
 ])->via(array("POST"));
 
+$router->add('/ajax/fbaitem/delete', [
+    'controller' => 'ajax',
+    'action' => 'deleteFbaItem'
+])->via(array("POST"));
+
 // aliases
 $router->add('/purchase/assist', [
     'controller' => 'purchase',
