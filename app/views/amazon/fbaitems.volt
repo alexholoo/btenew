@@ -21,9 +21,10 @@
       </div>
       <div class="form-group">
         <select class="form-control" name="condition" data-toggle="tooltip" title="Condition">
-          <option value="New" {% if condition == "New" %}selected{% endif %}>New</option>
-          <option value="Open Box" {% if condition == "Open Box" %}selected{% endif %}>Open Box</option>
-          <option value="Refurbished" {% if condition == "Refurbished" %}selected{% endif %}>Refurbished</option>
+          <option value="New"   {% if condition == "New"   %}selected{% endif %}>New</option>
+          <option value="Open"  {% if condition == "Open"  %}selected{% endif %}>Open</option>
+          <option value="Refur" {% if condition == "Refur" %}selected{% endif %}>Refur</option>
+          <option value="Used"  {% if condition == "Used"  %}selected{% endif %}>Used</option>
         </select>
       </div>
       {% if retry %}<input type="hidden" name="retry" value="1">{% endif %}
