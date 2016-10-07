@@ -54,8 +54,6 @@ class AmazonController extends ControllerBase
             $item = $this->db->fetchOne($sql);
 
             if ($item) {
-                $data = $this->session->get('fbaitems');
-
                 // if MPN is empty, force user to input one
                 if (empty($item['MPN']) && empty($mpn)) {
                     $this->view->retry = true;
@@ -68,10 +66,17 @@ class AmazonController extends ControllerBase
                     return;
                 }
 
+                if (!$mpn) {
+                    $mpn = $item['MPN'];
+                }
+
                 // if there is no $cost input, use default cost
                 if (!$cost) {
                     $cost = $item['best_cost'];
                 }
+
+                // save data to session
+                $data = $this->session->get('fbaitems');
 
                 $data[] = [
                     'partnum'    => 'BTE-FBA-'.$mpn,
@@ -81,7 +86,7 @@ class AmazonController extends ControllerBase
                     'title'      => $item['name'],
                     'cost'       => $cost,
                     'condition'  => $condition,
-                    'mpn'        => $item['MPN'],
+                    'mpn'        => $mpn,
                     'source'     => $item['source'],
                     'source_sku' => $item['SKU'],
                     'id'         => $item['id'],
