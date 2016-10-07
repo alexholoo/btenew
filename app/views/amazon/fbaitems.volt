@@ -34,6 +34,10 @@
     </form>
   </div>
 
+  {% if error is not empty %}
+    <p class="text-danger">{{ error }}</p>
+  {% endif %}
+
   {% if items is not empty %}
   <table class="table table-bordered table-hover">
     <thead>

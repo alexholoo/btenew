@@ -75,6 +75,13 @@ class AmazonController extends ControllerBase
                     $cost = $item['best_cost'];
                 }
 
+                if ($this->itemAlreadyFBA('BTE-FBA-'.$mpn)) {
+                    $data = $this->session->get('fbaitems');
+                    $this->view->items = $data;
+                    $this->view->error = 'BTE-FBA-'.$mpn.' already in FBA';
+                    return;
+                }
+
                 // save data to session
                 $data = $this->session->get('fbaitems');
 
@@ -97,5 +104,11 @@ class AmazonController extends ControllerBase
                 $this->view->items = $data;
             }
         }
+    }
+
+    protected function itemAlreadyFBA($partnum)
+    {
+        $sql = "SELECT * FROM skipped_items WHERE partnum='$partnum'";
+        return $this->db->fetchOne($sql);
     }
 }
