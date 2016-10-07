@@ -74,10 +74,32 @@
 
     </tbody>
   </table>
+  <button onclick="copyToClipboard()" class="btn btn-primary"><span class="glyphicon glyphicon-copy"></span>&nbsp; Copy To Clipboard</button>
+  <textarea id="output" style="display:none;"></textarea>
   {% endif %}
 {% endblock %}
 
 {% block jscode %}
+function copyToClipboard() {
+    var text = '';
+    $('table').find('tbody tr').each(function() {
+        $(this).find('td').each(function() {
+            if ($(this).hasClass('delete')) {
+              text += "\t";
+            } else {
+              text += $(this).html() + "\t";
+            }
+        });
+        text += "\n";
+    });
+
+    var textarea = $('#output');
+    textarea.show();
+    textarea.val(text);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.hide();
+}
 {% endblock %}
 
 {% block docready %}
