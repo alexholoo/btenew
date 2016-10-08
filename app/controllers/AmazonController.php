@@ -22,6 +22,8 @@ class AmazonController extends ControllerBase
             $this->session->set('fbaitems', []);
         }
 
+        $data = $this->session->get('fbaitems');
+
         if ($this->request->isPost()) {
             $retry = $this->request->getPost('retry');
             $upc = $this->request->getPost('upc');
@@ -44,6 +46,7 @@ class AmazonController extends ControllerBase
             }
 
             if (empty($where)) {
+                $this->view->items = $data;
                 return;
             }
 
@@ -76,15 +79,12 @@ class AmazonController extends ControllerBase
                 }
 
                 if ($this->itemAlreadyFBA('BTE-FBA-'.$mpn)) {
-                    $data = $this->session->get('fbaitems');
                     $this->view->items = $data;
                     $this->view->error = 'BTE-FBA-'.$mpn.' already in FBA';
                     return;
                 }
 
                 // save data to session
-                $data = $this->session->get('fbaitems');
-
                 $data[] = [
                     'partnum'    => 'BTE-FBA-'.$mpn,
                     'notes'      => 'FBA',
@@ -101,9 +101,10 @@ class AmazonController extends ControllerBase
                 ];
 
                 $this->session->set('fbaitems', $data);
-                $this->view->items = $data;
             }
         }
+
+        $this->view->items = $data;
     }
 
     protected function itemAlreadyFBA($partnum)

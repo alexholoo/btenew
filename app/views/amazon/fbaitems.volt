@@ -5,7 +5,7 @@
   <div class="well clearfix">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group">
-        <input type="text" class="form-control" name="mpn" placeholder="MPN" data-toggle="tooltip" title="MPN" value="{{mpn}}" {% if retry %}style="border:1px solid red"{% endif %}>
+        <input type="text" class="form-control" name="mpn" placeholder="MPN" data-toggle="tooltip" title="MPN" value="{{mpn}}" {% if retry %}style="border:1px solid red"{% endif %} autofocus>
       </div>
       <div class="form-group">
         <input type="text" class="form-control" name="upc" placeholder="UPC" data-toggle="tooltip" title="UPC" value="{{upc}}">
