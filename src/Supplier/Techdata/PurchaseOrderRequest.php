@@ -41,6 +41,17 @@ class PurchaseOrderRequest extends BaseRequest
         $email   = $this->order->email;
 
         $state = CanadaProvince::nameToCode($state);
+        $phone = Utils::formatPhoneNumber($phone, '.');
+
+        $arr = explode("\n", wordwrap($address, 25, "\n"));
+        $addr1 = $arr[0];
+        $addr2 = isset($arr[1]) ? $arr[1] : '';
+        $addr3 = isset($arr[2]) ? $arr[2] : '';
+
+        $arr = explode("\n", wordwrap($address, 35, "\n"));
+        $euiAddr1 = $arr[0];
+        $euiAddr2 = isset($arr[1]) ? $arr[1] : '';
+        $euiAddr3 = isset($arr[2]) ? $arr[2] : '';
 
         $lines[] = "<Header>";
         $lines[] =   "<UserName>$username</UserName>";
@@ -56,7 +67,9 @@ class PurchaseOrderRequest extends BaseRequest
         #lines[] =   "<RequestOrderConfirmation>Y</RequestOrderConfirmation>";
         $lines[] =   "<Name>$contact</Name>";
         $lines[] =   "<AddrInfo>";
-        $lines[] =     "<Addr>$address</Addr>";
+        $lines[] =     "<Addr>$addr1</Addr>";
+        $lines[] =     "<Addr>$addr2</Addr>";
+        $lines[] =     "<Addr>$addr3</Addr>";
         $lines[] =   "</AddrInfo>";
         $lines[] =   "<CityName>$city</CityName>";
         $lines[] =   "<StateProvinceCode>$state</StateProvinceCode>";
@@ -76,9 +89,9 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =     "<EuiPhoneNbr>$phone</EuiPhoneNbr>";
         $lines[] =     "<EuiFaxNbr></EuiFaxNbr>";
         $lines[] =     "<EuiName>$contact</EuiName>";
-        $lines[] =     "<EuiAddr1>$address</EuiAddr1>";
-        $lines[] =     "<EuiAddr2></EuiAddr2>";
-        $lines[] =     "<EuiAddr3></EuiAddr3>";
+        $lines[] =     "<EuiAddr1>$euiAddr1</EuiAddr1>";
+        $lines[] =     "<EuiAddr2>$euiAddr2</EuiAddr2>";
+        $lines[] =     "<EuiAddr3>$euiAddr3</EuiAddr3>";
         $lines[] =     "<EuiCityName>$city</EuiCityName>";
         $lines[] =     "<EuiStateProvinceCode>$state</EuiStateProvinceCode>";
         $lines[] =     "<EuiPostalCode>$zipcode</EuiPostalCode>";
