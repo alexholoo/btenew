@@ -17,6 +17,10 @@ String.prototype.format = function () {
     });
 };
 
+String.prototype.repeat = function(n) {
+    return Array(n+1).join(this);
+}
+
 function ajaxCall(url, data, success, fail) {
     $.post(url, data, function(res) {
         if (res.status == 'OK') {
@@ -31,4 +35,15 @@ function ajaxCall(url, data, success, fail) {
     });
 }
 
+/**
+ * RFC4122 version 4 compliant unique id creator.
+ * Added by https://github.com/tufanbarisyildirim/
+ * @returns {String}
+ */
+function newGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
 
