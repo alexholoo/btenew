@@ -75,6 +75,7 @@ function getOrder()
         'mgnInvoiceId' => 'n/a',
         // extra info from user
         'branch' => '',
+        'notifyEmail' => 'doris@btecanada.com',
         'comment' => 'TEST PO ONLY & DO NOT SHIP',
     ];
 }

@@ -40,6 +40,8 @@ class PurchaseOrderRequest extends BaseRequest
         $phone   = $this->order->phone;
         $email   = $this->order->email;
 
+        $notifyEmail = $this->order->notifyEmail;
+
         $state = CanadaProvince::nameToCode($state);
         $phone = Utils::formatPhoneNumber($phone, '.');
 
@@ -108,6 +110,11 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =     "<EuiContactEmailAddr1></EuiContactEmailAddr1>";
         $lines[] =     "<EuiContactEmailAddr2></EuiContactEmailAddr2>";
         $lines[] =   "</EndUserInfo>";
+        $lines[] =   "<MyOrderTracker>";
+        $lines[] =     "<ResellerEmail>$notifyEmail</ResellerEmail>";
+        $lines[] =     "<ResellerEvents>OC</ResellerEvents>";
+        $lines[] =     "<ResellerEvents>OS</ResellerEvents>";
+        $lines[] =   "</MyOrderTracker>";
         #lines[] =   "<OrderLevel>FE</OrderLevel>";
         $lines[] = "</Header>";
 

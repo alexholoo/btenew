@@ -30,6 +30,7 @@ class Order
     public $endUserPO;
     public $branch;     // the warehouse ship from
     public $comment;
+    public $notifyEmail;
 
     public function __construct($order)
     {
@@ -57,6 +58,7 @@ class Order
         $this->comment    = Arr::val($order, 'comment');
         $this->customerPO = Arr::val($order, 'customerPO');
         $this->endUserPO  = Arr::val($order, 'endUserPO');
+        $this->notifyEmail= Arr::val($order, 'notifyEmail');
 
         // xml safe text
         $this->contact    = htmlspecialchars($this->contact);

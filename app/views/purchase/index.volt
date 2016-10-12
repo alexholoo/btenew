@@ -116,8 +116,23 @@ function getShipMethods(data) {
   return shipMethod;
 }
 
+function getNotifyEmails(data) {
+  var emails = '';
+
+  if (data.sku.substr(0, 2) == 'TD') {
+    emails = `<div style="margin-top:15px">
+      <label>Email Notification</label>
+      <select id="notify-email" style="float:right;width:300px;">
+        <option>doris@btecanada.com</option>
+      </select></div>`;
+  }
+
+  return emails;
+}
+
 function purchaseNoteHtml(data) {
   var shipMethod = getShipMethods(data);
+  var notifyEmails = getNotifyEmails(data);
   return `<div style="padding: 20px;">
      <table class="table table-condensed">
        <tr><td><b>SKU: </b></td><td>${data.sku ? data.sku : '-'}</td></tr>
@@ -127,6 +142,7 @@ function purchaseNoteHtml(data) {
      ${shipMethod}
      <label for="comment">Purchase note</label><br />
      <textarea id="comment" style="width: 440px; height: 80px; resize: none;">${ (data.sku.substr(0, 2) == 'DH') ? 'Drop ship' : ''}</textarea>
+     ${notifyEmails}
    </div>`;
 }
 
@@ -140,7 +156,10 @@ function makePurchase(data, success, fail, done) {
       data.comment = comment;
 
       var shipMethod = layero.find('#ship-method option:selected').val();
+      var notifyEmail = layero.find('#notify-email option:selected').text();
+
       data.shipMethod = shipMethod;
+      data.notifyEmail = notifyEmail;
 
       ajaxCall('/ajax/make/purchase', data, success, fail);
       layer.close(index);

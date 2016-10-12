@@ -20,6 +20,7 @@ class AjaxController extends ControllerBase
             $qty = $this->request->getPost('qty');
             $comment = $this->request->getPost('comment', null, '');
             $shipMethod = $this->request->getPost('shipMethod', null, '');
+            $notifyEmail = $this->request->getPost('notifyEmail', null, '');
 
             $order = Orders::findFirst("orderId='$orderId'");
             if (!$order) {
@@ -33,16 +34,11 @@ class AjaxController extends ControllerBase
             $orderInfo['branch'] = $branch;
             $orderInfo['comment'] = $comment;
             $orderInfo['shipMethod'] = $shipMethod;
+            $orderInfo['notifyEmail'] = $notifyEmail;
              fpr($orderInfo);
 
 #$this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing']);
 #return $this->response;
-
-#// TODO: temp code
-#if ((substr($sku, 0, 3) != 'SYN') && (substr($sku, 0, 3) != 'ING')) {
-#    $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Unknown supplier']);
-#    return $this->response;
-#}
 
             // Make sure the order is pending (not purchased yet)
             if ($this->isOrderPurchased($orderId)) {
