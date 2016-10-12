@@ -1,5 +1,7 @@
 <?php
 
+namespace Toolkit;
+
 /**
  * Array2XML: A class to convert array in PHP to XML
  *
