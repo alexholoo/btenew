@@ -13,6 +13,7 @@ class PurchaseOrderLog
         $db->insertAsDict('xmlapi_po_log',
             [
                 'sku' => $request->getSku(),
+                'order_id' => $request->getOrderId(),
                 'url' => $url,
                 'request' => $request->toXml(),
                 'response' => $response->getXmlDoc(),

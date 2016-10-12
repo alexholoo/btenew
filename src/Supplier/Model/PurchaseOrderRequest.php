@@ -27,4 +27,12 @@ abstract class PurchaseOrderRequest extends Request
     {
         return $this->order->sku;
     }
+
+    /**
+     * @return string
+     */
+    public function getOrderId()
+    {
+        return $this->order->orderId;
+    }
 }
