@@ -21,7 +21,12 @@ class CanadaProvince
         'Northwest Territories'
     );
 
-    static $codes = array ('AB','BC','MB','SK','QC','QC', 'NS','NL','NB','YT','NU','PEI','ON','NT');
+    static $codes = array ('AB','BC','MB','SK','QC','QC', 'NS','NL','NB','YT','NU','PE','ON','NT');
+
+    public static function all()
+    {
+        return array_combine(self::$codes, self::$names);
+    }
 
     public static function codeToName($code)
     {

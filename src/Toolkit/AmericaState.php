@@ -57,6 +57,11 @@ class AmericaState
         'WY' => 'Wyoming',
     ];
 
+    public static function all()
+    {
+        return self::$codeNames;
+    }
+
     public static function codeToName($code)
     {
         $map = self::$codeNames;
