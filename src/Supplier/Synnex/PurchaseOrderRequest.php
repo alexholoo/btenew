@@ -3,6 +3,7 @@
 namespace Supplier\Synnex;
 
 use Toolkit\Utils;
+use Toolkit\CanadaProvince;
 use Supplier\Model\PurchaseOrderRequest as BaseRequest;
 
 class PurchaseOrderRequest extends BaseRequest
@@ -79,6 +80,8 @@ class PurchaseOrderRequest extends BaseRequest
         $email      = $this->order->email;
         $branch     = $this->order->branch;
         $shipMethod = $this->config['shipmethod'];
+
+        $state = CanadaProvince::nameToCode($state);
 
         if ($this->order->shipMethod) {
             $shipMethod = $this->order->shipMethod;

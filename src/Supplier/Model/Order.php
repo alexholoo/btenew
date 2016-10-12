@@ -3,6 +3,7 @@
 namespace Supplier\Model;
 
 use Toolkit\Arr;
+use Toolkit\CanadaProvince;
 
 class Order
 {
@@ -69,5 +70,8 @@ class Order
         $this->country    = htmlspecialchars($this->country);
         $this->email      = htmlspecialchars($this->email);
         $this->comment    = htmlspecialchars($this->comment);
+
+       #$this->state = CanadaProvince::nameToCode($this->state);
+       #$this->province = CanadaProvince::nameToCode($this->province);
     }
 }

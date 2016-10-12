@@ -3,6 +3,7 @@
 namespace Supplier\Ingram;
 
 use Toolkit\Utils;
+use Toolkit\CanadaProvince;
 use Supplier\Model\PurchaseOrderRequest as BaseRequest;
 
 class PurchaseOrderRequest extends BaseRequest
@@ -55,6 +56,8 @@ class PurchaseOrderRequest extends BaseRequest
         $state   = $this->order->province;
         $zipcode = $this->order->zipcode;
         $branch  = $this->order->branch;
+
+        $state = CanadaProvince::nameToCode($state);
 
         $autoRelease   = $this->config['autoRelease'];
         $carrierCode   = $this->config['carrierCode'];
