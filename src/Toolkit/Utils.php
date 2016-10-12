@@ -16,6 +16,26 @@ class Utils
          return false;
     }
 
+    public static function joinFiles(array $files, $target)
+    {
+        $dest = fopen($target, "w+");
+
+        foreach ($files as $file) {
+            if (!file_exists($file)) {
+                continue;
+            }
+
+            $src = fopen($file, "r");
+            while (!feof($src)) {
+                fwrite($dest, fgets($src));
+            }
+            fclose($src);
+            fwrite($dest, "\n"); // usually last line doesn't have a newline
+        }
+
+        fclose($dest);
+    }
+
     public static function deleteOldFiles($dir, $interval)
     {
         if (!$interval) {
