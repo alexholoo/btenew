@@ -3,6 +3,7 @@
 namespace Supplier\DH;
 
 use Toolkit\Utils;
+use Toolkit\CanadaProvince;
 use Supplier\Model\PurchaseOrderRequest as BaseRequest;
 
 class PurchaseOrderRequest extends BaseRequest
@@ -59,6 +60,8 @@ class PurchaseOrderRequest extends BaseRequest
         $phone   = $this->order->phone;
         $country = $this->order->country;
         $comment = $this->order->comment;
+
+        $state = CanadaProvince::nameToCode($state);
 
         $partShip    = $this->config['partship'];
         $backOrder   = $this->config['backorder'];

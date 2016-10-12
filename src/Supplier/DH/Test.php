@@ -63,7 +63,7 @@ function getOrder()
         'buyer' => 'Sam Wang',
         'address' => '123 Esna Park',
         'city' => 'Toronto',
-        'province' => 'ON',
+        'province' => 'British Columbia',
         'postalcode' => 'R3B 0J7',
         'country' => 'CA',
         'phone' => '800-900-1020',
