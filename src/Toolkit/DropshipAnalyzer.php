@@ -9,19 +9,9 @@ class DropshipAnalyzer
         $parts = explode('-', $sku);
         $supplier = strtoupper($parts[0]);
 
-        switch ($supplier) {
-        case 'SYN':
-            return Dropship_SYN::analyze($sku, $price, $place, $express);
-            break;
-        case 'TD':
-            return Dropship_TD::analyze($sku, $price, $place, $express);
-            break;
-        case 'ING':
-            return Dropship_ING::analyze($sku, $price, $place, $express);
-            break;
-        case 'DH':
-            return Dropship_DH::analyze($sku, $price, $place, $express);
-            break;
+        $class = "Toolkit\\Dropship_$supplier";
+        if (class_exists($class)) {
+            return $class::analyze($sku, $price, $place, $express);
         }
 
         return false;  // no drop ship
