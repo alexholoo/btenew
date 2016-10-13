@@ -65,7 +65,7 @@ class PurchaseOrderRequest extends BaseRequest
 
         $arr = explode("\n", wordwrap($address, 30, "\n"));
         $addr1 = $arr[0];
-        $addr2 = isset($arr[1]) ? $arr[1] : '';
+        $addr2 = isset($arr[1]) ? $arr[1] . " $phone" : $phone;
 
         $partShip    = $this->config['partship'];
         $backOrder   = $this->config['backorder'];
@@ -81,7 +81,7 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =   "<BACKORDERALLOW>$backOrder</BACKORDERALLOW>";
         $lines[] =   "<DROPSHIPPW>$dropShipPassword</DROPSHIPPW>";
         $lines[] =   "<SHIPTONAME>$contact</SHIPTONAME>";
-        $lines[] =   "<SHIPTOATTN>$phone</SHIPTOATTN>";
+        $lines[] =   "<SHIPTOATTN></SHIPTOATTN>";
         $lines[] =   "<SHIPTOADDRESS>$addr1</SHIPTOADDRESS>";
         $lines[] =   "<SHIPTOADDRESS2>$addr2</SHIPTOADDRESS2>";
         $lines[] =   "<SHIPTOCITY>$city</SHIPTOCITY>";
