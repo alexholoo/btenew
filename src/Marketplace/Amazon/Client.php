@@ -2,8 +2,6 @@
 
 namespace Marketplace\Amazon;
 
-use Phalcon\Di;
-
 use Toolkit\Arr;
 use Toolkit\Utils;
 
@@ -15,8 +13,8 @@ class Client
 
     public function __construct($store)
     {
-        $this->di = Phalcon\Di::getDefault();
-        $this->db = Phalcon\Di::getDefault()->get('db');
+        $this->di = \Phalcon\Di::getDefault();
+        $this->db = \Phalcon\Di::getDefault()->get('db');
 
         $this->store = $store;
     }
@@ -124,8 +122,8 @@ class Client
             //echo $e->getMessage(), EOL;
         }
 
-        saveOrderItem($order);
-        saveShippingAddress($order);
+        $this->saveOrderItem($order);
+        $this->saveShippingAddress($order);
     }
 
     private function saveOrderItem($order)
