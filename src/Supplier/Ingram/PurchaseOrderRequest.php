@@ -59,6 +59,10 @@ class PurchaseOrderRequest extends BaseRequest
 
         $state = CanadaProvince::nameToCode($state);
 
+        $arr = explode("\n", wordwrap($address, 35, "\n"));
+        $addr1 = $arr[0];
+        $addr2 = isset($arr[1]) ? $arr[1] : '';
+
         $autoRelease   = $this->config['autoRelease'];
         $carrierCode   = $this->config['carrierCode'];
         $backOrder     = $this->config['backOrder'];
@@ -87,8 +91,8 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =     "<ShipTo>";
         $lines[] =       "<Address>";
         $lines[] =         "<ShipToAddress1>$contact</ShipToAddress1>";
-        $lines[] =         "<ShipToAddress2>$address</ShipToAddress2>";
-        $lines[] =         "<ShipToAddress3></ShipToAddress3>";
+        $lines[] =         "<ShipToAddress2>$addr1</ShipToAddress2>";
+        $lines[] =         "<ShipToAddress3>$addr2</ShipToAddress3>";
         $lines[] =         "<ShipToCity>$city</ShipToCity>";
         $lines[] =         "<ShipToProvince>$state</ShipToProvince>";
         $lines[] =         "<ShipToPostalCode>$zipcode</ShipToPostalCode>";

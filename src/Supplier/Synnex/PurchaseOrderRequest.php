@@ -83,6 +83,10 @@ class PurchaseOrderRequest extends BaseRequest
 
         $state = CanadaProvince::nameToCode($state);
 
+        $arr = explode("\n", wordwrap($address, 35, "\n"));
+        $addr1 = $arr[0];
+        $addr2 = isset($arr[1]) ? $arr[1] : '';
+
         if ($this->order->shipMethod) {
             $shipMethod = $this->order->shipMethod;
         }
@@ -93,7 +97,8 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =   '<ShipTo>';
         $lines[] =     "<AddressName1>$contact</AddressName1>";
         #lines[] =     "<AddressName2 />";
-        $lines[] =     "<AddressLine1>$address</AddressLine1>";
+        $lines[] =     "<AddressLine1>$addr1</AddressLine1>";
+        $lines[] =     "<AddressLine2>$addr2</AddressLine2>";
         $lines[] =     "<City>$city</City>";
         $lines[] =     "<State>$state</State>";
         $lines[] =     "<ZipCode>$zipcode</ZipCode>";
