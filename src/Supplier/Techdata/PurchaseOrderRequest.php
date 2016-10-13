@@ -76,7 +76,7 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =   "<CityName>$city</CityName>";
         $lines[] =   "<StateProvinceCode>$state</StateProvinceCode>";
         $lines[] =   "<PostalCode>$zipcode</PostalCode>";
-        $lines[] =   "<ContactName>$contact</ContactName>";
+        $lines[] =   "<ContactName>Roy Zhang</ContactName>";
         $lines[] =   "<ContactPhoneNbr>$phone</ContactPhoneNbr>";
         #lines[] =   "<EndUserCustomerNbr>102555</EndUserCustomerNbr>";
         #lines[] =   "<EndUserGroupCode>ABCDEFGHIJ</EndUserGroupCode>";
