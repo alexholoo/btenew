@@ -114,6 +114,8 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =     "<ResellerEmail>$notifyEmail</ResellerEmail>";
         $lines[] =     "<ResellerEvents>OC</ResellerEvents>";
         $lines[] =     "<ResellerEvents>OS</ResellerEvents>";
+        $lines[] =     "<EndUserEmail></EndUserEmail>";
+        $lines[] =     "<EndUserEvents></EndUserEvents>";
         $lines[] =   "</MyOrderTracker>";
         #lines[] =   "<OrderLevel>FE</OrderLevel>";
         $lines[] = "</Header>";
