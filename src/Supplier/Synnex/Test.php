@@ -61,6 +61,7 @@ function getOrder()
         'address' => '123 Esna Park',
         'city' => 'Toronto',
         'province' => 'ON',
+        'province' => 'Ontario',
         'postalcode' => 'M9W 5Z9',
         'country' => 'CA',
         'phone' => '800-900-1020',

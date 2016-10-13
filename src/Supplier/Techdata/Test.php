@@ -63,7 +63,7 @@ function getOrder()
         'address' => '123 Esna Park',
         'city' => 'Toronto',
         'province' => 'ON',
-#       'province' => 'Ontario', // this causes an error
+        'province' => 'Ontario', // this causes an error
         'postalcode' => 'R3B 0J7',
         'country' => 'CA',
         'phone' => '800-900-1020',
