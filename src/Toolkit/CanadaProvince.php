@@ -13,7 +13,7 @@ class CanadaProvince
         'Quebec',
         'Nova Scotia',
         'Newfoundland',
-        'New Brunsiwck',
+        'New Brunswick',
         'Yukon',
         'Nunavut',
         'Prince Edward Island',
