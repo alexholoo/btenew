@@ -130,9 +130,27 @@ function getNotifyEmails(data) {
   return emails;
 }
 
+function getMaxLength(data) {
+  if (data.sku.substr(0, 2) == 'DH') {
+      return '58';
+  }
+  if (data.sku.substr(0, 3) == 'ING') {
+      return '35';
+  }
+  if (data.sku.substr(0, 3) == 'SYN') {
+      return '60';
+  }
+  if (data.sku.substr(0, 2) == 'TD') {
+      return '52';
+  }
+  return '60';
+}
+
 function purchaseNoteHtml(data) {
   var shipMethod = getShipMethods(data);
   var notifyEmails = getNotifyEmails(data);
+  var maxLength = getMaxLength(data);
+
   return `<div style="padding: 20px;">
      <table class="table table-condensed">
        <tr><td><b>SKU: </b></td><td>${data.sku ? data.sku : '-'}</td></tr>
@@ -140,8 +158,8 @@ function purchaseNoteHtml(data) {
        <tr><td><b>Qty: </b></td><td>${data.qty? data.qty: '-'}</td></tr>
      </table>
      ${shipMethod}
-     <label for="comment">Purchase note</label><br />
-     <textarea id="comment" style="width: 440px; height: 80px; resize: none;">${ (data.sku.substr(0, 2) == 'DH') ? 'Drop ship' : ''}</textarea>
+     <label for="comment">Purchase note</label> (Max ${maxLength} chars)<br />
+     <textarea id="comment" maxlength="${maxLength}" style="width: 440px; height: 80px; resize: none;">${ (data.sku.substr(0, 2) == 'DH') ? 'Drop ship' : ''}</textarea>
      ${notifyEmails}
    </div>`;
 }
