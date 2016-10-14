@@ -10,13 +10,25 @@ class Client
     protected $di;
     protected $db;
     protected $store;
+    protected $channel;
 
-    public function __construct($store)
+    public function __construct($store = null, $channel = null)
     {
         $this->di = \Phalcon\Di::getDefault();
         $this->db = \Phalcon\Di::getDefault()->get('db');
 
         $this->store = $store;
+        $this->channel = $channel;
+    }
+
+    public function setStore($store)
+    {
+        $this->store = $store;
+    }
+
+    public function setChannel($channel)
+    {
+        $this->channel = $channel;
     }
 
     public function getOrders()
@@ -93,6 +105,7 @@ class Client
 
         try {
             $this->db->insertAsDict('amazon_order', [
+                'Channel'                      => $this->channel,
                 'OrderId'                      => $data['AmazonOrderId'],
                 'PurchaseDate'                 => $this->dtime($data['PurchaseDate']),
                 'LastUpdateDate'               => $this->dtime($data['LastUpdateDate']),
@@ -130,6 +143,10 @@ class Client
     {
         $items = $order->fetchItems();
         $item = $items->getItems(0);
+
+        if (!isset($item['ConditionNote'])) {
+            $item['ConditionNote'] = '';
+        }
 
         try {
             $this->db->insertAsDict('amazon_order_item', [
