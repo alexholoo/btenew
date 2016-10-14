@@ -146,10 +146,18 @@ function getMaxLength(data) {
   return '60';
 }
 
+function getPurchaseNote(data) {
+  if (data.sku.substr(0, 2) == 'DH') {
+      return 'Drop ship';
+  }
+  return '';
+}
+
 function purchaseNoteHtml(data) {
   var shipMethod = getShipMethods(data);
   var notifyEmails = getNotifyEmails(data);
   var maxLength = getMaxLength(data);
+  var purchaseNote = getPurchaseNote(data);
 
   return `<div style="padding: 20px;">
      <table class="table table-condensed">
@@ -159,7 +167,7 @@ function purchaseNoteHtml(data) {
      </table>
      ${shipMethod}
      <label for="comment">Purchase note</label> (Max ${maxLength} chars)<br />
-     <textarea id="comment" maxlength="${maxLength}" style="width: 440px; height: 80px; resize: none;">${ (data.sku.substr(0, 2) == 'DH') ? 'Drop ship' : ''}</textarea>
+     <textarea id="comment" maxlength="${maxLength}" style="width: 440px; height: 80px; resize: none;">${purchaseNote}</textarea>
      ${notifyEmails}
    </div>`;
 }
