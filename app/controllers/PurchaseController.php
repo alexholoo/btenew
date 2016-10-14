@@ -25,7 +25,7 @@ class PurchaseController extends ControllerBase
             $params['stage'] = $this->request->getPost('stage');
             $params['overstock'] = $this->request->getPost('overstock');
             $params['express'] = $this->request->getPost('express');
-            $params['orderId'] = $this->request->getPost('orderId');
+            $params['orderId'] = $this->filter->sanitize($this->request->getPost('orderId'), 'trim');
         }
 
         $this->view->date = $params['date'];
