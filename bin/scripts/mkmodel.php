@@ -55,8 +55,8 @@ function createModel($table, $columns, $argv)
     codeln('public function initialize()');
     codeln('{');
     codeln('$this->setSource("'.$table.'");');
-    codeln('// $this->belongsTo("id", "Brands", "id");');
-    codeln('// $this->hasMany("id", "Cars", "brand_id");');
+   #codeln('// $this->belongsTo("id", "Brands", "id");');
+   #codeln('// $this->hasMany("id", "Cars", "brand_id");');
     codeln('}');
 
     codeln('public function columnMap()');
@@ -78,6 +78,17 @@ function createModel($table, $columns, $argv)
     codeln('// public function afterSave()');
     codeln('// public function beforeDelete()');
     codeln('// public function afterDelete()');
+    codeln('');
+
+    codeln('public function validation()');
+    codeln('{');
+    codeln('$this->validate(new Uniqueness([');
+    codeln('    "field"   => "username",');
+    codeln('    "message" => "The username must be unique"');
+    codeln(']));');
+    codeln('');
+    codeln('return $this->validationHasFailed() != true;');
+    codeln('}');
 
     if (isset($argv[2]) && $argv[2] == 'gs') {
         getterSetter($columns);
