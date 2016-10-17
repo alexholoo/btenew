@@ -17,6 +17,10 @@ class AboutController extends ControllerBase
      */
     public function indexAction()
     {
+        //$this->view->data = print_r($this->config->toArray(), true);
+        //$this->view->data = $this->request->getServerAddress();
+        $this->view->data = gethostname();
+
         //$config = $this->config->toArray();
         //fpr($config['xmlapi']['synnex']);
         //
