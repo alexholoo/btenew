@@ -1,9 +1,23 @@
 function showToast(msg) {
-    $('#toast').removeClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
+    $.toast({
+        heading: 'Success',
+        text: msg,
+        showHideTransition: 'fade',
+        hideAfter: false,
+        position: { right: 30, top: 60 },
+        icon: 'success'
+    })
 }
 
 function showError(msg) {
-    $('#toast').addClass('error').text(msg).fadeIn(400).delay(3000).fadeOut(400);
+    $.toast({
+        heading: 'Error',
+        text: msg,
+        showHideTransition: 'fade',
+        hideAfter: 5000,
+        position: { right: 30, top: 60 },
+        icon: 'error'
+    })
 }
 
 window.$E = function(tag) {

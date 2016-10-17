@@ -349,8 +349,12 @@ function getOrderDetail(orderId, done) {
     tr.addClass('info');
 
     makePurchase({ order_id: orderId, sku: sku, branch: branch, code: code, qty: qty },
-      function() {
-        showToast('Order purchased successfully');
+      function(poNumber) {
+        showToast([
+            'Order ID: ' + orderId,
+            'SKU: ' + sku,
+            'PO Number: ' + poNumber
+        ]);
         tr.remove();
       },
       function(message) {

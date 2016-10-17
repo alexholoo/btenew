@@ -38,6 +38,7 @@ class AjaxController extends ControllerBase
              fpr($orderInfo);
 
 #$this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing']);
+#$this->response->setJsonContent(['status' => 'OK', 'data' => '112233']);
 #return $this->response;
 
             // Make sure the order is pending (not purchased yet)
@@ -67,7 +68,7 @@ class AjaxController extends ControllerBase
                     $this->response->setJsonContent(['status' => 'ERROR', 'message' => $errorMessage]);
                 } else {
                     $this->markOrderPurchased($orderId, $sku);
-                    $this->response->setJsonContent(['status' => 'OK']);
+                    $this->response->setJsonContent(['status' => 'OK', 'data' => $result->orderNo]);
                 }
             } catch (\Exception $e) {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => $e->getMessage()]);
