@@ -8,6 +8,7 @@
 
   {% block cssfile %}
     {{ stylesheet_link('/lib/bootstrap/3.3.7/css/bootstrap.min.css') }}
+    {{ stylesheet_link('/lib/jquery/plugins/jquery.toast.min.css') }}
     {{ stylesheet_link('/assets/css/style.css') }}
   {% endblock %}
 
@@ -37,6 +38,7 @@
 
   {% block jsfile %}
     {{ javascript_include('/lib/jquery/jquery-3.1.0.min.js') }}
+    {{ javascript_include('/lib/jquery/plugins/jquery.toast.min.js') }}
     {{ javascript_include('/lib/bootstrap/3.3.7/js/bootstrap.min.js') }}
     {{ javascript_include('/lib/layer/layer.js') }}
     {{ javascript_include('/assets/js/script.js') }}
