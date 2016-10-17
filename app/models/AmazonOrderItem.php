@@ -6,25 +6,25 @@ use Phalcon\Mvc\Model;
 
 class AmazonOrderItem extends Model
 {
-    public $OrderId;
-    public $ASIN;
-    public $SellerSKU;
-    public $OrderItemId;
-    public $Title;
-    public $QuantityOrdered;
-    public $QuantityShipped;
-    public $CurrencyCode;
-    public $ItemPrice;
-    public $ShippingPrice;
-    public $GiftWrapPrice;
-    public $ItemTax;
-    public $ShippingTax;
-    public $GiftWrapTax;
-    public $ShippingDiscount;
-    public $PromotionDiscount;
-    public $ConditionId;
-    public $ConditionSubtypeId;
-    public $ConditionNote;
+    public $orderId;
+    public $asin;
+    public $sellerSKU;
+    public $orderItemId;
+    public $title;
+    public $quantityOrdered;
+    public $quantityShipped;
+    public $currencyCode;
+    public $itemPrice;
+    public $shippingPrice;
+    public $giftWrapPrice;
+    public $itemTax;
+    public $shippingTax;
+    public $giftWrapTax;
+    public $shippingDiscount;
+    public $promotionDiscount;
+    public $conditionId;
+    public $conditionSubtypeId;
+    public $conditionNote;
 
     public function initialize()
     {

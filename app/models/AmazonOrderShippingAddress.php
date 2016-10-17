@@ -6,18 +6,18 @@ use Phalcon\Mvc\Model;
 
 class AmazonOrderShippingAddress extends Model
 {
-    public $OrderId;
-    public $Name;
-    public $AddressLine1;
-    public $AddressLine2;
-    public $AddressLine3;
-    public $City;
-    public $County;
-    public $District;
-    public $StateOrRegion;
-    public $PostalCode;
-    public $CountryCode;
-    public $Phone;
+    public $orderId;
+    public $name;
+    public $addressLine1;
+    public $addressLine2;
+    public $addressLine3;
+    public $city;
+    public $county;
+    public $district;
+    public $stateOrRegion;
+    public $postalCode;
+    public $countryCode;
+    public $phone;
 
     public function initialize()
     {
