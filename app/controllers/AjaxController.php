@@ -13,6 +13,12 @@ class AjaxController extends ControllerBase
 
     public function makePurchaseAction()
     {
+        if (gethostname() != 'BTELENOVO') {
+           #$this->response->setJsonContent(['status' => 'OK', 'data' => '112233']);
+            $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing Only']);
+            return $this->response;
+        }
+
         if ($this->request->isPost()) {
             $orderId = $this->request->getPost('order_id');
             $sku = $this->request->getPost('sku');
@@ -36,10 +42,6 @@ class AjaxController extends ControllerBase
             $orderInfo['shipMethod'] = $shipMethod;
             $orderInfo['notifyEmail'] = $notifyEmail;
              fpr($orderInfo);
-
-#$this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing']);
-#$this->response->setJsonContent(['status' => 'OK', 'data' => '112233']);
-#return $this->response;
 
             // Make sure the order is pending (not purchased yet)
             if ($this->isOrderPurchased($orderId)) {
