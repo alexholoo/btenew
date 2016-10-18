@@ -7,6 +7,7 @@ use Phalcon\Mvc\Model;
 class RakutenOrder extends Model
 {
     public $id;
+    public $filename;
     public $sellerShopperNumber;
     public $receiptID;
     public $receiptItemID;
@@ -57,6 +58,7 @@ class RakutenOrder extends Model
 
         return array(
             'id'                  => 'id',
+            'Filename'            => 'filename',
             'SellerShopperNumber' => 'sellerShopperNumber',
             'Receipt_ID'          => 'receiptID',
             'Receipt_Item_ID'     => 'receiptItemID',
