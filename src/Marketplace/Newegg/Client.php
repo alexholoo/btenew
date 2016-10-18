@@ -35,11 +35,7 @@ class Client
 
         $files = $ftp->listFiles('/Outbound/OrderList/');
 
-        if ($this->site == 'CA') {
-            $localFolder = 'E:/BTE/orders/newegg/orders_ca/';
-        } else if ($this->site == 'US') {
-            $localFolder = 'E:/BTE/orders/newegg/orders_us/';
-        }
+        $localFolder = $this->getOrderFolder();
 
         foreach ($files as $file) {
 
@@ -53,13 +49,18 @@ class Client
             if (!file_exists($localFile)) {
                 echo "Downloading $file", PHP_EOL;
                 $ftp->download($file, $localFile);
-                $this->importFile($localFile);
             }
         }
     }
 
-    protected function importFile($filename)
+    public function getOrderFolder()
     {
-        // TODO
+        if ($this->site == 'CA') {
+            $folder = 'E:/BTE/orders/newegg/orders_ca/';
+        } else if ($this->site == 'US') {
+            $folder = 'E:/BTE/orders/newegg/orders_us/';
+        }
+
+        return $folder;
     }
 }
