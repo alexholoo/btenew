@@ -35,11 +35,7 @@ class Client
 
         $files = $ftp->listFiles('/Orders/');
 
-        if ($this->site == 'CA') {
-            $localFolder = 'E:/BTE/orders/rakuten/orders_ca/';
-        } else if ($this->site == 'US') {
-            $localFolder = 'E:/BTE/orders/rakuten/orders_us/';
-        }
+        $localFolder = $this->getOrderFolder();
 
         $rakutenPrefix ='23267604_';
 
@@ -50,13 +46,18 @@ class Client
             if (preg_match("/$rakutenPrefix/i", $file) && !file_exists($localFile)) {
                 echo "Downloading $file", PHP_EOL;
                 $ftp->download("/Orders/$file", $localFile);
-                $this->importFile($localFile);
             }
         }
     }
 
-    protected function importFile($filename)
+    public function getOrderFolder()
     {
-        // TODO
+        if ($this->site == 'CA') {
+            $folder = 'E:/BTE/orders/rakuten/orders_ca/';
+        } else if ($this->site == 'US') {
+            $folder = 'E:/BTE/orders/rakuten/orders_us/';
+        }
+
+        return $folder;
     }
 }
