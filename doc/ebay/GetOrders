@@ -1,0 +1,471 @@
+$ php EbayOrderJob.php
+SimpleXMLElement Object
+(
+    [Timestamp] => 2016-10-19T17:23:07.374Z
+    [Ack] => Success
+    [Version] => 987
+    [Build] => E987_INTL_APIXO_18127637_R1
+    [PaginationResult] => SimpleXMLElement Object
+        (
+            [TotalNumberOfPages] => 0
+            [TotalNumberOfEntries] => 0
+        )
+
+    [HasMoreOrders] => false
+    [OrderArray] => SimpleXMLElement Object ()
+
+    [OrdersPerPage] => 100
+    [PageNumber] => 1
+    [ReturnedOrderCountActual] => 0
+)
+
+SimpleXMLElement Object
+(
+    [Timestamp] => 2016-10-19T17:23:08.321Z
+    [Ack] => Success
+    [Version] => 989
+    [Build] => E989_INTL_APIXO_18150848_R1
+    [PaginationResult] => SimpleXMLElement Object
+    (
+        [TotalNumberOfPages] => 1
+        [TotalNumberOfEntries] => 2
+    )
+
+    [HasMoreOrders] => false
+    [OrderArray] => SimpleXMLElement Object
+    (
+        [Order] => Array
+        (
+            [0] => SimpleXMLElement Object
+            (
+                [OrderID] => 282211811645-1588783788018
+                [OrderStatus] => Completed
+                [AdjustmentAmount] => 0.0
+                [AmountPaid] => 19.19
+                [AmountSaved] => 0.0
+                [CheckoutStatus] => SimpleXMLElement Object
+                (
+                    [eBayPaymentStatus] => NoPaymentFailure
+                    [LastModifiedTime] => 2016-10-18T22:37:22.000Z
+                    [PaymentMethod] => PayPal
+                    [Status] => Complete
+                    [IntegratedMerchantCreditCardEnabled] => false
+                )
+
+                [ShippingDetails] => SimpleXMLElement Object
+                (
+                    [SalesTax] => SimpleXMLElement Object
+                    (
+                        [SalesTaxPercent] => 0.0
+                        [SalesTaxState] => SimpleXMLElement Object ()
+
+                        [ShippingIncludedInTax] => false
+                        [SalesTaxAmount] => 0.0
+                    )
+
+                    [ShippingServiceOptions] => Array
+                    (
+                        [0] => SimpleXMLElement Object
+                        (
+                            [ShippingService] => ShippingMethodStandard
+                            [ShippingServiceCost] => 0.0
+                            [ShippingServicePriority] => 1
+                            [ExpeditedService] => false
+                            [ShippingTimeMin] => 1
+                            [ShippingTimeMax] => 5
+                        )
+
+                        [1] => SimpleXMLElement Object
+                        (
+                            [ShippingService] => ShippingMethodExpress
+                            [ShippingServiceCost] => 14.99
+                            [ShippingServicePriority] => 2
+                            [ExpeditedService] => false
+                            [ShippingTimeMin] => 1
+                            [ShippingTimeMax] => 3
+                        )
+                    )
+
+                    [InternationalShippingServiceOption] => SimpleXMLElement Object
+                    (
+                        [ShippingService] => InternationalPriorityShipping
+                        [ShippingServicePriority] => 1
+                        [ShipToLocation] => Array
+                        (
+                            [0] => GB
+                            [1] => DK
+                            [2] => FI
+                            [3] => GR
+                            [4] => PT
+                            [5] => JP
+                            [6] => CN
+                            [7] => SE
+                            [8] => KR
+                            [9] => TW
+                            [10] => BE
+                            [11] => FR
+                            [12] => HK
+                            [13] => IE
+                            [14] => NL
+                            [15] => PL
+                            [16] => IT
+                            [17] => DE
+                            [18] => AT
+                            [19] => MX
+                            [20] => NZ
+                            [21] => SG
+                            [22] => CH
+                            [23] => NO
+                            [24] => SA
+                            [25] => AE
+                            [26] => MY
+                        )
+
+                    )
+
+                    [SellingManagerSalesRecordNumber] => 43341
+                    [GetItFast] => false
+                )
+
+                [CreatedTime] => 2016-10-18T22:35:22.000Z
+                [PaymentMethods] => PayPal
+                [SellerEmail] => paypal70@rogers.com
+                [ShippingAddress] => SimpleXMLElement Object
+                (
+                    [Name] => Caleb Mortera
+                    [Street1] => 341 E 104th St
+                    [Street2] => Apt 3W
+                    [CityName] => New York
+                    [StateOrProvince] => NY
+                    [Country] => US
+                    [CountryName] => United States
+                    [Phone] => 646 289 1900
+                    [PostalCode] => 10029-5523
+                    [AddressID] => 2884434554019
+                    [AddressOwner] => eBay
+                    [ExternalAddressID] => SimpleXMLElement Object ()
+                )
+
+                [ShippingServiceSelected] => SimpleXMLElement Object
+                (
+                    [ShippingService] => ShippingMethodStandard
+                    [ShippingServiceCost] => 0.0
+                )
+
+                [Subtotal] => 19.19
+                [Total] => 19.19
+                [TransactionArray] => SimpleXMLElement Object
+                (
+                    [Transaction] => SimpleXMLElement Object
+                    (
+                        [Buyer] => SimpleXMLElement Object
+                        (
+                            [Email] => caleb_mortera204@hotmail.com
+                            [UserFirstName] => Caleb
+                            [UserLastName] => Mortera
+                        )
+
+                        [ShippingDetails] => SimpleXMLElement Object
+                        (
+                            [SellingManagerSalesRecordNumber] => 43341
+                        )
+
+                        [CreatedDate] => 2016-10-18T22:35:22.000Z
+                        [Item] => SimpleXMLElement Object
+                        (
+                            [ItemID] => 282211811645
+                            [Site] => US
+                            [Title] => HP Z6000 Bluetooth Optical Mouse - White - English Brand New
+                            [SKU] => SYN-5689422
+                            [ConditionID] => 1000
+                            [ConditionDisplayName] => New
+                        )
+
+                        [QuantityPurchased] => 1
+                        [Status] => SimpleXMLElement Object
+                        (
+                            [PaymentHoldStatus] => None
+                            [InquiryStatus] => NotApplicable
+                            [ReturnStatus] => NotApplicable
+                        )
+
+                        [TransactionID] => 1588783788018
+                        [TransactionPrice] => 19.19
+                        [ShippingServiceSelected] => SimpleXMLElement Object
+                        (
+                            [ShippingPackageInfo] => SimpleXMLElement Object
+                            (
+                                [EstimatedDeliveryTimeMin] => 2016-10-24T07:00:00.000Z
+                                [EstimatedDeliveryTimeMax] => 2016-10-24T07:00:00.000Z
+                            )
+                        )
+
+                        [TransactionSiteID] => US
+                        [Platform] => eBay
+                        [Taxes] => SimpleXMLElement Object
+                        (
+                            [TotalTaxAmount] => 0.0
+                            [TaxDetails] => Array
+                            (
+                                [0] => SimpleXMLElement Object
+                                (
+                                    [Imposition] => SalesTax
+                                    [TaxDescription] => SalesTax
+                                    [TaxAmount] => 0.0
+                                    [TaxOnSubtotalAmount] => 0.0
+                                    [TaxOnShippingAmount] => 0.0
+                                    [TaxOnHandlingAmount] => 0.0
+                                )
+
+                                [1] => SimpleXMLElement Object
+                                (
+                                    [Imposition] => WasteRecyclingFee
+                                    [TaxDescription] => ElectronicWasteRecyclingFee
+                                    [TaxAmount] => 0.0
+                                )
+                            )
+                        )
+
+                        [ActualShippingCost] => 0.0
+                        [ActualHandlingCost] => 0.0
+                        [OrderLineItemID] => 282211811645-1588783788018
+                        [ExtendedOrderID] => 282211811645-1588783788018!736064300019
+                        [eBayPlusTransaction] => false
+                    )
+                )
+
+                [BuyerUserID] => calebm204
+                [PaidTime] => 2016-10-18T22:35:22.000Z
+                [IntegratedMerchantCreditCardEnabled] => false
+                [EIASToken] => nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wClIOkAZeAqAWdj6x9nY+seQ==
+                [PaymentHoldStatus] => None
+                [IsMultiLegShipping] => false
+                [SellerUserID] => onedealoutlet
+                [SellerEIASToken] => nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFmYeoDZCGqAudj6x9nY+seQ==
+                [CancelStatus] => NotApplicable
+                [ExtendedOrderID] => 282211811645-1588783788018!736064300019
+                [ContainseBayPlusTransaction] => false
+            )
+
+            [1] => SimpleXMLElement Object
+            (
+                [OrderID] => 282080699795-1588864170018
+                [OrderStatus] => Completed
+                [AdjustmentAmount] => 0.0
+                [AmountPaid] => 296.38
+                [AmountSaved] => 0.0
+                [CheckoutStatus] => SimpleXMLElement Object
+                (
+                    [eBayPaymentStatus] => NoPaymentFailure
+                    [LastModifiedTime] => 2016-10-19T04:41:13.000Z
+                    [PaymentMethod] => PayPal
+                    [Status] => Complete
+                    [IntegratedMerchantCreditCardEnabled] => false
+                    [PaymentInstrument] => CreditCard
+                )
+
+                [ShippingDetails] => SimpleXMLElement Object
+                (
+                    [SalesTax] => SimpleXMLElement Object
+                    (
+                        [SalesTaxPercent] => 0.0
+                        [SalesTaxState] => SimpleXMLElement Object ()
+
+                        [ShippingIncludedInTax] => false
+                        [SalesTaxAmount] => 0.0
+                    )
+
+                    [ShippingServiceOptions] => Array
+                    (
+                        [0] => SimpleXMLElement Object
+                        (
+                            [ShippingService] => ShippingMethodStandard
+                            [ShippingServiceCost] => 0.0
+                            [ShippingServicePriority] => 1
+                            [ExpeditedService] => false
+                            [ShippingTimeMin] => 1
+                            [ShippingTimeMax] => 5
+                        )
+
+                        [1] => SimpleXMLElement Object
+                        (
+                            [ShippingService] => ShippingMethodExpress
+                            [ShippingServiceCost] => 14.99
+                            [ShippingServicePriority] => 2
+                            [ExpeditedService] => false
+                            [ShippingTimeMin] => 1
+                            [ShippingTimeMax] => 3
+                        )
+                    )
+
+                    [InternationalShippingServiceOption] => SimpleXMLElement Object
+                    (
+                        [ShippingService] => InternationalPriorityShipping
+                        [ShippingServicePriority] => 1
+                        [ShipToLocation] => Array
+                        (
+                            [0] => CA
+                            [1] => GB
+                            [2] => DK
+                            [3] => FI
+                            [4] => AU
+                            [5] => GR
+                            [6] => PT
+                            [7] => JP
+                            [8] => CN
+                            [9] => SE
+                            [10] => KR
+                            [11] => TW
+                            [12] => BE
+                            [13] => FR
+                            [14] => HK
+                            [15] => IE
+                            [16] => NL
+                            [17] => PL
+                            [18] => ES
+                            [19] => IT
+                            [20] => DE
+                            [21] => AT
+                            [22] => IL
+                            [23] => MX
+                            [24] => NZ
+                            [25] => SG
+                            [26] => CH
+                            [27] => NO
+                            [28] => SA
+                            [29] => AE
+                            [30] => MY
+                        )
+                    )
+
+                    [SellingManagerSalesRecordNumber] => 43342
+                    [GetItFast] => false
+                )
+
+                [CreatedTime] => 2016-10-19T04:40:36.000Z
+                [PaymentMethods] => PayPal
+                [SellerEmail] => paypal70@rogers.com
+                [ShippingAddress] => SimpleXMLElement Object
+                (
+                    [Name] => Eddie Johnson
+                    [Street1] => 8840 Warner Ave. #205
+                    [Street2] => SimpleXMLElement Object ()
+
+                    [CityName] => fountain valley
+                    [StateOrProvince] => CA
+                    [Country] => US
+                    [CountryName] => United States
+                    [Phone] => 7144037763
+                    [PostalCode] => 92708
+                    [AddressID] => 4605999531014
+                    [AddressOwner] => eBay
+                    [ExternalAddressID] => SimpleXMLElement Object ()
+                )
+
+                [ShippingServiceSelected] => SimpleXMLElement Object
+                (
+                    [ShippingService] => ShippingMethodStandard
+                    [ShippingServiceCost] => 0.0
+                )
+
+                [Subtotal] => 296.38
+                [Total] => 296.38
+                [TransactionArray] => SimpleXMLElement Object
+                (
+                    [Transaction] => SimpleXMLElement Object
+                    (
+                        [Buyer] => SimpleXMLElement Object
+                        (
+                            [Email] => eddie.johnson@asnailspace.net
+                            [UserFirstName] => Eddie
+                            [UserLastName] => Johnson
+                        )
+
+                        [ShippingDetails] => SimpleXMLElement Object
+                        (
+                            [SellingManagerSalesRecordNumber] => 43342
+                        )
+
+                        [CreatedDate] => 2016-10-19T04:40:36.000Z
+                        [Item] => SimpleXMLElement Object
+                        (
+                            [ItemID] => 282080699795
+                            [Site] => US
+                            [Title] => Hewlett-Packard HP QY405AT Smart Buy Linear Barcode Scanner, Jack Black New
+                            [SKU] => BTE-FBA-QY405AT
+                            [ConditionID] => 1000
+                            [ConditionDisplayName] => New
+                        )
+
+                        [QuantityPurchased] => 2
+                        [Status] => SimpleXMLElement Object
+                        (
+                            [PaymentHoldStatus] => None
+                            [InquiryStatus] => NotApplicable
+                            [ReturnStatus] => NotApplicable
+                        )
+
+                        [TransactionID] => 1588864170018
+                        [TransactionPrice] => 148.19
+                        [ShippingServiceSelected] => SimpleXMLElement Object
+                        (
+                            [ShippingPackageInfo] => SimpleXMLElement Object
+                            (
+                                [EstimatedDeliveryTimeMin] => 2016-10-26T07:00:00.000Z
+                                [EstimatedDeliveryTimeMax] => 2016-10-26T07:00:00.000Z
+                            )
+                        )
+
+                        [TransactionSiteID] => US
+                        [Platform] => eBay
+                        [Taxes] => SimpleXMLElement Object
+                        (
+                            [TotalTaxAmount] => 0.0
+                            [TaxDetails] => Array
+                            (
+                                [0] => SimpleXMLElement Object
+                                (
+                                    [Imposition] => SalesTax
+                                    [TaxDescription] => SalesTax
+                                    [TaxAmount] => 0.0
+                                    [TaxOnSubtotalAmount] => 0.0
+                                    [TaxOnShippingAmount] => 0.0
+                                    [TaxOnHandlingAmount] => 0.0
+                                )
+
+                                [1] => SimpleXMLElement Object
+                                (
+                                    [Imposition] => WasteRecyclingFee
+                                    [TaxDescription] => ElectronicWasteRecyclingFee
+                                    [TaxAmount] => 0.0
+                                )
+                            )
+                        )
+
+                        [ActualShippingCost] => 0.0
+                        [ActualHandlingCost] => 0.0
+                        [OrderLineItemID] => 282080699795-1588864170018
+                        [ExtendedOrderID] => 282080699795-1588864170018!740938013014
+                        [eBayPlusTransaction] => false
+                    )
+                )
+
+                [BuyerUserID] => johnus_xj6xrk
+                [PaidTime] => 2016-10-19T04:40:36.000Z
+                [IntegratedMerchantCreditCardEnabled] => false
+                [EIASToken] => nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AHl4GjCZSDoQidj6x9nY+seQ==
+                [PaymentHoldStatus] => None
+                [IsMultiLegShipping] => false
+                [SellerUserID] => onedealoutlet
+                [SellerEIASToken] => nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFmYeoDZCGqAudj6x9nY+seQ==
+                [CancelStatus] => NotApplicable
+                [ExtendedOrderID] => 282080699795-1588864170018!740938013014
+                [ContainseBayPlusTransaction] => false
+            )
+        )
+    )
+
+    [OrdersPerPage] => 100
+    [PageNumber] => 1
+    [ReturnedOrderCountActual] => 2
+)
