@@ -8,9 +8,11 @@ class EbayOrder extends Model
 {
     public $id;
     public $orderID;
+    public $extOrderID;
     public $status;
     public $buyerUsername;
     public $datePaid;
+    public $currency;
     public $amountPaid;
     public $salesTaxAmount;
     public $shippingService;
