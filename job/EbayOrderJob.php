@@ -77,9 +77,13 @@ class EbayOrderJob
             $TransactionID     = (string)$transaction->TransactionID;
             $TransactionPrice  = (string)$transaction->TransactionPrice;
             $QuantityPurchased = (string)$transaction->QuantityPurchased;
-            $Tracking          = "N/A";
+            $Tracking          = (string)$transaction->ShippingDetails->ShipmentTrackingDetails->ShipmentTrackingNumber;
             $ItemID            = (string)$transaction->Item->ItemID;
             $RecordNumber      = (string)$transaction->ShippingDetails->SellingManagerSalesRecordNumber;
+
+            if (!$Tracking) {
+                $Tracking = 'NA';
+            }
 
             try {
                 $success = $this->db->insertAsDict($table,
