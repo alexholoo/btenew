@@ -145,6 +145,8 @@ class Client
         $this->setVerb('GeteBayOfficialTime'); //ucfirst(__FUNCTION__)
         $response = $this->sendHttpRequest($request);
 
+        $this->log($request, $response);
+
         // TODO: prase response to result, return $result;
         return simplexml_load_string($response);
     }
@@ -173,8 +175,9 @@ class Client
         $this->setVerb('GetMyeBaySelling'); //ucfirst(__FUNCTION__)
         $response = $this->sendHttpRequest($request);
 
-        // TODO: prase response to result, return $result;
+        $this->log($request, $response);
 
+        // TODO: prase response to result, return $result;
         return simplexml_load_string($response);
     }
 
@@ -213,18 +216,16 @@ class Client
         $this->setVerb('CompleteSale'); //ucfirst(__FUNCTION__)
         $response = $this->sendHttpRequest($request);
 
-        // TODO: prase response to result, return $result;
+        $this->log($request, $response);
 
+        // TODO: prase response to result, return $result;
         return simplexml_load_string($response);
     }
 
     public function getOrders($timeFrom = 'Yesterday', $timeTo = 'Now')
     {
-        $tz = date_default_timezone_get();
-        date_default_timezone_set('UTC');
-        $timeFrom = date('Y-m-d\TH:i:s.000\Z', strtotime($timeFrom));
-        $timeTo = date('Y-m-d\TH:i:s.000\Z', strtotime($timeTo));
-        date_default_timezone_set($tz);
+        $timeFrom = $this->toUTC(strtotime($timeFrom));
+        $timeTo   = $this->toUTC(strtotime($timeTo));
 
         $lines = [];
 
@@ -245,8 +246,9 @@ class Client
         $this->setVerb('GetOrders'); //ucfirst(__FUNCTION__)
         $response = $this->sendHttpRequest($request);
 
-        // TODO: prase response to result, return $result;
+        $this->log($request, $response);
 
+        // TODO: prase response to result, return $result;
         return simplexml_load_string($response);
     }
 
@@ -268,8 +270,9 @@ class Client
         $this->setVerb('EndItem'); //ucfirst(__FUNCTION__)
         $response = $this->sendHttpRequest($request);
 
-        // TODO: prase response to result, return $result;
+        $this->log($request, $response);
 
+        // TODO: prase response to result, return $result;
         return simplexml_load_string($response);
     }
 
@@ -299,8 +302,9 @@ class Client
         $this->setVerb('ReviseInventoryStatus'); //ucfirst(__FUNCTION__)
         $response = $this->sendHttpRequest($request);
 
-        // TODO: prase response to result, return $result;
+        $this->log($request, $response);
 
+        // TODO: prase response to result, return $result;
         return simplexml_load_string($response);
     }
 
@@ -322,8 +326,31 @@ class Client
         $this->setVerb('GeteBayDetails'); //ucfirst(__FUNCTION__)
         $response = $this->sendHttpRequest($request);
 
-        // TODO: prase response to result, return $result;
+        $this->log($request, $response);
 
+        // TODO: prase response to result, return $result;
         return simplexml_load_string($response);
+    }
+
+    private function toUTC($time)
+    {
+        $tz = date_default_timezone_get();
+
+        date_default_timezone_set('UTC');
+        $timeUTC = date('Y-m-d\TH:i:s.000\Z', $time);
+        date_default_timezone_set($tz);
+
+        return $timeUTC;
+    }
+
+    private function log($request, $response)
+    {
+        $db = \Phalcon\Di::getDefault()->get('db');
+
+        $db->insertAsDict('xmlapi_ebay_log', [
+            'verb' => $this->verb,
+            'request' => $request,
+            'response' => $response,
+        ]);
     }
 }
