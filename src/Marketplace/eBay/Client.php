@@ -218,24 +218,26 @@ class Client
         return simplexml_load_string($response);
     }
 
-    public function getOrders($timeFrom, $timeTo)
+    public function getOrders($timeFrom = 'Yesterday', $timeTo = 'Now')
     {
-        $lines = [];
+        $tz = date_default_timezone_get();
+        date_default_timezone_set('UTC');
+        $timeFrom = date('Y-m-d\TH:i:s.000\Z', strtotime($timeFrom));
+        $timeTo = date('Y-m-d\TH:i:s.000\Z', strtotime($timeTo));
+        date_default_timezone_set($tz);
 
-        // If you want to hard code From and To timings, Follow the below format in "GMT".
-        // $CreateTimeFrom = YYYY-MM-DDTHH:MM:SS; //GMT
-        // $CreateTimeTo = YYYY-MM-DDTHH:MM:SS; //GMT
+        $lines = [];
 
         $lines[] = '<?xml version="1.0" encoding="utf-8" ?>';
         $lines[] = '<GetOrdersRequest xmlns="urn:ebay:apis:eBLBaseComponents">';
         $lines[] =   '<RequesterCredentials>';
         $lines[] =     "<eBayAuthToken>{$this->userToken}</eBayAuthToken>";
         $lines[] =   '</RequesterCredentials>';
-        $lines[] =   '<DetailLevel>ReturnSummary</DetailLevel>';
         $lines[] =   "<CreateTimeFrom>$timeFrom</CreateTimeFrom>";
         $lines[] =   "<CreateTimeTo>$timeTo</CreateTimeTo>";
         $lines[] =   '<OrderRole>Seller</OrderRole>';
         $lines[] =   '<OrderStatus>All</OrderStatus>';
+        $lines[] =   '<DetailLevel>ReturnSummary</DetailLevel>';
         $lines[] = '</GetOrdersRequest>';
 
         $request = implode("\n", $lines);
