@@ -8,7 +8,6 @@ class EbayOrder extends Model
 {
     public $id;
     public $orderID;
-    public $extOrderID;
     public $status;
     public $buyerUsername;
     public $datePaid;
@@ -17,22 +16,6 @@ class EbayOrder extends Model
     public $salesTaxAmount;
     public $shippingService;
     public $shippingServiceCost;
-    public $name;
-    public $address;
-    public $address2;
-    public $city;
-    public $province;
-    public $postalCode;
-    public $country;
-    public $phone;
-    public $quantityPurchased;
-    public $email;
-    public $sku;
-    public $transactionID;
-    public $transactionPrice;
-    public $tracking;
-    public $itemID;
-    public $recordNumber;
     
     public function getSource()
     {
@@ -41,5 +24,7 @@ class EbayOrder extends Model
 
     public function initialize()
     {
+        $this->hasOne("orderID", "EbayOrderShippingAddress", "orderID");
+        $this->hasMany("orderID", "EbayOrderItem", "orderID");
     }
 }
