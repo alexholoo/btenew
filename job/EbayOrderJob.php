@@ -49,36 +49,53 @@ class EbayOrderJob
         }
 
         $OrderID             = (string)$order->OrderID;
-        $ExtOrderID          = (string)$order->ExtendedOrderID;
+       #$ExtOrderID          = (string)$order->ExtendedOrderID;
         $Status              = (string)$order->OrderStatus;
         $BuyerUsername       = (string)$order->BuyerUserID;
         $DatePaid            = substr($order->PaidTime, 0, 10);
-
-        $AmountPaid          = (string)$order->AmountPaid;
         $Currency            = (string)$order->AmountPaid['currencyID'];
+        $AmountPaid          = (string)$order->AmountPaid;
         $SalesTaxAmount      = (string)$order->ShippingDetails->SalesTax->SalesTaxAmount;
         $ShippingService     = (string)$order->ShippingServiceSelected->ShippingService;
         $ShippingServiceCost = (string)$order->ShippingServiceSelected->ShippingCost;
 
-        $shippingAddress     = $order->ShippingAddress;
-        $Name                = (string)$shippingAddress->Name;
-        $Address             = (string)$shippingAddress->Street1;
-        $Address2            = (string)$shippingAddress->Street2;
-        $City                = (string)$shippingAddress->CityName;
-        $Province            = (string)$shippingAddress->StateOrProvince;
-        $PostalCode          = (string)$shippingAddress->PostalCode;
-        $Country             = (string)$shippingAddress->Country;
-        $Phone               = (string)$shippingAddress->Phone;
+        try {
+            $success = $this->db->insertAsDict($table,
+                array(
+                    'OrderID'             => $OrderID,
+                    'Status'              => $Status,
+                    'BuyerUsername'       => $BuyerUsername,
+                    'DatePaid'            => $DatePaid,
+                    'Currency'            => $Currency,
+                    'AmountPaid'          => $AmountPaid,
+                    'SalesTaxAmount'      => $SalesTaxAmount,
+                    'ShippingService'     => $ShippingService,
+                    'ShippingServiceCost' => $ShippingServiceCost,
+                )
+            );
+
+            $this->saveOrderItem($order);
+            $this->saveShippingAddress($order);
+
+        } catch (Exception $e) {
+            // echo $e->getMessage(), EOL;
+        }
+    }
+
+    private function saveOrderItem($order)
+    {
+        $OrderID = (string)$order->OrderID;
 
         $transactions = $order->TransactionArray;
+
         foreach ($transactions->Transaction as $transaction) {
-            $Email             = (string)$transaction->Buyer->Email;
             $SKU               = (string)$transaction->Item->SKU;
+            $QuantityPurchased = (string)$transaction->QuantityPurchased;
             $TransactionID     = (string)$transaction->TransactionID;
             $TransactionPrice  = (string)$transaction->TransactionPrice;
-            $QuantityPurchased = (string)$transaction->QuantityPurchased;
             $Tracking          = (string)$transaction->ShippingDetails->ShipmentTrackingDetails->ShipmentTrackingNumber;
             $ItemID            = (string)$transaction->Item->ItemID;
+            $Email             = (string)$transaction->Buyer->Email;
             $RecordNumber      = (string)$transaction->ShippingDetails->SellingManagerSalesRecordNumber;
 
             if (!$Tracking) {
@@ -86,39 +103,54 @@ class EbayOrderJob
             }
 
             try {
-                $success = $this->db->insertAsDict($table,
+                $success = $this->db->insertAsDict('ebay_order_item',
                     array(
-                        'ExtOrderID'          => $ExtOrderID, // Unique ID, Primary Key
-                        'OrderID'             => $OrderID,
-                        'Status'              => $Status,
-                        'BuyerUsername'       => $BuyerUsername,
-                        'DatePaid'            => $DatePaid,
-                        'Currency'            => $Currency,
-                        'AmountPaid'          => $AmountPaid,
-                        'SalesTaxAmount'      => $SalesTaxAmount,
-                        'ShippingService'     => $ShippingService,
-                        'ShippingServiceCost' => $ShippingServiceCost,
-                        'Name'                => $Name,
-                        'Address'             => $Address,
-                        'Address2'            => $Address2,
-                        'City'                => $City,
-                        'Province'            => $Province,
-                        'PostalCode'          => $PostalCode,
-                        'Country'             => $Country,
-                        'Phone'               => $Phone,
-                        'QuantityPurchased'   => $QuantityPurchased,
-                        'Email'               => $Email,
-                        'SKU'                 => $SKU,
-                        'TransactionID'       => $TransactionID,
-                        'TransactionPrice'    => $TransactionPrice,
-                        'Tracking'            => $Tracking,
-                        'ItemID'              => $ItemID,
-                        'RecordNumber'        => $RecordNumber,
+                        'OrderID'           => $OrderID,
+                        'SKU'               => $SKU,
+                        'QuantityPurchased' => $QuantityPurchased,
+                        'TransactionID'     => $TransactionID,
+                        'TransactionPrice'  => $TransactionPrice,
+                        'Tracking'          => $Tracking,
+                        'ItemID'            => $ItemID,
+                        'Email'             => $Email,
+                        'RecordNumber'      => $RecordNumber,
                     )
                 );
             } catch (Exception $e) {
                 // echo $e->getMessage(), EOL;
             }
+        }
+    }
+
+    private function saveShippingAddress($order)
+    {
+        $OrderID         = (string)$order->OrderID;
+        $shippingAddress = $order->ShippingAddress;
+        $Name            = (string)$shippingAddress->Name;
+        $Address         = (string)$shippingAddress->Street1;
+        $Address2        = (string)$shippingAddress->Street2;
+        $City            = (string)$shippingAddress->CityName;
+        $Province        = (string)$shippingAddress->StateOrProvince;
+        $PostalCode      = (string)$shippingAddress->PostalCode;
+        $Country         = (string)$shippingAddress->Country;
+        $Phone           = (string)$shippingAddress->Phone;
+
+        try {
+            $success = $this->db->insertAsDict('ebay_order_shipping_address',
+                array(
+                    'OrderID'    => $OrderID,
+                    'Name'       => $Name,
+                    'Address'    => $Address,
+                    'Address2'   => $Address2,
+                    'City'       => $City,
+                    'Province'   => $Province,
+                    'PostalCode' => $PostalCode,
+                    'Country'    => $Country,
+                    'Phone'      => $Phone,
+                )
+            );
+        } catch (Exception $e) {
+            // echo $e->getMessage(), EOL;
         }
     }
 }
