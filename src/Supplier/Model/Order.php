@@ -62,14 +62,14 @@ class Order
         $this->notifyEmail= Arr::val($order, 'notifyEmail');
 
         // xml safe text
-        $this->contact    = htmlspecialchars($this->contact);
-        $this->address    = htmlspecialchars($this->address);
-        $this->city       = htmlspecialchars($this->city);
-        $this->province   = htmlspecialchars($this->province);
-        $this->state      = htmlspecialchars($this->state);
-        $this->country    = htmlspecialchars($this->country);
-        $this->email      = htmlspecialchars($this->email);
-        $this->comment    = htmlspecialchars($this->comment);
+        $this->contact    = htmlspecialchars(utf8_encode($this->contact));
+        $this->address    = htmlspecialchars(utf8_encode($this->address));
+        $this->city       = htmlspecialchars(utf8_encode($this->city));
+        $this->province   = htmlspecialchars(utf8_encode($this->province));
+        $this->state      = htmlspecialchars(utf8_encode($this->state));
+        $this->country    = htmlspecialchars(utf8_encode($this->country));
+        $this->email      = htmlspecialchars(utf8_encode($this->email));
+        $this->comment    = htmlspecialchars(utf8_encode($this->comment));
 
        #$this->state = CanadaProvince::nameToCode($this->state);
        #$this->province = CanadaProvince::nameToCode($this->province);

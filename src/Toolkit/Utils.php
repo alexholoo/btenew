@@ -97,9 +97,11 @@ class Utils
     public static function formatXml($xml)
     {
         $dom = new \DOMDocument('1.0');
+        $dom->encoding = 'UTF-8';
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
         $dom->loadXML($xml);
+       #$xml = $dom->saveXML($dom->documentElement);
         $xml = $dom->saveXML();
         return $xml;
     }
