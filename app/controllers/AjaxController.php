@@ -260,7 +260,8 @@ class AjaxController extends ControllerBase
     {
         $order = Orders::findFirst("orderId='$orderId'");
         if ($order) {
-            return array_map("utf8_encode", $order->toArray());
+            return $order->toArray();
+           #return array_map("utf8_encode", $order->toArray());
         }
         return false;
     }
