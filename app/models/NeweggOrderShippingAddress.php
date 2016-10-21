@@ -7,17 +7,17 @@ use Phalcon\Mvc\Model;
 class NeweggOrderShippingAddress extends Model
 {
     public $id;
-    public $OrderNumber;
-    public $ShipToAddressLine1;
-    public $ShipToAddressLine2;
-    public $ShipToCity;
-    public $ShipToState;
-    public $ShipToZipCode;
-    public $ShipToCountry;
-    public $ShipToFirstName;
-    public $ShipToLastName;
-    public $ShipToCompany;
-    public $ShipToPhoneNumber;
+    public $orderNumber;
+    public $shipToAddressLine1;
+    public $shipToAddressLine2;
+    public $shipToCity;
+    public $shipToState;
+    public $shipToZipCode;
+    public $shipToCountry;
+    public $shipToFirstName;
+    public $shipToLastName;
+    public $shipToCompany;
+    public $shipToPhoneNumber;
 
     public function getSource()
     {

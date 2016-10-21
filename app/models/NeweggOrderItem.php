@@ -7,19 +7,19 @@ use Phalcon\Mvc\Model;
 class NeweggOrderItem extends Model
 {
     public $id;
-    public $OrderNumber;
-    public $ItemSellerPartNo;
-    public $ItemNeweggNo;
-    public $ItemUnitPrice;
-    public $ExtendUnitPrice;
-    public $ItemUnitShippingCharge;
-    public $ExtendShippingCharge;
-    public $QuantityOrdered;
-    public $QuantityShipped;
-    public $ShipDate;
-    public $ActualShippingCarrier;
-    public $ActualShippingMethod;
-    public $TrackingNumber;
+    public $orderNumber;
+    public $itemSellerPartNo;
+    public $itemNeweggNo;
+    public $itemUnitPrice;
+    public $extendUnitPrice;
+    public $itemUnitShippingCharge;
+    public $extendShippingCharge;
+    public $quantityOrdered;
+    public $quantityShipped;
+    public $shipDate;
+    public $actualShippingCarrier;
+    public $actualShippingMethod;
+    public $trackingNumber;
 
     public function getSource()
     {
