@@ -15,6 +15,11 @@ CREATE TABLE `newegg_order_item` (
 	`ActualShippingCarrier` VARCHAR(40) NOT NULL,
 	`ActualShippingMethod` VARCHAR(40) NOT NULL,
 	`TrackingNumber` VARCHAR(40) NOT NULL,
+	`ShipFromAddress` VARCHAR(80) NOT NULL,
+	`ShipFromCity` VARCHAR(20) NOT NULL,
+	`ShipFromState` VARCHAR(20) NOT NULL,
+	`ShipFromZipcode` VARCHAR(10) NOT NULL,
+	`ShipFromName` VARCHAR(20) NOT NULL,
 	PRIMARY KEY (`id`),
 	INDEX `OrderNumber` (`OrderNumber`)
 ) COLLATE='utf8_general_ci' ENGINE=InnoDB;

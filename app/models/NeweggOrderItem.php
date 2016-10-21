@@ -20,6 +20,11 @@ class NeweggOrderItem extends Model
     public $actualShippingCarrier;
     public $actualShippingMethod;
     public $trackingNumber;
+    public $shipFromAddress;
+    public $shipFromCity;
+    public $shipFromState;
+    public $shipFromZipcode;
+    public $shipFromName;
 
     public function getSource()
     {
