@@ -1,0 +1,134 @@
+#!/bin/bash
+
+MYSQLCLIENT="mysql -umigrator -pIdoMigrations1"
+
+environment=$1
+repository=$2
+topmigration=$3
+down=$4
+
+spath=`dirname $0`
+echo "my location is ${spath}"
+
+basefolder="$spath/migration"
+
+if [ "$environment" "=" "" ]; then
+    echo "Usage: dbmigrate.sh <dev|qa1-6|prod|staging> <chat|ems|events|log|main|que|research|stats|user> [migration] [down]"
+    echo "please provide environment"
+    exit 1
+fi
+
+if [ "$repository" "=" "" ]; then
+    echo "Usage: dbmigrate.sh <dev|qa1-6|prod|staging> <chat|ems|events|log|main|que|research|stats|user> [migration] [down]"
+    echo "please provide repository name"
+    exit 1
+fi
+
+if [ "$migration" "=" "" ]; then
+    echo "All migrations"
+else
+    echo "Up to migration $topmigration"
+fi
+
+mfolder="$basefolder/$repository"
+
+if [ ! -d "$mfolder" ]; then
+   echo "unknown repository $repository (folder $mfolder does not exist)"
+   exit 1
+fi
+
+configfile="$basefolder/dbconfig-$environment.sh"
+
+if [ ! -f "$configfile" ]; then
+   echo "cannot find config file for $environment ($configfile)"
+   exit 1
+fi
+
+export DBMIGRATEHOST='1'
+
+source $configfile
+
+echo "DB host: $DBMIGRATEHOST"
+echo "DB user: $DBMIGRATEUSER"
+echo "Default DB: $DBMIGRATEDB"
+
+if [ "$DBMIGRATEHOST" "=" "" ]; then
+    echo "DBMIGRATEHOST was not assigned!"
+    echo "please assign and export in $configfile"
+    exit 1
+fi
+
+if [ "$DBMIGRATEUSER" "=" "" ]; then
+    echo "DBMIGRATEUSER was not assigned!"
+    echo "please assign and export in $configfile"
+    exit 1
+fi
+
+if [ "$DBMIGRATEDB" "=" "" ]; then
+    echo "DBMIGRATEDB was not assigned!"
+    echo "please assign and export in $configfile"
+    exit 1
+fi
+
+if [ "$DBMIGRATEPASS" "!=" "" ]; then
+    DBMIGRATEPASS="-p$DBMIGRATEPASS"
+fi
+
+
+MYSQL="$MYSQLCLIENT --skip-column-names -h $DBMIGRATEHOST -u$DBMIGRATEUSER $DBMIGRATEPASS $DBMIGRATEDB"
+
+test1=`echo "select 1"|$MYSQL`
+
+if [ $? -ne 0 ];then
+   echo "failed to connect to mysql"
+   echo $MYSQL
+   exit 1
+fi
+
+
+mtable="${repository}_migrations"
+
+echo "CREATE TABLE IF NOT EXISTS $mtable (number varchar(10) not null, name varchar(200) not null primary key, description varchar(200) default '', at timestamp not null default CURRENT_TIMESTAMP) engine=InnoDB"|$MYSQL
+
+if [ $? -ne 0 ];then
+   echo "failed to create $mtable"
+   exit 1
+fi
+
+curpath=`pwd`
+cd $mfolder
+migrations=`ls -1 -A $repository.*.up.*.sql`
+cd $curpath
+for m in ${migrations[@]}; do
+    mparts=( `echo "$m"|tr . "$IFS"` )
+    mnumber=${mparts[1]}
+    mname=${mparts[2]}
+    mdescription=${mparts[4]}
+    e=`echo "select number from $mtable where name='$mname'"|$MYSQL`
+    if [ $? -ne 0 ];then
+       echo "failed to access $mtable"
+       exit 1
+    fi
+    if [ "$e" "=" "" ];then
+       printf "running $m... "
+       START=$(date +%s)
+       cat $mfolder/$m|$MYSQL
+       if [ $? -ne 0 ];then
+          echo "failed to execute $mfolder/$m"
+          cat $mfolder/$m
+          read -p "mark this migration as done and skip it (y) or abort (n) [y/n]? "
+          if [ "$REPLY" "!=" "y" ]; then
+             echo "\naborted"
+             exit 1
+          fi
+       else
+          END=$(date +%s)
+          DIFF=$(( $END - $START ))
+          echo "done in $DIFF seconds"
+       fi
+       echo "INSERT INTO $mtable set number='$mnumber', name='$mname',  description='$mdescription'"|$MYSQL
+    elif [ "$e" "!=" "$mnumber" ]; then
+       echo "duplicate migration name, please rename $m (and down as well)"
+    fi
+done
+echo "all done"
