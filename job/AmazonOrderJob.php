@@ -89,47 +89,49 @@ class AmazonOrderJob
                 'IsPrime'                      => $this->yesNo($data['IsPrime']),
                 'IsPremiumOrder'               => $this->yesNo($data['IsPremiumOrder']),
             ]);
+
+            $this->saveOrderItem($order);
+            $this->saveShippingAddress($order);
+
         } catch (\Exception $e) {
             //echo $e->getMessage(), EOL;
         }
-
-        $this->saveOrderItem($order);
-        $this->saveShippingAddress($order);
     }
 
     private function saveOrderItem($order)
     {
         $items = $order->fetchItems();
-        $item = $items->getItems(0);
 
-        if (!isset($item['ConditionNote'])) {
-            $item['ConditionNote'] = '';
-        }
+        foreach ($items->getItems() as $item) {
+            if (!isset($item['ConditionNote'])) {
+                $item['ConditionNote'] = '';
+            }
 
-        try {
-            $this->db->insertAsDict('amazon_order_item', [
-                'OrderId'            => $order->getAmazonOrderId(),
-                'ASIN'               => $item['ASIN'],
-                'SellerSKU'          => $item['SellerSKU'],
-                'OrderItemId'        => $item['OrderItemId'],
-                'Title'              => $item['Title'],
-                'QuantityOrdered'    => $item['QuantityOrdered'],
-                'QuantityShipped'    => $item['QuantityShipped'],
-                'CurrencyCode'       => $item['ItemPrice']['CurrencyCode'],
-                'ItemPrice'          => $item['ItemPrice']['Amount'],
-                'ShippingPrice'      => $item['ShippingPrice']['Amount'],
-                'GiftWrapPrice'      => $item['GiftWrapPrice']['Amount'],
-                'ItemTax'            => $item['ItemTax']['Amount'],
-                'ShippingTax'        => $item['ShippingTax']['Amount'],
-                'GiftWrapTax'        => $item['GiftWrapTax']['Amount'],
-                'ShippingDiscount'   => $item['ShippingDiscount']['Amount'],
-                'PromotionDiscount'  => $item['PromotionDiscount']['Amount'],
-                'ConditionId'        => $item['ConditionId'],
-                'ConditionSubtypeId' => $item['ConditionSubtypeId'],
-                'ConditionNote'      => $item['ConditionNote'],
-            ]);
-        } catch (\Exception $e) {
-            //echo $e->getMessage(), EOL;
+            try {
+                $this->db->insertAsDict('amazon_order_item', [
+                    'OrderId'            => $order->getAmazonOrderId(),
+                    'ASIN'               => $item['ASIN'],
+                    'SellerSKU'          => $item['SellerSKU'],
+                    'OrderItemId'        => $item['OrderItemId'],
+                    'Title'              => $item['Title'],
+                    'QuantityOrdered'    => $item['QuantityOrdered'],
+                    'QuantityShipped'    => $item['QuantityShipped'],
+                    'CurrencyCode'       => $item['ItemPrice']['CurrencyCode'],
+                    'ItemPrice'          => $item['ItemPrice']['Amount'],
+                    'ShippingPrice'      => $item['ShippingPrice']['Amount'],
+                    'GiftWrapPrice'      => $item['GiftWrapPrice']['Amount'],
+                    'ItemTax'            => $item['ItemTax']['Amount'],
+                    'ShippingTax'        => $item['ShippingTax']['Amount'],
+                    'GiftWrapTax'        => $item['GiftWrapTax']['Amount'],
+                    'ShippingDiscount'   => $item['ShippingDiscount']['Amount'],
+                    'PromotionDiscount'  => $item['PromotionDiscount']['Amount'],
+                    'ConditionId'        => $item['ConditionId'],
+                    'ConditionSubtypeId' => $item['ConditionSubtypeId'],
+                    'ConditionNote'      => $item['ConditionNote'],
+                ]);
+            } catch (\Exception $e) {
+                //echo $e->getMessage(), EOL;
+            }
         }
     }
 
