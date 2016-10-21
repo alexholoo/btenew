@@ -31,7 +31,15 @@ class NeweggOrderJob
     private function importOrderFile($file)
     {
         if ($this->alreadyImported($file)) {
-            return;
+            return; // the file already proccessed
+        }
+
+        try {
+            $success = $this->db->insertAsDict('newegg_order_file', [
+                'filename' => basename($file),
+            ]);
+        } catch (Exception $e) {
+            return; // this should nerver happens
         }
 
         if (!($fh = @fopen($file, 'rb'))) {
@@ -45,114 +53,131 @@ class NeweggOrderJob
 
         while(($fields = fgetcsv($fh))) {
 
-            $OrderNumber            = $fields[0];
-            $OrderDateTime          = $fields[1];
-            $SalesChannel           = $fields[2];
-            $FulfillmentOption      = $fields[3];
-            $ShipToAddressLine1     = $fields[4];
-            $ShipToAddressLine2     = $fields[5];
-            $ShipToCity             = $fields[6];
-            $ShipToState            = $fields[7];
-            $ShipToZipCode          = $fields[8];
-            $ShipToCountry          = $fields[9];
-            $ShipToFirstName        = $fields[10];
-            $ShipToLastName         = $fields[11];
-            $ShipToCompany          = $fields[12];
-            $ShipToPhoneNumber      = $fields[13];
-            $OrderCustomerEmail     = $fields[14];
-            $OrderShippingMethod    = $fields[15];
-            $ItemSellerPartNo       = $fields[16];
-            $ItemNeweggNo           = $fields[17];
-            $ItemUnitPrice          = $fields[18];
-            $ExtendUnitPrice        = $fields[19];
-            $ItemUnitShippingCharge = $fields[20];
-            $ExtendShippingCharge   = $fields[21];
-            $OrderShippingTotal     = $fields[22];
-            $GSTorHSTTotal          = $fields[23];
-            $PSTorQSTTotal          = $fields[24];
-            $OrderTotal             = $fields[25];
-            $QuantityOrdered        = $fields[26];
-            $QuantityShipped        = $fields[27];
-            $ShipDate               = $fields[28];
-            $ActualShippingCarrier  = $fields[29];
-            $ActualShippingMethod   = $fields[30];
-            $TrackingNumber         = $fields[31];
-            $ShipFromAddress        = $fields[32];
-            $ShipFromCity           = $fields[33];
-            $ShipFromState          = $fields[34];
-            $ShipFromZipcode        = $fields[35];
-            $ShipFromName           = $fields[36];
+            $order = [
+                'OrderNumber'           => $fields[0],
+                'OrderDateTime'         => $fields[1],
+                'SalesChannel'          => $fields[2],
+                'FulfillmentOption'     => $fields[3],
+                'ShipToAddressLine1'    => $fields[4],
+                'ShipToAddressLine2'    => $fields[5],
+                'ShipToCity'            => $fields[6],
+                'ShipToState'           => $fields[7],
+                'ShipToZipCode'         => $fields[8],
+                'ShipToCountry'         => $fields[9],
+                'ShipToFirstName'       => $fields[10],
+                'ShipToLastName'        => $fields[11],
+                'ShipToCompany'         => $fields[12],
+                'ShipToPhoneNumber'     => $fields[13],
+                'OrderCustomerEmail'    => $fields[14],
+                'OrderShippingMethod'   => $fields[15],
+                'ItemSellerPartNo'      => $fields[16],
+                'ItemNeweggNo'          => $fields[17],
+                'ItemUnitPrice'         => $fields[18],
+                'ExtendUnitPrice'       => $fields[19],
+                'ItemUnitShippingCharge'=> $fields[20],
+                'ExtendShippingCharge'  => $fields[21],
+                'OrderShippingTotal'    => $fields[22],
+                'GSTorHSTTotal'         => $fields[23],
+                'PSTorQSTTotal'         => $fields[24],
+                'OrderTotal'            => $fields[25],
+                'QuantityOrdered'       => $fields[26],
+                'QuantityShipped'       => $fields[27],
+                'ShipDate'              => $fields[28],
+                'ActualShippingCarrier' => $fields[29],
+                'ActualShippingMethod'  => $fields[30],
+                'TrackingNumber'        => $fields[31],
+                'ShipFromAddress'       => $fields[32],
+                'ShipFromCity'          => $fields[33],
+                'ShipFromState'         => $fields[34],
+                'ShipFromZipcode'       => $fields[35],
+                'ShipFromName'          => $fields[36],
+            ];
 
-            $orderSeq = 1;
-            $success = false;
-            $OrderNumUniq = $OrderNumber;
+            echo basename($file), ' - ', $order['OrderNumber'], EOL;
 
-            while (!$success) {
-                try {
-                    $success = $this->db->insertAsDict('newegg_order_report',
-                        array(
-                            'Filename'               => basename($file),
-                            'OrderNumber'            => $OrderNumUniq,
-                            'OrderDateTime'          => $OrderDateTime,
-                            'SalesChannel'           => $SalesChannel,
-                            'FulfillmentOption'      => $FulfillmentOption,
-                            'ShipToAddressLine1'     => $ShipToAddressLine1,
-                            'ShipToAddressLine2'     => $ShipToAddressLine2,
-                            'ShipToCity'             => $ShipToCity,
-                            'ShipToState'            => $ShipToState,
-                            'ShipToZipCode'          => $ShipToZipCode,
-                            'ShipToCountry'          => $ShipToCountry,
-                            'ShipToFirstName'        => $ShipToFirstName,
-                            'ShipToLastName'         => $ShipToLastName,
-                            'ShipToCompany'          => $ShipToCompany,
-                            'ShipToPhoneNumber'      => $ShipToPhoneNumber,
-                            'OrderCustomerEmail'     => $OrderCustomerEmail,
-                            'OrderShippingMethod'    => $OrderShippingMethod,
-                            'ItemSellerPartNo'       => $ItemSellerPartNo,
-                            'ItemNeweggNo'           => $ItemNeweggNo,
-                            'ItemUnitPrice'          => $ItemUnitPrice,
-                            'ExtendUnitPrice'        => $ExtendUnitPrice,
-                            'ItemUnitShippingCharge' => $ItemUnitShippingCharge,
-                            'ExtendShippingCharge'   => $ExtendShippingCharge,
-                            'OrderShippingTotal'     => $OrderShippingTotal,
-                            'GSTorHSTTotal'          => $GSTorHSTTotal,
-                            'PSTorQSTTotal'          => $PSTorQSTTotal,
-                            'OrderTotal'             => $OrderTotal,
-                            'QuantityOrdered'        => $QuantityOrdered,
-                            'QuantityShipped'        => $QuantityShipped,
-                            'ShipDate'               => $ShipDate,
-                            'ActualShippingCarrier'  => $ActualShippingCarrier,
-                            'ActualShippingMethod'   => $ActualShippingMethod,
-                            'TrackingNumber'         => $TrackingNumber,
-                            'ShipFromAddress'        => $ShipFromAddress,
-                            'ShipFromCity'           => $ShipFromCity,
-                            'ShipFromState'          => $ShipFromState,
-                            'ShipFromZipcode'        => $ShipFromZipcode,
-                            'ShipFromName'           => $ShipFromName,
-                        )
-                    );
+            try {
+                $success = $this->db->insertAsDict('newegg_order_report', [
+                    'OrderNumber'         => $order['OrderNumber'],
+                    'OrderDateTime'       => date('Y-m-d H:i:s', strtotime($order['OrderDateTime'])),
+                    'SalesChannel'        => $order['SalesChannel'],
+                    'FulfillmentOption'   => $order['FulfillmentOption'],
+                    'OrderCustomerEmail'  => $order['OrderCustomerEmail'],
+                    'OrderShippingMethod' => $order['OrderShippingMethod'],
+                    'OrderShippingTotal'  => $order['OrderShippingTotal'],
+                    'GSTorHSTTotal'       => $order['GSTorHSTTotal'],
+                    'PSTorQSTTotal'       => $order['PSTorQSTTotal'],
+                    'OrderTotal'          => $order['OrderTotal'],
+                ]);
 
-                    $count++;
+                $count++;
 
-                } catch (Exception $e) {
-                    //echo $e->getMessage(), EOL;
-                    $OrderNumUniq = $OrderNumber . '~' . $orderSeq++;
-                    echo basename($file), ' - ', $OrderNumUniq, EOL;
-                }
+            } catch (Exception $e) {
+                echo $e->getMessage(), EOL;
             }
+
+            $this->saveOrderItem($order);
+            $this->saveShippingAddress($order);
         }
 
         fclose($fh);
 
-        echo basename($file), ": $count orders imported\n";
+        echo EOL; // "$count orders imported\n";
+    }
+
+    private function saveOrderItem($order)
+    {
+        try {
+            $success = $this->db->insertAsDict('newegg_order_item', [
+                'OrderNumber'            => $order['OrderNumber'],
+                'ItemSellerPartNo'       => $order['ItemSellerPartNo'],
+                'ItemNeweggNo'           => $order['ItemNeweggNo'],
+                'ItemUnitPrice'          => $order['ItemUnitPrice'],
+                'ExtendUnitPrice'        => $order['ExtendUnitPrice'],
+                'ItemUnitShippingCharge' => $order['ItemUnitShippingCharge'],
+                'ExtendShippingCharge'   => $order['ExtendShippingCharge'],
+                'QuantityOrdered'        => $order['QuantityOrdered'],
+                'QuantityShipped'        => $order['QuantityShipped'],
+                'ShipDate'               => $order['ShipDate'],
+                'ActualShippingCarrier'  => $order['ActualShippingCarrier'],
+                'ActualShippingMethod'   => $order['ActualShippingMethod'],
+                'TrackingNumber'         => $order['TrackingNumber'],
+                'ShipFromAddress'        => $order['ShipFromAddress'],
+                'ShipFromCity'           => $order['ShipFromCity'],
+                'ShipFromState'          => $order['ShipFromState'],
+                'ShipFromZipcode'        => $order['ShipFromZipcode'],
+                'ShipFromName'           => $order['ShipFromName'],
+            ]);
+        } catch (Exception $e) {
+            //echo $e->getMessage(), EOL;
+        }
+    }
+
+    private function saveShippingAddress($order)
+    {
+        try {
+            $success = $this->db->insertAsDict('newegg_order_shipping_address', [
+                'OrderNumber'        => $order['OrderNumber'],
+                'ShipToAddressLine1' => $order['ShipToAddressLine1'],
+                'ShipToAddressLine2' => $order['ShipToAddressLine2'],
+                'ShipToCity'         => $order['ShipToCity'],
+                'ShipToState'        => $order['ShipToState'],
+                'ShipToZipCode'      => $order['ShipToZipCode'],
+                'ShipToCountry'      => $order['ShipToCountry'],
+                'ShipToFirstName'    => $order['ShipToFirstName'],
+                'ShipToLastName'     => $order['ShipToLastName'],
+                'ShipToCompany'      => $order['ShipToCompany'],
+                'ShipToPhoneNumber'  => $order['ShipToPhoneNumber'],
+            ]);
+        } catch (Exception $e) {
+            //echo $e->getMessage(), EOL;
+        }
     }
 
     private function alreadyImported($file)
     {
         $file = basename($file);
-        $sql = "SELECT filename FROM newegg_order_report WHERE filename='$file'";
+        $sql = "SELECT filename FROM newegg_order_file WHERE filename='$file'";
         $result = $this->db->fetchOne($sql);
-
         return $result;
     }
 }
