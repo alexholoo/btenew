@@ -90,6 +90,8 @@ class AmazonOrderJob
                 'IsPremiumOrder'               => $this->yesNo($data['IsPremiumOrder']),
             ]);
 
+            echo $data['AmazonOrderId'], ' ', $channel, EOL;
+
             $this->saveOrderItem($order);
             $this->saveShippingAddress($order);
 
@@ -172,7 +174,7 @@ class AmazonOrderJob
     }
 }
 
-include __DIR__ . '/public/init.php';
+include __DIR__ . '/../public/init.php';
 
 $job = new AmazonOrderJob();
 $job->run($argv);
