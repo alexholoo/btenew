@@ -5,7 +5,10 @@ then
     echo "usage: mig table"
     exit 
 fi
+
 FILENAME=sql/`date +%Y%m%d-%H%I%S`_$1.sql
+
 echo 'USE bte;' >> $FILENAME
 echo $FILENAME
+
 /usr/bin/vim $FILENAME
