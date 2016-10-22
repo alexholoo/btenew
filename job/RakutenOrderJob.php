@@ -39,7 +39,7 @@ class RakutenOrderJob
                 'filename' => basename($file),
             ]);
         } catch (Exception $e) {
-            return; // this should nerver happens
+            return; // this should never happens
         }
 
         if (!($fh = @fopen($file, 'rb'))) {
