@@ -31,6 +31,8 @@ class RakutenOrder extends Model
 
     public function initialize()
     {
+        $this->hasMany('receiptID', 'RakutenOrderItem', 'receiptID')
+        $this->hasOne('receiptID', 'RakutenOrderShippingAddress', 'receiptID')
     }
 
     public function columnMap()

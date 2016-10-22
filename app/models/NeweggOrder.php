@@ -26,5 +26,7 @@ class NeweggOrder extends Model
 
     public function initialize()
     {
+        $this->hasMany('orderNumber', 'NeweggOrderItem', 'orderNumber')
+        $this->hasOne('orderNumber', 'NeweggOrderShippingAddress', 'orderNumber')
     }
 }

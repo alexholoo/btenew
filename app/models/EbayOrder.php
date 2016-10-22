@@ -24,7 +24,7 @@ class EbayOrder extends Model
 
     public function initialize()
     {
-        $this->hasOne("orderID", "EbayOrderShippingAddress", "orderID");
         $this->hasMany("orderID", "EbayOrderItem", "orderID");
+        $this->hasOne("orderID", "EbayOrderShippingAddress", "orderID");
     }
 }

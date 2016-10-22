@@ -26,8 +26,12 @@ class AmazonOrderItem extends Model
     public $conditionSubtypeId;
     public $conditionNote;
 
+    public function getSource()
+    {
+        return 'amazon_order_item';
+    }
+
     public function initialize()
     {
-        $this->setSource("amazon_order_item");
     }
 }

@@ -19,8 +19,12 @@ class AmazonOrderShippingAddress extends Model
     public $countryCode;
     public $phone;
 
+    public function getSource()
+    {
+        return 'amazon_order_shipping_address';
+    }
+
     public function initialize()
     {
-        $this->setSource("amazon_order_shipping_address");
     }
 }

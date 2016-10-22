@@ -32,11 +32,14 @@ class AmazonOrder extends Model
     public $isPrime;
     public $isPremiumOrder;
 
+    public function getSource()
+    {
+        return 'amazon_order';
+    }
+
     public function initialize()
     {
-        $this->setSource("amazon_order");
-
-        $this->hasOne('orderId', 'AmazonOrderItem', 'orderId')
+        $this->hasMany('orderId', 'AmazonOrderItem', 'orderId')
         $this->hasOne('orderId', 'AmazonOrderShippingAddress', 'orderId')
     }
 }
