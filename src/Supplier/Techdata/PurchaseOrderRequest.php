@@ -53,7 +53,7 @@ class PurchaseOrderRequest extends BaseRequest
         $arr = explode("\n", wordwrap($address, 35, "\n"));
         $euiAddr1 = $arr[0];
         $euiAddr2 = isset($arr[1]) ? $arr[1] : '';
-        $euiAddr3 = isset($arr[2]) ? $arr[2] : '';
+        $euiAddr3 = isset($arr[2]) ? $arr[2] : $phone;
 
         $lines[] = "<Header>";
         $lines[] =   "<UserName>$username</UserName>";
@@ -114,9 +114,6 @@ class PurchaseOrderRequest extends BaseRequest
         $lines[] =     "<ResellerEmail>$notifyEmail</ResellerEmail>";
         $lines[] =     "<ResellerEvents>OC</ResellerEvents>";
         $lines[] =     "<ResellerEvents>OS</ResellerEvents>";
-        $lines[] =     "<EndUserEmail>$notifyEmail</EndUserEmail>";
-        $lines[] =     "<EndUserEvents>OC</EndUserEvents>";
-        $lines[] =     "<EndUserEvents>OS</EndUserEvents>";
         $lines[] =   "</MyOrderTracker>";
         #lines[] =   "<OrderLevel>FE</OrderLevel>";
         $lines[] = "</Header>";
