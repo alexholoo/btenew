@@ -34,4 +34,33 @@ class AmazonOrderItem extends Model
     public function initialize()
     {
     }
+
+    public function columnMap()
+    {
+        // Keys are the real names in the table and
+        // the values their names in the application
+
+        return array(
+            'id'                 => 'id',
+            'OrderId'            => 'orderId',
+            'ASIN'               => 'asin',
+            'SellerSKU'          => 'sellerSKU',
+            'OrderItemId'        => 'orderItemId',
+            'Title'              => 'title',
+            'QuantityOrdered'    => 'quantityOrdered',
+            'QuantityShipped'    => 'quantityShipped',
+            'CurrencyCode'       => 'currencyCode',
+            'ItemPrice'          => 'itemPrice',
+            'ShippingPrice'      => 'shippingPrice',
+            'GiftWrapPrice'      => 'giftWrapPrice',
+            'ItemTax'            => 'itemTax',
+            'ShippingTax'        => 'shippingTax',
+            'GiftWrapTax'        => 'giftWrapTax',
+            'ShippingDiscount'   => 'shippingDiscount',
+            'PromotionDiscount'  => 'promotionDiscount',
+            'ConditionId'        => 'conditionId',
+            'ConditionSubtypeId' => 'conditionSubtypeId',
+            'ConditionNote'      => 'conditionNote',
+        );
+    }
 }

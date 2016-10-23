@@ -24,7 +24,26 @@ class EbayOrder extends Model
 
     public function initialize()
     {
-        $this->hasMany("orderID", "EbayOrderItem", "orderID");
-        $this->hasOne("orderID", "EbayOrderShippingAddress", "orderID");
+        $this->hasMany("orderID", "App\\Models\\EbayOrderItem", "orderID");
+        $this->hasOne("orderID", "App\\Models\\EbayOrderShippingAddress", "orderID");
+    }
+
+    public function columnMap()
+    {
+        // Keys are the real names in the table and
+        // the values their names in the application
+
+        return array(
+            'id'                  => 'id',
+            'OrderID'             => 'orderID',
+            'Status'              => 'status',
+            'BuyerUsername'       => 'buyerUsername',
+            'DatePaid'            => 'datePaid',
+            'Currency'            => 'currency',
+            'AmountPaid'          => 'amountPaid',
+            'SalesTaxAmount'      => 'salesTaxAmount',
+            'ShippingService'     => 'shippingService',
+            'ShippingServiceCost' => 'shippingServiceCost',
+        );
     }
 }

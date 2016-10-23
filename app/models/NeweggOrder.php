@@ -7,7 +7,6 @@ use Phalcon\Mvc\Model;
 class NeweggOrder extends Model
 {
     public $id;
-    public $filename;
     public $orderNumber;
     public $orderDateTime;
     public $salesChannel;
@@ -26,7 +25,27 @@ class NeweggOrder extends Model
 
     public function initialize()
     {
-        $this->hasMany('orderNumber', 'NeweggOrderItem', 'orderNumber')
-        $this->hasOne('orderNumber', 'NeweggOrderShippingAddress', 'orderNumber')
+        $this->hasMany('orderNumber', 'App\\Models\\NeweggOrderItem', 'orderNumber');
+        $this->hasOne('orderNumber', 'App\\Models\\NeweggOrderShippingAddress', 'orderNumber');
+    }
+
+    public function columnMap()
+    {
+        // Keys are the real names in the table and
+        // the values their names in the application
+
+        return array(
+            'id'                  => 'id',
+            'OrderNumber'         => 'orderNumber',
+            'OrderDateTime'       => 'orderDateTime',
+            'SalesChannel'        => 'salesChannel',
+            'FulfillmentOption'   => 'fulfillmentOption',
+            'OrderCustomerEmail'  => 'orderCustomerEmail',
+            'OrderShippingMethod' => 'orderShippingMethod',
+            'OrderShippingTotal'  => 'orderShippingTotal',
+            'GSTorHSTTotal'       => 'GSTorHSTTotal',
+            'PSTorQSTTotal'       => 'PSTorQSTTotal',
+            'OrderTotal'          => 'orderTotal',
+        );
     }
 }

@@ -25,4 +25,23 @@ class EbayOrderItem extends Model
     public function initialize()
     {
     }
+
+    public function columnMap()
+    {
+        // Keys are the real names in the table and
+        // the values their names in the application
+
+        return array(
+            'id'                => 'id',
+            'OrderID'           => 'orderID',
+            'SKU'               => 'sku',
+            'QuantityPurchased' => 'quantityPurchased',
+            'TransactionID'     => 'transactionID',
+            'TransactionPrice'  => 'transactionPrice',
+            'Tracking'          => 'tracking',
+            'ItemID'            => 'itemID',
+            'Email'             => 'email',
+            'RecordNumber'      => 'recordNumber',
+        );
+    }
 }

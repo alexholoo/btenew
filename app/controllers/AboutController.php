@@ -7,6 +7,8 @@ use Supplier\Synnex\Client   as SynnexClient;
 use Supplier\Ingram\Client   as IngramClient;
 use Supplier\Techdata\Client as TechdataClient;
 
+use App\Models\AmazonOrder as AmazonOrderReport;
+
 /**
  * Display the "About" page.
  */
@@ -20,6 +22,9 @@ class AboutController extends ControllerBase
         //$this->view->data = print_r($this->config->toArray(), true);
         //$this->view->data = $this->request->getServerAddress();
         $this->view->data = gethostname();
+
+        $o = AmazonOrderReport::findFirst("orderId='701-7093226-9432239'");
+        $this->view->data = print_r($o->toArray(), true);
 
         //$config = $this->config->toArray();
         //fpr($config['xmlapi']['synnex']);

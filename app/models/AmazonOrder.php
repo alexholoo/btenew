@@ -39,7 +39,42 @@ class AmazonOrder extends Model
 
     public function initialize()
     {
-        $this->hasMany('orderId', 'AmazonOrderItem', 'orderId')
-        $this->hasOne('orderId', 'AmazonOrderShippingAddress', 'orderId')
+        $this->hasMany('orderId', 'App\\Models\\AmazonOrderItem', 'orderId');
+        $this->hasOne('orderId', 'App\\Models\\AmazonOrderShippingAddress', 'orderId');
+    }
+
+    public function columnMap()
+    {
+        // Keys are the real names in the table and
+        // the values their names in the application
+
+        return array(
+            'id'                           => 'id',
+            'Channel'                      => 'channel',
+            'OrderId'                      => 'orderId',
+            'PurchaseDate'                 => 'purchaseDate',
+            'LastUpdateDate'               => 'lastUpdateDate',
+            'OrderStatus'                  => 'orderStatus',
+            'FulfillmentChannel'           => 'fulfillmentChannel',
+            'SalesChannel'                 => 'salesChannel',
+            'ShipServiceLevel'             => 'shipServiceLevel',
+            'CurrencyCode'                 => 'currencyCode',
+            'OrderTotalAmount'             => 'orderTotalAmount',
+            'NumberOfItemsShipped'         => 'numberOfItemsShipped',
+            'NumberOfItemsUnshipped'       => 'numberOfItemsUnshipped',
+            'PaymentMethod'                => 'paymentMethod',
+            'BuyerName'                    => 'buyerName',
+            'BuyerEmail'                   => 'buyerEmail',
+            'ShipmentServiceLevelCategory' => 'shipmentServiceLevelCategory',
+            'ShippedByAmazonTFM'           => 'shippedByAmazonTFM',
+            'OrderType'                    => 'orderType',
+            'EarliestShipDate'             => 'earliestShipDate',
+            'LatestShipDate'               => 'latestShipDate',
+            'EarliestDeliveryDate'         => 'earliestDeliveryDate',
+            'LatestDeliveryDate'           => 'latestDeliveryDate',
+            'IsBusinessOrder'              => 'isBusinessOrder',
+            'IsPrime'                      => 'isPrime',
+            'IsPremiumOrder'               => 'isPremiumOrder',
+        );
     }
 }

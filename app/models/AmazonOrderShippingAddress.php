@@ -27,4 +27,26 @@ class AmazonOrderShippingAddress extends Model
     public function initialize()
     {
     }
+
+    public function columnMap()
+    {
+        // Keys are the real names in the table and
+        // the values their names in the application
+
+        return array(
+            'id'            => 'id',
+            'OrderId'       => 'orderId',
+            'Name'          => 'name',
+            'AddressLine1'  => 'addressLine1',
+            'AddressLine2'  => 'addressLine2',
+            'AddressLine3'  => 'addressLine3',
+            'City'          => 'city',
+            'County'        => 'county',
+            'District'      => 'district',
+            'StateOrRegion' => 'stateOrRegion',
+            'PostalCode'    => 'postalCode',
+            'CountryCode'   => 'countryCode',
+            'Phone'         => 'phone',
+        );
+    }
 }

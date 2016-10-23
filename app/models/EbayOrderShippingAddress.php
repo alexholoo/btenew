@@ -25,4 +25,23 @@ class EbayOrderShippingAddress extends Model
     public function initialize()
     {
     }
+
+    public function columnMap()
+    {
+        // Keys are the real names in the table and
+        // the values their names in the application
+
+        return array(
+            'id'         => 'id',
+            'OrderID'    => 'orderID',
+            'Name'       => 'name',
+            'Address'    => 'address',
+            'Address2'   => 'address2',
+            'City'       => 'city',
+            'Province'   => 'province',
+            'PostalCode' => 'postalCode',
+            'Country'    => 'country',
+            'Phone'      => 'phone',
+        );
+    }
 }
