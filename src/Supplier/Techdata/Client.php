@@ -6,6 +6,7 @@ use Toolkit\Utils;
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
 use Supplier\PurchaseOrderLog;
+use Supplier\OrderStatusQueryLog;
 use Supplier\ConfigKey;
 use Supplier\Model\Response;
 
@@ -97,11 +98,13 @@ class Client extends BaseClient
         $request->setOrder($orderId, $invoice);
 
         $xml = $request->toXml();
-pr($xml);
+
         $res = $this->curlPost($url, $xml);
-pr($res);
+
         $response = new OrderStatusResponse($res);
         $result = $response->parseXml();
+
+        OrderStatusQueryLog::save($orderId, $url, $xml, $res);
 
         $this->request = $request;
         $this->response = $response;

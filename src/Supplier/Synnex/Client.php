@@ -6,6 +6,7 @@ use Toolkit\Utils;
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
 use Supplier\PurchaseOrderLog;
+use Supplier\OrderStatusQueryLog;
 use Supplier\ConfigKey;
 use Supplier\Model\Response;
 
@@ -136,8 +137,8 @@ class Client extends BaseClient
      */
     public function getOrderStatus($orderId, $invoice = '')
     {
-        $url = self::OS_PROD_URL;
         $url = self::OS_TEST_URL;
+        $url = self::OS_PROD_URL;
 
         $request = new OrderStatusRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
@@ -151,6 +152,8 @@ class Client extends BaseClient
 
         $response = new OrderStatusResponse($res);
         $result = $response->parseXml();
+
+        OrderStatusQueryLog::save($orderId, $url, $xml, $res);
 
         $this->request = $request;
         $this->response = $response;
