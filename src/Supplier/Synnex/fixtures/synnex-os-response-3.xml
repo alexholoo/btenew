@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SynnexB2B version="2.2">
+  <OrderStatusResponse>
+    <CustomerNumber>1150897</CustomerNumber>
+    <PONumber>701-5967841-7617805</PONumber>
+    <Code>shipped</Code>
+    <Reason/>
+    <PODatetime>2016-10-24T00:00:00</PODatetime>
+    <ResponseDateTime>2016-10-24T17:52:16</ResponseDateTime>
+    <Items>
+      <Item lineNumber="1">
+        <Code>shipped</Code>
+        <ShipDatetime>2016-10-24T17:10:11</ShipDatetime>
+        <OrderNumber>39273852</OrderNumber>
+        <OrderType>SO</OrderType>
+        <OrderQuantity>1</OrderQuantity>
+        <UnitPrice>66.34</UnitPrice>
+        <SKU>5692048</SKU>
+        <MfgPN>ST66-PA</MfgPN>
+        <ProductName>CROSLEY MANCHESTER ENTRTAINMNT CTR STAND</ProductName>
+        <ShipQuantity>1</ShipQuantity>
+        <ShipFromWarehouse>57</ShipFromWarehouse>
+        <ShipFromCity>Markham</ShipFromCity>
+        <ShipFromState>ON</ShipFromState>
+        <ShipFromZip>L3R 0Z9</ShipFromZip>
+        <ShipMethod>LMG</ShipMethod>
+        <ShipMethodDescription>Loomis Ground</ShipMethodDescription>
+        <ETADate/>
+        <Packages>
+          <Package>
+            <TrackingNumber>SNX5215753</TrackingNumber>
+            <Weight>13.7</Weight>
+            <ShipItemQuantity>1</ShipItemQuantity>
+            <SerialNo/>
+          </Package>
+        </Packages>
+      </Item>
+    </Items>
+    <ResponseElapsedTime>0.53s</ResponseElapsedTime>
+  </OrderStatusResponse>
+</SynnexB2B>
