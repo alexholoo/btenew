@@ -2,7 +2,7 @@
 
 namespace Supplier\DH;
 
-use Utility\Utils;
+use Toolkit\Utils;
 use Supplier\Model\OrderStatusRequest as BaseRequest;
 
 class OrderStatusRequest extends BaseRequest

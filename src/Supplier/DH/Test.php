@@ -120,6 +120,40 @@ function realPurchaseOrder()
     pr($result);
 }
 
+function testOrderStatusRequest()
+{
+    $config = include __DIR__ . '/app/config/xmlapi.php';
+
+    $request = new Supplier\DH\OrderStatusRequest();
+    $request->setConfig($config[ConfigKey::DH]);
+    $request->setOrder('701-3707503-5766613');
+
+    $xml = $request->toXml();
+
+    echo $xml;
+}
+
+function testOrderStatusResponse()
+{
+    $xml = file_get_contents(__DIR__ . './src/Supplier/DH/fixtures/DH-OS-Response-2');
+    $response = new Supplier\DH\OrderStatusResponse($xml);
+    $result = $response->parseXml();
+
+    pr($xml);
+    pr($result);
+}
+
+function realOrderStatus()
+{
+    $config = include __DIR__ . '/app/config/config.php';
+
+    $client = new Client($config);
+#   $result = $client->getOrderStatus('702-9287700-2279402'); // french
+    $result = $client->getOrderStatus('702-0611280-7687416');
+
+    pr($result);
+}
+
 #testPriceAvailabilityRequest();
 #testPriceAvailabilityResponse();
 #realPriceAvailability();
@@ -127,3 +161,7 @@ function realPurchaseOrder()
 #testPurchaseOrderRequest();
 #testPurchaseOrderResponse();
 #realPurchaseOrder();
+
+#testOrderStatusRequest();
+#testOrderStatusResponse();
+#realOrderStatus();

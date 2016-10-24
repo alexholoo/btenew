@@ -17,12 +17,20 @@ class OrderStatusResponse extends BaseResponse
 
         $result = new OrderStatusResult();
 
-        $result->status = ''; // strval($xml->STATUS);
-        $result->orderNo = ''; // strval($xml->ORDERNUM);
-        $result->errorMessage = ''; // strval($xml->MESSAGE);
+        $result->status = strval($xml->STATUS);
+        $result->errorMessage = strval($xml->MESSAGE);
 
         if ($result->status == 'success') {
             $result->status = Response::STATUS_OK;
+            $result->poNum = strval($xml->ORDERSTATUS->PONUM);
+            $result->orderNo = strval($xml->ORDERSTATUS->ORDERNUM);
+            $result->invoice = strval($xml->ORDERSTATUS->INVOICE);
+            $result->sku = 'DH-'.strval($xml->ORDERSTATUS->ORDERDETAIL->DETAILITEM->ITEMNO);
+            $result->qty = strval($xml->ORDERSTATUS->ORDERDETAIL->DETAILITEM->QUANTITY);
+            $result->carrier = strval($xml->ORDERSTATUS->PACKAGE->CARRIER);
+            $result->service = strval($xml->ORDERSTATUS->PACKAGE->SERVICE);
+            $result->trackingNumber = strval($xml->ORDERSTATUS->PACKAGE->TRACKNUM);
+            $result->shipDate = strval($xml->ORDERSTATUS->PACKAGE->DATESHIPPED);
         }
 
         if ($result->status == 'failure') {

@@ -12,11 +12,7 @@ use Supplier\Model\Response;
 class Client extends BaseClient
 {
     const PA_PROD_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
-
-    const PO_TEST_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
     const PO_PROD_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
-
-    const OS_TEST_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
     const OS_PROD_URL = 'https://www.dandh.ca/dhXML/xmlDispatch';
 
     /**
@@ -59,7 +55,7 @@ class Client extends BaseClient
      */
     public function purchaseOrder($order)
     {
-        $url = self::PO_TEST_URL;
+        $url = self::PO_PROD_URL;
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::DH]);
@@ -90,19 +86,20 @@ class Client extends BaseClient
         return $result;
     }
 
-    public function getOrderStatus($orderId)
+    public function getOrderStatus($orderId, $invoice = '')
     {
         $url = self::OS_PROD_URL;
 
         $request = new OrderStatusRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::DH]);
-        $request->setOrder($orderId);
+        $request->setOrder($orderId, $invoice);
 
         $xml = $request->toXml();
 
         $res = $this->curlPost($url, $xml);
 
         $response = new OrderStatusResponse($res);
+
         $result = $response->parseXml();
 
         $this->request = $request;
