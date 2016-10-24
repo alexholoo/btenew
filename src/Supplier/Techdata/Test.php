@@ -120,6 +120,33 @@ function realPurchaseOrder()
     pr($result);
 }
 
+function testOrderStatusRequest()
+{
+    $config = include __DIR__ . '/app/config/xmlapi.php';
+
+    $request = new Supplier\Techdata\OrderStatusRequest();
+    $request->setConfig($config[ConfigKey::TECHDATA]);
+    $request->setOrder('2233238');
+
+    $xml = $request->toXml();
+
+    echo $xml;
+}
+
+function testOrderStatusResponse()
+{
+}
+
+function realOrderStatus()
+{
+    $config = include __DIR__ . '/app/config/config.php';
+
+    $client = new Client($config);
+    $result = $client->getOrderStatus('2233238');
+
+    pr($result);
+}
+
 #testPriceAvailabilityRequest();
 #testPriceAvailabilityResponse();
 #realPriceAvailability();
@@ -127,3 +154,7 @@ function realPurchaseOrder()
 #testPurchaseOrderRequest();
 #testPurchaseOrderResponse();
 #realPurchaseOrder();
+
+#testOrderStatusRequest();
+#testOrderStatusResponse();
+ realOrderStatus();

@@ -107,8 +107,9 @@ abstract class Client
     abstract public function purchaseOrder($order);
 
     /**
-     * @param  string $sku
+     * @param  string $orderId
+     * @param  string $invoice
      * @return Supplier\Model\OrderQueryRequest
      */
-    abstract public function getOrderStatus($sku);
+    abstract public function getOrderStatus($orderId, $invoice = '');
 }

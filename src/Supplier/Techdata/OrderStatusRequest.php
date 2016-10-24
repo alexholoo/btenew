@@ -2,7 +2,7 @@
 
 namespace Supplier\Techdata;
 
-use Utility\Utils;
+use Toolkit\Utils;
 use Supplier\Model\OrderStatusRequest as BaseRequest;
 
 class OrderStatusRequest extends BaseRequest
@@ -15,6 +15,7 @@ class OrderStatusRequest extends BaseRequest
         $username = $this->config['username'];
         $password = $this->config['password'];
         $orderId  = $this->orderId;
+        $invoice  = $this->invoice;
 
         // PurposeCode 	The type of order status being requested.
         //
@@ -42,6 +43,10 @@ class OrderStatusRequest extends BaseRequest
         $lines[] =   '<RefInfo>';
         $lines[] =      '<RefIDQual>ON</RefIDQual>'; // see comment below
         $lines[] =      "<RefID>$orderId</RefID>";
+        $lines[] =   '</RefInfo>';
+        $lines[] =   '<RefInfo>';
+        $lines[] =      '<RefIDQual>IN</RefIDQual>';
+        $lines[] =      "<RefID>$invoice</RefID>";
         $lines[] =   '</RefInfo>';
         $lines[] = '</Detail>';
         $lines[] = '<Summary>';

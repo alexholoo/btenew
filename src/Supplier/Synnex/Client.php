@@ -129,7 +129,7 @@ class Client extends BaseClient
         return $result;
     }
 
-    public function getOrderStatus($orderId)
+    public function getOrderStatus($orderId, $invoice = '')
     {
         $url = self::OS_PROD_URL;
 
