@@ -1,0 +1,11 @@
+USE bte;
+
+CREATE TABLE IF NOT EXISTS `xmlapi_os_log` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`order_id` VARCHAR(40) NOT NULL,
+	`url` VARCHAR(80) NOT NULL,
+	`request` TEXT NOT NULL,
+	`response` TEXT NOT NULL,
+	PRIMARY KEY (`id`)
+) COLLATE='utf8_general_ci' ENGINE=InnoDB;
