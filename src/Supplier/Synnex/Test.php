@@ -187,7 +187,8 @@ function realOrderStatus()
 
     $client = new Client($config);
    #$result = $client->getOrderStatus('19608037');
-    $result = $client->getOrderStatus('701-5967841-7617805');
+   #$result = $client->getOrderStatus('701-5967841-7617805'); // shipped
+    $result = $client->getOrderStatus('702-9189722-7418630'); // invoiced
 
     pr($result);
 }

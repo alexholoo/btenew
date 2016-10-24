@@ -27,7 +27,7 @@ class OrderStatusResponse extends BaseResponse
 
         $code = strval($xml->OrderStatusResponse->Code);
 
-        if ($code == 'shipped') {
+        if (in_array($code, ['shipped', 'invoiced'])) {
             $result->status = Response::STATUS_OK;
             $result->poNum = strval($xml->OrderStatusResponse->PONumber);
             $result->orderNo = strval($xml->OrderStatusResponse->Items->Item->OrderNumber);
