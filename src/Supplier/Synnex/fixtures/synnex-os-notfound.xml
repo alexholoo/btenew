@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SynnexB2B version="2.2">
+  <OrderStatusResponse>
+    <CustomerNumber>YOUR ACCOUNT NUMBER</CustomerNumber>
+    <PONumber>YOUR PO NUMBER</PONumber>
+    <Code>notFound</Code>
+    <Reason/>
+    <PODatetime/>
+    <ResponseDateTime>2013-01-20T00:14:07</ResponseDateTime>
+    <Items/>
+    <ResponseElapsedTime>0.437s</ResponseElapsedTime>
+  </OrderStatusResponse>
+</SynnexB2B>

@@ -20,7 +20,8 @@ class Client extends BaseClient
     const FQ_PROD_URL = 'https://ec.synnex.ca/SynnexXML/FreightQuote';
     const FQ_TEST_URL = 'https://testec.synnex.ca/SynnexXML/FreightQuote';
 
-    const OS_PROD_URL = 'https://ec.synnex.ca/SynnexXML/';
+    const OS_PROD_URL = 'https://ec.synnex.ca/SynnexXML/POStatus';
+    const OS_TEST_URL = 'https://testec.synnex.ca/SynnexXML/POStatus';
 
     /**
      * @param  string $sku
@@ -129,17 +130,24 @@ class Client extends BaseClient
         return $result;
     }
 
+    /**
+     * @param  string $orderId
+     * @param  string $invoice
+     */
     public function getOrderStatus($orderId, $invoice = '')
     {
         $url = self::OS_PROD_URL;
+        $url = self::OS_TEST_URL;
 
         $request = new OrderStatusRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
-        $request->setOrder($orderId);
+        $request->setOrder($orderId, $invoice);
 
         $xml = $request->toXml();
 
-        $res = $this->curlPost($url, $xml);
+        $res = $this->curlPost($url, $xml, array(
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
+        ));
 
         $response = new OrderStatusResponse($res);
         $result = $response->parseXml();

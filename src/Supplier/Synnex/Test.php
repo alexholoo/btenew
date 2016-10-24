@@ -156,6 +156,42 @@ function realFreightQuote()
     pr($result);
 }
 
+function testOrderStatusRequest()
+{
+    $config = include __DIR__ . '/app/config/xmlapi.php';
+
+    $request = new Supplier\Synnex\OrderStatusRequest();
+    $request->setConfig($config[ConfigKey::SYNNEX]);
+    $request->setOrder('702-0611280-7687416');
+
+    $xml = $request->toXml();
+
+    echo $xml;
+}
+
+function testOrderStatusPurchaseOrderResponse()
+{
+    $xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-os-response-1.xml');
+   #$xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-os-response-2.xml');
+   #$xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-os-notfound.xml');
+    $response = new Supplier\Synnex\OrderStatusResponse($xml);
+    $result = $response->parseXml();
+
+#   pr($xml);
+    pr($result);
+}
+
+function realOrderStatus()
+{
+    $config = include './app/config/config.php';  // !!
+
+    $client = new Client($config);
+   #$result = $client->getOrderStatus('19608037');
+    $result = $client->getOrderStatus('701-5967841-7617805');
+
+    pr($result);
+}
+
 #testPriceAvailabilityRequest();
 #testPriceAvailabilityResponse();
 #realPriceAvailability();
@@ -167,3 +203,7 @@ function realFreightQuote()
 #testFreightQuoteRequest();
 #testFreightQuoteResponse();
 #realFreightQuote();
+
+#testOrderStatusRequest();
+#testOrderStatusPurchaseOrderResponse();
+#realOrderStatus();

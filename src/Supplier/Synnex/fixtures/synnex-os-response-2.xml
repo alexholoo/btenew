@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SynnexB2B version="2.4">
+  <OrderStatusResponse>
+    <CustomerNumber>YOUR CUSTOMER NUMBER</CustomerNumber>
+    <PONumber>YOUR PO NUMBER</PONumber>
+    <Code>shipped</Code>
+    <Reason/>
+    <PODatetime>2013-01-18T14:36:44</PODatetime>
+    <ResponseDateTime>2013-01-20T00:13:41</ResponseDateTime>
+    <Items>
+      <Item lineNumber="1">
+        <Code>shipped</Code>
+        <ShipDatetime>2013-01-18T16:20:16</ShipDatetime>
+        <OrderNumber>99999999</OrderNumber>
+        <OrderType>SO</OrderType>
+        <OrderQuantity>1</OrderQuantity>
+        <UnitPrice>510.0</UnitPrice>
+        <SKU>3396979</SKU>
+        <MfgPN>C1E21UT#ABA</MfgPN>
+        <ProductName>SBUY PRO 6305 MT/A6-5400B/500GB/4G/DVDRW</ProductName>
+        <ShipQuantity>1</ShipQuantity>
+        <ShipFromWarehouse>6</ShipFromWarehouse>
+        <ShipFromCity>Romeoville</ShipFromCity>
+        <ShipFromState>IL</ShipFromState>
+        <ShipFromZip>60446</ShipFromZip>
+        <ShipMethod>FP</ShipMethod>
+        <ShipMethodDescription>FedEx Priority Overnight</ShipMethodDescription>
+        <ETADate/>
+        <Freight>0.00</Freight>
+        <HandlingFee>0.00</HandlingFee>
+        <Tax>0.00</Tax>
+        <RecyclingFee>0.00</RecyclingFee>
+        <Packages>
+          <Package>
+            <TrackingNumber>541877002320</TrackingNumber>
+            <Weight>26.66</Weight>
+            <ShipItemQuantity>1</ShipItemQuantity>
+            <SerialNo>2UA2501G27</SerialNo>
+          </Package>
+        </Packages>
+      </Item>
+    </Items>
+    <ResponseElapsedTime>0.198s</ResponseElapsedTime>
+  </OrderStatusResponse>
+</SynnexB2B>

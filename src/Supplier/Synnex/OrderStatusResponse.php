@@ -17,16 +17,32 @@ class OrderStatusResponse extends BaseResponse
 
         $result = new OrderStatusResult();
 
-        $result->status = ''; // strval($xml->STATUS);
-        $result->orderNo = ''; // strval($xml->ORDERNUM);
-        $result->errorMessage = ''; // strval($xml->MESSAGE);
-
-        if ($result->status == 'success') {
-            $result->status = Response::STATUS_OK;
+        // fatal error (username/password/ip/xml error)
+        if ($xml->OrderStatusResponse->ErrorMessage) {
+            $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = strval($xml->OrderStatusResponse->ErrorMessage);
+            $result->errorDetail = strval($xml->OrderStatusResponse->ErrorDetail);
+            return $result;
         }
 
-        if ($result->status == 'failure') {
+        $code = strval($xml->OrderStatusResponse->Code);
+
+        if ($code == 'shipped') {
+            $result->status = Response::STATUS_OK;
+            $result->poNum = strval($xml->OrderStatusResponse->PONumber);
+            $result->orderNo = strval($xml->OrderStatusResponse->Items->Item->OrderNumber);
+           #$result->invoice = strval($xml->OrderStatusResponse->Items->Item->);
+            $result->sku = 'SYN-'.strval($xml->OrderStatusResponse->Items->Item->SKU);
+            $result->qty = strval($xml->OrderStatusResponse->Items->Item->OrderQuantity);
+            $result->carrier = strval($xml->OrderStatusResponse->Items->Item->ShipMethod);
+            $result->service = strval($xml->OrderStatusResponse->Items->Item->ShipMethodDescription);
+            $result->trackingNumber = strval($xml->OrderStatusResponse->Items->Item->Packages->Package->TrackingNumber);
+            $result->shipDate = strval($xml->OrderStatusResponse->Items->Item->ShipDatetime);
+        }
+
+        if (in_array($code, ['accepted', 'notFound', 'rejected', 'deleted'])) {
             $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = $code;
         }
 
         return $result;

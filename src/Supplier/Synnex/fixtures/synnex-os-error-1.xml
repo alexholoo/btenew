@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SynnexB2B>
+  <OrderStatusResponse>
+    <ErrorMessage>PO Status XML</ErrorMessage>
+    <ErrorDetail>Error on line -1: Premature end of file.</ErrorDetail>
+  </OrderStatusResponse>
+</SynnexB2B>

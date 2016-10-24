@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SynnexB2B version="2.2">
+  <OrderStatusResponse>
+    <CustomerNumber>YOUR ACCOUNT NUMBER</CustomerNumber>
+    <PONumber>YOUR PO NUMBER</PONumber>
+    <Code>deleted</Code>
+    <Reason/>
+    <PODatetime/>
+    <ResponseDateTime>2013-01-20T00:12:44</ResponseDateTime>
+    <Items>
+      <Item lineNumber="1">
+        <Code>deleted</Code>
+        <ShipDatetime/>
+        <OrderNumber>99999999</OrderNumber>
+        <OrderType>BO</OrderType>
+        <OrderQuantity>5</OrderQuantity>
+        <UnitPrice>225.37</UnitPrice>
+        <SKU>3314859</SKU>
+        <MfgPN>0A65630</MfgPN>
+        <ProductName>ThinkPad 180GB 2.5 Solid State Drive</ProductName>
+        <ShipQuantity>0</ShipQuantity>
+        <ShipFromWarehouse>3</ShipFromWarehouse>
+        <ShipFromCity>Fremont</ShipFromCity>
+        <ShipFromState>CA</ShipFromState>
+        <ShipFromZip>94538</ShipFromZip>
+        <ShipMethod>NL</ShipMethod>
+        <ShipMethodDescription>Hold Order</ShipMethodDescription>
+        <ETADate/>
+        <Packages/>
+      </Item>
+    </Items>
+    <ResponseElapsedTime>1.973s</ResponseElapsedTime>
+  </OrderStatusResponse>
+</SynnexB2B>
