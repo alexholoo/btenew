@@ -37,6 +37,7 @@ class OrderStatusRequest extends BaseRequest
 
         $xmldoc = Utils::formatXml(implode("\n", $lines));
 
-        return "xmlDoc=" . $xmldoc;
+        return $xmldoc;
+       #return "xmlDoc=" . $xmldoc;
     }
 }
