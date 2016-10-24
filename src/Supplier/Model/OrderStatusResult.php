@@ -12,12 +12,42 @@ class OrderStatusResult
     /**
      * @var string
      */
+    public $errorMessage;
+
+    /**
+     * @var string
+     */
     public $orderNo;
 
     /**
      * @var string
      */
-    public $errorMessage;
+    public $sku;
+
+    /**
+     * @var integer
+     */
+    public $qty;
+
+    /**
+     * @var string
+     */
+    public $trackingNumber;
+
+    /**
+     * @var string
+     */
+    public $carrier;
+
+    /**
+     * @var string
+     */
+    public $service;
+
+    /**
+     * @var string
+     */
+    public $shipDate;
 
     /**
      * @return string
@@ -25,6 +55,14 @@ class OrderStatusResult
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrorMessage()
+    {
+        return $this->errorMessage;
     }
 
     /**
@@ -38,8 +76,48 @@ class OrderStatusResult
     /**
      * @return string
      */
-    public function getErrorMessage()
+    public function getSku()
     {
-        return $this->errorMessage;
+        return $this->sku;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQty()
+    {
+        return $this->qty;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTrackingNUmber()
+    {
+        return $this->trackingNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCarrier()
+    {
+        return $this->carrier;
+    }
+
+    /**
+     * @return string
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipDate()
+    {
+        return $this->shipDate;
     }
 }

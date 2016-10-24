@@ -12,10 +12,16 @@ abstract class OrderStatusRequest extends Request
     protected $orderId;
 
     /**
+     * @var string
+     */
+    protected $invoice;
+
+    /**
      * @param  string $orderId
      */
-    public function setOrder($orderId)
+    public function setOrder($orderId, $invoice = '')
     {
         $this->orderId = $orderId;
+        $this->invoice = $invoice;
     }
 }
