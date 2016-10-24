@@ -48,12 +48,12 @@ class PurchaseOrderRequest extends BaseRequest
         $arr = explode("\n", wordwrap($address, 25, "\n"));
         $addr1 = $arr[0];
         $addr2 = isset($arr[1]) ? $arr[1] : '';
-        $addr3 = isset($arr[2]) ? $arr[2] : '';
+        $addr3 = isset($arr[2]) ? $arr[2] : $phone;
 
         $arr = explode("\n", wordwrap($address, 35, "\n"));
         $euiAddr1 = $arr[0];
         $euiAddr2 = isset($arr[1]) ? $arr[1] : '';
-        $euiAddr3 = isset($arr[2]) ? $arr[2] : $phone;
+        $euiAddr3 = isset($arr[2]) ? $arr[2] : '';
 
         $lines[] = "<Header>";
         $lines[] =   "<UserName>$username</UserName>";
