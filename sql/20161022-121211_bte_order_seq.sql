@@ -2,7 +2,7 @@ USE bte;
 
 -- INSERT INTO bte_order_seq VALUES ()
 
-CREATE TABLE `bte_order_seq` (
+CREATE TABLE IF NOT EXISTS `bte_order_seq` (
     `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)

@@ -1,6 +1,6 @@
 USE bte;
 
-CREATE TABLE `rakuten_order_file` (
+CREATE TABLE IF NOT EXISTS `rakuten_order_file` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`filename` VARCHAR(60) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`),

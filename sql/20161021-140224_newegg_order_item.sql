@@ -1,6 +1,6 @@
 USE bte;
 
-CREATE TABLE `newegg_order_item` (
+CREATE TABLE IF NOT EXISTS `newegg_order_item` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`OrderNumber` VARCHAR(40) NOT NULL,
 	`ItemSellerPartNo` VARCHAR(40) NOT NULL,

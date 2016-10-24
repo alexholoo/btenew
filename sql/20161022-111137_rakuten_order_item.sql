@@ -1,6 +1,6 @@
 USE bte;
 
-CREATE TABLE `rakuten_order_item` (
+CREATE TABLE IF NOT EXISTS `rakuten_order_item` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `Receipt_ID` VARCHAR(20) NOT NULL COMMENT 'Order ID',
     `Receipt_Item_ID` VARCHAR(20) NOT NULL,

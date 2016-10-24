@@ -1,6 +1,6 @@
 USE bte;
 
-CREATE TABLE `newegg_order_file` (
+CREATE TABLE IF NOT EXISTS `newegg_order_file` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`filename` VARCHAR(40) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`),
