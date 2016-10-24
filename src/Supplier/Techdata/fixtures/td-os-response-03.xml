@@ -1,0 +1,66 @@
+<XML_ShipmentStatus_Response>
+    <Header>
+        <TransSetIDCode>856</TransSetIDCode>
+        <TransControlID>10000</TransControlID>
+        <ResponseVersion>1.5</ResponseVersion>
+    </Header>
+    <Detail>
+        <PurposeCode>03</PurposeCode>
+        <RefInfo>
+            <RefIDQual>PO</RefIDQual>
+            <RefID>654654654</RefID>
+        </RefInfo>
+        <RefInfo>
+            <RefIDQual>ON</RefIDQual>
+            <RefID>6835434</RefID>
+        </RefInfo>
+        <RefInfo>
+            <RefIDQual>IN</RefIDQual>
+            <RefID>Z002533</RefID>
+        </RefInfo>
+        <ContactFuncCode>IC</ContactFuncCode>
+        <ContactName>SALLY</ContactName>
+        <ContainerInfo>
+            <ContainerID>1Z7493280300168667</ContainerID>
+            <ShipToName>DATAFLEX</ShipToName>
+            <ShipToAddr1>2145 CALUMET ST N'TH</ShipToAddr1>
+            <ShipToCity>CLEARWATER</ShipToCity>
+            <ShipToStateProv>FL</ShipToStateProv>
+            <ShipToPostalCode>33755</ShipToPostalCode>
+            <DateShipped>08/14/98</DateShipped>
+            <DateInvoiced>08/14/98</DateInvoiced>
+            <Weight>10.000</Weight>
+            <WhseDesc>FT WORTH, TX</WhseDesc>
+            <ShipVia>UPS GROUND</ShipVia>
+            <ContainerValue>1326.06</ContainerValue>
+            <HandlingCharge>0.00</HandlingCharge>
+            <CODCharge>0.00</CODCharge>
+            <DebitCredit>0.00</DebitCredit>
+            <NetFreightCharge>3.50</NetFreightCharge>
+            <TaxCharge>0.00</TaxCharge>
+            <TotalOrderValue>1326.06</TotalOrderValue>
+            <ItemInfo>
+                <IIAssignedID>001</IIAssignedID>
+                <AssignedID>015</AssignedID>
+                <ProductIDQual>VP</ProductIDQual>
+                <ProductID>515160</ProductID>
+                <ProductIDQual2>MG</ProductIDQual2>
+                <ProductID2>GHT-256C</ProductID2>
+                <ProductDesc>SMART 16/4 AT PLUS</ProductDesc>
+                <QtyShipped>2</QtyShipped>
+                <SerialInd>Y</SerialInd>
+                <SerialInfo>
+                    <SerialNbr>654654</SerialNbr>
+                </SerialInfo>
+                <SerialInfo>
+                    <SerialNbr>987987</SerialNbr>
+                </SerialInfo>
+            </ItemInfo>
+            <NbrOfItems>1</NbrOfItems>
+        </ContainerInfo>
+    </Detail>
+    <Summary>
+        <NbrOfContainers>1</NbrOfContainers>
+        <NbrOfSegments>79</NbrOfSegments>
+    </Summary>
+</XML_ShipmentStatus_Response>

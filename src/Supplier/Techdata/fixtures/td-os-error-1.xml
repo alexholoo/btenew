@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE XML_ShipmentStatus_Response SYSTEM "XML_ShipmentStatus_Response.dtd">
+<XML_ShipmentStatus_Response>
+  <Header>
+    <TransSetIDCode>856</TransSetIDCode>
+    <ResponseVersion>1.3</ResponseVersion>
+  </Header>
+  <Detail>
+    <PurposeCode>03</PurposeCode>
+    <RefInfo>
+      <RefIDQual>ON</RefIDQual>
+      <RefID>701-4924124-3816203</RefID>
+    </RefInfo>
+    <RefInfo>
+      <RefIDQual>IN</RefIDQual>
+      <RefID>2233238</RefID>
+    </RefInfo>
+    <ErrorInfo>
+      <ErrorIDQual>1Q</ErrorIDQual>
+      <ErrorID>0</ErrorID>
+      <ErrorDesc>Item Shipped, not invoiced</ErrorDesc>
+    </ErrorInfo>
+  </Detail>
+  <Summary>
+    <NbrOfSegments>4</NbrOfSegments>
+  </Summary>
+</XML_ShipmentStatus_Response>
