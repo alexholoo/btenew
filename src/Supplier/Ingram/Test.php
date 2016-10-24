@@ -155,6 +155,41 @@ function testOrderNumberMapper()
     echo OrderNumberMapper::getFakeOrderNo('702-6000945-2557809000'), PHP_EOL;
 }
 
+function testOrderTrackingRequest()
+{
+    $config = include __DIR__ . '/app/config/xmlapi.php';
+
+    $request = new Supplier\Ingram\OrderTrackingRequest();
+    $request->setConfig($config[ConfigKey::INGRAM]);
+    $request->setOrder('702-9287700-2279402');
+
+    $xml = $request->toXml();
+
+    echo $xml;
+}
+
+function testOrderTrackingResponse()
+{
+    $xml = file_get_contents(__DIR__ . './src/Supplier/Ingram/fixtures/ing-orderTracking-Response-1.xml');
+    $xml = file_get_contents(__DIR__ . './src/Supplier/Ingram/fixtures/ing-orderTracking-error-1.xml');
+
+    $response = new Supplier\Ingram\OrderTrackingResponse($xml);
+    $result = $response->parseXml();
+
+    pr($xml);
+    pr($result);
+}
+
+function realOrderTracking()
+{
+    $config = include __DIR__ . '/app/config/config.php';  // !!
+
+    $client = new Client($config);
+    $result = $client->getOrderStatus('702-9287700-2279402');
+
+    pr($result);
+}
+
 #testPriceAvailabilityRequest();
 #testPriceAvailabilityResponse();
 #realPriceAvailability();
@@ -163,3 +198,7 @@ function testOrderNumberMapper()
 #testPurchaseOrderResponse();
 #realPurchaseOrder();
 #testOrderNumberMapper();
+
+#testOrderTrackingRequest();
+#testOrderTrackingResponse();
+#realOrderTracking();

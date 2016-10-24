@@ -2,7 +2,7 @@
 
 namespace Supplier\Ingram;
 
-use Utility\Utils;
+use Toolkit\Utils;
 use Supplier\Model\OrderStatusRequest as BaseRequest;
 
 class OrderDetailRequest extends BaseRequest

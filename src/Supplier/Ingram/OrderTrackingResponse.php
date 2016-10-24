@@ -17,17 +17,31 @@ class OrderTrackingResponse extends BaseResponse
 
         $result = new OrderStatusResult();
 
-        $result->status = ''; // strval($xml->STATUS);
-        $result->orderNo = ''; // strval($xml->ORDERNUM);
-        $result->errorMessage = ''; // strval($xml->MESSAGE);
-
-        if ($result->status == 'success') {
-            $result->status = Response::STATUS_OK;
-        }
-
-        if ($result->status == 'failure') {
+        // Fatal error: Invalid Inbound XML Document
+        if (isset($xml['Number'])) {
             $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = strval($xml);
+            return $result;
         }
+
+        $result->status = strval($xml->TransactionHeader->ErrorStatus['ErrorNumber']);
+
+        if (!empty($result->status)) {
+            $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = strval($xml->TransactionHeader->ErrorStatus);
+            return $result;
+        }
+
+        $result->status = Response::STATUS_OK;
+        $result->poNum = strval($xml->CustomerPO);
+        $result->orderNo = strval($xml->Order->BranchOrderNumber);
+       #$result->invoice = '';
+        $result->sku = 'ING-'.strval($xml->Order->Suffix->Package->Contents->ContentDetail->SKU);
+        $result->qty = strval($xml->Order->Suffix->Package->Contents->ContentDetail->Quantity);
+        $result->carrier = strval($xml->Order->Suffix->Carrier);
+        $result->service = strval($xml->Order->Suffix->Package->TrackingURL);
+        $result->trackingNumber = strval($xml->Order->Suffix->Package['ID']);
+        $result->shipDate = strval($xml->Order->Suffix->Package->ShipDate);
 
         return $result;
     }

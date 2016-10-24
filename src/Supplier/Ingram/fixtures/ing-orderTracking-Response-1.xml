@@ -1,0 +1,33 @@
+<OrderTrackingResponse>
+  <Version>2.0</Version>
+  <TransactionHeader>
+    <SenderID>123456789</SenderID>
+    <ReceiverID>987654321</ReceiverID>
+    <ErrorStatus ErrorNumber=""></ErrorStatus>
+    <DocumentID>{C160DB2B-08A0-475F-BF17-ABF41576652A}</DocumentID>
+    <TransactionID>CI123456</TransactionID>
+    <TimeStamp>2001-07-19T13:36:41</TimeStamp>
+  </TransactionHeader>
+  <CustomerPO>8</CustomerPO>
+  <Order>
+    <BranchOrderNumber>2048043</BranchOrderNumber>
+    <TotalWeight>8</TotalWeight>
+    <CartonCount>1</CartonCount>
+    <Suffix SuffixNumber="11">
+      <Carrier Code="CT">CITY LINK</Carrier>
+      <Package ID="0000474410">
+        <ShipDate>2001-05-25</ShipDate>
+        <BoxNumber>001</BoxNumber>
+        <BoxWeight>8</BoxWeight>
+        <TrackingURL>http:\\www.JustATestingURL.com?TrackingID=0000474410</TrackingURL>
+        <Contents>
+          <ContentDetail>
+            <SKU>123A321</SKU>
+            <Quantity>2</Quantity>
+            <IngramLineNumber>1</IngramLineNumber>
+          </ContentDetail>
+        </Contents>
+      </Package>
+    </Suffix>
+  </Order>
+</OrderTrackingResponse>
