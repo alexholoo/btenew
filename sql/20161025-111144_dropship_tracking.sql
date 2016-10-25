@@ -1,9 +1,9 @@
 USE bte;
 
-CREATE TABLE `dropship_tracking` (
+CREATE TABLE IF NOT EXISTS `dropship_tracking` (
 	`id` INT(11) NOT NULL,
-	`order_id` VARCHAR(40) NOT NULL,
-	`ship_date` DATE NOT NULL,
+	`orderid` VARCHAR(40) NOT NULL,
+	`shipdate` DATE NOT NULL,
 	`carrier` VARCHAR(40) NOT NULL,
 	`service` VARCHAR(40) NOT NULL DEFAULT '',
 	`trackingnum` VARCHAR(40) NOT NULL,
