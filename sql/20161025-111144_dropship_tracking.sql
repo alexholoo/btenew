@@ -1,7 +1,7 @@
 USE bte;
 
 CREATE TABLE IF NOT EXISTS `dropship_tracking` (
-	`id` INT(11) NOT NULL,
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`orderid` VARCHAR(40) NOT NULL,
 	`shipdate` DATE NOT NULL,
 	`carrier` VARCHAR(40) NOT NULL,
