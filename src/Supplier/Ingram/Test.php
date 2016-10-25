@@ -185,7 +185,7 @@ function realOrderTracking()
     $config = include __DIR__ . '/app/config/config.php';  // !!
 
     $client = new Client($config);
-    $result = $client->getOrderStatus('702-9287700-2279402');
+    $result = $client->getOrderStatus('70292877002279402');
 
     pr($result);
 }
