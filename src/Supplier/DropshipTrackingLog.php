@@ -14,13 +14,18 @@ class DropshipTrackingLog
     {
         $db = Di::getDefault()->get('db');
 
-        $db->insertAsDict('dropship_tracking', [
-            'orderid'     => $result->orderNo,
-            'shipdate'    => $result->shipDate,
-            'carrier'     => $result->carrier,
-            'service'     => $result->service,
-            'trackingnum' => $result->trackingNumber,
-        ]);
+        try {
+            $db->insertAsDict('dropship_tracking', [
+                'orderid'     => $result->orderNo,
+                'shipdate'    => $result->shipDate,
+                'carrier'     => $result->carrier,
+                'service'     => $result->service,
+                'trackingnum' => $result->trackingNumber,
+            ]);
+        } catch (\Exception $e) {
+            $logger = Di::getDefault()->get('logger');
+            $logger->error($e->getMessage());
+        }
     }
 
     /**
