@@ -29,8 +29,8 @@ class OrderStatusResponse extends BaseResponse
 
         if (in_array($code, ['shipped', 'invoiced'])) {
             $result->status = Response::STATUS_OK;
-            $result->poNum = strval($xml->OrderStatusResponse->PONumber);
-            $result->orderNo = strval($xml->OrderStatusResponse->Items->Item->OrderNumber);
+            $result->orderNo = strval($xml->OrderStatusResponse->PONumber);
+            $result->poNum = strval($xml->OrderStatusResponse->Items->Item->OrderNumber);
            #$result->invoice = strval($xml->OrderStatusResponse->Items->Item->);
             $result->sku = 'SYN-'.strval($xml->OrderStatusResponse->Items->Item->SKU);
             $result->qty = strval($xml->OrderStatusResponse->Items->Item->OrderQuantity);
