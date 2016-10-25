@@ -39,4 +39,20 @@ class PurchaseOrderLog
             $logger->error($e->getMessage());
         }
     }
+
+    /**
+     * Mark the dropship order as 'shipped'
+     */
+    public static function update($orderId)
+    {
+        $db = Di::getDefault()->get('db');
+
+        try {
+            $sql = "UPDATE purchase_order_log SET shipped = 1 WHERE orderid = '$orderId'";
+            $db->execute($sql);
+        } catch (\Exception $e) {
+            $logger = Di::getDefault()->get('logger');
+            $logger->error($e->getMessage());
+        }
+    }
 }
