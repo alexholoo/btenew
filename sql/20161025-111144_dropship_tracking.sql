@@ -1,0 +1,15 @@
+USE bte;
+
+CREATE TABLE `dropship_tracking` (
+	`id` INT(11) NOT NULL,
+	`order_id` VARCHAR(40) NOT NULL,
+	`ship_date` DATE NOT NULL,
+	`carrier` VARCHAR(40) NOT NULL,
+	`service` VARCHAR(40) NOT NULL DEFAULT '',
+	`trackingnum` VARCHAR(40) NOT NULL,
+	`uploaded` TINYINT(4) NOT NULL DEFAULT '0',
+	`createdon` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`updatedon` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `order_id` (`order_id`)
+) COLLATE='utf8_general_ci' ENGINE=InnoDB;
