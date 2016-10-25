@@ -22,15 +22,15 @@ class OrderStatusResponse extends BaseResponse
 
         if ($result->status == 'success') {
             $result->status = Response::STATUS_OK;
-            $result->poNum = strval($xml->ORDERSTATUS->PONUM);
-            $result->orderNo = strval($xml->ORDERSTATUS->ORDERNUM);
+            $result->poNum = strval($xml->ORDERSTATUS->ORDERNUM);
+            $result->orderNo = strval($xml->ORDERSTATUS->PONUM);
             $result->invoice = strval($xml->ORDERSTATUS->INVOICE);
             $result->sku = 'DH-'.strval($xml->ORDERSTATUS->ORDERDETAIL->DETAILITEM->ITEMNO);
             $result->qty = strval($xml->ORDERSTATUS->ORDERDETAIL->DETAILITEM->QUANTITY);
             $result->carrier = strval($xml->ORDERSTATUS->PACKAGE->CARRIER);
             $result->service = strval($xml->ORDERSTATUS->PACKAGE->SERVICE);
             $result->trackingNumber = strval($xml->ORDERSTATUS->PACKAGE->TRACKNUM);
-            $result->shipDate = strval($xml->ORDERSTATUS->PACKAGE->DATESHIPPED);
+            $result->shipDate = self::fmtdate(strval($xml->ORDERSTATUS->PACKAGE->DATESHIPPED));
         }
 
         if ($result->status == 'failure') {
@@ -38,5 +38,12 @@ class OrderStatusResponse extends BaseResponse
         }
 
         return $result;
+    }
+
+    protected function fmtdate($date)
+    {
+        // 10/20/16 => 2016-10-20
+        list($m, $d, $y) = explode('/', $date);
+        return "20$y-$m-$d";
     }
 }
