@@ -98,6 +98,7 @@ function testPurchaseOrderRequest()
 function testPurchaseOrderResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-po-response-2.xml');
+    $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-po-response-1.xml');
     $response = new Supplier\Techdata\PurchaseOrderResponse($xml);
     $result = $response->parseXml();
 

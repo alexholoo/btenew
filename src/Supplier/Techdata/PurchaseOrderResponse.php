@@ -27,6 +27,22 @@ class PurchaseOrderResponse extends BaseResponse
             $result->errorMessage = strval($xml->Header->DescHdrErr);
         }
 
+        if ($xml->Header->OrderConfirmation) {
+            foreach ($xml->Header->OrderConfirmation->OrderDetail->RefInfo as $RefInfo) {
+                if ($RefInfo->RefIDQual2 == 'PO') {
+                    $result->poNum = strval($RefInfo->RefID2);
+                }
+
+                if ($RefInfo->RefIDQual2 == 'ON') {
+                    $result->orderNo = strval($RefInfo->RefID2);
+                }
+
+                if ($RefInfo->RefIDQual2 == 'IN') {
+                    $result->invoice = strval($RefInfo->RefID2);
+                }
+            }
+        }
+
         return $result;
     }
 }

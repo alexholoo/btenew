@@ -27,15 +27,15 @@ class OrderStatusResponse extends BaseResponse
 
         foreach ($xml->Detail->RefInfo as $RefInfo) {
             if ($RefInfo->RefIDQual == 'PO') {
-                $result->poNum = strval($RefInfo->RefId);
+                $result->poNum = strval($RefInfo->RefID);
             }
 
             if ($RefInfo->RefIDQual == 'ON') {
-                $result->orderNo = strval($RefInfo->RefId);
+                $result->orderNo = strval($RefInfo->RefID);
             }
 
             if ($RefInfo->RefIDQual == 'IN') {
-                $result->invoice = strval($RefInfo->RefId);
+                $result->invoice = strval($RefInfo->RefID);
             }
         }
 
@@ -44,8 +44,25 @@ class OrderStatusResponse extends BaseResponse
         $result->carrier = strval($xml->Detail->ContainerInfo->ShipVia);
        #$result->service = strval($xml->Detail->);
         $result->trackingNumber = strval($xml->Detail->ContainerInfo->ContainerID);
-        $result->shipDate = strval($xml->Detail->ContainerInfo->DateShipped);
+        $result->shipDate = $this->fmtdate(strval($xml->Detail->ContainerInfo->DateShipped));
 
         return $result;
+    }
+
+    private function fmtdate($date)
+    {
+        // YYMMDD => YYYYMMDD
+        if (strlen($date) == 6) {
+            list($y, $m, $d) = str_split($date, 2);
+            return "20$y-$m-$d";
+        }
+
+        // 10/20/16 => 2016-10-20
+        if (strlen($date) == 8) {
+            list($m, $d, $y) = explode('/', $date);
+            return "20$y-$m-$d";
+        }
+
+        return $date;
     }
 }
