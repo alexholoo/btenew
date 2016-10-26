@@ -88,13 +88,13 @@ class Client extends BaseClient
         return $result;
     }
 
-    public function getOrderStatus($orderId, $invoice = '')
+    public function getOrderStatus($orderId)
     {
         $url = self::OS_PROD_URL;
 
         $request = new OrderStatusRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::DH]);
-        $request->setOrder($orderId, $invoice);
+        $request->setOrder($orderId);
 
         $xml = $request->toXml();
 

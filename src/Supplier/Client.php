@@ -108,8 +108,7 @@ abstract class Client
 
     /**
      * @param  string $orderId
-     * @param  string $invoice
      * @return Supplier\Model\OrderQueryRequest
      */
-    abstract public function getOrderStatus($orderId, $invoice = '');
+    abstract public function getOrderStatus($orderId);
 }

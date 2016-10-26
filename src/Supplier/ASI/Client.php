@@ -57,7 +57,7 @@ class Client extends BaseClient
         throw \Exception('Purchase Order not supported for ASI');
     }
 
-    public function getOrderStatus($orderId, $invoice = '')
+    public function getOrderStatus($orderId)
     {
         throw \Exception('Order Status not supported for ASI');
     }

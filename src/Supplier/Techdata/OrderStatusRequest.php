@@ -17,6 +17,11 @@ class OrderStatusRequest extends BaseRequest
         $this->purposeCode = $purposeCode;
     }
 
+    public function setOrder($orderId)
+    {
+        $this->poNumber = $orderId;
+    }
+
     public function setOrderNum($orderNum)
     {
         $this->orderNum = $orderNum;

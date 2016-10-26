@@ -136,14 +136,14 @@ class Client extends BaseClient
      * @param  string $orderId
      * @param  string $invoice
      */
-    public function getOrderStatus($orderId, $invoice = '')
+    public function getOrderStatus($orderId)
     {
         $url = self::OS_TEST_URL;
         $url = self::OS_PROD_URL;
 
         $request = new OrderStatusRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
-        $request->setOrder($orderId, $invoice);
+        $request->setOrder($orderId);
 
         $xml = $request->toXml();
 
