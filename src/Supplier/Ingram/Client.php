@@ -90,7 +90,7 @@ class Client extends BaseClient
 
         $request = new OrderTrackingRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::INGRAM]);
-        $request->setOrder($orderId);
+        $request->setOrder(OrderNumberMapper::getFakeOrderNo($orderId));
 
         $xml = $request->toXml();
 

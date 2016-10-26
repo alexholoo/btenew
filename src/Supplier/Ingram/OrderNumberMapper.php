@@ -21,7 +21,7 @@ class OrderNumberMapper
             return $result['real_orderno'];
         }
 
-        return false;
+        return $fake;
     }
 
     public static function getFakeOrderNo($real)
@@ -51,12 +51,10 @@ class OrderNumberMapper
 
         // log real/fake order number to db for future use
 
-        $db->insertAsDict($table,
-            [
-                'real_orderno' => $real,
-                'fake_orderno' => $fake,
-            ]
-        );
+        $db->insertAsDict($table, [
+            'real_orderno' => $real,
+            'fake_orderno' => $fake,
+        ]);
 
         return $fake;
     }

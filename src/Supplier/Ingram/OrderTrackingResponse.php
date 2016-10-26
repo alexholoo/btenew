@@ -43,6 +43,12 @@ class OrderTrackingResponse extends BaseResponse
         $result->trackingNumber = strval($xml->Order->Suffix->Package['ID']);
         $result->shipDate = strval($xml->Order->Suffix->Package->ShipDate);
 
+        $result->poNum = OrderNumberMapper::getRealOrderNo($result->poNum);
+
+        $temp = $result->poNum;
+        $result->poNum = $result->orderNo;
+        $result->orderNo = $temp;
+
         return $result;
     }
 }
