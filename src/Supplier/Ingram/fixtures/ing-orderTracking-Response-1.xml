@@ -19,7 +19,7 @@
         <ShipDate>2001-05-25</ShipDate>
         <BoxNumber>001</BoxNumber>
         <BoxWeight>8</BoxWeight>
-        <TrackingURL>http:\\www.JustATestingURL.com?TrackingID=0000474410</TrackingURL>
+        <TrackingURL>http://www.JustATestingURL.com?TrackingID=0000474410</TrackingURL>
         <Contents>
           <ContentDetail>
             <SKU>123A321</SKU>

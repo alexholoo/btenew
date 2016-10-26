@@ -39,7 +39,7 @@ class OrderTrackingResponse extends BaseResponse
         $result->sku = 'ING-'.strval($xml->Order->Suffix->Package->Contents->ContentDetail->SKU);
         $result->qty = strval($xml->Order->Suffix->Package->Contents->ContentDetail->Quantity);
         $result->carrier = strval($xml->Order->Suffix->Carrier);
-        $result->service = strval($xml->Order->Suffix->Package->TrackingURL);
+       #$result->service = strval($xml->Order->Suffix->Package->TrackingURL);
         $result->trackingNumber = strval($xml->Order->Suffix->Package['ID']);
         $result->shipDate = strval($xml->Order->Suffix->Package->ShipDate);
 

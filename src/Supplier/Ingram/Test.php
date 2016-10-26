@@ -172,6 +172,8 @@ function testOrderTrackingResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/Ingram/fixtures/ing-orderTracking-Response-1.xml');
     $xml = file_get_contents(__DIR__ . './src/Supplier/Ingram/fixtures/ing-orderTracking-error-1.xml');
+    $xml = file_get_contents(__DIR__ . './src/Supplier/Ingram/fixtures/ing-orderTracking-error-2.xml');
+    $xml = file_get_contents(__DIR__ . './src/Supplier/Ingram/fixtures/ing-orderTracking-Response-2.xml');
 
     $response = new Supplier\Ingram\OrderTrackingResponse($xml);
     $result = $response->parseXml();

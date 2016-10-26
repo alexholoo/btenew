@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<OrderTrackingResponse>
+  <Version>2.0</Version>
+  <TransactionHeader>
+    <SenderID>YOU</SenderID>
+    <ReceiverID>ME</ReceiverID>
+    <ErrorStatus ErrorNumber="20035">ERROR: Order does not exist for this account. Please enter a valid Branch Order Number - Order Suffix - Customer PO</ErrorStatus>
+    <DocumentID>{36CAA92F-36A7-40E9-8C51-9EE3E165014D}</DocumentID>
+    <TransactionID>1</TransactionID>
+    <TimeStamp>2016-10-26T11:58:30</TimeStamp>
+  </TransactionHeader>
+</OrderTrackingResponse>
