@@ -63,4 +63,37 @@ class Client
 
         return $folder;
     }
+
+    public function getTrackingFile()
+    {
+        if ($this->site == 'CA') {
+            $file = 'E:/BTE/newegg_canada_tracking.csv';
+        } else if ($this->site == 'US') {
+            $file = 'E:/BTE/newegg_usa_tracking.csv';
+        }
+
+        return $file;
+    }
+
+    public function uploadTracking()
+    {
+        echo "Start uploading tracking to Newegg Canada ftp.", EOL;
+
+        $ftp = new FtpClient($this->config);
+
+        if (!$ftp->connect()) {
+            echo "Failed to login Newegg {$this->site} FTP server", PHP_EOL;
+            return;
+        }
+
+        // TODO: generate 'E:/BTE/newegg_canada_tracking.csv'
+        // TrackingFile
+
+        $localFile  = $this->getTrackingFile();
+        $remoteFile = './Inbound/Shipping/newegg_canada_tracking.csv';
+
+        $ftp->upload($localFile, $remoteFile);
+
+        echo "Successfully uploaded tracking to Newegg Canada ftp.", EOL;
+    }
 }
