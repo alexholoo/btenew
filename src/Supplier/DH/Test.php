@@ -154,6 +154,14 @@ function realOrderStatus()
     pr($result);
 }
 
+function realGetTracking()
+{
+    $config = include __DIR__ . '/app/config/config.php';
+
+    $client = new Client($config);
+    $client->getTracking();
+}
+
 #testPriceAvailabilityRequest();
 #testPriceAvailabilityResponse();
 #realPriceAvailability();
@@ -165,3 +173,5 @@ function realOrderStatus()
 #testOrderStatusRequest();
 #testOrderStatusResponse();
 #realOrderStatus();
+
+#realGetTracking();
