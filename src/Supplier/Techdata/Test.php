@@ -127,7 +127,10 @@ function testOrderStatusRequest()
 
     $request = new Supplier\Techdata\OrderStatusRequest();
     $request->setConfig($config[ConfigKey::TECHDATA]);
-    $request->setOrder('2233238');
+    $request->setOrder('701-4924124-3816203');
+    $request->setPoNumber('2233238');
+    $request->setInvoice('INV');
+    $request->setPurpose('01');
 
     $xml = $request->toXml();
 
@@ -138,6 +141,8 @@ function testOrderStatusResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-os-error-1.xml');
     $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-os-response-03.xml');
+    $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-os-response-02.xml');
+    $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-os-response-01.xml');
     $response = new Supplier\Techdata\OrderStatusResponse($xml);
     $result = $response->parseXml();
 
@@ -150,7 +155,7 @@ function realOrderStatus()
     $config = include __DIR__ . '/app/config/config.php';
 
     $client = new Client($config);
-    $result = $client->getOrderStatus('701-4924124-3816203', '2233238');
+    $result = $client->getOrderStatus('701-4924124-3816203');//, '2233238');
 
     pr($result);
 }

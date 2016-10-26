@@ -39,12 +39,14 @@ class OrderStatusResponse extends BaseResponse
             }
         }
 
-        $result->sku = 'TD-'.strval($xml->Detail->ContainerInfo->ItemInfo->ProductID);
-        $result->qty = strval($xml->Detail->ContainerInfo->ItemInfo->QtyShipped);
-        $result->carrier = strval($xml->Detail->ContainerInfo->ShipVia);
-       #$result->service = strval($xml->Detail->);
-        $result->trackingNumber = strval($xml->Detail->ContainerInfo->ContainerID);
-        $result->shipDate = $this->fmtdate(strval($xml->Detail->ContainerInfo->DateShipped));
+        if ($xml->Detail->ContainerInfo) {
+            $result->sku = 'TD-'.strval($xml->Detail->ContainerInfo->ItemInfo->ProductID);
+            $result->qty = strval($xml->Detail->ContainerInfo->ItemInfo->QtyShipped);
+            $result->carrier = strval($xml->Detail->ContainerInfo->ShipVia);
+           #$result->service = strval($xml->Detail->);
+            $result->trackingNumber = strval($xml->Detail->ContainerInfo->ContainerID);
+            $result->shipDate = $this->fmtdate(strval($xml->Detail->ContainerInfo->DateShipped));
+        }
 
         return $result;
     }

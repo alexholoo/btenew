@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<XML_OrderStatus_Submit>
+  <Header>
+    <UserName>567861</UserName>
+    <Password>bteTDxml2014</Password>
+    <TransSetIDCode>869</TransSetIDCode>
+    <TransControlID>10000</TransControlID>
+    <ResponseVersion>1.3</ResponseVersion>
+  </Header>
+  <Detail>
+    <PurposeCode>01</PurposeCode>
+    <EDIInd>N</EDIInd>
+    <NonEDIInd>Y</NonEDIInd>
+    <RefInfo>
+      <RefIDQual>PO</RefIDQual>
+      <RefID>701-3338803-9989023</RefID>
+    </RefInfo>
+  </Detail>
+  <Summary>
+    <NbrOfSegments/>
+  </Summary>
+</XML_OrderStatus_Submit>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE XML_OrderStatus_Response SYSTEM "XML_OrderStatus_Response.dtd">
+<XML_OrderStatus_Response>
+  <Header>
+    <TransSetIDCode>870</TransSetIDCode>
+    <TransControlID>10000</TransControlID>
+    <ResponseVersion>1.3</ResponseVersion>
+  </Header>
+  <Detail>
+    <PurposeCode>01</PurposeCode>
+    <RefInfo>
+      <RefIDQual>PO</RefIDQual>
+      <RefID>701-3338803-9989023</RefID>
+    </RefInfo>
+    <RefInfo>
+      <RefIDQual>ON</RefIDQual>
+      <RefID>5626138</RefID>
+    </RefInfo>
+    <RefInfo>
+      <RefIDQual>IN</RefIDQual>
+      <RefID>N145032</RefID>
+    </RefInfo>
+    <OrderStatus>INVOICED</OrderStatus>
+    <Terms>NET 30 DAYS</Terms>
+    <ContactName>XMLUSER XMLUSER</ContactName>
+    <InvoiceTotal>49.06</InvoiceTotal>
+  </Detail>
+  <Summary>
+    <NbrOfSegments>1</NbrOfSegments>
+  </Summary>
+</XML_OrderStatus_Response>

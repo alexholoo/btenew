@@ -42,7 +42,7 @@ class OrderStatusResult
     /**
      * @var string
      */
-    public $service;
+    public $service = '';
 
     /**
      * @var string

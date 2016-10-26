@@ -94,9 +94,14 @@ class Client extends BaseClient
     {
         $url = self::OS_PROD_URL;
 
+        $detail = $this->getOrderDetail($orderId);
+
         $request = new OrderStatusRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
-        $request->setOrder($orderId, $invoice);
+        $request->setPurpose('03'); // Shipment Detail
+        $request->setOrderNum($detail->orderNo);
+        $request->setPoNumber($detail->poNum);
+        $request->setInvoice($detail->invoice);
 
         $xml = $request->toXml();
 
@@ -104,6 +109,10 @@ class Client extends BaseClient
 
         $response = new OrderStatusResponse($res);
         $result = $response->parseXml();
+
+        $temp = $result->poNum;
+        $result->poNum = $result->orderNo;
+        $result->orderNo = $temp;
 
         OrderStatusQueryLog::save($orderId, $url, $xml, $res);
 
@@ -116,5 +125,34 @@ class Client extends BaseClient
         $this->response = $response;
 
         return $result;
+    }
+
+    public function getOrderDetail($orderId)
+    {
+        $url = self::OS_PROD_URL;
+
+        $request = new OrderStatusRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
+        $request->setPurpose('01'); // Order Detail
+        $request->setPoNumber($orderId);
+
+        $xml = $request->toXml();
+
+        $res = $this->curlPost($url, $xml);
+
+        $response = new OrderStatusResponse($res);
+        $result = $response->parseXml();
+
+        OrderStatusQueryLog::save($orderId, $url, $xml, $res);
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
+    }
+
+    public function getInvoiceDetail($orderId, $invoice)
+    {
+        $request->setPurpose('02'); // Invoice Detail
     }
 }
