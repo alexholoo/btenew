@@ -43,7 +43,7 @@ class PurchaseOrderLog
     /**
      * Mark the dropship order as 'shipped'
      */
-    public static function update($orderId)
+    public static function markShipped($orderId)
     {
         $db = Di::getDefault()->get('db');
 

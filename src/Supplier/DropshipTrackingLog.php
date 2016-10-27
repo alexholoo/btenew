@@ -32,7 +32,7 @@ class DropshipTrackingLog
      * Mark the order tracking as 'uploaded'
      * @param  string $orderId
      */
-    public static function update($orderId)
+    public static function markUploaded($orderId)
     {
         $db = Di::getDefault()->get('db');
 
