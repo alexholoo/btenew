@@ -41,4 +41,19 @@ class Client
             echo 'There was a problem with the Amazon library. Error: '.$ex->getMessage();
         }
     }
+
+    public function uploadTracking()
+    {
+        // TODO: export tracking to csv format
+        try {
+            $amz = new AmazonFeed($this->store);
+            $amz->setFeedType('_POST_ORDER_FULFILLMENT_DATA_');
+           #$amz->setFeedContent($feed);
+           #$amz->loadFeedFile($path);
+            $amz->submitFeed();
+            return $amz->getResponse();
+        } catch (Exception $ex) {
+            echo 'There was a problem with the Amazon library. Error: '.$ex->getMessage();
+        }
+    }
 }
