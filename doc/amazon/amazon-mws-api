@@ -1,0 +1,189 @@
+* Feeds
+* Reports
+* Fulfillment
+* Orders
+* Sellers
+* Products
+* Recommendations
+* Subscriptions
+* Off-Amazon Payments Sandbox
+* Off-Amazon Payments
+* Finances
+* Merchant Fulfillment
+
+"Feeds"
+    - CancelFeedSubmissions
+    - GetFeedSubmissionList
+    - GetFeedSubmissionListByNextToken
+    - GetFeedSubmissionCount
+    - GetFeedSubmissionResult
+    - SubmitFeed
+
+"Reports"
+    - GetReport
+    - GetReportCount
+    - GetReportList
+    - GetReportListByNextToken
+    - GetReportRequestCount
+    - GetReportRequestList
+    - GetReportRequestListByNextToken
+    - CancelReportRequests
+    - RequestReport
+
+    "ReportSchedule"
+        - ManageReportSchedule
+        - GetReportScheduleList
+        - GetReportScheduleListByNextToken
+        - GetReportScheduleCount
+        - UpdateReportAcknowledgements
+
+"FulfillmentInbound"
+    - GetServiceStatus
+    - GetPreorderInfo
+    - ConfirmPreorder
+    - ConfirmTransportRequest
+    - CreateInboundShipment
+    - CreateInboundShipmentPlan
+    - EstimateTransportRequest
+    - GetBillOfLading
+    - GetPalletLabels
+    - GetPackageLabels
+    - GetUniquePackageLabels
+    - GetTransportContent
+    - ListInboundShipmentItems
+    - ListInboundShipmentItemsByNextToken
+    - ListInboundShipments
+    - ListInboundShipmentsByNextToken
+    - PutTransportContent
+    - VoidTransportRequest
+    - UpdateInboundShipment
+    - GetPrepInstructionsForSKU
+    - GetPrepInstructionsForASIN
+    - GetInboundGuidanceForASIN
+    - GetInboundGuidanceForSKU
+
+    "FulfillmentInventory"
+        - GetServiceStatus
+        - ListInventorySupply
+        - ListInventorySupplyByNextToken
+
+    "FulfillmentOutbound"
+        - GetServiceStatus
+        - CancelFulfillmentOrder
+        - CreateFulfillmentOrder
+        - UpdateFulfillmentOrder
+        - GetFulfillmentOrder
+        - GetFulfillmentPreview
+        - GetPackageTrackingDetails
+        - ListAllFulfillmentOrders
+        - ListAllFulfillmentOrdersByNextToken
+        - CreateFulfillmentReturn
+        - ListReturnReasonCodes
+
+"Order Retrieval"
+    - GetServiceStatus
+    - ListOrders
+    - ListOrdersByNextToken
+    - GetOrder
+    - ListOrderItems
+    - ListOrderItemsByNextToken
+
+"Sellers Retrieval"
+    - GetServiceStatus
+    - ListMarketplaceParticipations
+    - ListMarketplaceParticipationsByNextToken
+
+"Products"
+    - GetServiceStatus
+    - ListMatchingProducts
+    - GetMatchingProduct
+    - GetMatchingProductForId
+    - GetCompetitivePricingForSKU
+    - GetCompetitivePricingForASIN
+    - GetLowestPricedOffersForSKU
+    - GetLowestPricedOffersForASIN
+    - GetLowestOfferListingsForSKU
+    - GetLowestOfferListingsForASIN
+    - GetMyFeesEstimate
+    - GetMyPriceForSKU
+    - GetMyPriceForASIN
+    - GetProductCategoriesForSKU
+    - GetProductCategoriesForASIN
+
+"Recommendations"
+    - GetServiceStatus
+    - GetLastUpdatedTimeForRecommendations
+    - ListRecommendations
+    - ListRecommendationsByNextToken
+
+"Destinations"
+    - GetServiceStatus
+    - RegisterDestination
+    - DeregisterDestination
+    - ListRegisteredDestinations
+    - SendTestNotificationToDestination
+
+   "Subscriptions"
+        - CreateSubscription
+        - GetSubscription
+        - DeleteSubscription
+        - ListSubscriptions
+        - UpdateSubscription
+
+"OffAmazonPayments-Sandbox"
+    - GetServiceStatus
+    - GetOrderReferenceDetails
+    - SetOrderReferenceDetails
+    - ConfirmOrderReference
+    - CancelOrderReference
+    - CloseOrderReference
+    - Authorize
+    - GetAuthorizationDetails
+    - CloseAuthorization
+    - Capture
+    - GetCaptureDetails
+    - Refund
+    - GetRefundDetails
+    - CreateOrderReferenceForId
+    - GetBillingAgreementDetails
+    - SetBillingAgreementDetails
+    - ConfirmBillingAgreement
+    - ValidateBillingAgreement
+    - AuthorizeOnBillingAgreement
+    - CloseBillingAgreement
+
+"OffAmazonPayments"
+    - GetServiceStatus
+    - GetOrderReferenceDetails
+    - SetOrderReferenceDetails
+    - ConfirmOrderReference
+    - CancelOrderReference
+    - CloseOrderReference
+    - Authorize
+    - GetAuthorizationDetails
+    - CloseAuthorization
+    - Capture
+    - GetCaptureDetails
+    - Refund
+    - GetRefundDetails
+    - CreateOrderReferenceForId
+    - GetBillingAgreementDetails
+    - SetBillingAgreementDetails
+    - ConfirmBillingAgreement
+    - ValidateBillingAgreement
+    - AuthorizeOnBillingAgreement
+    - CloseBillingAgreement
+
+"Finances"
+    - GetServiceStatus
+    - ListFinancialEventGroups
+    - ListFinancialEventGroupsByNextToken
+    - ListFinancialEvents
+    - ListFinancialEventsByNextToken
+
+"Merchant Fulfillment"
+    - GetServiceStatus
+    - GetEligibleShippingServices
+    - CreateShipment
+    - GetShipment
+    - CancelShipment
