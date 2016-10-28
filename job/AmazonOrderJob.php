@@ -34,7 +34,12 @@ class AmazonOrderJob
     {
         $data = $order->getData();
 
+        if ($this->orderExists($data['AmazonOrderId'])) {
+            return;
+        }
+
         if ($data['OrderStatus'] == 'Canceled') {
+            // TODO: delete order if exists?
             return;
         }
 
@@ -159,6 +164,12 @@ class AmazonOrderJob
         } catch (\Exception $e) {
             //echo $e->getMessage(), EOL;
         }
+    }
+
+    private function orderExists($orderId)
+    {
+        $sql = "SELECT OrderId FROM amazon_order WHERE OrderId='$orderId'";
+        return $this->db->fetchOne($sql);
     }
 
     private function yesNo($value)
