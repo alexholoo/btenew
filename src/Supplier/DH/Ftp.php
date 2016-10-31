@@ -23,6 +23,7 @@ class Ftp
             return $ftp;
         }
 
+        echo 'Cannot connect to DH FTP server', EOL;
         return false;
     }
 
@@ -31,13 +32,17 @@ class Ftp
         $ftp = self::connect();
 
         if ($ftp) {
+            echo 'Downloading pricelist from DH FTP server', EOL;
             $ftp->download($remoteFile, $localFile);
+            return true;
         }
+
+        return false;
     }
 
     public static function getPricelist()
     {
-        self::download('ITEMLIST', 'E:\BTE\DH-ITEMLIST');
+        self::download('ITEMLIST', 'E:/BTE/pricelist/DH-ITEMLIST');
     }
 
     public static function getTracking()
@@ -49,7 +54,7 @@ class Ftp
         #    [ 'D2', 'ModelNo',     'Qty',       'SerialNo+',    'Price' ],
         #];
 
-        $localFile = 'E:/BTE/DH-TRACKING';
+        $localFile = 'E:/BTE/tracking/dh/DH-TRACKING';
 
         self::download('TRACKING', $localFile);
 

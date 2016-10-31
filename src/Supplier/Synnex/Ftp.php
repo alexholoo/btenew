@@ -24,7 +24,7 @@ class Ftp
             return $ftp;
         }
 
-       #echo 'Cannot connect to Synnex FTP server', EOL;
+        echo 'Cannot connect to Synnex FTP server', EOL;
         return false;
     }
 
@@ -33,6 +33,7 @@ class Ftp
         $ftp = self::connect();
 
         if ($ftp) {
+            echo 'Downloading pricelist from Synnex FTP server', EOL;
             $ftp->download($remoteFile, $localFile);
             return true;
         }
@@ -42,13 +43,14 @@ class Ftp
 
     public static function getPricelist()
     {
-        $localFile = 'E:\BTE\SYN-c1150897.zip';
+        $localFile = 'E:/BTE/pricelist/SYN-c1150897.zip';
 
-        self::download('c1150897.zip', 'E:\BTE\SYN-c1150897.zip');
+        self::download('c1150897.zip', $localFile);
 
         Utils::unzip($localFile);
 
-        rename(dirname($localFile).'\1150897.ap', dirname($localFile).'\SYN-1150897.ap');
+        $folder = dirname($localFile);
+        rename("$folder/1150897.ap", "$folder/SYN-1150897.ap");
     }
 
     public static function getTracking()
@@ -65,9 +67,10 @@ class Ftp
             if (preg_match("/BTE_COMPUTER_856.xml/i", $file)) {
                 echo "Downloading $file ...", EOL;
 
+                # old tracking files locate at
                 # ./data/csv/amazon/synnex-tracking/*.xml
 
-                $localFile = 'E:\BTE\\' . $file;
+                $localFile = "E:/BTE/tracking/synnex/$file";
                 $ftp->download($file, $localFile);
 
                 self::importTracking($localFile);
