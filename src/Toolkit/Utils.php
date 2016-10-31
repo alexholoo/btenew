@@ -6,7 +6,7 @@ class Utils
 {
     public static function unzip($zipfile)
     {
-         $zip = new ZipArchive;
+         $zip = new \ZipArchive;
          $res = $zip->open($zipfile);
          if ($res === TRUE) {
              $zip->extractTo(dirname($zipfile));
