@@ -166,4 +166,9 @@ class Client extends BaseClient
 
         return $result;
     }
+
+    public function getTracking()
+    {
+        Ftp::getTracking();
+    }
 }
