@@ -17,7 +17,8 @@ class AmazonBuyboxPriceJob
 
         $filename = $this->getBuyboxFilename();
         $handle = fopen($filename, 'w');
-        fputcsv($handle, ['sku', 'buyboxPrice', 'condition', 'weAreLowest']);
+
+        fputcsv($handle, ['sku', 'bte-price', 'buybox-price', 'bte-condition', 'condition', 'bte-lowest']);
 
         foreach ($result as $item) {
             fputcsv($handle, $item);
@@ -57,20 +58,62 @@ class AmazonBuyboxPriceJob
 
                 $sku = $data['Identifiers']['SKUIdentifier']['SellerSKU'];
 
-                $weAreLowest = false;
-                $price = '-';
+                $isLowest = false;
+                $buyboxPrice = '-';
                 $condition = '-';
 
                 if (isset($data['CompetitivePricing']['CompetitivePrices'])) {
                     $info = current($data['CompetitivePricing']['CompetitivePrices']);
-                    $weAreLowest = $info['belongsToRequester'];
-                    $price = $info['Price']['LandedPrice']['Amount'];
+                    $isLowest = $info['belongsToRequester'];
+                    $buyboxPrice = $info['Price']['LandedPrice']['Amount'];
                     $condition = $info['condition'];
                 }
 
-                $areWeLowest = ($weAreLowest == 'true') ? 'Yes' : '-';
+                $BTELowest = ($isLowest == 'true') ? 'Yes' : '';
 
-                $result[] = [$sku, $price, $condition, $areWeLowest];
+                $result[$sku][0] = $sku;            // sku
+                $result[$sku][1] = '';              // bte-price
+                $result[$sku][2] = $buyboxPrice;    // buybox-price
+                $result[$sku][3] = '';              // bte-condition
+                $result[$sku][4] = $condition;      // condition
+                $result[$sku][5] = $BTELowest;      // bte-lowest
+            }
+
+            // Get My Price and Condtion
+            $api = new \AmazonProductInfo($this->store);
+
+            $api->setSKUs($chunk);
+            $api->fetchMyPrice();
+
+            $products = $api->getProduct();
+
+            foreach ($products as $product) {
+                if (!is_object($product)) {
+                    echo $product, EOL;
+                    continue;
+                }
+
+                $data = $product->getData();
+
+                //pr($data);
+
+                if (!isset($data['Offers'])) {
+                    continue;
+                }
+
+                $offers = $data['Offers'];
+
+                foreach ($offers as $offer) {
+                    $sku = $offer['SellerSKU'];
+                    if (isset($result[$sku])) {
+                        $price = $offer['RegularPrice']['Amount'];
+                       #$price = $offer['BuyingPrice']['LandedPrice']['Amount'];
+                        $condition = $offer['ItemCondition'];
+
+                        $result[$sku][1] = $price;     // bte-price
+                        $result[$sku][3] = $condition; // bte-condition
+                    }
+                }
             }
         }
 
