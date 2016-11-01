@@ -30,11 +30,14 @@ class AmazonBuyboxPriceJob
     {
         $fbaItems = $this->getFbaItems();
 
+        $chunks = array_chunk($fbaItems, 20);
+
         $result = [];
 
-        foreach ($fbaItems as $items) {
+        foreach ($chunks as $chunk) {
             $api = new \AmazonProductInfo($this->store);
-            $api->setSKUs($items);
+
+            $api->setSKUs($chunk);
             $api->fetchCompetitivePricing();
 
             $products = $api->getProduct();
@@ -99,7 +102,7 @@ class AmazonBuyboxPriceJob
 
         echo "FBA items: ", count($skus), ' => ', count($skulist), EOL;
 
-        return array_chunk($skulist, 20);
+        return $skulist;
     }
 
     protected function getInventoryReport()
