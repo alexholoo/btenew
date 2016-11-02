@@ -2,7 +2,9 @@
 
 class AmazonBuyboxPriceJob
 {
-    protected $store = 'bte-amazon-ca';
+    protected $store;
+    protected $buyboxFilename;
+    protected $fbaItemsFilename;
 
     public function __construct()
     {
@@ -12,6 +14,19 @@ class AmazonBuyboxPriceJob
     }
 
     public function run($argv = [])
+    {
+        $this->store = 'bte-amazon-ca';
+        $this->fbaItemsFilename = 'E:/BTE/amazon-ca-fba-items.txt';
+        $this->buyboxFilename = 'W:/data/csv/amazon/amazon-ca-fba-buybox.csv';
+        $this->genBuyboxPriceReport();
+
+        $this->store = 'bte-amazon-us';
+        $this->fbaItemsFilename = 'E:/BTE/amazon-us-fba-items.txt';
+        $this->buyboxFilename = 'W:/data/csv/amazon/amazon-us-fba-buybox.csv';
+        $this->genBuyboxPriceReport();
+    }
+
+    protected function genBuyboxPriceReport()
     {
         $result = $this->getBuyboxPrice();
 
@@ -175,13 +190,12 @@ class AmazonBuyboxPriceJob
 
     protected function getBuyboxFilename()
     {
-        return 'W:/data/csv/amazon/amazon-ca-fba-buybox.csv';
-        return 'E:/BTE/amazon-ca-fba-buybox.csv';
+        return $this->buyboxFilename;
     }
 
     protected function getReportFilename()
     {
-        return 'E:/BTE/amazon-ca-fba-items.txt';
+        return $this->fbaItemsFilename;
     }
 }
 
