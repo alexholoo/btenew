@@ -62,20 +62,29 @@ function ftr($msg)
 
 function &timer_fetch()
 {
-	static $timers = [];
-	return $timers;
+    static $timers = [ '__names__' => [] ];
+    return $timers;
 }
 
 function timer_start($name)
 {
-	$timers = &timer_fetch();
-	$timers[$name]['start'] = microtime(true);
+    $timers = &timer_fetch();
+    array_push($timers['__names__'], $name);
+    $timers[$name] = microtime(true);
 }
 
-function timer_end($name)
+function timer_end($name = null)
 {
-	$timers = &timer_fetch();
-	return $name.': '.number_format(microtime(true) - $timers[$name]['start'], 4);
+    $timers = &timer_fetch();
+    if (!$name) {
+        $name = array_pop($timers['__names__']);
+    } else {
+        $key = array_search($name, $timers['__names__']);
+        unset($timers['__names__'][$key]);
+    }
+    $start = $timers[$name];
+    $end = microtime(true);
+    $timers[$name] = number_format($end - $start, 3);
 }
 
 }
