@@ -35,10 +35,10 @@ class OrderImportJob
             $order_id   = $fields[2];
             $mgn_order_id = $fields[3];
             $express    = $fields[4];
-            $buyer      = $fields[5];
-            $address    = $fields[6];
-            $city       = $fields[7];
-            $province   = $fields[8];
+            $buyer      = utf8_encode($fields[5]);
+            $address    = utf8_encode($fields[6]);
+            $city       = utf8_encode($fields[7]);
+            $province   = utf8_encode($fields[8]);
             $postalcode = $fields[9];
             $country    = $fields[10];
             $phone      = $fields[11];
