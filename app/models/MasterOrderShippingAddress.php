@@ -5,14 +5,11 @@ namespace App\Models;
 use Phalcon\Mvc\Model;
 
 /**
- * App\Models\MasterOrder
+ * App\Models\MasterOrderShippingAddress
  */
-class MasterOrder extends Model
+class MasterOrderShippingAddress extends Model
 {
-    public $channel;
-    public $date;
     public $orderId;
-    public $express;
     public $buyer;
     public $address;
     public $city;
@@ -21,17 +18,14 @@ class MasterOrder extends Model
     public $country;
     public $phone;
     public $email;
-    public $shipping;
 
     public function getSource()
     {
-        return 'master_order';
+        return 'master_order_shipping_address';
     }
 
     public function initialize()
     {
-        $this->hasMany("orderId", "MasterOrderItem",            "orderId", ['alias' => 'items']);
-        $this->hasMany("orderId", "MasterOrderShippingAddress", "orderId", ['alias' => 'shippingAddress']);
     }
 
     public function columnMap()
@@ -41,10 +35,7 @@ class MasterOrder extends Model
 
         return array(
             'id'         => 'id',
-            'channel'    => 'channel',
-            'date'       => 'date',
             'order_id'   => 'orderId',
-            'express'    => 'express',
             'buyer'      => 'buyer',
             'address'    => 'address',
             'city'       => 'city',
@@ -53,7 +44,6 @@ class MasterOrder extends Model
             'country'    => 'country',
             'phone'      => 'phone',
             'email'      => 'email',
-            'shipping'   => 'shipping',
         );
     }
 }

@@ -1,6 +1,6 @@
 USE bte;
 
-CREATE TABLE IF NOT EXIST `master_order` (
+CREATE TABLE IF NOT EXISTS `master_order` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`channel` VARCHAR(20) NOT NULL,
 	`date` DATE NOT NULL,
