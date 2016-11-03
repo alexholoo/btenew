@@ -33,6 +33,21 @@ class Orders extends Model
         $this->setSource('all_mgn_orders');
     }
 
+    public function beforeValidation()
+    {
+        if ($this->email === '') {
+           #$this->email = new \Phalcon\Db\RawValue('');
+        }
+
+        if ($this->phone === '') {
+           #$this->phone = new \Phalcon\Db\RawValue('');
+        }
+
+        if ($this->province === '') {
+            #$this->province = new \Phalcon\Db\RawValue('');
+        }
+    }
+
     public function columnMap()
     {
         // Keys are the real names in the table and

@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Orders;
+#se App\Models\OrderNotes;
+
 class OrderImportJob
 {
     public function __construct()
@@ -29,54 +32,37 @@ class OrderImportJob
 
         $count = 0;
         while(($fields = fgetcsv($fh))) {
+            $order_id = $fields[2];
+            $order = Orders::findFirst("orderId='$order_id'");
+            if (!$order) {
+                $order = new Orders();
+                $order->channel    = $fields[0];
+                $order->date       = $fields[1];
+                $order->orderId    = $fields[2];
+                $order->mgnOrderId = $fields[3];
+                $order->express    = $fields[4];
+                $order->buyer      = $fields[5];
+                $order->address    = $fields[6];
+                $order->city       = $fields[7];
+                $order->province   = $fields[8];
+                $order->postalcode = $fields[9];
+                $order->country    = $fields[10];
+                $order->phone      = $fields[11];
+                $order->email      = $fields[12];
+                $order->sku        = $fields[13];
+                $order->price      = $fields[14];
+                $order->qty        = $fields[15];
+                $order->shipping   = $fields[16];
+                $order->mgnInvoiceId = $fields[17];
 
-            $channel    = $fields[0];
-            $date       = $fields[1];
-            $order_id   = $fields[2];
-            $mgn_order_id = $fields[3];
-            $express    = $fields[4];
-            $buyer      = $fields[5];
-            $address    = $fields[6];
-            $city       = $fields[7];
-            $province   = $fields[8];
-            $postalcode = $fields[9];
-            $country    = $fields[10];
-            $phone      = $fields[11];
-            $email      = $fields[12];
-            $skus_sold  = $fields[13];
-            $sku_price  = $fields[14];
-            $skus_qty   = $fields[15];
-            $shipping   = $fields[16];
-            $mgn_invoice_id = $fields[17];
-
-            try {
-                $this->db->insertAsDict('all_mgn_orders',
-                    array(
-                        'channel'   => $channel,
-                        'date'      => $date,
-                        'order_id'  => $order_id,
-                        'mgn_order_id' => $mgn_order_id,
-                        'express'   => $express,
-                        'buyer'     => $buyer,
-                        'address'   => $address,
-                        'city'      => $city,
-                        'province'  => $province,
-                        'postalcode'=> $postalcode,
-                        'country'   => $country,
-                        'phone'     => $phone,
-                        'email'     => $email,
-                        'skus_sold' => $skus_sold,
-                        'sku_price' => $sku_price,
-                        'skus_qty'  => $skus_qty,
-                        'shipping'  => $shipping,
-                        'mgn_invoice_id' => $mgn_invoice_id,
-                    )
-                );
-
-                $count++;
-
-            } catch (Exception $e) {
-                //echo $e->getMessage(), EOL;
+                if ($order->save() === false) {
+                    $messages = $order->getMessages();
+                    foreach ($messages as $message) {
+                        echo $order_id, ': ', $message, "\n";
+                    }
+                } else {
+                    $count++;
+                }
             }
         }
 
