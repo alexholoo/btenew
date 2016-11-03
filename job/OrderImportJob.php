@@ -30,53 +30,40 @@ class OrderImportJob
         $count = 0;
         while(($fields = fgetcsv($fh))) {
 
-            $channel    = $fields[0];
-            $date       = $fields[1];
-            $order_id   = $fields[2];
-            $mgn_order_id = $fields[3];
-            $express    = $fields[4];
-            $buyer      = $fields[5];
-            $address    = $fields[6];
-            $city       = $fields[7];
-            $province   = $fields[8];
-            $postalcode = $fields[9];
-            $country    = $fields[10];
-            $phone      = $fields[11];
-            $email      = $fields[12];
-            $skus_sold  = $fields[13];
-            $sku_price  = $fields[14];
-            $skus_qty   = $fields[15];
-            $shipping   = $fields[16];
-            $mgn_invoice_id = $fields[17];
+            $order_id = $fields[2];
+
+            if ($this->orderExists($order_id)) {
+                continue;
+            }
 
             try {
                 $this->db->insertAsDict('all_mgn_orders',
                     array(
-                        'channel'   => $channel,
-                        'date'      => $date,
-                        'order_id'  => $order_id,
-                        'mgn_order_id' => $mgn_order_id,
-                        'express'   => $express,
-                        'buyer'     => $buyer,
-                        'address'   => $address,
-                        'city'      => $city,
-                        'province'  => $province,
-                        'postalcode'=> $postalcode,
-                        'country'   => $country,
-                        'phone'     => $phone,
-                        'email'     => $email,
-                        'skus_sold' => $skus_sold,
-                        'sku_price' => $sku_price,
-                        'skus_qty'  => $skus_qty,
-                        'shipping'  => $shipping,
-                        'mgn_invoice_id' => $mgn_invoice_id,
+                        'channel'        => $fields[0],
+                        'date'           => $fields[1],
+                        'order_id'       => $fields[2],
+                        'mgn_order_id'   => $fields[3],
+                        'express'        => $fields[4],
+                        'buyer'          => $fields[5],
+                        'address'        => $fields[6],
+                        'city'           => $fields[7],
+                        'province'       => $fields[8],
+                        'postalcode'     => $fields[9],
+                        'country'        => $fields[10],
+                        'phone'          => $fields[11],
+                        'email'          => $fields[12],
+                        'skus_sold'      => $fields[13],
+                        'sku_price'      => $fields[14],
+                        'skus_qty'       => $fields[15],
+                        'shipping'       => $fields[16],
+                        'mgn_invoice_id' => $fields[17],
                     )
                 );
 
                 $count++;
 
             } catch (Exception $e) {
-                //echo $e->getMessage(), EOL;
+                echo $e->getMessage(), EOL;
             }
         }
 
@@ -97,33 +84,36 @@ class OrderImportJob
 
         fgetcsv($fh); // skip the first line
 
-        // Table columns
-        $columns = array(
-            'date',
-            'order_id',
-            'stock_status',
-            'express',
-            'qty',
-            'supplier',
-            'supplier_sku',
-            'mpn',
-            'supplier_no',
-            'notes',
-            'related_sku',
-            'dimension',
-        );
-
         $count = 0;
         while(($fields = fgetcsv($fh))) {
-            $data = array_combine($columns, $fields);
+            $order_id = $fields[1];
 
-            $sql = $this->genInsertSql('ca_order_notes', $data);
+            if ($this->dropshipExists($order_id)) {
+                continue;
+            }
 
             try {
-                $this->db->execute($sql);
+                $this->db->insertAsDict('ca_order_notes',
+                    array(
+                        'date'          => $fields[0],
+                        'order_id'      => $fields[1],
+                        'stock_status'  => $fields[2],
+                        'express'       => $fields[3],
+                        'qty'           => $fields[4],
+                        'supplier'      => $fields[5],
+                        'supplier_sku'  => $fields[6],
+                        'mpn'           => $fields[7],
+                        'supplier_no'   => $fields[8],
+                        'notes'         => $fields[9],
+                        'related_sku'   => $fields[10],
+                        'dimension'     => $fields[11],
+                    )
+                );
+
                 $count++;
+
             } catch (Exception $e) {
-                //echo $e->getMessage(), EOL;
+                echo $e->getMessage(), EOL;
             }
         }
 
@@ -132,27 +122,16 @@ class OrderImportJob
         echo "$count dropship orders imported\n";
     }
 
-    protected function genInsertSql($table, $data)
+    protected function orderExists($orderId)
     {
-        $columns = array_keys($data);
-        $columnList = '`' . implode('`, `', $columns) . '`';
+        $sql = "SELECT * FROM all_mgn_orders WHERE order_id='$orderId'";
+        return (bool)$this->db->fetchOne($sql);
+    }
 
-        $query = "INSERT INTO `$table` ($columnList) VALUES\n";
-
-        $values = array();
-
-        foreach($data as &$val) {
-            $val = addslashes($val);
-        }
-        $values[] = "('" . implode("', '", $data). "')";
-
-        $update = implode(', ',
-            array_map(function($name) {
-                return "`$name`=VALUES(`$name`)";
-            }, $columns)
-        );
-
-        return $query . implode(",\n", $values) . "\nON DUPLICATE KEY UPDATE $update";
+    protected function dropshipExists($orderId)
+    {
+        $sql = "SELECT * FROM ca_order_notes WHERE order_id='$orderId'";
+        return (bool)$this->db->fetchOne($sql);
     }
 }
 
