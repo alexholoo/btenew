@@ -7,7 +7,7 @@ use Phalcon\Mvc\Model;
 /**
  * App\Models\MasterOrder
  */
-class MasterOrder extends Orders
+class MasterOrder extends Model
 {
     public $channel;
     public $date;
