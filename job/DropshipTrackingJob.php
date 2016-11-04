@@ -32,7 +32,7 @@ class DropshipTrackingJob
                     continue;
                 }
 
-                $tracking = $client->getOrderStatus($orderId, $invoice);
+                $tracking = $client->getOrderStatus($orderId);
                 if ($tracking->trackingNumber) {
                     echo $tracking->trackingNumber;
                 } else {
