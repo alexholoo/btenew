@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model;
 
 class NeweggOrderItem extends Model
 {
-    public $id;
     public $orderNumber;
     public $itemSellerPartNo;
     public $itemNeweggNo;

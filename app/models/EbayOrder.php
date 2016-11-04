@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model;
 
 class EbayOrder extends Model
 {
-    public $id;
     public $orderID;
     public $status;
     public $buyerUsername;

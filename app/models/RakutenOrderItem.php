@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model;
 
 class rakuten_order_item extends Model
 {
-    public $id;
     public $receiptID;
     public $receiptItemID;
     public $listingID;

@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model;
 
 class rakuten_order_shipping_address extends Model
 {
-    public $id;
     public $receiptID;
     public $shipToName;
     public $shipToCompany;

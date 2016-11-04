@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model;
 
 class RakutenOrder extends Model
 {
-    public $id;
     public $sellerShopperNumber;
     public $receiptID;
     public $dateEntered;

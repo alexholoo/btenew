@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model;
 
 class NeweggOrder extends Model
 {
-    public $id;
     public $orderNumber;
     public $orderDateTime;
     public $salesChannel;

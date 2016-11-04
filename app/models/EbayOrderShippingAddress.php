@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model;
 
 class EbayOrderShippingAddress extends Model
 {
-    public $id;
     public $orderID;
     public $name;
     public $address;

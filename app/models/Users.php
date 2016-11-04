@@ -11,7 +11,6 @@ class Users extends Model
     const ROLE_ADMIN = 'admin';
     const ROLE_USER  = 'user';
 
-    public $id;
     public $username;
     public $email;
     public $password;

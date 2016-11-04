@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model;
 
 class NeweggOrderShippingAddress extends Model
 {
-    public $id;
     public $orderNumber;
     public $shipToAddressLine1;
     public $shipToAddressLine2;

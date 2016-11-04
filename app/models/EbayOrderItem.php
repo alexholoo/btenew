@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model;
 
 class EbayOrderItem extends Model
 {
-    public $id;
     public $orderID;
     public $sku;
     public $quantityPurchased;

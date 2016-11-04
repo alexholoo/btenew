@@ -8,7 +8,6 @@ use Phalcon\Mvc\Model;
  */
 class Orders extends Model
 {
-    public $id;
     public $channel;
     public $date;
     public $orderId;
