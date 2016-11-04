@@ -2,6 +2,7 @@ USE bte;
 
 CREATE TABLE IF NOT EXISTS `master_order_shipping_address` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `date` DATE NOT NULL,
     `order_id` VARCHAR(40) NOT NULL,
     `buyer` VARCHAR(60) NOT NULL,
     `address` VARCHAR(120) NOT NULL,
