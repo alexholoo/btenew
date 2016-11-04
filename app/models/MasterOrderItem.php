@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model;
 
 class MasterOrderItem extends Model
 {
-    public $id;
     public $orderId;
     public $sku;
     public $price;

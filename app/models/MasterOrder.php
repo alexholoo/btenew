@@ -13,14 +13,6 @@ class MasterOrder extends Model
     public $date;
     public $orderId;
     public $express;
-    public $buyer;
-    public $address;
-    public $city;
-    public $province;
-    public $postalcode;
-    public $country;
-    public $phone;
-    public $email;
     public $shipping;
 
     public function getSource()
@@ -31,7 +23,7 @@ class MasterOrder extends Model
     public function initialize()
     {
         $this->hasMany("orderId", "MasterOrderItem",            "orderId", ['alias' => 'items']);
-        $this->hasMany("orderId", "MasterOrderShippingAddress", "orderId", ['alias' => 'shippingAddress']);
+        $this->hasOne("orderId",  "MasterOrderShippingAddress", "orderId", ['alias' => 'shippingAddress']);
     }
 
     public function columnMap()
@@ -45,14 +37,6 @@ class MasterOrder extends Model
             'date'       => 'date',
             'order_id'   => 'orderId',
             'express'    => 'express',
-            'buyer'      => 'buyer',
-            'address'    => 'address',
-            'city'       => 'city',
-            'province'   => 'province',
-            'postalcode' => 'postalcode',
-            'country'    => 'country',
-            'phone'      => 'phone',
-            'email'      => 'email',
             'shipping'   => 'shipping',
         );
     }
