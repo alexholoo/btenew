@@ -9,6 +9,7 @@ use Phalcon\Mvc\Model;
  */
 class MasterOrderShippingAddress extends Model
 {
+    public $date;
     public $orderId;
     public $buyer;
     public $address;
@@ -35,6 +36,7 @@ class MasterOrderShippingAddress extends Model
 
         return array(
             'id'         => 'id',
+            'date'       => 'date',
             'order_id'   => 'orderId',
             'buyer'      => 'buyer',
             'address'    => 'address',
