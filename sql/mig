@@ -41,8 +41,8 @@ for m in ${migrations[@]}; do
           END=$(date +%s)
           DIFF=$(( $END - $START ))
           echo "done in $DIFF seconds"
+          echo "INSERT INTO $mtable set id='$id', action='$action'" | $MYSQL
        fi
-       echo "INSERT INTO $mtable set id='$id', action='$action'" | $MYSQL
     elif [ "$e" "!=" "$id" ]; then
        echo "skip $m"
     fi
