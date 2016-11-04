@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\DI\FactoryDefault;
+use Phalcon\Mvc\Model;
 use Phalcon\Mvc\View;
 use Phalcon\Crypt;
 use Phalcon\Mvc\Dispatcher;
@@ -103,6 +104,8 @@ $di->set('db', function () use ($config) {
 
     return $connection;
 });
+
+Model::setup(['notNullValidations' => false]);
 
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
