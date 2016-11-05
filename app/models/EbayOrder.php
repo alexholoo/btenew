@@ -15,7 +15,7 @@ class EbayOrder extends Model
     public $salesTaxAmount;
     public $shippingService;
     public $shippingServiceCost;
-    
+
     public function getSource()
     {
         return 'ebay_order_report_bte';
@@ -23,8 +23,8 @@ class EbayOrder extends Model
 
     public function initialize()
     {
-        $this->hasMany("orderID", "App\\Models\\EbayOrderItem", "orderID");
-        $this->hasOne("orderID", "App\\Models\\EbayOrderShippingAddress", "orderID");
+        $this->hasMany('orderID', 'App\\Models\\EbayOrderItem',            'orderID', ['alias' => 'items']);
+        $this->hasOne('orderID',  'App\\Models\\EbayOrderShippingAddress', 'orderID', ['alias' => 'shippingAddress']);
     }
 
     public function columnMap()

@@ -22,8 +22,8 @@ class MasterOrder extends Model
 
     public function initialize()
     {
-        $this->hasMany("orderId", "MasterOrderItem",            "orderId", ['alias' => 'items']);
-        $this->hasOne("orderId",  "MasterOrderShippingAddress", "orderId", ['alias' => 'shippingAddress']);
+        $this->hasMany('orderId', 'App\\Models\\MasterOrderItem',            'orderId', ['alias' => 'items']);
+        $this->hasOne('orderId',  'App\\Models\\MasterOrderShippingAddress', 'orderId', ['alias' => 'shippingAddress']);
     }
 
     public function columnMap()

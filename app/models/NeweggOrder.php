@@ -24,8 +24,8 @@ class NeweggOrder extends Model
 
     public function initialize()
     {
-        $this->hasMany('orderNumber', 'App\\Models\\NeweggOrderItem', 'orderNumber');
-        $this->hasOne('orderNumber', 'App\\Models\\NeweggOrderShippingAddress', 'orderNumber');
+        $this->hasMany('orderNumber', 'App\\Models\\NeweggOrderItem',            'orderNumber', ['alias' => 'items']);
+        $this->hasOne('orderNumber',  'App\\Models\\NeweggOrderShippingAddress', 'orderNumber', ['alias' => 'shippingAddress']);
     }
 
     public function columnMap()

@@ -39,8 +39,8 @@ class AmazonOrder extends Model
 
     public function initialize()
     {
-        $this->hasMany('orderId', 'App\\Models\\AmazonOrderItem', 'orderId');
-        $this->hasOne('orderId', 'App\\Models\\AmazonOrderShippingAddress', 'orderId');
+        $this->hasMany('orderId', 'App\\Models\\AmazonOrderItem',            'orderId', ['alias' => 'items']);
+        $this->hasOne('orderId',  'App\\Models\\AmazonOrderShippingAddress', 'orderId', ['alias' => 'shippingAddress']);
     }
 
     public function columnMap()
