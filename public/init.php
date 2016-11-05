@@ -10,7 +10,7 @@ date_default_timezone_set("America/Toronto");
 #mb_language('uni');
 #mb_regex_encoding('UTF-8');
 
-const EOL = PHP_EOL;
+const EOL = "\n";  // unix, PHP_EOL is os-specific
 
 try {
     /**

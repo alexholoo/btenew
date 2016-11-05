@@ -1,6 +1,6 @@
 <?php
 
-const EOL = PHP_EOL;
+const EOL = "\n";  // unix, PHP_EOL is os-specific
 
 // Create a connection with PDO options
 $db = new \Phalcon\Db\Adapter\Pdo\Mysql(
