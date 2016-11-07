@@ -17,78 +17,10 @@ class OrderImportJob
 
     public function importOrders()
     {
-        $file = 'E:/BTE/orders/all_mgn_orders.csv';
-        if (!($fh = @fopen($file, 'rb'))) {
-            echo "Failed to open file: $file\n";
-            return;
-        }
+        $file = 'all_mgn_orders.csv';
+        $table = 'all_mgn_orders';
 
-        echo "Importing $file\n";
-
-        fgetcsv($fh); // skip the first line
-
-        $count = 0;
-        while(($fields = fgetcsv($fh))) {
-
-            $channel    = $fields[0];
-            $date       = $fields[1];
-            $order_id   = $fields[2];
-            $mgn_order_id = $fields[3];
-            $express    = $fields[4];
-            $buyer      = utf8_encode($fields[5]);
-            $address    = utf8_encode($fields[6]);
-            $city       = utf8_encode($fields[7]);
-            $province   = utf8_encode($fields[8]);
-            $postalcode = $fields[9];
-            $country    = $fields[10];
-            $phone      = $fields[11];
-            $email      = $fields[12];
-            $skus_sold  = $fields[13];
-            $sku_price  = $fields[14];
-            $skus_qty   = $fields[15];
-            $shipping   = $fields[16];
-            $mgn_invoice_id = $fields[17];
-
-            try {
-                $this->db->insertAsDict('all_mgn_orders',
-                    array(
-                        'channel'   => $channel,
-                        'date'      => $date,
-                        'order_id'  => $order_id,
-                        'mgn_order_id' => $mgn_order_id,
-                        'express'   => $express,
-                        'buyer'     => $buyer,
-                        'address'   => $address,
-                        'city'      => $city,
-                        'province'  => $province,
-                        'postalcode'=> $postalcode,
-                        'country'   => $country,
-                        'phone'     => $phone,
-                        'email'     => $email,
-                        'skus_sold' => $skus_sold,
-                        'sku_price' => $sku_price,
-                        'skus_qty'  => $skus_qty,
-                        'shipping'  => $shipping,
-                        'mgn_invoice_id' => $mgn_invoice_id,
-                    )
-                );
-
-                $count++;
-
-            } catch (Exception $e) {
-                //echo $e->getMessage(), EOL;
-            }
-        }
-
-        fclose($fh);
-
-        echo "$count orders imported\n";
-    }
-
-    public function importDropship()
-    {
-        $file = 'E:/BTE/orders/ca_order_notes.csv';
-        if (($fh = @fopen($file, 'rb')) === false) {
+        if (!($fh = @fopen("E:/BTE/orders/$file", 'rb'))) {
             echo "Failed to open file: $file\n";
             return;
         }
@@ -98,7 +30,72 @@ class OrderImportJob
         fgetcsv($fh); // skip the first line
 
         // Table columns
-        $columns = array(
+        $columns = [
+            'channel',
+            'date',
+            'order_id',
+            'mgn_order_id',
+            'express',
+            'buyer',
+            'address',
+            'city',
+            'province',
+            'postalcode',
+            'country',
+            'phone',
+            'email',
+            'skus_sold',
+            'sku_price',
+            'skus_qty',
+            'shipping',
+            'mgn_invoice_id',
+        ];
+
+        $data = [];
+        while(($fields = fgetcsv($fh))) {
+            $fields[5] = utf8_encode($fields[5]); // buyer
+            $fields[6] = utf8_encode($fields[6]); // address
+            $fields[7] = utf8_encode($fields[7]); // city
+            $fields[8] = utf8_encode($fields[8]); // province
+
+            $data[] = $fields;
+        }
+
+        fclose($fh);
+
+        if (!$this->haveNewOrders($data)) {
+            echo "No new orders, nothing imported.\n";
+            return;
+        }
+
+        try {
+            $sql = $this->genInsertSql($table, $columns, $data);
+            $this->db->execute("TRUNCATE TABLE $table");
+            $this->db->execute($sql);
+        } catch (Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
+
+        $count = count($data);
+        echo "$count orders imported\n";
+    }
+
+    public function importDropship()
+    {
+        $file  = 'ca_order_notes.csv';
+        $table = 'ca_order_notes';
+
+        if (($fh = @fopen("E:/BTE/orders/$file", 'rb')) === false) {
+            echo "Failed to open file: $file\n";
+            return;
+        }
+
+        echo "Importing $file\n";
+
+        fgetcsv($fh); // skip the first line
+
+        // Table columns
+        $columns = [
             'date',
             'order_id',
             'stock_status',
@@ -111,40 +108,72 @@ class OrderImportJob
             'notes',
             'related_sku',
             'dimension',
-        );
+        ];
 
-        $count = 0;
+        $data = [];
         while(($fields = fgetcsv($fh))) {
-            $data = array_combine($columns, $fields);
-
-            $sql = $this->genInsertSql('ca_order_notes', $data);
-
-            try {
-                $this->db->execute($sql);
-                $count++;
-            } catch (Exception $e) {
-                //echo $e->getMessage(), EOL;
-            }
+            $data[] = $fields;
         }
 
         fclose($fh);
 
+        if (!$this->haveNewDropshipOrders($data)) {
+            echo "No new dropship orders, nothing imported.\n";
+            return;
+        }
+
+        try {
+            $sql = $this->genInsertSql($table, $columns, $data);
+            $this->db->execute("TRUNCATE TABLE $table");
+            $this->db->execute($sql);
+        } catch (Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
+
+        $count = count($data);
         echo "$count dropship orders imported\n";
     }
 
-    protected function genInsertSql($table, $data)
+    public function haveNewOrders($data)
     {
-        $columns = array_keys($data);
+        foreach ($data as $order) {
+            $orderId = $order[2];
+            $sql = "SELECT order_id FROM all_mgn_orders WHERE order_id='$orderId'";
+            $result = $this->db->fetchOne($sql);
+            if (!$result) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function haveNewDropshipOrders($data)
+    {
+        foreach ($data as $order) {
+            $orderId = $order[1];
+            $sql = "SELECT order_id FROM ca_order_notes WHERE order_id='$orderId'";
+            $result = $this->db->fetchOne($sql);
+            if (!$result) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function genInsertSql($table, $columns, $data)
+    {
         $columnList = '`' . implode('`, `', $columns) . '`';
 
         $query = "INSERT INTO `$table` ($columnList) VALUES\n";
 
         $values = array();
 
-        foreach($data as &$val) {
-            $val = addslashes($val);
+        foreach($data as $row) {
+            foreach($row as &$val) {
+                $val = addslashes($val);
+            }
+            $values[] = "('" . implode("', '", $row). "')";
         }
-        $values[] = "('" . implode("', '", $data). "')";
 
         $update = implode(', ',
             array_map(function($name) {
@@ -152,7 +181,7 @@ class OrderImportJob
             }, $columns)
         );
 
-        return $query . implode(",\n", $values) . "\nON DUPLICATE KEY UPDATE $update";
+        return $query . implode(",\n", $values) . "\nON DUPLICATE KEY UPDATE " . $update . ';';
     }
 }
 
