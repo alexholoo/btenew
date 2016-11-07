@@ -28,9 +28,15 @@ class AjaxController extends ControllerBase
             $shipMethod = $this->request->getPost('shipMethod', null, '');
             $notifyEmail = $this->request->getPost('notifyEmail', null, '');
 
-            $order = Orders::findFirst("orderId='$orderId'");
+            $order = Orders::find("orderId='$orderId'");
+
             if (!$order) {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
+                return $this->response;
+            }
+
+            if (count($order) > 1) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Cannot handle multi-items order']);
                 return $this->response;
             }
 
