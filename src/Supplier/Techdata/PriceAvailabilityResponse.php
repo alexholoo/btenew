@@ -40,6 +40,10 @@ class PriceAvailabilityResponse extends BaseResponse
                 #    continue;
                 #}
 
+                if (strval($branch->IDCode) == 'DROP SHIP WH') {
+                    continue;
+                }
+
                 $item->avail[] = [
                     'branch' => strval($branch->IDCode),
                     'code'   => strval($branch->WhseCode),
