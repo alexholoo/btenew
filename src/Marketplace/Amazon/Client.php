@@ -56,4 +56,17 @@ class Client
             echo 'There was a problem with the Amazon library. Error: '.$ex->getMessage();
         }
     }
+
+    public function uploadPriceQuantity($file)
+    {
+        try {
+            $api = new AmazonFeed($this->store);
+            $api->setFeedType('_POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA_');
+            $api->loadFeedFile($file);
+            $api->submitFeed();
+            return $api->getResponse();
+        } catch (Exception $ex) {
+            echo 'There was a problem with the Amazon library. Error: '.$ex->getMessage();
+        }
+    }
 }

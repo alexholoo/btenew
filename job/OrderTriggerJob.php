@@ -62,20 +62,13 @@ class OrderTriggerJob
     private function uploadFeed($store, $file)
     {
         if (!file_exists($file)) {
-            return false;
+            return;
         }
 
         echo "Uploading feed: $file", EOL;
 
-        try {
-            $api = new AmazonFeed($store);
-            $api->setFeedType('_POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA_');
-            $api->loadFeedFile($file);
-            $api->submitFeed();
-            return $api->getResponse();
-        } catch (Exception $ex) {
-            echo 'There was a problem with the Amazon library. Error: '.$ex->getMessage();
-        }
+        $client = new Marketplace\Amazon\Client($store);
+        $client->uploadPriceQuantity($file);
     }
 
     private function getOrders($minute = 10)
