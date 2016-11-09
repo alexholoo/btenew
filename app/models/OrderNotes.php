@@ -18,8 +18,6 @@ class OrderNotes extends Model
     public $notes;
     public $relatedSkus;
     public $dimension;
-    public $status;
-    public $actualSku;
 
     public function getSource()
     {
@@ -49,8 +47,6 @@ class OrderNotes extends Model
             'notes'        => 'notes',
             'related_sku'  => 'relatedSkus',
             'dimension'    => 'dimension',
-            'status'       => 'status',
-            'actual_sku'   => 'actualSku',
         );
     }
 }

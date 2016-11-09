@@ -75,7 +75,7 @@ class AjaxController extends ControllerBase
                     $errorMessage = $result->getErrorMessage();
                     $this->response->setJsonContent(['status' => 'ERROR', 'message' => $errorMessage]);
                 } else {
-                    $this->markOrderPurchased($orderId, $sku);
+                    //$this->markOrderPurchased($orderId, $sku);
                     $this->response->setJsonContent(['status' => 'OK', 'data' => $result->orderNo]);
                 }
             } catch (\Exception $e) {
@@ -181,23 +181,23 @@ class AjaxController extends ControllerBase
     protected function markOrderPurchased($orderId, $sku)
     {
         // mark the order as 'purchased' to prevent purchase twice
-        $sql = "UPDATE ca_order_notes SET status='purchased', actual_sku=? WHERE order_id=?";
-        $result = $this->db->query($sql, array($sku, $orderId));
-        return $result;
+        // $sql = "UPDATE ca_order_notes SET status='purchased', actual_sku=? WHERE order_id=?";
+        // $result = $this->db->query($sql, array($sku, $orderId));
+        // return $result;
     }
 
     protected function isOrderPending($orderId)
     {
-        $sql = "SELECT status FROM ca_order_notes WHERE order_id=? LIMIT 1";
-        $result = $this->db->query($sql, array($orderId))->fetch();
-        return $result['status'] == 'pending';
+        // $sql = "SELECT status FROM ca_order_notes WHERE order_id=? LIMIT 1";
+        // $result = $this->db->query($sql, array($orderId))->fetch();
+        // return $result['status'] == 'pending';
     }
 
     protected function isOrderPurchased($orderId)
     {
-        $sql = "SELECT status FROM ca_order_notes WHERE order_id=? LIMIT 1";
-        $result = $this->db->query($sql, array($orderId))->fetch();
-        return $result['status'] == 'purchased';
+        $sql = "SELECT orderid FROM purchase_order_log WHERE orderid='$orderId'";
+        $result = $this->db->fetchOne($sql);
+        return $result;
     }
 
     protected function isOrderCanceled($order)

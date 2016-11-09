@@ -52,9 +52,9 @@ class PurchaseController extends ControllerBase
             $where[] = "date = '$date'";
         }
 
-        if ($stage != 'all') {
-            $where[] = "status = '$stage'";
-        }
+        #if ($stage != 'all') {
+        #    $where[] = "status = '$stage'";
+        #}
 
         if ($overstock) {
             $where[] = "stock_status = 'overstock'";
@@ -77,11 +77,20 @@ class PurchaseController extends ControllerBase
 
         $data = [];
         while ($row = $result->fetch(\Phalcon\Db::FETCH_ASSOC)) {
+            $row['status'] = 'pending';
+
+            if (($purchase = $this->isOrderPurchased($row['order_id']))) {
+                $row['status'] = 'purchased';
+                $row['actual_sku'] = $purchase['sku'];
+            }
+
             $row['related_sku'] = explode('|', $row['related_sku']);
             $row['related_sku'] = array_map('trim', $row['related_sku']);
             $row['related_sku'] = array_filter($row['related_sku']);
 
-            $data[] = $row;
+            if ($stage == 'all' || $stage == $row['status']) {
+                $data[] = $row;
+            }
         }
 
         return $data;
@@ -98,5 +107,12 @@ class PurchaseController extends ControllerBase
         }
 
         return $dates;
+    }
+
+    protected function isOrderPurchased($orderId)
+    {
+        $sql = "SELECT orderid, sku FROM purchase_order_log WHERE orderid='$orderId'";
+        $result = $this->db->fetchOne($sql);
+        return $result;
     }
 }
