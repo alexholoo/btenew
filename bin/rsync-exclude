@@ -1,3 +1,6 @@
 .git/
+tags
+tt.php
+README.md
 app/logs/
 vendor/cpigroup/php-amazon-mws/log.txt
