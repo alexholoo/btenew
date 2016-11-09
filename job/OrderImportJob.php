@@ -20,7 +20,7 @@ class OrderImportJob
         $file = 'all_mgn_orders.csv';
         $table = 'all_mgn_orders';
 
-        if (!($fh = @fopen("E:/BTE/orders/$file", 'rb'))) {
+        if (!($fh = @fopen("E:/BTE/import/$file", 'rb'))) {
             echo "Failed to open file: $file\n";
             return;
         }
@@ -85,7 +85,7 @@ class OrderImportJob
         $file  = 'ca_order_notes.csv';
         $table = 'ca_order_notes';
 
-        if (($fh = @fopen("E:/BTE/orders/$file", 'rb')) === false) {
+        if (($fh = @fopen("E:/BTE/import/$file", 'rb')) === false) {
             echo "Failed to open file: $file\n";
             return;
         }
