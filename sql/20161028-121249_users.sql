@@ -13,6 +13,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 	UNIQUE INDEX `username` (`username`)
 ) COLLATE='utf8_general_ci' ENGINE=InnoDB;
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `active`, `createdon`, `updatedon`) VALUES
+INSERT IGNORE INTO `users` (`id`, `username`, `email`, `password`, `role`, `active`, `createdon`, `updatedon`) VALUES
 	(1, 'testuser',  'testuser@email.com',  sha2('user123',  256), 'user',  'Y', NOW(), NOW()),
 	(2, 'testadmin', 'testadmin@email.com', sha2('admin123', 256), 'admin', 'Y', NOW(), NOW());
