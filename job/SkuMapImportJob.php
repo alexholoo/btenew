@@ -11,15 +11,22 @@ class SkuMapImportJob
         $this->di = \Phalcon\Di::getDefault();
         $this->db = $this->di->get('db');
         $this->queue = $this->di->get('queue');
+
+        $this->redis = new \Redis();
+        $this->redis->connect('127.0.0.1');
     }
 
     public function run($arg = '')
     {
+        $this->redis->set('job:sku-map-import:running', 1);
+
         $this->collectInfo();
 
         $this->importAsin();
         $this->importMpn();
         $this->importUpc();
+
+        $this->redis->del('job:sku-map-import:running');
     }
 
     protected function collectInfo()

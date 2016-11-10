@@ -10,10 +10,17 @@ class OrderTriggerJob
         $this->di = \Phalcon\Di::getDefault();
         $this->db = $this->di->get('db');
         $this->queue = $this->di->get('queue');
+
+        $this->redis = new \Redis();
+        $this->redis->connect('127.0.0.1');
     }
 
     public function run($argv = [])
     {
+        if ($this->redis->get('job:sku-map-import:running')) {
+            return;
+        }
+
         $now = date('Ymd-His');
 
         $flatFileCA = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-ca-priceqty-$now.csv");
@@ -43,6 +50,8 @@ class OrderTriggerJob
 
         $flatFileCA->close();
         $flatFileUS->close();
+
+        echo count($orders), ' orders processed.', EOL;
 
         #$this->uploadFeed('bte-amazon-ca', $flatFileCA->getFilename());
         #$this->uploadFeed('bte-amazon-us', $flatFileUS->getFilename());
