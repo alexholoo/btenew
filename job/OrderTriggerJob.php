@@ -10,53 +10,66 @@ class OrderTriggerJob
         $this->di = \Phalcon\Di::getDefault();
         $this->db = $this->di->get('db');
         $this->queue = $this->di->get('queue');
-
-        $now = date('Ymd-His');
-
-        $this->flatFileCA = new PriceAndQuantityUpdateFile("amazon-ca-priceqty-$now.csv");
-       #$this->flatFileCA = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-ca-priceqty-$now.csv");
-        $this->flatFileUS = new PriceAndQuantityUpdateFile("amazon-us-priceqty-$now.csv");
-       #$this->flatFileUS = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-us-priceqty-$now.csv");
     }
 
     public function run($argv = [])
     {
+        $now = date('Ymd-His');
+
+        $flatFileCA = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-ca-priceqty-$now.csv");
+        $flatFileUS = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-us-priceqty-$now.csv");
+
         // Get orders in last 10 minutes
         $orders = $this->getOrders();
 
         foreach ($orders as $order) {
             $channel = $order['channel'];
+            $orderid = $order['orderid'];
             $sku     = $order['sku'];
             $price   = $order['price'];
             $qty     = $order['qty'];
 
-            $client = Supplier::createClient($sku);
+            echo $orderid, ' => ',  $sku, ' ', $qty, EOL;
 
-            if ($client) {
-                echo 'PriceAvailability: ', $sku, EOL;
-
-                $result = $client->getPriceAvailability($sku);
-                //pr($result);
-
-                $totalQty = $result->getFirst()->getTotalQty();
-                if ($totalQty < 2) {
-                    if ($channel == 'Amazon-ACA') {
-                        $this->flatFileCA->write([ $sku, $price, 0 ]);
-                    }
-                    if ($channel == 'Amazon-US') {
-                        $this->flatFileUS->write([ $sku, $price, 0 ]);
-                    }
+            if ($this->outOfStock($sku, $qty)) {
+                if ($channel == 'Amazon-ACA') {
+                    $flatFileCA->write([ $sku, $price, 0 ]);
                 }
-            } else {
-                // TOOD:
+                if ($channel == 'Amazon-US') {
+                    $flatFileUS->write([ $sku, $price, 0 ]);
+                }
             }
         }
 
-        $this->flatFileCA->close();
-        $this->flatFileUS->close();
+        $flatFileCA->close();
+        $flatFileUS->close();
 
-        #$this->uploadFeed('bte-amazon-ca', $this->flatFileCA->getFilename());
-        #$this->uploadFeed('bte-amazon-us', $this->flatFileUS->getFilename());
+        #$this->uploadFeed('bte-amazon-ca', $flatFileCA->getFilename());
+        #$this->uploadFeed('bte-amazon-us', $flatFileUS->getFilename());
+    }
+
+    private function outOfStock($sku, $qty)
+    {
+        $totalQty = 0;
+
+        $skuGroup = $this->di->get('productService')->getSkuGroup($sku);
+
+        foreach ($skuGroup as $sku) {
+            $client = Supplier::createClient($sku);
+
+            if ($client) {
+                $result = $client->getPriceAvailability($sku);
+                $availQty = $result->getFirst()->getTotalQty();
+
+                echo "\t$sku\t", $availQty, EOL;
+
+                if ($availQty > 0) {
+                    $totalQty += $availQty;
+                }
+            }
+        }
+
+        return $totalQty <= $qty;
     }
 
     private function uploadFeed($store, $file)
@@ -75,7 +88,7 @@ class OrderTriggerJob
     {
         $orders = [];
 
-        $sql = "SELECT Channel, SellerSKU, ItemPrice, QuantityOrdered 
+        $sql = "SELECT Channel, o.OrderId, SellerSKU, ItemPrice, QuantityOrdered
                 FROM amazon_order o
                 JOIN amazon_order_item i ON o.OrderId = i.OrderId
                 WHERE o.createdon > (NOW() - INTERVAL $minute MINUTE)";
@@ -85,6 +98,7 @@ class OrderTriggerJob
         foreach ($items as $item) {
             $orders[] = [
                 'channel' => $item['Channel'],
+                'orderid' => $item['OrderId'],
                 'sku'     => $item['SellerSKU'],
                 'price'   => $item['ItemPrice'],
                 'qty'     => $item['QuantityOrdered']
