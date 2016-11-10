@@ -23,8 +23,8 @@ class AboutController extends ControllerBase
         //$this->view->data = $this->request->getServerAddress();
         $this->view->data = gethostname();
 
-        $o = AmazonOrderReport::findFirst("orderId='701-7093226-9432239'");
-        $this->view->data = print_r($o->toArray(), true);
+        //$o = AmazonOrderReport::findFirst("orderId='701-7093226-9432239'");
+        //$this->view->data = print_r($o->toArray(), true);
 
         //$config = $this->config->toArray();
         //fpr($config['xmlapi']['synnex']);
