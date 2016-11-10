@@ -61,6 +61,14 @@ class Utils
         return $price;
     }
 
+    public static function safePrice($price)
+    {
+        $price = trim($price);
+        $price = preg_replace('/([^0-9\.])/i', '', $price);
+        $price = preg_replace('/(^[0]+)/i',  '', $price);
+        return $price; // return string, (float)$price return float
+    }
+
     public static function renderView($__file, $__data)
     {
         ob_start();
