@@ -31,6 +31,8 @@ class AmazonOrder extends Model
     public $isBusinessOrder;
     public $isPrime;
     public $isPremiumOrder;
+    public $createdOn;
+    public $updatedOn;
 
     public function getSource()
     {
@@ -75,6 +77,8 @@ class AmazonOrder extends Model
             'IsBusinessOrder'              => 'isBusinessOrder',
             'IsPrime'                      => 'isPrime',
             'IsPremiumOrder'               => 'isPremiumOrder',
+            'CreatedOn'                    => 'createdOn',
+            'UpdatedOn'                    => 'updatedOn',
         );
     }
 }
