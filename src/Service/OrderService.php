@@ -6,5 +6,8 @@ use Phalcon\Di\Injectable;
 
 class OrderService extends Injectable
 {
-    // isAmazonOrder($orderId) // by orderId or order.channel
+    public function isAmazonOrder($orderId)
+    {
+        return (bool)preg_match('/^\d{3}-\d{7}-\d{7}$/', $orderId);
+    }
 }
