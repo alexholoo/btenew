@@ -20,6 +20,7 @@ use Service\ProductService;
 use Service\PricelistService;
 use Service\InventoryServi;
 use Service\OrderService;
+use Service\DropshipService;
 use Service\PurchaseService;
 use Service\ShipmentService;
 use Service\ConfigService;
@@ -251,6 +252,10 @@ $di->setShared('inventoryService', function() {
 
 $di->setShared('orderService', function() {
     return new OrderService();
+});
+
+$di->setShared('dropshipService', function() {
+    return new DropshipService();
 });
 
 $di->setShared('purchaseService', function() {
