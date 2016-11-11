@@ -60,6 +60,7 @@ class OrderTriggerJob
     private function outOfStock($sku, $qty)
     {
         $totalQty = 0;
+        $unknownSkuCount = 0;
 
         $skuGroup = $this->di->get('productService')->getSkuGroup($sku);
 
@@ -75,7 +76,13 @@ class OrderTriggerJob
                 if ($availQty > 0) {
                     $totalQty += $availQty;
                 }
+            } else {
+                $unknownSkuCount++;
             }
+        }
+
+        if ($unknownSkuCount == count($skuGroup)) {
+            return false; // in stock
         }
 
         return $totalQty <= $qty;
