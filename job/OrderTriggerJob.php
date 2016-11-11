@@ -109,7 +109,7 @@ class OrderTriggerJob
                 'channel' => $item['Channel'],
                 'orderid' => $item['OrderId'],
                 'sku'     => $item['SellerSKU'],
-                'price'   => $item['ItemPrice'],
+                'price'   => $item['ItemPrice'] / $item['QuantityOrdered'],
                 'qty'     => $item['QuantityOrdered']
             ];
         }
