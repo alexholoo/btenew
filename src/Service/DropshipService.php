@@ -46,7 +46,10 @@ class DropshipService extends Injectable
         $stage     = $params['stage'];
         $overstock = $params['overstock'];
         $express   = $params['express'];
+        $multitem  = $params['multitem'];
         $orderId   = $params['orderId'];
+
+        $multiItemOrders = $this->getMultiItemOrders();
 
         $sql = 'SELECT * FROM ca_order_notes';
 
@@ -68,6 +71,11 @@ class DropshipService extends Injectable
             $where[] = "express = 1";
         }
 
+        if ($multitem) {
+            $list = "('" . implode("', '", $multiItemOrders) . "')";
+            $where[] = "order_id in $list";
+        }
+
         if ($orderId) {
             $where = []; // ignore all other conditions
             $where[] = "order_id LIKE '%$orderId' ORDER BY id DESC";
@@ -79,17 +87,16 @@ class DropshipService extends Injectable
 
         $result = $this->db->query($sql);
 
-        $multiItemOrders = $this->getMultiItemOrders();
-
         $data = [];
         while ($row = $result->fetch(\Phalcon\Db::FETCH_ASSOC)) {
+            // is the order already purchased?
             $row['status'] = 'pending';
-
             if (($purchase = $this->isOrderPurchased($row['order_id']))) {
                 $row['status'] = 'purchased';
                 $row['actual_sku'] = $purchase['sku'];
             }
 
+            // is the order a multi-item order?
             $row['multi_items'] = false;
             if (in_array($row['order_id'], $multiItemOrders)) {
                 $row['multi_items'] = true;

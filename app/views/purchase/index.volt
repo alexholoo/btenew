@@ -4,10 +4,10 @@
   <h2>Purchase assistant</h2>
   <div class="well">
     <form class="form-inline" role="form" method="POST">
-      <div class="form-group col-xs-3">
+      <div class="form-group col-xs">
         <input class="form-control" name="orderId" placeholder="Order number" type="text">
       </div>
-      <div class="form-group col-xs-3">
+      <div class="form-group col-xs">
         <label for="sel1" class="control-label">Date:</label>
         <select class="form-control" id="sel1" name="date">
           <option value="all">All</option>
@@ -16,7 +16,7 @@
           {% endfor %}
         </select>
       </div>
-      <div class="form-group col-xs-3">
+      <div class="form-group col-xs">
         <label for="sel2" class="control-label">Purchase:</label>
         <select class="form-control" id="sel2" name="stage">
           <option value="all">All</option>
@@ -24,11 +24,14 @@
           <option value="purchased"{% if stage == 'purchased' %} selected{% endif %}>Purchased</option>
         </select>
       </div>
-      <div class="checkbox col-xs-2">
+      <div class="checkbox col-xs">
         <label><input type="checkbox" name="overstock" value="1"{% if overstock == 1 %} checked{% endif %}> Overstock </label>
       </div>
-      <div class="checkbox col-xs-2">
+      <div class="checkbox col-xs">
         <label><input type="checkbox" name="express" value="1"{% if express == 1 %} checked{% endif %}> Express </label>
+      </div>
+      <div class="checkbox col-xs">
+        <label><input type="checkbox" name="multitem" value="1"{% if multitem == 1 %} checked{% endif %}> Multi Items</label>
       </div>
       <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filter </button>
     </form>
@@ -90,6 +93,10 @@
   {% else %}
     No purchase information found.
   {% endif %}
+{% endblock %}
+
+{% block csscode %}
+  .form-group, .checkbox { margin-right: 20px; }
 {% endblock %}
 
 {% block jscode %}

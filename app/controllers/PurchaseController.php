@@ -18,6 +18,7 @@ class PurchaseController extends ControllerBase
             'stage' => 'all',
             'overstock' => '0',
             'express' => '0',
+            'multitem' => '0',
             'orderId' => '',
         ];
 
@@ -26,6 +27,7 @@ class PurchaseController extends ControllerBase
             $params['stage'] = $this->request->getPost('stage');
             $params['overstock'] = $this->request->getPost('overstock');
             $params['express'] = $this->request->getPost('express');
+            $params['multitem'] = $this->request->getPost('multitem');
             $params['orderId'] = $this->filter->sanitize($this->request->getPost('orderId'), 'trim');
         }
 
@@ -33,6 +35,7 @@ class PurchaseController extends ControllerBase
         $this->view->stage = $params['stage'];
         $this->view->overstock = $params['overstock'];
         $this->view->express = $params['express'];
+        $this->view->multitem = $params['multitem'];
         $this->view->orderDates = $this->dropshipService->getDateListFromOrders();
         $this->view->orders = $this->dropshipService->getOrders($params);
     }
