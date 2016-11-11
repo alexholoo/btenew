@@ -18,10 +18,10 @@
       </div>
       <div class="form-group col-xs">
         <label for="sel2" class="control-label">Purchase:</label>
-        <select class="form-control" id="sel2" name="stage">
+        <select class="form-control" id="sel2" name="status">
           <option value="all">All</option>
-          <option value="pending"{% if stage == 'pending' %} selected{% endif %}>Pending</option>
-          <option value="purchased"{% if stage == 'purchased' %} selected{% endif %}>Purchased</option>
+          <option value="pending"{% if status == 'pending' %} selected{% endif %}>Pending</option>
+          <option value="purchased"{% if status == 'purchased' %} selected{% endif %}>Purchased</option>
         </select>
       </div>
       <div class="checkbox col-xs">

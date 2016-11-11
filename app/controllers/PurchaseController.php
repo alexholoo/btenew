@@ -15,7 +15,7 @@ class PurchaseController extends ControllerBase
     {
         $params = [
             'date' => date('Y-m-d'), //'all';
-            'stage' => 'all',
+            'status' => 'all',
             'overstock' => '0',
             'express' => '0',
             'multitem' => '0',
@@ -24,7 +24,7 @@ class PurchaseController extends ControllerBase
 
         if ($this->request->isPost()) {
             $params['date'] = $this->request->getPost('date');
-            $params['stage'] = $this->request->getPost('stage');
+            $params['status'] = $this->request->getPost('status');
             $params['overstock'] = $this->request->getPost('overstock');
             $params['express'] = $this->request->getPost('express');
             $params['multitem'] = $this->request->getPost('multitem');
@@ -32,7 +32,7 @@ class PurchaseController extends ControllerBase
         }
 
         $this->view->date = $params['date'];
-        $this->view->stage = $params['stage'];
+        $this->view->status = $params['status'];
         $this->view->overstock = $params['overstock'];
         $this->view->express = $params['express'];
         $this->view->multitem = $params['multitem'];

@@ -43,7 +43,7 @@ class DropshipService extends Injectable
     public function getOrders($params)
     {
         $date      = $params['date'];
-        $stage     = $params['stage'];
+        $status    = $params['status'];
         $overstock = $params['overstock'];
         $express   = $params['express'];
         $multitem  = $params['multitem'];
@@ -58,10 +58,6 @@ class DropshipService extends Injectable
         if ($date != 'all') {
             $where[] = "date = '$date'";
         }
-
-        #if ($stage != 'all') {
-        #    $where[] = "status = '$stage'";
-        #}
 
         if ($overstock) {
             $where[] = "stock_status = 'overstock'";
@@ -106,7 +102,7 @@ class DropshipService extends Injectable
             $row['related_sku'] = array_map('trim', $row['related_sku']);
             $row['related_sku'] = array_filter($row['related_sku']);
 
-            if ($stage == 'all' || $stage == $row['status']) {
+            if ($status == 'all' || $status == $row['status']) {
                 $data[] = $row;
             }
         }
