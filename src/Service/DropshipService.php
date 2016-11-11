@@ -79,6 +79,8 @@ class DropshipService extends Injectable
 
         $result = $this->db->query($sql);
 
+        $multiItemOrders = $this->getMultiItemOrders();
+
         $data = [];
         while ($row = $result->fetch(\Phalcon\Db::FETCH_ASSOC)) {
             $row['status'] = 'pending';
@@ -86,6 +88,11 @@ class DropshipService extends Injectable
             if (($purchase = $this->isOrderPurchased($row['order_id']))) {
                 $row['status'] = 'purchased';
                 $row['actual_sku'] = $purchase['sku'];
+            }
+
+            $row['multi_items'] = false;
+            if (in_array($row['order_id'], $multiItemOrders)) {
+                $row['multi_items'] = true;
             }
 
             $row['related_sku'] = explode('|', $row['related_sku']);

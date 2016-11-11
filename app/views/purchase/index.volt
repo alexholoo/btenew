@@ -52,7 +52,11 @@
     {% for purchase in orders %}
       <tr data-order-id="{{ purchase['order_id'] }}" data-qty="{{ purchase['qty'] }}">
         <td{% if purchase['express'] %} class="text-danger"{% endif %}>{{ purchase['date'] }}</td>
-        <td class="order-id"><a href="javascript:void(0)">{{ purchase['order_id'] }}</a></td>
+        <td class="order-id">
+          {% if purchase['multi_items'] %}<b>{% endif %}
+          <a href="javascript:void(0)">{{ purchase['order_id'] }}</a>
+          {% if purchase['multi_items'] %}</b>{% endif %}
+        </td>
         <td class="qty">{{ purchase['qty'] }}</td>
         <td>{{ purchase['notes'] }}</td>
         <td class="sku" nowrap style="white-space:nowrap">
