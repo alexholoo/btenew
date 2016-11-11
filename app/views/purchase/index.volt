@@ -17,7 +17,7 @@
         </select>
       </div>
       <div class="form-group col-xs">
-        <label for="sel2" class="control-label">Purchase:</label>
+        <label for="sel2" class="control-label">Status:</label>
         <select class="form-control" id="sel2" name="status">
           <option value="all">All</option>
           <option value="pending"{% if status == 'pending' %} selected{% endif %}>Pending</option>
