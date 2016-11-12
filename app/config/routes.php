@@ -32,8 +32,8 @@ $router->add('/ajax/freight/quote', [
 ])->via(array("POST"));
 
 $router->add('/ajax/fbaitem/delete', [
-    'controller' => 'ajax',
-    'action' => 'deleteFbaItem'
+    'controller' => 'amazon',
+    'action' => 'fbaItemDelete'
 ])->via(array("POST"));
 
 // aliases

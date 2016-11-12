@@ -107,6 +107,22 @@ class AmazonController extends ControllerBase
         $this->view->items = $data;
     }
 
+    public function fbaItemDeleteAction()
+    {
+        $this->view->disable();
+
+        if ($this->request->isPost()) {
+            $index = $this->request->getPost('index');
+
+            $data = $this->session->get('fbaitems');
+            array_splice($data, $index, 1);
+            $this->session->set('fbaitems', $data);
+
+            $this->response->setJsonContent(['status' => 'OK']);
+            return $this->response;
+        }
+    }
+
     protected function itemAlreadyFBA($partnum)
     {
         $sql = "SELECT * FROM skipped_items WHERE partnum='$partnum'";

@@ -163,19 +163,5 @@ class AjaxController extends ControllerBase
         }
     }
 
-    public function deleteFbaItemAction()
-    {
-        if ($this->request->isPost()) {
-            $index = $this->request->getPost('index');
-
-            $data = $this->session->get('fbaitems');
-            array_splice($data, $index, 1);
-            $this->session->set('fbaitems', $data);
-
-            $this->response->setJsonContent(['status' => 'OK']);
-            return $this->response;
-        }
-    }
-
     /* ===== internal methods ===== */
 }
