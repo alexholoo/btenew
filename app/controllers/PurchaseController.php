@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\Orders;
-
 class PurchaseController extends ControllerBase
 {
     public function initialize()

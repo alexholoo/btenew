@@ -112,7 +112,7 @@ class AjaxController extends ControllerBase
         if ($this->request->isPost()) {
             $orderId = $this->request->getPost('orderId');
 
-            $data = $this->getOrderDetail($orderId);
+            $data = $this->orderService->getOrderDetail($orderId);
 
             if ($data) {
                 $this->response->setContentType('application/json', 'utf-8');
@@ -260,15 +260,5 @@ class AjaxController extends ControllerBase
         usort($data, $lowPriceFirst);
 
         return $data;
-    }
-
-    protected function getOrderDetail($orderId)
-    {
-        $order = Orders::findFirst("orderId='$orderId'");
-        if ($order) {
-            return $order->toArray();
-           #return array_map("utf8_encode", $order->toArray());
-        }
-        return false;
     }
 }
