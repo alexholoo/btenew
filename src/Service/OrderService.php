@@ -28,4 +28,16 @@ class OrderService extends Injectable
         $result = $this->db->fetchOne($sql);
         return $result;
     }
+
+    public function isOrderCanceled($order)
+    {
+        $channel = $order['channel'];
+        $orderId = $order['orderId'];
+
+        if (substr($channel, 0, 6) != 'Amazon') {
+            return false; // not cancelled
+        }
+
+        return $this->amazonService->isOrderCanceled($order);
+    }
 }
