@@ -178,21 +178,6 @@ class AjaxController extends ControllerBase
 
     /* ===== internal methods ===== */
 
-    protected function markOrderPurchased($orderId, $sku)
-    {
-        // mark the order as 'purchased' to prevent purchase twice
-        // $sql = "UPDATE ca_order_notes SET status='purchased', actual_sku=? WHERE order_id=?";
-        // $result = $this->db->query($sql, array($sku, $orderId));
-        // return $result;
-    }
-
-    protected function isOrderPending($orderId)
-    {
-        // $sql = "SELECT status FROM ca_order_notes WHERE order_id=? LIMIT 1";
-        // $result = $this->db->query($sql, array($orderId))->fetch();
-        // return $result['status'] == 'pending';
-    }
-
     protected function getPriceAvailability($items)
     {
         $data = [];
