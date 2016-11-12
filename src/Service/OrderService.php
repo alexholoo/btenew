@@ -21,4 +21,11 @@ class OrderService extends Injectable
         }
         return false;
     }
+
+    public function isOrderPurchased($orderId)
+    {
+        $sql = "SELECT orderid FROM purchase_order_log WHERE orderid='$orderId'";
+        $result = $this->db->fetchOne($sql);
+        return $result;
+    }
 }

@@ -50,7 +50,7 @@ class AjaxController extends ControllerBase
              fpr($orderInfo);
 
             // Make sure the order is pending (not purchased yet)
-            if ($this->isOrderPurchased($orderId)) {
+            if ($this->orderService->isOrderPurchased($orderId)) {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been purchased']);
                 return $this->response;
             }
@@ -191,13 +191,6 @@ class AjaxController extends ControllerBase
         // $sql = "SELECT status FROM ca_order_notes WHERE order_id=? LIMIT 1";
         // $result = $this->db->query($sql, array($orderId))->fetch();
         // return $result['status'] == 'pending';
-    }
-
-    protected function isOrderPurchased($orderId)
-    {
-        $sql = "SELECT orderid FROM purchase_order_log WHERE orderid='$orderId'";
-        $result = $this->db->fetchOne($sql);
-        return $result;
     }
 
     protected function isOrderCanceled($order)
