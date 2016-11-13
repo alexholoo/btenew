@@ -27,7 +27,7 @@ class OrderTriggerJob
         $flatFileUS = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-us-priceqty-$now.csv");
 
         // Get orders in last 10 minutes
-        $orders = $this->getOrders();
+        $orders = $this->getLatestOrders();
 
         foreach ($orders as $order) {
             $channel = $order['channel'];
@@ -60,7 +60,6 @@ class OrderTriggerJob
     private function outOfStock($sku, $qty)
     {
         $totalQty = 0;
-        $unknownSkuCount = 0;
 
         $skuGroup = $this->di->get('productService')->getSkuGroup($sku);
 
@@ -77,12 +76,9 @@ class OrderTriggerJob
                     $totalQty += $availQty;
                 }
             } else {
-                $unknownSkuCount++;
+                $invQty = $this->getInventoryQty($sku, $qty);
+                $totalQty += $invQty;
             }
-        }
-
-        if ($unknownSkuCount == count($skuGroup)) {
-            return false; // in stock
         }
 
         return $totalQty <= $qty;
@@ -98,6 +94,42 @@ class OrderTriggerJob
 
         $client = new Marketplace\Amazon\Client($store);
         $client->uploadPriceQuantity($file);
+    }
+
+    private function getInventoryQty($sku, $qty)
+    {
+        $sql = "SELECT overall_qty FROM master_sku_list WHERE sku='$sku'";
+        $result = $this->db->fetchOne($sql);
+        if ($result) {
+            $totalQty = $result['overall_qty'];
+            $availQty = max($totalQty - $qty, 0);
+            $sql = "UPDATE master_sku_list SET overall_qty='$availQty'";
+            $this->db->execute($sql);
+            return $totalQty;
+        }
+        return 0;
+    }
+
+    private function getLatestOrders($minute = 10)
+    {
+        $orders = [];
+
+        // This is NOT latest orders, this is all today's orders !!!
+        $sql = "SELECT * FROM all_mgn_orders WHERE channel IN ('Amazon-ACA', 'Amazon-US') AND date=DATE(NOW())";
+
+        $items = $this->db->fetchAll($sql);
+
+        foreach ($items as $item) {
+            $orders[] = [
+                'channel' => $item['channel'],
+                'orderid' => $item['order_id'],
+                'sku'     => $item['skus_sold'],  // ??
+                'price'   => $item['sku_price'],  // ??
+                'qty'     => $item['skus_qty']    // ??
+            ];
+        }
+
+        return $orders;
     }
 
     private function getOrders($minute = 10)
