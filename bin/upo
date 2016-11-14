@@ -1,7 +1,9 @@
 # !/bin/bash
 
-php bin/scripts/ca_order_notes.php
-php bin/scripts/all_mgn_orders.php
+#php bin/scripts/ca_order_notes.php
+#php bin/scripts/all_mgn_orders.php
 
-cp 'w:/out/purchasing/ca_order_notes.csv' /e/BTE/orders/
-cp 'w:/out/shipping/all_mgn_orders.csv'   /e/BTE/orders/
+cp 'w:/out/purchasing/ca_order_notes.csv' /e/BTE/import/
+cp 'w:/out/shipping/all_mgn_orders.csv'   /e/BTE/import/
+
+cd job && php OrderImportJob.php
