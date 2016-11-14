@@ -21,12 +21,11 @@ class OrderTriggerJob
             return;
         }
 
-        $now = date('Ymd-His');
+        $now = date('Ymd-Hi');
 
         $flatFileCA = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-ca-priceqty-$now.csv");
         $flatFileUS = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-us-priceqty-$now.csv");
 
-        // Get orders in last 10 minutes
         $orders = $this->getLatestOrders();
 
         foreach ($orders as $order) {
@@ -101,21 +100,21 @@ class OrderTriggerJob
         $sql = "SELECT overall_qty FROM master_sku_list WHERE sku='$sku'";
         $result = $this->db->fetchOne($sql);
         if ($result) {
-            $totalQty = $result['overall_qty'];
-            $availQty = max($totalQty - $qty, 0);
-            $sql = "UPDATE master_sku_list SET overall_qty='$availQty'";
+            $overallQty = $result['overall_qty'];
+            $remaining = max($overallQty - $qty, 0);
+            $sql = "UPDATE master_sku_list SET overall_qty='$remaining' WHERE sku='$sku'";
             $this->db->execute($sql);
-            return $totalQty;
+            return $overallQty;
         }
         return 0;
     }
 
-    private function getLatestOrders($minute = 10)
+    private function getLatestOrders()
     {
         $orders = [];
 
         // This is NOT latest orders, this is all today's orders !!!
-        $sql = "SELECT * FROM all_mgn_orders WHERE channel IN ('Amazon-ACA', 'Amazon-US') AND date=DATE(NOW())";
+        $sql = "SELECT * FROM all_mgn_orders WHERE date=DATE(NOW())";
 
         $items = $this->db->fetchAll($sql);
 
@@ -123,9 +122,9 @@ class OrderTriggerJob
             $orders[] = [
                 'channel' => $item['channel'],
                 'orderid' => $item['order_id'],
-                'sku'     => $item['skus_sold'],  // ??
-                'price'   => $item['sku_price'],  // ??
-                'qty'     => $item['skus_qty']    // ??
+                'sku'     => $item['skus_sold'],
+                'price'   => $item['sku_price'],
+                'qty'     => $item['skus_qty']
             ];
         }
 
