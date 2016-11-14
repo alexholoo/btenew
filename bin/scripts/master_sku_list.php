@@ -67,6 +67,8 @@ fgetcsv($fh); // skip the first line
 $count = 0;
 $data = [];
 
+$db->execute('TRUNCATE TABLE master_sku_list');
+
 while(($fields = fgetcsv($fh))) {
     $data[] = $fields;
     if (count($data) == 1000) {
