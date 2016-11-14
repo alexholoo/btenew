@@ -43,10 +43,10 @@
       <tr>
         <th>Date</th>
         <th>Order ID</th>
-        <th>Qty</th>
         <th>Note</th>
         <th>Related SKU</th>
-        <th>Decision</th>
+        <th>Buy</th>
+        <th>Dimension</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -60,7 +60,6 @@
           <a href="javascript:void(0)">{{ purchase['order_id'] }}</a>
           {% if purchase['multi_items'] %}</b>{% endif %}
         </td>
-        <td class="qty">{{ purchase['qty'] }}</td>
         <td>{{ purchase['notes'] }}</td>
         <td class="sku" nowrap style="white-space:nowrap">
           {% if purchase['status'] == 'purchased' %}
@@ -78,10 +77,19 @@
             {% endif %}
           {% endif %}
         </td>
+        <td class="buy">
+          {% if not purchase['multi_items'] %}
+          {% if purchase['related_sku'] is not empty and purchase['status'] != 'purchased' %}
+            <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-import"></span> Buy </button>
+          {% endif %}
+          {% endif %}
+        </td>
         <td>{{ purchase['dimension'] }}</td>
         <td class="action">
+          {% if not purchase['multi_items'] %}
           {% if purchase['related_sku'] is not empty and purchase['status'] != 'purchased' %}
             <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> Go </button>
+          {% endif %}
           {% endif %}
         </td>
       </tr>
@@ -97,6 +105,7 @@
 
 {% block csscode %}
   .form-group, .checkbox { margin-right: 20px; }
+  .main-container { width: 1250px; }
 {% endblock %}
 
 {% block jscode %}
@@ -333,6 +342,10 @@ function getOrderDetail(orderId, done) {
     }
   );
 }
+
+function shoppingCartAdd(data) {
+  console.log(data);
+};
 {% endblock %}
 
 {% block docready %}
@@ -420,5 +433,29 @@ function getOrderDetail(orderId, done) {
     getOrderDetail(orderId, function() {
       /*tr.removeClass('info');*/
     });
+  });
+
+  // click on buy button
+  $('.buy button').click(function() {
+    $('tr').removeClass('info');
+
+    var tr = $(this).closest('tr');
+    var td = $(this).closest('td');
+    var orderId = tr.data('order-id');
+    var sku = tr.data('sku');
+    var qty = tr.data('qty');
+    var branch = tr.data('branch');
+    var code = tr.data('code');
+
+    if (!sku) {
+        sku = tr.find('select').val();
+    }
+
+    //tr.addClass('info');
+    //tr.remove();
+    //tr.addClass('danger');
+    td.addClass('info');
+
+    shoppingCartAdd({ order_id: orderId, sku: sku, branch: branch, code: code });
   });
 {% endblock %}
