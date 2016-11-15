@@ -111,4 +111,10 @@ abstract class Client
      * @return Supplier\Model\OrderQueryRequest
      */
     abstract public function getOrderStatus($orderId);
+
+    /**
+     * @param  array $orders
+     * @return Supplier\Model\PurchaseOrderResult
+     */
+    abstract public function batchPurchase($orders);
 }
