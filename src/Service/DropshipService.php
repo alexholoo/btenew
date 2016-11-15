@@ -96,6 +96,12 @@ class DropshipService extends Injectable
                 $row['multi_items'] = true;
             }
 
+            // is the order in shopping cart?
+            $row['in_cart'] = false;
+            if (in_array($row['order_id'], $ordersInShoppingCart)) {
+                $row['in_cart'] = true;
+            }
+
             $row['related_sku'] = explode('|', $row['related_sku']);
             $row['related_sku'] = array_map('trim', $row['related_sku']);
             $row['related_sku'] = array_filter($row['related_sku']);

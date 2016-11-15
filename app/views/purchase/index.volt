@@ -78,7 +78,7 @@
             {% endif %}
           {% endif %}
         </td>
-        <td class="add">
+        <td class="add{% if purchase['in_cart'] %} info{% endif %}">
           {% if not purchase['multi_items'] %}
           {% if purchase['related_sku'] is not empty and purchase['status'] != 'purchased' %}
             <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> Add </button>
