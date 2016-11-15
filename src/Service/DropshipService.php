@@ -26,6 +26,17 @@ class DropshipService extends Injectable
         return $orders;
     }
 
+    public function removeOrdersInShoppingCart($orderId = '')
+    {
+        $sql = 'DELETE FROM shopping_cart';
+
+        if ($orderId) {
+            $sql .= " WHERE order_id='$orderId'";
+        }
+
+        return $this->db->execute($sql);
+    }
+
     public function isOrderPurchased($orderId)
     {
         $sql = "SELECT orderid, sku FROM purchase_order_log WHERE orderid='$orderId'";
