@@ -53,42 +53,42 @@
     </thead>
     <tbody>
 
-    {% for purchase in orders %}
-      <tr data-order-id="{{ purchase['order_id'] }}" data-qty="{{ purchase['qty'] }}">
-        <td{% if purchase['express'] %} class="text-danger"{% endif %}>{{ purchase['date'] }}</td>
+    {% for order in orders %}
+      <tr data-order-id="{{ order['order_id'] }}" data-qty="{{ order['qty'] }}">
+        <td{% if order['express'] %} class="text-danger"{% endif %}>{{ order['date'] }}</td>
         <td class="order-id">
-          {% if purchase['multi_items'] %}<b>{% endif %}
-          <a href="javascript:void(0)">{{ purchase['order_id'] }}</a>
-          {% if purchase['multi_items'] %}</b>{% endif %}
+          {% if order['multi_items'] %}<b>{% endif %}
+          <a href="javascript:void(0)">{{ order['order_id'] }}</a>
+          {% if order['multi_items'] %}</b>{% endif %}
         </td>
-        <td>{{ purchase['notes'] }}</td>
+        <td>{{ order['notes'] }}</td>
         <td class="sku" nowrap style="white-space:nowrap">
-          {% if purchase['status'] == 'purchased' %}
-            {{ purchase['actual_sku'] }}
+          {% if order['status'] == 'purchased' %}
+            {{ order['actual_sku'] }}
           {% else %}
-            {% if purchase['related_sku'] is not empty %}
+            {% if order['related_sku'] is not empty %}
               <select style="min-width: 85%; max-width: 85%;">
-                {% for sku in purchase['related_sku'] %}
-                  <option value="{{ sku }}"{% if sku == purchase['supplier_sku'] %} selected{% endif %}>{{ sku }}</option>
+                {% for sku in order['related_sku'] %}
+                  <option value="{{ sku }}"{% if sku == order['supplier_sku'] %} selected{% endif %}>{{ sku }}</option>
                 {% endfor %}
               </select>
-              <button class="btn btn-xs btn-warning">{{ purchase['related_sku'] | length }}</button>
+              <button class="btn btn-xs btn-warning">{{ order['related_sku'] | length }}</button>
             {% else %}
               &nbsp;
             {% endif %}
           {% endif %}
         </td>
-        <td class="add{% if purchase['in_cart'] %} info{% endif %}">
-          {% if not purchase['multi_items'] %}
-          {% if purchase['related_sku'] is not empty and purchase['status'] != 'purchased' %}
+        <td class="add{% if order['in_cart'] %} info{% endif %}">
+          {% if not order['multi_items'] %}
+          {% if order['related_sku'] is not empty and order['status'] != 'purchased' %}
             <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> Add </button>
           {% endif %}
           {% endif %}
         </td>
-        <td>{{ purchase['dimension'] }}</td>
+        <td>{{ order['dimension'] }}</td>
         <td class="action">
-          {% if not purchase['multi_items'] %}
-          {% if purchase['related_sku'] is not empty and purchase['status'] != 'purchased' %}
+          {% if not order['multi_items'] %}
+          {% if order['related_sku'] is not empty and order['status'] != 'purchased' %}
             <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> Go </button>
           {% endif %}
           {% endif %}
@@ -100,7 +100,7 @@
   </table>
   {{ orders | length }} orders found.
   {% else %}
-    No purchase information found.
+    No order information found.
   {% endif %}
 {% endblock %}
 
