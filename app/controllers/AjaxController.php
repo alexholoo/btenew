@@ -199,10 +199,10 @@ class AjaxController extends ControllerBase
 
     public function shoppingCartCheckoutAction()
     {
-        $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing Only']);
-        return $this->response;
+        $this->runJob('job/shoppingCartCheckoutJob');
 
-        //$this->runJob('job/shoppingCartCheckoutJob');
+        $this->response->setJsonContent(['status' => 'OK', 'data' => 'Checkout job is running']);
+        return $this->response;
     }
 
     /* ===== internal methods ===== */

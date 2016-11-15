@@ -348,6 +348,7 @@ function shoppingCartAdd(data) {
   console.log(data);
   ajaxCall('/ajax/shoppingcart/add', data,
     function(data) {
+      showToast(data, 1000);
     },
     function(message) {
       showError(message);
@@ -367,6 +368,7 @@ function checkout() {
       layer.close(index);
       ajaxCall('/ajax/shoppingcart/checkout', {},
         function(data) {
+          showToast(data, 2000);
         },
         function(message) {
           showError(message);

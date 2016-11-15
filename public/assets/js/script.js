@@ -1,9 +1,9 @@
-function showToast(msg) {
+function showToast(msg, autoHide=false) {
     $.toast({
         heading: 'Success',
         text: msg,
         showHideTransition: 'fade',
-        hideAfter: false,
+        hideAfter: autoHide,
         position: { right: 30, top: 60 },
         icon: 'success'
     })
