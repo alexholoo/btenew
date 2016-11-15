@@ -14,12 +14,16 @@ class DropshipService extends Injectable
         return array_column($orders, 'order_id');
     }
 
-    public function getOrdersInShoppingCart()
+    public function getOrdersInShoppingCart($column = 'order_id')
     {
-        $sql = 'SELECT order_id FROM shopping_cart';
+        $sql = 'SELECT order_id, sku, qty FROM shopping_cart';
         $orders = $this->db->fetchAll($sql);
 
-        return array_column($orders, 'order_id');
+        if ($column) {
+            return array_column($orders, $column);
+        }
+
+        return $orders;
     }
 
     public function isOrderPurchased($orderId)
