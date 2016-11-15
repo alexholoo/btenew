@@ -34,7 +34,7 @@
         <label><input type="checkbox" name="multitem" value="1"{% if multitem == 1 %} checked{% endif %}> Multi Items</label>
       </div>
       <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filter </button>
-      <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-check"></span> Checkout </button>
+      <button type="button" class="btn btn-success" onclick="checkout()"><span class="glyphicon glyphicon-check"></span> Checkout </button>
     </form>
   </div>
 
@@ -46,7 +46,7 @@
         <th>Order ID</th>
         <th>Note</th>
         <th>Related SKU</th>
-        <th>Buy</th>
+        <th>Cart</th>
         <th>Dimension</th>
         <th>Action</th>
       </tr>
@@ -78,10 +78,10 @@
             {% endif %}
           {% endif %}
         </td>
-        <td class="buy">
+        <td class="add">
           {% if not purchase['multi_items'] %}
           {% if purchase['related_sku'] is not empty and purchase['status'] != 'purchased' %}
-            <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-import"></span> Buy </button>
+            <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> Add </button>
           {% endif %}
           {% endif %}
         </td>
@@ -346,6 +346,36 @@ function getOrderDetail(orderId, done) {
 
 function shoppingCartAdd(data) {
   console.log(data);
+  ajaxCall('/ajax/shoppingcart/add', data,
+    function(data) {
+    },
+    function(message) {
+      showError(message);
+    }
+  );
+};
+
+function checkout() {
+  layer.confirm('Are you sure you want to checkout?', {
+      title: 'Confirm',
+      btn: ['Yes','No'],
+      type: 0,
+      icon: 3,
+      skin: ''
+    },
+    function(index, layero) {
+      layer.close(index);
+      ajaxCall('/ajax/shoppingcart/checkout', {},
+        function(data) {
+        },
+        function(message) {
+          showError(message);
+        }
+      );
+    },
+    function() {
+    }
+  );
 };
 {% endblock %}
 
@@ -436,8 +466,8 @@ function shoppingCartAdd(data) {
     });
   });
 
-  // click on buy button
-  $('.buy button').click(function() {
+  // click on add button
+  $('.add button').click(function() {
     $('tr').removeClass('info');
 
     var tr = $(this).closest('tr');

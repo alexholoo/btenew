@@ -36,6 +36,16 @@ $router->add('/ajax/fbaitem/delete', [
     'action' => 'fbaItemDelete'
 ])->via(array("POST"));
 
+$router->add('/ajax/shoppingcart/add', [
+    'controller' => 'ajax',
+    'action' => 'shoppingCartAdd'
+])->via(array("POST"));
+
+$router->add('/ajax/shoppingcart/checkout', [
+    'controller' => 'ajax',
+    'action' => 'shoppingCartCheckout'
+])->via(array("POST"));
+
 // aliases
 $router->add('/purchase/assist', [
     'controller' => 'purchase',

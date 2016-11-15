@@ -164,5 +164,25 @@ class AjaxController extends ControllerBase
         }
     }
 
+    public function shoppingCartAddAction()
+    {
+        if ($this->request->isPost()) {
+            $orderId = $this->request->getPost('order_id');
+            $sku = $this->request->getPost('sku');
+            $branch = $this->request->getPost('code', null, '');
+
+            $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing Only']);
+            return $this->response;
+        }
+    }
+
+    public function shoppingCartCheckoutAction()
+    {
+        $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing Only']);
+        return $this->response;
+
+        //$this->runJob('job/shoppingCartCheckoutJob');
+    }
+
     /* ===== internal methods ===== */
 }
