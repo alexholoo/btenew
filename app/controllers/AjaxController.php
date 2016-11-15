@@ -180,20 +180,18 @@ class AjaxController extends ControllerBase
             $result = $this->db->fetchOne("SELECT order_id FROM shopping_cart WHERE order_id='$orderId'");
 
             if ($result) {
-                $this->db->updateAsDict('shopping_cart', [
-                    'sku' => $sku
-                ],
-                "order_id='$orderId'");
+                $this->db->execute("DELETE FROM shopping_cart WHERE order_id='$orderId'");
+                $this->response->setJsonContent(['status' => 'OK', 'data' => 0]);
+                return $this->response;
             } else {
                 $this->db->insertAsDict('shopping_cart', [
                     'order_id'  => $orderId,
                     'sku'       => $sku,
                     'qty'       => $order->qty
                 ]);
+                $this->response->setJsonContent(['status' => 'OK', 'data' => 1]);
+                return $this->response;
             }
-
-            $this->response->setJsonContent(['status' => 'OK', 'data' => 'Added to shopping cart']);
-            return $this->response;
         }
     }
 

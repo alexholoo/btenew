@@ -344,11 +344,18 @@ function getOrderDetail(orderId, done) {
   );
 }
 
-function shoppingCartAdd(data) {
+function shoppingCartAdd(data, added, deleted) {
   console.log(data);
   ajaxCall('/ajax/shoppingcart/add', data,
     function(data) {
-      showToast(data, 1000);
+      if (data == 0) {
+        showToast('Deleted from shopping cart', 3000);
+        deleted();
+      }
+      if (data == 1) {
+        showToast('Added to shopping cart', 1000);
+        added();
+      }
     },
     function(message) {
       showError(message);
@@ -487,8 +494,10 @@ function checkout() {
     //tr.addClass('info');
     //tr.remove();
     //tr.addClass('danger');
-    td.addClass('info');
 
-    shoppingCartAdd({ order_id: orderId, sku: sku, branch: branch, code: code });
+    shoppingCartAdd({ order_id: orderId, sku: sku, branch: branch, code: code },
+      function() { td.addClass('info'); },
+      function() { td.removeClass('info'); }
+    );
   });
 {% endblock %}
