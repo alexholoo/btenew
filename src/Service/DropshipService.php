@@ -8,16 +8,18 @@ class DropshipService extends Injectable
 {
     public function getMultiItemOrders()
     {
-        $result = [];
-
         $sql = 'SELECT order_id, count(*) as c FROM ca_order_notes GROUP BY order_id HAVING c>1';
         $orders = $this->db->fetchAll($sql);
 
-        foreach ($orders as $order) {
-            $result[] = $order['order_id'];
-        }
+        return array_column($orders, 'order_id');
+    }
 
-        return $result;
+    public function getOrdersInShoppingCart()
+    {
+        $sql = 'SELECT order_id FROM shopping_cart';
+        $orders = $this->db->fetchAll($sql);
+
+        return array_column($orders, 'order_id');
     }
 
     public function isOrderPurchased($orderId)
@@ -30,14 +32,9 @@ class DropshipService extends Injectable
     public function getDateListFromOrders()
     {
         $sql = 'SELECT DISTINCT date FROM ca_order_notes ORDER BY date DESC LIMIT 30';
-        $result = $this->db->query($sql);
+        $result = $this->db->fetchAll($sql);
 
-        $dates = [];
-        while ($row = $result->fetch(\Phalcon\Db::FETCH_ASSOC)) {
-            $dates[] = $row['date'];
-        }
-
-        return $dates;
+        return array_column($result, 'date');
     }
 
     public function getOrders($params)
@@ -50,6 +47,7 @@ class DropshipService extends Injectable
         $orderId   = $params['orderId'];
 
         $multiItemOrders = $this->getMultiItemOrders();
+        $ordersInShoppingCart = $this->getOrdersInShoppingCart();
 
         $sql = 'SELECT * FROM ca_order_notes';
 
