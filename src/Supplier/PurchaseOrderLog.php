@@ -22,7 +22,7 @@ class PurchaseOrderLog
         );
     }
 
-    public static function save($sku, $orderId, $poNumber)
+    public static function save($sku, $orderId, $poNumber, $flag)
     {
         $db = Di::getDefault()->get('db');
 
@@ -32,6 +32,7 @@ class PurchaseOrderLog
                     'sku' => $sku,
                     'orderid' => $orderId,
                     'ponumber' => $poNumber,
+                    'flag' => $flag,
                 ]
             );
         } catch (\Exception $e) {
