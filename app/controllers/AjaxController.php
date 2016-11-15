@@ -171,7 +171,28 @@ class AjaxController extends ControllerBase
             $sku = $this->request->getPost('sku');
             $branch = $this->request->getPost('code', null, '');
 
-            $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing Only']);
+            $order = Orders::findFirst("orderId='$orderId'");
+            if (!$order) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
+                return $this->response;
+            }
+
+            $result = $this->db->fetchOne("SELECT order_id FROM shopping_cart WHERE order_id='$orderId'");
+
+            if ($result) {
+                $this->db->updateAsDict('shopping_cart', [
+                    'sku' => $sku
+                ],
+                "order_id='$orderId'");
+            } else {
+                $this->db->insertAsDict('shopping_cart', [
+                    'order_id'  => $orderId,
+                    'sku'       => $sku,
+                    'qty'       => $order->qty
+                ]);
+            }
+
+            $this->response->setJsonContent(['status' => 'OK', 'data' => 'Added to shopping cart']);
             return $this->response;
         }
     }
