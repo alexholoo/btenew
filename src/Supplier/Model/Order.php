@@ -3,7 +3,6 @@
 namespace Supplier\Model;
 
 use Toolkit\Arr;
-use Toolkit\CanadaProvince;
 
 class Order
 {
@@ -11,67 +10,42 @@ class Order
     public $date;
     public $orderId;
     public $express;
-    public $contact;
-    public $address;
-    public $city;
-    public $province;
-    public $state;
-    public $zipcode;
-    public $postalcode;
-    public $country;
-    public $phone;
-    public $email;
-    public $sku;
-    public $price;
-    public $qty;
-    public $shipping;   // shipping fee
+    public $shippingAddress;
+    public $items = [];
     public $shipMethod;
-
-    public $customerPO;
-    public $endUserPO;
-    public $branch;     // the warehouse ship from
+    public $branch;
     public $comment;
     public $notifyEmail;
 
     public function __construct($order)
     {
-        $this->channel    = Arr::val($order, 'channel');
-        $this->date       = Arr::val($order, 'date');
-        $this->orderId    = Arr::val($order, 'orderId');
-        $this->express    = Arr::val($order, 'express');
-        $this->contact    = Arr::val($order, 'buyer'); // !
-        $this->address    = Arr::val($order, 'address');
-        $this->city       = Arr::val($order, 'city');
-        $this->province   = Arr::val($order, 'province');
-        $this->state      = $this->province;
-        $this->postalcode = Arr::val($order, 'postalcode');
-        $this->zipcode    = $this->postalcode;
-        $this->country    = Arr::val($order, 'country');
-        $this->phone      = Arr::val($order, 'phone');
-        $this->email      = Arr::val($order, 'email');
-        $this->sku        = Arr::val($order, 'sku');
-        $this->price      = Arr::val($order, 'price');
-        $this->qty        = Arr::val($order, 'qty');
-        $this->shipping   = Arr::val($order, 'shipping');
-        $this->shipMethod = Arr::val($order, 'shipMethod');
+        $this->channel     = Arr::val($order, 'channel');
+        $this->date        = Arr::val($order, 'date');
+        $this->orderId     = Arr::val($order, 'orderId');
+        $this->express     = Arr::val($order, 'express');
+        $this->shipMethod  = Arr::val($order, 'shipMethod');
+        $this->branch      = Arr::val($order, 'branch');
+        $this->comment     = Arr::val($order, 'comment');
+        $this->notifyEmail = Arr::val($order, 'notifyEmail');
 
-        $this->branch     = Arr::val($order, 'branch');
-        $this->comment    = Arr::val($order, 'comment');
-        $this->customerPO = Arr::val($order, 'customerPO');
-        $this->endUserPO  = Arr::val($order, 'endUserPO');
-        $this->notifyEmail= Arr::val($order, 'notifyEmail');
+        $this->comment = htmlspecialchars($this->comment);
 
-        // xml safe text
-        $this->contact    = htmlspecialchars($this->contact);
-        $this->address    = htmlspecialchars($this->address);
-        $this->city       = htmlspecialchars($this->city);
-        $this->province   = htmlspecialchars($this->province);
-        $this->state      = htmlspecialchars($this->state);
-        $this->country    = htmlspecialchars($this->country);
-        $this->email      = htmlspecialchars($this->email);
-        $this->comment    = htmlspecialchars($this->comment);
+        $this->shippingAddress = new OrderAddress($order);
 
-       #$this->state = CanadaProvince::nameToCode($this->state);
-       #$this->province = CanadaProvince::nameToCode($this->province);
+        if (isset($order['sku']) && isset($order['qty'])) {
+            $this->items[] = new OrderItem($order);
+        }
+    }
+
+    public function setItems($items)
+    {
+        foreach ($items as $item) {
+            $this->items[] = new OrderItem($item);
+        }
+    }
+
+    public function setAddress($address)
+    {
+        $this->shippingAddress = new OrderAddress($address);
     }
 }
