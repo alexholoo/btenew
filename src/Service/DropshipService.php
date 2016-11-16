@@ -8,7 +8,7 @@ class DropshipService extends Injectable
 {
     public function getMultiItemOrders()
     {
-        $sql = 'SELECT order_id, count(*) as c FROM ca_order_notes GROUP BY order_id HAVING c>1';
+        $sql = 'SELECT order_id, count(*) AS c FROM ca_order_notes GROUP BY order_id HAVING c>1';
         $orders = $this->db->fetchAll($sql);
 
         return array_column($orders, 'order_id');
@@ -16,7 +16,12 @@ class DropshipService extends Injectable
 
     public function getOrdersInShoppingCart($column = 'order_id')
     {
-        $sql = 'SELECT order_id, sku, qty FROM shopping_cart';
+        // get all orders that are not dropshipped
+        $sql = 'SELECT sc.order_id, sc.sku, sc.qty
+                  FROM shopping_cart sc
+             LEFT JOIN purchase_order_log po ON sc.order_id = po.orderid
+                 WHERE po.id IS NULL';
+
         $orders = $this->db->fetchAll($sql);
 
         if ($column) {
