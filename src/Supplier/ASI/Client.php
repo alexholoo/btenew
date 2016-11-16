@@ -62,11 +62,6 @@ class Client extends BaseClient
         throw \Exception('Order Status not supported for ASI');
     }
 
-    public function batchPurchase($orders)
-    {
-        throw \Exception('Batch Purchase not supported for ASI');
-    }
-
     protected function httpGet($url)
     {
         $ch = curl_init();
