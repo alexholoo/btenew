@@ -153,6 +153,7 @@ function testOrderNumberMapper()
     echo OrderNumberMapper::getFakeOrderNo('702-6000945-2557809'), PHP_EOL;
     echo OrderNumberMapper::getRealOrderNo('70260009452557809'), PHP_EOL;
     echo OrderNumberMapper::getFakeOrderNo('702-6000945-2557809000'), PHP_EOL;
+    echo OrderNumberMapper::getFakeOrderNo('ING-'.date('Ymd-Hi')), PHP_EOL;
 }
 
 function testOrderTrackingRequest()

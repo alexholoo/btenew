@@ -50,11 +50,11 @@ class PurchaseOrderRequest extends BaseRequest
         $lines = array();
 
         $orderId = $this->order->orderId;
-        $contact = $this->order->contact;
-        $address = $this->order->address;
-        $city    = $this->order->city;
-        $state   = $this->order->province;
-        $zipcode = $this->order->zipcode;
+        $contact = $this->order->shippingAddress->contact;
+        $address = $this->order->shippingAddress->address;
+        $city    = $this->order->shippingAddress->city;
+        $state   = $this->order->shippingAddress->province;
+        $zipcode = $this->order->shippingAddress->zipcode;
         $branch  = $this->order->branch;
 
         $state = CanadaProvince::nameToCode($state);
@@ -73,14 +73,6 @@ class PurchaseOrderRequest extends BaseRequest
 
         $customerPO    = $fakeOrderId;
         $endUserPO     = $fakeOrderId;
-
-        if ($this->order->customerPO) {
-            $customerPO = $this->order->customerPO;
-        }
-
-        if ($this->order->endUserPO) {
-            $endUserPO = $this->order->endUserPO;
-        }
 
         $lines[] = "<OrderHeaderInformation>";
         $lines[] =   "<BillToSuffix />";
@@ -124,30 +116,35 @@ class PurchaseOrderRequest extends BaseRequest
     {
         $lines = array();
 
-        $sku = $this->order->sku;
-        $qty = $this->order->qty;
         $comment = $this->order->comment;
         $branch  = $this->order->branch;
 
-        if (substr($sku, 0, 4) == 'ING-') {
-            $sku = substr($sku, 4);
+        $lines[] = "<OrderLineInformation>";
+
+        foreach ($this->order->items as $item) {
+            $sku = $item->sku;
+            $qty = $item->qty;
+
+            if (substr($sku, 0, 4) == 'ING-') {
+                $sku = substr($sku, 4);
+            }
+
+            $lines[] = "<ProductLine>";
+            $lines[] =   "<SKU>$sku</SKU>";
+            $lines[] =   "<Quantity>$qty</Quantity>";
+            $lines[] =   "<CustomerLineNumber />";
+           #$lines[] =   "<ReservedInventory>";
+           #$lines[] =     "<ReserveCode></ReserveCode>"; // ??
+           #$lines[] =     "<ReserveSequence></ReserveSequence>"; // ??
+           #$lines[] =   "</ReservedInventory>";
+           #$lines[] =   "<CustomerPartNumber></CustomerPartNumber>";
+           #$lines[] =   "<UPC></UPC>";
+           #$lines[] =   "<ManufacturerPartNumber></ManufacturerPartNumber>";
+           #$lines[] =   "<ShipFromBranchAtLine>$branch</ShipFromBranchAtLine>";
+           #$lines[] =   "<RequestedPrice></RequestedPrice>";
+            $lines[] = "</ProductLine>";
         }
 
-        $lines[] = "<OrderLineInformation>";
-        $lines[] =   "<ProductLine>";
-        $lines[] =     "<SKU>$sku</SKU>";
-        $lines[] =     "<Quantity>$qty</Quantity>";
-        $lines[] =     "<CustomerLineNumber />";
-       #$lines[] =     "<ReservedInventory>";
-       #$lines[] =       "<ReserveCode></ReserveCode>"; // ??
-       #$lines[] =       "<ReserveSequence></ReserveSequence>"; // ??
-       #$lines[] =     "</ReservedInventory>";
-       #$lines[] =     "<CustomerPartNumber></CustomerPartNumber>";
-       #$lines[] =     "<UPC></UPC>";
-       #$lines[] =     "<ManufacturerPartNumber></ManufacturerPartNumber>";
-       #$lines[] =     "<ShipFromBranchAtLine>$branch</ShipFromBranchAtLine>";
-       #$lines[] =     "<RequestedPrice></RequestedPrice>";
-        $lines[] =   "</ProductLine>";
         $lines[] =   "<CommentLine>";
         $lines[] =     "<CommentText>$comment</CommentText>";
         $lines[] =   "</CommentLine>";

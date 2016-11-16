@@ -41,7 +41,7 @@ class PurchaseOrderRequest extends BaseRequest
     {
         $customerNo = $this->config['customerNo'];
         $poNumber   = $this->order->orderId;
-        $endUserPO  = $this->order->endUserPO;
+        $endUserPO  = ''; //$this->order->endUserPO;
         $comment    = $this->order->comment;
 
         $lines = array();
@@ -70,14 +70,14 @@ class PurchaseOrderRequest extends BaseRequest
 
     protected function shipment()
     {
-        $address    = $this->order->address;
-        $city       = $this->order->city;
-        $state      = $this->order->province;
-        $zipcode    = $this->order->zipcode;
-        $country    = $this->order->country;
-        $contact    = $this->order->contact;
-        $phone      = $this->order->phone;
-        $email      = $this->order->email;
+        $address    = $this->order->shippingAddress->address;
+        $city       = $this->order->shippingAddress->city;
+        $state      = $this->order->shippingAddress->province;
+        $zipcode    = $this->order->shippingAddress->zipcode;
+        $country    = $this->order->shippingAddress->country;
+        $contact    = $this->order->shippingAddress->contact;
+        $phone      = $this->order->shippingAddress->phone;
+        $email      = $this->order->shippingAddress->email;
         $branch     = $this->order->branch;
         $shipMethod = $this->config['shipmethod'];
 
@@ -131,21 +131,26 @@ class PurchaseOrderRequest extends BaseRequest
 
     protected function items()
     {
-        $sku   = $this->order->sku;
-        $price = $this->order->price;
-        $qty   = $this->order->qty;
+        $lines = array();
 
-        if (substr($sku, 0, 4) == 'SYN-') {
-            $sku = substr($sku, 4);
+        $lines[] = '<Items>';
+
+        foreach ($this->order->items as $N => $item) {
+            $sku   = $item->sku;
+            $price = $item->price;
+            $qty   = $item->qty;
+
+            if (substr($sku, 0, 4) == 'SYN-') {
+                $sku = substr($sku, 4);
+            }
+
+            $lines[] = '<Item lineNumber="'.($N+1).'">';
+            $lines[] =   "<SKU>$sku</SKU>";
+            $lines[] =   "<UnitPrice>$price</UnitPrice>";
+            $lines[] =   "<OrderQuantity>$qty</OrderQuantity>";
+            $lines[] = '</Item>';
         }
 
-        $lines = array();
-        $lines[] = '<Items>';
-        $lines[] =   '<Item lineNumber="1">';
-        $lines[] =     "<SKU>$sku</SKU>";
-        $lines[] =     "<UnitPrice>$price</UnitPrice>";
-        $lines[] =     "<OrderQuantity>$qty</OrderQuantity>";
-        $lines[] =   '</Item>';
         $lines[] = '</Items>';
 
         return implode("\n", $lines);

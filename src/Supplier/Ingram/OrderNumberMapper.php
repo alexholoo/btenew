@@ -43,10 +43,14 @@ class OrderNumberMapper
         // get an error "order number is too long", to avoid this, we
         // need to use fake order number instead.
 
-        $fake = preg_replace('/[^0-9]/', '', $real);
+        $fake = $real;
+
         if (strlen($fake) >= self::MAX_ORDERNO_LEN) {
-            list($usec, $sec) = explode(" ", microtime());
-            $fake = date('ymdhis') . substr($usec, 2, 4);
+            $fake = preg_replace('/[^0-9]/', '', $real);
+            if (strlen($fake) >= self::MAX_ORDERNO_LEN) {
+                list($usec, $sec) = explode(" ", microtime());
+                $fake = date('ymdhis') . substr($usec, 2, 4);
+            }
         }
 
         // log real/fake order number to db for future use

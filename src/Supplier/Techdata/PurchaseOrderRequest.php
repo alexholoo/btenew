@@ -31,14 +31,14 @@ class PurchaseOrderRequest extends BaseRequest
         $password = $this->config['password'];
 
         $orderId = $this->order->orderId;
-        $address = $this->order->address;
-        $city    = $this->order->city;
-        $state   = $this->order->province;
-        $zipcode = $this->order->zipcode;
-        $country = $this->order->country;
-        $contact = $this->order->contact;
-        $phone   = $this->order->phone;
-        $email   = $this->order->email;
+        $address = $this->order->shippingAddress->address;
+        $city    = $this->order->shippingAddress->city;
+        $state   = $this->order->shippingAddress->province;
+        $zipcode = $this->order->shippingAddress->zipcode;
+        $country = $this->order->shippingAddress->country;
+        $contact = $this->order->shippingAddress->contact;
+        $phone   = $this->order->shippingAddress->phone;
+        $email   = $this->order->shippingAddress->email;
 
         $notifyEmail = $this->order->notifyEmail;
 
@@ -125,24 +125,29 @@ class PurchaseOrderRequest extends BaseRequest
     {
         $lines = array();
 
-        $sku = $this->order->sku;
-        $qty = $this->order->qty;
         $branch = $this->order->branch;
         $comment = $this->order->comment;
 
-        if (substr($sku, 0, 3) == 'TD-') {
-            $sku = substr($sku, 3);
+        $lines[] = "<Detail>";
+
+        foreach ($this->order->items as $item) {
+            $sku = $item->sku;
+            $qty = $item->qty;
+
+            if (substr($sku, 0, 3) == 'TD-') {
+                $sku = substr($sku, 3);
+            }
+
+            $lines[] = "<LineInfo>";
+            $lines[] =   "<QtyOrdered>$qty</QtyOrdered>";
+            $lines[] =   "<ProductIDQual>VP</ProductIDQual>"; // VP - sku is Tech Data item number
+            $lines[] =   "<ProductID>$sku</ProductID>";
+            $lines[] =   "<WhseCode>$branch</WhseCode>"; // Optional - Tech Data warehouse
+            $lines[] =   "<IDCode>UP</IDCode>"; // TODO: Ship via code
+            $lines[] =   "<OrderMessageLine>$comment</OrderMessageLine>"; // ??
+            $lines[] = "</LineInfo>";
         }
 
-        $lines[] = "<Detail>";
-        $lines[] =   "<LineInfo>";
-        $lines[] =     "<QtyOrdered>$qty</QtyOrdered>";
-        $lines[] =     "<ProductIDQual>VP</ProductIDQual>"; // VP - sku is Tech Data item number
-        $lines[] =     "<ProductID>$sku</ProductID>";
-        $lines[] =     "<WhseCode>$branch</WhseCode>"; // Optional - Tech Data warehouse
-        $lines[] =     "<IDCode>UP</IDCode>"; // TODO: Ship via code
-        $lines[] =     "<OrderMessageLine>$comment</OrderMessageLine>"; // ??
-        $lines[] =   "</LineInfo>";
         $lines[] = "</Detail>";
 
         return implode("\n", $lines);

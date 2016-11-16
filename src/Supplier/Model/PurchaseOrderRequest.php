@@ -25,7 +25,11 @@ abstract class PurchaseOrderRequest extends Request
      */
     public function getSku()
     {
-        return $this->order->sku;
+        if (count($this->order->items) > 1) {
+            return 'MULTI-ITEMS';
+        }
+
+        return $this->order->items[0]->sku;
     }
 
     /**

@@ -52,13 +52,13 @@ class PurchaseOrderRequest extends BaseRequest
         $dropShipPassword = $this->config['dropshippw'];
 
         $orderId = $this->order->orderId;
-        $contact = $this->order->contact;
-        $address = $this->order->address;
-        $city    = $this->order->city;
-        $state   = $this->order->province;
-        $zipcode = $this->order->zipcode;
-        $phone   = $this->order->phone;
-        $country = $this->order->country;
+        $contact = $this->order->shippingAddress->contact;
+        $address = $this->order->shippingAddress->address;
+        $city    = $this->order->shippingAddress->city;
+        $state   = $this->order->shippingAddress->province;
+        $zipcode = $this->order->shippingAddress->zipcode;
+        $phone   = $this->order->shippingAddress->phone;
+        $country = $this->order->shippingAddress->country;
         $comment = $this->order->comment;
 
         $state = CanadaProvince::nameToCode($state);
@@ -100,22 +100,29 @@ class PurchaseOrderRequest extends BaseRequest
     {
         $lines = array();
 
-        $sku = $this->order->sku;
-        $qty = $this->order->qty;
         $branch = $this->order->branch;
 
-        if (substr($sku, 0, 3) == 'DH-') {
-            $sku = substr($sku, 3);
+        $lines[] = "<ORDERITEMS>";
+
+        foreach ($this->order->items as $item) {
+            $sku = $item->sku;
+            $qty = $item->qty;
+
+            if (substr($sku, 0, 3) == 'DH-') {
+                $sku = substr($sku, 3);
+            }
+
+            $lines[] = "<ITEM>";
+            $lines[] =   "<PARTNUM>$sku</PARTNUM>";
+            $lines[] =   "<QTY>$qty</QTY>";
+
+            if ($branch) {
+                $lines[] = "<BRANCH>$branch</BRANCH>";
+            }
+
+            $lines[] = "</ITEM>";
         }
 
-        $lines[] = "<ORDERITEMS>";
-        $lines[] =   "<ITEM>";
-        $lines[] =     "<PARTNUM>$sku</PARTNUM>";
-        $lines[] =     "<QTY>$qty</QTY>";
-        if ($branch) {
-            $lines[] = "<BRANCH>$branch</BRANCH>";
-        }
-        $lines[] =   "</ITEM>";
         $lines[] = "</ORDERITEMS>";
 
         return implode("\n", $lines);
