@@ -105,49 +105,6 @@ class Client extends BaseClient
         return $result;
     }
 
-    public function batchPurchase($orders)
-    {
-        $url = self::PO_TEST_URL;
-        $url = self::PO_PROD_URL;
-
-        $result = $this->getPriceAvailability($order['sku']);
-        $item = $result->getFirst();
-        if ($item->price) {
-            $order['price'] = $item->price;
-        } else {
-            $order['price'] = 1.0; // $order['price'] * 0.5;
-        }
-
-        $request = new BatchPurchaseRequest();
-        $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
-        $request->setAddress($this->config['bte']);
-        $request->setOrders($orders);
-
-        $xml = $request->toXml();
-        $this->di->get('logger')->debug($xml);
-
-        $res = $this->curlPost($url, $xml, array(
-            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
-        ));
-
-        $response = new BatchPurchaseResponse($res);
-        $result = $response->parseXml();
-
-        $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
-
-        PurchaseOrderLog::saveXml($url, $request, $response);
-
-        if ($result->status == Response::STATUS_OK) {
-            //PurchaseOrderLog::save($order['sku'], $order['orderId'], $result->orderNo, 'btebuy');
-            //PriceAvailabilityLog::invalidate($order['sku']);
-        }
-
-        $this->request = $request;
-        $this->response = $response;
-
-        return $result;
-    }
-
     /**
      * @param  Supplier\Model\Order $order
      */

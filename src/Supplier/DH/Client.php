@@ -88,40 +88,6 @@ class Client extends BaseClient
         return $result;
     }
 
-    public function batchPurchase($orders)
-    {
-        $url = self::PO_PROD_URL;
-
-        $request = new BatchPurchaseRequest();
-        $request->setConfig($this->config['xmlapi'][ConfigKey::DH]);
-        $request->setAddress($this->config['bte']);
-        $request->setOrders($orders);
-
-        $xml = $request->toXml();
-        $this->di->get('logger')->debug($xml);
-
-        $res = $this->curlPost($url, $xml, array(
-            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
-        ));
-
-        $response = new BatchPurchaseResponse($res);
-        $result = $response->parseXml();
-
-        $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
-
-        PurchaseOrderLog::saveXml($url, $request, $response);
-
-        if ($result->status == Response::STATUS_OK) {
-            //PurchaseOrderLog::save($order['sku'], $order['orderId'], $result->orderNo, 'btebuy');
-            //PriceAvailabilityLog::invalidate($order['sku']);
-        }
-
-        $this->request = $request;
-        $this->response = $response;
-
-        return $result;
-    }
-
     public function getOrderStatus($orderId)
     {
         $url = self::OS_PROD_URL;
