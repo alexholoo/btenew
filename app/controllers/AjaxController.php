@@ -177,6 +177,12 @@ class AjaxController extends ControllerBase
                 return $this->response;
             }
 
+            // Make sure the order is pending (not purchased yet)
+            if ($this->dropshipService->isOrderPurchased($orderId)) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been purchased']);
+                return $this->response;
+            }
+
             $result = $this->db->fetchOne("SELECT order_id FROM shopping_cart WHERE order_id='$orderId'");
 
             if ($result) {
