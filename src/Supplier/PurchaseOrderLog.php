@@ -22,22 +22,31 @@ class PurchaseOrderLog
         );
     }
 
-    public static function save($sku, $orderId, $poNumber, $flag)
+    public static function save($order, $poNumber)
     {
         $db = Di::getDefault()->get('db');
 
-        try {
-            $db->insertAsDict('purchase_order_log',
-                [
-                    'sku' => $sku,
-                    'orderid' => $orderId,
-                    'ponumber' => $poNumber,
-                    'flag' => $flag,
-                ]
-            );
-        } catch (\Exception $e) {
-            $logger = Di::getDefault()->get('logger');
-            $logger->error($e->getMessage());
+        $flag = 'dropship';
+
+        if (count($order->items) > 1) {
+            $flag = $order->orderId;
+        }
+
+        foreach ($order->items as $item) {
+            $orderId = count($order->items) > 1 ? $item->orderId : $order->orderId;
+            try {
+                $db->insertAsDict('purchase_order_log',
+                    [
+                        'sku'      => $item->sku,
+                        'orderid'  => $orderId,
+                        'ponumber' => $poNumber,
+                        'flag'     => $flag,
+                    ]
+                );
+            } catch (\Exception $e) {
+                $logger = Di::getDefault()->get('logger');
+                $logger->error($e->getMessage());
+            }
         }
     }
 

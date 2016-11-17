@@ -33,8 +33,7 @@ class ShoppingCartCheckoutJob
             $client = Supplier::createClient($supplier);
             if ($client) {
 #               $result = $client->purchaseOrder($order);
-#               $this->removeOrdersInShoppingCart($info['orderId'], $result->orderNo, $orders);
-#               $this->removeOrdersInShoppingCart($info['orderId'], '', $orders);
+#               $this->removeOrdersInShoppingCart($orders);
             }
         }
     }
@@ -54,25 +53,12 @@ class ShoppingCartCheckoutJob
         return $result;
     }
 
-    protected function removeOrdersInShoppingCart($orderId, $ponum, $orders)
+    protected function removeOrdersInShoppingCart($orders)
     {
-        //$this->di->get('dropshipService')->removeOrdersInShoppingCart();
-
         foreach ($orders as $order) {
             $id = $order['order_id'];
             $sql = "DELETE FROM shopping_cart WHERE order_id='$id'";
-#           $this->db->execute($sql);
-
-            try {
-                $this->db->insertAsDict('purchase_order_log', [
-                    'sku'      => $order['sku'],
-                    'orderid'  => $order['order_id'],
-                    'ponumber' => $ponum,
-                    'flag'     => $orderId, // 'btebuy',
-                ]);
-            } catch (\Exception $e) {
-                // echo $e->getMessage(), EOL;
-            }
+            $this->db->execute($sql);
         }
     }
 

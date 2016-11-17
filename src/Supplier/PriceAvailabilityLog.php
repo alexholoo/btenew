@@ -49,12 +49,14 @@ class PriceAvailabilityLog
         return false;
     }
 
-    public static function invalidate($sku)
+    public static function invalidate($order)
     {
         $db = Di::getDefault()->get('db');
 
-        $sql = "UPDATE xmlapi_pna_log SET valid=0 WHERE sku=?";
-
-        return $db->execute($sql, array($sku));
+        foreach ($order->items as $item) {
+            $sku = $item->sku;
+            $sql = "UPDATE xmlapi_pna_log SET valid=0 WHERE sku=?";
+            $db->execute($sql, array($sku));
+        }
     }
 }
