@@ -16,20 +16,6 @@ use Phalcon\Logger\Formatter\Line as FormatterLine;
 use Phalcon\Logger;
 use Phalcon\Events\Manager as EventsManager;
 
-use Service\ProductService;
-use Service\PricelistService;
-use Service\InventoryServi;
-use Service\OrderService;
-use Service\DropshipService;
-use Service\PurchaseService;
-use Service\ShipmentService;
-use Service\ConfigService;
-use Service\AmazonService;
-use Service\EbayService;
-use Service\NeweggService;
-use Service\RakutenService;
-use Service\PriceAvailService;
-
 use App\Library\Auth\Auth;
 use App\Library\Acl\Acl;
 use App\Library\Mail\Mail;
@@ -208,17 +194,14 @@ $di->set('logger', function ($filename = null, $format = null) use ($config) {
     return $logger;
 });
 
-class DummyServer
-{
-    public function put($job)
-    {
-        return true;
-    }
-}
-
 $di->setShared('queue', function () use ($config) {
     if (isset($config->beanstalk->disabled) && $config->beanstalk->disabled) {
-        return new DummyServer();
+        return new class {
+            public function put($job)
+            {
+                return true;
+            }
+        };
     }
 
     $queue = new Phalcon\Queue\Beanstalk(
@@ -234,57 +217,20 @@ $di->setShared('queue', function () use ($config) {
 /**
  * Services for business logics
  */
-$di->setShared('configService', function() {
-    return new ConfigService();
-});
-
-$di->setShared('productService', function() {
-    return new ProductService();
-});
-
-$di->setShared('pricelistService', function() {
-    return new PricelistService();
-});
-
-$di->setShared('inventoryService', function() {
-    return new InventoryService();
-});
-
-$di->setShared('orderService', function() {
-    return new OrderService();
-});
-
-$di->setShared('dropshipService', function() {
-    return new DropshipService();
-});
-
-$di->setShared('purchaseService', function() {
-    return new PurchaseService();
-});
-
-$di->setShared('shipmentService', function() {
-    return new ShipmentService();
-});
-
-$di->setShared('priceAvailService', function() {
-    return new PriceAvailService();
-});
+$di->setShared('configService',     function() { return new \Service\ConfigService(); });
+$di->setShared('productService',    function() { return new \Service\ProductService(); });
+$di->setShared('pricelistService',  function() { return new \Service\PricelistService(); });
+$di->setShared('inventoryService',  function() { return new \Service\InventoryService(); });
+$di->setShared('orderService',      function() { return new \Service\OrderService(); });
+$di->setShared('dropshipService',   function() { return new \Service\DropshipService(); });
+$di->setShared('purchaseService',   function() { return new \Service\PurchaseService(); });
+$di->setShared('shipmentService',   function() { return new \Service\ShipmentService(); });
+$di->setShared('priceAvailService', function() { return new \Service\PriceAvailService(); });
 
 /**
  * Marketplace related services
  */
-$di->setShared('amazonService', function() {
-    return new AmazonService();
-});
-
-$di->setShared('ebayService', function() {
-    return new EbayService();
-});
-
-$di->setShared('neweggService', function() {
-    return new NeweggService();
-});
-
-$di->setShared('rakutenService', function() {
-    return new RakutenService();
-});
+$di->setShared('amazonService',     function() { return new \Service\AmazonService(); });
+$di->setShared('ebayService',       function() { return new \Service\EbayService(); });
+$di->setShared('neweggService',     function() { return new \Service\NeweggService(); });
+$di->setShared('rakutenService',    function() { return new \Service\RakutenService(); });
