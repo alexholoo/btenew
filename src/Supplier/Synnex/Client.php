@@ -68,17 +68,11 @@ class Client extends BaseClient
         $url = self::PO_TEST_URL;
         $url = self::PO_PROD_URL;
 
-        $result = $this->getPriceAvailability($order['sku']);
-        $item = $result->getFirst();
-        if ($item->price) {
-            $order['price'] = $item->price;
-        } else {
-            $order['price'] = 1.0; // $order['price'] * 0.5;
-        }
+        $order = $this->getPrices($order);
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
-        $request->addOrder($order);
+        $request->setOrder($order);
 
         $xml = $request->toXml();
         $this->di->get('logger')->debug($xml);
@@ -103,6 +97,17 @@ class Client extends BaseClient
         $this->response = $response;
 
         return $result;
+    }
+
+    protected function getPrices($order)
+    {
+        foreach ($order->items as $key => $item) {
+            $result = $this->getPriceAvailability($item->sku);
+            $first = $result->getFirst();
+            $order->items[$key]->price = $first->price;
+        }
+
+        return $order;
     }
 
     /**

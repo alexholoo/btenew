@@ -59,7 +59,7 @@ class Client extends BaseClient
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::INGRAM]);
-        $request->addOrder($order);
+        $request->setOrder($order);
 
         $xml = $request->toXml();
         $this->di->get('logger')->debug($xml);

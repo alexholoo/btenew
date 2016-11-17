@@ -65,7 +65,7 @@ class Client extends BaseClient
 
         $request = new PurchaseOrderRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
-        $request->addOrder($order);
+        $request->setOrder($order);
 
         $xml = $request->toXml();
         $this->di->get('logger')->debug($xml);
