@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Supplier\Supplier;
+use Supplier\Model\Order;
 use App\Models\Orders;
 
 class AjaxController extends ControllerBase
@@ -70,7 +71,9 @@ class AjaxController extends ControllerBase
                     throw new \Exception("Cannot purchase order for $sku");
                 }
 
-                $result = $client->purchaseOrder($orderInfo);
+                $order = new Order($orderInfo);
+
+                $result = $client->purchaseOrder($order);
                 $status = $result->getStatus();
 
                 if ($status == 'ERROR') {
