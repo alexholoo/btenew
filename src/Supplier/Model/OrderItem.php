@@ -11,11 +11,11 @@ class OrderItem
     public $price;
     public $qty;
 
-    public function __construct($order)
+    public function __construct($info)
     {
-        $this->orderId = Arr::val($order, 'orderId');
-        $this->sku     = Arr::val($order, 'sku');
-        $this->price   = Arr::val($order, 'price');
-        $this->qty     = Arr::val($order, 'qty');
+        $this->orderId = Arr::val($info, 'orderId');
+        $this->sku     = Arr::val($info, 'sku');
+        $this->price   = Arr::val($info, 'price');
+        $this->qty     = Arr::val($info, 'qty');
     }
 }

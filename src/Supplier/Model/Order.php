@@ -17,23 +17,23 @@ class Order
     public $comment;
     public $notifyEmail;
 
-    public function __construct($order)
+    public function __construct($info)
     {
-        $this->channel     = Arr::val($order, 'channel');
-        $this->date        = Arr::val($order, 'date');
-        $this->orderId     = Arr::val($order, 'orderId');
-        $this->express     = Arr::val($order, 'express');
-        $this->shipMethod  = Arr::val($order, 'shipMethod');
-        $this->branch      = Arr::val($order, 'branch');
-        $this->comment     = Arr::val($order, 'comment');
-        $this->notifyEmail = Arr::val($order, 'notifyEmail');
+        $this->channel     = Arr::val($info, 'channel');
+        $this->date        = Arr::val($info, 'date');
+        $this->orderId     = Arr::val($info, 'orderId');
+        $this->express     = Arr::val($info, 'express');
+        $this->shipMethod  = Arr::val($info, 'shipMethod');
+        $this->branch      = Arr::val($info, 'branch');
+        $this->comment     = Arr::val($info, 'comment');
+        $this->notifyEmail = Arr::val($info, 'notifyEmail');
 
         $this->comment = htmlspecialchars($this->comment);
 
-        $this->shippingAddress = new OrderAddress($order);
+        $this->shippingAddress = new OrderAddress($info);
 
-        if (isset($order['sku']) && isset($order['qty'])) {
-            $this->items[] = new OrderItem($order);
+        if (isset($info['sku']) && isset($info['qty'])) {
+            $this->items[] = new OrderItem($info);
         }
     }
 
