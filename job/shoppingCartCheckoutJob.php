@@ -26,19 +26,15 @@ class ShoppingCartCheckoutJob
             echo $info['orderId'], EOL;
             print_r(array_column($orders, 'sku'));
 
-            if ($supplier == \Supplier\Prefix::SYNNEX) {
-                $orders = $this->getSynnexPrices($orders);
-            }
-
             $order = new Order($info);
             $order->setItems($orders);
             $order->setAddress($shippingAddress);
 
             $client = Supplier::createClient($supplier);
             if ($client) {
-#               $result = $client->purchaseOrder($order);
+                $result = $client->purchaseOrder($order);
 #               $this->removeOrdersInShoppingCart($info['orderId'], $result->orderNo, $orders);
-                $this->removeOrdersInShoppingCart($info['orderId'], '', $orders);
+#               $this->removeOrdersInShoppingCart($info['orderId'], '', $orders);
             }
         }
     }
@@ -107,19 +103,6 @@ class ShoppingCartCheckoutJob
         ];
 
         return isset($defaultBranches[$supplier]) ? $defaultBranches[$supplier] : '';
-    }
-
-    protected function getSynnexPrices($orders)
-    {
-        $client = Supplier::createClient(\Supplier\Prefix::SYNNEX);
-
-        foreach ($orders as $key => $order) {
-            $result = $client->getPriceAvailability($order['sku']);
-            $item = $result->getFirst();
-            $orders[$key]['price'] = $item->price;
-        }
-
-        return $orders;
     }
 }
 
