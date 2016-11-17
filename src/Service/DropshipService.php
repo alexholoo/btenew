@@ -14,7 +14,7 @@ class DropshipService extends Injectable
         return array_column($orders, 'order_id');
     }
 
-    public function getOrdersInShoppingCart($column = 'order_id')
+    public function getOrdersInShoppingCart($column = 'orderId')
     {
         // get all orders that are not dropshipped
         $sql = 'SELECT sc.order_id as orderId, sc.sku, sc.qty
