@@ -27,8 +27,8 @@ class ShoppingCartCheckoutJob
             print_r(array_column($orders, 'sku'));
 
             $order = new Order($info);
-            $order->setItems($orders);
             $order->setAddress($shippingAddress);
+            $order->addItems($orders);
 
             $client = Supplier::createClient($supplier);
             if ($client) {

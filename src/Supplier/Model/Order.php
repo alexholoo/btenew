@@ -37,7 +37,12 @@ class Order
         }
     }
 
-    public function setItems($items)
+    public function addItem($item)
+    {
+        $this->items[] = new OrderItem($item);
+    }
+
+    public function addItems($items)
     {
         foreach ($items as $item) {
             $this->items[] = new OrderItem($item);
