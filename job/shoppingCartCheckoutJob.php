@@ -56,7 +56,7 @@ class ShoppingCartCheckoutJob
     protected function removeOrdersInShoppingCart($orders)
     {
         foreach ($orders as $order) {
-            $id = $order['order_id'];
+            $id = $order['orderId'];
             $sql = "DELETE FROM shopping_cart WHERE order_id='$id'";
             $this->db->execute($sql);
         }

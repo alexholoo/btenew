@@ -13,7 +13,7 @@ class OrderItem
 
     public function __construct($order)
     {
-        $this->orderId = Arr::val($order, 'order_id');
+        $this->orderId = Arr::val($order, 'orderId');
         $this->sku     = Arr::val($order, 'sku');
         $this->price   = Arr::val($order, 'price');
         $this->qty     = Arr::val($order, 'qty');

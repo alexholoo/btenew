@@ -17,7 +17,7 @@ class DropshipService extends Injectable
     public function getOrdersInShoppingCart($column = 'order_id')
     {
         // get all orders that are not dropshipped
-        $sql = 'SELECT sc.order_id, sc.sku, sc.qty
+        $sql = 'SELECT sc.order_id as orderId, sc.sku, sc.qty
                   FROM shopping_cart sc
              LEFT JOIN purchase_order_log po ON sc.order_id = po.orderid
                  WHERE po.id IS NULL';
