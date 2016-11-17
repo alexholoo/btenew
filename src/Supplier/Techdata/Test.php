@@ -88,7 +88,7 @@ function testPurchaseOrderRequest()
 
     $request = new Supplier\Techdata\PurchaseOrderRequest();
     $request->setConfig($config[ConfigKey::TECHDATA]);
-    $request->addOrder($order);
+    $request->setOrder($order);
 
     $xml = $request->toXml();
 

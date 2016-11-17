@@ -16,7 +16,7 @@ class FreightQuoteRequest extends BaseRequest
     /**
      * @param array $order
      */
-    public function addOrder($order)
+    public function setOrder($order)
     {
         $this->order = new Order($order);
     }

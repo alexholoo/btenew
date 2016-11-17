@@ -120,7 +120,7 @@ class Client extends BaseClient
 
         $request = new FreightQuoteRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::SYNNEX]);
-        $request->addOrder($order);
+        $request->setOrder($order);
 
         $xml = $request->toXml();
 

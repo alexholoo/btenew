@@ -86,7 +86,7 @@ function testPurchaseOrderRequest()
 
     $request = new Supplier\Synnex\PurchaseOrderRequest();
     $request->setConfig($config[ConfigKey::SYNNEX]);
-    $request->addOrder($order);
+    $request->setOrder($order);
 
     $xml = $request->toXml();
 
@@ -124,7 +124,7 @@ function testFreightQuoteRequest()
 
     $request = new Supplier\Synnex\FreightQuoteRequest();
     $request->setConfig($config[ConfigKey::SYNNEX]);
-    $request->addOrder($order);
+    $request->setOrder($order);
 
     $xml = $request->toXml();
 

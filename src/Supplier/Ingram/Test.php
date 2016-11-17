@@ -85,7 +85,7 @@ function testPurchaseOrderRequest()
 
     $request = new Supplier\Ingram\PurchaseOrderRequest();
     $request->setConfig($config[ConfigKey::INGRAM]);
-    $request->addOrder($order);
+    $request->setOrder($order);
 
     $xml = $request->toXml();
 

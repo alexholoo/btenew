@@ -87,7 +87,7 @@ function testPurchaseOrderRequest()
 
     $request = new Supplier\DH\PurchaseOrderRequest();
     $request->setConfig($config[ConfigKey::DH]);
-    $request->addOrder($order);
+    $request->setOrder($order);
 
     $xml = $request->toXml();
 
