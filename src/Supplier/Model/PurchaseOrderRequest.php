@@ -13,11 +13,11 @@ abstract class PurchaseOrderRequest extends Request
     protected $order;
 
     /**
-     * @param array $order
+     * @param Supplier\Model\Order $order
      */
-    public function addOrder($order)
+    public function setOrder($order)
     {
-        $this->order = new Order($order);
+        $this->order = $order;
     }
 
     /**
