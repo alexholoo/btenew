@@ -56,9 +56,9 @@ class FreightQuoteRequest extends BaseRequest
         $lines = array();
 
         $customerNo = $this->config['customerNo'];
-        $zipcode    = $this->order->zipcode;
-        $sku        = $this->order->sku;
-        $qty        = $this->order->qty;
+        $zipcode    = $this->order->shippingAddress->zipcode;
+        $sku        = $this->order->items[0]->sku;
+        $qty        = $this->order->items[0]->qty;
         $branch     = $this->order->branch;
 
         if (substr($sku, 0, 4) == 'SYN-') {
