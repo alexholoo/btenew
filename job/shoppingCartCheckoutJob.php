@@ -32,7 +32,7 @@ class ShoppingCartCheckoutJob
 
             $client = Supplier::createClient($supplier);
             if ($client) {
-                $result = $client->purchaseOrder($order);
+#               $result = $client->purchaseOrder($order);
 #               $this->removeOrdersInShoppingCart($info['orderId'], $result->orderNo, $orders);
 #               $this->removeOrdersInShoppingCart($info['orderId'], '', $orders);
             }
