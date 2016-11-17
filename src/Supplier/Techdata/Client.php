@@ -79,7 +79,7 @@ class Client extends BaseClient
 
         PurchaseOrderLog::saveXml($url, $request, $response);
 
-        if ($result->status == Response::STATUS_OK) {
+        if ($result->status == Response::STATUS_OK && isset($order['sku'])) {
             PurchaseOrderLog::save($order['sku'], $order['orderId'], $result->orderNo, 'dropship');
             PriceAvailabilityLog::invalidate($order['sku']);
         }
