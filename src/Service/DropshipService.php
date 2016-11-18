@@ -126,6 +126,14 @@ class DropshipService extends Injectable
             $row['related_sku'] = array_map('trim', $row['related_sku']);
             $row['related_sku'] = array_filter($row['related_sku']);
 
+            if ($row['stock_status'] == 'overstock') {
+                array_push($row['related_sku'], 'BTE-overstock');
+            }
+
+            if (empty($row['related_sku'])) {
+                array_push($row['related_sku'], 'SKU-not-avail');
+            }
+
             if ($status == 'all' || $status == $row['status']) {
                 $data[] = $row;
             }
