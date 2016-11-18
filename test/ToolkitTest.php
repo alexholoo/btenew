@@ -10,27 +10,56 @@ class ToolkitTest extends TestCase
     {
     }
 
-    public function testSamePrice()
+    /**
+     * @dataProvider safePriceProvider
+     */
+    public function testSafePrice($price, $expected)
     {
-        $this->assertTrue(Utils::safePrice('$123') == '123');
-        $this->assertTrue(Utils::safePrice('CA$123') == '123');
-
-        $this->assertTrue(Utils::safePrice('$12.3') == '12.3');
-        $this->assertTrue(Utils::safePrice('CA$12.3') == '12.3');
+        $this->assertTrue(Utils::safePrice($price) == $expected);
     }
 
-    public function testFormatPhoneNumber()
+    public function safePriceProvider()
     {
-        $this->assertTrue(Utils::formatPhoneNumber('1234567890') == '123-456-7890');
-        $this->assertTrue(Utils::formatPhoneNumber('+11234567890') == '123-456-7890');
-        $this->assertTrue(Utils::formatPhoneNumber('1234567890', '.') == '123.456.7890');
+        return [
+            [ '$123',    '123'  ],
+            [ 'CA$123',  '123'  ],
+            [ '$12.3',   '12.3' ],
+            [ 'CA$12.3', '12.3' ],
+        ];
     }
 
-    public function testFormatCanadaZipCode()
+    /**
+     * @dataProvider phoneNumberProvider
+     */
+    public function testFormatPhoneNumber($phoneNumber, $sep, $expected)
     {
-        $this->assertTrue(Utils::formatCanadaZipCode('A1B2C3') == 'A1B 2C3');
-        $this->assertTrue(Utils::formatCanadaZipCode('a1b2c3') == 'A1B 2C3');
-        $this->assertTrue(Utils::formatCanadaZipCode('a1b  2c3') == 'A1B 2C3');
-        $this->assertTrue(Utils::formatCanadaZipCode('a  1b  2c3') == 'A1B 2C3');
+        $this->assertTrue(Utils::formatPhoneNumber($phoneNumber, $sep) == $expected);
+    }
+
+    public function phoneNumberProvider()
+    {
+        return [
+            [ '1234567890',   '-', '123-456-7890' ],
+            [ '+11234567890', '-', '123-456-7890' ],
+            [ '1234567890',   '.', '123.456.7890' ],
+        ];
+    }
+
+    /**
+     * @dataProvider zipcodeProvider
+     */
+    public function testFormatCanadaZipCode($zipcode, $expected)
+    {
+        $this->assertTrue(Utils::formatCanadaZipCode($zipcode) == $expected);
+    }
+
+    public function zipcodeProvider()
+    {
+        return [
+            [ 'A1B2C3',     'A1B 2C3' ],
+            [ 'a1b2c3',     'A1B 2C3' ],
+            [ 'a1b  2c3',   'A1B 2C3' ],
+            [ 'a  1b  2c3', 'A1B 2C3' ],
+        ];
     }
 }
