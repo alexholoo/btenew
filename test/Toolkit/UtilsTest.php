@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 use Toolkit\Utils;
 
-class ToolkitTest extends TestCase
+class UtilsTest extends TestCase
 {
     protected function setUp()
     {
