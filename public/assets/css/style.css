@@ -1,6 +1,43 @@
 body {
     /*font-family: Verdana,sans-serif;*/
 }
+
 .jq-toast-wrap {
     width: 300px;
+}
+
+.btn-purple {
+  color: #ffffff;
+  background-color: #823BD0;
+  border-color: #70489C;
+}
+
+.btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active {
+  color: #ffffff;
+  background-color: #6D27B8;
+  border-color: #60388A;
+}
+
+.btn-black {
+  color: #ffffff;
+  background-color: #333333;
+  border-color: #262626;
+}
+
+.btn-black:hover, .btn-black:focus, .btn-black:active, .btn-black.active {
+  color: #ffffff;
+  background-color: #4c4c4c;
+  border-color: #333333;
+}
+
+.btn-orange {
+  color: #ffffff;
+  background-color: #f19322;
+  border-color: #f19322;
+}
+
+.btn-orange:hover, .btn-orange:focus, .btn-orange:active, .btn-orange.active {
+  color: #ffffff;
+  background-color: #eb870f;
+  border-color: #d3790d;
 }
