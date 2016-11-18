@@ -78,10 +78,10 @@
             {% endif %}
           {% endif %}
         </td>
-        <td class="add{% if order['in_cart'] %} info{% endif %}">
+        <td class="add">
           {% if not order['multi_items'] %}
           {% if order['related_sku'] is not empty and order['status'] != 'purchased' %}
-            <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> Add </button>
+            <button class="btn btn-xs {% if order['in_cart'] %}btn-success{% else %}btn-default{% endif %}"><span class="glyphicon glyphicon-plus"></span> Add </button>
           {% endif %}
           {% endif %}
         </td>
@@ -495,9 +495,11 @@ function checkout() {
     //tr.remove();
     //tr.addClass('danger');
 
+    $btn = $(this);
+
     shoppingCartAdd({ order_id: orderId, sku: sku, branch: branch, code: code },
-      function() { td.addClass('info'); },
-      function() { td.removeClass('info'); }
+      function() { $btn.removeClass('btn-default').addClass('btn-success'); },
+      function() { $btn.removeClass('btn-success').addClass('btn-default'); }
     );
   });
 {% endblock %}
