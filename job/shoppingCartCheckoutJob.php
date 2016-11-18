@@ -36,6 +36,8 @@ class ShoppingCartCheckoutJob
 #               $this->removeOrdersInShoppingCart($orders);
             }
         }
+
+        $this->exportShoppingCartOrders($shoppingCartOrders);
     }
 
     protected function getShoppingCartOrders()
@@ -60,6 +62,21 @@ class ShoppingCartCheckoutJob
             $sql = "DELETE FROM shopping_cart WHERE order_id='$id'";
             $this->db->execute($sql);
         }
+    }
+
+    protected function exportShoppingCartOrders($shoppingCartOrders)
+    {
+        $fp = fopen('W:/out/purchasing/shopping-cart.csv', 'w');
+
+        fputcsv($fp, ['sku', 'order-id']);
+
+        foreach ($shoppingCartOrders as $supplier => $orders) {
+            foreach ($orders as $order) {
+                fputcsv($fp, [ $order['sku'], $order['orderId'] ]);
+            }
+        }
+
+        fclose($fp);
     }
 
     protected function getShippingAddress()
