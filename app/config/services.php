@@ -16,10 +16,6 @@ use Phalcon\Logger\Formatter\Line as FormatterLine;
 use Phalcon\Logger;
 use Phalcon\Events\Manager as EventsManager;
 
-use App\Library\Auth\Auth;
-use App\Library\Acl\Acl;
-use App\Library\Mail\Mail;
-
 use App\Plugins\NotFoundPlugin;
 use UserPlugin\Plugin\Security as SecurityPlugin;
 
@@ -154,26 +150,9 @@ $di->set('flash', function () {
     ));
 });
 
-/**
- * Custom authentication component
- */
-$di->set('auth', function () {
-    return new Auth();
-});
-
-/**
- * Mail service uses AmazonSES
- */
-$di->set('mail', function () {
-    return new Mail();
-});
-
-/**
- * Access Control List
- */
-$di->set('acl', function () {
-    return new Acl();
-});
+$di->set('auth', function () { return new App\Library\Auth\Auth(); });
+$di->set('mail', function () { return new App\Library\Mail\Mail(); });
+$di->set('acl',  function () { return new App\Library\Acl\Acl(); });
 
 /**
  * Logger service
