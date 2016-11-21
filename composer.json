@@ -12,7 +12,8 @@
             "Supplier\\": "src/Supplier/",
             "Marketplace\\": "src/Marketplace/",
             "Service\\": "src/Service/",
-            "Toolkit\\":  "src/Toolkit/"
+            "Toolkit\\":  "src/Toolkit/",
+            "Test\\":     "test/"
         }
     }
 }

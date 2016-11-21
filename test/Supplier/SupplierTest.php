@@ -1,5 +1,7 @@
 <?php
 
+namespace Test\Supplier;
+
 use PHPUnit\Framework\TestCase;
 
 use Supplier\Supplier;

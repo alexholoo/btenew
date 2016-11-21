@@ -1,5 +1,7 @@
 <?php
 
+namespace Test\Supplier\Model;
+
 use PHPUnit\Framework\TestCase;
 
 use Supplier\Model\Order;
