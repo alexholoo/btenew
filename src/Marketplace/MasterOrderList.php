@@ -28,7 +28,7 @@ class MasterOrderList
         'sku_price',
         'skus_qty',
         'shipping',
-        'mgn_invoice_id'
+        'product_name'
     );
 
     public function __construct()

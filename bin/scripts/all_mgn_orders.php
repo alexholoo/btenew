@@ -32,7 +32,7 @@ while(($fields = fgetcsv($fh))) {
     $sku_price  = $fields[14];
     $skus_qty   = $fields[15];
     $shipping   = $fields[16];
-    $mgn_invoice_id = $fields[17];
+    $product_name = $fields[17];
 
     try {
         $success = $db->insertAsDict('all_mgn_orders',
@@ -54,7 +54,7 @@ while(($fields = fgetcsv($fh))) {
                 'sku_price' => $sku_price,
                 'skus_qty'  => $skus_qty,
                 'shipping'  => $shipping,
-                'mgn_invoice_id' => $mgn_invoice_id,
+                'product_name' => $product_name,
             )
         );
 

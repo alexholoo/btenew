@@ -25,7 +25,7 @@ class Orders extends Model
     public $price;
     public $qty;
     public $shipping;
-    public $mgnInvoiceId;
+    public $productName;
 
     public function initialize()
     {
@@ -56,7 +56,7 @@ class Orders extends Model
             'sku_price'      => 'price',
             'skus_qty'       => 'qty',
             'shipping'       => 'shipping',
-            'mgn_invoice_id' => 'mgnInvoiceId'
+            'product_name'   => 'productName'
         );
     }
 }

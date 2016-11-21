@@ -312,6 +312,8 @@ function orderDetailHtml(order) {
     </tbody>
     </table>
 
+    <p class="text-primary">${order.productName}</p>
+
     <table class="table table-condensed">
     <caption>Customer Information</caption>
     <tbody>

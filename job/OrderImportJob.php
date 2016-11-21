@@ -48,7 +48,7 @@ class OrderImportJob
             'sku_price',
             'skus_qty',
             'shipping',
-            'mgn_invoice_id',
+            'product_name',
         ];
 
         $data = [];
