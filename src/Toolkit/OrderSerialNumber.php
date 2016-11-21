@@ -14,7 +14,7 @@ class OrderSerialNumber
         return "$store-$date-$seq";
     }
 
-    public function getLastInsertId()
+    protected function getLastInsertId()
     {
         $di = \Phalcon\Di::getDefault();
         $db = $di->get('db');
