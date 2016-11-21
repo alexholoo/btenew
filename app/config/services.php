@@ -213,3 +213,5 @@ $di->setShared('amazonService',     function() { return new \Service\AmazonServi
 $di->setShared('ebayService',       function() { return new \Service\EbayService(); });
 $di->setShared('neweggService',     function() { return new \Service\NeweggService(); });
 $di->setShared('rakutenService',    function() { return new \Service\RakutenService(); });
+
+$di->setShared('order.seq.num',     function() { return new \Toolkit\OrderSerialNumber(); });
