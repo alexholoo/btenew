@@ -9,6 +9,7 @@
     },
     "autoload": {
         "psr-4": {
+            "BTE\\": "src/BTE/",
             "Supplier\\": "src/Supplier/",
             "Marketplace\\": "src/Marketplace/",
             "Service\\": "src/Service/",
