@@ -17,11 +17,10 @@ class SearchController extends ControllerBase
 
             try {
                 $skus = $this->productService->getSkuGroup($sku);
-                fpr($skus);
+
                 // Make a xmlapi call to get price and availability
                 $data = $this->priceAvailService->getPriceAvailability($skus);
                 $this->view->data = $data;
-                fpr($data);
             } catch (\Exception $e) {
                 $this->view->error = $e->getMessage();
             }
