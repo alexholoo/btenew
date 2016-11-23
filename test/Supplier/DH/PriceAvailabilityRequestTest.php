@@ -27,8 +27,9 @@ class PriceAvailabilityRequestTest extends TestCase
 
         $this->assertEquals($request->getPartnum(), $sku);
 
-        $xml = simplexml_load_string($request->toXml(), 'SimpleXMLElement', LIBXML_NOCDATA);
+        $xml = simplexml_load_string($request->toXml());
 
+        $this->assertEquals($xml->getName(),        'XMLFORMPOST');
         $this->assertEquals($xml->REQUEST,          'price-availability');
         $this->assertEquals($xml->LOGIN->USERID,    $config['username']);
         $this->assertEquals($xml->LOGIN->PASSWORD,  $config['password']);
@@ -38,8 +39,8 @@ class PriceAvailabilityRequestTest extends TestCase
     protected function getConfig()
     {
         return array(
-            'username'    => 'DHUSERNAME',
-            'password'    => 'DHPASSWORD',
+            'username'    => 'USERNAME',
+            'password'    => 'PASSWORD',
             'dropshippw'  => '',
             'partship'    => 'N',
             'backorder'   => 'N',
