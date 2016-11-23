@@ -71,6 +71,13 @@ $di->set('view', function () use ($config) {
 }, true);
 
 /**
+ * $config['assetCache'] = '20160630174000';
+ * "*.css?v=".$config->get('assetCache')
+ */
+$di->get('assets')->addCss("/assets/css/style.css?v=".filemtime(BASE_DIR.'/public/assets/css/style.css'));
+$di->get('assets')->addJs("/assets/js/script.js?v=".filemtime(BASE_DIR.'/public/assets/js/script.js'));
+
+/**
  * Database connection is created based in the parameters defined in the configuration file
  */
 $di->set('db', function () use ($config) {

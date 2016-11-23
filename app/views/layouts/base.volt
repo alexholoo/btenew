@@ -9,7 +9,7 @@
   {% block cssfile %}
     {{ stylesheet_link('/lib/bootstrap/3.3.7/css/bootstrap.min.css') }}
     {{ stylesheet_link('/lib/jquery/plugins/jquery.toast.min.css') }}
-    {{ stylesheet_link('/assets/css/style.css') }}
+    {{ assets.outputCss() }}
   {% endblock %}
 
   <style type="text/css">
@@ -41,7 +41,7 @@
     {{ javascript_include('/lib/jquery/plugins/jquery.toast.min.js') }}
     {{ javascript_include('/lib/bootstrap/3.3.7/js/bootstrap.min.js') }}
     {{ javascript_include('/lib/layer/layer.js') }}
-    {{ javascript_include('/assets/js/script.js') }}
+    {{ assets.outputJs() }}
   {% endblock %}
 
   <script type="text/javascript">
