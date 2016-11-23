@@ -14,59 +14,58 @@ class AjaxController extends ControllerBase
         $this->view->disable();
     }
 
+    protected function checkOrder($orderId)
+    {
+        $order = Orders::find("orderId='$orderId'");
+
+        if (!$order) {
+            throw new \Exception('Order not found');
+        }
+
+        if (count($order) > 1) {
+            throw new \Exception('Cannot handle multi-items order');
+        }
+
+        // Make sure the order is pending (not purchased yet)
+        if ($this->orderService->isOrderPurchased($orderId)) {
+            throw new \Exception('The order has been purchased');
+        }
+
+        return $order[0];
+    }
+
     public function makePurchaseAction()
     {
         if ($this->request->isPost()) {
-            $orderId = $this->request->getPost('order_id');
-            $sku = $this->request->getPost('sku');
-            $branch = $this->request->getPost('code', null, '');
-            $qty = $this->request->getPost('qty');
-            $comment = $this->request->getPost('comment', null, '');
-            $shipMethod = $this->request->getPost('shipMethod', null, '');
+            $orderId     = $this->request->getPost('order_id');
+            $sku         = $this->request->getPost('sku');
+            $branch      = $this->request->getPost('code', null, '');
+            $qty         = $this->request->getPost('qty');
+            $comment     = $this->request->getPost('comment', null, '');
+            $shipMethod  = $this->request->getPost('shipMethod', null, '');
             $notifyEmail = $this->request->getPost('notifyEmail', null, '');
 
-            $order = Orders::find("orderId='$orderId'");
-
-            if (!$order) {
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
-                return $this->response;
-            }
-
-            if (count($order) > 1) {
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Cannot handle multi-items order']);
-                return $this->response;
-            }
-
-            $orderInfo = $order[0]->toArray();
-            $orderInfo['sku'] = $sku; // it might be different
-            #orderInfo['price'] = $this->pricelistService->getPrice($sku); // Synnex need this
-            $orderInfo['branch'] = $branch;
-            $orderInfo['comment'] = $comment;
-            $orderInfo['shipMethod'] = $shipMethod;
-            $orderInfo['notifyEmail'] = $notifyEmail;
-
-            fpr($orderInfo);
-
-            if (gethostname() != 'BTELENOVO') {
-               #$this->response->setJsonContent(['status' => 'OK', 'data' => '112233']);
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Testing Only']);
-                return $this->response;
-            }
-
-            // Make sure the order is pending (not purchased yet)
-            if ($this->orderService->isOrderPurchased($orderId)) {
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been purchased']);
-                return $this->response;
-            }
-
-            // Make sure the order is not cancelled on amazon
-            if ($this->orderService->isOrderCanceled($orderInfo)) {
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been cancelled']);
-                return $this->response;
-            }
-
-            // Make XmlApi call for purchasing
             try {
+                $order = $this->checkOrder($orderId);
+
+                $orderInfo = $order->toArray();
+
+                $orderInfo['sku'] = $sku; // it might be different
+                $orderInfo['branch'] = $branch;
+                $orderInfo['comment'] = $comment;
+                $orderInfo['shipMethod'] = $shipMethod;
+                $orderInfo['notifyEmail'] = $notifyEmail;
+
+                if (gethostname() != 'BTELENOVO') {
+                    throw new \Exception('Testing Only');
+                }
+
+                // Make sure the order is not cancelled on amazon
+                if ($this->orderService->isOrderCanceled($orderInfo)) {
+                    throw new \Exception('The order has been cancelled');
+                }
+
+                // Make XmlApi call for purchasing
                 $client = Supplier::createClient($sku);
                 if (!$client) {
                     throw new \Exception("Cannot purchase order for $sku");
@@ -78,12 +77,12 @@ class AjaxController extends ControllerBase
                 $status = $result->getStatus();
 
                 if ($status == 'ERROR') {
-                    $errorMessage = $result->getErrorMessage();
-                    $this->response->setJsonContent(['status' => 'ERROR', 'message' => $errorMessage]);
-                } else {
-                    //$this->markOrderPurchased($orderId, $sku);
-                    $this->response->setJsonContent(['status' => 'OK', 'data' => $result->orderNo]);
+                    throw new \Exception($result->getErrorMessage());
                 }
+
+                //$this->markOrderPurchased($orderId, $sku);
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $result->orderNo]);
+
             } catch (\Exception $e) {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => $e->getMessage()]);
             }
@@ -172,36 +171,30 @@ class AjaxController extends ControllerBase
     {
         if ($this->request->isPost()) {
             $orderId = $this->request->getPost('order_id');
-            $sku = $this->request->getPost('sku');
-            $branch = $this->request->getPost('code', null, '');
+            $sku     = $this->request->getPost('sku');
+            $branch  = $this->request->getPost('code', null, '');
 
-            $order = Orders::findFirst("orderId='$orderId'");
-            if (!$order) {
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
-                return $this->response;
+            try {
+                $order = $this->checkOrders($orderId);
+
+                $result = $this->db->fetchOne("SELECT order_id FROM shopping_cart WHERE order_id='$orderId'");
+
+                if ($result) {
+                    $this->db->execute("DELETE FROM shopping_cart WHERE order_id='$orderId'");
+                    $this->response->setJsonContent(['status' => 'OK', 'data' => 0]);
+                } else {
+                    $this->db->insertAsDict('shopping_cart', [
+                        'order_id' => $orderId,
+                        'sku'      => $sku,
+                        'qty'      => $order->qty
+                    ]);
+                    $this->response->setJsonContent(['status' => 'OK', 'data' => 1]);
+                }
+            } catch (\Exception $e) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => $e->getMessage()]);
             }
 
-            // Make sure the order is pending (not purchased yet)
-            if ($this->dropshipService->isOrderPurchased($orderId)) {
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been purchased']);
-                return $this->response;
-            }
-
-            $result = $this->db->fetchOne("SELECT order_id FROM shopping_cart WHERE order_id='$orderId'");
-
-            if ($result) {
-                $this->db->execute("DELETE FROM shopping_cart WHERE order_id='$orderId'");
-                $this->response->setJsonContent(['status' => 'OK', 'data' => 0]);
-                return $this->response;
-            } else {
-                $this->db->insertAsDict('shopping_cart', [
-                    'order_id'  => $orderId,
-                    'sku'       => $sku,
-                    'qty'       => $order->qty
-                ]);
-                $this->response->setJsonContent(['status' => 'OK', 'data' => 1]);
-                return $this->response;
-            }
+            return $this->response;
         }
     }
 
@@ -218,25 +211,10 @@ class AjaxController extends ControllerBase
         if ($this->request->isPost()) {
             $orderId = $this->request->getPost('orderId');
 
-            $order = Orders::find("orderId='$orderId'");
-
-            if (!$order) {
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
-                return $this->response;
-            }
-
-            if (count($order) > 1) {
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Cannot handle multi-items order']);
-                return $this->response;
-            }
-
-            // Make sure the order is pending (not purchased yet)
-            if ($this->orderService->isOrderPurchased($orderId)) {
-                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been purchased']);
-                return $this->response;
-            }
+            $this->checkOrder($orderId);
 
             PurchaseOrderLog::markProcessed($orderId);
+
             $this->response->setJsonContent(['status' => 'OK', 'data' => 'The order marked processed']);
             return $this->response;
         }

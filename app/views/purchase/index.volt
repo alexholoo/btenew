@@ -530,6 +530,7 @@ function markAsProcessed(order, yesfunc) {
     );
   });
 
+  // sku selection changed
   $('.sku select').change(function() {
     $('tr').removeClass('info');
 

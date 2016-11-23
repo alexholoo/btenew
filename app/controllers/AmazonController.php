@@ -107,6 +107,9 @@ class AmazonController extends ControllerBase
         $this->view->items = $data;
     }
 
+    /**
+     * Ajax Handler
+     */
     public function fbaItemDeleteAction()
     {
         $this->view->disable();

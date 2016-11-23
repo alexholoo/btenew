@@ -54,7 +54,7 @@ class PurchaseOrderLog
     {
         $db = Di::getDefault()->get('db');
 
-        $flag = 'manual entry';
+        $flag = 'Manual Entry';
 
         try {
             $db->insertAsDict('purchase_order_log',
