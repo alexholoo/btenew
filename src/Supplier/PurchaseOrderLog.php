@@ -50,6 +50,27 @@ class PurchaseOrderLog
         }
     }
 
+    public static function markProcessed($orderId)
+    {
+        $db = Di::getDefault()->get('db');
+
+        $flag = 'manual entry';
+
+        try {
+            $db->insertAsDict('purchase_order_log',
+                [
+                    'sku'      => $flag,
+                    'orderid'  => $orderId,
+                    'ponumber' => '',
+                    'flag'     => $flag,
+                ]
+            );
+        } catch (\Exception $e) {
+            $logger = Di::getDefault()->get('logger');
+            $logger->error($e->getMessage());
+        }
+    }
+
     /**
      * Mark the dropship order as 'shipped'
      */

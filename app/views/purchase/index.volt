@@ -388,6 +388,31 @@ function checkout() {
     }
   );
 };
+
+function markAsProcessed(order, yesfunc) {
+  layer.confirm('Are you sure you want to mark the order as Processed?', {
+      title: 'Confirm',
+      btn: ['Yes','No'],
+      type: 0,
+      icon: 3,
+      skin: ''
+    },
+    function(index, layero) {
+      layer.close(index);
+      ajaxCall('/ajax/mark/processed', order,
+        function(data) {
+          yesfunc();
+          showToast(data, 2000);
+        },
+        function(message) {
+          showError(message);
+        }
+      );
+    },
+    function() {
+    }
+  );
+};
 {% endblock %}
 
 {% block docready %}
@@ -504,4 +529,20 @@ function checkout() {
       function() { $btn.removeClass('btn-success').addClass('btn-default'); }
     );
   });
+
+  $('.sku select').change(function() {
+    $('tr').removeClass('info');
+
+    var tr = $(this).closest('tr');
+    var orderId = tr.data('order-id');
+
+    tr.addClass('info');
+
+    if ($(this).val() == 'Mark as Processed') {
+      markAsProcessed({orderId: orderId},
+        function() { tr.remove(); }
+      );
+    }
+  });
+
 {% endblock %}

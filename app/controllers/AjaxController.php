@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Supplier\Supplier;
 use Supplier\Model\Order;
 use App\Models\Orders;
+use Supplier\PurchaseOrderLog;
 
 class AjaxController extends ControllerBase
 {
@@ -210,6 +211,35 @@ class AjaxController extends ControllerBase
 
         $this->response->setJsonContent(['status' => 'OK', 'data' => 'Checkout job is running']);
         return $this->response;
+    }
+
+    public function markAsProcessedAction()
+    {
+        if ($this->request->isPost()) {
+            $orderId = $this->request->getPost('orderId');
+
+            $order = Orders::find("orderId='$orderId'");
+
+            if (!$order) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
+                return $this->response;
+            }
+
+            if (count($order) > 1) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Cannot handle multi-items order']);
+                return $this->response;
+            }
+
+            // Make sure the order is pending (not purchased yet)
+            if ($this->orderService->isOrderPurchased($orderId)) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'The order has been purchased']);
+                return $this->response;
+            }
+
+            PurchaseOrderLog::markProcessed($orderId);
+            $this->response->setJsonContent(['status' => 'OK', 'data' => 'The order marked processed']);
+            return $this->response;
+        }
     }
 
     /* ===== internal methods ===== */

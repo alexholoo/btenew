@@ -46,6 +46,11 @@ $router->add('/ajax/shoppingcart/checkout', [
     'action' => 'shoppingCartCheckout'
 ])->via(array("POST"));
 
+$router->add('/ajax/mark/processed', [
+    'controller' => 'ajax',
+    'action' => 'markAsProcessed'
+])->via(array("POST"));
+
 // aliases
 $router->add('/purchase/assist', [
     'controller' => 'purchase',

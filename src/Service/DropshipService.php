@@ -134,6 +134,8 @@ class DropshipService extends Injectable
                 array_push($row['related_sku'], 'SKU-not-avail');
             }
 
+            array_push($row['related_sku'], 'Mark as Processed');
+
             if ($status == 'all' || $status == $row['status']) {
                 $data[] = $row;
             }
