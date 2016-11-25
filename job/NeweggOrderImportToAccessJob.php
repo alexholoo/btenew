@@ -22,7 +22,8 @@ class NeweggOrderImportToAccessJob
 
     protected function importNeweggOrders($filename, $channel)
     {
-        $today = date('Y-m-d');
+        // start from yesterday to avoid midnight issue (UTC timezone)
+        $start = date('Y-m-d', strtotime('Yesterday'));
 
         $stockStatus = ' ';
         $lastOrderNo = '';
@@ -44,7 +45,8 @@ class NeweggOrderImportToAccessJob
             $qty        = $fields[26];
             $shipMethod = $fields[15];
 
-            if ($date != $today) {
+            if ($date < $start) {
+                // date is UTC time
                 continue;
             }
 
