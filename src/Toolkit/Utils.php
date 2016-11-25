@@ -69,6 +69,19 @@ class Utils
         return $price; // return string, (float)$price return float
     }
 
+    public static function log($message, $type = '')
+    {
+        $filename = APP_DIR . '/logs/debug.log';
+
+        if ($type) {
+            $type = "[$type] ";
+        }
+
+        $text = date('Y-m-d h:i:s ') . $type . $message . PHP_EOL;
+
+        error_log($text, 3, $filename);
+    }
+
     public static function renderView($__file, $__data)
     {
         ob_start();
