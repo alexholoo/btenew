@@ -206,7 +206,7 @@ class MasterOrderJob
                     $sql = "UPDATE [bte-inventory] SET [QtyOnHand]=$x WHERE [Part Number]='$sku'";
 
                     $ret = $accdb->exec($sql);
-                    if (!$ret && $accdb->errorCode() > 0) {
+                    if (!$ret && $accdb->errorCode() != '00000') {
                         print_r($accdb->errorInfo());
                     }
 
@@ -228,7 +228,7 @@ class MasterOrderJob
                             )";
 
                     $ret = $accdb->exec($sql);
-                    if (!$ret && $accdb->errorCode() > 0) {
+                    if (!$ret && $accdb->errorCode() != '00000') {
                         print_r($accdb->errorInfo());
                     }
                 }
