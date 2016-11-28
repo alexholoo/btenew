@@ -24,7 +24,8 @@ abstract class Job
 
         echo $line;
 
-        error_log($line, 3, APP_DIR . '/logs/job.log');
+        $today = date('ymd');
+        error_log($line, 3, APP_DIR . "/logs/job-$today.log");
     }
 
     protected function elapsed($start)
