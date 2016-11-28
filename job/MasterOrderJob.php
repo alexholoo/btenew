@@ -24,9 +24,13 @@ class MasterOrderJob
         $this->orders = [];
 
         $filename = 'w:/out/shipping/all_mgn_orders.csv';
+        if (gethostname() == 'BTELENOVO') {
+            $filename = 'E:/BTE/import/all_mgn_orders.csv';
+        }
+
         if (!($handle = @fopen($filename, 'rb'))) {
             echo "Failed to open file: $filename\n";
-            return [];
+            return;
         }
 
         echo "Loading $filename\n";
