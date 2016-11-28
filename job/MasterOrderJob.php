@@ -3,7 +3,7 @@
 class MasterOrderJob
 {
     protected $orders;
-    protected $newOrders;
+    protected $newOrders = [];
 
     public function __construct()
     {
@@ -74,6 +74,7 @@ class MasterOrderJob
     {
         foreach ($this->orders as $orderId => $orders) {
             if (!$this->orderExists($orderId)) {
+                echo "Importing order $orderId\n";
                 $this->importOrder($orders[0]);
                 $this->importOrderShippingAddress($orders[0]);
                 $this->importOrderItems($orders);
@@ -166,12 +167,93 @@ class MasterOrderJob
 
     protected function newOrderTrigger()
     {
+        echo count($this->newOrders), ' new orders', EOL;
+
+        if (count($this->newOrders) > 0) {
+            $accdb = $this->openAccessDB();
+            foreach ($this->newOrders as $order) {
+                $date    = $order['date'];
+                $channel = $order['channel'];
+                $orderId = $order['order_id'];
+                $sku     = $order['sku'];
+                $qty     = $order['qty'];
+
+                $parts = explode('-', $sku);
+                $supplier = $parts[0];
+
+                if ($supplier == 'BTE') {
+                    echo "$date $channel $orderId $sku $qty", EOL;
+
+                    $sql = "SELECT QtyOnHand FROM [bte-inventory] WHERE [Part Number]='$sku'";
+                    $row = $accdb->query($sql)->fetch();
+
+                    $qtyOnHand = 0;
+                    if ($row) {
+                        $qtyOnHand = $row['QtyOnHand'];
+                    }
+
+                    $x = 0;
+                    $note = 'No change';
+                    if ($qtyOnHand > 0) {
+                        $note = "Reduced $qty";
+                        $x = $qtyOnHand - $qty;
+                        if ($x < 0) {
+                            $x = 0;
+                            $note = "Reduced $qtyOnHand";
+                        }
+                    }
+
+                    $sql = "UPDATE [bte-inventory] SET [QtyOnHand]=$x WHERE [Part Number]='$sku'";
+
+                    $ret = $accdb->exec($sql);
+                    if (!$ret && $accdb->errorCode() > 0) {
+                        print_r($accdb->errorInfo());
+                    }
+
+                    $sql = "INSERT INTO [bte-inventory-change] (
+                                [OrderDate],
+                                [Channel],
+                                [OrderNo],
+                                [SKU],
+                                [Qty],
+                                [Note]
+                            )
+                            VALUES (
+                                '$date',
+                                '$channel',
+                                '$orderId',
+                                '$sku',
+                                $qty,
+                                '$note'
+                            )";
+
+                    $ret = $accdb->exec($sql);
+                    if (!$ret && $accdb->errorCode() > 0) {
+                        print_r($accdb->errorInfo());
+                    }
+                }
+            }
+        }
     }
 
     private function orderExists($orderId)
     {
         $sql = "SELECT order_id FROM master_order WHERE order_id='$orderId'";
         return $this->db->fetchOne($sql);
+    }
+
+    protected function openAccessDB()
+    {
+        $dbname = "z:/BTE-Price-List/bte-inventory.accdb";
+
+        if (gethostname() != 'BTELENOVO') {
+            $dbname = "C:/Users/BTE/Desktop/bte-inventory.accdb";
+        }
+
+        $dsn = "odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=$dbname;";
+        $db = new PDO($dsn);
+
+        return $db;
     }
 }
 
