@@ -41,6 +41,11 @@ class Supplier
             $client = new \Supplier\ASI\Client();
             break;
 
+#       case \Supplier\Prefix::BTE:
+#           // php64 is requred because of AccessDB
+#           $client = new \Supplier\BTE\Client();
+#           break;
+
         default:
             //throw new \Exception('Unknown supplier: ' . $supplier);
             break;

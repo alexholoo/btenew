@@ -13,6 +13,7 @@ namespace Supplier;
  */
 class Prefix
 {
+    const BTE      = 'BTE'; // no '-' suffix
     const DH       = 'DH';  // no '-' suffix
     const ASI      = 'AS';  // no '-' suffix
     const INGRAM   = 'ING'; // no '-' suffix
@@ -22,6 +23,7 @@ class Prefix
     public static function all()
     {
         return [
+            self::BTE,
             self::DH,
             self::ASI,
             self::INGRAM,
