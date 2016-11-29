@@ -16,7 +16,10 @@ class MasterOrderJob
     {
         $this->getOrders();
         $this->importMaster();
-        $this->newOrderTrigger();
+
+        if (!in_array('notrigger', $argv)) {
+            $this->newOrderTrigger();
+        }
     }
 
     protected function getOrders()
