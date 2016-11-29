@@ -193,9 +193,9 @@ class MasterOrderJob
                     }
 
                     $x = 0;
-                    $note = 'No change';
+                    $change = 'No change';
                     if ($qtyOnHand > 0) {
-                        $note = "Reduced $qty";
+                        $change = "Reduced $qty";
                         $x = $qtyOnHand - $qty;
                         if ($x < 0) {
                             $x = 0;
@@ -216,7 +216,7 @@ class MasterOrderJob
                                 [OrderNo],
                                 [SKU],
                                 [Qty],
-                                [Note]
+                                [Change]
                             )
                             VALUES (
                                 '$date',
@@ -224,7 +224,7 @@ class MasterOrderJob
                                 '$orderId',
                                 '$sku',
                                 $qty,
-                                '$note'
+                                '$change'
                             )";
 
                     $ret = $accdb->exec($sql);
