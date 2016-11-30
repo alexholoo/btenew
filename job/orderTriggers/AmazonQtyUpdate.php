@@ -40,7 +40,7 @@ class AmazonQtyUpdate
             return;
         }
 
-        $now = date('ymd-Hi');
+        $now = date('ymd-H');
 
         $flatFileCA = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-ca-qty-$now.csv");
         $flatFileUS = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-us-qty-$now.csv");

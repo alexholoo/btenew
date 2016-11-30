@@ -33,9 +33,13 @@ class PriceAndQuantityUpdateFile
     public function write($data)
     {
         if (!$this->handle) {
-            $this->handle = fopen($this->filename, 'w');
-            if ($this->headline) {
-                fputcsv($this->handle, $this->headline, "\t");
+            if (file_exists($this->filename)) {
+                $this->handle = fopen($this->filename, 'a');
+            } else {
+                $this->handle = fopen($this->filename, 'w');
+                if ($this->headline) {
+                    fputcsv($this->handle, $this->headline, "\t");
+                }
             }
         }
 
