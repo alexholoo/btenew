@@ -9,15 +9,9 @@ class PriceAvailJob
         $this->queue = $this->di->get('queue');
     }
 
-    public function run($arg = '')
+    public function run($argv = [])
     {
-        global $argv;
-
-        if (empty($arg) && isset($argv[1])) {
-            $arg = $argv[1];
-        }
-
-        $skus = $this->getSkus($arg);
+        $skus = $this->getSkus();
 
         foreach ($skus as $sku) {
             try {
@@ -32,13 +26,11 @@ class PriceAvailJob
         }
     }
 
-    protected function getSkus($arg)
+    protected function getSkus()
     {
-        if (empty($arg)) {
-            $arg = date('Y-m-d');
-        }
+        $today = date('Y-m-d');
 
-        $sql = "SELECT * FROM ca_order_notes WHERE date = '$arg'";
+        $sql = "SELECT * FROM ca_order_notes WHERE date = '$today'";
         $result = $this->db->query($sql);
 
         $list = [];
@@ -57,4 +49,4 @@ class PriceAvailJob
 include __DIR__ . '/../public/init.php';
 
 $job = new PriceAvailJob();
-$job->run();
+$job->run($argv);
