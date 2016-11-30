@@ -18,7 +18,7 @@ class MasterOrderJob
         $this->importMaster();
 
         if (!in_array('notrigger', $argv)) {
-            $this->newOrderTrigger();
+            //$this->newOrderTrigger();
         }
     }
 
@@ -63,8 +63,8 @@ class MasterOrderJob
 
         while (($fields = fgetcsv($handle))) {
             $orderId = $fields[2];
-            if (count($fields) != count($title)) {
-                echo 'Wrong: ', $orderId, EOL;
+            if (count($columns) != count($fields)) {
+                echo 'Error: ', $orderId, EOL;
             }
             $order = array_combine($columns, $fields);
             $this->orders[$orderId][] = $order;
