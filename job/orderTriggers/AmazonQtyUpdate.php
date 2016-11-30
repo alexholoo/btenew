@@ -5,7 +5,7 @@ use Marketplace\Amazon\Feeds\PriceAndQuantityUpdateFile;
 
 class AmazonQtyUpdate
 {
-    protected $priority = 30;
+    protected $priority = 30;  // 0 to disable
     protected $orders;
 
     public function __construct()

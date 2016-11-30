@@ -2,7 +2,7 @@
 
 class PriceAvailability
 {
-    protected $priority = 20;
+    protected $priority = 20;  // 0 to disable
     protected $orders;
 
     public function __construct()

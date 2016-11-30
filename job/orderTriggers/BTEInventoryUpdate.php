@@ -2,7 +2,7 @@
 
 class BTEInventoryUpdate
 {
-    protected $priority = 10;
+    protected $priority = 0;  // 0 to disable
     protected $orders;
 
     public function __construct()
