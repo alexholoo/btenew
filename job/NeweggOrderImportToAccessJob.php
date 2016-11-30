@@ -28,11 +28,7 @@ class NeweggOrderImportToAccessJob
         $stockStatus = ' ';
         $lastOrderNo = '';
 
-        $dbname = "Z:/Purchasing/General Purchase.accdb";
-        if (gethostname() != 'BTELENOVO') {
-            $dbname = "C:/Users/BTE/Desktop/General Purchase.accdb";
-        }
-        $db = $this->openAccessDB($dbname);
+        $accdb = $this->openAccessDB();
 
         $orderFile = fopen($filename, 'r');
         $title = fgetcsv($orderFile);
@@ -50,9 +46,9 @@ class NeweggOrderImportToAccessJob
                 continue;
             }
 
-            // check if the order already exported
+            // check if the order already imported
             $sql = "SELECT * FROM Newegg WHERE [PO #]='$orderNo'";
-            $result = $db->query($sql)->fetch();
+            $result = $accdb->query($sql)->fetch();
             if ($result && $orderNo != $lastOrderNo) {
                 echo "Skip $orderNo\n";
                 continue;
@@ -99,10 +95,10 @@ class NeweggOrderImportToAccessJob
                         ''
                     )";
 
-            $ret = $db->exec($sql);
+            $ret = $accdb->exec($sql);
 
             if (!$ret) {
-                print_r($db->errorInfo());
+                print_r($accdb->errorInfo());
             }
 
             $lastOrderNo = $orderNo;
@@ -111,10 +107,16 @@ class NeweggOrderImportToAccessJob
         fclose($orderFile);
     }
 
-    protected function openAccessDB($dbname)
+    protected function openAccessDB()
     {
+        $dbname = "Z:/Purchasing/General Purchase.accdb";
+        if (gethostname() != 'BTELENOVO') {
+            $dbname = "C:/Users/BTE/Desktop/General Purchase.accdb";
+        }
+
         $dsn = "odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=$dbname;";
         $db = new PDO($dsn);
+
         return $db;
     }
 
