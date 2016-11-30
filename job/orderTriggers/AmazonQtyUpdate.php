@@ -24,8 +24,8 @@ class AmazonQtyUpdate
 
     public function run($argv = [])
     {
-        echo __METHOD__, EOL;
-        //$this->generateFlatFiles();
+        echo __CLASS__, EOL;
+        $this->generateFlatFiles();
     }
 
     private function generateFlatFiles()
@@ -34,14 +34,14 @@ class AmazonQtyUpdate
             return;
         }
 
-        $now = date('Ymd-Hi');
+        $now = date('ymd-Hi');
 
-        $flatFileCA = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-ca-priceqty-$now.csv");
-        $flatFileUS = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-us-priceqty-$now.csv");
+        $flatFileCA = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-ca-qty-$now.csv");
+        $flatFileUS = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-us-qty-$now.csv");
 
         foreach ($this->orders as $order) {
             $channel = $order['channel'];
-            $orderid = $order['orderid'];
+            $orderid = $order['order_id'];
             $sku     = $order['sku'];
             $price   = $order['price'];
             $qty     = $order['qty'];
