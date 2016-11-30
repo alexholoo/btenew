@@ -2,6 +2,7 @@
 
 class PriceAvailability
 {
+    protected $priority = 20;
     protected $orders;
 
     public function __construct()
@@ -11,6 +12,11 @@ class PriceAvailability
         $this->queue = $this->di->get('queue');
     }
 
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
     public function setOrders($orders)
     {
         $this->orders = $orders;
@@ -18,19 +24,13 @@ class PriceAvailability
 
     public function run($argv = [])
     {
-        echo __METHOD__, EOL;
-        //$this->getPriceAvail()
+        echo '>> ', __CLASS__, EOL;
+        $this->getPriceAvail();
     }
 
     protected function getPriceAvail()
     {
-        global $argv;
-
-        if (empty($arg) && isset($argv[1])) {
-            $arg = $argv[1];
-        }
-
-        $skus = $this->getSkus($arg);
+        $skus = $this->getSkus();
 
         foreach ($skus as $sku) {
             try {
@@ -45,22 +45,14 @@ class PriceAvailability
         }
     }
 
-    protected function getSkus($arg)
+    protected function getSkus()
     {
-        if (empty($arg)) {
-            $arg = date('Y-m-d');
-        }
-
-        $sql = "SELECT * FROM ca_order_notes WHERE date = '$arg'";
-        $result = $this->db->query($sql);
-
         $list = [];
-        while ($row = $result->fetch(\Phalcon\Db::FETCH_ASSOC)) {
-            $related_sku = explode('|', $row['related_sku']);
-            $related_sku = array_map('trim', $related_sku);
-            $related_sku = array_filter($related_sku);
 
-            $list = array_merge($list, $related_sku);
+        foreach ($this->orders as $order) {
+            $sku = $order['sku'];
+            $skuGroup = $this->di->get('productService')->getSkuGroup($sku);
+            $list = array_merge($list, $skuGroup);
         }
 
         return array_unique($list);

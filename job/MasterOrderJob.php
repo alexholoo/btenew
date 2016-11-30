@@ -14,6 +14,8 @@ class MasterOrderJob
 
     public function run($argv = [])
     {
+        echo '>> ', __CLASS__, EOL;
+
         $this->getOrders();
         $this->importMaster();
 
@@ -170,22 +172,44 @@ class MasterOrderJob
 
     protected function newOrderTrigger()
     {
-        echo count($this->newOrders), ' new orders', EOL;
+        echo EOL, count($this->newOrders), ' new orders', EOL, EOL;
 
-        #if (count($this->newOrders) > 0) {
-            foreach (glob("orderTriggers/*.php") as $filename) {
-                include $filename;
+        if (count($this->newOrders) > 0) {
 
-                $path = pathinfo($filename);
-                $class = $path['filename'];
+            $triggers = $this->getTriggers();
 
-                if (class_exists($class)) {
-                    $trigger = new $class;
-                    $trigger->setOrders($this->newOrders);
-                    $trigger->run();
+            foreach ($triggers as $trigger) {
+                $trigger->run();
+                echo EOL;
+            }
+        }
+    }
+
+    protected function getTriggers()
+    {
+        $triggers = [];
+
+        foreach (glob("orderTriggers/*.php") as $filename) {
+            include $filename;
+
+            $path = pathinfo($filename);
+            $class = $path['filename'];
+
+            if (class_exists($class)) {
+                $trigger = new $class;
+                $trigger->setOrders($this->newOrders);
+
+                $priority = $trigger->getPriority();
+
+                if ($priority > 0) {
+                    $triggers[$priority] = $trigger;
                 }
             }
-        #}
+        }
+
+        asort($triggers);
+
+        return $triggers;
     }
 
     private function orderExists($orderId)

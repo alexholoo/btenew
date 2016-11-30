@@ -5,6 +5,7 @@ use Marketplace\Amazon\Feeds\PriceAndQuantityUpdateFile;
 
 class AmazonQtyUpdate
 {
+    protected $priority = 30;
     protected $orders;
 
     public function __construct()
@@ -22,9 +23,14 @@ class AmazonQtyUpdate
         $this->orders = $orders;
     }
 
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
     public function run($argv = [])
     {
-        echo __CLASS__, EOL;
+        echo '>> ', __CLASS__, EOL;
         $this->generateFlatFiles();
     }
 
@@ -61,7 +67,7 @@ class AmazonQtyUpdate
         $flatFileCA->close();
         $flatFileUS->close();
 
-        echo count($orders), ' orders processed.', EOL;
+        echo count($this->orders), ' orders processed.', EOL;
 
         #$this->uploadFeed('bte-amazon-ca', $flatFileCA->getFilename());
         #$this->uploadFeed('bte-amazon-us', $flatFileUS->getFilename());

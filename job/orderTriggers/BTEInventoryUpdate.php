@@ -2,6 +2,7 @@
 
 class BTEInventoryUpdate
 {
+    protected $priority = 10;
     protected $orders;
 
     public function __construct()
@@ -16,18 +17,25 @@ class BTEInventoryUpdate
         $this->orders = $orders;
     }
 
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
     public function run($argv = [])
     {
-        echo __METHOD__, EOL;
-        //$this->updateInventory();
+        echo '>> ', __CLASS__, EOL;
+        $this->updateInventory();
     }
 
     protected function updateInventory()
     {
-        echo count($this->newOrders), ' new orders', EOL;
+        echo count($this->orders), ' new orders', EOL;
 
-        if (count($this->newOrders) > 0) {
+        if (count($this->orders) > 0) {
+
             $accdb = $this->openAccessDB();
+
             foreach ($this->orders as $order) {
                 $date    = $order['date'];
                 $channel = $order['channel'];
