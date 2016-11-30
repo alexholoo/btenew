@@ -196,4 +196,9 @@ class Arr
     {
         return is_array($var) && array_keys($var) !== range(0, sizeof($var) - 1);
     }
+
+    public static function hasStringKeys($array)
+    {
+        return count(array_filter(array_keys($array), 'is_string')) > 0;
+    }
 }
