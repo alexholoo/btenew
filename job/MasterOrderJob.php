@@ -207,7 +207,7 @@ class MasterOrderJob
             }
         }
 
-        asort($triggers);
+        ksort($triggers);
 
         return $triggers;
     }
