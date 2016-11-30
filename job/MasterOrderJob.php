@@ -18,7 +18,7 @@ class MasterOrderJob
         $this->importMaster();
 
         if (!in_array('notrigger', $argv)) {
-            //$this->newOrderTrigger();
+            $this->newOrderTrigger();
         }
     }
 
