@@ -21,16 +21,19 @@ trait JobTrait
     {
         static $first = true;
 
-        $line = date('Y-m-d H:i:s '). $line ."\n";
+        $today = date('Y-m-d');
+        $filename = APP_DIR . "/logs/job-$today.log";
+
+        echo $line, "\n";
 
         if ($first) {
             $first = false;
-            $line = "\n". $line;
+            error_log("\n", 3, $filename);
         }
 
-        echo $line;
+        $line = date('Y-m-d H:i:s '). $line ."\n";
 
-        error_log($line, 3, APP_DIR . '/logs/job.log');
+        error_log($line, 3, $filename);
     }
 
     protected function elapsed($start)
