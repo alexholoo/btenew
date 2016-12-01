@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>MWS Push Notification Root Element - Schema Version
+			2014-07-24</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="AnyOfferChangedNotification.xsd"/>
+	<xs:include schemaLocation="TestNotification.xsd"/>
+	<xs:include schemaLocation="FulfillmentOrderStatusNotification.xsd"/>
+	<xs:element name="Notification">
+		<xs:annotation>
+			<xs:documentation>MWS Push Notification event sent to Sellers
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="NotificationMetaData">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="NotificationType" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>This will identify which payload type is
+										attached in the NotificationPayload element</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="PayloadVersion" type="VersionType"/>
+							<xs:element name="UniqueId" type="xs:string"/>
+							<xs:element name="PublishTime" type="xs:dateTime"/>
+							<xs:element name="SellerId" type="xs:string"/>
+							<xs:element name="MarketplaceId" type="MarketplaceType" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Optional element, not present for events that
+										are cross marketplace or not marketplace specific.
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotificationPayload">
+					<xs:complexType>
+						<xs:choice>
+							<xs:annotation>
+								<xs:documentation>
+									xs:choice , only one of the payloads will
+									exist, additional types will be added in future schema
+									versions.
+									Warning: If using this schema for runtime validation
+									these future additions will invalidate this version of the
+									schema, without prior notice.
+								</xs:documentation>
+							</xs:annotation>
+							<xs:element name="AnyOfferChangedNotification" type="AnyOfferChangedNotificationType" minOccurs="0"/>
+							<xs:element name="TestNotification" type="TestNotificationType" minOccurs="0"/>
+							<xs:element name="FulfillmentOrderStatusNotification" type="FulfillmentOrderStatusNotificationType" minOccurs="0"/>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

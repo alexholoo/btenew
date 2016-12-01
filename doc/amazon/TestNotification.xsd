@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>MWS Push Notification TestNotification -
+			Schema Version 2013-07-25</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="MWSPushNotificationCommon.xsd"/>
+	<xs:element name="TestNotification" type="TestNotificationType">
+		<xs:annotation>
+			<xs:documentation>Root element of the payload for the notification
+				sent by the subscriptions service sendTestNotification operation.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TestNotificationType"/>
+</xs:schema>

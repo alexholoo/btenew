@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>MWS Push Notification Common Types - Schema Version
+			2014-02-17</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="MarketplaceType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z0-9]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VersionType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]+\.[0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MoneyType">
+		<xs:sequence>
+			<xs:element name="Amount" type="xs:decimal"/>
+			<xs:element name="CurrencyCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="FulfillmentChannelType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Amazon"/>
+			<xs:enumeration value="Merchant"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvailabilityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOW"/>
+			<xs:enumeration value="FUTURE_WITHOUT_DATE"/>
+			<xs:enumeration value="FUTURE_WITH_DATE"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

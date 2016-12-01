@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>MWS Push Notification AnyOfferChangedNotification -
+			Schema Version 2015-01-15</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="MWSPushNotificationCommon.xsd"/>
+	<xs:element name="AnyOfferChangedNotification" type="AnyOfferChangedNotificationType">
+		<xs:annotation>
+			<xs:documentation>Root element of the payload for the notification
+				sent when an offer has changed</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="Points">
+		<xs:sequence>
+			<xs:element name="PointsNumber" type="xs:integer" minOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OfferType">
+		<xs:sequence>
+			<xs:element name="SellerId" type="xs:string"/>
+			<xs:element name="SubCondition" type="xs:string"/>
+			<xs:element name="SellerFeedbackRating" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SellerPositiveFeedbackRating" type="xs:double" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Percentage of positive feedback rating in the
+									past 365 days</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="FeedbackCount" type="xs:long">
+							<xs:annotation>
+								<xs:documentation>Total number of feedbacks for the seller
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ShippingTime">
+				<xs:annotation>
+					<xs:documentation>The minimum and maximum time in hours that the
+						item will likely be shipped once the order has been placed
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="minimumHours" type="xs:short"/>
+					<xs:attribute name="maximumHours" type="xs:short"/>
+					<xs:attribute name="availableDate" type="xs:dateTime"/>
+					<xs:attribute name="availabilityType" type="AvailabilityType"/>										
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ListingPrice" type="MoneyType"/>
+			<xs:element name="Points" type="Points" minOccurs="0"/>
+			<xs:element name="Shipping" type="MoneyType"/>
+			<xs:element name="ShipsFrom" minOccurs="0">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="State" type="xs:string" minOccurs="0"/>
+						<xs:element name="Country" type="xs:string"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IsFulfilledByAmazon" type="xs:boolean"/>
+			<xs:element name="IsBuyBoxWinner" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation> Indicates whether the offer is currently in the Buy Box. There can be up to two Buy Box winners at any time per ASIN.</xs:documentation>
+				</xs:annotation>
+			</xs:element>			
+			<xs:element name="ConditionNotes" type="xs:string" minOccurs="0"/>
+			<xs:element name="IsExpeditedShippingAvailable" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="IsFeaturedMerchant" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="ShipsDomestically" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="ShipsInternationally" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnyOfferChangedNotificationType">
+		<xs:sequence>
+			<xs:element name="OfferChangeTrigger">
+				<xs:annotation>
+					<xs:documentation>Event trigger, What caused this event to be sent?
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="MarketplaceId" type="MarketplaceType"/>
+						<xs:element name="ASIN" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>ASIN that has an offer change.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ItemCondition">
+							<xs:annotation>
+								<xs:documentation>The condition of the offer that changed. If a
+									used offer changes, the list of offers in the Offers tag will
+									be only used items. The summary node will provide summary for
+									the other conditions that can be used for repricing
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TimeOfOfferChange" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>The update time for the offer that caused this
+									notification.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Summary">
+				<xs:annotation>
+					<xs:documentation>ASIN level summary information for all conditions
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="NumberOfOffers">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="OfferCount" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:integer">
+													<xs:attribute name="condition" type="xs:string" use="required"/>
+													<xs:attribute name="fulfillmentChannel" type="FulfillmentChannelType" use="required"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="LowestPrices">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LowestPrice" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="LandedPrice" type="MoneyType"/>
+												<xs:element name="ListingPrice" type="MoneyType"/>
+												<xs:element name="Shipping" type="MoneyType"/>
+												<xs:element name="Points" type="Points" minOccurs="0"/>
+											</xs:sequence>
+											<xs:attribute name="condition" type="xs:string" use="required"/>
+											<xs:attribute name="fulfillmentChannel" type="FulfillmentChannelType" use="required"/>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="BuyBoxPrices" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="BuyBoxPrice" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="LandedPrice" type="MoneyType"/>
+												<xs:element name="ListingPrice" type="MoneyType"/>
+												<xs:element name="Shipping" type="MoneyType"/>
+												<xs:element name="Points" type="Points" minOccurs="0"/>
+											</xs:sequence>
+											<xs:attribute name="condition" type="xs:string" use="required"/>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ListPrice" type="MoneyType" minOccurs="0"/>
+						<xs:element name="SuggestedLowerPricePlusShipping" type="MoneyType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Suggested Lower Price is based on a range of factors, including historical selling prices, recent Buy Box eligible prices, and input from customers for your products.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="MinimumAdvertisedPrice" type="MoneyType" minOccurs="0"/>
+						<xs:element name="SalesRankings" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="SalesRank" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="ProductCategoryId" type="xs:string"/>
+												<xs:element name="Rank" type="xs:integer"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="BuyBoxEligibleOffers">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="OfferCount" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:integer">
+													<xs:attribute name="condition" type="xs:string" use="required"/>
+													<xs:attribute name="fulfillmentChannel" type="FulfillmentChannelType" use="required"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Offers">
+				<xs:annotation>
+					<xs:documentation>Top 20 competitive offers for the ASIN and
+						condition that caused the event</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Offer" type="OfferType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
