@@ -202,14 +202,20 @@ class MasterOrderJob
                 $priority = $trigger->getPriority();
 
                 if ($priority > 0) {
-                    $triggers[$priority] = $trigger;
+                    $triggers[] = [
+                        'priority' => $priority,
+                        'trigger'  => $trigger,
+                    ];
                 }
             }
         }
 
-        ksort($triggers);
+        // Trigger with smaller priority runs first
+        usort($triggers, function($a, $b) {
+            return $a['priority'] > $b['priority'];
+        });
 
-        return $triggers;
+        return array_column($triggers, 'trigger', 'priority');
     }
 
     private function orderExists($orderId)

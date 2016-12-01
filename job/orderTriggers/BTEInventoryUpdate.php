@@ -2,7 +2,7 @@
 
 class BTEInventoryUpdate
 {
-    protected $priority = 10;
+    protected $priority = 10;  // 0 to disable
     protected $orders;
 
     public function __construct()
@@ -60,11 +60,11 @@ class BTEInventoryUpdate
                     $x = 0;
                     $change = 'No change';
                     if ($qtyOnHand > 0) {
-                        $change = "Reduced $qty";
+                        $change = "-$qty";
                         $x = $qtyOnHand - $qty;
                         if ($x < 0) {
                             $x = 0;
-                            $note = "Reduced $qtyOnHand";
+                            $note = "-$qtyOnHand";
                         }
                     }
 
