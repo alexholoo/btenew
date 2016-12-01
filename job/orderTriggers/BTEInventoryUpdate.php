@@ -2,7 +2,7 @@
 
 class BTEInventoryUpdate
 {
-    protected $priority = 0;  // 0 to disable
+    protected $priority = 10;
     protected $orders;
 
     public function __construct()
@@ -49,7 +49,7 @@ class BTEInventoryUpdate
                 if ($supplier == 'BTE') {
                     echo "$date $channel $orderId $sku $qty", EOL;
 
-                    $sql = "SELECT QtyOnHand FROM [bte-inventory] WHERE [Part Number]='$sku'";
+                    $sql = "SELECT QtyOnHand FROM [bte-inventory-automated] WHERE [Part Number]='$sku'";
                     $row = $accdb->query($sql)->fetch();
 
                     $qtyOnHand = 0;
@@ -68,7 +68,7 @@ class BTEInventoryUpdate
                         }
                     }
 
-                    $sql = "UPDATE [bte-inventory] SET [QtyOnHand]=$x WHERE [Part Number]='$sku'";
+                    $sql = "UPDATE [bte-inventory-automated] SET [QtyOnHand]=$x WHERE [Part Number]='$sku'";
 
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
