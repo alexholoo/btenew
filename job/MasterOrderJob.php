@@ -1,6 +1,8 @@
 <?php
 
-class MasterOrderJob
+include 'classes/Job.php';
+
+class MasterOrderJob extends Job
 {
     protected $orders;
     protected $newOrders = [];
@@ -14,7 +16,7 @@ class MasterOrderJob
 
     public function run($argv = [])
     {
-        echo '>> ', __CLASS__, EOL;
+        $this->log('>> '. __CLASS__);
 
         $this->getOrders();
         $this->importMaster();
@@ -34,11 +36,11 @@ class MasterOrderJob
         }
 
         if (!($handle = @fopen($filename, 'rb'))) {
-            echo "Failed to open file: $filename\n";
+            $this->log("Failed to open file: $filename");
             return;
         }
 
-        echo "Loading $filename\n";
+        $this->log("Loading $filename");
 
         $title = fgetcsv($handle);
 
@@ -66,7 +68,7 @@ class MasterOrderJob
         while (($fields = fgetcsv($handle))) {
             $orderId = $fields[2];
             if (count($columns) != count($fields)) {
-                echo 'Error: ', $orderId, EOL;
+                $this->log('Error: '. $orderId);
             }
             $order = array_combine($columns, $fields);
             $this->orders[$orderId][] = $order;
@@ -79,7 +81,7 @@ class MasterOrderJob
     {
         foreach ($this->orders as $orderId => $orders) {
             if (!$this->orderExists($orderId)) {
-                echo "Importing order $orderId\n";
+                $this->log("Importing order $orderId");
                 $this->importOrder($orders[0]);
                 $this->importOrderShippingAddress($orders[0]);
                 $this->importOrderItems($orders);
@@ -172,15 +174,15 @@ class MasterOrderJob
 
     protected function newOrderTrigger()
     {
-        echo EOL, count($this->newOrders), ' new orders', EOL, EOL;
+        $this->log(count($this->newOrders). " new orders");
 
         if (count($this->newOrders) > 0) {
 
             $triggers = $this->getTriggers();
 
             foreach ($triggers as $trigger) {
-                $trigger->run();
                 echo EOL;
+                $trigger->run();
             }
         }
     }

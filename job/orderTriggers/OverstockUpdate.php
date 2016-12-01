@@ -1,6 +1,6 @@
 <?php
 
-class OverstockUpdate
+class OverstockUpdate extends Job
 {
     protected $priority = 20;  // 0 to disable
     protected $orders;
@@ -24,15 +24,13 @@ class OverstockUpdate
 
     public function run($argv = [])
     {
-        echo '>> ', __CLASS__, EOL;
+        $this->log('>> '. __CLASS__);
 
         $this->updateOverstock();
     }
 
     protected function updateOverstock()
     {
-        echo count($this->orders), ' new orders', EOL;
-
         if (count($this->orders) > 0) {
 
             $accdb = $this->openAccessDB();
@@ -44,7 +42,7 @@ class OverstockUpdate
                 $sku     = $order['sku'];
                 $qty     = $order['qty'];
 
-                echo "$date $channel $orderId $sku $qty", EOL;
+                $this->log("$date $channel $orderId $sku $qty");
 
                 $sql = "SELECT [Actual Quantity] FROM [overstock-automated] WHERE [SKU Number]='$sku'";
                 $row = $accdb->query($sql)->fetch();
@@ -95,6 +93,8 @@ class OverstockUpdate
                 }
             }
         }
+
+        $this->log(count($this->orders). ' new orders');
     }
 
     protected function openAccessDB()

@@ -1,6 +1,6 @@
 <?php
 
-class PriceAvailability
+class PriceAvailability extends Job
 {
     protected $priority = 0;  // 0 to disable
     protected $orders;
@@ -24,7 +24,7 @@ class PriceAvailability
 
     public function run($argv = [])
     {
-        echo '>> ', __CLASS__, EOL;
+        $this->log('>> '. __CLASS__);
         $this->getPriceAvail();
     }
 
@@ -34,13 +34,13 @@ class PriceAvailability
 
         foreach ($skus as $sku) {
             try {
-                echo 'Price & Availability for ', $sku, PHP_EOL;
+                $this->log('Price & Availability for '. $sku);
                 $client = \Supplier\Supplier::createClient($sku);
                 if ($client) {
                     $client->getPriceAvailability($sku);
                 }
             } catch (Exception $e) {
-                echo $e->getMessage(), PHP_EOL;
+                $this->log($e->getMessage());
             }
         }
     }

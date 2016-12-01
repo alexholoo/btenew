@@ -1,6 +1,6 @@
 <?php
 
-class BTEInventoryUpdate
+class BTEInventoryUpdate extends Job
 {
     protected $priority = 10;  // 0 to disable
     protected $orders;
@@ -24,13 +24,13 @@ class BTEInventoryUpdate
 
     public function run($argv = [])
     {
-        echo '>> ', __CLASS__, EOL;
+        $this->log('>> '. __CLASS__);
         $this->updateInventory();
     }
 
     protected function updateInventory()
     {
-        echo count($this->orders), ' new orders', EOL;
+        $this->log(count($this->orders). ' new orders');
 
         if (count($this->orders) > 0) {
 
@@ -47,7 +47,7 @@ class BTEInventoryUpdate
                 $supplier = $parts[0];
 
                 if ($supplier == 'BTE') {
-                    echo "$date $channel $orderId $sku $qty", EOL;
+                    $this->log("$date $channel $orderId $sku $qty");
 
                     $sql = "SELECT QtyOnHand FROM [bte-inventory-automated] WHERE [Part Number]='$sku'";
                     $row = $accdb->query($sql)->fetch();

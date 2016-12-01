@@ -3,7 +3,7 @@
 use Supplier\Supplier;
 use Marketplace\Amazon\Feeds\PriceAndQuantityUpdateFile;
 
-class AmazonQtyUpdate
+class AmazonQtyUpdate extends Job
 {
     protected $priority = 0;  // 0 to disable
     protected $orders;
@@ -30,7 +30,7 @@ class AmazonQtyUpdate
 
     public function run($argv = [])
     {
-        echo '>> ', __CLASS__, EOL;
+        $this->log('>> '. __CLASS__);
         $this->generateFlatFiles();
     }
 
@@ -52,7 +52,7 @@ class AmazonQtyUpdate
             $price   = $order['price'];
             $qty     = $order['qty'];
 
-            echo $orderid, ' => ',  $sku, ' ', $qty, EOL;
+            $this->log("$orderid => $sku $qty");
 
             if ($this->outOfStock($sku, $qty)) {
                 if ($channel == 'Amazon-ACA') {
@@ -67,7 +67,7 @@ class AmazonQtyUpdate
         $flatFileCA->close();
         $flatFileUS->close();
 
-        echo count($this->orders), ' orders processed.', EOL;
+        $this->log(count($this->orders). ' orders processed.');
 
         #$this->uploadFeed('bte-amazon-ca', $flatFileCA->getFilename());
         #$this->uploadFeed('bte-amazon-us', $flatFileUS->getFilename());
@@ -86,7 +86,7 @@ class AmazonQtyUpdate
                 $result = $client->getPriceAvailability($sku);
                 $availQty = $result->getFirst()->getTotalQty();
 
-                echo "\t$sku\t", $availQty, EOL;
+                $this->log("\t$sku\t$availQty");
 
                 if ($availQty > 0) {
                     $totalQty += $availQty;
@@ -106,7 +106,7 @@ class AmazonQtyUpdate
             return;
         }
 
-        echo "Uploading feed: $file", EOL;
+        $this->log("Uploading feed: $file");
 
         $client = new Marketplace\Amazon\Client($store);
         $client->uploadPriceQuantity($file);
