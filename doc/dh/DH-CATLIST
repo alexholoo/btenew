@@ -1,0 +1,711 @@
+100|ZZ OLD ITEM - NOT ASSIGNED|101|Not in Use
+100|ZZ OLD ITEM - NOT ASSIGNED|1618|Special DO NOT USE
+200|Health & Wellness|210|Oral Care
+200|Health & Wellness|220|Hot & Cold Therapy
+200|Health & Wellness|230|Massagers & Shower Heads
+200|Health & Wellness|240|Scales & Body Fat Analyzers
+200|Health & Wellness|250|Miscellaneous
+200|Health & Wellness|255|Blood Pressure Monitors
+300|Computers Notebooks|315|Notebooks
+300|Computers Notebooks|316|Notebook Barebones
+300|Computers Notebooks|320|Batteries for Notebooks
+300|Computers Notebooks|325|Docks & Replicators
+300|Computers Notebooks|330|Power & Surge Adapters
+300|Computers Notebooks|331|Accessories
+300|Computers Notebooks|332|Security Accessories
+300|Computers Notebooks|333|Notebooks Gaming
+300|Computers Notebooks|335|Coolers Drives & Stands
+300|Computers Notebooks|340|Notebook/Tablet 2-in-1
+300|Computers Notebooks|360|Warranties
+300|Computers Notebooks|370|Notebook Workstations
+300|Computers Notebooks|375|Notebook Ultrabooks
+300|Computers Notebooks|380|Chromebooks
+400|Team Sports|420|Basketball
+400|Team Sports|430|Football
+400|Team Sports|440|Hockey
+400|Team Sports|450|Lacrosse
+400|Team Sports|455|Miscellaneous
+400|Team Sports|470|Soccer
+500|Flash Memory & Readers|510|Card Readers & Accessories
+500|Flash Memory & Readers|520|CompactFlash Cards
+500|Flash Memory & Readers|530|SD (mini/micro)
+500|Flash Memory & Readers|535|SD (standard-size)
+500|Flash Memory & Readers|550|USB Flash Drives
+600|Video Specialty Products|605|Accessories
+600|Video Specialty Products|610|TV Tuners
+600|Video Specialty Products|620|Scan Converters
+600|Video Specialty Products|630|Video Editing Hardware
+600|Video Specialty Products|640|Video Eyewear
+700|Bags & Carry Cases|705|Book Bags & Backpacks
+700|Bags & Carry Cases|710|iPod Cases
+700|Bags & Carry Cases|715|Camera Bags
+700|Bags & Carry Cases|720|iPhone 5 & 4 Cases
+700|Bags & Carry Cases|725|iPad 2 3 4 Cases
+700|Bags & Carry Cases|727|iPad Air Cases
+700|Bags & Carry Cases|728|iPad Mini Cases
+700|Bags & Carry Cases|729|iPad Pro Cases
+700|Bags & Carry Cases|730|iPhone 6 Cases
+700|Bags & Carry Cases|735|Luggage & Rolling Bags
+700|Bags & Carry Cases|740|Media Storage
+700|Bags & Carry Cases|745|Samsung Galaxy S7 Cases
+700|Bags & Carry Cases|750|iPhone 6 Plus Cases
+700|Bags & Carry Cases|751|iPhone 7 Cases
+700|Bags & Carry Cases|752|iPhone 7 Plus Cases
+700|Bags & Carry Cases|753|Netbook Bags & Sleeves
+700|Bags & Carry Cases|755|Notebook Bags & Sleeves
+700|Bags & Carry Cases|760|Cell Phone Cases- Misc.
+700|Bags & Carry Cases|763|Microsoft Surface Cases
+700|Bags & Carry Cases|765|Samsung Gal S3 S5 Note Cases
+700|Bags & Carry Cases|768|Samsung Galaxy S6 Cases
+700|Bags & Carry Cases|770|Tablet Cases Misc.
+700|Bags & Carry Cases|772|Samsung Tablet Cases
+700|Bags & Carry Cases|775|College BkSt Logo Bags
+700|Bags & Carry Cases|790|Misc. Bags
+700|Bags & Carry Cases|795|Charging Bags & Cases
+800|Car Accessories|810|Accessories
+800|Car Accessories|820|Dash Cams
+900|Network Attached Storage|910|Accessories
+900|Network Attached Storage|925|NAS Appliance w DVR
+900|Network Attached Storage|930|NAS Diskless
+900|Network Attached Storage|933|NAS less than 12 TB
+900|Network Attached Storage|935|NAS 12 to 24 TB
+900|Network Attached Storage|940|NAS more than 24 TB
+900|Network Attached Storage|950|Optional Power Supplies
+900|Network Attached Storage|960|Optional Drives
+900|Network Attached Storage|980|Warranties
+1000|KVM & Peripheral Sharing|1010|Accessories
+1000|KVM & Peripheral Sharing|1015|KVM LCD Consoles
+1000|KVM & Peripheral Sharing|1020|KVM Switch  1 to 2 port
+1000|KVM & Peripheral Sharing|1023|KVM Switch 32 to 64 port
+1000|KVM & Peripheral Sharing|1025|KVM Switch  8 to 16 port
+1000|KVM & Peripheral Sharing|1027|KVM Switch  4 port
+1000|KVM & Peripheral Sharing|1030|Cables for KVM
+1000|KVM & Peripheral Sharing|1080|Video Splitters
+1000|KVM & Peripheral Sharing|1095|Audio/Video Switches
+1100|Videogame Hardware|1110|PS4
+1100|Videogame Hardware|1120|Xbox One
+1100|Videogame Hardware|1130|PS Vita
+1100|Videogame Hardware|1135|XBox 360
+1100|Videogame Hardware|1140|2DS & 3DS
+1100|Videogame Hardware|1145|WiiU
+1100|Videogame Hardware|1150|PS3
+1100|Videogame Hardware|1155|Shield
+1100|Videogame Hardware|1160|Retro Gaming
+1200|Cisco Licenses|1210|eDelivery
+1300|Videogame Accessories|1315|PSP & PS Vita  Accessories
+1300|Videogame Accessories|1320|Playstation Accessories
+1300|Videogame Accessories|1325|Xbox Accessories
+1300|Videogame Accessories|1330|Wii & WiiU Accessories
+1300|Videogame Accessories|1350|3DS Accessories
+1300|Videogame Accessories|1360|PC Gaming Controllers
+1300|Videogame Accessories|1370|Retro Accessories
+1300|Videogame Accessories|1380|More Accessories
+1400|Videogame Software|1405|PS3 Games
+1400|Videogame Software|1410|PS4 Games
+1400|Videogame Software|1412|PS4 VR Games
+1400|Videogame Software|1415|PS3 Move Games
+1400|Videogame Software|1417|XBox 360 Games
+1400|Videogame Software|1425|Xbox 360 Kinect Games
+1400|Videogame Software|1430|Wii Games
+1400|Videogame Software|1435|WiiU Games
+1400|Videogame Software|1450|PC Games
+1400|Videogame Software|1460|3DS Games
+1400|Videogame Software|1470|PS Vita Games
+1400|Videogame Software|1480|XBox One Games
+1500|Cables Computer & AV|1510|Connectors & Cable Management
+1500|Cables Computer & AV|1513|A/V Combo Cables
+1500|Cables Computer & AV|1515|Power Cables
+1500|Cables Computer & AV|1516|Network Cat 6 Patch
+1500|Cables Computer & AV|1517|DisplayPort Cables
+1500|Cables Computer & AV|1520|Adapter/Gender Changers
+1500|Cables Computer & AV|1523|Cable Kits & Tools
+1500|Cables Computer & AV|1525|DVI & DVI Combo
+1500|Cables Computer & AV|1530|HDMI Cables
+1500|Cables Computer & AV|1540|Fiber Optic Cables
+1500|Cables Computer & AV|1550|Legacy Computer Cables
+1500|Cables Computer & AV|1551|Legacy Video Cables
+1500|Cables Computer & AV|1555|Legacy Audio Cables
+1500|Cables Computer & AV|1560|Thunderbolt & Lightning Cables
+1500|Cables Computer & AV|1561|Network Cat 5 Patch
+1500|Cables Computer & AV|1562|Network Crossover & T1
+1500|Cables Computer & AV|1570|Runner Cables
+1500|Cables Computer & AV|1571|Serial ATA Cables
+1500|Cables Computer & AV|1575|USB Cables
+1500|Cables Computer & AV|1580|Network Bulk
+1500|Cables Computer & AV|1581|Wall Plates
+1500|Cables Computer & AV|1583|Serial Attached SCSI Cable
+1600|Blank Media|1603|Accessories
+1600|Blank Media|1618|Special DO NOT USE
+1600|Blank Media|1620|CD-R Media
+1600|Blank Media|1625|CD-RW Media
+1600|Blank Media|1640|DVD-R Media
+1600|Blank Media|1641|DVD+R Media
+1600|Blank Media|1642|Blu-Ray Media
+1600|Blank Media|1645|DVDRW Media
+1600|Blank Media|1654|Tape Cartridges
+1618|DO NOT USE - EHF SPECIAL|1619|Special for EHF Taxe Remit
+1700|Exercise & Fitness|1710|Accessories
+1700|Exercise & Fitness|1715|Cardio Equipment
+1700|Exercise & Fitness|1720|Core Fitness
+1700|Exercise & Fitness|1730|Exercise Balls
+1700|Exercise & Fitness|1740|Pedometers & HR Monitors
+1700|Exercise & Fitness|1750|Wearables
+1700|Exercise & Fitness|1760|Weight Training
+1700|Exercise & Fitness|1770|Yoga & Pilates
+1800|Hunting & Fishing|1810|Accessories
+1800|Hunting & Fishing|1815|Crossbows & Bows
+1800|Hunting & Fishing|1820|Electronics
+1800|Hunting & Fishing|1825|Blinds & Tree Stands
+1800|Hunting & Fishing|1830|Knives
+1800|Hunting & Fishing|1840|Optics
+1800|Hunting & Fishing|1850|Storage & Cases
+1800|Hunting & Fishing|1855|Trail Cams & Lasers
+1800|Hunting & Fishing|1860|Fishing
+1900|Server Products|1905|Branded Server Accessories
+1900|Server Products|1906|Branded Server Controllers
+1900|Server Products|1907|Branded Server Drives
+1900|Server Products|1908|Branded Server CPUs
+1900|Server Products|1909|Branded Server Software
+1900|Server Products|1910|Server Comp. Miscellaneous
+1900|Server Products|1912|Branded Storage Servers
+1900|Server Products|1915|Server Board AMD
+1900|Server Products|1920|Branded Server Memory
+1900|Server Products|1925|Racks & Enclosures
+1900|Server Products|1928|Server Board 1150-pin
+1900|Server Products|1929|Server Board 1356-pin
+1900|Server Products|1930|Server Board 775-pin
+1900|Server Products|1931|Server Board 1151-pin
+1900|Server Products|1934|Server Board 2011-pin
+1900|Server Products|1935|Chassis
+1900|Server Products|1936|Integrated Server 1155
+1900|Server Products|1937|Integrated Server 1156
+1900|Server Products|1938|Integrated Server 1366
+1900|Server Products|1939|Integrated Server 2011-3
+1900|Server Products|1940|Integrated Server 771
+1900|Server Products|1941|Integrated Server 775
+1900|Server Products|1942|Integrated Server 1150
+1900|Server Products|1943|Branded Pedestal Servers
+1900|Server Products|1944|Integrated Server 2011-0
+1900|Server Products|1945|Branded RackMount Servers
+1900|Server Products|1950|Branded Server Warranties
+1900|Server Products|1955|Server Comp. Add-in Cards
+1900|Server Products|1956|Server Comp. Backplanes
+1900|Server Products|1957|Server Comp. Power Supplies
+1900|Server Products|1958|Server Comp. Optical Drives
+2000|Motherboards|2010|Accessories
+2000|Motherboards|2031|Socket FM2 Boards
+2000|Motherboards|2032|Socket AM1 AM3 Boards
+2000|Motherboards|2033|Mini-ITX
+2000|Motherboards|2034|LGA2011-0 Boards
+2000|Motherboards|2035|LGA2011-3 Boards
+2000|Motherboards|2040|LGA1150 Boards
+2000|Motherboards|2041|LGA1155 Boards
+2000|Motherboards|2045|LGA1151 Boards
+2000|Motherboards|2050|NUC Boards
+2100|Baseball & Softball|2103|Accessories
+2100|Baseball & Softball|2105|Bags
+2100|Baseball & Softball|2110|Balls
+2100|Baseball & Softball|2115|Bats
+2100|Baseball & Softball|2120|Field & Training Equipment
+2100|Baseball & Softball|2125|Gloves
+2100|Baseball & Softball|2150|Protective Gear
+2200|Batteries|2210|Miscellaneous Batteries
+2200|Batteries|2215|AA Batteries
+2200|Batteries|2216|AA Rechargeable
+2200|Batteries|2220|AAA & AAAA
+2200|Batteries|2230|C, D, 9-volt Batteries
+2200|Batteries|2250|Battery Chargers
+2300|Computers Desktop|2310|Accessories
+2300|Computers Desktop|2315|Desktops All-in-One
+2300|Computers Desktop|2325|Desktop Gaming
+2300|Computers Desktop|2330|Desktop PCs
+2300|Computers Desktop|2340|Desktops Barebone
+2300|Computers Desktop|2355|Thin Client
+2300|Computers Desktop|2360|Workstations
+2300|Computers Desktop|2380|Warranties
+2400|Home & Portable Audio|2410|Personal CD & Boomboxes
+2400|Home & Portable Audio|2415|Sound Bars
+2400|Home & Portable Audio|2420|Personal & Internet Radios
+2400|Home & Portable Audio|2440|Karaoke
+2400|Home & Portable Audio|2450|Portable Voice Recorders
+2400|Home & Portable Audio|2460|Shelf Systems
+2400|Home & Portable Audio|2465|Component Audio & Receivers
+2400|Home & Portable Audio|2475|Home Theater-in-a-Box
+2500|Controller Cards|2510|Combo Controllers
+2500|Controller Cards|2520|FireWire Controllers
+2500|Controller Cards|2530|Serial I/O Cards
+2500|Controller Cards|2531|Parallel I/O Cards
+2500|Controller Cards|2535|eSATA & SATA Controllers
+2500|Controller Cards|2540|IDE Controllers
+2500|Controller Cards|2555|RAID ATA & SAS Controllers
+2500|Controller Cards|2560|Thunderbolt Controllers
+2500|Controller Cards|2570|USB Controllers PCI
+2500|Controller Cards|2572|USB Controllers PC Cards
+2500|Controller Cards|2580|PCI to PC Card Adapters
+2600|TV & Accessories|2620|Streaming Media Players
+2600|TV & Accessories|2631|LED TV 32 to 42
+2600|TV & Accessories|2635|LED TV 46 or more
+2600|TV & Accessories|2650|Accessories
+2600|TV & Accessories|2655|Remote Controls
+2600|TV & Accessories|2660|LED TV 29 or less
+2600|TV & Accessories|2665|TV/DVD Combos
+2600|TV & Accessories|2675|Ultra HD TV
+2600|TV & Accessories|2680|Antennas
+2700|Cameras & Frames|2710|Digital Point & Shoot
+2700|Cameras & Frames|2720|Camcorders
+2700|Cameras & Frames|2725|Action Cameras
+2700|Cameras & Frames|2740|Webcams
+2700|Cameras & Frames|2750|Misc. Accessories
+2700|Cameras & Frames|2751|Digital SLRs
+2700|Cameras & Frames|2752|Lens & Filters
+2700|Cameras & Frames|2753|Camera Batteries
+2700|Cameras & Frames|2760|Digital Picture Frames
+2700|Cameras & Frames|2765|Power Adapters & Chargers
+2700|Cameras & Frames|2770|Action Camera Accessories
+2800|DVD Players & Recorders|2810|DVD Players
+2800|DVD Players & Recorders|2820|Blu-Ray Players
+2800|DVD Players & Recorders|2830|Portable DVDs
+2900|Water Recreation|2910|Accessories
+2900|Water Recreation|2930|Boats & Kayaks
+2900|Water Recreation|2935|Inflatables
+2900|Water Recreation|2940|Games
+2900|Water Recreation|2945|Pools
+3000|Drive Enclosures|3020|HD Enclosures USB
+3000|Drive Enclosures|3021|HD Enclosures Combo
+3000|Drive Enclosures|3065|HD Enclosures SATA
+3000|Drive Enclosures|3066|SCSI Frames/Carriers
+3000|Drive Enclosures|3067|IDE/ATA Frames/Carriers
+3000|Drive Enclosures|3070|Serial ATA Frames/Carriers
+3000|Drive Enclosures|3075|HD Enclosures SAS
+3000|Drive Enclosures|3090|Accessories
+3100|Hard Drives & SSD|3110|SSD External
+3100|Hard Drives & SSD|3115|SSD PCIe
+3100|Hard Drives & SSD|3120|SSD M.2
+3100|Hard Drives & SSD|3125|SSD mSATA
+3100|Hard Drives & SSD|3140|SATA Drives
+3100|Hard Drives & SSD|3145|Server Drives SATA
+3100|Hard Drives & SSD|3147|Server Drives SAS
+3100|Hard Drives & SSD|3148|SSD SATA & SAS
+3100|Hard Drives & SSD|3150|AV & Surveillance
+3100|Hard Drives & SSD|3152|SSD SATA Express & SFF8639
+3100|Hard Drives & SSD|3154|USB Hard Drives
+3100|Hard Drives & SSD|3155|Thunderbolt Drives
+3100|Hard Drives & SSD|3157|Wireless Hard Drives
+3100|Hard Drives & SSD|3158|Notebook SATA Drives
+3100|Hard Drives & SSD|3160|Coolers & Accessories
+3100|Hard Drives & SSD|3170|Combo Bus Hard Drives
+3200|Optical & Backup Drives|3215|Blu-Ray Drives
+3200|Optical & Backup Drives|3220|Duplicators
+3200|Optical & Backup Drives|3235|Not in Use
+3200|Optical & Backup Drives|3242|DVD-Recorders External
+3200|Optical & Backup Drives|3250|DVD-ROM
+3200|Optical & Backup Drives|3260|DVD-Recorders Internal
+3300|Outdoor Living|3310|Firepits & Outdoor Fireplaces
+3300|Outdoor Living|3315|Gardening
+3300|Outdoor Living|3320|Grilling & Smoker Accessories
+3300|Outdoor Living|3322|Outdoor Grills
+3300|Outdoor Living|3325|Patio Decor
+3300|Outdoor Living|3340|Smokers & Outdoor Fryers
+3300|Outdoor Living|3350|Lawn & Garden Tools
+3300|Outdoor Living|3355|Snow Removal
+3300|Outdoor Living|3370|Water Gardening
+3300|Outdoor Living|3375|Miscellaneous
+3400|Outdoors & Recreation|3420|Bicycles
+3400|Outdoors & Recreation|3422|Electronic Bicycles
+3400|Outdoors & Recreation|3425|Helmets & Accessories
+3400|Outdoors & Recreation|3430|Solar
+3400|Outdoors & Recreation|3440|Kids Play Tents
+3400|Outdoors & Recreation|3450|Metal Detectors
+3400|Outdoors & Recreation|3460|Outdoor Games
+3400|Outdoors & Recreation|3470|Scooters
+3400|Outdoors & Recreation|3480|Timing
+3400|Outdoors & Recreation|3482|Multi-Purpose Knives
+3400|Outdoors & Recreation|3485|Vision
+3400|Outdoors & Recreation|3487|Drones
+3500|Calculators|3505|Handheld & Desktop Calcs.
+3500|Calculators|3510|Graphing Calculators
+3500|Calculators|3515|Scientific Calculators
+3500|Calculators|3516|Data Collection & Probes
+3500|Calculators|3525|Printing Calculators
+3500|Calculators|3540|Accessories
+3500|Calculators|3550|Business & Financial Calcs
+3600|Distributed Audio & Video|3610|Accessories
+3600|Distributed Audio & Video|3620|Amplifiers
+3600|Distributed Audio & Video|3640|IR Solutions
+3600|Distributed Audio & Video|3650|Multiroom Solutions
+3600|Distributed Audio & Video|3655|Source Equipment
+3600|Distributed Audio & Video|3660|Speaker Selectors
+3600|Distributed Audio & Video|3670|Volume Controls
+3700|Cell Phones|3705|Accessories
+3700|Cell Phones|3710|Unlocked GSM Phones
+3700|Cell Phones|3730|External Battery Packs
+3700|Cell Phones|3750|Chargers & Internal Batteries
+3800|Cases & Power Supplies|3810|Power Supplies 400W to 580W
+3800|Cases & Power Supplies|3811|Power Supplies 380W and Under
+3800|Cases & Power Supplies|3815|Case Fans
+3800|Cases & Power Supplies|3816|ATX Cases w/o P.S.
+3800|Cases & Power Supplies|3820|ATX Cases w/Power Supply
+3800|Cases & Power Supplies|3825|microATX PC Cases
+3800|Cases & Power Supplies|3827|Power Supplies 600W & Over
+3800|Cases & Power Supplies|3830|Accessories
+3800|Cases & Power Supplies|3850|mini ITX Cases
+3900|Beauty Care|3910|Hair Dryers
+3900|Beauty Care|3920|Men's Grooming
+3900|Beauty Care|3930|Miscellaneous
+3900|Beauty Care|3940|Styling
+3900|Beauty Care|3960|Womens' Grooming
+4000|Tablets|4020|Accessories
+4000|Tablets|4025|Android based
+4000|Tablets|4029|Non-Windows Based
+4000|Tablets|4030|Windows based
+4100|Surveillance & Security|4110|Accessories
+4100|Surveillance & Security|4130|Cameras
+4100|Surveillance & Security|4140|Surveillance Video Recorders
+4100|Surveillance & Security|4150|Surveillance Systems
+4100|Surveillance & Security|4160|Housing & Lenses
+4200|Sewing & Crafts|4210|Crafts
+4200|Sewing & Crafts|4270|Sewing
+4300|Scanners|4315|Barcode & Handheld Scanners
+4300|Scanners|4330|Accessories
+4300|Scanners|4350|Document Scanners
+4400|Input Devices Wireless|4405|Presentation Remotes
+4400|Input Devices Wireless|4410|Mice Wireless
+4400|Input Devices Wireless|4420|Keyboards Wireless
+4400|Input Devices Wireless|4425|Trackballs & Gamepads
+4400|Input Devices Wireless|4430|Bundle-Keyboard & Mouse
+4500|Input Devices|4510|Mouse Pads & Wrist Rest
+4500|Input Devices|4520|Digital Pens
+4500|Input Devices|4530|Drawpads & Digitizers
+4500|Input Devices|4551|Keyboards
+4500|Input Devices|4561|Accessories
+4500|Input Devices|4563|Mice
+4500|Input Devices|4565|Trackballs & Gamepads
+4500|Input Devices|4570|Bundle-Keyboard & Mouse
+4600|Fan Shop|4620|MLB
+4600|Fan Shop|4650|NCAA
+4600|Fan Shop|4680|NFL
+4600|Fan Shop|4690|NHL
+4700|3D Printing|4720|3D Printers
+4700|3D Printing|4730|3D Scanners
+4700|3D Printing|4750|Supplies & Accessories
+4900|Connected Home|4905|Accessories
+4900|Connected Home|4910|All-in-One Kits
+4900|Connected Home|4920|Hubs
+4900|Connected Home|4930|Sensors
+4900|Connected Home|4940|Smart Door Locks
+4900|Connected Home|4950|Smart Light Bulbs
+4900|Connected Home|4960|Smart Outlets & Switches
+4900|Connected Home|4970|Smart Smoke Alarms
+4900|Connected Home|4990|WiFi Thermostats
+5000|Memory (RAM)|5020|RAM DDR3
+5000|Memory (RAM)|5025|RAM Server FB DDR2
+5000|Memory (RAM)|5030|RAM DDR4
+5000|Memory (RAM)|5031|RAM Server DDR2
+5000|Memory (RAM)|5032|RAM Apple Memory
+5000|Memory (RAM)|5036|RAM Server DDR3
+5000|Memory (RAM)|5038|RAM Server DDR4
+5000|Memory (RAM)|5040|RAM SODIMM DDR4
+5000|Memory (RAM)|5041|RAM SODIMM DDR/DDR2
+5000|Memory (RAM)|5044|RAM DDR 333 & below
+5000|Memory (RAM)|5045|RAM DDR 400 & above
+5000|Memory (RAM)|5046|RAM DDR2
+5000|Memory (RAM)|5052|RAM SODIMM DDR3
+5000|Memory (RAM)|5060|Accessories
+5100|Lighting|5105|Accessories
+5100|Lighting|5120|Flashlights & Worklights
+5100|Lighting|5130|Light Bulbs
+5100|Lighting|5140|Indoor Lighting
+5100|Lighting|5150|Motion Sensor Lights
+5100|Lighting|5170|Outdoor Lighting
+5500|Modems|5520|External & PC Card Modems
+5500|Modems|5530|Internal Modems
+5500|Modems|5550|Accessories
+5500|Modems|5570|Cable & DSL Modems
+5700|Mounts & Brackets|5710|Projector Mounts
+5700|Mounts & Brackets|5715|Brackets & Accessories
+5700|Mounts & Brackets|5720|2 or more Display Mounts
+5700|Mounts & Brackets|5725|Not in Use
+5700|Mounts & Brackets|5728|Tablets & other Mounts
+5700|Mounts & Brackets|5730|Single Display Mounts
+5800|CPUs|5810|Accessories
+5800|CPUs|5816|1155-pin Server CPUs
+5800|CPUs|5820|Cooling (fans & heatsinks)
+5800|CPUs|5821|1356-pin Server CPUs
+5800|CPUs|5822|1366-pin Server CPUs
+5800|CPUs|5823|1150-pin Desktop CPUs
+5800|CPUs|5825|2011-3 pin Desktop CPUs
+5800|CPUs|5826|1151-pin Server CPUs
+5800|CPUs|5832|2011-pin Server CPUs
+5800|CPUs|5835|2011-3 pin Server CPUs
+5800|CPUs|5840|Mobile CPUs
+5800|CPUs|5855|1150-pin Server CPUs
+5800|CPUs|5858|1155-pin Desktop CPUs
+5800|CPUs|5860|Xeon Phi
+5900|Home Improvement|5905|Automotive Accessories
+5900|Home Improvement|5910|Safety Gear
+5900|Home Improvement|5920|Hand Tools
+5900|Home Improvement|5930|Electrical
+5900|Home Improvement|5940|Tool Belts & Storage
+5900|Home Improvement|5950|Tape & Adhesives
+5900|Home Improvement|5960|Painting Tools & Accessories
+5900|Home Improvement|5970|Power Tools
+5900|Home Improvement|5975|Pressure Washers
+6000|Monitors|6010|Digital Signage
+6000|Monitors|6020|Monitors 17 or less
+6000|Monitors|6025|Monitors 20 to 29
+6000|Monitors|6027|Monitors 19
+6000|Monitors|6030|Color Calibration
+6000|Monitors|6050|Monitors 30 & Over
+6000|Monitors|6060|Accessories
+6000|Monitors|6070|Privacy & Screen Filters
+6100|Navigation|6105|Accessories
+6100|Navigation|6110|Vehicle GPS Units
+6100|Navigation|6113|Handheld GPS Units
+6200|Network Security|6205|Accessories
+6200|Network Security|6210|Backup & Recovery
+6200|Network Security|6220|Content Security
+6200|Network Security|6230|Email Security
+6200|Network Security|6240|Firewalls/UTM/VPN
+6200|Network Security|6245|Security Management
+6200|Network Security|6250|SSL-VPN Secure Remote Access
+6200|Network Security|6255|Warranties & Service Contracts
+6200|Network Security|6260|Network Access Control
+6300|Networking Wireless SingleBand|6305|Accessories
+6300|Networking Wireless SingleBand|6310|Antennas & Cables
+6300|Networking Wireless SingleBand|6315|APs & Bridges
+6300|Networking Wireless SingleBand|6325|Routers & Gateways
+6300|Networking Wireless SingleBand|6330|Adapters PCI
+6300|Networking Wireless SingleBand|6340|Range Extenders
+6300|Networking Wireless SingleBand|6350|Adapters USB
+6300|Networking Wireless SingleBand|6360|Print Servers
+6300|Networking Wireless SingleBand|6395|Controllers & Switches
+6400|Networking Wireless Dual Band|6402|Routers & Gateways
+6400|Networking Wireless Dual Band|6405|Accessories
+6400|Networking Wireless Dual Band|6410|Adapter Cards
+6400|Networking Wireless Dual Band|6415|Antennas & Cables
+6400|Networking Wireless Dual Band|6420|APs & Bridges
+6400|Networking Wireless Dual Band|6440|Controllers & Switches
+6400|Networking Wireless Dual Band|6450|Range Extenders
+6400|Networking Wireless Dual Band|6460|Lightweight APs
+6400|Networking Wireless Dual Band|6465|Print Servers
+6500|Networking|6502|Warranties & Service Contracts
+6500|Networking|6505|Chassis Switches
+6500|Networking|6507|Accessories
+6500|Networking|6510|NIC Adapters ExpressCard
+6500|Networking|6512|Switches Over 24 Ports
+6500|Networking|6515|Powerline Networks
+6500|Networking|6520|Power over Ethernet
+6500|Networking|6522|NIC Adapters USB
+6500|Networking|6533|Media Converters
+6500|Networking|6535|Expansion Modules
+6500|Networking|6555|Routers
+6500|Networking|6560|Patch Panels
+6500|Networking|6565|NIC Adapters PCIe
+6500|Networking|6570|NIC Adapters PCI
+6500|Networking|6575|Network Time Servers
+6500|Networking|6580|Print & File Servers
+6500|Networking|6589|Switches 12 to 16 Ports
+6500|Networking|6590|Switches 18 to 24 Ports
+6500|Networking|6592|Switches  4 to 10 Ports
+6500|Networking|6597|Monitoring & Diagnostics
+6600|Networking Cisco SMARTnet|6610|Router Service Contracts
+6600|Networking Cisco SMARTnet|6620|Security & Switch Service Cont
+6600|Networking Cisco SMARTnet|6630|VoIP Service Contracts
+6600|Networking Cisco SMARTnet|6650|Wireless Service Contracts
+6700|Home Environment|6705|Door Hardware
+6700|Home Environment|6710|AC & DeHumidifiers
+6700|Home Environment|6720|Air Purifiers
+6700|Home Environment|6730|Fans
+6700|Home Environment|6740|Filters & Accessories
+6700|Home Environment|6750|Heaters & Fireplaces
+6700|Home Environment|6760|Humidifiers
+6700|Home Environment|6780|Thermostats
+6900|Lifestyle|6905|Bedding Bath & Decor
+6900|Lifestyle|6910|Door Chimes & Timers
+6900|Lifestyle|6920|Misc - No Web Products
+6900|Lifestyle|6925|Baby & Toddler
+6900|Lifestyle|6930|Furniture
+6900|Lifestyle|6940|Pet Supplies
+6900|Lifestyle|6950|Storage & Organization
+6900|Lifestyle|6960|Time Pieces
+6900|Lifestyle|6970|Tobacco Accessories
+6900|Lifestyle|6990|Weather Monitoring
+7000|Power Protection|7005|Warranties & Services
+7000|Power Protection|7010|Accessories
+7000|Power Protection|7015|Battery Packs
+7000|Power Protection|7025|PDUs & Line Conditioners
+7000|Power Protection|7030|Power Inverters
+7000|Power Protection|7040|Basic Surge & Strips
+7000|Power Protection|7041|Surge w/Phone (RJ11)
+7000|Power Protection|7043|Surge w/Network (RJ45)
+7000|Power Protection|7044|Surge w/Coax
+7000|Power Protection|7060|UPS  500 to 900 VA
+7000|Power Protection|7061|UPS 6kVA & Over
+7000|Power Protection|7062|UPS  Under 500 VA
+7000|Power Protection|7063|UPS 1000 to 2600 VA
+7000|Power Protection|7064|UPS 3kVA to 5kVA
+7100|Floor Care & Cleaning|7110|Accessories & Chemicals
+7100|Floor Care & Cleaning|7130|Buffers & Scrubbers
+7100|Floor Care & Cleaning|7140|Canister Vacuums
+7100|Floor Care & Cleaning|7150|Broom Dusters & Sweepers
+7100|Floor Care & Cleaning|7160|Hand Vacuums
+7100|Floor Care & Cleaning|7165|Robotic Vacuums
+7100|Floor Care & Cleaning|7170|Steam Cleaning
+7100|Floor Care & Cleaning|7180|Stick Vacuums
+7100|Floor Care & Cleaning|7190|Upright Vacuums
+7100|Floor Care & Cleaning|7195|Wet Dry Vacuums
+7200|Printers Multi Function Units|7210|Inkjet MF
+7200|Printers Multi Function Units|7212|Laser MF
+7200|Printers Multi Function Units|7215|Accessories
+7200|Printers Multi Function Units|7220|Toner Cartridges
+7300|Office Products|7305|Binders/Laminators
+7300|Office Products|7310|Shredders
+7300|Office Products|7320|Copiers & Fax Machines
+7300|Office Products|7330|Cash Registers
+7300|Office Products|7340|Office Supplies
+7300|Office Products|7345|Organizers
+7300|Office Products|7350|Scales
+7300|Office Products|7370|Boards & Easels
+7400|Paper|7405|Roll Paper
+7400|Paper|7410|4 x 6 Photo Paper
+7400|Paper|7415|Labels
+7400|Paper|7417|Super B/B Photo Paper
+7400|Paper|7425|Misc. Photo Paper
+7400|Paper|7430|8.5 x 11 Photo Paper
+7500|Printers Laser|7550|Color Lasers
+7500|Printers Laser|7560|B&W Lasers
+7500|Printers Laser|7564|Warranty Contracts
+7500|Printers Laser|7565|Accessories
+7500|Printers Laser|7566|Toner Cartridges
+7500|Printers Laser|7567|Paper Handling Access
+7500|Printers Laser|7568|Drums & Developers
+7600|Printers Inkjet|7610|Inkjet Printers
+7600|Printers Inkjet|7615|Inkjet Accessories
+7600|Printers Inkjet|7620|Inkjet Cartridges
+7600|Printers Inkjet|7625|Inkjet Printers Wide Format
+7600|Printers Inkjet|7670|Label Printers
+7600|Printers Inkjet|7671|Label Printer Access.
+7700|Kitchen & Housewares|7710|Toaster Ovens
+7700|Kitchen & Housewares|7712|Microwave Ovens
+7700|Kitchen & Housewares|7720|Cookware & Bakeware
+7700|Kitchen & Housewares|7724|Deep Fryers
+7700|Kitchen & Housewares|7728|Cutlery & Gadgets
+7700|Kitchen & Housewares|7730|Novelty Appliances
+7700|Kitchen & Housewares|7732|Beverage
+7700|Kitchen & Housewares|7733|Food Processing & Prep
+7700|Kitchen & Housewares|7734|Flatware
+7700|Kitchen & Housewares|7735|Coffee & Tea Makers
+7700|Kitchen & Housewares|7736|Toasters
+7700|Kitchen & Housewares|7737|Blenders
+7700|Kitchen & Housewares|7742|Mixers & Accessories
+7700|Kitchen & Housewares|7745|Frozen Treat Products
+7700|Kitchen & Housewares|7750|Water Kettles
+7700|Kitchen & Housewares|7755|Rice Cookers & Steamers
+7700|Kitchen & Housewares|7760|Garment Care
+7700|Kitchen & Housewares|7765|Miscellaneous
+7700|Kitchen & Housewares|7770|Food Scales
+7700|Kitchen & Housewares|7775|Refrigeration
+7700|Kitchen & Housewares|7780|Grills Griddles & Wafflers
+7700|Kitchen & Housewares|7785|Slow Cookers & Warming Trays
+7700|Kitchen & Housewares|7790|Food Preservation & Dehydrator
+7700|Kitchen & Housewares|7793|Water Purification & Dispenser
+7800|Printers Dot Matrix|7810|Accessories
+7800|Printers Dot Matrix|7830|Printers
+7900|Watches|7920|Everyday Watches
+7900|Watches|7930|Watch Accessories
+7900|Watches|7940|Fitness & Sport Watches
+7900|Watches|7950|Smart Watches
+8000|Software|8005|Anti-Virus/Anti-Spam
+8000|Software|8010|Home & Business Apps
+8000|Software|8015|Data Backup/Recovery
+8000|Software|8017|Financial Software
+8000|Software|8065|Music & Sound
+8000|Software|8073|Graphics & Design
+8000|Software|8078|Desktop Operating Systems
+8000|Software|8081|Network Operating Systems
+8000|Software|8083|Application Servers
+8000|Software|8090|Photo & Video Editing
+8100|Headphones|8105|Accessories
+8100|Headphones|8110|In-Ear Headphones
+8100|Headphones|8120|Mobile Headsets
+8100|Headphones|8130|Gaming Headsets
+8100|Headphones|8140|Over-Ear Headphones
+8100|Headphones|8150|Office Headsets
+8200|Speakers|8210|2 Piece Systems
+8200|Speakers|8220|2.1 & Up Systems
+8200|Speakers|8250|1 Piece Portable
+8200|Speakers|8255|SubWoofers
+8200|Speakers|8260|InCeiling/InWall Speakers
+8200|Speakers|8265|Accessories
+8200|Speakers|8275|All Weather Speakers
+8300|Digital Media Players|8309|iPod Cables & Adapters
+8300|Digital Media Players|8320|Digital Media Players
+8300|Digital Media Players|8340|Digital Media Accessories
+8300|Digital Media Players|8368|iPod Car Accessories
+8300|Digital Media Players|8369|iPod Docks & Speakers
+8400|Software Licensing|8405|Applications
+8400|Software Licensing|8415|Anti-Virus/Anti-Spam
+8400|Software Licensing|8420|Graphics and Design
+8400|Software Licensing|8430|Home & Business Apps
+8400|Software Licensing|8450|Operating Systems
+8400|Software Licensing|8460|Server
+8400|Software Licensing|8470|Utilities
+8500|Indoor Games|8510|Miscellaneous
+8500|Indoor Games|8530|Dartboards
+8600|Musical Solutions|8621|Microphones
+8600|Musical Solutions|8630|Keyboards & Accessories
+8600|Musical Solutions|8635|Amplifiers & PreAmps
+8600|Musical Solutions|8655|Accessories
+8800|Projectors|8810|Accessories
+8800|Projectors|8814|Lamps
+8800|Projectors|8820|Screens
+8800|Projectors|8830|DLP Projectors
+8800|Projectors|8840|Overhead Projectors
+8800|Projectors|8850|LCD Projectors
+8900|Camping|8910|Accessories
+8900|Camping|8920|Mattresses & Sleeping Bags
+8900|Camping|8925|Cookware
+8900|Camping|8930|Furniture
+8900|Camping|8940|Grills & Stoves
+8900|Camping|8945|Lanterns & Lighting
+8900|Camping|8950|Packs
+8900|Camping|8960|Coolers
+8900|Camping|8970|Tents & Shelters
+9000|Telecommunications|9030|Cordless Phones
+9000|Telecommunications|9040|Corded Phones
+9000|Telecommunications|9050|Batteries
+9000|Telecommunications|9060|Accessories
+9000|Telecommunications|9070|Mobile Communications
+9000|Telecommunications|9080|TelePresence Systems
+9100|VoIP|9105|Accessories
+9100|VoIP|9110|Adapters
+9100|VoIP|9120|SIP IP Phones
+9100|VoIP|9150|Phones
+9100|VoIP|9160|Routers/Gateways/PBxs
+9200|Golf|9205|Accessories
+9200|Golf|9210|Bags Balls & Carts
+9200|Golf|9215|Box Sets
+9200|Golf|9220|Drivers
+9200|Golf|9225|Irons
+9200|Golf|9240|Putters
+9200|Golf|9250|Woods & Hybrids
+9500|Video & Sound Cards|9510|Accessories
+9500|Video & Sound Cards|9520|Sound Cards
+9500|Video & Sound Cards|9550|Video Cards PCI
+9500|Video & Sound Cards|9552|Video Cards External
+9500|Video & Sound Cards|9560|Video Cards PCIe ATI
+9500|Video & Sound Cards|9563|Video Cards PCIe nVIDIA
+9500|Video & Sound Cards|9570|Video Cards Workstation
+9600|USB Hubs & Converters|9605|Accessories
+9600|USB Hubs & Converters|9610|Converters-USB
+9600|USB Hubs & Converters|9615|USB Bluetooth Adapters
+9600|USB Hubs & Converters|9620|Hubs USB
+9600|USB Hubs & Converters|9645|Hubs Combo & FireWire
+9700|Toys|9740|Miscellaneous
+9800|Z Special Remit for EHF|9810|Z Special Remit for EHF
+9801|Luggage & Travelware|9820|Carry-On Luggage
+9801|Luggage & Travelware|9825|Checked Luggage
+9801|Luggage & Travelware|9830|Hardside Luggage
+9801|Luggage & Travelware|9835|Luggage Sets & Collections
+9801|Luggage & Travelware|9840|Travel Accessories
+9900|ZZ- D&H USE ONLY|9930|D&H Accounting Items
