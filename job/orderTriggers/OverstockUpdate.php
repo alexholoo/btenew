@@ -42,15 +42,14 @@ class OverstockUpdate extends Job
                 $sku     = $order['sku'];
                 $qty     = $order['qty'];
 
-                $this->log("$date $channel $orderId $sku $qty");
-
                 $sql = "SELECT [Actual Quantity] FROM [overstock-automated] WHERE [SKU Number]='$sku'";
                 $row = $accdb->query($sql)->fetch();
-
-                $qtyOnHand = 0;
-                if ($row) {
-                    $qtyOnHand = $row['Actual Quantity'];
+                if (!$row) {
+                    $this->log("$date $channel $orderId $sku $qty Not Found");
+                    continue; // skip it if not found
                 }
+
+                $qtyOnHand = $row['Actual Quantity'];
 
                 $x = 0;
                 $change = 'No change';
@@ -63,13 +62,26 @@ class OverstockUpdate extends Job
                     }
                 }
 
+                $this->log("$date $channel $orderId $sku $qty => $x");
+
                 $sql = "UPDATE [overstock-automated] SET [Actual Quantity]=$x WHERE [SKU Number]='$sku'";
 
                 $ret = $accdb->exec($sql);
                 if (!$ret && $accdb->errorCode() != '00000') {
-                    print_r($accdb->errorInfo());
+                    $this->log(print_r($accdb->errorInfo(), true));
                 }
 
+                // Mark the item as 'out of stock' by prefixing *** the part number
+                if ($x == 0) {
+                    $sql = "UPDATE [overstock-automated] SET [SKU Number]='***$sku' WHERE [SKU Number]='$sku'";
+                    $ret = $accdb->exec($sql);
+                    if (!$ret && $accdb->errorCode() != '00000') {
+                        $this->log(print_r($accdb->errorInfo(), true));
+                    }
+                    $this->log("***$sku");
+                }
+
+                // log the change
                 $sql = "INSERT INTO [overstock-change] (
                             [OrderDate],
                             [Channel],
@@ -89,7 +101,7 @@ class OverstockUpdate extends Job
 
                 $ret = $accdb->exec($sql);
                 if (!$ret && $accdb->errorCode() != '00000') {
-                    print_r($accdb->errorInfo());
+                    $this->log(print_r($accdb->errorInfo(), true));
                 }
             }
         }

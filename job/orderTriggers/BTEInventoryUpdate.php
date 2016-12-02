@@ -47,15 +47,14 @@ class BTEInventoryUpdate extends Job
                 $supplier = $parts[0];
 
                 if ($supplier == 'BTE') {
-                    $this->log("$date $channel $orderId $sku $qty");
-
                     $sql = "SELECT QtyOnHand FROM [bte-inventory-automated] WHERE [Part Number]='$sku'";
                     $row = $accdb->query($sql)->fetch();
-
-                    $qtyOnHand = 0;
-                    if ($row) {
-                        $qtyOnHand = $row['QtyOnHand'];
+                    if (!$row) {
+                        $this->log("$date $channel $orderId $sku $qty Not Found");
+                        continue; // if not found, skip it
                     }
+
+                    $qtyOnHand = $row['QtyOnHand'];
 
                     $x = 0;
                     $change = 'No change';
@@ -68,13 +67,26 @@ class BTEInventoryUpdate extends Job
                         }
                     }
 
+                    $this->log("$date $channel $orderId $sku $qty => $x");
+
                     $sql = "UPDATE [bte-inventory-automated] SET [QtyOnHand]=$x WHERE [Part Number]='$sku'";
 
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
-                        print_r($accdb->errorInfo());
+                        $this->log(print_r($accdb->errorInfo(), true));
                     }
 
+                    // Mark the item as 'out of stock' by prefixing *** the part number
+                    if ($x == 0) {
+                        $sql = "UPDATE [bte-inventory-automated] SET [Part Number]='***$sku' WHERE [Part Number]='$sku'";
+                        $ret = $accdb->exec($sql);
+                        if (!$ret && $accdb->errorCode() != '00000') {
+                            $this->log(print_r($accdb->errorInfo(), true));
+                        }
+                        $this->log("***$sku");
+                    }
+
+                    // log the change
                     $sql = "INSERT INTO [bte-inventory-change] (
                                 [OrderDate],
                                 [Channel],
@@ -94,7 +106,7 @@ class BTEInventoryUpdate extends Job
 
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
-                        print_r($accdb->errorInfo());
+                        $this->log(print_r($accdb->errorInfo(), true));
                     }
                 }
             }
