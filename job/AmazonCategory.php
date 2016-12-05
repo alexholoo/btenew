@@ -29,6 +29,11 @@ class AmazonCategory extends Job
 
             $category = $this->getAmazonSkuCategory($channel, $sku);
 
+            if (!$category) {
+                $this->log("Failed to getCategory: $sku");
+                continue;
+            }
+
             $id   = $category['ProductCategoryId'];
             $name = $category['ProductCategoryName'];
 
@@ -78,6 +83,10 @@ class AmazonCategory extends Job
 
         $products = $api->getProduct();
         $product = $products[0];
+
+        if (!$product) {
+            return false;
+        }
 
         $data = $product->getData();
         $category = $data['Categories'][0];
