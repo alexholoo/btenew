@@ -2,7 +2,7 @@
 
 include 'classes/Job.php';
 
-class AmazonCategory extends Job
+class AmazonCategoryJob extends Job
 {
     public function run($argv = [])
     {
@@ -201,5 +201,5 @@ class AmazonCategory extends Job
 
 include __DIR__ . '/../public/init.php';
 
-$job = new AmazonCategory();
+$job = new AmazonCategoryJob();
 $job->run($argv);
