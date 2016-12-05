@@ -1,7 +1,7 @@
 <?php
 
 $bestbuyCate = [
-    [ 'code' => "CAT_27115", 'name' => 'Appliances', 'leaf' => false ],
+    [ 'code' => "CAT_27115", 'name' => 'Appliances', 'children' => [
         [ 'code' => "CAT_7686", 'name' => 'Air Conditioners' ],
         [ 'code' => "CAT_25876", 'name' => 'Air Purifier Filters' ],
         [ 'code' => "CAT_10837", 'name' => 'Air Purifiers' ],
@@ -24,8 +24,9 @@ $bestbuyCate = [
         [ 'code' => "CAT_1952", 'name' => 'Electric Ranges' ],
         [ 'code' => "CAT_30821", 'name' => 'Fans' ],
         [ 'code' => "CAT_10844", 'name' => 'Food Processor & Choppers' ],
-        [ 'code' => "CAT_1954", 'name' => 'Freezers', 'leaf' => false ],
+        [ 'code' => "CAT_1954", 'name' => 'Freezers', 'children' => [
             [ 'code' => "CAT_313858", 'name' => 'Freezers' ],
+        ]],
         [ 'code' => "CAT_10744", 'name' => 'Gas Ranges' ],
         [ 'code' => "CAT_30822", 'name' => 'Heater & Fireplace Parts' ],
         [ 'code' => "CAT_32872", 'name' => 'Heaters & Fireplaces' ],
@@ -52,9 +53,10 @@ $bestbuyCate = [
         [ 'code' => "CAT_27595", 'name' => 'Water Filters' ],
         [ 'code' => "CAT_10860", 'name' => 'Water Purifiers & Coolers' ],
         [ 'code' => "CAT_23875", 'name' => 'Wine Cellars & Coolers' ],
+    ]],
 
-    [ 'code' => "CAT_30837", 'name' => 'Baby & Kids', 'leaf' => false ],
-        [ 'code' => "CAT_32803", 'name' =>( 'delete)Baby Travel Beds' ],
+    [ 'code' => "CAT_30837", 'name' => 'Baby & Kids', 'children' => [
+        [ 'code' => "CAT_32803", 'name' => '(delete)Baby Travel Beds' ],
         [ 'code' => "CAT_33537", 'name' => 'Baby & Child Clothes' ],
         [ 'code' => "CAT_1159939", 'name' => 'Baby & Child Fashion Accessories' ],
         [ 'code' => "CAT_34807", 'name' => 'Baby & Child Shoes' ],
@@ -80,23 +82,26 @@ $bestbuyCate = [
         [ 'code' => "CAT_32831", 'name' => 'Food Mills' ],
         [ 'code' => "CAT_33611", 'name' => 'Gliders' ],
         [ 'code' => "CAT_35733", 'name' => 'High Chairs & Booster Seats' ],
-        [ 'code' => "CAT_35731", 'name' => 'Maternity Clothes & Accessories - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_35731", 'name' => 'Maternity Clothes & Accessories - Category Branch', 'children' => [
             [ 'code' => "CAT_37328", 'name' => 'Maternity Bottoms' ],
             [ 'code' => "CAT_37212", 'name' => 'Maternity Dresses' ],
             [ 'code' => "CAT_37329", 'name' => 'Maternity Sleepwear' ],
             [ 'code' => "CAT_37211", 'name' => 'Maternity Swimwear & Underwear' ],
             [ 'code' => "CAT_37209", 'name' => 'Maternity Tops' ],
+        ]],
         [ 'code' => "CAT_1159940", 'name' => 'Nursery Decor' ],
         [ 'code' => "CAT_35718", 'name' => 'Nursery Furniture-Other' ],
         [ 'code' => "CAT_32826", 'name' => 'Nursing Accessories' ],
         [ 'code' => "CAT_32863", 'name' => 'Other Baby Products' ],
         [ 'code' => "CAT_660313", 'name' => 'Other Maternity Products' ],
+    ]],
 
-    [ 'code' => "CAT_14", 'name' => 'Cameras & Camcorders', 'leaf' => false ],
+    [ 'code' => "CAT_14", 'name' => 'Cameras & Camcorders', 'children' => [
         [ 'code' => "CAT_30860", 'name' => 'Batteries & Chargers' ],
         [ 'code' => "CAT_25713", 'name' => 'Camcorders' ],
-        [ 'code' => "CAT_25794", 'name' => 'Camera Lenses - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_25794", 'name' => 'Camera Lenses - Category Branch', 'children' => [
             [ 'code' => "CAT_328641", 'name' => 'Camera Lenses' ],
+        ]],
         [ 'code' => "CAT_804879", 'name' => 'Card Readers & Writers' ],
         [ 'code' => "CAT_30859", 'name' => 'Cases, Bags & Straps' ],
         [ 'code' => "CAT_1127", 'name' => 'Compact Digital Cameras' ],
@@ -107,7 +112,9 @@ $bestbuyCate = [
         [ 'code' => "CAT_22569", 'name' => 'Lens Filters' ],
         [ 'code' => "CAT_660769", 'name' => 'Other Camera & Camcorder Accessories' ],
         [ 'code' => "CAT_30861", 'name' => 'Tripods & Monopods' ],
-    [ 'code' => "CAT_9", 'name' => 'Car, Marine & GPS', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_9", 'name' => 'Car, Marine & GPS', 'children' => [
         [ 'code' => "CAT_482331", 'name' => 'Auto Parts' ],
         [ 'code' => "CAT_26299", 'name' => 'Back Up Cameras & Dash Cams' ],
         [ 'code' => "CAT_24853", 'name' => 'Car &  Motorcycle GPS' ],
@@ -135,7 +142,9 @@ $bestbuyCate = [
         [ 'code' => "CAT_32877", 'name' => 'Other Automotive Accessories' ],
         [ 'code' => "CAT_25836", 'name' => 'Outdoor GPS' ],
         [ 'code' => "CAT_24635", 'name' => 'Replacement Remotes' ],
-    [ 'code' => "CAT_26336", 'name' => 'Cellular Phones', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_26336", 'name' => 'Cellular Phones', 'children' => [
         [ 'code' => "CAT_29095", 'name' => 'BlackBerry Power & Cables' ],
         [ 'code' => "CAT_25938", 'name' => 'Bluetooth Handsfree Headsets' ],
         [ 'code' => "CAT_25940", 'name' => 'Bluetooth Speakerphones' ],
@@ -146,7 +155,9 @@ $bestbuyCate = [
         [ 'code' => "CAT_32083", 'name' => 'Chargers & Power Adapters' ],
         [ 'code' => "CAT_25930", 'name' => 'iPhone Power & Cables' ],
         [ 'code' => "CAT_660799", 'name' => 'Other Cell Phone Accessories' ],
-    [ 'code' => "CAT_30658", 'name' => 'Computers', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_30658", 'name' => 'Computers', 'children' => [
         [ 'code' => "CAT_34908", 'name' => '3D Printer Accessories' ],
         [ 'code' => "CAT_34907", 'name' => '3D Printer Cartridges' ],
         [ 'code' => "CAT_34906", 'name' => '3D Printers' ],
@@ -158,21 +169,24 @@ $bestbuyCate = [
         [ 'code' => "CAT_1076", 'name' => 'Computer Memory' ],
         [ 'code' => "CAT_7675", 'name' => 'Computer Speakers' ],
         [ 'code' => "CAT_1003", 'name' => 'Desktop Computers' ],
-        [ 'code' => "CAT_1082", 'name' => 'DVD Drives - Category Branch' , 'leaf' => false],
+        [ 'code' => "CAT_1082", 'name' => 'DVD Drives - Category Branch' , 'children' => [
             [ 'code' => "CAT_26395", 'name' => 'Blu-ray Drives' ],
             [ 'code' => "CAT_314719", 'name' => 'DVD Drives' ],
+        ]],
         [ 'code' => "CAT_28462", 'name' => 'eReader Cases & Protectors' ],
         [ 'code' => "CAT_33175", 'name' => 'eReaders' ],
         [ 'code' => "CAT_10776", 'name' => 'Fax Machines' ],
         [ 'code' => "CAT_14262", 'name' => 'Gamepads, Joysticks & Aviation Controls (for PC only)' ],
         [ 'code' => "CAT_33070", 'name' => 'Gaming Chairs' ],
-        [ 'code' => "CAT_33179", 'name' => 'Graphics Tablets & Accessories - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_33179", 'name' => 'Graphics Tablets & Accessories - Category Branch', 'children' => [
             [ 'code' => "CAT_314700", 'name' => 'Graphics Tablets & Accessories' ],
             [ 'code' => "CAT_27320", 'name' => 'Mice' ],
+        ]],
         [ 'code' => "CAT_1084", 'name' => 'Hard Drives' ],
-        [ 'code' => "CAT_655410", 'name' => 'Ink & Toner - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_655410", 'name' => 'Ink & Toner - Category Branch', 'children' => [
             [ 'code' => "CAT_1171", 'name' => 'Ink & Toner Cartridges' ],
             [ 'code' => "CAT_656970", 'name' => 'Ink & Toner Subscription Plans' ],
+        ]],
         [ 'code' => "CAT_30664", 'name' => 'iPad & Tablet Accessories' ],
         [ 'code' => "CAT_30663", 'name' => 'iPad & Tablet Cases, Screen Protectors & Keyboards' ],
         [ 'code' => "CAT_14263", 'name' => 'Joysticks & Aviation Controls (for PC only)' ],
@@ -201,9 +215,10 @@ $bestbuyCate = [
         [ 'code' => "CAT_7697", 'name' => 'Software' ],
         [ 'code' => "CAT_10499", 'name' => 'Sound Cards' ],
         [ 'code' => "CAT_10446", 'name' => 'Surge Protectors' ],
-        [ 'code' => "CAT_29958", 'name' => 'Tablets - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_29958", 'name' => 'Tablets - Category Branch', 'children' => [
             [ 'code' => "CAT_28777", 'name' => 'Apple iPad' ],
             [ 'code' => "CAT_314802", 'name' => 'Tablets' ],
+        ]],
         [ 'code' => "CAT_451680", 'name' => 'Travel Power Adapters' ],
         [ 'code' => "CAT_25615", 'name' => 'TV Tuners' ],
         [ 'code' => "CAT_11288", 'name' => 'USB & FireWire Cards & Hubs' ],
@@ -216,32 +231,41 @@ $bestbuyCate = [
         [ 'code' => "CAT_10495", 'name' => 'Wired Routers' ],
         [ 'code' => "CAT_19994", 'name' => 'Wireless Routers' ],
         [ 'code' => "CAT_25614", 'name' => 'Wireless USB Adapters' ],
-    [ 'code' => "CAT_15", 'name' => 'Gaming', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_15", 'name' => 'Gaming', 'children' => [
         [ 'code' => "CAT_1034", 'name' => 'PC Games' ],
         [ 'code' => "CAT_26378", 'name' => 'Video Game Accessories' ],
         [ 'code' => "CAT_29103", 'name' => 'Video Game Consoles' ],
         [ 'code' => "CAT_690294", 'name' => 'Video Game Controllers' ],
         [ 'code' => "CAT_23353", 'name' => 'Video Games' ],
+    ]],
+
     [ 'code' => "CAT_29001", 'name' => 'Geek Squad' ],
-    [ 'code' => "CAT_17", 'name' => 'Gift Cards', 'leaf' => false ],
-        [ 'code' => "CAT_22082", 'name' => 'Gift Cards', 'leaf' => false ],
+    [ 'code' => "CAT_17", 'name' => 'Gift Cards', 'children' => [
+        [ 'code' => "CAT_22082", 'name' => 'Gift Cards', 'children' => [
             [ 'code' => "CAT_22083", 'name' => 'Future Shop Gift Cards' ],
-    [ 'code' => "CAT_30840", 'name' => 'Health, Beauty & Travel', 'leaf' => false ],
+        ]],
+    ]],
+
+    [ 'code' => "CAT_30840", 'name' => 'Health, Beauty & Travel', 'children' => [
         [ 'code' => "CAT_27327", 'name' => 'Curling Irons' ],
         [ 'code' => "CAT_27425", 'name' => 'Electric Toothbrushes' ],
-        [ 'code' => "CAT_31942", 'name' => 'Fashion Accessories - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_31942", 'name' => 'Fashion Accessories - Category Branch', 'children' => [
             [ 'code' => "CAT_37201", 'name' => 'Cufflinks, Pins, Brooches' ],
-            [ 'code' => "CAT_33527", 'name' => 'Eyewear - Category Branch', 'leaf' => false ],
+            [ 'code' => "CAT_33527", 'name' => 'Eyewear - Category Branch', 'children' => [
                 [ 'code' => "CAT_314829", 'name' => 'Eyewear' ],
                 [ 'code' => "CAT_33161", 'name' => 'Sunglasses' ],
+            ]],
             [ 'code' => "CAT_32838", 'name' => 'Lunch Bags & Boxes' ],
             [ 'code' => "CAT_32006", 'name' => 'More Fashion Accessories' ],
             [ 'code' => "CAT_32001", 'name' => 'Scarves' ],
+        ]],
         [ 'code' => "CAT_33569", 'name' => 'Floss' ],
         [ 'code' => "CAT_32870", 'name' => 'Hair Care' ],
         [ 'code' => "CAT_27329", 'name' => 'Hair Dryers' ],
         [ 'code' => "CAT_27328", 'name' => 'Hair Straighteners' ],
-        [ 'code' => "CAT_670071", 'name' => 'Health & Fitness - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_670071", 'name' => 'Health & Fitness - Category Branch', 'children' => [
             [ 'code' => "CAT_815685", 'name' => 'Ellipticals & Rowing Machines' ],
             [ 'code' => "CAT_35715", 'name' => 'Exercise Bikes' ],
             [ 'code' => "CAT_27385", 'name' => 'Health & Fitness' ],
@@ -249,21 +273,24 @@ $bestbuyCate = [
             [ 'code' => "CAT_27400", 'name' => 'Treadmills' ],
             [ 'code' => "CAT_31990", 'name' => 'Yoga & Stability Balls' ],
             [ 'code' => "CAT_27596", 'name' => 'Yoga Mats' ],
-        [ 'code' => "CAT_35585", 'name' => 'Jewelry - Category Branch', 'leaf' => false ],
+        ]],
+        [ 'code' => "CAT_35585", 'name' => 'Jewelry - Category Branch', 'children' => [
             [ 'code' => "CAT_32005", 'name' => 'Bracelets, Bangles & Cuffs' ],
             [ 'code' => "CAT_32003", 'name' => 'Earrings' ],
             [ 'code' => "CAT_314831", 'name' => 'Jewelry' ],
             [ 'code' => "CAT_35611", 'name' => 'Jewelry Sets' ],
             [ 'code' => "CAT_32004", 'name' => 'Necklaces' ],
             [ 'code' => "CAT_32002", 'name' => 'Rings' ],
+        ]],
         [ 'code' => "CAT_35581", 'name' => 'Jewelry Boxes' ],
         [ 'code' => "CAT_1653054", 'name' => 'Luggage & Bags Temp - Category Branch' ],
-        [ 'code' => "CAT_31198", 'name' => 'Luggage - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_31198", 'name' => 'Luggage - Category Branch', 'children' => [
             [ 'code' => "CAT_27000", 'name' => 'Backpacks' ],
             [ 'code' => "CAT_32007", 'name' => 'Handbags & Purses' ],
             [ 'code' => "CAT_313874", 'name' => 'Luggage' ],
             [ 'code' => "CAT_33178", 'name' => 'Luggage Sets' ],
             [ 'code' => "CAT_37937", 'name' => 'Wallets & Clutches' ],
+        ]],
         [ 'code' => "CAT_32936", 'name' => 'Manual Razors & Blades' ],
         [ 'code' => "CAT_32937", 'name' => 'Manual Toothbrushes' ],
         [ 'code' => "CAT_32916", 'name' => 'Massage Chairs' ],
@@ -275,44 +302,57 @@ $bestbuyCate = [
         [ 'code' => "CAT_32874", 'name' => 'Scales' ],
         [ 'code' => "CAT_34806", 'name' => 'Sexual Wellness' ],
         [ 'code' => "CAT_27317", 'name' => 'Shavers and Groomers' ],
-        [ 'code' => "CAT_682461", 'name' => 'Skin Care & Cosmetics - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_682461", 'name' => 'Skin Care & Cosmetics - Category Branch', 'children' => [
             [ 'code' => "CAT_682541", 'name' => 'Bath & Body' ],
             [ 'code' => "CAT_32869", 'name' => 'Cosmetics & Makeup' ],
             [ 'code' => "CAT_810985", 'name' => 'Scents & Fragrances' ],
             [ 'code' => "CAT_682462", 'name' => 'Skin Care' ],
+        ]],
         [ 'code' => "CAT_30844", 'name' => 'Spas & Getaway Experience Gifts' ],
         [ 'code' => "CAT_33066", 'name' => 'Teeth Whitening Strips' ],
         [ 'code' => "CAT_33159", 'name' => 'Toothpaste' ],
         [ 'code' => "CAT_32871", 'name' => 'Umbrellas and Parasols' ],
         [ 'code' => "CAT_26380", 'name' => 'Vitamins & Supplements' ],
         [ 'code' => "CAT_32876", 'name' => 'Watches' ],
-    [ 'code' => "CAT_30839", 'name' => 'Home & Furniture', 'leaf' => false ],
-        [ 'code' => "CAT_31438", 'name' => 'Barbecue Parts & Accessories - Category Branch', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_30839", 'name' => 'Home & Furniture', 'children' => [
+        [ 'code' => "CAT_31438", 'name' => 'Barbecue Parts & Accessories - Category Branch', 'children' => [
             [ 'code' => "CAT_31448", 'name' => 'Barbecue Accessories Sets' ],
             [ 'code' => "CAT_314933", 'name' => 'Barbecue Parts & Accessories' ],
-        [ 'code' => "CAT_35719", 'name' => 'Bathroom Accessories - Category Branch', 'leaf' => false ],
+        ]],
+        [ 'code' => "CAT_35719", 'name' => 'Bathroom Accessories - Category Branch', 'children' => [
             [ 'code' => "CAT_37131", 'name' => 'Bath Hooks & Holders' ],
             [ 'code' => "CAT_328963", 'name' => 'Bathroom Accessories' ],
             [ 'code' => "CAT_670743", 'name' => 'Towels' ],
+        ]],
+    ]],
+
     [ 'code' => "CAT_37129", 'name' => 'Bathroom Sink Faucets' ],
     [ 'code' => "CAT_1295098", 'name' => 'Bed Sheets' ],
     [ 'code' => "CAT_29637", 'name' => 'Bedding & Linens' ],
     [ 'code' => "CAT_31995", 'name' => 'Candles' ],
-    [ 'code' => "CAT_31443", 'name' => 'Cookware & Bakeware - Category Branch', 'leaf' => false ],
+    [ 'code' => "CAT_31443", 'name' => 'Cookware & Bakeware - Category Branch', 'children' => [
         [ 'code' => "CAT_314930", 'name' => 'Bakeware - Individual Pieces' ],
         [ 'code' => "CAT_31463", 'name' => 'Bakeware Sets' ],
         [ 'code' => "CAT_31442", 'name' => 'Cookware & Ovenware - Individual Pieces' ],
         [ 'code' => "CAT_823803", 'name' => 'Cookware & Ovenware Sets' ],
+    ]],
+
     [ 'code' => "CAT_33528", 'name' => 'Decorative Cushion Covers' ],
-    [ 'code' => "CAT_31441", 'name' => 'Dinnerware & Glassware - Category Branch', 'leaf' => false ],
+    [ 'code' => "CAT_31441", 'name' => 'Dinnerware & Glassware - Category Branch', 'children' => [
         [ 'code' => "CAT_314941", 'name' => 'Dinnerware & Serveware - Individual Pieces' ],
         [ 'code' => "CAT_31457", 'name' => 'Dinnerware & Serveware Sets' ],
         [ 'code' => "CAT_823786", 'name' => 'Glassware & Drinkware' ],
+    ]],
+
     [ 'code' => "CAT_31451", 'name' => 'Flatware' ],
-    [ 'code' => "CAT_32883", 'name' => 'Floor Sweepers & Mops - Category Branch', 'leaf' => false ],
+    [ 'code' => "CAT_32883", 'name' => 'Floor Sweepers & Mops - Category Branch', 'children' => [
         [ 'code' => "CAT_33068", 'name' => 'Sweeper & Duster Refills & Accessories' ],
         [ 'code' => "CAT_33067", 'name' => 'Sweepers, Dusters & Mops' ],
-    [ 'code' => "CAT_660196", 'name' => 'Furniture - Category Branch', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_660196", 'name' => 'Furniture - Category Branch', 'children' => [
         [ 'code' => "CAT_609281", 'name' => 'Bedroom Sets' ],
         [ 'code' => "CAT_35729", 'name' => 'Beds & Bed Frames' ],
         [ 'code' => "CAT_615197", 'name' => 'Bookcases & Shelving' ],
@@ -339,35 +379,49 @@ $bestbuyCate = [
         [ 'code' => "CAT_33536", 'name' => 'Patio Tables' ],
         [ 'code' => "CAT_33550", 'name' => 'Patio Umbrellas' ],
         [ 'code' => "CAT_33545", 'name' => 'Sofas, Sectionals & Futons - Category Branch' ],
-    [ 'code' => "CAT_27383", 'name' => 'Home Automation & Accessories - Category Branch', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_27383", 'name' => 'Home Automation & Accessories - Category Branch', 'children' => [
         [ 'code' => "CAT_640692", 'name' => 'Energy & Resource Management' ],
         [ 'code' => "CAT_314919", 'name' => 'Home Automation Accessories' ],
         [ 'code' => "CAT_25944", 'name' => 'Home Automation Modules' ],
         [ 'code' => "CAT_37144", 'name' => 'Smart Home Controls & Access' ],
         [ 'code' => "CAT_37140", 'name' => 'Smart Lights & Controls' ],
-    [ 'code' => "CAT_22210", 'name' => 'Home Decor - Category Branch', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_22210", 'name' => 'Home Decor - Category Branch', 'children' => [
         [ 'code' => "CAT_10011", 'name' => 'Art & Wall Décor' ],
         [ 'code' => "CAT_829711", 'name' => 'Clocks' ],
         [ 'code' => "CAT_11008", 'name' => 'Fireplaces' ],
         [ 'code' => "CAT_314924", 'name' => 'Home Decor' ],
         [ 'code' => "CAT_32827", 'name' => 'Posters' ],
+    ]],
+
     [ 'code' => "CAT_35673", 'name' => 'Home Security Sensors, Alarms and Monitors' ],
-    [ 'code' => "CAT_671405", 'name' => 'Household Cleaning- Category Branch', 'leaf' => false ],
+    [ 'code' => "CAT_671405", 'name' => 'Household Cleaning- Category Branch', 'children' => [
         [ 'code' => "CAT_35714", 'name' => 'Household Cleaning Agents' ],
         [ 'code' => "CAT_671406", 'name' => 'Household Cleaning Tools' ],
-    [ 'code' => "CAT_27316", 'name' => 'Kitchen Gadgets & Utensils - Category Branch', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_27316", 'name' => 'Kitchen Gadgets & Utensils - Category Branch', 'children' => [
         [ 'code' => "CAT_10857", 'name' => 'Can Openers' ],
         [ 'code' => "CAT_314937", 'name' => 'Kitchen & Dining Accessories' ],
-    [ 'code' => "CAT_31437", 'name' => 'Kitchen Knives - Category Branch', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_31437", 'name' => 'Kitchen Knives - Category Branch', 'children' => [
         [ 'code' => "CAT_10858", 'name' => 'Electric Knives' ],
         [ 'code' => "CAT_31444", 'name' => 'Kitchen Knife Sets' ],
         [ 'code' => "CAT_31445", 'name' => 'Kitchen Knives - Individual Pieces' ],
         [ 'code' => "CAT_31446", 'name' => 'Knife Blocks' ],
         [ 'code' => "CAT_328904", 'name' => 'Knives & Cutlery' ],
+    ]],
+
     [ 'code' => "CAT_32884", 'name' => 'Lamps & Lighting' ],
-    [ 'code' => "CAT_33534", 'name' => 'Lawn Mower Parts - Category Branch', 'leaf' => false ],
+    [ 'code' => "CAT_33534", 'name' => 'Lawn Mower Parts - Category Branch', 'children' => [
         [ 'code' => "CAT_33636", 'name' => 'Lawn Mower Parts' ],
         [ 'code' => "CAT_35787", 'name' => 'Snow Blower Parts' ],
+    ]],
+
     [ 'code' => "CAT_33532", 'name' => 'Lawn Mowers' ],
     [ 'code' => "CAT_25756", 'name' => 'More Smart Home & Security' ],
     [ 'code' => "CAT_660943", 'name' => 'Other Kitchen & Dining Products' ],
@@ -379,24 +433,29 @@ $bestbuyCate = [
     [ 'code' => "CAT_31950", 'name' => 'Shower Heads & Hand Showers' ],
     [ 'code' => "CAT_35726", 'name' => 'Surveillance Receiver & DVRs' ],
     [ 'code' => "CAT_35586", 'name' => 'Surveillance Systems & Cameras' ],
-    [ 'code' => "CAT_11", 'name' => 'Home Theatre', 'leaf' => false ],
+
+    [ 'code' => "CAT_11", 'name' => 'Home Theatre', 'children' => [
         [ 'code' => "CAT_968928", 'name' => 'Antennas' ],
-        [ 'code' => "CAT_25320", 'name' => 'Blu-ray & DVD Players - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_25320", 'name' => 'Blu-ray & DVD Players - Category Branch', 'children' => [
             [ 'code' => "CAT_29037", 'name' => 'Blu-ray & DVD Players' ],
             [ 'code' => "CAT_28138", 'name' => 'Portable Blu-ray & DVD Players' ],
+        ]],
         [ 'code' => "CAT_29877", 'name' => 'Combination TVs' ],
-        [ 'code' => "CAT_2002", 'name' => 'Digital Cable - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_2002", 'name' => 'Digital Cable - Category Branch', 'children' => [
             [ 'code' => "CAT_315699", 'name' => 'Digital Cable' ],
             [ 'code' => "CAT_24996", 'name' => 'Digital Cable Boxes' ],
-        [ 'code' => "CAT_1042", 'name' => 'DVD Players - Category Branch - to be deleted', 'leaf' => false ],
+        ]],
+        [ 'code' => "CAT_1042", 'name' => 'DVD Players - Category Branch - to be deleted', 'children' => [
             [ 'code' => "CAT_10561", 'name' => 'DVD Players - to be deleted' ],
             [ 'code' => "CAT_10568", 'name' => 'Portable DVD Players - to be deleted' ],
+        ]],
         [ 'code' => "CAT_24854", 'name' => 'DVD Video Recorders' ],
         [ 'code' => "CAT_25881", 'name' => 'Home Audio Adapters' ],
-        [ 'code' => "CAT_1047", 'name' => 'Home Speakers - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_1047", 'name' => 'Home Speakers - Category Branch', 'children' => [
             [ 'code' => "CAT_315694", 'name' => 'Home Speakers' ],
             [ 'code' => "CAT_10554", 'name' => 'Subwoofers' ],
             [ 'code' => "CAT_14700", 'name' => 'Surround Speaker Packages (Speakers & Subwoofer Only)' ],
+        ]],
         [ 'code' => "CAT_1024", 'name' => 'Home Theatre Cables & Accessories' ],
         [ 'code' => "CAT_10551", 'name' => 'Home Theatre Receivers' ],
         [ 'code' => "CAT_1026", 'name' => 'Home Theatre Systems' ],
@@ -408,29 +467,37 @@ $bestbuyCate = [
         [ 'code' => "CAT_10573", 'name' => 'Stereo Receivers' ],
         [ 'code' => "CAT_29879", 'name' => 'Televisions' ],
         [ 'code' => "CAT_908115", 'name' => 'Turntables' ],
-        [ 'code' => "CAT_32077", 'name' => 'TV Stands - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_32077", 'name' => 'TV Stands - Category Branch', 'children' => [
             [ 'code' => "CAT_31988", 'name' => 'Fireplace TV Stands' ],
             [ 'code' => "CAT_315836", 'name' => 'TV Stands' ],
+        ]],
         [ 'code' => "CAT_26355", 'name' => 'Wall Mounts' ],
         [ 'code' => "CAT_22953", 'name' => 'Wireless Audio Systems' ],
-    [ 'code' => "CAT_19", 'name' => 'iPod & Portable Audio', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_19", 'name' => 'iPod & Portable Audio', 'children' => [
         [ 'code' => "CAT_22793", 'name' => 'Apple iPod & MP3 Cases' ],
         [ 'code' => "CAT_10546", 'name' => 'CD Players' ],
-        [ 'code' => "CAT_23274", 'name' => 'Headphones & Headsets - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_23274", 'name' => 'Headphones & Headsets - Category Branch', 'children' => [
             [ 'code' => "CAT_36986", 'name' => 'Gaming Console Headsets' ],
             [ 'code' => "CAT_321023", 'name' => 'Headphones & Headsets' ],
+        ]],
         [ 'code' => "CAT_26435", 'name' => 'iPods & Portable Media Players' ],
         [ 'code' => "CAT_10086", 'name' => 'MP3 CD Players' ],
         [ 'code' => "CAT_660973", 'name' => 'Other Portable Audio & Accessories' ],
         [ 'code' => "CAT_10088", 'name' => 'Portable Radios' ],
         [ 'code' => "CAT_26995", 'name' => 'Portable, Wireless & Compact Speaker Systems' ],
+    ]],
+
     [ 'code' => "CAT_13", 'name' => 'Movies' ],
-    [ 'code' => "CAT_22", 'name' => 'Multi-Dept and Generic', 'leaf' => false ],
+    [ 'code' => "CAT_22", 'name' => 'Multi-Dept and Generic', 'children' => [
         [ 'code' => "CAT_7671", 'name' => 'Cables & Adapters' ],
         [ 'code' => "CAT_37740", 'name' => 'Generic' ],
         [ 'code' => "CAT_37789", 'name' => 'Multibox-Other' ],
+    ]],
+
     [ 'code' => "CAT_16", 'name' => 'Music' ],
-    [ 'code' => "CAT_27237", 'name' => 'Musical Instruments', 'leaf' => false ],
+    [ 'code' => "CAT_27237", 'name' => 'Musical Instruments', 'children' => [
         [ 'code' => "CAT_35716", 'name' => 'Acoustic Guitars' ],
         [ 'code' => "CAT_28512", 'name' => 'Condenser Mics' ],
         [ 'code' => "CAT_27256", 'name' => 'Drum Kits' ],
@@ -448,7 +515,9 @@ $bestbuyCate = [
         [ 'code' => "CAT_27336", 'name' => 'Recording Software' ],
         [ 'code' => "CAT_27246", 'name' => 'Sheet Music' ],
         [ 'code' => "CAT_33552", 'name' => 'Wind Instruments' ],
-    [ 'code' => "CAT_31177", 'name' => 'Office Supplies', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_31177", 'name' => 'Office Supplies', 'children' => [
         [ 'code' => "CAT_10566", 'name' => 'Answering Machines' ],
         [ 'code' => "CAT_1021", 'name' => 'Batteries' ],
         [ 'code' => "CAT_35721", 'name' => 'Binders' ],
@@ -477,7 +546,9 @@ $bestbuyCate = [
         [ 'code' => "CAT_37820", 'name' => 'Tape' ],
         [ 'code' => "CAT_23013", 'name' => 'VoIP & Internet Phone' ],
         [ 'code' => "CAT_34816", 'name' => 'Writing Instruments' ],
-    [ 'code' => "CAT_660285", 'name' => 'Pets', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_660285", 'name' => 'Pets', 'children' => [
         [ 'code' => "CAT_35590", 'name' => 'Pet Apparel' ],
         [ 'code' => "CAT_35711", 'name' => 'Pet Aquarium & Terrarium Acc.' ],
         [ 'code' => "CAT_35710", 'name' => 'Pet Aquaruims & Terrariums' ],
@@ -491,9 +562,11 @@ $bestbuyCate = [
         [ 'code' => "CAT_35595", 'name' => 'Pet Skin & Coat Care' ],
         [ 'code' => "CAT_35591", 'name' => 'Pet Treats & Supplements' ],
         [ 'code' => "CAT_35732", 'name' => 'Pet Waste Bags' ],
-    [ 'code' => "CAT_27603", 'name' => 'Tools & Garden', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_27603", 'name' => 'Tools & Garden', 'children' => [
         [ 'code' => "CAT_32085", 'name' => 'Flashlights & Lanterns' ],
-        [ 'code' => "CAT_31941", 'name' => 'Hand Tools - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_31941", 'name' => 'Hand Tools - Category Branch', 'children' => [
             [ 'code' => "CAT_31979", 'name' => 'Chisels, Bolsters & Files' ],
             [ 'code' => "CAT_31983", 'name' => 'Clamps & Vises' ],
             [ 'code' => "CAT_31978", 'name' => 'Drivers & Screwdrivers' ],
@@ -508,12 +581,14 @@ $bestbuyCate = [
             [ 'code' => "CAT_31982", 'name' => 'Stand Vises' ],
             [ 'code' => "CAT_31948", 'name' => 'Utility Knives & Multi-Tools' ],
             [ 'code' => "CAT_31986", 'name' => 'Wrenches' ],
+        ]],
         [ 'code' => "CAT_661015", 'name' => 'Other Tools & Garden Products' ],
-        [ 'code' => "CAT_32514", 'name' => 'Power Tool Accessories - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_32514", 'name' => 'Power Tool Accessories - Category Branch', 'children' => [
             [ 'code' => "CAT_32836", 'name' => 'Drill Bit Sets' ],
             [ 'code' => "CAT_32835", 'name' => 'Drill Bits' ],
             [ 'code' => "CAT_314955", 'name' => 'Power Tool Accessories' ],
-        [ 'code' => "CAT_31939", 'name' => 'Power Tools - Category Branch', 'leaf' => false ],
+        ]],
+        [ 'code' => "CAT_31939", 'name' => 'Power Tools - Category Branch', 'children' => [
             [ 'code' => "CAT_31970", 'name' => 'Air Compressors' ],
             [ 'code' => "CAT_31961", 'name' => 'Biscuit Joiners' ],
             [ 'code' => "CAT_31963", 'name' => 'Disc Grinders' ],
@@ -531,8 +606,9 @@ $bestbuyCate = [
             [ 'code' => "CAT_31971", 'name' => 'Routers & Laminate Trimmers' ],
             [ 'code' => "CAT_31965", 'name' => 'Shop Vacuums' ],
             [ 'code' => "CAT_31972", 'name' => 'Stands and Workstations' ],
+        ]],
         [ 'code' => "CAT_35593", 'name' => 'Snow Blowers' ],
-        [ 'code' => "CAT_28839", 'name' => 'Workwear & Apparel - Category Branch', 'leaf' => false ],
+        [ 'code' => "CAT_28839", 'name' => 'Workwear & Apparel - Category Branch', 'children' => [
             [ 'code' => "CAT_35589", 'name' => 'Footwear' ],
             [ 'code' => "CAT_31325", 'name' => 'Gloves' ],
             [ 'code' => "CAT_31324", 'name' => 'Headwear' ],
@@ -541,12 +617,16 @@ $bestbuyCate = [
             [ 'code' => "CAT_10738", 'name' => 'Socks' ],
             [ 'code' => "CAT_28841", 'name' => 'T-Shirts' ],
             [ 'code' => "CAT_314963", 'name' => 'Workwear & Apparel' ],
-    [ 'code' => "CAT_26337", 'name' => 'Toys, Sports & Recreation', 'leaf' => false ],
-        [ 'code' => "CAT_659225", 'name' => 'Sports & Recreation', 'leaf' => false ],
-            [ 'code' => "CAT_35588", 'name' => 'Bikes & Trikes - Category Branch', 'leaf' => false ],
+        ]],
+    ]],
+
+    [ 'code' => "CAT_26337", 'name' => 'Toys, Sports & Recreation', 'children' => [
+        [ 'code' => "CAT_659225", 'name' => 'Sports & Recreation', 'children' => [
+            [ 'code' => "CAT_35588", 'name' => 'Bikes & Trikes - Category Branch', 'children' => [
                 [ 'code' => "CAT_328644", 'name' => 'Bikes & Trikes' ],
                 [ 'code' => "CAT_37191", 'name' => 'Electric Bikes' ],
                 [ 'code' => "CAT_35668", 'name' => 'Toys- Kids Bikes & Trikes' ],
+            ]],
             [ 'code' => "CAT_29041", 'name' => 'Binoculars & Monoculars' ],
             [ 'code' => "CAT_31091", 'name' => 'Breathalyzers' ],
             [ 'code' => "CAT_32808", 'name' => 'Camping Stoves' ],
@@ -562,13 +642,14 @@ $bestbuyCate = [
             [ 'code' => "CAT_31954", 'name' => 'More Camping Accessories' ],
             [ 'code' => "CAT_35728", 'name' => 'More Sports & Recreation' ],
             [ 'code' => "CAT_659860", 'name' => 'Outdoor Recreational Games' ],
-            [ 'code' => "CAT_659896", 'name' => 'Rec Room Games', 'leaf' => false ],
+            [ 'code' => "CAT_659896", 'name' => 'Rec Room Games', 'children' => [
                 [ 'code' => "CAT_329705", 'name' => 'Air Hockey Tables' ],
                 [ 'code' => "CAT_37334", 'name' => 'Dart Boards' ],
                 [ 'code' => "CAT_37333", 'name' => 'Foosball Tables' ],
                 [ 'code' => "CAT_36029", 'name' => 'Game Tables' ],
                 [ 'code' => "CAT_659900", 'name' => 'Rec Room Game Equipment' ],
                 [ 'code' => "CAT_37332", 'name' => 'Table Tennis' ],
+            ]],
             [ 'code' => "CAT_35584", 'name' => 'Scooters' ],
             [ 'code' => "CAT_31953", 'name' => 'Sleeping Bags' ],
             [ 'code' => "CAT_34837", 'name' => 'Solar Panel & Power Pack Accessories' ],
@@ -580,7 +661,8 @@ $bestbuyCate = [
             [ 'code' => "CAT_32844", 'name' => 'Telescopes' ],
             [ 'code' => "CAT_26379", 'name' => 'Tents, Shelters & Screen Rooms' ],
             [ 'code' => "CAT_33530", 'name' => 'Two-way Radios' ],
-        [ 'code' => "CAT_659219", 'name' => 'Toys, Games & Collectibles', 'leaf' => false ],
+        ]],
+        [ 'code' => "CAT_659219", 'name' => 'Toys, Games & Collectibles', 'children' => [
             [ 'code' => "CAT_32082", 'name' => 'Action Figures, Dolls & Robots' ],
             [ 'code' => "CAT_938334", 'name' => 'Anatomical and Science Models' ],
             [ 'code' => "CAT_32879", 'name' => 'Board Games & Card Games' ],
@@ -595,11 +677,15 @@ $bestbuyCate = [
             [ 'code' => "CAT_33184", 'name' => 'Puzzles' ],
             [ 'code' => "CAT_32864", 'name' => 'RC Parts & Accessories' ],
             [ 'code' => "CAT_32081", 'name' => 'Remote Control Toys' ],
-            [ 'code' => "CAT_35582", 'name' => 'Toys-Ride On Toys & Go Karts - Category Branch', 'leaf' => false ],
+            [ 'code' => "CAT_35582", 'name' => 'Toys-Ride On Toys & Go Karts - Category Branch', 'children' => [
                 [ 'code' => "CAT_35669", 'name' => 'Go Karts' ],
                 [ 'code' => "CAT_35780", 'name' => 'Ride On Toys' ],
+            ]],
+        ]],
         [ 'code' => "CAT_33176", 'name' => 'Wall Decals & Graphics' ],
-    [ 'code' => "CAT_654823", 'name' => 'Wearable Technology', 'leaf' => false ],
+    ]],
+
+    [ 'code' => "CAT_654823", 'name' => 'Wearable Technology', 'children' => [
         [ 'code' => "CAT_654825", 'name' => 'Generic Smart Wearables' ],
         [ 'code' => "CAT_27405", 'name' => 'GPS Tracking' ],
         [ 'code' => "CAT_32774", 'name' => 'GPS Watches & Running GPS' ],
@@ -611,4 +697,5 @@ $bestbuyCate = [
         [ 'code' => "CAT_28578", 'name' => 'Sports Performance Monitors' ],
         [ 'code' => "CAT_1170746", 'name' => 'Virtual Reality Headsets' ],
         [ 'code' => "CAT_33554", 'name' => 'Wearable Technology Accessories' ],
+    ]],
 ];
