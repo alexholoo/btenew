@@ -699,3 +699,24 @@ $bestbuyCate = [
         [ 'code' => "CAT_33554", 'name' => 'Wearable Technology Accessories' ],
     ]],
 ];
+
+function printCate($parent, $cate)
+{
+    echo $cate['code'], "\t";
+
+    if ($parent) {
+        echo $parent['code'], "\t";
+    }
+
+    echo $cate['name'], "\n";
+
+    if (isset($cate['children'])) {
+        foreach ($cate['children'] as $child) {
+            printCate($cate, $child);
+        }
+    }
+}
+
+foreach ($bestbuyCate as $cate) {
+    printCate(null, $cate);
+}
