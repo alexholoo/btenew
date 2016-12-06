@@ -717,6 +717,38 @@ function printCate($parent, $cate)
     }
 }
 
+function saveCate($parent, $cate, $desc)
+{
+    $id = $cate['code'];
+    $name = $cate['name'];
+
+    array_push($desc, $name);
+
+    $parentId = '';
+    if ($parent) {
+        $parentId = $parent['code'];
+    }
+
+    $di = \Phalcon\Di::getDefault();
+    $db = $di->get('db');
+
+    $db->insertAsDict('bestbuy_category', [
+        'category_id'   => $id,
+        'category_name' => $name,
+        'parent_id'     => $parentId,
+        'category_desc' => implode(' > ', $desc)
+    ]);
+
+    if (isset($cate['children'])) {
+        foreach ($cate['children'] as $child) {
+            saveCate($cate, $child, $desc);
+        }
+    }
+}
+
+include '../../public/init.php';
+
 foreach ($bestbuyCate as $cate) {
-    printCate(null, $cate);
+#   printCate(null, $cate);
+    saveCate(null, $cate, []);
 }
