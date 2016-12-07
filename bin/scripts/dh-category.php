@@ -8,7 +8,7 @@ if (!($fh = @fopen($fname, 'rb'))) {
     exit;
 }
 
-echo "loading skip.csv\n";
+echo "loading $fname\n";
 
 fgetcsv($fh); // skip the first line
 
