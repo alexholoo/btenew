@@ -54,7 +54,7 @@ class AmazonCategoryJob extends Job
                     $category = null;
                 }
 
-                $this->saveAmazonCategory($catId, $catName, $parentId);
+                //$this->saveAmazonCategory($catId, $catName, $parentId);
             }
 
             array_shift($names); // remove duplicated 'Categories'
