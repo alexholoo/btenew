@@ -1,22 +1,14 @@
 <?php
 
-class SkuMapImportJob
+include 'classes/Job.php';
+
+class SkuMapImportJob extends Job
 {
     protected $asin = [];
     protected $upc  = [];
     protected $mpn  = [];
 
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-
-        $this->redis = new \Redis();
-        $this->redis->connect('127.0.0.1');
-    }
-
-    public function run($arg = '')
+    public function run($args = [])
     {
         $this->redis->set('job:sku-map-import:running', 1);
 
@@ -183,30 +175,6 @@ class SkuMapImportJob
         $duration = round(microtime(true) - $start, 2);
 
         echo "$count sku-upc maps imported in $duration secs\n";
-    }
-
-    public function genInsertSql($table, $columns, $data)
-    {
-        $columnList = '`' . implode('`, `', $columns) . '`';
-
-        $query = "INSERT INTO `$table` ($columnList) VALUES\n";
-
-        $values = array();
-
-        foreach($data as $row) {
-            foreach($row as &$val) {
-                $val = addslashes($val);
-            }
-            $values[] = "('" . implode("', '", $row). "')";
-        }
-
-        $update = implode(', ',
-            array_map(function($name) {
-                return "`$name`=VALUES(`$name`)";
-            }, $columns)
-        );
-
-        return $query . implode(",\n", $values) . "\nON DUPLICATE KEY UPDATE " . $update . ';';
     }
 }
 
