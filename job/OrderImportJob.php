@@ -1,15 +1,10 @@
 <?php
 
-class OrderImportJob
-{
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
+include 'classes/Job.php';
 
-    public function run($arg = '')
+class OrderImportJob extends Job
+{
+    public function run($args = [])
     {
         $this->importOrders();
         $this->importDropship();
@@ -159,33 +154,9 @@ class OrderImportJob
         }
         return false;
     }
-
-    public function genInsertSql($table, $columns, $data)
-    {
-        $columnList = '`' . implode('`, `', $columns) . '`';
-
-        $query = "INSERT INTO `$table` ($columnList) VALUES\n";
-
-        $values = array();
-
-        foreach($data as $row) {
-            foreach($row as &$val) {
-                $val = addslashes($val);
-            }
-            $values[] = "('" . implode("', '", $row). "')";
-        }
-
-        $update = implode(', ',
-            array_map(function($name) {
-                return "`$name`=VALUES(`$name`)";
-            }, $columns)
-        );
-
-        return $query . implode(",\n", $values) . "\nON DUPLICATE KEY UPDATE " . $update . ';';
-    }
 }
 
 include __DIR__ . '/../public/init.php';
 
 $job = new OrderImportJob();
-$job->run();
+$job->run($argv);
