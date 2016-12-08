@@ -121,4 +121,3 @@ include __DIR__ . '/../public/init.php';
 
 $job = new AmazonSqsJob();
 $job->run($argv);
-
