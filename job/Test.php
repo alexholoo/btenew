@@ -1,15 +1,20 @@
 <?php
 
-class TestJob
+include 'classes/Job.php';
+
+class TestJob extends Job
 {
-    public function run()
+    public function run($args = [])
     {
         for ($i=0; $i<10; $i++) {
-            echo __FILE__, ' ', __METHOD__, ' ', $i, PHP_EOL;
+            $this->log(__FILE__. ' ' .__METHOD__. ' ' .$i);
+            $this->error(__FILE__. ' ' .__METHOD__. ' ' .$i);
             sleep(1);
         }
     }
 }
 
+include __DIR__ . '/../public/init.php';
+
 $job = new TestJob();
-$job->run();
+$job->run($argv);
