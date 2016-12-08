@@ -6,12 +6,14 @@ class AmazonListingImportJob extends Job
 {
     public function run($args = [])
     {
-        $file = 'w:/data/csv/amazon/amazon_ca_listings.txt';
         $table = 'amazon_ca_listings';
+        $file = 'E:/BTE/import/amazon_ca_listings.txt';
+       #$file = 'w:/data/csv/amazon/amazon_ca_listings.txt';
         $this->importAmazonListings($file, $table);
 
-        $file = 'w:/data/csv/amazon/amazon_us_listings.txt';
         $table = 'amazon_us_listings';
+        $file = 'E:/BTE/import/amazon_us_listings.txt';
+       #$file = 'w:/data/csv/amazon/amazon_us_listings.txt';
         $this->importAmazonListings($file, $table);
     }
 
