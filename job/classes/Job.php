@@ -72,6 +72,9 @@ abstract class Job
         return $query . implode(",\n", $values) . "\nON DUPLICATE KEY UPDATE " . $update . ';';
     }
 
+    /**
+     * This method can be overrided by derived class to return different filename
+     */
     protected function getLogFilename()
     {
         $today = date('Y-m-d');
@@ -80,6 +83,9 @@ abstract class Job
         return $filename;
     }
 
+    /**
+     * This method can be overrided by derived class to return different filename
+     */
     protected function getErrorLogFilename()
     {
         $today = date('Y-m-d');
