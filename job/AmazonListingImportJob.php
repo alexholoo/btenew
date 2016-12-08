@@ -6,12 +6,10 @@ class AmazonListingImportJob extends Job
 {
     public function run($args = [])
     {
-        $this->log('Importing amazon_ca_listings');
         $file = 'w:/data/csv/amazon/amazon_ca_listings.txt';
         $table = 'amazon_ca_listings';
         $this->importAmazonListings($file, $table);
 
-        $this->log('Importing amazon_us_listings');
         $file = 'w:/data/csv/amazon/amazon_us_listings.txt';
         $table = 'amazon_us_listings';
         $this->importAmazonListings($file, $table);
@@ -19,6 +17,8 @@ class AmazonListingImportJob extends Job
 
     private function importAmazonListings($file, $table)
     {
+        $this->log("Importing $file");
+
         $listings = $this->getListings($file);
 
         if (!$listings) {
@@ -35,7 +35,7 @@ class AmazonListingImportJob extends Job
                 $sql = $this->genInsertSql($table, $columns, $chunk);
                 $this->db->execute($sql);
             } catch (\Exception $e) {
-                echo $e->getMessage(), EOL;
+                $this->error($e->getMessage() .' in '. __METHOD__);
             }
         }
     }
@@ -64,30 +64,6 @@ class AmazonListingImportJob extends Job
         fclose($fh);
 
         return $listings;
-    }
-
-    private function genInsertSql($table, $columns, $data)
-    {
-        $columnList = '`' . implode('`, `', $columns) . '`';
-
-        $query = "INSERT INTO `$table` ($columnList) VALUES\n";
-
-        $values = array();
-
-        foreach($data as $row) {
-            foreach($row as &$val) {
-                $val = addslashes($val);
-            }
-            $values[] = "('" . implode("', '", $row). "')";
-        }
-
-        $update = implode(', ',
-            array_map(function($name) {
-                return "`$name`=VALUES(`$name`)";
-            }, $columns)
-        );
-
-        return $query . implode(",\n", $values);
     }
 }
 
