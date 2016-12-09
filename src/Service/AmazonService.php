@@ -67,6 +67,15 @@ class AmazonService extends Injectable
         return $this->getAsinFromSku($sku, $market);
     }
 
+    public function getImageUrl($asin, $size = 'L')
+    {
+        if ($size == 'T') $size = 'THUMBZZZ'; // 40 x 60 pixels, very small
+        if ($size == 'M') $size = 'MZZZZZZZ'; // 93 x 140 pixels, standard size
+        if ($size == 'L') $size = 'LZZZZZZZ'; // 317 x 475 pixels, very large
+
+        return "http://images.amazon.com/images/P/$asin.01.$size.jpg";
+    }
+
     public function doSomething()
     {
         fpr(__FILE__."\n".__METHOD__);

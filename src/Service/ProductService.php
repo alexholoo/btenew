@@ -125,4 +125,26 @@ class ProductService extends Injectable
         $amazonService = $this->di->get('amazonService');
         return $amazonService->getSellingPrice($sku, $market);
     }
+
+    public function getImageUrl($sku, $size = 'L')
+    {
+        if (substr($sku, 0, 3) == 'DH-') {
+            $sku = substr($sku, 3);
+            return "DH-IMAGE-OF-$sku"; // TODO
+        }
+
+        $amazonService = $this->di->get('amazonService');
+
+        $asin = $this->getAsin($sku, 'CA');
+        if ($asin) {
+            return $amazonService->getImageUrl($asin, $size);
+        }
+
+        $asin = $this->getAsin($sku, 'US');
+        if ($asin) {
+            return $amazonService->getImageUrl($asin, $size);
+        }
+
+        return '';
+    }
 }
