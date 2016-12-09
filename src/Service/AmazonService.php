@@ -37,6 +37,36 @@ class AmazonService extends Injectable
         return $store;
     }
 
+    public function getSellingPrice($sku, $market = 'CA')
+    {
+        $table = 'amazon_ca_listings';
+        if ($market == 'US') {
+            $table = 'amazon_us_listings';
+        }
+
+        $sql = "SELECT price FROM $table WHERE sku='$sku'";
+        $result = $this->db->fetchOne($sql);
+
+        return $result ? $result['price'] : 0;
+    }
+
+    public function getAsinFromSku($sku, $market = 'CA')
+    {
+        $table = 'amazon_ca_listings';
+        if ($market == 'US') {
+            $table = 'amazon_us_listings';
+        }
+
+        $sql = "SELECT asin FROM $table WHERE sku='$sku'";
+        $result = $this->db->fetchOne($sql);
+        return $result ? $result['asin'] : '';
+    }
+
+    public function getAsin($sku, $market = 'CA')
+    {
+        return $this->getAsinFromSku($sku, $market);
+    }
+
     public function doSomething()
     {
         fpr(__FILE__."\n".__METHOD__);

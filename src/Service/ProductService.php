@@ -44,16 +44,20 @@ class ProductService extends Injectable
         return false;
     }
 
-    public function getAsinFromSku($sku)
+    public function getAsinFromSku($sku, $market = 'CA')
     {
-        $sql = "SELECT asin FROM sku_asin_map WHERE sku='$sku'";
-        $result = $this->db->fetchOne($sql);
-        return $result ? $result['asin'] : '';
+        $amazonService = $this->di->get('amazonService');
+        return $amazonService->getAsinFromSku($sku, $market);
+
+        // this is not correct, because ASIN are different in US/CA
+        // $sql = "SELECT asin FROM sku_asin_map WHERE sku='$sku'";
+        // $result = $this->db->fetchOne($sql);
+        // return $result ? $result['asin'] : '';
     }
 
-    public function getAsin($sku)
+    public function getAsin($sku, $market = 'CA')
     {
-        $this->getAsinFromSku($sku);
+        return $this->getAsinFromSku($sku, $market);
     }
 
     public function getUpcFromSku($sku)
@@ -65,7 +69,7 @@ class ProductService extends Injectable
 
     public function getUpc($sku)
     {
-        $this->getUpcFromSku($sku);
+        return $this->getUpcFromSku($sku);
     }
 
     public function getMpnFromSku($sku)
@@ -77,7 +81,7 @@ class ProductService extends Injectable
 
     public function getMpn($sku)
     {
-        $this->getMpnFromSku($sku);
+        return $this->getMpnFromSku($sku);
     }
 
     public function getSkuGroupFromAsin($asin) // getAsinGroup($asin)
@@ -114,5 +118,11 @@ class ProductService extends Injectable
         }
 
         return array_intersect($skuGroup1, $skuGroup2);
+    }
+
+    public function getSellingPrice($sku, $market = 'CA')
+    {
+        $amazonService = $this->di->get('amazonService');
+        return $amazonService->getSellingPrice($sku, $market);
     }
 }
