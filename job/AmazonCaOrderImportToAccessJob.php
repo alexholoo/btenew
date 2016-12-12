@@ -16,10 +16,10 @@ class AmazonCaOrderImportToAccessJob extends Job
         $orders = $this->getOrders();
         $accdb = $this->openAccessDB();
 
-        $today = date('Y-m-d', strtotime('Yesterday'));
+        $yesterday = date('Y-m-d', strtotime('Yesterday'));
 
         foreach ($orders as $order) {
-            if (($date = $order['date']) < $today) {
+            if (($date = $order['date']) < $yesterday) {
                 continue;
             }
 
