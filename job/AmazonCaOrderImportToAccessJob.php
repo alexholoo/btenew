@@ -30,6 +30,7 @@ class AmazonCaOrderImportToAccessJob extends Job
             $qty         = $order['qty'];
             $supplier    = $this->getSupplier($order['sku']);
             $ponum       = ' ';
+            $notes       = $order['notes'] .' - '. $order['dimension'];
             $mfrpn       = $this->getMfrPartNum($order['sku']);
 
             $sql = "SELECT * FROM Amazon_CA WHERE [order_id]='$orderid'";
@@ -62,7 +63,7 @@ class AmazonCaOrderImportToAccessJob extends Job
                         '$sku',
                         '$mfrpn',
                         '$ponum',
-                        '',
+                        '$notes',
                         '',
                         ''
                     )";
