@@ -130,7 +130,7 @@ class ProductService extends Injectable
     {
         if (substr($sku, 0, 3) == 'DH-') {
             $sku = substr($sku, 3);
-            return "DH-IMAGE-OF-$sku"; // TODO
+            return "https://www.dandh.ca/images/prod300/$sku.jpg"; // TODO
         }
 
         $amazonService = $this->di->get('amazonService');
