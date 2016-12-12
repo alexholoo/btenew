@@ -9,20 +9,14 @@ class PricelistImportJob
         $this->queue = $this->di->get('queue');
     }
 
-    public function run($arg = '')
+    public function run($args = [])
     {
-        global $argv;
-
-        if (empty($arg) && isset($argv[1])) {
-            $arg = $argv[1];
-        }
-
-        if (empty($arg)) {
+        if (empty($args[1])) {
             $this->log("Missing supplier ID.");
             return;
         }
 
-        $this->importPricelist(strtoupper($arg));
+        $this->importPricelist(strtoupper($args[1]));
     }
 
     /** ===== internal methods ===== **/
@@ -163,14 +157,14 @@ class PricelistImportJob
     {
         static $first = true;
 
+        echo $line, EOL;
+
         $line = date('Y-m-d H:i:s '). $line ."\n";
 
         if ($first) {
             $first = false;
             $line = "\n". $line;
         }
-
-        echo $line;
 
         error_log($line, 3, APP_DIR . '/logs/job.log');
     }
@@ -220,4 +214,4 @@ class PricelistImportJob
 include __DIR__ . '/../public/init.php';
 
 $job = new PricelistImportJob();
-$job->run();
+$job->run($argv);
