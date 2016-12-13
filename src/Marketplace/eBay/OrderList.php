@@ -33,25 +33,24 @@ class OrderList
 
         $channel = 'ebay';
 
-        $eb_date_string = strtotime ($fields [3]);
-        $date = date('Y-m-d',$eb_date_string );
+        $eb_date_string = strtotime($fields[3]);
+        $date = date('Y-m-d',$eb_date_string);
         $today = date('Y-m-d');
-        if (strtotime ($today) > (strtotime ($date) + $order_period) ) // past 7 days
-        {
-            continue;
+        if (strtotime ($today) > (strtotime($date) + $order_period) ) { // past 7 days
+            return;
         }
 
-        $order_id = $fields [0];
+        $order_id = $fields[0];
         $mgn_order_id = '';
-        $express_info = $fields [6];
+        $express_info = $fields[6];
 
         $express = 0;
         if ((strpos($express_info,'Expedited'))==true) {
              $express = 1;
         }
 
-        $full_name = $fields [8] ;
-        $full_adress = $fields [9] . ' ' . $fields [10];
+        $full_name = $fields[8] ;
+        $full_adress = $fields[9] . ' ' . $fields[10];
 
         if($fields [14]=='Canada'){
             $country='CA';

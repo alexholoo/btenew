@@ -17,7 +17,7 @@ class OrderSerialNumberTest extends TestCase
             ->method('getLastInsertId')
             ->will($this->returnValue($rand));
 
-        $seq = orderSeqNum->get('ABC');
+        $seq = $orderSeqNum->get('ABC');
         $this->assertRegExp('/ABC-\d{6}-\d{5}/', $seq);
     }
 }
