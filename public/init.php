@@ -1,6 +1,10 @@
 <?php
 
 error_reporting(E_ALL);
+ini_set("display_errors", "off");
+register_shutdown_function("checkForFatal");
+set_error_handler("errorHandler");
+set_exception_handler("exceptionHandler");
 
 date_default_timezone_set("America/Toronto");
 
@@ -44,4 +48,64 @@ try {
 } catch (Exception $e) {
 	echo $e->getMessage(), '<br>';
 	echo nl2br(htmlentities($e->getTraceAsString()));
+}
+
+// error logger
+//
+function logError($msg)   { trigger_error($msg, E_USER_ERROR); }
+function logWarning($msg) { trigger_error($msg, E_USER_WARNING); }
+function logNotice($msg)  { trigger_error($msg, E_USER_NOTICE); }
+
+function errorHandler($num, $str, $file, $line, $context = null)
+{
+    $types = [
+        E_USER_ERROR => "Error: ",
+        E_USER_WARNING => "Warning: ",
+        E_USER_NOTICE => "Notice: ",
+
+        E_ERROR => "ERROR: ",
+        E_WARNING => "WARNING: ",
+        E_NOTICE => "NOTICE: ",
+    ];
+
+    $type = "ERROR: ";
+
+    if (isset($types[$num])) {
+        $type = $types[$num];
+    }
+
+    exceptionHandler(new ErrorException($type.$str, 0, $num, $file, $line));
+}
+
+function exceptionHandler(Exception $e)
+{
+    $today = date('Y-m-d');
+
+    $filename = APP_DIR . "/logs/exception-$today.log";
+
+    $message  = date('H:i:s ').$e->getMessage() . EOL;
+    $message .= "\t";
+    $message .= str_replace('\\', '/', $e->getFile()).':'.$e->getLine().EOL;
+
+    $message .= "Backtrace:\n";
+    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+    foreach ($backtrace as $trace) {
+        $file = str_replace('\\', '/', $trace['file']);
+        $line = $trace['line'];
+        $message .= "\t$file:$line\n";
+    }
+    $message .= EOL;
+
+#   echo $message;
+
+#   file_put_contents($filename, $message, FILE_APPEND);
+    error_log($message, 3, $filename);
+}
+
+function checkForFatal()
+{
+    $error = error_get_last();
+    if ($error["type"] == E_ERROR) {
+        errorHandler($error["type"], $error["message"], $error["file"], $error["line"]);
+    }
 }
