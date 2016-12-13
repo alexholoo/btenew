@@ -59,13 +59,13 @@ function logNotice($msg)  { trigger_error($msg, E_USER_NOTICE); }
 function errorHandler($num, $str, $file, $line, $context = null)
 {
     $types = [
-        E_USER_ERROR => "Error: ",
+        E_USER_ERROR   => "Error: ",
         E_USER_WARNING => "Warning: ",
-        E_USER_NOTICE => "Notice: ",
+        E_USER_NOTICE  => "Notice: ",
 
-        E_ERROR => "ERROR: ",
-        E_WARNING => "WARNING: ",
-        E_NOTICE => "NOTICE: ",
+        E_ERROR        => "ERROR: ",
+        E_WARNING      => "WARNING: ",
+        E_NOTICE       => "NOTICE: ",
     ];
 
     $type = "ERROR: ";
@@ -77,7 +77,7 @@ function errorHandler($num, $str, $file, $line, $context = null)
     exceptionHandler(new ErrorException($type.$str, 0, $num, $file, $line));
 }
 
-function exceptionHandler(Exception $e)
+function exceptionHandler($e)
 {
     $today = date('Y-m-d');
 
