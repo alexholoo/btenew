@@ -87,17 +87,9 @@ function exceptionHandler(Exception $e)
     $message .= "\t";
     $message .= str_replace('\\', '/', $e->getFile()).':'.$e->getLine().EOL;
 
-    $message .= "Backtrace:\n";
-    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-    foreach ($backtrace as $trace) {
-        if (isset($trace['file'])) {
-            $file = str_replace('\\', '/', $trace['file']);
-            $line = $trace['line'];
-            $message .= "\t$file:$line\n";
-        } else {
-            $message .= print_r($trace, true);
-        }
-    }
+#   $message .= "Backtrace:\n";
+#   $message .= str_replace('\\', '/', $e->getTraceAsString()).EOL;
+
     $message .= EOL;
 
 #   echo $message;
