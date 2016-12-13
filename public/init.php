@@ -90,9 +90,13 @@ function exceptionHandler(Exception $e)
     $message .= "Backtrace:\n";
     $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
     foreach ($backtrace as $trace) {
-        $file = str_replace('\\', '/', $trace['file']);
-        $line = $trace['line'];
-        $message .= "\t$file:$line\n";
+        if (isset($trace['file'])) {
+            $file = str_replace('\\', '/', $trace['file']);
+            $line = $trace['line'];
+            $message .= "\t$file:$line\n";
+        } else {
+            $message .= print_r($trace, true);
+        }
     }
     $message .= EOL;
 
