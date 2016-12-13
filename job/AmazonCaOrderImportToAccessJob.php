@@ -30,8 +30,9 @@ class AmazonCaOrderImportToAccessJob extends Job
             $qty         = $order['qty'];
             $supplier    = $this->getSupplier($order['sku']);
             $ponum       = ' ';
-            $notes       = $order['notes'] .' - '. $order['dimension'];
             $mfrpn       = $this->getMfrPartNum($order['sku']);
+            $notes       = $order['notes'];
+            $dimension   = $order['dimension'];
 
             $sql = "SELECT * FROM Amazon_CA WHERE [order_id]='$orderid'";
             $result = $accdb->query($sql)->fetch();
@@ -65,7 +66,7 @@ class AmazonCaOrderImportToAccessJob extends Job
                         '$ponum',
                         '$notes',
                         '',
-                        ''
+                        '$dimension'
                     )";
 
             $ret = $accdb->exec($sql);
@@ -105,7 +106,7 @@ class AmazonCaOrderImportToAccessJob extends Job
             return [];
         }
 
-        $this->log("Loading $file)";
+        $this->log("Loading $file");
 
         fgetcsv($fh); // skip the first line
 
