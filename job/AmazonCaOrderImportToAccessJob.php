@@ -74,7 +74,7 @@ class AmazonCaOrderImportToAccessJob extends Job
                 print_r($this->accdb->errorInfo());
             }
 
-            echo $orderid, EOL;
+            $this->log($orderid);
         }
     }
 
@@ -101,11 +101,11 @@ class AmazonCaOrderImportToAccessJob extends Job
         }
 
         if (($fh = @fopen($file, 'rb')) === false) {
-            echo "Failed to open file: $file\n";
+            $this->log("Failed to open file: $file");
             return [];
         }
 
-        echo "Loading $file\n";
+        $this->log("Loading $file)";
 
         fgetcsv($fh); // skip the first line
 
