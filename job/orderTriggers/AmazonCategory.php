@@ -32,7 +32,7 @@ class AmazonCategory extends Job
                 continue; // go to next SKU
             }
 
-            if (this->skuCategoryExists($sku)) {
+            if ($this->skuCategoryExists($sku)) {
                 continue; // go to next SKU
             }
 
