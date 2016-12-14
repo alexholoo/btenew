@@ -72,7 +72,7 @@ class AmazonCaOrderImportToAccessJob extends Job
             $ret = $accdb->exec($sql);
 
             if (!$ret) {
-                print_r($this->accdb->errorInfo());
+                $this->log($this->accdb->errorInfo());
             }
 
             $this->log($orderid);
