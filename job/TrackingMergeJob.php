@@ -21,10 +21,11 @@ class TrackingMergeJob extends Job
             $driver->setMasterShipment($master);
             $driver->setAmazonCAshipment($amazonCA);
             $driver->setAmazonUSshipment($amazonUS);
+           #$driver->download();
             $driver->merge();
         }
 
-        $master->compack();
+        //$master->compack();
     }
 
     protected function getTrackingDrivers()
