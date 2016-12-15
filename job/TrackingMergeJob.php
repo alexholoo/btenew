@@ -24,7 +24,7 @@ class TrackingMergeJob extends Job
             $driver->merge();
         }
 
-        $master->compact();
+        $master->compack();
     }
 
     protected function getTrackingDrivers()
