@@ -16,7 +16,7 @@ app/config/ftp.php
 job/config/config.php
 vendor/
 job/tasks.log
-*.tmp
+tmp/*
 zzz.log
 filelist
 tt.php
