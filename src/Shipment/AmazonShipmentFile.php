@@ -61,12 +61,8 @@ class AmazonShipmentFile
     public function write($data)
     {
         if (!$this->handle) {
-            if (file_exists($this->filename)) {
-                $this->handle = fopen($this->filename, 'a');
-            } else {
-                $this->handle = fopen($this->filename, 'w');
-                fputcsv($this->handle, $this->csvtitle, $this->delimiter);
-            }
+            $this->handle = fopen($this->filename, 'w');
+            fputcsv($this->handle, $this->csvtitle, $this->delimiter);
         }
 
         if (count($data) != count($this->csvtitle)) {
