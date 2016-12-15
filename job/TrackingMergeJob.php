@@ -13,9 +13,9 @@ class TrackingMergeJob extends Job
 
         $drivers = $this->getTrackingDrivers();
 
-        $master   = new MasterShipmentFile();      // ?? namespace?
-        $amazonCA = new AmazonShipmentFile('CA');  // ?? namespace?
-        $amazonUS = new AmazonShipmentFile('US');  // ?? namespace?
+        $master   = new MasterShipmentFile();
+        $amazonCA = new AmazonShipmentFile('CA');
+        $amazonUS = new AmazonShipmentFile('US');
 
         foreach ($drivers as $driver) {
             $driver->setMasterShipment($master);
