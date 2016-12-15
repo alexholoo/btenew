@@ -2,6 +2,9 @@
 
 include 'classes/Job.php';
 
+use Shipment\MasterShipmentFile;
+use Shipment\AmazonShipmentFile;
+
 class TrackingMergeJob extends Job
 {
     public function run($argv = [])
