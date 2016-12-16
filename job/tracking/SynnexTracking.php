@@ -8,7 +8,7 @@ class SynnexTracking extends Job
 
     public function getStatus()
     {
-        return 1; // 1-enabled, 2-disabled
+        return 0; // 1-enabled, 2-disabled
     }
 
     public function setAmazonCAshipment($amazonCAshipment)
@@ -33,6 +33,8 @@ class SynnexTracking extends Job
 
     protected function mergeFile($xml)
     {
+        $this->log("=> ". __CLASS__);
+
         //$xml = simplexml_load_file($filename);
 
         foreach ($xml->ShipNotice3D as $request) {

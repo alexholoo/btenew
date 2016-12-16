@@ -28,6 +28,8 @@ class DHTracking extends Job
 
     public function merge()
     {
+        $this->log("=> ". __CLASS__);
+
         #$columns = [
         #    // 0,    1,             2,           3,              4,          5,
         #    [ 'H1', 'OrderNo',     'InvoiceNo', 'InvoiceTotal' ],
@@ -37,9 +39,9 @@ class DHTracking extends Job
 
         $filename = 'w:/data/csv/DH-TRACKING';
 
-        if (gethostname() == 'BTELENOVO') {
-            $filename = 'E:/BTE/shipping/DH-TRACKING';
-        }
+        #if (gethostname() == 'BTELENOVO') {
+        #    $filename = 'E:/BTE/shipping/DH-TRACKING';
+        #}
 
         $fmtdate = function($str) {
             return substr($str, 4).'-'.substr($str, 0, 2).'-'.substr($str, 2, 2);

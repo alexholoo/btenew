@@ -28,11 +28,13 @@ class CanadaPostTracking extends Job
 
     public function merge()
     {
+        $this->log("=> ". __CLASS__);
+
         $filename = 'w:/out/shipping/cpc.xml';
 
-        if (gethostname() == 'BTELENOVO') {
-            $filename = 'E:/BTE/shipping/cpc.xml';
-        }
+        #if (gethostname() == 'BTELENOVO') {
+        #    $filename = 'E:/BTE/shipping/cpc.xml';
+        #}
 
         $xml = simplexml_load_file($filename);
 
