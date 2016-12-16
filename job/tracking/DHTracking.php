@@ -1,6 +1,6 @@
 <?php
 
-class DHTracking extends Job
+class DH_Tracking extends Job
 {
     protected $masterShipment;
     protected $amazonCAshipment;

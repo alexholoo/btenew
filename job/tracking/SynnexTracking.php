@@ -1,6 +1,6 @@
 <?php
 
-class SynnexTracking extends Job
+class Synnex_Tracking extends Job
 {
     protected $masterShipment;
     protected $amazonCAshipment;

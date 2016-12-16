@@ -1,6 +1,6 @@
 <?php
 
-class CanadaPostTracking extends Job
+class CanadaPost_Tracking extends Job
 {
     protected $masterShipment;
     protected $amazonCAshipment;

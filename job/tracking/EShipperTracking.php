@@ -1,6 +1,6 @@
 <?php
 
-class EShipperTracking extends Job
+class EShipper_Tracking extends Job
 {
     protected $masterShipment;
     protected $amazonCAshipment;

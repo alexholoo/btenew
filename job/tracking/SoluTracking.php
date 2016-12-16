@@ -1,6 +1,6 @@
 <?php
 
-class SoluTracking extends Job
+class Solu_Tracking extends Job
 {
     protected $masterShipment;
     protected $amazonCAshipment;

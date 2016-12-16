@@ -1,6 +1,6 @@
 <?php
 
-class TNTTracking extends Job
+class TNT_Tracking extends Job
 {
     protected $masterShipment;
     protected $amazonCAshipment;
