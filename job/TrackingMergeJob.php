@@ -11,43 +11,46 @@ class TrackingMergeJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $drivers = $this->getTrackingDrivers();
+        $jobs = $this->getTrackingJobs();
 
         $master   = new MasterShipmentFile();
         $amazonCA = new AmazonShipmentFile('CA');
         $amazonUS = new AmazonShipmentFile('US');
 
-        foreach ($drivers as $driver) {
-            $driver->setMasterShipment($master);
-            $driver->setAmazonCAshipment($amazonCA);
-            $driver->setAmazonUSshipment($amazonUS);
-           #$driver->download();
-            $driver->merge();
+        foreach ($jobs as $job) {
+            $job->setMasterShipment($master);
+            $job->setAmazonCAshipment($amazonCA);
+            $job->setAmazonUSshipment($amazonUS);
+           #$job->download();
+            $job->merge();
         }
 
         //$master->compack();
     }
 
-    protected function getTrackingDrivers()
+    protected function getTrackingJobs()
     {
-        $drivers = [];
+        $jobs = [];
+
+        // base class for all tracking job
+        include_once('tracking/Tracking.php');
 
         foreach (glob("tracking/*.php") as $filename) {
-            include $filename;
+            include_once($filename);
 
             $path = pathinfo($filename);
             $class = $path['filename'];
 
             if (class_exists($class)) {
-                $driver = new $class;
-                $status = $driver->getStatus();
+                $job = new $class;
+                $status = $job->getStatus();
                 if ($status > 0) {
-                    $drivers[] = $driver;
+                    $jobs[] = $job;
                 }
             }
         }
 
-        return $drivers;
+        return $jobs;
     }
 }
 
