@@ -1,29 +1,10 @@
 <?php
 
-class CanadaPost_Tracking extends Job
+class CanadaPost_Tracking extends TrackingJob
 {
-    protected $masterShipment;
-    protected $amazonCAshipment;
-    protected $amazonUSshipment;
-
     public function getStatus()
     {
-        return 1; // 1-enabled, 2-disabled
-    }
-
-    public function setAmazonCAshipment($amazonCAshipment)
-    {
-        $this->amazonCAshipment = $amazonCAshipment;
-    }
-
-    public function setAmazonUSshipment($amazonUSshipment)
-    {
-        $this->amazonUSshipment = $amazonUSshipment;
-    }
-
-    public function setMasterShipment($masterShipment)
-    {
-        $this->masterShipment = $masterShipment;
+        return 1; // 1-enabled, 0-disabled
     }
 
     public function merge()
