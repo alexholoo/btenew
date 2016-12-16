@@ -9,8 +9,6 @@ class CanadaPost_Tracking extends TrackingJob
 
     public function merge()
     {
-        $this->log("=> ". __CLASS__);
-
         $filename = 'w:/out/shipping/cpc.xml';
 
         #if (gethostname() == 'BTELENOVO') {

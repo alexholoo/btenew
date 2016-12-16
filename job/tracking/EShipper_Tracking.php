@@ -9,8 +9,6 @@ class EShipper_Tracking extends TrackingJob
 
     public function merge()
     {
-        $this->log("=> ". __CLASS__);
-
         $filename = 'w:/out/shipping/eshipper_shipment.csv';
 
         if (($fp = fopen($filename, 'r')) == false) {

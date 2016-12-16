@@ -9,8 +9,6 @@ class DH_Tracking extends TrackingJob
 
     public function merge()
     {
-        $this->log("=> ". __CLASS__);
-
         #$columns = [
         #    // 0,    1,             2,           3,              4,          5,
         #    [ 'H1', 'OrderNo',     'InvoiceNo', 'InvoiceTotal' ],

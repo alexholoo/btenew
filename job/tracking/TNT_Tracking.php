@@ -9,8 +9,6 @@ class TNT_Tracking extends TrackingJob
 
     public function merge()
     {
-        $this->log("=> ". __CLASS__);
-
         $filename = 'w:/out/shipping/tntshipments.csv';
 
         if (($fp = fopen($filename, 'r')) == false) {

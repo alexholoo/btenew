@@ -14,8 +14,6 @@ class Synnex_Tracking extends TrackingJob
 
     protected function mergeFile($xml)
     {
-        $this->log("=> ". __CLASS__);
-
         //$xml = simplexml_load_file($filename);
 
         foreach ($xml->ShipNotice3D as $request) {

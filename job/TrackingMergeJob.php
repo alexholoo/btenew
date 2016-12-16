@@ -18,9 +18,12 @@ class TrackingMergeJob extends Job
         $amazonUS = new AmazonShipmentFile('US');
 
         foreach ($jobs as $job) {
+            $this->log('=> ' . get_class($job));
+
             $job->setMasterShipment($master);
             $job->setAmazonCAshipment($amazonCA);
             $job->setAmazonUSshipment($amazonUS);
+
            #$job->download();
             $job->merge();
         }
