@@ -31,7 +31,7 @@ class Amazon_Tracking extends TrackingJob
 
         $api = new \AmazonFulfillmentOrderList($this->store);
 
-        $api->setStartTime(gmdate("Y-m-d\TH:i:s", time()-864000));
+        $api->setStartTime(gmdate("Y-m-d\TH:i:s", time()-3600*24*30));
         $api->setUseToken(true);
         $api->fetchOrderList();
 
