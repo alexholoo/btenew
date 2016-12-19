@@ -50,6 +50,10 @@ class Amazon_Tracking extends TrackingJob
 
             fputcsv($dropship, [ $orderId, $orderDateTime ]);
 
+            if (!isset($data['Shipments'])) {
+                continue; // not shipped yet
+            }
+
             foreach ($data['Shipments'] as $shipment) {
 
                 $shipmentStatus = $shipment['FulfillmentShipmentStatus'];
@@ -72,7 +76,7 @@ class Amazon_Tracking extends TrackingJob
     }
 }
 
-//include __DIR__ . '/../../public/init.php';
-
+//include __DIR__ . '/../public/init.php';
+//
 //$job = new Amazon_Tracking();
 //$job->download();
