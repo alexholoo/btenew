@@ -1,10 +1,14 @@
 <?php
 
 if (empty($argv[1])) {
-    exit('Missing job name');
+    exit("Missing job name\n");
 }
 
 $jobClass = $argv[1];
+
+if (!file_exists("$jobClass.php")) {
+    exit("No such job: $jobClass\n");
+}
 
 include __DIR__ . '/../public/init.php';
 
