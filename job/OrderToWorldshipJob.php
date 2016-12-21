@@ -2,6 +2,8 @@
 
 include 'classes/Job.php';
 
+use Toolkit\Utils;
+
 class OrderToWorldshipJob extends Job
 {
     public function run($args = [])
@@ -15,9 +17,9 @@ class OrderToWorldshipJob extends Job
     {
         $orders = $this->getOrders();
 
-        $out = @fopen('w:/out/shipping/UPS/worldship.csv', 'w');
+        $out = fopen('w:/out/shipping/UPS/worldship.csv', 'w');
         $title = $this->getUpsTitle();
-        fputcsv($out, $title);
+        #fputcsv($out, $title); // no title
 
         foreach ($orders as $order) {
            #$channel    = $order[0];
@@ -30,7 +32,7 @@ class OrderToWorldshipJob extends Job
             $province   = $order[8];
             $postalcode = $order[9];
             $country    = $order[10];
-            $phone      = $order[11];
+            $phone      = Utils::formatPhoneNumber($order[11]);
            #$email      = $order[12];
             $sku        = $order[13];
            #$price      = $order[14];
@@ -44,32 +46,31 @@ class OrderToWorldshipJob extends Job
 
             $data = array_combine($title, array_fill(0, count($title), ''));
 
-            $data['ShipmentInformation_ServiceType'] = 'GND';
-            $data['ShipmentInformation_BillingOption'] = 'SHP';
+            $data['Contact Name'] = $buyer;
+            $data['Company or Name'] = $buyer;
+            $data['Address 1'] = $addr1;
+            $data['Address 2'] = $addr2;
+            $data['City'] = $city;
+            $data['State/Province/Other'] = $province;
+            $data['Postal Code'] = $postalcode;
+            $data['Country'] = $country;
+            $data['Telephone'] = $phone;
+            $data['Packaging Type'] = '4'; // TODO: fix it
+            $data['Weight'] = $this->getWeight($sku);
+           #$data['Description of Goods'] = $product;
+            $data['Service'] = '03'; // 'GND';
+            $data['Reference 1'] = $orderId;
 
             if ($express) {
-                $data['ShipmentInformation_ServiceType'] = 'EX';
+                $data['Service'] = '07'; // 'EX';
             }
-
-            $data['OrderId'] = $orderId;
-            $data['ShipTo_CompanyOrName'] = $buyer;
-            $data['ShipTo_StreetAddress'] = $addr1;
-            $data['ShipTo_RoomFloorAddress2'] = $addr2;
-            $data['ShipTo_City'] = $city;
-            $data['ShipTo_State'] = $province;
-            $data['ShipTo_Country'] = $country;
-            $data['ShipTo_ZipCode'] = $postalcode;
-            $data['ShipTo_Telephone'] = $phone;
-
-            $data['Package_PackageType'] = 'CP';
-            $data['Package_Weight'] = $this->getWeight($sku);
 
             fputcsv($out, $data);
         }
 
         fclose($out);
 
-        echo count($orders), " orders imported to worldship.csv\n";
+        $this->log(count($orders). " orders imported to worldship.csv");
     }
 
     public function getOrders()
@@ -80,7 +81,7 @@ class OrderToWorldshipJob extends Job
         }
 
         if (!($in = @fopen($file, 'rb'))) {
-            echo "Failed to open file: $file\n";
+            $this->log("Failed to open file: $file");
             return;
         }
 
@@ -123,32 +124,73 @@ class OrderToWorldshipJob extends Job
     public function getUpsTitle()
     {
         return [
-            'OrderId',
-            'ShipmentInformation_ServiceType', //*
-            'ShipmentInformation_BillingOption', //*
-            'ShipmentInformation_QvnOption',
-            'ShipmentInformation_QvnShipNotification1Option',
-            'ShipmentInformation_NotificationRecipient1Type',
-            'ShipmentInformation_NotificationRecipient1FaxorEmail',
-            'ShipTo_CompanyOrName', //*
-            'ShipTo_StreetAddress', //*
-            'ShipTo_RoomFloorAddress2',
-            'ShipTo_City', //*
-            'ShipTo_State', //*
-            'ShipTo_Country', //*
-            'ShipTo_ZipCode', //*
-            'ShipTo_Telephone',
-            'ShipTo_ResidentialIndicator',
-            'Package_PackageType', //*
-            'Package_Weight', //*
-            'Package_Reference1',
-            'Package_Reference2',
-            'Package_Reference3',
-            'Package_Reference4',
-            'Package_Reference5',
-            'Package_DeclaredValueOption',
-            'Package_DeclaredValueAmount',
-            'ShipTo_LocationID'
+            'Contact Name', //*
+            'Company or Name',  //*
+            'Country',  //*
+            'Address 1',    //*
+            'Address 2',
+            'Address 3',
+            'City', //*
+            'State/Province/Other', //*
+            'Postal Code',  //*
+            'Telephone',    //*
+            'Ext',
+            'Residential Indicator',
+            'E-mail address',
+            'Packaging Type',   //*
+            'Customs Value',
+            'Weight',   //*
+            'Length',
+            'Width',
+            'Height',
+            'Unit of Measure',
+            'Description of Goods', //*
+            'Documents of No Commercial value',
+            'GNIFC (Goods not in Free Circulation)',
+            'Package Declared Value',
+            'Service',  //*
+            'Delivery Confirmation',
+            'Shipper Release/Deliver without Signature',
+            'Return of Document',
+            'Deliver on Saturday',
+            'UPS Carbon Neutral',
+            'Large Package',
+            'Additional Handling',
+            'Reference 1',
+            'Reference 2',
+            'Reference 3',
+            'E-mail Notification 1 - Address',
+            'E-mail Notification 1 - Ship',
+            'E-mail Notification 1 - Exception',
+            'E-mail Notification 1 - Delivery',
+            'E-mail Notification 2 - Address',
+            'E-mail Notification 2 - Ship',
+            'E-mail Notification 2 - Exception',
+            'E-mail Notification 2 - Delivery',
+            'E-mail Notification 3 - Address',
+            'E-mail Notification 3 - Ship',
+            'E-mail Notification 3 - Exception',
+            'E-mail Notification 3 - Delivery',
+            'E-mail Notification 4 - Address',
+            'E-mail Notification 4 - Ship',
+            'E-mail Notification 4 - Exception',
+            'E-mail Notification 4 - Delivery',
+            'E-mail Notification 5 - Address',
+            'E-mail Notification 5 - Ship',
+            'E-mail Notification 5 - Exception',
+            'E-mail Notification 5 - Delivery',
+            'E-Mail Message',
+            'E-mail Failure Address',
+            'UPS Premium Care',
+            'Location ID',
+            'Media Type',
+            'Language',
+            'Notification Address',
+            'ADL COD Value',
+            'ADL Deliver to Addressee',
+            'ADL Shipper Media Type',
+            'ADL Shipper Language',
+            'ADL Shipper Notification'
         ];
     }
 }
