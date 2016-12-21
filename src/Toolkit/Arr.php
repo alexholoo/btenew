@@ -151,9 +151,28 @@ class Arr
      * @param  array|string  $keys
      * @return array
      */
-    public static function only($array, $keys)
+    public static function only(array $array, array $keys)
     {
-        return array_intersect_key($array, array_flip((array) $keys));
+        return array_intersect_key($array, array_flip($keys));
+    }
+
+    /**
+     * Get a subset of the items from the given array.
+     *
+     *  pluck($array, array('foo', 'bar', 'baz'));
+     *  pluck($array, 'foo', 'bar', 'baz');
+     *
+     * @param  array  $array
+     * @param  array|string  $keys
+     * @return array
+     */
+    public static function pluck(array $array, $keys)
+    {
+        if (!is_array($keys)) {
+            $keys = func_get_args();
+            array_shift($keys);
+        }
+        return array_intersect_key($array, array_flip($keys));
     }
 
     /**
