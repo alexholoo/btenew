@@ -10,10 +10,11 @@ class OrderToWorldshipJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $this->importOrders();
+        $this->importOrdersCSV();
+        $this->importOrdersXML();
     }
 
-    public function importOrders()
+    protected function importOrdersCSV()
     {
         $orders = $this->getOrders();
 
@@ -73,7 +74,99 @@ class OrderToWorldshipJob extends Job
         $this->log(count($orders). " orders imported to worldship.csv");
     }
 
-    public function getOrders()
+    protected function importOrdersXML()
+    {
+        $orders = $this->getOrders();
+
+        $lines = [];
+        $lines[] = '<?xml version="1.0" encoding="UTF-16"?>';
+        $lines[] = '<Shipments xmlns="http://www.ups.com/XMLSchema/CT/WorldShip/ImpExp/ShipmentImport/v1_0_0">';
+
+        foreach ($orders as $order) {
+            $lines[] = $this->createShipment($order);
+        }
+
+        $lines[] = '</Shipments>';
+
+        file_put_contents('w:/out/shipping/UPS/worldship.xml', implode("\n", $lines));
+
+        $this->log(count($orders). " orders imported to worldship.xml");
+    }
+
+    protected function createShipment($order)
+    {
+       #$channel    = $order[0];
+       #$date       = $order[1];
+        $orderId    = $order[2];
+        $express    = $order[4];
+        $buyer      = $order[5];
+        $address    = trim($order[6]);
+        $city       = $order[7];
+        $province   = $order[8];
+        $postalcode = $order[9];
+        $country    = $order[10];
+        $phone      = Utils::formatPhoneNumber($order[11]);
+       #$email      = $order[12];
+        $sku        = $order[13];
+       #$price      = $order[14];
+       #$qty        = $order[15];
+       #$shipping   = $order[16];
+        $product    = $order[17];
+
+        $weight = $this->getWeight($sku);
+
+        $arr = explode("\n", wordwrap($address, 35, "\n"));
+        $addr1 = $arr[0];
+        $addr2 = isset($arr[1]) ? $arr[1] : '';
+
+        $lines = [];
+        $lines[] = "<Shipment>";
+        $lines[] = "    <ShipTo>";
+        $lines[] = "        <CompanyOrName>$buyer</CompanyOrName>";
+        $lines[] = "        <Attention></Attention>";
+        $lines[] = "        <Address1>$address</Address1>";
+        $lines[] = "        <CountryTerritory>$country</CountryTerritory>";
+        $lines[] = "        <PostalCode>$postalcode</PostalCode>";
+        $lines[] = "        <CityOrTown>$city</CityOrTown>";
+        $lines[] = "        <StateProvinceCounty>$province</StateProvinceCounty>";
+        $lines[] = "        <Telephone>$phone</Telephone>";
+        $lines[] = "        <UPSAccountNumber></UPSAccountNumber>";
+        $lines[] = "    </ShipTo>";
+        $lines[] = "    <ShipFrom>";
+        $lines[] = "        <CompanyOrName>BTE Computer Inc.</CompanyOrName>";
+        $lines[] = "        <Attention>Roy Zhang</Attention>";
+        $lines[] = "        <Address1>Unit 5, 270 Esna Park Dr</Address1>";
+        $lines[] = "        <CountryTerritory>CA</CountryTerritory>";
+        $lines[] = "        <PostalCode>L3R 1H3</PostalCode>";
+        $lines[] = "        <CityOrTown>Markham</CityOrTown>";
+        $lines[] = "        <StateProvinceCounty>ON</StateProvinceCounty>";
+        $lines[] = "        <Telephone></Telephone>";
+        $lines[] = "        <UPSAccountNumber></UPSAccountNumber>";
+        $lines[] = "    </ShipFrom>";
+        $lines[] = "    <ShipmentInformation>";
+        $lines[] = "        <ServiceType>GND</ServiceType>";
+        $lines[] = "        <DescriptionOfGoods>$product</DescriptionOfGoods>";
+        $lines[] = "        <GoodsNotInFreeCirculation>0</GoodsNotInFreeCirculation>";
+        $lines[] = "        <BillTransportationTo>Shipper</BillTransportationTo>";
+        $lines[] = "    </ShipmentInformation>";
+        $lines[] = "    <Packages>";
+        $lines[] = "        <Package>";
+        $lines[] = "            <PackageType>CP</PackageType>";
+        $lines[] = "            <Weight>$weight</Weight>";
+        $lines[] = "            <Length></Length>";
+        $lines[] = "            <Width></Width>";
+        $lines[] = "            <Height></Height>";
+        $lines[] = "            <ReferenceNumbers>";
+        $lines[] = "                <Reference1>$orderId</Reference1>";
+        $lines[] = "            </ReferenceNumbers>";
+        $lines[] = "        </Package>";
+        $lines[] = "    </Packages>";
+        $lines[] = "</Shipment>";
+
+        return implode("\n", $lines);
+    }
+
+    protected function getOrders()
     {
         $file = 'w:/out/shipping/all_mgn_orders.csv';
         if (gethostname() == 'BTELENOVO') {
@@ -109,7 +202,7 @@ class OrderToWorldshipJob extends Job
         return $orders;
     }
 
-    public function getWeight($sku)
+    protected function getWeight($sku)
     {
         $sql = "SELECT weight FROM master_sku_list WHERE sku='$sku'";
 
@@ -121,7 +214,7 @@ class OrderToWorldshipJob extends Job
         return '';
     }
 
-    public function getUpsTitle()
+    protected function getUpsTitle()
     {
         return [
             'Contact Name', //*
