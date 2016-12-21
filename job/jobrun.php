@@ -15,7 +15,9 @@ include __DIR__ . '/../public/init.php';
 include 'classes/Job.php';
 include "$jobClass.php";
 
-if (class_exists($jobClass)) {
-    $job = new $jobClass;
-    $job->run($argv);
+if (!class_exists($jobClass)) {
+    exit("Job class not found\n");
 }
+
+$job = new $jobClass;
+$job->run($argv);
