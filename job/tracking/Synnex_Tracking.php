@@ -1,10 +1,17 @@
 <?php
 
+use Supplier\Synnex\Ftp;
+
 class Synnex_Tracking extends TrackingJob
 {
     public function getStatus()
     {
-        return 0; // 1-enabled, 0-disabled
+        return 1; // 1-enabled, 0-disabled
+    }
+
+    public function download()
+    {
+        Ftp::getTracking();
     }
 
     public function merge()

@@ -80,6 +80,7 @@ class Ftp
         return true;
     }
 
+    // TODO: move this method to a better place, it should not be here
     public static function importTracking($file)
     {
         $fmtdate = function($date, $time) {
