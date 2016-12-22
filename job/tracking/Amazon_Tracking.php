@@ -48,6 +48,7 @@ class Amazon_Tracking extends TrackingJob
 
         foreach ($orders as $order) {
             $data = $order->getOrder();
+            //fpr($data);
 
             $orderId = $data['Details']['DisplayableOrderId'];
             $orderDateTime = $data['Details']['DisplayableOrderDateTime'];
@@ -55,13 +56,17 @@ class Amazon_Tracking extends TrackingJob
             fputcsv($dropship, [ $orderId, $orderDateTime ]);
 
             if (!isset($data['Shipments'])) {
-                continue; // not shipped yet
+                continue; // not shipped yet, or received
             }
 
             foreach ($data['Shipments'] as $shipment) {
 
                 $shipmentStatus = $shipment['FulfillmentShipmentStatus'];
                 $shippingDateTime = substr($shipment['ShippingDateTime'], 0, 10);
+
+                if ($shipmentStatus != 'SHIPPED') { // PENDING
+                    continue;
+                }
 
                 foreach ($shipment['FulfillmentShipmentPackage'] as $package) {
                     fputcsv($tracking, [
