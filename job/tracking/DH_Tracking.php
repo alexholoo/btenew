@@ -1,10 +1,17 @@
 <?php
 
+use Supplier\DH\Ftp;
+
 class DH_Tracking extends TrackingJob
 {
     public function getStatus()
     {
         return 1; // 1-enabled, 0-disabled
+    }
+
+    public function download()
+    {
+        Ftp::getTracking();
     }
 
     public function merge()

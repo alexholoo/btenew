@@ -24,11 +24,11 @@ class TrackingMergeJob extends Job
             $job->setAmazonCAshipment($amazonCA);
             $job->setAmazonUSshipment($amazonUS);
 
-           #$job->download();
+            $job->download();
             $job->merge();
         }
 
-        //$master->compack();
+        $master->compack();
     }
 
     protected function getTrackingJobs()

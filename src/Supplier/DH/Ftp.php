@@ -32,7 +32,6 @@ class Ftp
         $ftp = self::connect();
 
         if ($ftp) {
-            echo 'Downloading pricelist from DH FTP server', EOL;
             $ftp->download($remoteFile, $localFile);
             return true;
         }
@@ -42,10 +41,18 @@ class Ftp
 
     public static function getPricelist()
     {
+        echo 'Downloading pricelist from DH FTP server', EOL;
         self::download('ITEMLIST', 'E:/BTE/pricelist/DH-ITEMLIST');
     }
 
     public static function getTracking()
+    {
+        $localFile = 'E:/BTE/tracking/dh/DH-TRACKING';
+        self::download('TRACKING', $localFile);
+    }
+
+    // TODO: move this method to a better place, it should not be here
+    public static function importTracking()
     {
         #$columns = [
         #    // 0,    1,             2,           3,              4,          5,
@@ -55,8 +62,6 @@ class Ftp
         #];
 
         $localFile = 'E:/BTE/tracking/dh/DH-TRACKING';
-
-        self::download('TRACKING', $localFile);
 
         $fmtdate = function($str) {
             return substr($str, 4).'-'.substr($str, 0, 2).'-'.substr($str, 2, 2);

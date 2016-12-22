@@ -4,7 +4,7 @@ class Amazon_Tracking extends TrackingJob
 {
     public function getStatus()
     {
-        return 0; // 1-enabled, 0-disabled
+        return 1; // 1-enabled, 0-disabled
     }
 
     public function merge()
@@ -26,6 +26,10 @@ class Amazon_Tracking extends TrackingJob
 
     public function downloadTracking()
     {
+        if (file_exists($this->tracking) && time() - filemtime($this->tracking) < 3600) {
+            return;
+        }
+
         $dropship = fopen($this->dropship, 'w');
         $tracking = fopen($this->tracking, 'w');
 
