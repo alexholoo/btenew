@@ -82,39 +82,6 @@ class Utils
         error_log($text, 3, $filename);
     }
 
-    public static function renderView($__file, $__data)
-    {
-        ob_start();
-        extract($__data);
-        include("views/$__file.tpl");
-        $content = ob_get_contents();
-        ob_end_clean();
-        return $content;
-    }
-
-    public static function render($__file, $__data, $__layout = '')
-    {
-        $content = renderView($__file, $__data);
-        if (empty($__layout))
-            $__layout = 'layout';
-    //  extract($__data);
-        include("views/$__layout.tpl");
-    }
-
-    public static function template($__file, $__data, $__layout = '')
-    {
-        ob_start();
-        extract($__data);
-        include("views/$__file.tpl");
-        $content = ob_get_contents();
-        ob_end_clean();
-
-        if (empty($__layout)) {
-            $__layout = 'layout';
-        }
-        include("views/$__layout.tpl");
-    }
-
     public static function formatXml($xml)
     {
         $dom = new \DOMDocument('1.0');
@@ -123,6 +90,25 @@ class Utils
         $dom->loadXML($xml);
         $xml = $dom->saveXML();
         return $xml;
+    }
+
+    /**
+     * archiveFiles('../app/logs/*.xml');
+     */
+    public static function archiveFiles($pattern)
+    {
+        $files = glob($pattern);
+
+        foreach ($files as $file) {
+            $date = date('Y-m-d', filemtime($file));
+            $dir = dirname($file).'/archive/'.$date;
+
+            if (!file_exists($dir)) {
+                @mkdir($dir, 0777, true);
+            }
+
+            rename($file, $dir.'/'.basename($file));
+        }
     }
 
     /**
