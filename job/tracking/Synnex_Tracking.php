@@ -6,11 +6,12 @@ class Synnex_Tracking extends TrackingJob
 {
     public function getStatus()
     {
-        return 0; // 1-enabled, 0-disabled
+        return 1; // 1-enabled, 0-disabled
     }
 
     public function download()
     {
+        // Tracking is saved in "E:/BTE/tracking/synnex/*.xml";
         Ftp::getTracking();
     }
 
@@ -107,7 +108,7 @@ class Synnex_Tracking extends TrackingJob
 
     protected function mergeFiles()
     {
-        $filename = 'E:/BTE/tracking/synnex-master-shipment.xml';
+        $filename = 'E:/BTE/tracking/synnex/synnex-master-shipment.xml';
         $out = fopen($filename, 'w');
 
         fwrite($out, '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>');
@@ -116,8 +117,9 @@ class Synnex_Tracking extends TrackingJob
 
        #$today = date('Ymd');
        #$files = glob("W:/data/csv/amazon/synnex-tracking/$today*_BTE_COMPUTER_856.xml");
+       #$files = glob('w:/data/csv/amazon/synnex-tracking/*_BTE_COMPUTER_856.xml');
 
-        $files = glob('w:/data/csv/amazon/synnex-tracking/*_BTE_COMPUTER_856.xml');
+        $files = glob('E:/BTE/tracking/synnex/*_BTE_COMPUTER_856.xml');
         foreach($files as $file) {
             // echo $file, EOL;
 

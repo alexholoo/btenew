@@ -72,8 +72,9 @@ class Ftp
 
                 $localFile = "E:/BTE/tracking/synnex/$file";
                 $ftp->download($file, $localFile);
+                #$ftp->deleteFile($file); // TODO; enable this
 
-                self::importTracking($localFile);
+                //self::importTracking($localFile);
             }
         }
 
