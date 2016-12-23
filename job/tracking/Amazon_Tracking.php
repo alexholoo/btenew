@@ -9,18 +9,62 @@ class Amazon_Tracking extends TrackingJob
 
     public function merge()
     {
+        $this->tracking = 'E:/BTE/tracking/amazon/amazon_ca_dropship_tracking.csv';
+        $this->mergeFile('Canada');
+
+        $this->tracking = 'E:/BTE/tracking/amazon/amazon_us_dropship_tracking.csv';
+        $this->mergeFile('United States');
+    }
+
+    public function mergeFile($site)
+    {
+        if (($fp = fopen($this->tracking, 'r')) == false) {
+            return;
+        }
+
+        while (($fields = fgetcsv($fp))) {
+            $orderId = $fields[0];
+            $orderItemId = '';
+            $quantity = '';
+            $shipDate = $fields[4];
+            $carrierCode = $fields[3];
+            $carrierName = '';
+            $trackingNumber = $fields[2];
+            $shipMethod = '';
+            $fullAddress = '';
+
+            $this->log("\t$shipDate\t$orderId\t$trackingNumber");
+
+            if ($this->masterShipment) {
+                $row = [
+                    $orderId,
+                    $orderItemId,
+                    $quantity,
+                    $shipDate,
+                    $carrierCode,
+                    $carrierName,
+                    $trackingNumber,
+                    $shipMethod,
+                    $fullAddress,
+                    $site
+                ];
+                $this->masterShipment->write($row);
+            }
+        }
+
+        fclose($fp);
     }
 
     public function download()
     {
         $this->store = 'bte-amazon-ca';
-        $this->dropship = 'E:/BTE/tracking/amazon_ca_dropship.csv';
-        $this->tracking = 'E:/BTE/tracking/amazon_ca_dropship_tracking.csv';
+        $this->dropship = 'E:/BTE/tracking/amazon/amazon_ca_dropship.csv';
+        $this->tracking = 'E:/BTE/tracking/amazon/amazon_ca_dropship_tracking.csv';
         $this->downloadTracking();
 
         $this->store = 'bte-amazon-us';
-        $this->dropship = 'E:/BTE/tracking/amazon_us_dropship.csv';
-        $this->tracking = 'E:/BTE/tracking/amazon_us_dropship_tracking.csv';
+        $this->dropship = 'E:/BTE/tracking/amazon/amazon_us_dropship.csv';
+        $this->tracking = 'E:/BTE/tracking/amazon/amazon_us_dropship_tracking.csv';
         $this->downloadTracking();
     }
 
