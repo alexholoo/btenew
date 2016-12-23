@@ -37,6 +37,8 @@ class TNT_Tracking extends TrackingJob
                 $fullAddress    = "$name, $address, $city, $state, $zip, $country";
                 $site           = 'United States';
 
+                $this->log("\t$shipDate\t$orderId\t$trackingNumber");
+
                 if ($this->amazonUSshipment) {
                     $row = [
                         $orderId,

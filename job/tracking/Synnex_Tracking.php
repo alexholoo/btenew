@@ -6,7 +6,7 @@ class Synnex_Tracking extends TrackingJob
 {
     public function getStatus()
     {
-        return 1; // 1-enabled, 0-disabled
+        return 0; // 1-enabled, 0-disabled
     }
 
     public function download()
@@ -66,6 +66,8 @@ class Synnex_Tracking extends TrackingJob
                 $fullAddress = "$name, $address, $city, $state, $zip, $country";
 
                 $site = $country;
+
+                $this->log("\t$shipDate\t$orderId\t$trackingNumber");
 
                 $row = [
                     $orderId,

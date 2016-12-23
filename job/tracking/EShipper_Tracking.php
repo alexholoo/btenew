@@ -29,6 +29,8 @@ class EShipper_Tracking extends TrackingJob
             $carrierName    = '';
             $fullAddress    = implode(', ', array_slice($fields, 13, 6));
 
+            $this->log("\t$shipDate\t$orderId\t$trackingNumber");
+
             if ($this->amazonCAshipment) {
                 $row = [
                     $orderId,

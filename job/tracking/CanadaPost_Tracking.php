@@ -47,7 +47,7 @@ class CanadaPost_Tracking extends TrackingJob
                 $shipMethod = 'BTE';
                 $site= 'Canada';
 
-                //echo "$orderId $trackingNumber\n";
+                $this->log("\t$shipDate\t$orderId\t$trackingNumber");
 
                 $row = [
                     $orderId,

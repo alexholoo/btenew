@@ -22,13 +22,15 @@ class Solu_Tracking extends TrackingJob
             $orderId = str_replace(' ', '', $fields[13]);
 
             $trackingNumber = str_replace(' ', '', $fields[1]);
-            $shipDate       = date('Y-m-d', strtotime($fields[2]));
+            $shipDate       = date('Y-m-d', strtotime(str_replace('/', '-', $fields[2])));
             $carrierCode    = $fields[3]; // i.e. DHL
             $shipMethod     = $fields[4]; // i.e. Express
             $orderItemId    = '';
             $quantity       = '';
             $carrierName    = '';
             $fullAddress    = $fields[10];
+
+            $this->log("\t$shipDate\t$orderId\t$trackingNumber");
 
             if ($this->amazonCAshipment) {
                 $row = [

@@ -45,14 +45,17 @@ class Ftp
         self::download('ITEMLIST', 'E:/BTE/pricelist/DH-ITEMLIST');
     }
 
-    public static function getTracking()
+    public static function getTracking($saveTo = null)
     {
-        $localFile = 'E:/BTE/tracking/dh/DH-TRACKING';
-        self::download('TRACKING', $localFile);
+        if (empty($saveTo)) {
+            $saveTo = 'E:/BTE/tracking/dh/DH-TRACKING';
+        }
+
+        self::download('TRACKING', $saveTo);
     }
 
     // TODO: move this method to a better place, it should not be here
-    public static function importTracking()
+    public static function importTracking($localFile = null)
     {
         #$columns = [
         #    // 0,    1,             2,           3,              4,          5,
@@ -61,7 +64,9 @@ class Ftp
         #    [ 'D2', 'ModelNo',     'Qty',       'SerialNo+',    'Price' ],
         #];
 
-        $localFile = 'E:/BTE/tracking/dh/DH-TRACKING';
+        if (empty($localFile)) {
+            $localFile = 'E:/BTE/tracking/dh/DH-TRACKING';
+        }
 
         $fmtdate = function($str) {
             return substr($str, 4).'-'.substr($str, 0, 2).'-'.substr($str, 2, 2);

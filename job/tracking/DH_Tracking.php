@@ -4,6 +4,8 @@ use Supplier\DH\Ftp;
 
 class DH_Tracking extends TrackingJob
 {
+    const TRACKING_FILE = 'E:/BTE/tracking/dh/DH-TRACKING';
+
     public function getStatus()
     {
         return 1; // 1-enabled, 0-disabled
@@ -11,7 +13,7 @@ class DH_Tracking extends TrackingJob
 
     public function download()
     {
-        Ftp::getTracking();
+        Ftp::getTracking(self::TRACKING_FILE);
     }
 
     public function merge()
@@ -23,10 +25,10 @@ class DH_Tracking extends TrackingJob
         #    [ 'D2', 'ModelNo',     'Qty',       'SerialNo+',    'Price' ],
         #];
 
-        $filename = 'w:/data/csv/DH-TRACKING';
+        $filename = self::TRACKING_FILE;
 
         #if (gethostname() == 'BTELENOVO') {
-        #    $filename = 'E:/BTE/shipping/DH-TRACKING';
+        #    $filename = 'E:/BTE/tracking/dh/DH-TRACKING';
         #}
 
         $fmtdate = function($str) {
@@ -34,7 +36,7 @@ class DH_Tracking extends TrackingJob
         };
 
         // import to dropship_tracking
-        if (($fp = fopen($filename, 'r')) !== NULL) {
+        if (($fp = fopen($filename, 'r')) == false) {
             return;
         }
 
@@ -61,6 +63,8 @@ class DH_Tracking extends TrackingJob
                     $shipMethod = 'DH_DS';
                     $fullAddress = '';
                     $site = 'Canada';
+
+                    $this->log("\t$shipDate\t$orderId\t$trackingNumber");
 
                     if ($this->amazonCAshipment) {
                         $row = [
