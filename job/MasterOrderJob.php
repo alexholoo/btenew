@@ -7,13 +7,6 @@ class MasterOrderJob extends Job
     protected $orders;
     protected $newOrders = [];
 
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
-
     public function run($argv = [])
     {
         $this->log('>> '. __CLASS__);

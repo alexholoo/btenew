@@ -1,19 +1,16 @@
 <?php
 
+include 'classes/Job.php';
+
 use Supplier\Supplier;
 use Supplier\Model\Order;
 
-class ShoppingCartCheckoutJob
+class ShoppingCartCheckoutJob extends Job
 {
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
-
     public function run($argv = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $shippingAddress = $this->getShippingAddress();
 
         $shoppingCartOrders = $this->getShoppingCartOrders();

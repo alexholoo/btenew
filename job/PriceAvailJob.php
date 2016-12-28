@@ -1,16 +1,13 @@
 <?php
 
-class PriceAvailJob
-{
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
+include 'classes/Job.php';
 
+class PriceAvailJob extends Job
+{
     public function run($argv = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $skus = $this->getSkus();
 
         foreach ($skus as $sku) {

@@ -1,18 +1,15 @@
 <?php
 
+include 'classes/Job.php';
+
 use Supplier\Supplier;
 
-class DropshipTrackingJob
+class DropshipTrackingJob extends Job
 {
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
-
     public function run($argv = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $sql = 'SELECT * FROM purchase_order_log WHERE shipped=0';
         $result = $this->db->query($sql);
 

@@ -1,16 +1,13 @@
 <?php
 
-class PricelistImportJob
-{
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
+include 'classes/Job.php';
 
+class PricelistImportJob extends Job
+{
     public function run($args = [])
     {
+        $this->log('>> '. __CLASS__);
+
         if (empty($args[1])) {
             $this->log("Missing supplier ID.");
             return;

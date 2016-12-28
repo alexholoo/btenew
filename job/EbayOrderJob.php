@@ -1,16 +1,13 @@
 <?php
 
-class EbayOrderJob
-{
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
+include 'classes/Job.php';
 
+class EbayOrderJob extends Job
+{
     public function run($argv = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $config = include __DIR__ . '/../app/config/ebay.php';
 
         // BTE - CAD

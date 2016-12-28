@@ -1,20 +1,17 @@
 <?php
 
-class AmazonBuyboxPriceJob
+include 'classes/Job.php';
+
+class AmazonBuyboxPriceJob extends Job
 {
     protected $store;
     protected $buyboxFilename;
     protected $fbaItemsFilename;
 
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
-
     public function run($argv = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $this->store = 'bte-amazon-ca';
         $this->fbaItemsFilename = 'E:/BTE/amazon-ca-fba-items.txt';
         $this->buyboxFilename = 'W:/data/csv/amazon/amazon-ca-fba-buybox.csv';

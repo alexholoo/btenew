@@ -1,18 +1,15 @@
 <?php
 
-class AmazonReportDownloadJob
+include 'classes/Job.php';
+
+class AmazonReportDownloadJob extends Job
 {
     protected $store;
 
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
-
     public function run($argv = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $today = date('Ymd');
 
         $this->store = 'bte-amazon-ca';

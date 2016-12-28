@@ -10,6 +10,8 @@ class SkuMapImportJob extends Job
 
     public function run($args = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $this->redis->set('job:sku-map-import:running', 1);
 
         $this->collectInfo();

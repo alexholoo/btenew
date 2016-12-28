@@ -1,16 +1,13 @@
 <?php
 
-class NeweggOrderJob
-{
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
+include 'classes/Job.php';
 
+class NeweggOrderJob extends Job
+{
     public function run($argv = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $client = new Marketplace\Newegg\Client('CA');
         $client->getOrders();
 

@@ -1,16 +1,13 @@
 <?php
 
-class NeweggOrderImportToAccessJob
-{
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
+include 'classes/Job.php';
 
+class NeweggOrderImportToAccessJob extends Job
+{
     public function run($argv = [])
     {
+        $this->log('>> '. __CLASS__);
+
         # W:\data\csv\newegg\canada_order\neweggcanada_master_orders.csv
         $neweggOrderReport = "E:/BTE/orders/newegg/neweggcanada_master_orders.csv";
         $this->importNeweggOrders($neweggOrderReport, 'NeweggCA');

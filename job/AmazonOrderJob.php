@@ -1,16 +1,13 @@
 <?php
 
-class AmazonOrderJob
-{
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
+include 'classes/Job.php';
 
+class AmazonOrderJob extends Job
+{
     public function run($argv = [])
     {
+        $this->log('>> '. __CLASS__);
+
         // Amazon CA
         $client = new Marketplace\Amazon\Client('bte-amazon-ca');
         $channel = 'Amazon-ACA';
