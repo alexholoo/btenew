@@ -5,13 +5,6 @@ class OverstockUpdate extends Job
     protected $priority = 20;  // 0 to disable
     protected $orders;
 
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-    }
-
     public function setOrders($orders)
     {
         $this->orders = $orders;

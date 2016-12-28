@@ -8,16 +8,6 @@ class AmazonQtyUpdate extends Job
     protected $priority = 0;  // 0 to disable
     protected $orders;
 
-    public function __construct()
-    {
-        $this->di = \Phalcon\Di::getDefault();
-        $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
-
-        $this->redis = new \Redis();
-        $this->redis->connect('127.0.0.1');
-    }
-
     public function setOrders($orders)
     {
         $this->orders = $orders;
