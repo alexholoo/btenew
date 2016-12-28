@@ -6,6 +6,8 @@ class OrderImportJob extends Job
 {
     public function run($args = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $this->importOrders();
         $this->importDropship();
     }

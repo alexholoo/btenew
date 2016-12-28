@@ -6,6 +6,8 @@ class AmazonListingImportJob extends Job
 {
     public function run($args = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $table = 'amazon_ca_listings';
         $file = 'E:/BTE/import/amazon_ca_listings.txt';
        #$file = 'w:/data/csv/amazon/amazon_ca_listings.txt';
