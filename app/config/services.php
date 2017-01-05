@@ -203,15 +203,16 @@ $di->setShared('queue', function () use ($config) {
 /**
  * Services for business logics
  */
-$di->setShared('configService',     function() { return new \Service\ConfigService(); });
-$di->setShared('productService',    function() { return new \Service\ProductService(); });
-$di->setShared('pricelistService',  function() { return new \Service\PricelistService(); });
-$di->setShared('inventoryService',  function() { return new \Service\InventoryService(); });
-$di->setShared('orderService',      function() { return new \Service\OrderService(); });
-$di->setShared('dropshipService',   function() { return new \Service\DropshipService(); });
-$di->setShared('purchaseService',   function() { return new \Service\PurchaseService(); });
-$di->setShared('shipmentService',   function() { return new \Service\ShipmentService(); });
-$di->setShared('priceAvailService', function() { return new \Service\PriceAvailService(); });
+$di->setShared('configService',       function() { return new \Service\ConfigService(); });
+$di->setShared('productService',      function() { return new \Service\ProductService(); });
+$di->setShared('pricelistService',    function() { return new \Service\PricelistService(); });
+$di->setShared('inventoryService',    function() { return new \Service\InventoryService(); });
+$di->setShared('orderService',        function() { return new \Service\OrderService(); });
+$di->setShared('dropshipService',     function() { return new \Service\DropshipService(); });
+$di->setShared('shoppingCartService', function() { return new \Service\ShoppingCartService(); });
+$di->setShared('purchaseService',     function() { return new \Service\PurchaseService(); });
+$di->setShared('shipmentService',     function() { return new \Service\ShipmentService(); });
+$di->setShared('priceAvailService',   function() { return new \Service\PriceAvailService(); });
 
 /**
  * Marketplace related services
