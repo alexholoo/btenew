@@ -177,16 +177,17 @@ class AjaxController extends ControllerBase
             try {
                 $order = $this->checkOrder($orderId);
 
-                $result = $this->db->fetchOne("SELECT order_id FROM shopping_cart WHERE order_id='$orderId'");
+                // TODO: refactor the code below
+                $inCart = $this->shoppingCartService->findOrder($orderId);
 
-                if ($result) {
-                    $this->db->execute("DELETE FROM shopping_cart WHERE order_id='$orderId'");
-                    $this->response->setJsonContent(['status' => 'OK', 'data' => 0]);
+                if ($inCart) {
+                    $affectRows = $this->shoppingCartService->removeOrder($orderId);
+                    $this->response->setJsonContent(['status' => 'OK', 'data' => 1-$affectRows]);
                 } else {
-                    $this->db->insertAsDict('shopping_cart', [
-                        'order_id' => $orderId,
-                        'sku'      => $sku,
-                        'qty'      => $order->qty
+                    $this->shoppingCartService->addOrder([
+                        'orderId' => $orderId,
+                        'sku'     => $sku,
+                        'qty'     => $order->qty
                     ]);
                     $this->response->setJsonContent(['status' => 'OK', 'data' => 1]);
                 }
