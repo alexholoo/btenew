@@ -11,17 +11,24 @@ class ShoppingCartCheckoutJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
+        // The items will be shipped to us, get BTE shipping address
         $shippingAddress = $this->getShippingAddress();
 
+        // Then get orders in shopping cart, the orders are grouped by suppliers
         $shoppingCartOrders = $this->getShoppingCartOrders();
 
+        // Export report first, so we can display it right away
+        $this->exportShoppingCartOrders($shoppingCartOrders);
+
+        // Send the orders to suppliers
         foreach ($shoppingCartOrders as $supplier => $orders) {
             $info = [];
             $info['orderId'] = $supplier.'-'.date('Ymd-Hi');
             $info['branch'] = $this->getDefaultBranch($supplier);
 
-            echo $info['orderId'], EOL;
-            print_r(array_column($orders, 'sku'));
+            $this->log($info['orderId']);
+           #$this->log(print_r(array_column($orders, 'sku'), true));
+            $this->log(print_r($orders, true));
 
             $order = new Order($info);
             $order->setAddress($shippingAddress);
@@ -33,8 +40,6 @@ class ShoppingCartCheckoutJob extends Job
 #               $this->removeOrdersInShoppingCart($orders);
             }
         }
-
-        $this->exportShoppingCartOrders($shoppingCartOrders);
     }
 
     protected function getShoppingCartOrders()
@@ -65,7 +70,7 @@ class ShoppingCartCheckoutJob extends Job
     {
         $fp = fopen('W:/out/purchasing/shopping-cart.csv', 'w');
 
-        fputcsv($fp, ['sku', 'order-id']);
+        fputcsv($fp, ['sku', 'order_id']);
 
         foreach ($shoppingCartOrders as $supplier => $orders) {
             foreach ($orders as $order) {
