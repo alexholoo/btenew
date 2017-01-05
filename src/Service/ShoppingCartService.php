@@ -6,7 +6,7 @@ use Phalcon\Di\Injectable;
 
 class ShoppingCartService extends Injectable
 {
-    public function getOrders($column = 'orderId')
+    public function getOrders($column = '')
     {
         // get all orders that are not dropshipped
         #$sql = 'SELECT sc.order_id as orderId, sc.sku, sc.qty
@@ -22,13 +22,14 @@ class ShoppingCartService extends Injectable
         $orders = $this->db->fetchAll($sql);
 
         if ($column) {
+            // $column should be 'orderId'
             return array_column($orders, $column);
         }
 
         return $orders;
     }
 
-    public function removeOrder($orderId = '')
+    public function removeOrder($orderId)
     {
         $sql = 'DELETE FROM shopping_cart';
 
@@ -39,7 +40,7 @@ class ShoppingCartService extends Injectable
         return $this->db->execute($sql);
     }
 
-    public function markOrderAsCheckedout($orderId = '')
+    public function markOrderAsCheckedout($orderId)
     {
         $sql = 'UPDATE shopping_cart SET checkedout=1 ';
 
