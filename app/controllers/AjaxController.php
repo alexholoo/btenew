@@ -175,7 +175,7 @@ class AjaxController extends ControllerBase
             $branch  = $this->request->getPost('code', null, '');
 
             try {
-                $order = $this->checkOrders($orderId);
+                $order = $this->checkOrder($orderId);
 
                 $result = $this->db->fetchOne("SELECT order_id FROM shopping_cart WHERE order_id='$orderId'");
 
