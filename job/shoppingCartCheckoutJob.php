@@ -57,7 +57,7 @@ class ShoppingCartCheckoutJob extends Job
     {
         $result = [];
 
-        $orders = $this->shoppingCartService->getOrders();
+        $orders = $this->shoppingCartService->getPendingOrders();
 
         foreach ($orders as $order) {
             $parts = explode('-', $order['sku']);
