@@ -9,7 +9,7 @@ class ShoppingCartService extends Injectable
     /**
      * Get orders in shopping cart (that created today, not checked out yet)
      */
-    public function getOrders($column = '')
+    public function getPendingOrders()
     {
         // get all orders that are not dropshipped
         #$sql = 'SELECT sc.order_id as orderId, sc.sku, sc.qty
@@ -24,12 +24,22 @@ class ShoppingCartService extends Injectable
 
         $orders = $this->db->fetchAll($sql);
 
-        if ($column) {
-            // $column should be 'orderId' if specified
-            return array_column($orders, $column);
-        }
-
         return $orders;
+    }
+
+    /**
+     * Get a list of order ids, this is useful to detect if an
+     * order is already in shopping cart
+     */
+    public function getOrders($date)
+    {
+        $sql = "SELECT order_id
+                  FROM shopping_cart
+                 WHERE DATE(createdon)>='$date'";
+
+        $orders = $this->db->fetchAll($sql);
+
+        return array_column($orders, 'order_id');
     }
 
     /**
