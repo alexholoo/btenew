@@ -39,7 +39,7 @@ class DropshipService extends Injectable
         $orderId   = $params['orderId'];
 
         $multiItemOrders = $this->getMultiItemOrders();
-        $ordersInShoppingCart = $this->getOrdersInShoppingCart();
+        $ordersInShoppingCart = $this->shoppingCartService->getOrders($date);
 
         $sql = 'SELECT * FROM ca_order_notes';
 
