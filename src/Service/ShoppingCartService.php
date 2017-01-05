@@ -33,6 +33,27 @@ class ShoppingCartService extends Injectable
     }
 
     /**
+     * Add an order to shopping cart
+     */
+    public function addOrder($order)
+    {
+        $this->db->insertAsDict('shopping_cart', [
+            'order_id' => $order['orderId'],
+            'sku'      => $order['sku'],
+            'qty'      => $order['qty']
+        ]);
+    }
+
+    /**
+     * Find an order by orderId in shopping cart
+     */
+    public function findOrder($orderId)
+    {
+        $result = $this->db->fetchOne("SELECT order_id FROM shopping_cart WHERE order_id='$orderId'");
+        return $result;
+    }
+
+    /**
      * Delete order in shopping cart
      *
      * If orderId is not specified, delete all orders.
@@ -41,7 +62,7 @@ class ShoppingCartService extends Injectable
      */
     public function removeOrder($orderId)
     {
-        $sql = 'DELETE FROM shopping_cart';
+        $sql = 'DELETE FROM shopping_cart ';
 
         $where = $this->getWhere($orderId);
 
