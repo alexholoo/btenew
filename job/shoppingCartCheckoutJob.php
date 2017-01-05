@@ -7,6 +7,13 @@ use Supplier\Model\Order;
 
 class ShoppingCartCheckoutJob extends Job
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->shoppingCartService = $this->di->get('shoppingCartService');
+    }
+
     public function run($argv = [])
     {
         $this->log('>> '. __CLASS__);
@@ -37,16 +44,20 @@ class ShoppingCartCheckoutJob extends Job
             $client = Supplier::createClient($supplier);
             if ($client) {
 #               $result = $client->purchaseOrder($order);
-#               $this->removeOrdersInShoppingCart($orders);
+
+               #don't do this, always keep orders in shopping cart
+               #$this->removeOrdersInShoppingCart($orders);
             }
         }
+
+        $this->markOrderAsCheckedout();
     }
 
     protected function getShoppingCartOrders()
     {
         $result = [];
 
-        $orders = $this->di->get('dropshipService')->getOrdersInShoppingCart(null);
+        $orders = $this->shoppingCartService->getOrders();
 
         foreach ($orders as $order) {
             $parts = explode('-', $order['sku']);
@@ -57,15 +68,25 @@ class ShoppingCartCheckoutJob extends Job
         return $result;
     }
 
-    protected function removeOrdersInShoppingCart($orders)
+    protected function markOrderAsCheckedout()
     {
-        foreach ($orders as $order) {
-            $id = $order['orderId'];
-            $sql = "DELETE FROM shopping_cart WHERE order_id='$id'";
-            $this->db->execute($sql);
-        }
+        $this->shoppingCartService->markOrderAsCheckedout(null);
     }
 
+    /**
+     * remove orders in shopping cart (DISABLED)
+     */
+    protected function removeOrdersInShoppingCart($orders)
+    {
+        #foreach ($orders as $order) {
+        #    $orderId = $order['orderId'];
+        #    $this->shoppingCartService->removeOrder($orderId);
+        #}
+    }
+
+    /**
+     * export shopping cart orders into csv file
+     */
     protected function exportShoppingCartOrders($shoppingCartOrders)
     {
         $fp = fopen('W:/out/purchasing/shopping-cart.csv', 'w');
@@ -81,6 +102,9 @@ class ShoppingCartCheckoutJob extends Job
         fclose($fp);
     }
 
+    /**
+     * get BTE shipping address from config file
+     */
     protected function getShippingAddress()
     {
         $bte = $this->di->get('config')->bte;
@@ -98,6 +122,9 @@ class ShoppingCartCheckoutJob extends Job
         return $address;
     }
 
+    /**
+     * get default branch of each supplier
+     */
     protected function getDefaultBranch($supplier)
     {
         $defaultBranches = [
