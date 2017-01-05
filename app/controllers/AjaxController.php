@@ -172,25 +172,18 @@ class AjaxController extends ControllerBase
         if ($this->request->isPost()) {
             $orderId = $this->request->getPost('order_id');
             $sku     = $this->request->getPost('sku');
-            $branch  = $this->request->getPost('code', null, '');
 
             try {
                 $order = $this->checkOrder($orderId);
 
-                // TODO: refactor the code below
-                $inCart = $this->shoppingCartService->findOrder($orderId);
+                $inCart = $this->shoppingCartService->addOrder([
+                    'orderId' => $orderId,
+                    'sku'     => $sku,
+                    'qty'     => $order->qty
+                ]);
 
-                if ($inCart) {
-                    $affectRows = $this->shoppingCartService->removeOrder($orderId);
-                    $this->response->setJsonContent(['status' => 'OK', 'data' => 1-$affectRows]);
-                } else {
-                    $this->shoppingCartService->addOrder([
-                        'orderId' => $orderId,
-                        'sku'     => $sku,
-                        'qty'     => $order->qty
-                    ]);
-                    $this->response->setJsonContent(['status' => 'OK', 'data' => 1]);
-                }
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $inCart]);
+
             } catch (\Exception $e) {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => $e->getMessage()]);
             }

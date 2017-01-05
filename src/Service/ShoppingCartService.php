@@ -44,14 +44,28 @@ class ShoppingCartService extends Injectable
 
     /**
      * Add an order to shopping cart
+     *
+     * @return 1 for order in shopping cart, 0 for not
      */
     public function addOrder($order)
     {
+        $orderId = $order['orderId'];
+
+        $inCart = $this->findOrder($orderId);
+
+        if ($inCart) {
+            $affectRows = $this->shoppingCartService->removeOrder($orderId);
+            return 1-$affectRows; // order may or may not in shopping cart
+        }
+
+        // The order is not in shopping cart, add it to shopping cart
         $this->db->insertAsDict('shopping_cart', [
             'order_id' => $order['orderId'],
             'sku'      => $order['sku'],
             'qty'      => $order['qty']
         ]);
+
+        return 1; // order is in shopping cart
     }
 
     /**
@@ -69,6 +83,7 @@ class ShoppingCartService extends Injectable
      * If orderId is not specified, delete all orders.
      *
      * It only affectes orders that created today and not checked out
+     * It cannot delete orders not today or checked out
      */
     public function removeOrder($orderId)
     {
