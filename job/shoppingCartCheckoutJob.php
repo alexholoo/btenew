@@ -94,6 +94,10 @@ class ShoppingCartCheckoutJob extends Job
             $filename = 'E:/BTE/purchase/shopping-cart.csv';
         }
 
+        if (file_exists($filename)) {
+            $this->backupFile($filename);
+        }
+
         $fp = fopen($filename, 'w');
 
         fputcsv($fp, ['order_id', 'supplier', 'sku', 'qty']);
@@ -148,6 +152,19 @@ class ShoppingCartCheckoutJob extends Job
         ];
 
         return isset($defaultBranches[$supplier]) ? $defaultBranches[$supplier] : '';
+    }
+
+    protected function backupFile($filename)
+    {
+        $path = pathinfo($filename);
+
+        $dir   = $path['dirname'];
+        $fname = $path['filename'].'-'.date('Ymd-His', filemtime($filename));
+        $ext   = $path['extension'];
+
+        $newfile = "$dir/$fname.$ext";
+
+        rename($filename, $newfile);
     }
 }
 
