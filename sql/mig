@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MYSQL="mysql -uroot --skip-column-names bte"
+MYSQL="mysql -uroot -h 127.0.0.1 --skip-column-names bte"
 
 test1=`echo "select 1" | $MYSQL`
 
