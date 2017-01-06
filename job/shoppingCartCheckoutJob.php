@@ -89,13 +89,26 @@ class ShoppingCartCheckoutJob extends Job
      */
     protected function exportShoppingCartOrders($shoppingCartOrders)
     {
-        $fp = fopen('W:/out/purchasing/shopping-cart.csv', 'w');
+        $filename = 'W:/out/purchasing/shopping-cart.csv';
+        if (gethostname() != 'BTELENOVO') {
+            $filename = 'E:/BTE/purchase/shopping-cart.csv';
+        }
 
-        fputcsv($fp, ['sku', 'order_id']);
+        $fp = fopen($filename, 'w');
+
+        fputcsv($fp, ['order_id', 'supplier', 'sku', 'qty']);
 
         foreach ($shoppingCartOrders as $supplier => $orders) {
             foreach ($orders as $order) {
-                fputcsv($fp, [ $order['sku'], $order['orderId'] ]);
+                $parts = explode('-', $order['sku'], 2);
+                $sku = $parts[1]; // prefix removed
+
+                fputcsv($fp, [
+                    $order['orderId'],
+                    $supplier,
+                    $sku,
+                    $order['qty']
+                ]);
             }
         }
 
