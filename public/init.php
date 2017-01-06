@@ -16,6 +16,7 @@ try {
      */
     define('BASE_DIR', dirname(__DIR__));
     define('APP_DIR', BASE_DIR . '/app');
+    define('PROD',    gethostname() == 'BTELENOVO');
 
     include 'trace.php';
     include 'error.php';
