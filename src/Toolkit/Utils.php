@@ -52,6 +52,29 @@ class Utils
         }
     }
 
+    /**
+     * Before:
+     *   $filename = 'E:/BTE/purchase/shopping-cart.csv';
+     * After:
+     *   $filename = 'E:/BTE/purchase/shopping-cart-20170106-141936.csv';
+     */
+    public static function backupFile($filename)
+    {
+        if (!file_exists($filename)) {
+            return;
+        }
+
+        $path = pathinfo($filename);
+
+        $dir   = $path['dirname'];
+        $fname = $path['filename'].'-'.date('Ymd-His', filemtime($filename));
+        $ext   = $path['extension'];
+
+        $newfile = "$dir/$fname.$ext";
+
+        rename($filename, $newfile);
+    }
+
     // remove the '$' in front of price
     public static function tidyPrice($price)
     {
