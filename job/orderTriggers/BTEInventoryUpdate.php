@@ -45,7 +45,7 @@ class BTEInventoryUpdate extends Job
                 $supplier = $parts[0];
 
                 if ($supplier == 'BTE') {
-                    $sql = "SELECT * FROM [bte-inventory-automated] WHERE [Part Number]='$sku'";
+                    $sql = "SELECT * FROM [bte-inventory] WHERE [Part Number]='$sku'";
                     $row = $accdb->query($sql)->fetch();
                     if (!$row) {
                         $this->log("$date $channel $orderId $sku $qty Not Found");
@@ -67,7 +67,7 @@ class BTEInventoryUpdate extends Job
 
                     $this->log("$date $channel $orderId $sku $qty => $x");
 
-                    $sql = "UPDATE [bte-inventory-automated] SET [QtyOnHand]=$x WHERE [Part Number]='$sku'";
+                    $sql = "UPDATE [bte-inventory] SET [QtyOnHand]=$x WHERE [Part Number]='$sku'";
 
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
@@ -76,7 +76,7 @@ class BTEInventoryUpdate extends Job
 
                     // Mark the item as 'out of stock' by prefixing *** the part number
                     if ($x == 0) {
-                        $sql = "UPDATE [bte-inventory-automated] SET [Part Number]='***$sku' WHERE [Part Number]='$sku'";
+                        $sql = "UPDATE [bte-inventory] SET [Part Number]='***$sku' WHERE [Part Number]='$sku'";
                         $ret = $accdb->exec($sql);
                         if (!$ret && $accdb->errorCode() != '00000') {
                             $this->log(print_r($accdb->errorInfo(), true));

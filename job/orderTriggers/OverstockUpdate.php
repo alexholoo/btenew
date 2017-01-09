@@ -39,7 +39,7 @@ class OverstockUpdate extends Job
                 $sku     = $order['sku'];
                 $qty     = $order['qty'];
 
-                $sql = "SELECT * FROM [overstock-automated] WHERE [SKU Number]='$sku'";
+                $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$sku'";
                 $row = $accdb->query($sql)->fetch();
                 if (!$row) {
                     $this->log("$date $channel $orderId $sku $qty Not Found");
@@ -61,7 +61,7 @@ class OverstockUpdate extends Job
 
                 $this->log("$date $channel $orderId $sku $qty => $x");
 
-                $sql = "UPDATE [overstock-automated] SET [Actual Quantity]=$x WHERE [SKU Number]='$sku'";
+                $sql = "UPDATE [overstock] SET [Actual Quantity]=$x WHERE [SKU Number]='$sku'";
 
                 $ret = $accdb->exec($sql);
                 if (!$ret && $accdb->errorCode() != '00000') {
@@ -70,7 +70,7 @@ class OverstockUpdate extends Job
 
                 // Mark the item as 'out of stock' by prefixing *** the part number
                 if ($x == 0) {
-                    $sql = "UPDATE [overstock-automated] SET [SKU Number]='***$sku' WHERE [SKU Number]='$sku'";
+                    $sql = "UPDATE [overstock] SET [SKU Number]='***$sku' WHERE [SKU Number]='$sku'";
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
                         $this->log(print_r($accdb->errorInfo(), true));
