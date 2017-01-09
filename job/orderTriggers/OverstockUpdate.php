@@ -106,7 +106,7 @@ class OverstockUpdate extends Job
     {
         $dbname = "z:/BTE-Price-List/bte-dataprocess-files.accdb";
 
-        if (gethostname() != 'BTELENOVO') {
+        if (!PROD) {
             $dbname = "C:/Users/BTE/Desktop/bte-dataprocess-files.accdb";
         }
 

@@ -13,7 +13,7 @@ class MasterShipmentFile
     {
         $this->filename = 'w:/out/shipping/master_shipment.txt';
 
-        if (gethostname() != 'BTELENOVO') {
+        if (!PROD) {
             $this->filename = 'E:/BTE/shipping/master_shipment.txt';
         }
 

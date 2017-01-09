@@ -11,7 +11,7 @@ class CanadaPost_Tracking extends TrackingJob
     {
         $filename = 'w:/out/shipping/cpc.xml';
 
-        #if (gethostname() == 'BTELENOVO') {
+        #if (PROD) {
         #    $filename = 'E:/BTE/shipping/cpc.xml';
         #}
 

@@ -169,7 +169,7 @@ class OrderToWorldshipJob extends Job
     protected function getOrders()
     {
         $file = 'w:/out/shipping/all_mgn_orders.csv';
-        if (gethostname() == 'BTELENOVO') {
+        if (PROD) {
             $file = 'E:/BTE/import/all_mgn_orders.csv';
         }
 

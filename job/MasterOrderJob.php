@@ -24,7 +24,7 @@ class MasterOrderJob extends Job
         $this->orders = [];
 
         $filename = 'w:/out/shipping/all_mgn_orders.csv';
-        if (gethostname() == 'BTELENOVO') {
+        if (PROD) {
             $filename = 'E:/BTE/import/all_mgn_orders.csv';
         }
 

@@ -2,6 +2,7 @@
 
 include 'classes/Job.php';
 
+use Toolkit\Utils;
 use Supplier\Supplier;
 use Supplier\Model\Order;
 
@@ -90,12 +91,12 @@ class ShoppingCartCheckoutJob extends Job
     protected function exportShoppingCartOrders($shoppingCartOrders)
     {
         $filename = 'W:/out/purchasing/shopping-cart.csv';
-        if (gethostname() != 'BTELENOVO') {
+        if (!PROD) {
             $filename = 'E:/BTE/purchase/shopping-cart.csv';
         }
 
         if (file_exists($filename)) {
-            $this->backupFile($filename);
+            Utils::backupFile($filename);
         }
 
         $fp = fopen($filename, 'w');

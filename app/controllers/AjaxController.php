@@ -56,7 +56,7 @@ class AjaxController extends ControllerBase
                 $orderInfo['shipMethod'] = $shipMethod;
                 $orderInfo['notifyEmail'] = $notifyEmail;
 
-                if (gethostname() != 'BTELENOVO') {
+                if (!PROD) {
                     throw new \Exception('Testing Only');
                 }
 

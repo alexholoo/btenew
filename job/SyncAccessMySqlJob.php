@@ -289,7 +289,7 @@ class SyncAccessMySqlJob extends Job
     {
         $dbname = "Z:/Purchasing/General Purchase.accdb";
 
-        if (gethostname() != 'BTELENOVO') {
+        if (!PROD) {
             $dbname = "C:/Users/BTE/Desktop/General Purchase.accdb";
         }
 

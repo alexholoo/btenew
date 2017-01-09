@@ -145,7 +145,7 @@ class AmazonCategoryJob extends Job
     protected function getOrders()
     {
         $filename = 'w:/out/shipping/all_mgn_orders.csv';
-        if (gethostname() == 'BTELENOVO') {
+        if (PROD) {
             $filename = 'E:/BTE/import/all_mgn_orders.csv';
         }
 

@@ -110,7 +110,7 @@ class BTEInventoryUpdate extends Job
     {
         $dbname = "z:/BTE-Price-List/bte-inventory.accdb";
 
-        if (gethostname() != 'BTELENOVO') {
+        if (!PROD) {
             $dbname = "C:/Users/BTE/Desktop/bte-inventory.accdb";
         }
 
