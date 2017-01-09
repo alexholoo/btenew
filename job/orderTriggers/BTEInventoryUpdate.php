@@ -40,7 +40,7 @@ class BTEInventoryUpdate extends Job
                 $supplier = $parts[0];
 
                 if ($supplier == 'BTE') {
-                    $sql = "SELECT QtyOnHand FROM [bte-inventory-automated] WHERE [Part Number]='$sku'";
+                    $sql = "SELECT * FROM [bte-inventory-automated] WHERE [Part Number]='$sku'";
                     $row = $accdb->query($sql)->fetch();
                     if (!$row) {
                         $this->log("$date $channel $orderId $sku $qty Not Found");
@@ -56,7 +56,7 @@ class BTEInventoryUpdate extends Job
                         $x = $qtyOnHand - $qty;
                         if ($x < 0) {
                             $x = 0;
-                            $note = "-$qtyOnHand";
+                            $change = "-$qtyOnHand oversold";
                         }
                     }
 
@@ -79,22 +79,70 @@ class BTEInventoryUpdate extends Job
                         $this->log("***$sku");
                     }
 
+                    $PartNumber    = $row['Part Number'];
+                    $Title         = $row['Title ']; // notice the trailing space
+                    $SellingCost   = $row['Selling Cost'];
+                    $Type          = $row['Type'];
+                    $FbaAllocation = $row['FBA_allocation'];
+                    $Notes         = $row['Notes'];
+                    $Condition     = $row['Condition'];
+                    $QtyOnHand     = $x; //$row['QtyOnHand'];
+                    $Weight        = $row['Weight(lbs)'] ?: 'NULL';
+                    $UPCCode       = $row['UPC Code'];
+                    $MfrName       = $row['Mfr_Name'];
+                    $MPN           = $row['MPN'];
+                    $Length        = $row['Length(inch)'] ?: 'NULL';
+                    $Width         = $row['Width(inch)'] ?: 'NULL';
+                    $Depth         = $row['Depth(inch)'] ?: 'NULL';
+                    $PurchasePrice = $row['PurchasePrice'];
+                    $total         = $row['total'];
+
                     // log the change
                     $sql = "INSERT INTO [bte-inventory-change] (
                                 [OrderDate],
                                 [Channel],
                                 [OrderNo],
-                                [SKU],
-                                [Qty],
-                                [Change]
+                                [Change],
+                                [Part Number],
+                                [Title],
+                                [Selling Cost],
+                                [Type],
+                                [FBA_allocation],
+                                [Notes],
+                                [Condition],
+                                [QtyOnHand],
+                                [Weight(lbs)],
+                                [UPC Code],
+                                [Mfr_Name],
+                                [MPN],
+                                [Length(inch)],
+                                [Width(inch)],
+                                [Depth(inch)],
+                                [PurchasePrice],
+                                [total]
                             )
                             VALUES (
                                 '$date',
                                 '$channel',
                                 '$orderId',
-                                '$sku',
-                                $qty,
-                                '$change'
+                                '$change',
+                                '$PartNumber',
+                                '$Title',
+                                 $SellingCost,
+                                '$Type',
+                                '$FbaAllocation',
+                                '$Notes',
+                                '$Condition',
+                                 $QtyOnHand,
+                                 $Weight,
+                                '$UPCCode',
+                                '$MfrName',
+                                '$MPN',
+                                 $Length,
+                                 $Width,
+                                 $Depth,
+                                '$PurchasePrice',
+                                '$total'
                             )";
 
                     $ret = $accdb->exec($sql);

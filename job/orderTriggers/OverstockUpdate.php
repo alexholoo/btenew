@@ -35,7 +35,7 @@ class OverstockUpdate extends Job
                 $sku     = $order['sku'];
                 $qty     = $order['qty'];
 
-                $sql = "SELECT [Actual Quantity] FROM [overstock-automated] WHERE [SKU Number]='$sku'";
+                $sql = "SELECT * FROM [overstock-automated] WHERE [SKU Number]='$sku'";
                 $row = $accdb->query($sql)->fetch();
                 if (!$row) {
                     $this->log("$date $channel $orderId $sku $qty Not Found");
@@ -51,7 +51,7 @@ class OverstockUpdate extends Job
                     $x = $qtyOnHand - $qty;
                     if ($x < 0) {
                         $x = 0;
-                        $note = "-$qtyOnHand";
+                        $change = "-$qtyOnHand oversold";
                     }
                 }
 
@@ -74,22 +74,52 @@ class OverstockUpdate extends Job
                     $this->log("***$sku");
                 }
 
+                $SKUNumber      = $row['SKU Number'];
+                $Title          = $row['Title'];
+                $cost           = $row['cost'] ?: 'NULL';
+                $condition      = $row['condition'];
+                $Allocation     = $row['Allocation'];
+                $ActualQuantity = $x; //$row['Actual Quantity'] ?: 'NULL';
+                $MPN            = $row['MPN'];
+                $note           = $row['note'];
+                $UPCCode        = $row['UPC Code'];
+                $Weight         = $row['Weight(lbs)'] ?: 'NULL';
+                $Reserved       = $row['Reserved'] ?: 'NULL';
+
                 // log the change
                 $sql = "INSERT INTO [overstock-change] (
                             [OrderDate],
                             [Channel],
                             [OrderNo],
-                            [SKU],
-                            [Qty],
-                            [Change]
+                            [Change],
+                            [SKU Number],
+                            [Title],
+                            [cost],
+                            [condition],
+                            [Allocation],
+                            [Actual Quantity],
+                            [MPN],
+                            [note],
+                            [UPC Code],
+                            [Weight(lbs)],
+                            [Reserved]
                         )
                         VALUES (
                             '$date',
                             '$channel',
                             '$orderId',
-                            '$sku',
-                            $qty,
-                            '$change'
+                            '$change',
+                            '$SKUNumber',
+                            '$Title',
+                             $cost,
+                            '$condition',
+                            '$Allocation',
+                             $ActualQuantity,
+                            '$MPN',
+                            '$note',
+                            '$UPCCode',
+                             $Weight,
+                             $Reserved
                         )";
 
                 $ret = $accdb->exec($sql);
