@@ -17,8 +17,12 @@ class OverstockUpdate extends Job
 
     public function run($argv = [])
     {
-        $this->log('>> '. __CLASS__);
+        if (time() < strtotime('2017-01-09 23:59:59')) {
+            $this->log('Coming soon '.__CLASS__);
+            return;
+        }
 
+        $this->log('>> '. __CLASS__);
         $this->updateOverstock();
     }
 
