@@ -86,7 +86,7 @@ class Amazon_Tracking extends TrackingJob
         $orders = $api->getFullList();
 
         if (!is_array($orders)) {
-            pr($orders);
+            //pr($orders);
             return;
         }
 

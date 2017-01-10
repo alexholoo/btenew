@@ -56,7 +56,7 @@ class AmazonBuyboxPriceJob extends Job
             $products = $api->getProduct();
 
             if (!is_array($products)) {
-                pr($products);
+                //pr($products);
                 continue;
             }
 
