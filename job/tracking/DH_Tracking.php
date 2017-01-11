@@ -27,7 +27,7 @@ class DH_Tracking extends TrackingJob
 
         $filename = self::TRACKING_FILE;
 
-        #if (PROD) {
+        #if (IS_PROD) {
         #    $filename = 'E:/BTE/tracking/dh/DH-TRACKING';
         #}
 

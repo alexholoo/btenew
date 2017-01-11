@@ -91,7 +91,7 @@ class ShoppingCartCheckoutJob extends Job
     protected function exportShoppingCartOrders($shoppingCartOrders)
     {
         $filename = 'W:/out/purchasing/shopping-cart.csv';
-        if (!PROD) {
+        if (!IS_PROD) {
             $filename = 'E:/BTE/purchase/shopping-cart.csv';
         }
 

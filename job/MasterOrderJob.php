@@ -24,7 +24,7 @@ class MasterOrderJob extends Job
         $this->orders = [];
 
         $filename = 'w:/out/shipping/all_mgn_orders.csv';
-        if (PROD) {
+        if (IS_PROD) {
             $filename = 'E:/BTE/import/all_mgn_orders.csv';
         }
 

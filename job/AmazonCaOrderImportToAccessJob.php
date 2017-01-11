@@ -83,7 +83,7 @@ class AmazonCaOrderImportToAccessJob extends Job
     {
         $dbname = "Z:/Purchasing/General Purchase.accdb";
 
-        if (!PROD) {
+        if (!IS_PROD) {
             $dbname = "C:/Users/BTE/Desktop/General Purchase.accdb";
         }
 
@@ -97,7 +97,7 @@ class AmazonCaOrderImportToAccessJob extends Job
     {
         $file = 'E:/BTE/import/ca_order_notes.csv';
 
-        if (!PROD) {
+        if (!IS_PROD) {
             $file = 'w:/out/purchasing/ca_order_notes.csv';
         }
 

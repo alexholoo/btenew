@@ -107,7 +107,7 @@ class NeweggOrderImportToAccessJob extends Job
     protected function openAccessDB()
     {
         $dbname = "Z:/Purchasing/General Purchase.accdb";
-        if (!PROD) {
+        if (!IS_PROD) {
             $dbname = "C:/Users/BTE/Desktop/General Purchase.accdb";
         }
 

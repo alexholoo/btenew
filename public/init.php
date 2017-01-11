@@ -15,8 +15,10 @@ try {
      * Define some useful constants
      */
     define('BASE_DIR', dirname(__DIR__));
-    define('APP_DIR', BASE_DIR . '/app');
-    define('PROD',    gethostname() == 'BTELENOVO');
+    define('APP_DIR',  BASE_DIR . '/app');
+    define('IS_PROD',  gethostname() == 'BTELENOVO');
+    define('IS_PHP64', PHP_INT_SIZE == 8);
+    define('IS_PHP32', PHP_INT_SIZE == 4);
 
     include 'trace.php';
     include 'error.php';

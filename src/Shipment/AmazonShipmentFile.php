@@ -14,7 +14,7 @@ class AmazonShipmentFile
         if ($country == 'CA') {
             $this->filename = 'w:/out/shipping/amazon_ca_shipment.txt';
 
-            if (!PROD) {
+            if (!IS_PROD) {
                 $this->filename = 'E:/BTE/shipping/amazon_ca_shipment.txt';
             }
 
@@ -34,7 +34,7 @@ class AmazonShipmentFile
         if ($country == 'US') {
             $this->filename = 'w:/out/shipping/amazon_us_shipment.txt';
 
-            if (!PROD) {
+            if (!IS_PROD) {
                 $this->filename = 'E:/BTE/shipping/amazon_us_shipment.txt';
             }
 

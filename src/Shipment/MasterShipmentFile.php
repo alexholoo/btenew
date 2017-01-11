@@ -13,7 +13,7 @@ class MasterShipmentFile
     {
         $this->filename = 'w:/out/shipping/master_shipment.txt';
 
-        if (!PROD) {
+        if (!IS_PROD) {
             $this->filename = 'E:/BTE/shipping/master_shipment.txt';
         }
 

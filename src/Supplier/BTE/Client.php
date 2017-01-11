@@ -49,7 +49,7 @@ class Client extends BaseClient
     {
         $dbname = "z:/BTE-Price-List/bte-inventory.accdb";
 
-        if (!PROD) {
+        if (!IS_PROD) {
             $dbname = "C:/Users/BTE/Desktop/bte-inventory.accdb";
         }
 
