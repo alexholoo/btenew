@@ -10,7 +10,7 @@ class OrderToWorldshipJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $this->importOrdersCSV();
+       #$this->importOrdersCSV();
         $this->importOrdersXML();
     }
 
@@ -76,17 +76,25 @@ class OrderToWorldshipJob extends Job
 
     protected function importOrdersXML()
     {
+    }
+
+    /**
+     * Creating a shipment will print label immediately.
+     * This is not useful for us currently, it maybe useful in the future.
+     */
+    protected function createShipments()
+    {
         $orders = $this->getOrders();
 
         $lines = [];
-        $lines[] = '<?xml version="1.0" encoding="UTF-16"?>';
-        $lines[] = '<Shipments xmlns="http://www.ups.com/XMLSchema/CT/WorldShip/ImpExp/ShipmentImport/v1_0_0">';
+        $lines[] = '<?xml version="1.0" encoding="WINDOWS-1252"?>';
+        $lines[] = '<OpenShipments xmlns="x-schema:OpenShipments.xdr">';
 
         foreach ($orders as $order) {
             $lines[] = $this->createShipment($order);
         }
 
-        $lines[] = '</Shipments>';
+        $lines[] = '</OpenShipments>';
 
         file_put_contents('w:/out/shipping/UPS/worldship.xml', implode("\n", $lines));
 
@@ -120,17 +128,16 @@ class OrderToWorldshipJob extends Job
         $addr2 = isset($arr[1]) ? $arr[1] : '';
 
         $lines = [];
-        $lines[] = "<Shipment>";
+        $lines[] = '<OpenShipment ProcessStatus="" ShipmentOption="">';
         $lines[] = "    <ShipTo>";
         $lines[] = "        <CompanyOrName>$buyer</CompanyOrName>";
-        $lines[] = "        <Attention></Attention>";
+        $lines[] = "        <Attention>$buyer</Attention>";
         $lines[] = "        <Address1>$address</Address1>";
         $lines[] = "        <CountryTerritory>$country</CountryTerritory>";
         $lines[] = "        <PostalCode>$postalcode</PostalCode>";
         $lines[] = "        <CityOrTown>$city</CityOrTown>";
         $lines[] = "        <StateProvinceCounty>$province</StateProvinceCounty>";
         $lines[] = "        <Telephone>$phone</Telephone>";
-        $lines[] = "        <UPSAccountNumber></UPSAccountNumber>";
         $lines[] = "    </ShipTo>";
         $lines[] = "    <ShipFrom>";
         $lines[] = "        <CompanyOrName>BTE Computer Inc.</CompanyOrName>";
@@ -140,28 +147,24 @@ class OrderToWorldshipJob extends Job
         $lines[] = "        <PostalCode>L3R 1H3</PostalCode>";
         $lines[] = "        <CityOrTown>Markham</CityOrTown>";
         $lines[] = "        <StateProvinceCounty>ON</StateProvinceCounty>";
-        $lines[] = "        <Telephone></Telephone>";
-        $lines[] = "        <UPSAccountNumber></UPSAccountNumber>";
+        $lines[] = "        <Telephone>905-480-0618</Telephone>";
+        $lines[] = "        <UpsAccountNumber>37Y059</UpsAccountNumber>";
         $lines[] = "    </ShipFrom>";
         $lines[] = "    <ShipmentInformation>";
-        $lines[] = "        <ServiceType>GND</ServiceType>";
+        $lines[] = "        <ServiceType>ST</ServiceType>";
         $lines[] = "        <DescriptionOfGoods>$product</DescriptionOfGoods>";
         $lines[] = "        <GoodsNotInFreeCirculation>0</GoodsNotInFreeCirculation>";
         $lines[] = "        <BillTransportationTo>Shipper</BillTransportationTo>";
         $lines[] = "    </ShipmentInformation>";
-        $lines[] = "    <Packages>";
-        $lines[] = "        <Package>";
-        $lines[] = "            <PackageType>CP</PackageType>";
-        $lines[] = "            <Weight>$weight</Weight>";
-        $lines[] = "            <Length></Length>";
-        $lines[] = "            <Width></Width>";
-        $lines[] = "            <Height></Height>";
-        $lines[] = "            <ReferenceNumbers>";
-        $lines[] = "                <Reference1>$orderId</Reference1>";
-        $lines[] = "            </ReferenceNumbers>";
-        $lines[] = "        </Package>";
-        $lines[] = "    </Packages>";
-        $lines[] = "</Shipment>";
+        $lines[] = "    <Package>";
+        $lines[] = "        <PackageType>CP</PackageType>";
+        $lines[] = "        <Weight>$weight</Weight>";
+        $lines[] = "        <Length></Length>";
+        $lines[] = "        <Width></Width>";
+        $lines[] = "        <Height></Height>";
+        $lines[] = "        <Reference1>$orderId</Reference1>";
+        $lines[] = "    </Package>";
+        $lines[] = "</OpenShipment>";
 
         return implode("\n", $lines);
     }
