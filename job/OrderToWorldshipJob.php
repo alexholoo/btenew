@@ -3,6 +3,7 @@
 include 'classes/Job.php';
 
 use Toolkit\Utils;
+use Toolkit\AmericaState;
 
 class OrderToWorldshipJob extends Job
 {
@@ -14,13 +15,14 @@ class OrderToWorldshipJob extends Job
        #$this->importOrdersXML();
     }
 
-    protected function importOrdersCSV()
+    protected function importOrdersCSV() // TODO: need a better name
     {
         $orders = $this->getOrders();
 
         $out = fopen('w:/out/shipping/UPS/worldship.csv', 'w');
-        $title = $this->getUpsTitle();
-        #fputcsv($out, $title); // no title
+
+        $title = $this->getAddressBookTitle();
+        fputcsv($out, $title); // title is required
 
         foreach ($orders as $order) {
            #$channel    = $order[0];
@@ -30,7 +32,7 @@ class OrderToWorldshipJob extends Job
             $buyer      = $order[5];
             $address    = trim($order[6]);
             $city       = $order[7];
-            $province   = $order[8];
+            $province   = AmericaState::nameToCode($order[8]);
             $postalcode = $order[9];
             $country    = $order[10];
             $phone      = Utils::formatPhoneNumber($order[11]);
@@ -41,30 +43,25 @@ class OrderToWorldshipJob extends Job
            #$shipping   = $order[16];
            #$product    = $order[17];
 
+            $data = array_combine($title, array_fill(0, count($title), ''));
+
             $arr = explode("\n", wordwrap($address, 35, "\n"));
             $addr1 = $arr[0];
             $addr2 = isset($arr[1]) ? $arr[1] : '';
 
-            $data = array_combine($title, array_fill(0, count($title), ''));
-
-            $data['Contact Name'] = $buyer;
-            $data['Company or Name'] = $buyer;
-            $data['Address 1'] = $addr1;
-            $data['Address 2'] = $addr2;
-            $data['City'] = $city;
-            $data['State/Province/Other'] = $province;
-            $data['Postal Code'] = $postalcode;
-            $data['Country'] = $country;
-            $data['Telephone'] = $phone;
-            $data['Packaging Type'] = '4'; // TODO: fix it
-            $data['Weight'] = $this->getWeight($sku);
-           #$data['Description of Goods'] = $product;
-            $data['Service'] = '03'; // 'GND';
-            $data['Reference 1'] = $orderId;
-
-            if ($express) {
-                $data['Service'] = '07'; // 'EX';
-            }
+            $data["ConsigneeName"]  = $buyer;
+            $data["ConsigneeID"]    = $orderId;
+            $data["Address"]        = $addr1;
+            $data["Address2"]       = $addr2;
+            $data["City"]           = $city;
+            $data["Province"]       = $province;
+            $data["CountryCode"]    = $country;
+            $data["PostalCode"]     = $postalcode;
+            $data["ConsigneePhone"] = $phone;
+            $data["ContactName"]    = $buyer;
+            $data["ContactEmail"]   = '';
+            $data["Instruction"]    = '';
+            $data["Reference"]      = '';
 
             fputcsv($out, $data);
         }
@@ -74,7 +71,7 @@ class OrderToWorldshipJob extends Job
         $this->log(count($orders). " orders imported to worldship.csv");
     }
 
-    protected function importOrdersXML()
+    protected function importOrdersXML() // TODO: need a better name
     {
     }
 
@@ -110,7 +107,7 @@ class OrderToWorldshipJob extends Job
         $buyer      = $order[5];
         $address    = trim($order[6]);
         $city       = $order[7];
-        $province   = $order[8];
+        $province   = AmericaState::nameToCode($order[8]);
         $postalcode = $order[9];
         $country    = $order[10];
         $phone      = Utils::formatPhoneNumber($order[11]);
@@ -217,76 +214,22 @@ class OrderToWorldshipJob extends Job
         return '';
     }
 
-    protected function getUpsTitle()
+    protected function getAddressBookTitle()
     {
         return [
-            'Contact Name', //*
-            'Company or Name',  //*
-            'Country',  //*
-            'Address 1',    //*
-            'Address 2',
-            'Address 3',
-            'City', //*
-            'State/Province/Other', //*
-            'Postal Code',  //*
-            'Telephone',    //*
-            'Ext',
-            'Residential Indicator',
-            'E-mail address',
-            'Packaging Type',   //*
-            'Customs Value',
-            'Weight',   //*
-            'Length',
-            'Width',
-            'Height',
-            'Unit of Measure',
-            'Description of Goods', //*
-            'Documents of No Commercial value',
-            'GNIFC (Goods not in Free Circulation)',
-            'Package Declared Value',
-            'Service',  //*
-            'Delivery Confirmation',
-            'Shipper Release/Deliver without Signature',
-            'Return of Document',
-            'Deliver on Saturday',
-            'UPS Carbon Neutral',
-            'Large Package',
-            'Additional Handling',
-            'Reference 1',
-            'Reference 2',
-            'Reference 3',
-            'E-mail Notification 1 - Address',
-            'E-mail Notification 1 - Ship',
-            'E-mail Notification 1 - Exception',
-            'E-mail Notification 1 - Delivery',
-            'E-mail Notification 2 - Address',
-            'E-mail Notification 2 - Ship',
-            'E-mail Notification 2 - Exception',
-            'E-mail Notification 2 - Delivery',
-            'E-mail Notification 3 - Address',
-            'E-mail Notification 3 - Ship',
-            'E-mail Notification 3 - Exception',
-            'E-mail Notification 3 - Delivery',
-            'E-mail Notification 4 - Address',
-            'E-mail Notification 4 - Ship',
-            'E-mail Notification 4 - Exception',
-            'E-mail Notification 4 - Delivery',
-            'E-mail Notification 5 - Address',
-            'E-mail Notification 5 - Ship',
-            'E-mail Notification 5 - Exception',
-            'E-mail Notification 5 - Delivery',
-            'E-Mail Message',
-            'E-mail Failure Address',
-            'UPS Premium Care',
-            'Location ID',
-            'Media Type',
-            'Language',
-            'Notification Address',
-            'ADL COD Value',
-            'ADL Deliver to Addressee',
-            'ADL Shipper Media Type',
-            'ADL Shipper Language',
-            'ADL Shipper Notification'
+            "ConsigneeName",
+            "ConsigneeID",
+            "Address",
+            "Address2",
+            "City",
+            "Province",
+            "CountryCode",
+            "PostalCode",
+            "ConsigneePhone",
+            "ContactName",
+            "ContactEmail",
+            "Instruction",
+            "Reference"
         ];
     }
 }
