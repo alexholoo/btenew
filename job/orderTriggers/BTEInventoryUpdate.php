@@ -28,8 +28,6 @@ class BTEInventoryUpdate extends Job
 
     protected function updateInventory()
     {
-        $this->log(count($this->orders). ' new orders');
-
         if (count($this->orders) > 0) {
 
             $accdb = $this->openAccessDB();
@@ -162,6 +160,8 @@ class BTEInventoryUpdate extends Job
                 }
             }
         }
+
+        $this->log(count($this->orders). ' new orders');
     }
 
     protected function openAccessDB()
