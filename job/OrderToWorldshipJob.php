@@ -10,8 +10,8 @@ class OrderToWorldshipJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-       #$this->importOrdersCSV();
-        $this->importOrdersXML();
+        $this->importOrdersCSV();
+       #$this->importOrdersXML();
     }
 
     protected function importOrdersCSV()
