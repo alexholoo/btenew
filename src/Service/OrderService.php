@@ -55,4 +55,50 @@ class OrderService extends Injectable
         // $result = $this->db->query($sql, array($orderId))->fetch();
         // return $result['status'] == 'pending';
     }
+
+    // master_order/item/shipping_address
+
+    public function getOrder($orderId)
+    {
+        $sql = "SELECT * FROM master_order WHERE order_id='$orderId'";
+        $order = $this->db->fetchOne($sql);
+
+        if ($order) {
+            unset($order['id']);
+        }
+
+        return $order;
+    }
+
+    public function getOrderItems($orderId)
+    {
+        $sql = "SELECT * FROM master_order_item WHERE order_id=?";
+        $result = $this->db->query($sql, [$orderId]);
+
+        $items = [];
+        while ($item = $result->fetch(\Phalcon\Db::FETCH_ASSOC)) {
+            $items[] = [
+               #'orderId' => $item['order_id'],
+                'sku'     => $item['sku'],
+                'price'   => $item['price'],
+                'qty'     => $item['qty'],
+            ];
+        }
+
+        return $items;
+    }
+
+    public function getShippingAddress($orderId)
+    {
+        $sql = "SELECT * FROM master_order_shipping_address WHERE order_id='$orderId'";
+        $shippingAddress = $this->db->fetchOne($sql);
+
+        if ($shippingAddress) {
+            unset($shippingAddress['id']);
+            unset($shippingAddress['date']);
+            unset($shippingAddress['order_id']);
+        }
+
+        return $shippingAddress;
+    }
 }
