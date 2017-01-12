@@ -19,7 +19,8 @@ class WorldshipAddressBookJob extends Job
     {
         $orders = $this->getOrders();
 
-        $out = fopen('w:/out/shipping/UPS/worldship.csv', 'w');
+        $filename = 'w:/out/shipping/UPS/worldship-addressbook.csv';
+        $out = fopen($filename, 'w');
 
         $title = $this->getAddressBookTitle();
         fputcsv($out, $title); // title is required
@@ -68,7 +69,7 @@ class WorldshipAddressBookJob extends Job
 
         fclose($out);
 
-        $this->log(count($orders). " orders imported to worldship.csv");
+        $this->log(count($orders). " orders imported to $filename");
     }
 
     protected function importOrdersXML() // TODO: need a better name
@@ -93,9 +94,10 @@ class WorldshipAddressBookJob extends Job
 
         $lines[] = '</OpenShipments>';
 
-        file_put_contents('w:/out/shipping/UPS/worldship.xml', implode("\n", $lines));
+        $filename = 'w:/out/shipping/UPS/worldship-addressbook.xml';
+        file_put_contents($filename, implode("\n", $lines));
 
-        $this->log(count($orders). " orders imported to worldship.xml");
+        $this->log(count($orders). " orders imported to $filename");
     }
 
     protected function createShipment($order)
