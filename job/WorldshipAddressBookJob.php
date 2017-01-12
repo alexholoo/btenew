@@ -19,7 +19,7 @@ class WorldshipAddressBookJob extends Job
     {
         $orders = $this->getOrders();
 
-        $filename = 'w:/out/shipping/UPS/worldship-addressbook.csv';
+        $filename = 'w:/out/shipping/UPS/worldship.csv';
         $out = fopen($filename, 'w');
 
         $title = $this->getAddressBookTitle();
@@ -94,7 +94,7 @@ class WorldshipAddressBookJob extends Job
 
         $lines[] = '</OpenShipments>';
 
-        $filename = 'w:/out/shipping/UPS/worldship-addressbook.xml';
+        $filename = 'w:/out/shipping/UPS/worldship.xml';
         file_put_contents($filename, implode("\n", $lines));
 
         $this->log(count($orders). " orders imported to $filename");
