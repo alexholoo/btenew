@@ -5,7 +5,7 @@ include 'classes/Job.php';
 use Toolkit\Utils;
 use Toolkit\AmericaState;
 
-class OrderToWorldshipJob extends Job
+class WorldshipAddressBookJob extends Job
 {
     public function run($args = [])
     {
@@ -236,5 +236,5 @@ class OrderToWorldshipJob extends Job
 
 include __DIR__ . '/../public/init.php';
 
-$job = new OrderToWorldshipJob();
+$job = new WorldshipAddressBookJob();
 $job->run($argv);
