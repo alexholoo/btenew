@@ -182,7 +182,7 @@ class WorldshipAddressBookJob extends Job
 
         $title = fgetcsv($in);
 
-        $start = date('Y-m-d', strtotime('-2 days'));
+        $start = date('Y-m-d', strtotime('-7 days'));
 
         $orders = [];
 
