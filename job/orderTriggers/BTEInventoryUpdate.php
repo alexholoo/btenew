@@ -50,8 +50,8 @@ class BTEInventoryUpdate extends Job
                         continue; // if not found, skip it
                     }
 
-                    if (strtolower(trim($row['Type'])) == 'self') {
-                        $this->log("$date $channel $orderId $sku $qty Ignore Type 'self'");
+                    if (strtolower(trim($row['Type'])) != 'self') {
+                        $this->log("$date $channel $orderId $sku $qty Type Not 'self'");
                         continue;
                     }
 
