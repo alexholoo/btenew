@@ -9,6 +9,7 @@ class QueryController extends ControllerBase
         $this->view->disable();
     }
 
+    // query/order?id=ORDER_NUMBER
     public function orderAction()
     {
         $orderId = $this->request->getQuery('id');
@@ -29,9 +30,10 @@ class QueryController extends ControllerBase
         return $this->response;
     }
 
+    // query/sku?id=SKU
     public function skuAction()
     {
-        $sku = $this->request->getQuery('sku');
+        $sku = $this->request->getQuery('id');
 
         $info = $this->productService->getMasterSku($sku);
 
@@ -44,6 +46,7 @@ class QueryController extends ControllerBase
         return $this->response;
     }
 
+    // query/mastersku?id=SKU
     public function masterSkuAction()
     {
         $this->dispatcher->forward([
@@ -52,13 +55,37 @@ class QueryController extends ControllerBase
         ]);
     }
 
+    // query/tracking?id=ORDER_NUMBER|TRACKING_NUMBER
     public function trackingAction()
     {
-        // service?
+        // id can be OrderNumber OR TrackingNumber
+        $id = $this->request->getQuery('id');
+
+        $info = $this->shipmentService->getMasterTracking($id);
+
+        if ($info) {
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $info]);
+        } else {
+            $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Tracking not found']);
+        }
+
+        return $this->response;
     }
 
-    public function shippingAction()
+    // query/shippingeasy?id=ORDER_NUMBER|TRACKING_NUMBER
+    public function shippingEasyAction()
     {
-        // service?
+        // id can be OrderNumber OR TrackingNumber
+        $id = $this->request->getQuery('id');
+
+        $info = $this->shipmentService->getShippingEasy($id);
+
+        if ($info) {
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $info]);
+        } else {
+            $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Tracking not found']);
+        }
+
+        return $this->response;
     }
 }
