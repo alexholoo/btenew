@@ -31,7 +31,25 @@ class QueryController extends ControllerBase
 
     public function skuAction()
     {
-        // service?
+        $sku = $this->request->getQuery('sku');
+
+        $info = $this->productService->getMasterSku($sku);
+
+        if ($info) {
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $info]);
+        } else {
+            $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'SKU not found']);
+        }
+
+        return $this->response;
+    }
+
+    public function masterSkuAction()
+    {
+        $this->dispatcher->forward([
+            'controller' => 'query',
+            'action'     => 'sku',
+        ]);
     }
 
     public function trackingAction()

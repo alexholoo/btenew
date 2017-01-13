@@ -147,4 +147,11 @@ class ProductService extends Injectable
 
         return '';
     }
+
+    public function getMasterSku($sku)
+    {
+        $sql = "SELECT * FROM master_sku_list WHERE sku='$sku'";
+        $info = $this->db->fetchOne($sql);
+        return $info;
+    }
 }
