@@ -213,6 +213,7 @@ $di->setShared('shoppingCartService', function() { return new \Service\ShoppingC
 $di->setShared('purchaseService',     function() { return new \Service\PurchaseService(); });
 $di->setShared('shipmentService',     function() { return new \Service\ShipmentService(); });
 $di->setShared('priceAvailService',   function() { return new \Service\PriceAvailService(); });
+$di->setShared('chitchatService',     function() { return new \Service\ChitchatService(); });
 
 /**
  * Marketplace related services
