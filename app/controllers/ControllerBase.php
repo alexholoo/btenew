@@ -66,6 +66,6 @@ class ControllerBase extends Controller
     {
         // $name looks like 'job/Test'
         // exec('psexec -d c:/xampp/php/php ../job/Test.php');
-        exec("psexec -d c:/xampp/php/php ../$name.php");
+        exec("psexec -d c:/xampp/php64/php ../$name.php");
     }
 }

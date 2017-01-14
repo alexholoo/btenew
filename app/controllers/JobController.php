@@ -14,6 +14,14 @@ class JobController extends ControllerBase
         echo "No job name specified";
     }
 
+    // job/run?name=JOBNAME
+    public function runAction()
+    {
+        $name = $this->request->getQuery('name');
+        $this->runJob("job/$name");
+    }
+
+    // job/test
     public function testAction()
     {
         // exec("psexec -d c:/xampp/php/php ../$name.php");
@@ -21,6 +29,7 @@ class JobController extends ControllerBase
         // exec('psexec -d c:/xampp/php/php ../job/Test.php');
     }
 
+    // job/orderimport
     public function orderImportAction()
     {
         $this->runJob('bin/scripts/ca_order_notes');
