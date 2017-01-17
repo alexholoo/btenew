@@ -46,5 +46,7 @@ return new Config([
         'filename' => 'application.log',
     ],
 
+    'shippingEasy' => include __DIR__ . '/shippingEasy.php',
+
     'xmlapi' => include __DIR__ . '/xmlapi.php',
 ]);

@@ -13,6 +13,7 @@ app/config/amazon.php
 app/config/newegg.php
 app/config/rakuten.php
 app/config/ftp.php
+app/config/shippingEasy.php
 job/config/config.php
 vendor/
 job/tasks.log
