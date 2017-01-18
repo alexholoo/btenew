@@ -61,8 +61,8 @@ class WorldshipAddressBookJob extends Job
             $data["ConsigneePhone"] = $phone;
             $data["ContactName"]    = $buyer;
             $data["ContactEmail"]   = '';
-            $data["Instruction"]    = '';
-            $data["Reference"]      = '';
+            $data["Instruction"]    = substr($orderId, -5);
+            $data["Reference"]      = $orderId;
 
             fputcsv($out, $data);
         }
