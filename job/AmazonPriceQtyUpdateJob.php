@@ -8,12 +8,14 @@ class AmazonPriceQtyUpdateJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
+        $today = date('m-d-Y');
+
         $store = 'bte-amazon-ca';
-        $filename  = '';
+        $filename = "w:/out/amazon_update/amazon_cad_update$today.txt";
         $this->uploadFeed($store, $filename);
 
         $store = 'bte-amazon-us';
-        $filename  = '';
+        $filename = "w:/out/amazon_update/amazon_usa_update$today.txt";
         $this->uploadFeed($store, $filename);
     }
 
@@ -23,10 +25,14 @@ class AmazonPriceQtyUpdateJob extends Job
             return;
         }
 
-        $this->log("Uploading feed: $file");
+        $this->log("Uploading PriceQty: $file");
 
-        $client = new Marketplace\Amazon\Client($store);
-        $client->uploadPriceQuantity($file);
+        $feed = file_get_contents($file);
+
+        $api = new AmazonFeed($store);
+        $api->setFeedType('_POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA_');
+        $api->setFeedContent($feed);
+        $api->submitFeed();
     }
 }
 

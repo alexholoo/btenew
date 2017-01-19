@@ -9,11 +9,11 @@ class AmazonShippingTemplateJob extends Job
         $this->log('>> '. __CLASS__);
 
         $store = 'bte-amazon-ca';
-        $filename  = '';
+        $filename = "w:/out/amazon_update/us-shipping-template.txt";
         $this->uploadFeed($store, $filename);
 
         $store = 'bte-amazon-us';
-        $filename  = '';
+        $filename = "w:/out/amazon_update/us-shipping-template.txt";
         $this->uploadFeed($store, $filename);
     }
 
@@ -23,10 +23,14 @@ class AmazonShippingTemplateJob extends Job
             return;
         }
 
-        $this->log("Uploading feed: $file");
+        $this->log("Uploading shipping templates: $file");
 
-        $client = new Marketplace\Amazon\Client($store);
-        $client->uploadShippingTemplate($file); // TODO
+        $feed = file_get_contents($file);
+
+        $api = new AmazonFeed($store);
+        $api->setFeedType('_POST_FLAT_FILE_INVLOADER_DATA_');
+        $api->setFeedContent($feed);
+        $api->submitFeed();
     }
 }
 
