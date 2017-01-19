@@ -2,18 +2,24 @@
 
 namespace Marketplace\Amazon\Feeds;
 
-class PriceAndQuantityUpdateFile
+class InventoryLoaderFile
 {
     protected $filename;
     protected $handle;
-    protected $headline = ['sku', 'price', 'quantity'];
-    protected $headline2 = [
+    protected $headline = [
         'sku',
+        'product-id',
+        'product-id-type',
         'price',
         'minimum-seller-allowed-price',
         'maximum-seller-allowed-price',
+        'item-condition',
         'quantity',
-        'leadtime-to-ship'
+        'add-delete',
+        'will-ship-internationally',
+        'expedited-shipping',
+        'item-note',
+        'fulfillment-center-id',
     ];
 
     public function __construct($filename)

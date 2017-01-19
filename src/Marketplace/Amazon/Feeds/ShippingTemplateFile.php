@@ -2,19 +2,11 @@
 
 namespace Marketplace\Amazon\Feeds;
 
-class PriceAndQuantityUpdateFile
+class ShippingTemplateFile
 {
     protected $filename;
     protected $handle;
-    protected $headline = ['sku', 'price', 'quantity'];
-    protected $headline2 = [
-        'sku',
-        'price',
-        'minimum-seller-allowed-price',
-        'maximum-seller-allowed-price',
-        'quantity',
-        'leadtime-to-ship'
-    ];
+    protected $headline = ['sku', 'merchant_shipping_group_name'];
 
     public function __construct($filename)
     {
