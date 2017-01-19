@@ -12,16 +12,19 @@ class AmazonPriceQtyUpdateJob extends Job
 
         $store = 'bte-amazon-ca';
         $filename = "w:/out/amazon_update/amazon_cad_update$today.txt";
+        $filename = "e:/out/amazon_update/amazon_cad_update$today.txt";
         $this->uploadFeed($store, $filename);
 
         $store = 'bte-amazon-us';
         $filename = "w:/out/amazon_update/amazon_usa_update$today.txt";
+        $filename = "e:/out/amazon_update/amazon_usa_update$today.txt";
         $this->uploadFeed($store, $filename);
     }
 
     private function uploadFeed($store, $file)
     {
         if (!file_exists($file)) {
+            $this->log("File not found: $file");
             return;
         }
 

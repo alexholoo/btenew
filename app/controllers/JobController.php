@@ -35,4 +35,14 @@ class JobController extends ControllerBase
         $this->runJob('bin/scripts/ca_order_notes');
         $this->runJob('bin/scripts/all_mgn_orders');
     }
+
+    // job/amazonupdate
+    public function amazonUpdateAction()
+    {
+        $this->runJob('job/AmazonNewItemsJob');
+        $this->runJob('job/AmazonPriceQtyUpdateJob');
+        $this->runJob('job/AmazonShippingTemplateJob');
+
+        echo "Jobs are running, please check on amazon seller center a minute later.";
+    }
 }

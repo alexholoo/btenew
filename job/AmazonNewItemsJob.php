@@ -12,16 +12,19 @@ class AmazonNewItemsJob extends Job
 
         $store = 'bte-amazon-ca';
         $filename = "w:/out/amazon_update/newitems_amazoncanada-$today.txt";
+        $filename = "e:/out/amazon_update/newitems_amazoncanada-$today.txt";
         $this->uploadFeed($store, $filename);
 
         $store = 'bte-amazon-us';
         $filename = "w:/out/amazon_update/newitems_amazonusa-$today.txt";
+        $filename = "e:/out/amazon_update/newitems_amazonusa-$today.txt";
         $this->uploadFeed($store, $filename);
     }
 
     private function uploadFeed($store, $file)
     {
         if (!file_exists($file)) {
+            $this->log("File not found: $file");
             return;
         }
 
