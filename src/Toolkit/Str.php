@@ -153,6 +153,46 @@ class Str
     }
 
     /**
+     * Determine if a string $subject contains one of the keywords
+     *
+     * @param string $keywords, "word1|word2|word3..."
+     * @param string $subject
+     */
+    public static function matchOne($keywords, $subject)
+    {
+        $arr = explode('|', $keywords);
+
+        $pattern = [];
+        foreach ($arr as $word) {
+            $pattern[] = "(\\b$word\\b)";
+        }
+
+        $pattern = implode('|', $pattern);
+
+        //echo "/$pattern/", EOL;
+        return (boolean)(preg_match("/$pattern/", $subject));
+    }
+
+    /**
+     * Determine if a string $subject contains ALL of the keywords in any order
+     *
+     * @param string $keywords, "word1&word2&word3..."
+     * @param string $subject
+     */
+    public static function matchAll($keywords, $subject)
+    {
+        $arr = explode('&', $keywords);
+
+        $pattern = '';
+        foreach ($arr as $word) {
+            $pattern .= "(?=.*\\b$word\\b)";
+        }
+
+        //echo "/^$pattern.+/", EOL;
+        return preg_match("/^$pattern.+/", $subject);
+    }
+
+    /**
      * Limit the number of characters in a string.
      *
      * @param  string  $value
