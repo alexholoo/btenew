@@ -152,7 +152,7 @@ class OverstockUpdate extends Job
         // first, check the given sku in overstock
         $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$sku'";
         $row = $accdb->query($sql)->fetch();
-        if (!$row) {
+        if ($row) {
             return $sku;
         }
 
@@ -169,7 +169,7 @@ class OverstockUpdate extends Job
         foreach ($list as $pn) {
             $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$pn'";
             $row = $accdb->query($sql)->fetch();
-            if (!$row) {
+            if ($row) {
                 $found[] = $pn;
             }
         }
