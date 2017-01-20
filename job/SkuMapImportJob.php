@@ -40,11 +40,11 @@ class SkuMapImportJob extends Job
     protected function collectAsin($file)
     {
         if (($fh = @fopen($file, 'rb')) === false) {
-            echo "Failed to open file: $file\n";
+            $this->error("Failed to open file: $file");
             return;
         }
 
-        echo "Loading $file\n";
+        $this->log("Loading $file");
 
         fgetcsv($fh); // skip the first line
 
@@ -65,11 +65,11 @@ class SkuMapImportJob extends Job
        #$file = 'w:/data/master_upc_mpn.csv';
         $file = 'E:/BTE/import/master_upc_mpn.csv';
         if (($fh = @fopen($file, 'rb')) === false) {
-            echo "Failed to open file: $file\n";
+            $this->error("Failed to open file: $file");
             return;
         }
 
-        echo "Loading $file\n";
+        $this->log("Loading $file");
 
         fgetcsv($fh); // skip the first line
 
@@ -101,7 +101,7 @@ class SkuMapImportJob extends Job
         $columns = [ 'sku', 'asin' ];
         $data    = $this->asin;
 
-        echo "Importing $table ... ";
+        $this->log("Importing $table ...");
 
         $start = microtime(true);
 
@@ -114,13 +114,13 @@ class SkuMapImportJob extends Job
                 $this->db->execute($sql);
             }
         } catch (Exception $e) {
-            echo $e->getMessage(), EOL;
+            $this->log(__METHOD__.' '.$e->getMessage());
         }
 
         $count = count($data);
         $duration = round(microtime(true) - $start, 2);
 
-        echo "$count sku-asin maps imported in $duration secs\n";
+        $this->log("$count sku-asin maps imported in $duration secs");
     }
 
     protected function importMpn()
@@ -129,7 +129,7 @@ class SkuMapImportJob extends Job
         $columns = [ 'sku', 'mpn' ];
         $data    = $this->mpn;
 
-        echo "Importing $table ... ";
+        $this->log("Importing $table ...");
 
         $start = microtime(true);
 
@@ -142,13 +142,13 @@ class SkuMapImportJob extends Job
                 $this->db->execute($sql);
             }
         } catch (Exception $e) {
-            echo $e->getMessage(), EOL;
+            $this->log(__METHOD__.' '.$e->getMessage());
         }
 
         $count = count($data);
         $duration = round(microtime(true) - $start, 2);
 
-        echo "$count sku-mpn maps imported in $duration secs\n";
+        $this->log("$count sku-mpn maps imported in $duration secs");
     }
 
     protected function importUpc()
@@ -157,7 +157,7 @@ class SkuMapImportJob extends Job
         $columns = [ 'sku', 'upc' ];
         $data    = $this->upc;
 
-        echo "Importing $table ... ";
+        $this->log("Importing $table ...");
 
         $start = microtime(true);
 
@@ -170,13 +170,13 @@ class SkuMapImportJob extends Job
                 $this->db->execute($sql);
             }
         } catch (Exception $e) {
-            echo $e->getMessage(), EOL;
+            $this->log(__METHOD__.' '.$e->getMessage());
         }
 
         $count = count($data);
         $duration = round(microtime(true) - $start, 2);
 
-        echo "$count sku-upc maps imported in $duration secs\n";
+        $this->log("$count sku-upc maps imported in $duration secs");
     }
 }
 
