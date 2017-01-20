@@ -36,13 +36,22 @@ class OverstockUpdate extends Job
                 $date    = $order['date'];
                 $channel = $order['channel'];
                 $orderId = $order['order_id'];
-                $sku     = $order['sku'];
+                $skuOrig = $order['sku'];
                 $qty     = $order['qty'];
+
+                $sku = $this->findSku($accdb, $skuOrig);
+                if (!$sku) {
+                    $this->log("$date $channel $orderId $skuOrig $qty Not overstocked");
+                    continue; // skip it if not found
+                }
+
+                $this->log("$orderId $skuOrig ==>> $sku in overstock");
 
                 $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$sku'";
                 $row = $accdb->query($sql)->fetch();
                 if (!$row) {
-                    $this->log("$date $channel $orderId $sku $qty Not Found");
+                    // This will not happen
+                    $this->log("$date $channel $orderId $sku $qty Not overstocked");
                     continue; // skip it if not found
                 }
 
@@ -134,6 +143,36 @@ class OverstockUpdate extends Job
         }
 
         $this->log(count($this->orders). ' new orders');
+    }
+
+    protected function findSku($accdb, $sku)
+    {
+        $list = $this->di->get('productService')->getSkuGroup($sku);
+
+        if (count($list) == 0) {
+            $this->error("$sku not found in master_sku_list, please check");
+            return false;
+        }
+
+        $found = [];
+
+        foreach ($list as $pn) {
+            $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$pn'";
+            $row = $accdb->query($sql)->fetch();
+            if (!$row) {
+                $found[] = $pn;
+            }
+        }
+
+        if (count($found) == 0) {
+            return false;
+        }
+
+        if (count($found) > 1) {
+            $this->error("Duplicated SKUs in overstock: ".implode(' / ', $found));
+        }
+
+        return $found[0];
     }
 
     protected function openAccessDB()
