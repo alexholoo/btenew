@@ -62,7 +62,7 @@ class CsvFileWriter
         }
 
         if (count($data) != count($this->headline)) {
-            throw new \Exception('Wrong number of elements: '. var_export($data, true));
+            throw new \Exception(get_called_class().': Wrong number of elements: '. var_export($data, true));
         }
 
         return fputcsv($this->handle, $data);

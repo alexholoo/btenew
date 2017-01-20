@@ -48,7 +48,7 @@ function exceptionHandler($e)
 
     $message .= EOL;
 
-#   echo $message;
+    echo $message;
 
 #   file_put_contents($filename, $message, FILE_APPEND);
     error_log($message, 3, $filename);
