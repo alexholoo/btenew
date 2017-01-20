@@ -9,18 +9,20 @@ class AmazonShippingTemplateJob extends Job
         $this->log('>> '. __CLASS__);
 
         $store = 'bte-amazon-ca';
-        $filename = "w:/out/amazon_update/us-shipping-template.txt";
-        $filename = "e:/out/amazon_update/us-shipping-template.txt";
+        $filename = "w:/out/amazon_update/ca-shipping-template.txt";
         $this->uploadFeed($store, $filename);
 
         $store = 'bte-amazon-us';
         $filename = "w:/out/amazon_update/us-shipping-template.txt";
-        $filename = "e:/out/amazon_update/us-shipping-template.txt";
         $this->uploadFeed($store, $filename);
     }
 
     private function uploadFeed($store, $file)
     {
+        if (!IS_PROD) {
+            throw new Exception('This script can only run on production server.');
+        }
+
         if (!file_exists($file)) {
             $this->log("File not found: $file");
             return;
