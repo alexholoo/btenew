@@ -45,7 +45,9 @@ class OverstockUpdate extends Job
                     continue; // skip it if not found
                 }
 
-                $this->log("$orderId $skuOrig ==>> $sku in overstock");
+                if ($skuOrig != $sku) {
+                    $this->log("$orderId $skuOrig ==>> $sku in overstock");
+                }
 
                 $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$sku'";
                 $row = $accdb->query($sql)->fetch();
@@ -147,6 +149,14 @@ class OverstockUpdate extends Job
 
     protected function findSku($accdb, $sku)
     {
+        // first, check the given sku in overstock
+        $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$sku'";
+        $row = $accdb->query($sql)->fetch();
+        if (!$row) {
+            return $sku;
+        }
+
+        // if not found, then check the skus in same group
         $list = $this->di->get('productService')->getSkuGroup($sku);
 
         if (count($list) == 0) {
