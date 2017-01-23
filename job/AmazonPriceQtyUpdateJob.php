@@ -38,6 +38,8 @@ class AmazonPriceQtyUpdateJob extends Job
         $api->setFeedType('_POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA_');
         $api->setFeedContent($feed);
         $api->submitFeed();
+
+        $this->log(print_r($api->getResponse(), true));
     }
 }
 
