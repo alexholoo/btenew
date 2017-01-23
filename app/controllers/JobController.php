@@ -43,6 +43,6 @@ class JobController extends ControllerBase
         $this->runJob('job/AmazonPriceQtyUpdateJob');
         $this->runJob('job/AmazonShippingTemplateJob');
 
-        echo "Jobs are running, please check on amazon seller center a minute later.";
+        echo "Jobs are running, please check on Amazon Seller Central a minute later.";
     }
 }
