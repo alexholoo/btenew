@@ -200,6 +200,12 @@ $di->setShared('queue', function () use ($config) {
     return $queue;
 });
 
+$di->setShared('redis', function() {
+    $redis = new \Redis();
+    $redis->connect('127.0.0.1');
+    return $redis;
+});
+
 /**
  * Services for business logics
  */
