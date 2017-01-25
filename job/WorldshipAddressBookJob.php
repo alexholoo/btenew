@@ -209,14 +209,9 @@ class WorldshipAddressBookJob extends Job
 
     protected function getWeight($sku)
     {
-        $sql = "SELECT weight FROM master_sku_list WHERE sku='$sku' OR recommended_pn='$sku'";
+        $result = $this->getMasterSku($sku);
 
-        $result = $this->db->fetchOne($sql);
-        if ($result) {
-            return $result['weight'];
-        }
-
-        return '';
+        return isset($result['Weight']) ? $result['Weight'] : '';
     }
 
     protected function getAddressBookTitle()
