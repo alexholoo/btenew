@@ -4,6 +4,8 @@ namespace Service;
 
 use Phalcon\Di\Injectable;
 
+// TODO: most code should move to SkuService
+
 class ProductService extends Injectable
 {
     public function isBrandBlocked($name, $marketplace = '')
@@ -150,6 +152,7 @@ class ProductService extends Injectable
 
     public function getMasterSku($sku)
     {
+        // This is not always correct, DON'T call it
         $sql = "SELECT * FROM master_sku_list WHERE sku='$sku'";
         $info = $this->db->fetchOne($sql);
         return $info;
