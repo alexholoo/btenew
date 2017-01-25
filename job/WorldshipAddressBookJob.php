@@ -64,6 +64,7 @@ class WorldshipAddressBookJob extends Job
             $data["Instruction"]    = substr($orderId, -7);
             $data["Reference"]      = $orderId;
             $data["Description"]    = $product;
+            $data["Weight"]         = $this->getWeight($sku);
 
             fputcsv($out, $data);
         }
@@ -234,6 +235,7 @@ class WorldshipAddressBookJob extends Job
             "Instruction",
             "Reference",
             "Description",
+            "Weight",
         ];
     }
 }
