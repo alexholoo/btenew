@@ -9,13 +9,14 @@ class AmazonRequestReportsJob extends Job
         $this->log('>> '. __CLASS__);
 
         $reportTypes = [
-            '_GET_MERCHANT_LISTINGS_DATA_'          => '',
-            '_GET_MERCHANT_LISTINGS_DATA_LITER_'    => '',
-            '_GET_AFN_INVENTORY_DATA_'              => '',
-            '_GET_FLAT_FILE_ORDERS_DATA_'           => '-7 days',
-            '_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_' => '-7 days',
-            '_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_' => '-7 days',
-            '_GET_REFERRAL_FEE_PREVIEW_REPORT_'     => '',
+            '_GET_MERCHANT_LISTINGS_DATA_'            => '',
+            '_GET_MERCHANT_LISTINGS_DATA_LITER_'      => '',
+            '_GET_AFN_INVENTORY_DATA_'                => '',
+            '_GET_FLAT_FILE_ORDERS_DATA_'             => '-7 days',
+            '_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_'   => '-7 days',
+            '_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_'   => '-7 days',
+            '_GET_REFERRAL_FEE_PREVIEW_REPORT_'       => '-7 days',
+            '_GET_FLAT_FILE_PAYMENT_SETTLEMENT_DATA_' => '-7 days',
         ];
 
         foreach ($reportTypes as $reportType => $startDate) {
