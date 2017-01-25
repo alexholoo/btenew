@@ -64,6 +64,7 @@ class WorldshipAddressBookJob extends Job
             $data["Instruction"]    = substr($orderId, -7);
             $data["Reference"]      = $orderId;
             $data["Description"]    = $product;
+            $data["SKU"]            = $sku;
             $data["Weight"]         = $this->getWeight($sku);
 
             fputcsv($out, $data);
@@ -208,7 +209,7 @@ class WorldshipAddressBookJob extends Job
 
     protected function getWeight($sku)
     {
-        $sql = "SELECT weight FROM master_sku_list WHERE sku='$sku'";
+        $sql = "SELECT weight FROM master_sku_list WHERE sku='$sku' OR recommended_pn='$sku'";
 
         $result = $this->db->fetchOne($sql);
         if ($result) {
@@ -235,6 +236,7 @@ class WorldshipAddressBookJob extends Job
             "Instruction",
             "Reference",
             "Description",
+            "SKU",
             "Weight",
         ];
     }
