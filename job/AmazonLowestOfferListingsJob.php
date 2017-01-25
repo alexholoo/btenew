@@ -26,7 +26,7 @@ class AmazonLowestOfferListingsJob extends Job
     private function getLowestOfferListings($store, $inputFile, $outputFile)
     {
         if (!file_exists($inputFile)) {
-            $this->log("File not found: $inputFile");
+            $this->error("File not found: $inputFile");
             return;
         }
 
