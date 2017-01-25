@@ -68,7 +68,7 @@ class Utils
 
         $dir   = $path['dirname'];
         $fname = $path['filename'].'-'.date('Ymd-His', filemtime($filename));
-        $ext   = $path['extension'];
+        $ext   = isset($path['extension']) ? $path['extension'] : '';
 
         $newfile = "$dir/$fname.$ext";
 
