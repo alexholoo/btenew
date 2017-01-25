@@ -11,10 +11,9 @@ trait JobTrait
     {
         $this->di = \Phalcon\Di::getDefault();
         $this->db = $this->di->get('db');
-        $this->queue = $this->di->get('queue');
 
-        $this->redis = new \Redis();
-        $this->redis->connect('127.0.0.1');
+        $this->queue = $this->di->get('queue');
+        $this->redis = $this->di->get('redis');
     }
 
     protected function log($line)
