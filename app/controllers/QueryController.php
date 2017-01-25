@@ -35,7 +35,7 @@ class QueryController extends ControllerBase
     {
         $sku = $this->request->getQuery('id');
 
-        $info = $this->productService->getMasterSku($sku);
+        $info = $this->skuService->getMasterSku($sku);
 
         if ($info) {
             $this->response->setJsonContent(['status' => 'OK', 'data' => $info]);
