@@ -215,6 +215,7 @@ $di->setShared('shipmentService',     function() { return new \Service\ShipmentS
 $di->setShared('priceAvailService',   function() { return new \Service\PriceAvailService(); });
 $di->setShared('chitchatService',     function() { return new \Service\ChitchatService(); });
 $di->setShared('overstockService',    function() { return new \Service\OverstockService(); });
+$di->setShared('skuService',          function() { return new \Service\SkuService(); });
 
 /**
  * Marketplace related services
