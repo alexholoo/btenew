@@ -6,8 +6,6 @@ use Phalcon\Di\Injectable;
 
 class SkuService extends Injectable
 {
-    protected $redis;
-
     public function getMasterSku($sku)
     {
         static $names = array(
@@ -43,9 +41,7 @@ class SkuService extends Injectable
             'overall_qty'
         );
 
-        $redis = $this->getRedis();
-
-        $value = json_decode($redis->get($sku));
+        $value = json_decode($this->redis->get($sku));
 
         if (count($value) == count($names)) {
             return array_combine($names, $value);
@@ -57,15 +53,5 @@ class SkuService extends Injectable
         // $sql = "SELECT * FROM master_sku_list WHERE sku='$sku'";
         // $info = $this->db->fetchOne($sql);
         // return $info;
-    }
-
-    protected function getRedis()
-    {
-        if (!$this->redis) {
-            $this->redis = new \Redis();
-            $this->redis->connect('127.0.0.1');
-        }
-
-        return $this->redis;
     }
 }
