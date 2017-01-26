@@ -31,7 +31,7 @@ class ShippingEasyImportJob extends Job
                     'OrderDate'                => $fields[2],
                     'OrderTotal'               => $fields[3],
                     'Store'                    => $fields[4],
-                    'OrderNumber'              => $fields[5],
+                    'OrderNumber'              => trim($fields[5]),
                     'ShipFrom'                 => $fields[6],
                     'ShipFromAddress'          => $fields[7],
                     'Recipient'                => $fields[8],
