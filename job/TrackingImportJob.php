@@ -28,7 +28,11 @@ class TrackingImportJob extends Job
 
         $this->log("Importing $filename");
 
-        $fp = fopen($filename, 'r');
+        if (($fp = fopen($filename, 'r')) == false) {
+            $this->error("File not found $filename");
+            return;
+        }
+
         fgetcsv($fp); // skip title
 
         while ($fields = fgetcsv($fp, 0, "\t")) {
@@ -62,7 +66,11 @@ class TrackingImportJob extends Job
 
         $this->log("Importing $filename");
 
-        $fp = fopen($filename, 'r');
+        if (($fp = fopen($filename, 'r')) == false) {
+            $this->error("File not found $filename");
+            return;
+        }
+
         fgetcsv($fp); // skip title
 
         while ($fields = fgetcsv($fp)) {
@@ -108,7 +116,11 @@ class TrackingImportJob extends Job
 
         $this->log("Importing $filename");
 
-        $fp = fopen($filename, 'r');
+        if (($fp = fopen($filename, 'r')) == false) {
+            $this->error("File not found $filename");
+            return;
+        }
+
         fgetcsv($fp); // skip title
 
         while ($fields = fgetcsv($fp)) {
@@ -138,7 +150,11 @@ class TrackingImportJob extends Job
 
         $this->log("Importing $filename");
 
-        $fp = fopen($filename, 'r');
+        if (($fp = fopen($filename, 'r')) == false) {
+            $this->error("File not found $filename");
+            return;
+        }
+
         fgetcsv($fp); // skip title
 
         while ($fields = fgetcsv($fp)) {
@@ -168,7 +184,11 @@ class TrackingImportJob extends Job
 
         $this->log("Importing $filename");
 
-        $fp = fopen($filename, 'r');
+        if (($fp = fopen($filename, 'r')) == false) {
+            $this->error("File not found $filename");
+            return;
+        }
+
         fgetcsv($fp);
 
         while ($fields = fgetcsv($fp, 0, "\t")) {
@@ -201,7 +221,10 @@ class TrackingImportJob extends Job
 
         $this->log("Importing $filename");
 
-        $fp = fopen($filename, 'r');
+        if (($fp = fopen($filename, 'r')) == false) {
+            $this->error("File not found $filename");
+            return;
+        }
         fgetcsv($fp);
 
         while ($fields = fgetcsv($fp, 0, "\t")) {
@@ -235,7 +258,10 @@ class TrackingImportJob extends Job
 
         $this->log("Importing $filename");
 
-        $fp = fopen($filename, 'r');
+        if (($fp = fopen($filename, 'r')) == false) {
+            $this->error("File not found $filename");
+            return;
+        }
 
         // skip the first few lines
         fgetcsv($fp); fgetcsv($fp); fgetcsv($fp);
