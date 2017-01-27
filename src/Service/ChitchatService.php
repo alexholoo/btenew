@@ -63,7 +63,8 @@ class ChitchatService extends Injectable
 
         $sql = "SELECT cc.*, se.*
                   FROM chitchat cc
-                  LEFT JOIN shippingeasy se ON se.TrackingNumber = cc.TrackingNum";
+                  LEFT JOIN shippingeasy se ON se.TrackingNumber = cc.TrackingNum
+                  ORDER BY cc.seqno";
 
         $items = $this->db->fetchAll($sql);
         foreach ($items as $item) {
