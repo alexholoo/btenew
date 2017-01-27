@@ -47,6 +47,7 @@
 
   <table border="1">
     <tr>
+      <td>#</td>
       <td>Order ID</td>
       <td>Carrier</td>
       <td>Tracking Number</td>
@@ -57,6 +58,7 @@
 
     {% for item in list %}
       <tr>
+        <td>{{ loop.revindex }}</td>
         <td>{{ item['OrderNumber'] }}</td>
         <td>{{ item['Carrier'] }}</td>
         <td>{{ item['TrackingNum'] }}</td>

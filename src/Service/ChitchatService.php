@@ -10,7 +10,8 @@ class ChitchatService extends Injectable
     {
         $sql = "SELECT OrderNumber, Carrier, TrackingNum, ShipDate, 'shippingeasy' as Source
                   FROM chitchat cc
-                  LEFT JOIN shippingeasy se ON se.TrackingNumber = cc.TrackingNum";
+                  LEFT JOIN shippingeasy se ON se.TrackingNumber = cc.trackingnum
+                  ORDER BY seqno DESC";
 
         $info = $this->db->fetchAll($sql);
 
