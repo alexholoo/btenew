@@ -63,7 +63,7 @@
         <td>{{ item['Carrier'] }}</td>
         <td>{{ item['TrackingNum'] }}</td>
         <td>{{ item['ShipDate'] }}</td>
-        <td>{{ item['Source'] }}</td>
+        <td>{{ item['OrderNumber'] ? item['Source'] : '' }}</td>
         <td><input type="checkbox"  name="Items[]" value="{{ item['TrackingNum'] }}"></td>
       </tr>
     {% endfor %}
