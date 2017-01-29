@@ -5,7 +5,7 @@
 <style>
   body { width: 960px; margin: 0 auto; }
   table { border-collapse: collapse; }
-  table, td, th { border: 1px solid gray; padding: 5px; }
+  table, td, th { border: 1px solid gray; padding: 5px 10px; }
 </style>
 
 <script type="text/javascript">
@@ -25,13 +25,15 @@
 
 <body OnLoad="document.form1.Tracking.focus();">
 <h2>Chitchat</h2>
+<!--
 <p>Run before scanning, download a complete Shipping Report from Shippingeasy and save to <br>
 <b>/out/shipping/shippingeasy-shipping-report.csv.</b></p>
 
 <p>Scan Tracking Number.  File will be generated in <b>/out/chitchat.csv</b> when exported as a .csv file.</p>
+-->
 <b>Tracking Number:</b><br>
 <form name="form1" method="POST" action="/chitchat">
-<input type="text" id="tracking" name="Tracking" value="" size="40" onkeypress="autoSubmit()" autocomplete="off" autofocus style="font-size:15px;">
+<input type="text" id="tracking" name="Tracking" value="" size="40" onkeypress="autoSubmit()" autocomplete="off" autofocus style="font-size:15px; padding: 5px 10px;">
 <input type="submit" name="add" value="Add" />
 <input type="checkbox" id="autosubmit" checked> Auto<br>
 </form>
