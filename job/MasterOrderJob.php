@@ -61,7 +61,8 @@ class MasterOrderJob extends Job
         while (($fields = fgetcsv($handle))) {
             $orderId = $fields[2];
             if (count($columns) != count($fields)) {
-                $this->log('Error: '. $orderId);
+                $this->error(__METHOD__.' Error: '. $orderId);
+                continue;
             }
             $order = array_combine($columns, $fields);
             $this->orders[$orderId][] = $order;
