@@ -67,7 +67,7 @@ class AmazonQtyUpdate extends Job
     {
         $totalQty = 0;
 
-        $skuGroup = $this->di->get('productService')->getSkuGroup($sku);
+        $skuGroup = $this->di->get('skuService')->getAltSkus($sku);
 
         foreach ($skuGroup as $sku) {
             $client = Supplier::createClient($sku);

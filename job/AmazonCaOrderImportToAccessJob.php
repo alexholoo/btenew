@@ -160,7 +160,7 @@ class AmazonCaOrderImportToAccessJob extends Job
 
     protected function getMfrPartNum($sku)
     {
-        return $this->di->get('productService')->getMpnFromSku($sku);
+        return $this->di->get('skuService')->getMpn($sku);
     }
 }
 

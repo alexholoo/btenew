@@ -16,7 +16,7 @@ class SearchController extends ControllerBase
             $sku = $this->request->getPost('sku');
 
             try {
-                $skus = $this->productService->getSkuGroup($sku);
+                $skus = $this->skuService->getAltSkus($sku);
 
                 // Make a xmlapi call to get price and availability
                 $data = $this->priceAvailService->getPriceAvailability($skus);

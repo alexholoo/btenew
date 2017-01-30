@@ -44,7 +44,7 @@ class PriceAvailability extends Job
 
         foreach ($this->orders as $order) {
             $sku = $order['sku'];
-            $skuGroup = $this->di->get('productService')->getSkuGroup($sku);
+            $skuGroup = $this->di->get('skuService')->getAltSkus($sku);
             $list = array_merge($list, $skuGroup);
         }
 

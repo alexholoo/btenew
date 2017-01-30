@@ -157,10 +157,10 @@ class OverstockUpdate extends Job
         }
 
         // if not found, then check the skus in same group
-        $list = $this->di->get('productService')->getSkuGroup($sku);
+        $list = $this->di->get('skuService')->getAltSkus($sku);
 
         if (count($list) == 0) {
-            $this->error("$sku not found in master_sku_list, please check");
+            $this->error(__METHOD__.": $sku not found in master_sku_list, please check");
             return false;
         }
 
