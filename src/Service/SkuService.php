@@ -94,6 +94,18 @@ class SkuService extends Injectable
         return isset($info['Manufacturer']) ? $info['Manufacturer'] : '';
     }
 
+    public function getName($sku)
+    {
+        $info = $this->getMasterSku($sku);
+        return isset($info['name']) ? $info['name'] : '';
+    }
+
+    public function getBestCost($sku)
+    {
+        $info = $this->getMasterSku($sku);
+        return isset($info['best_cost']) ? $info['best_cost'] : '';
+    }
+
     public function getAsin($sku, $market = 'CA')
     {
         $amazonService = $this->di->get('amazonService');
