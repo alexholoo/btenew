@@ -93,4 +93,72 @@ class SkuService extends Injectable
         $info = $this->getMasterSku($sku);
         return isset($info['Manufacturer']) ? $info['Manufacturer'] : '';
     }
+
+    public function getAsin($sku, $market = 'CA')
+    {
+        $amazonService = $this->di->get('amazonService');
+        return $amazonService->getAsinFromSku($sku, $market);
+
+        // this is not correct, because ASIN are different in US/CA
+        // $sql = "SELECT asin FROM sku_asin_map WHERE sku='$sku'";
+        // $result = $this->db->fetchOne($sql);
+        // return $result ? $result['asin'] : '';
+    }
+
+    public function isBlocked($sku, $market)
+    {
+        // 'ca_ebay',
+        // 'us_ebay',
+        // 'ca_newegg',
+        // 'us_newegg',
+        // 'us_amazon',
+        // 'ca_amazon',
+        // 'uk_amazon',
+        // 'jp_amazon',
+        // 'mx_amazon',
+
+        $info = $this->getMasterSku($sku);
+
+        $blocked = strtolower($market)."_blocked";
+        return isset($info[$blocked]) ? $info[$blocked] : '';
+    }
+
+    public function getSellingPrice($sku, $market = 'CA')
+    {
+        $amazonService = $this->di->get('amazonService');
+        return $amazonService->getSellingPrice($sku, $market);
+    }
+
+    public function getImageUrl($sku, $size = 'L')
+    {
+        if (substr($sku, 0, 3) == 'DH-') {
+            $sku = substr($sku, 3);
+            return "https://www.dandh.ca/images/prod300/$sku.jpg"; // TODO
+        }
+
+        $amazonService = $this->di->get('amazonService');
+
+        $asin = $this->getAsin($sku, 'CA');
+        if ($asin) {
+            return $amazonService->getImageUrl($asin, $size);
+        }
+
+        $asin = $this->getAsin($sku, 'US');
+        if ($asin) {
+            return $amazonService->getImageUrl($asin, $size);
+        }
+
+        return '';
+    }
+
+    public function getMinAllowedPrice($sku, $currency = 'CAD')
+    {
+        // 'MAP_USD'/'MAP_CAD',
+        $info = $this->getMasterSku($sku);
+
+        $MAP = "MAP_$currency";
+        return isset($info[$MAP]) ? $info[$MAP] : '';
+    }
+
+    public function shouldIgnoreItem($sku) { }
 }
