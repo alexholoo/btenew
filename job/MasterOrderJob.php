@@ -14,9 +14,7 @@ class MasterOrderJob extends Job
         $this->getOrders();
         $this->importMaster();
 
-        if (!in_array('notrigger', $argv)) {
-            $this->newOrderTrigger();
-        }
+        $this->newOrderTrigger();
     }
 
     protected function getOrders()
