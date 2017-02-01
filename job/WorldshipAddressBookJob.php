@@ -114,9 +114,8 @@ class WorldshipAddressBookJob extends Job
 
     protected function getWeight($sku)
     {
-        $result = $this->getMasterSku($sku);
-
-        return isset($result['Weight']) ? $result['Weight'] : '';
+        $skuService = $this->di->get('skuService');
+        return $skuService->getWeight($sku);
     }
 
     protected function getAddressBookTitle()
