@@ -88,7 +88,7 @@ class SkuService extends Injectable
         return isset($info['Weight']) ? $info['Weight'] : '';
     }
 
-    public function getManufacturer($sku)
+    public function getMfr($sku)
     {
         $info = $this->getMasterSku($sku);
         return isset($info['Manufacturer']) ? $info['Manufacturer'] : '';
