@@ -11,11 +11,10 @@ class WorldshipAddressBookJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $this->importOrdersCSV();
-       #$this->importOrdersXML();
+        $this->generateAddressBook();
     }
 
-    protected function importOrdersCSV() // TODO: need a better name
+    protected function generateAddressBook()
     {
         $orders = $this->getOrders();
 
@@ -26,23 +25,38 @@ class WorldshipAddressBookJob extends Job
         fputcsv($out, $title); // title is required
 
         foreach ($orders as $order) {
-           #$channel    = $order[0];
-           #$date       = $order[1];
-            $orderId    = $order[2];
-            $express    = $order[4];
-            $buyer      = $order[5];
-            $address    = trim($order[6]);
-            $city       = $order[7];
-            $province   = AmericaState::nameToCode($order[8]);
-            $postalcode = $order[9];
-            $country    = $order[10];
-            $phone      = Utils::formatPhoneNumber($order[11]);
-           #$email      = $order[12];
-            $sku        = $order[13];
-           #$price      = $order[14];
-           #$qty        = $order[15];
-           #$shipping   = $order[16];
-            $product    = $order[17];
+            /*
+            Array
+            (
+                [date] => 2017-01-09
+                [order_id] => 110-3538471-9940205
+                [sku] => AS-172053
+                [price] => 136.64
+                [qty] => 1
+                [product_name] => Gigabyte LGA1151 Intel Z170 Micro ATX DDR4 Motherboards GA-Z170M-D3H
+                [buyer] => Emre Cengiz
+                [address] => 21690 Ravine Rd
+                [city] => Lake Zurich
+                [province] => IL
+                [postalcode] => 60047
+                [country] => US
+                [phone] => 7086686452
+                [email] =>
+            )
+            */
+
+            $orderId    = $order['order_id'];
+            $buyer      = $order['buyer'];
+            $address    = trim($order['address']);
+            $city       = $order['city'];
+            $province   = AmericaState::nameToCode($order['province']);
+            $postalcode = $order['postalcode'];
+            $country    = $order['country'];
+            $phone      = Utils::formatPhoneNumber($order['phone']);
+            $sku        = $order['sku'];
+           #$price      = $order['price'];
+           #$qty        = $order['qty'];
+            $product    = $order['product_name'];
 
             $data = array_combine($title, array_fill(0, count($title), ''));
 
@@ -73,10 +87,6 @@ class WorldshipAddressBookJob extends Job
         fclose($out);
 
         $this->log(count($orders). " orders imported to $filename");
-    }
-
-    protected function importOrdersXML() // TODO: need a better name
-    {
     }
 
     /**
@@ -172,6 +182,29 @@ class WorldshipAddressBookJob extends Job
     }
 
     protected function getOrders()
+    {
+        $start = date('Y-m-d', strtotime('-30 days'));
+
+        $sql = "SELECT o.date, oi.order_id, oi.sku, oi.price, oi.qty, oi.product_name,
+                       sa.buyer, sa.address, sa.city, sa.province, sa.postalcode,
+                       sa.country, sa.phone, sa.email
+                  FROM master_order o
+                  JOIN master_order_item oi ON o.order_id = oi.order_id
+                  JOIN master_order_shipping_address sa ON sa.order_id = o.order_id
+                 WHERE o.channel = 'Amazon-US' and o.date >= '$start'";
+
+        $orders = [];
+
+        $result = $this->db->fetchAll($sql);
+
+        foreach ($result as $order) {
+            $orders[] = $order;
+        }
+
+        return $orders;
+    }
+
+    protected function getOrders_FROM_FILE()
     {
         $file = 'w:/out/shipping/all_mgn_orders.csv';
         if (IS_PROD) {
