@@ -40,11 +40,13 @@ class NeweggOrderJob extends Job
         }
 
         if (!($fh = @fopen($file, 'rb'))) {
-            echo "Failed to open file: $file\n";
+            $this->log("Failed to open file: $file");
             return;
         }
 
         fgetcsv($fh); // skip the first line
+
+        $this->log("Importing Newegg Order File: $file");
 
         $count = 0;
 
@@ -53,7 +55,7 @@ class NeweggOrderJob extends Job
         while(($fields = fgetcsv($fh))) {
 
             if (count($columns) != count($fields)) {
-                $this->error(__METHOD__.' Error: '.$fields[0]);
+                $this->error(__METHOD__.' Error: '.$fields[0].' in file '.$file);
                 continue;
             }
 
@@ -78,7 +80,7 @@ class NeweggOrderJob extends Job
                 $count++;
 
             } catch (Exception $e) {
-                echo $e->getMessage(), EOL;
+                //echo $e->getMessage(), EOL;
             }
 
             $this->saveOrderItem($order);
