@@ -173,6 +173,7 @@ class NeweggOrderJob extends Job
             'ItemUnitShippingCharge',
             'ExtendShippingCharge',
             'OrderShippingTotal',
+            'OrderDiscountAmount',
             'GSTorHSTTotal',
             'PSTorQSTTotal',
             'OrderTotal',
