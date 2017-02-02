@@ -48,49 +48,18 @@ class NeweggOrderJob extends Job
 
         $count = 0;
 
+        $columns = $this->getColumns();
+
         while(($fields = fgetcsv($fh))) {
 
-            $order = [
-                'OrderNumber'           => $fields[0],
-                'OrderDateTime'         => $fields[1],
-                'SalesChannel'          => $fields[2],
-                'FulfillmentOption'     => $fields[3],
-                'ShipToAddressLine1'    => $fields[4],
-                'ShipToAddressLine2'    => $fields[5],
-                'ShipToCity'            => $fields[6],
-                'ShipToState'           => $fields[7],
-                'ShipToZipCode'         => $fields[8],
-                'ShipToCountry'         => $fields[9],
-                'ShipToFirstName'       => $fields[10],
-                'ShipToLastName'        => $fields[11],
-                'ShipToCompany'         => $fields[12],
-                'ShipToPhoneNumber'     => $fields[13],
-                'OrderCustomerEmail'    => $fields[14],
-                'OrderShippingMethod'   => $fields[15],
-                'ItemSellerPartNo'      => $fields[16],
-                'ItemNeweggNo'          => $fields[17],
-                'ItemUnitPrice'         => $fields[18],
-                'ExtendUnitPrice'       => $fields[19],
-                'ItemUnitShippingCharge'=> $fields[20],
-                'ExtendShippingCharge'  => $fields[21],
-                'OrderShippingTotal'    => $fields[22],
-                'GSTorHSTTotal'         => $fields[23],
-                'PSTorQSTTotal'         => $fields[24],
-                'OrderTotal'            => $fields[25],
-                'QuantityOrdered'       => $fields[26],
-                'QuantityShipped'       => $fields[27],
-                'ShipDate'              => $fields[28],
-                'ActualShippingCarrier' => $fields[29],
-                'ActualShippingMethod'  => $fields[30],
-                'TrackingNumber'        => $fields[31],
-                'ShipFromAddress'       => $fields[32],
-                'ShipFromCity'          => $fields[33],
-                'ShipFromState'         => $fields[34],
-                'ShipFromZipcode'       => $fields[35],
-                'ShipFromName'          => $fields[36],
-            ];
+            if (count($columns) != count($fields)) {
+                $this->error(__METHOD__.' Error: '.$fields[0]);
+                continue;
+            }
 
-            echo basename($file), ' - ', $order['OrderNumber'], EOL;
+            $order = array_combine($columns, $fields);
+
+            $this->log(basename($file).' - '.$order['OrderNumber']);
 
             try {
                 $success = $this->db->insertAsDict('newegg_order_report', [
@@ -176,6 +145,49 @@ class NeweggOrderJob extends Job
         $sql = "SELECT filename FROM newegg_order_file WHERE filename='$file'";
         $result = $this->db->fetchOne($sql);
         return $result;
+    }
+
+    private function getColumns()
+    {
+        return [
+            'OrderNumber',
+            'OrderDateTime',
+            'SalesChannel',
+            'FulfillmentOption',
+            'ShipToAddressLine1',
+            'ShipToAddressLine2',
+            'ShipToCity',
+            'ShipToState',
+            'ShipToZipCode',
+            'ShipToCountry',
+            'ShipToFirstName',
+            'ShipToLastName',
+            'ShipToCompany',
+            'ShipToPhoneNumber',
+            'OrderCustomerEmail',
+            'OrderShippingMethod',
+            'ItemSellerPartNo',
+            'ItemNeweggNo',
+            'ItemUnitPrice',
+            'ExtendUnitPrice',
+            'ItemUnitShippingCharge',
+            'ExtendShippingCharge',
+            'OrderShippingTotal',
+            'GSTorHSTTotal',
+            'PSTorQSTTotal',
+            'OrderTotal',
+            'QuantityOrdered',
+            'QuantityShipped',
+            'ShipDate',
+            'ActualShippingCarrier',
+            'ActualShippingMethod',
+            'TrackingNumber',
+            'ShipFromAddress',
+            'ShipFromCity',
+            'ShipFromState',
+            'ShipFromZipcode',
+            'ShipFromName',
+        ];
     }
 }
 
