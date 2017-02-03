@@ -130,6 +130,17 @@ class Str
     }
 
     /**
+     * Remove all non-digit chars in string
+     *
+     * @param  string  $s
+     * @return string
+     */
+    public static function digitsOnly($s)
+    {
+        return preg_replace('/[^0-9]/', '', $s);
+    }
+
+    /**
      * Determine if a given string matches a given pattern.
      *
      * @param  string  $pattern
