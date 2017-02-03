@@ -32,35 +32,15 @@ class OverstockService extends Injectable
 
         while (($fields = fgetcsv($fp))) {
 
-            $sku        = $fields[0];
-            $title      = $fields[1];
-            $cost       = $fields[2];
-            $condition  = $fields[3];
-            $allocation = $fields[4];
-            $qty        = $fields[5];
-            $mpn        = $fields[6];
-            $note       = $fields[7];
-            $upc        = $fields[8];
-            $weight     = $fields[9];
-            $reserved   = $fields[10];
-            $row_num    = $fields[11];
+            if (count($columns) != count($fields)) {
+                // Error:
+                continue;
+            }
+
+            $data = array_combine($columns, $fields);
 
             try {
-                $this->db->insertAsDict('overstock', [
-                    'sku'        => $sku,
-                    'title'      => $title,
-                    'cost'       => $cost,
-                    'condition'  => $condition,
-                    'allocation' => $allocation,
-                    'qty'        => $qty,
-                    'mpn'        => $mpn,
-                    'note'       => $note,
-                    'upc'        => $upc,
-                    'weight'     => $weight,
-                    'reserved'   => $reserved,
-                    'row_num'    => $row_num,
-                ]);
-
+                $this->db->insertAsDict('overstock', $data);
                 $count++;
 
             } catch (Exception $e) {
@@ -87,7 +67,7 @@ class OverstockService extends Injectable
 
         $result = $this->db->fetchAll('SELECT * FROM overstock');
 
-        foreach($result as $item) {
+        foreach($result as $row) {
             fputcsv($fp, [
                 $row['sku'],
                 $row['title'],
