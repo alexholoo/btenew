@@ -181,7 +181,7 @@ class Str
         $pattern = implode('|', $pattern);
 
         //echo "/$pattern/", EOL;
-        return (boolean)(preg_match("/$pattern/", $subject));
+        return (boolean)(preg_match("/$pattern/i", $subject));
     }
 
     /**
