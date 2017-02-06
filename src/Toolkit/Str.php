@@ -200,7 +200,7 @@ class Str
         }
 
         //echo "/^$pattern.+/", EOL;
-        return preg_match("/^$pattern.+/", $subject);
+        return preg_match("/^$pattern.+/i", $subject);
     }
 
     /**
