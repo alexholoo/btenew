@@ -196,7 +196,7 @@ class Str
 
         $pattern = '';
         foreach ($arr as $word) {
-            $pattern .= "(?=.*\\b$word\\b)";
+            $pattern .= "(?=.*$word)";
         }
 
         //echo "/^$pattern.+/", EOL;
