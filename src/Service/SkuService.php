@@ -143,24 +143,14 @@ class SkuService extends Injectable
 
     public function getImageUrl($sku, $size = 'L')
     {
-        if (substr($sku, 0, 3) == 'DH-') {
-            $sku = substr($sku, 3);
-            return "https://www.dandh.ca/images/prod300/$sku.jpg"; // TODO
-        }
+        # Amazon has better image quality than DH
+        #if (substr($sku, 0, 3) == 'DH-') {
+        #    $sku = substr($sku, 3);
+        #    return "https://www.dandh.ca/images/prod300/$sku.jpg"; // TODO
+        #}
 
         $amazonService = $this->di->get('amazonService');
-
-        $asin = $this->getAsin($sku, 'CA');
-        if ($asin) {
-            return $amazonService->getImageUrl($asin, $size);
-        }
-
-        $asin = $this->getAsin($sku, 'US');
-        if ($asin) {
-            return $amazonService->getImageUrl($asin, $size);
-        }
-
-        return '';
+        return $amazonService->getImageUrl($sku, $size);
     }
 
     public function getMinAllowedPrice($sku, $currency = 'CAD')

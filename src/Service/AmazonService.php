@@ -67,7 +67,20 @@ class AmazonService extends Injectable
         return $this->getAsinFromSku($sku, $market);
     }
 
-    public function getImageUrl($asin, $size = 'L')
+    public function getImageUrl($sku, $size = 'L')
+    {
+        $row = $this->db->fetchOne("SELECT * FROM amazon_image WHERE sku='$sku'");
+
+        if ($row) {
+            if ($size == 'L') return $row['image_big'];
+            if ($size == 'S') return $row['image_small'];
+        }
+
+        return false;
+    }
+
+    // the url that this method returned sometimes points to a blank image
+    public function getImageUrlFromAsin($asin, $size = 'L')
     {
         if ($size == 'T') $size = 'THUMBZZZ'; // 40 x 60 pixels, very small
         if ($size == 'M') $size = 'MZZZZZZZ'; // 93 x 140 pixels, standard size
