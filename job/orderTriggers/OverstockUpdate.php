@@ -49,6 +49,10 @@ class OverstockUpdate extends Job
                     $this->log("$orderId $skuOrig ==>> $sku in overstock");
                 }
 
+                if ($qty >= 10) {
+                    $this->error(__METHOD__ . " $orderId $qty, qty too big, please check");
+                }
+
                 $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$sku'";
                 $row = $accdb->query($sql)->fetch();
                 if (!$row) {
