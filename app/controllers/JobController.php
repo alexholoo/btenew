@@ -45,4 +45,12 @@ class JobController extends ControllerBase
 
         echo "Jobs are running, please check on Amazon Seller Central a minute later.";
     }
+
+    // job/importshippingeasy
+    public function importShippingEasyAction()
+    {
+        $this->runJob('job/importShippingEasy');
+
+        echo "ShippingEasy imported, now you can start order scanning.";
+    }
 }
