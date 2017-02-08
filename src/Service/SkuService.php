@@ -177,7 +177,7 @@ class SkuService extends Injectable
 
         if (!$brands) {
             $brands = $this->db->fetchAll('SELECT * FROM keyword_brand');
-            $brands = array_column($brands, 'keyword', 'brand');
+            $brands = array_column($brands, 'brand', 'keyword');
         }
 
         $name = $this->getName($sku);
