@@ -204,6 +204,39 @@ class Str
     }
 
     /**
+     * Determine if a string $subject matches a complex pattern
+     *
+     * Example:
+     *
+     *   $subject = 'WD Caviar Blue WD10EZEX 1 TB SATA 7200RPM 6 Gb/s Internal 3.5-inch Desktop Hard';
+     *
+     *   if (Str::match("SATA |IDE &7200RPM |5400RPM &TB |inch ", $subject)) {
+     *       echo "HARD DRIVE";
+     *   }
+     *
+     * @param string $pattern
+     * @param string $subject
+     */
+    public static function match($pattern, $subject)
+    {
+        $result = [];
+
+        $keywords = explode('&', $pattern);
+
+        foreach ($keywords as $keyword) {
+            $subkwds = explode('|', $keyword);
+            foreach ($subkwds as $subkwd) {
+                if (stripos($subject, $subkwd) !== false) {
+                    $result[$subkwd] = true;
+                    break;
+                }
+            }
+        }
+
+        return count($result) == count($keywords);
+    }
+
+    /**
      * Limit the number of characters in a string.
      *
      * @param  string  $value
