@@ -49,7 +49,7 @@ class JobController extends ControllerBase
     // job/importshippingeasy
     public function importShippingEasyAction()
     {
-        $this->runJob('job/importShippingEasy');
+        $this->runJob('job/ShippingEasyImportJob');
 
         echo "ShippingEasy imported, now you can start order scanning.";
     }
