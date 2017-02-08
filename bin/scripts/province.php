@@ -10,22 +10,12 @@ $provinces = array_combine($province_code, $province_name);
 $count = 0;
 
 foreach($provinces as $code => $name) {
-
     try {
-        $success = $db->insertAsDict('provinces_ca',
-            compact('name', 'code')
-        );
-
-        if (!$success) {
-            echo $partnum, EOL;
-        }
-
+        $db->insertAsDict('provinces_ca', compact('name', 'code'));
         $count++;
-
     } catch (Exception $e) {
         echo $e->getMessage(), EOL;
     }
-
 }
 
 echo "$count DONE\n";

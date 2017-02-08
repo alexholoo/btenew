@@ -30,7 +30,6 @@ $columns = [ // columns of table bestbuy_ca_listing
 
 $count = 0;
 while(($fields = fgetcsv($fh, 0, ';'))) {
-
     try {
         $data = array_combine($columns, $fields);
         $db->insertAsDict('bestbuy_ca_listing', $data);

@@ -11,34 +11,21 @@ echo "loading inventory.csv\n";
 
 fgetcsv($fh); // skip the first line
 
+$columns = [
+    'partnum',
+    'upc',
+    'location',
+    'qty',
+    'sn',
+    'note',
+];
+
 $count = 0;
 while(($fields = fgetcsv($fh))) {
-
-    $partnum    = $fields[0];
-    $upc        = $fields[1];
-    $location   = $fields[2];
-    $qty        = $fields[3];
-    $sn         = $fields[4];
-    $note       = $fields[5];
-
     try {
-        $success = $db->insertAsDict('inventory',
-            array(
-                'partnum'  => $partnum,
-                'upc'      => $upc,
-                'location' => $location,
-                'qty'      => $qty,
-                'sn'       => $sn,
-                'note'     => $note,
-            )
-        );
-
-        if (!$success) {
-            echo $partnum, EOL;
-        }
-
+        $data = array_combine($columns, $fields);
+        $db->insertAsDict('inventory', $data);
         $count++;
-
     } catch (Exception $e) {
         echo $e->getMessage(), EOL;
     }

@@ -12,42 +12,29 @@ echo "loading $file\n";
 
 fgetcsv($fh); // skip the first line
 
+$columns = [
+    'sku',
+    'title',
+    'cost',
+    'condition',
+    'allocation',
+    'qty',
+    'mpn',
+    'note',
+    'upc',
+    'weight',
+    'reserved',
+    'row_num',
+];
+
 $db->execute('TRUNCATE TABLE overstock');
 
 $count = 0;
 while(($fields = fgetcsv($fh))) {
-
-    $sku        = $fields[0];
-    $title      = $fields[1];
-    $cost       = $fields[2];
-    $condition  = $fields[3];
-    $allocation = $fields[4];
-    $qty        = $fields[5];
-    $mpn        = $fields[6];
-    $note       = $fields[7];
-    $upc        = $fields[8];
-    $weight     = $fields[9];
-    $reserved   = $fields[10];
-    $row_num    = $fields[11];
-
     try {
-        $db->insertAsDict('overstock', [
-            'sku'        => $sku,
-            'title'      => $title,
-            'cost'       => $cost,
-            'condition'  => $condition,
-            'allocation' => $allocation,
-            'qty'        => $qty,
-            'mpn'        => $mpn,
-            'note'       => $note,
-            'upc'        => $upc,
-            'weight'     => $weight,
-            'reserved'   => $reserved,
-            'row_num'    => $row_num,
-        ]);
-
+        $data = array_combine($columns, $fields);
+        $db->insertAsDict('overstock', $data);
         $count++;
-
     } catch (Exception $e) {
         echo $e->getMessage(), EOL;
     }

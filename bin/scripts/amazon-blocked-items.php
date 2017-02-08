@@ -11,38 +11,23 @@ echo "loading amazon_blocked_items.csv\n";
 
 fgetcsv($fh); // skip the first line
 
+$columns = [
+    'sku_us',
+    'upc',
+    'mpn',
+    'sku_ca',
+    'refnum',
+    'notes',
+    'field',
+];
+
 $count = 0;
 while(($fields = fgetcsv($fh))) {
 
-    $sku_us  = $fields[0];
-    $upc     = $fields[1];
-    $mpn     = $fields[2];
-    $sku_ca  = $fields[3];
-    $refnum  = $fields[4];
-    $notes   = $fields[5];
-    $field   = $fields[6];
-
     try {
-        $success = $db->insertAsDict('amazon_blocked_items',
-            array(
-                'sku_us'  => $sku_us,
-                'upc'     => $upc,
-                'mpn'     => $mpn,
-                'sku_ca'  => $sku_ca,
-                'refnum'  => $refnum,
-                'notes'   => $notes,
-                'field'   => $field,
-            )
-            // this is better
-            #compact('sku_us', 'upc', 'mpn', 'sku_ca', 'refnum', 'notes', 'field')
-        );
-
-        if (!$success) {
-            echo $sku_us, EOL;
-        }
-
+        $data = array_combine($columns, $fields);
+        $db->insertAsDict('amazon_blocked_items', $data);
         $count++;
-
     } catch (Exception $e) {
         echo $e->getMessage(), EOL;
     }
@@ -51,4 +36,3 @@ while(($fields = fgetcsv($fh))) {
 fclose($fh);
 
 echo "$count DONE\n";
-

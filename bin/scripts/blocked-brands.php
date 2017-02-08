@@ -11,36 +11,22 @@ echo "loading block_brands.csv\n";
 
 fgetcsv($fh); // skip the first line
 
+$columns = [
+    'brand',
+    'amazon_us',
+    'amazon_ca',
+    'ebay_ca',
+    'ebay_us',
+    'amazon_uk',
+    'refnum',
+];
+
 $count = 0;
 while(($fields = fgetcsv($fh))) {
-
-    $brand     = $fields[0];
-    $amazon_us = $fields[1];
-    $amazon_ca = $fields[2];
-    $ebay_ca   = $fields[3];
-    $ebay_us   = $fields[4];
-    $amazon_uk = $fields[5];
-    $refnum    = $fields[6];
-
     try {
-        $success = $db->insertAsDict('blocked_brands',
-            array(
-                'brand'      => $brand,
-                'amazon_us'  => $amazon_us,
-                'amazon_ca'  => $amazon_ca,
-                'ebay_ca'    => $ebay_ca,
-                'ebay_us'    => $ebay_us,
-                'amazon_uk'  => $amazon_uk,
-                'refnum'     => $refnum,
-            )
-        );
-
-        if (!$success) {
-            echo $brand, EOL;
-        }
-
+        $data = array_combine($columns, $fields);
+        $db->insertAsDict('blocked_brands', $data);
         $count++;
-
     } catch (Exception $e) {
         echo $e->getMessage(), EOL;
     }
