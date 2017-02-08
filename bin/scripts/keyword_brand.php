@@ -176,8 +176,14 @@ $brands = [
 
 foreach ($brands as $key => $brand) {
     if (is_numeric($key)) {
-        $db->execute("INSERT INTO keyword_brand (keyword, brand) VALUES ('$brand', '$brand')");
+        $sql = "INSERT INTO keyword_brand (keyword, brand) VALUES ('$brand', '$brand')";
     } else {
-        $db->execute("INSERT INTO keyword_brand (keyword, brand) VALUES ('$key', '$brand')");
+        $sql = "INSERT INTO keyword_brand (keyword, brand) VALUES ('$key', '$brand')";
+    }
+
+    try {
+        $db->execute($sql);
+    } catch(Exception $e) {
+        echo $e->getMessage(), PHP_EOL;
     }
 }
