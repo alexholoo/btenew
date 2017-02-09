@@ -16,18 +16,15 @@ function loadMasterSkuList()
 {
     $redis = getRedis();
 
-    $timestamp = $redis->get('master_sku_list:timestamp');
-    if (time() - $timestamp < 12*3600) {
-        return;
-    }
+    $redis->flushdb();
 
     $skulist = fopen('w:/data/master_sku_list.csv', 'r');
-    $names = fgetcsv($skulist); // skip first line
+
+    fgetcsv($skulist); // skip first line
 
     while (($fields = fgetcsv($skulist)) !== false) {
         $json = json_encode($fields);
         $redis->set($fields[0], $json);
-
         for ($i = 0; $i < 8; $i++) {
             $pn = $fields[ $i * 3 + 2 ];
             if ($pn != '') {
@@ -35,8 +32,6 @@ function loadMasterSkuList()
             }
         }
     }
-
-    $redis->set('master_sku_list:timestamp', time());
 
     fclose($skulist);
 }
