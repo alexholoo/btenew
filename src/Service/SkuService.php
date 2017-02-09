@@ -189,4 +189,22 @@ class SkuService extends Injectable
 
         return '';
     }
+
+    public function getSupplier($sku)
+    {
+        $names = [
+            'AS'  => 'ASI',
+            'SYN' => 'Synnex',
+            'ING' => 'Ingram Micro',
+            'EP'  => 'Eprom',
+            'TD'  => 'Techdata',
+            'TAK' => 'Taknology',
+            'SP'  => 'Supercom',
+        ];
+
+        $parts = explode('-', $sku);
+        $prefix = $parts[0];
+
+        return isset($names[$prefix]) ? $names[$prefix] : $prefix;
+    }
 }
