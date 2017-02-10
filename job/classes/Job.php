@@ -47,6 +47,7 @@ abstract class Job
         error_log($line, 3, $filename);
     }
 
+    // batch insert, MySql Syntax
     protected function genInsertSql($table, $columns, $data)
     {
         $columnList = '`' . implode('`, `', $columns) . '`';
@@ -69,6 +70,45 @@ abstract class Job
         );
 
         return $query . implode(",\n", $values) . "\nON DUPLICATE KEY UPDATE " . $update . ';';
+    }
+
+    /**
+     * single insert, MS-SQL syntax
+     *
+     *  $data = [
+     *      'Work Date'     => $workDate,
+     *      'Channel'       => $channel,
+     *      'Order #'       => $orderId,
+     *      'Express'       => $xpress,
+     *      'Stock Status'  => $stockStatus,
+     *      'Qty'           => $qty,
+     *      'Supplier'      => $supplier,
+     *      'Supplier SKU'  => $sku,
+     *      'Mfr #'         => $mfrpn,
+     *      'Supplier #'    => $ponum,
+     *      'Remarks'       => '',
+     *      'Xpress'        => $xpress,
+     *      'RelatedSKU'    => '',
+     *      'Dimension'     => '',
+     *  ];
+     *
+     *  $sql = $this->insertMssql('BestbuyCA', $data);
+     */
+    protected function insertMssql($table, $data)
+    {
+        $columns = '[' . implode('], [', array_keys($data)) . ']';
+
+        $query = "INSERT INTO [$table] ($columns) VALUES\n";
+
+        foreach($data as $key => $val) {
+            if (is_string($val)) {
+                $data[$key] = "'" .addslashes($val). "'";
+            }
+        }
+
+        $values = implode(', ', $data);
+
+        return "$query ($values)";
     }
 
     /**
