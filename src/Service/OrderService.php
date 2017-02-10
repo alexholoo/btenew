@@ -22,6 +22,7 @@ class OrderService extends Injectable
         return false;
     }
 
+    // isOrderDropshipped
     public function isOrderPurchased($orderId)
     {
         $sql = "SELECT orderid FROM purchase_order_log WHERE orderid='$orderId'";
@@ -41,6 +42,7 @@ class OrderService extends Injectable
         return $this->amazonService->isOrderCanceled($order);
     }
 
+    // markOrderDropshipped
     protected function markOrderPurchased($orderId, $sku)
     {
         // mark the order as 'purchased' to prevent purchase twice
@@ -100,5 +102,15 @@ class OrderService extends Injectable
         }
 
         return $shippingAddress;
+    }
+
+    public function isShipped($orderId)
+    {
+        return $this->shipmentService->isOrderShipped($orderId);
+    }
+
+    public function markAsShipped($orderId)
+    {
+        $this->shipmentService->markOrderAsShipped($orderId);
     }
 }
