@@ -83,7 +83,7 @@ class BestbuyOrderJob extends Job
     protected function getBestbuyOrders()
     {
         $orders = [];
-/*
+//*
         // only today's orders
         $start = date('Y-m-d\T00:00:00');
         $end   = date('Y-m-d\T23:59:59');
@@ -107,12 +107,18 @@ class BestbuyOrderJob extends Job
             $this->log(__METHOD__." Error");
             return $orders;
         }
-*/
-        $result = file_get_contents('../tmp/bborders.json');
+//*/
+#       $result = file_get_contents('../tmp/bborders.json'); // debug only
 
         $json = json_decode($result);
+#       print_r($json);
 
         foreach ($json->orders as $order) {
+            // order_state: WAITING_ACCEPTANCE|CANCELED|RECEIVED
+            if ($order->order_state != 'RECEIVED') {
+                $this->log($order->order_id.' '.$order->order_state);
+                continue;
+            }
             foreach ($order->order_lines as $item) {
                 $orders[] = [
                     'date'    => substr($order->created_date, 0, 10),
