@@ -47,6 +47,7 @@ return new Config([
     ],
 
     'shippingEasy' => include __DIR__ . '/shippingEasy.php',
+    'bestbuy'      => include __DIR__ . '/bestbuy.php',
 
     'xmlapi' => include __DIR__ . '/xmlapi.php',
 ]);
