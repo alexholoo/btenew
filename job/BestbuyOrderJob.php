@@ -31,44 +31,31 @@ class BestbuyOrderJob extends Job
             $mfrpn       = $this->skuService->getMpn($sku);
             $stockStatus = ' ';
 
+            // TODO: fix multi-items-order issue
             $sql = "SELECT * FROM BestbuyCA WHERE [Order #]='$orderId'";
             $result = $accdb->query($sql)->fetch();
             if ($result) {
                 continue;
             }
 
-            $sql = "INSERT INTO BestbuyCA (
-                        [Work Date],
-                        [Channel],
-                        [Order #],
-                        [Express],
-                        [Stock Status],
-                        [Qty],
-                        [Supplier],
-                        [Supplier SKU],
-                        [Mfr #],
-                        [Supplier #],
-                        [Remarks],
-                        [Xpress],
-                        [RelatedSKU],
-                        [Dimension]
-                    )
-                    VALUES (
-                        '$workDate',
-                        '$channel',
-                        '$orderId',
-                        $xpress,
-                        '$stockStatus',
-                        '$qty',
-                        '$supplier',
-                        '$sku',
-                        '$mfrpn',
-                        '$ponum',
-                        '',
-                        $xpress,
-                        '',
-                        ''
-                    )";
+            $data = [
+                'Work Date'     => $workDate,
+                'Channel'       => $channel,
+                'Order #'       => $orderId,
+                'Express'       => $xpress,
+                'Stock Status'  => $stockStatus,
+                'Qty'           => $qty,
+                'Supplier'      => $supplier,
+                'Supplier SKU'  => $sku,
+                'Mfr #'         => $mfrpn,
+                'Supplier #'    => ' ',
+                'Remarks'       => '',
+                'Xpress'        => $xpress,
+                'RelatedSKU'    => '',
+                'Dimension'     => '',
+            ];
+
+            $sql = $this->insertMssql('BestbuyCA', $data);
 
             $ret = $accdb->exec($sql);
 
@@ -90,6 +77,7 @@ class BestbuyOrderJob extends Job
 
         $orders = $client->listOrders($start, $end);
 
+        // TODO: move this to Marketplace\Bestbuy\Client?
         foreach ($orders as $key => $order) {
             // order_state:
             // - WAITING_ACCEPTANCE
