@@ -26,7 +26,26 @@ class Client
             'end_date'   => $end,
         ];
 
-        return $this->callApi('GET', 'api/orders', $params);
+        $json = $this->callApi('GET', 'api/orders', $params);
+
+        $orders = [];
+
+        foreach ($json->orders as $order) {
+            foreach ($order->order_lines as $item) {
+                $orders[] = [
+                    'date'    => substr($order->created_date, 0, 10),
+                    'orderId' => $order->order_id,
+                    'sku'     => $item->offer_sku,
+                    'price'   => $item->price,
+                    'qty'     => $item->quantity,
+                    'express' => intval($order->shipping_type_code == 'E'),
+                    'state'   => $order->order_state,
+                    //TODO shipping address
+                ];
+            }
+        }
+
+        return $orders;
     }
 
     public function listOffers()

@@ -82,54 +82,23 @@ class BestbuyOrderJob extends Job
 
     protected function getBestbuyOrders()
     {
-        // TODO: use Marketplace\Bestbuy\Client
+        $client = new Marketplace\Bestbuy\Client();
 
-        $orders = [];
-//*
         // only today's orders
         $start = date('Y-m-d\T00:00:00');
         $end   = date('Y-m-d\T23:59:59');
 
-        $url = "https://marketplace.bestbuy.ca/api/orders?start_date=$start&end_date=$end";
+        $orders = $client->listOrders($start, $end);
 
-        $apikey = $this->di->get('config')->bestbuy->apikey;
-
-        $options = [
-            'http' => [
-                'header'  => "Authorization: $apikey\r\n",
-                'method'  => 'GET',
-               #'content' => http_build_query($data)
-            ]
-        ];
-
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-
-        if ($result === FALSE) {
-            $this->log(__METHOD__." Error");
-            return $orders;
-        }
-//*/
-#       $result = file_get_contents('../tmp/bborders.json'); // debug only
-
-        $json = json_decode($result);
-#       print_r($json);
-
-        foreach ($json->orders as $order) {
-            // order_state: WAITING_ACCEPTANCE|CANCELED|RECEIVED
-            if ($order->order_state != 'RECEIVED') {
-                $this->log($order->order_id.' '.$order->order_state);
-                continue;
-            }
-            foreach ($order->order_lines as $item) {
-                $orders[] = [
-                    'date'    => substr($order->created_date, 0, 10),
-                    'orderId' => $order->order_id,
-                    'sku'     => $item->offer_sku,
-                    'price'   => $item->price,
-                    'qty'     => $item->quantity,
-                    'express' => intval($order->shipping_type_code == 'E'),
-                ];
+        foreach ($orders as $key => $order) {
+            // order_state:
+            // - WAITING_ACCEPTANCE
+            // - WAITING_DEBIT_PAYMENT
+            // - CANCELED
+            // - RECEIVED
+            if ($order['state'] != 'RECEIVED') {
+                unset($orders[$key]);
+                $this->log($order['orderId'].' '.$order['state']);
             }
         }
 
