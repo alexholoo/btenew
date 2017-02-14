@@ -40,34 +40,20 @@ class AmazonCaOrderImportToAccessJob extends Job
                 continue;
             }
 
-            $sql = "INSERT INTO Amazon_CA (
-                        [date],
-                        [order_id],
-                        [Stock Status],
-                        [Xpress],
-                        [qty],
-                        [supplier],
-                        [supplier_sku],
-                        [MPN],
-                        [Supplier#],
-                        [notes],
-                        [related_sku],
-                        [dimension]
-                    )
-                    VALUES (
-                        '$date',
-                        '$orderid',
-                        '$stockStatus',
-                        '$xpress',
-                        '$qty',
-                        '$supplier',
-                        '$sku',
-                        '$mfrpn',
-                        '$ponum',
-                        '$notes',
-                        '',
-                        '$dimension'
-                    )";
+            $sql = $this->insertMssql("Amazon_CA", [
+                'date'         => $date,
+                'order_id'     => $orderid,
+                'Stock Status' => $stockStatus,
+                'Xpress'       => $xpress,
+                'qty'          => $qty,
+                'supplier'     => $supplier,
+                'supplier_sku' => $sku,
+                'MPN'          => $mfrpn,
+                'Supplier#'    => $ponum,
+                'notes'        => $notes,
+                'related_sku'  => '',
+                'dimension'    => $dimension,
+            ]);
 
             $ret = $accdb->exec($sql);
 
