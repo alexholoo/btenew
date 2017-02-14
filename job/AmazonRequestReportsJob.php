@@ -45,7 +45,7 @@ class AmazonRequestReportsJob extends Job
         }
         $api->requestReport();
 
-        $this->log(print_r($api->getResponse(), true));
+       #$this->log(print_r($api->getResponse(), true));
     }
 
     private function getReportRequestList()
