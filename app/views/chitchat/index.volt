@@ -25,13 +25,12 @@
 
 <body OnLoad="document.form1.Tracking.focus();">
 <h2>Chitchat</h2>
-<!--
-<p>Run before scanning, download a complete Shipping Report from Shippingeasy and save to <br>
-<b>/out/shipping/shippingeasy-shipping-report.csv.</b></p>
 
-<p>Scan Tracking Number.  File will be generated in <b>/out/chitchat.csv</b> when exported as a .csv file.</p>
--->
+<b>Before scanning:</b>
+<p>1. Generate a Complete Shipping Report from Shippingeasy and save to <b>/out/shipping as shippingeasy-shipping-report.csv</b>.</p>
+<p>2. After file is saved, run <a href="http://192.168.0.12/job/importshippingeasy">this script</a>.</p>
 <b>Tracking Number:</b><br>
+
 <form name="form1" method="POST" action="/chitchat">
 <input type="text" id="tracking" name="Tracking" value="" size="40" onkeypress="autoSubmit()" autocomplete="off" autofocus style="font-size:15px; padding: 5px 10px;">
 <input type="submit" name="add" value="Add" />
