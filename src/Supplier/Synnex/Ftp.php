@@ -2,7 +2,7 @@
 
 namespace Supplier\Synnex;
 
-use Toolkit\Utils;
+use Toolkit\File;
 use Toolkit\FtpClient;
 use Supplier\DropshipTrackingLog;
 use Supplier\Model\OrderStatusResult;
@@ -47,7 +47,7 @@ class Ftp
 
         self::download('c1150897.zip', $localFile);
 
-        Utils::unzip($localFile);
+        File::unzip($localFile);
 
         $folder = dirname($localFile);
         rename("$folder/1150897.ap", "$folder/SYN-1150897.ap");
