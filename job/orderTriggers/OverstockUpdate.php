@@ -106,40 +106,23 @@ class OverstockUpdate extends Job
                 $Reserved       = $row['Reserved'] ?: 'NULL';
 
                 // log the change
-                $sql = "INSERT INTO [overstock-change] (
-                            [OrderDate],
-                            [Channel],
-                            [OrderNo],
-                            [Change],
-                            [SKU Number],
-                            [Title],
-                            [cost],
-                            [condition],
-                            [Allocation],
-                            [Actual Quantity],
-                            [MPN],
-                            [note],
-                            [UPC Code],
-                            [Weight(lbs)],
-                            [Reserved]
-                        )
-                        VALUES (
-                            '$date',
-                            '$channel',
-                            '$orderId',
-                            '$change',
-                            '$SKUNumber',
-                            '$Title',
-                             $cost,
-                            '$condition',
-                            '$Allocation',
-                             $ActualQuantity,
-                            '$MPN',
-                            '$note',
-                            '$UPCCode',
-                             $Weight,
-                             $Reserved
-                        )";
+                $sql = $this->insertMssql("overstock-change", [
+                    'OrderDate'       => $date,
+                    'Channel'         => $channel,
+                    'OrderNo'         => $orderId,
+                    'Change'          => $change,
+                    'SKU Number'      => $SKUNumber,
+                    'Title'           => $Title,
+                    'cost'            => $cost,
+                    'condition'       => $condition,
+                    'Allocation'      => $Allocation,
+                    'Actual Quantity' => $ActualQuantity,
+                    'MPN'             => $MPN,
+                    'note'            => $note,
+                    'UPC Code'        => $UPCCode,
+                    'Weight(lbs)'     => $Weight,
+                    'Reserved'        => $Reserved,
+                ]);
 
                 $ret = $accdb->exec($sql);
                 if (!$ret && $accdb->errorCode() != '00000') {
