@@ -106,52 +106,29 @@ class BTEInventoryUpdate extends Job
                     $total         = $row['total'];
 
                     // log the change
-                    $sql = "INSERT INTO [bte-inventory-change] (
-                                [OrderDate],
-                                [Channel],
-                                [OrderNo],
-                                [Change],
-                                [Part Number],
-                                [Title],
-                                [Selling Cost],
-                                [Type],
-                                [FBA_allocation],
-                                [Notes],
-                                [Condition],
-                                [QtyOnHand],
-                                [Weight(lbs)],
-                                [UPC Code],
-                                [Mfr_Name],
-                                [MPN],
-                                [Length(inch)],
-                                [Width(inch)],
-                                [Depth(inch)],
-                                [PurchasePrice],
-                                [total]
-                            )
-                            VALUES (
-                                '$date',
-                                '$channel',
-                                '$orderId',
-                                '$change',
-                                '$PartNumber',
-                                '$Title',
-                                 $SellingCost,
-                                '$Type',
-                                '$FbaAllocation',
-                                '$Notes',
-                                '$Condition',
-                                 $QtyOnHand,
-                                 $Weight,
-                                '$UPCCode',
-                                '$MfrName',
-                                '$MPN',
-                                 $Length,
-                                 $Width,
-                                 $Depth,
-                                '$PurchasePrice',
-                                '$total'
-                            )";
+                    $sql = $this->insertMssql("bte-inventory-change", [
+                        'OrderDate'      => $date,
+                        'Channel'        => $channel,
+                        'OrderNo'        => $orderId,
+                        'Change'         => $change,
+                        'Part Number'    => $PartNumber,
+                        'Title'          => $Title,
+                        'Selling Cost'   => $SellingCost,
+                        'Type'           => $Type,
+                        'FBA_allocation' => $FbaAllocation,
+                        'Notes'          => $Notes,
+                        'Condition'      => $Condition,
+                        'QtyOnHand'      => $QtyOnHand,
+                        'Weight(lbs)'    => $Weight,
+                        'UPC Code'       => $UPCCode,
+                        'Mfr_Name'       => $MfrName,
+                        'MPN'            => $MPN,
+                        'Length(inch)'   => $Length,
+                        'Width(inch)'    => $Width,
+                        'Depth(inch)'    => $Depth,
+                        'PurchasePrice'  => $PurchasePrice,
+                        'total'          => $total,
+                    ]);
 
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
