@@ -76,6 +76,19 @@ class Utils
         rename($filename, $newfile);
     }
 
+    // TODO: move file-related methods to File class
+    // File::expired/File::notExpired/File::backup
+
+    public static function fileExipred($filename, $ttl)
+    {
+        return (file_exists($filename) && time() - filemtime($filename) > $ttl);
+    }
+
+    public static function fileNotExipred($filename, $ttl)
+    {
+        return (file_exists($filename) && time() - filemtime($filename) < $ttl);
+    }
+
     // remove the '$' in front of price
     public static function tidyPrice($price)
     {
