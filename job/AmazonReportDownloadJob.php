@@ -34,7 +34,7 @@ class AmazonReportDownloadJob extends Job
         $list = $this->getReportRequestList('report_list_ca.csv');
 
         foreach ($list as $reportType => $reportId) {
-            $reportFile = $this->reportInfo[$reportType]['FileCA'];
+            $reportFile = $this->reportInfo[$reportType]['fileCA'];
             $reportTTL  = $this->reportInfo[$reportType]['TTL'];
             $this->getReport($reportType, $reportId, $reportFile, $reportTTL);
         }
@@ -45,7 +45,7 @@ class AmazonReportDownloadJob extends Job
         $list = $this->getReportRequestList('report_list_us.csv');
 
         foreach ($list as $reportType => $reportId) {
-            $reportFile = $this->reportInfo[$reportType]['FileUS'];
+            $reportFile = $this->reportInfo[$reportType]['fileUS'];
             $reportTTL  = $this->reportInfo[$reportType]['TTL'];
             $this->getReport($reportType, $reportId, $reportFile, $reportTTL);
         }
