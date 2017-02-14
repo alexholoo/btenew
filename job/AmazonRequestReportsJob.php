@@ -17,6 +17,7 @@ class AmazonRequestReportsJob extends Job
             '_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_'   => '-7 days',
             '_GET_REFERRAL_FEE_PREVIEW_REPORT_'       => '-7 days',
             '_GET_FLAT_FILE_PAYMENT_SETTLEMENT_DATA_' => '-7 days',
+            '_GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_'   => '-30 days',
         ];
 
         foreach ($reportTypes as $reportType => $startDate) {

@@ -60,6 +60,12 @@ class AmazonReportDownloadJob extends Job
             'FileCA' => 'amazon-ca-payment.txt',
             'FileUS' => 'amazon-us-payment.txt',
             'TTL'    => '1 days',
+        ],
+
+        '_GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_' => [
+            'FileCA' => 'amazon-ca-fba-fee.txt',
+            'FileUS' => 'amazon-us-fba-fee.txt',
+            'TTL'    => '1 days',
         ]
     ];
 
