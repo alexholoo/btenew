@@ -61,36 +61,21 @@ class SyncAccessMySqlJob extends Job
                 continue;
             }
 
-            $sql = "INSERT INTO Newegg (
-                        [Work Date],
-                        [Channel],
-                        [PO #],
-                        [Xpress],
-                        [Stock Status],
-                        [Qty],
-                        [Supplier],
-                        [Supplier SKU],
-                        [Mfr #],
-                        [Supplier #],
-                        [Remarks],
-                        [RelatedSKU],
-                        [Dimension]
-                    )
-                    VALUES (
-                        '$today',
-                        '$channel',
-                        '$orderid',
-                        $xpress,
-                        '$stockStatus',
-                        '$qty',
-                        '$supplier',
-                        '$sku',
-                        '$mfrpn',
-                        '$ponum',
-                        '',
-                        '',
-                        ''
-                    )";
+            $sql = $this->insertMssql("Newegg", [
+                'Work Date'    => $today,
+                'Channel'      => $channel,
+                'PO #'         => $orderid,
+                'Xpress'       => $xpress,
+                'Stock Status' => $stockStatus,
+                'Qty'          => $qty,
+                'Supplier'     => $supplier,
+                'Supplier SKU' => $sku,
+                'Mfr #'        => $mfrpn,
+                'Supplier #'   => $ponum,
+                'Remarks'      => '',
+                'RelatedSKU'   => '',
+                'Dimension'    => '',
+            ]);
 
             $ret = $this->accdb->exec($sql);
 
@@ -197,34 +182,20 @@ class SyncAccessMySqlJob extends Job
                 continue;
             }
 
-            $sql = "INSERT INTO ca_order_notes (
-                        [date],
-                        [order_id],
-                        [Stock Status],
-                        [Xpress],
-                        [qty],
-                        [supplier],
-                        [supplier_sku],
-                        [MPN],
-                        [Supplier#],
-                        [notes],
-                        [related_sku],
-                        [dimension]
-                    )
-                    VALUES (
-                        '$today',
-                        '$orderid',
-                        '$stockStatus',
-                        $xpress,
-                        '$qty',
-                        '$supplier',
-                        '$sku',
-                        '$mfrpn',
-                        '$ponum',
-                        '',
-                        '',
-                        ''
-                    )";
+            $sql = $this->insertMssql("ca_order_notes", [
+                'date'         => $today,
+                'order_id'     => $orderid,
+                'Stock Status' => $stockStatus,
+                'Xpress'       => $xpress,
+                'qty'          => $qty,
+                'supplier'     => $supplier,
+                'supplier_sku' => $sku,
+                'MPN'          => $mfrpn,
+                'Supplier#'    => $ponum,
+                'notes'        => '',
+                'related_sku'  => '',
+                'dimension'    => '',
+            ]);
 
             $ret = $this->accdb->exec($sql);
 
