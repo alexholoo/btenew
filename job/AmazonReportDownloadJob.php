@@ -7,76 +7,31 @@ class AmazonReportDownloadJob extends Job
     protected $store;
     protected $reportFolder = 'E:/BTE/amazon/reports/';
 
-    protected $reportInfo = [
-        '_GET_MERCHANT_LISTINGS_DATA_LITER_' => [
-            'FileCA' => 'MerchantListingsDataLiter_ca.txt',
-            'FileUS' => 'MerchantListingsDataLiter_us.txt',
-            'TTL'    => '1 days',
-        ],
-
-        '_GET_AFN_INVENTORY_DATA_' => [
-            'FileCA' => 'FBACAD.txt',
-            'FileUS' => 'FBAUSA.txt',
-            'TTL'    => '1 days',
-        ],
-
-        '_GET_ORDERS_DATA_' => [
-            'FileCA' => 'OrdersData_ca.txt',
-            'FileUS' => 'OrdersData_us.txt',
-            'TTL'    => '1 days',
-        ],
-
-        '_GET_MERCHANT_LISTINGS_DATA_' => [
-            'FileCA' => 'amazon_ca_listings.txt',
-            'FileUS' => 'amazon_us_listings.txt',
-            'TTL'    => '1 days',
-        ],
-
-        '_GET_FLAT_FILE_ORDERS_DATA_' => [
-            'FileCA' => 'amazon_ca_order_report.txt',
-            'FileUS' => 'amazon_us_order_report.txt',
-            'TTL'    => '10 minutes',
-        ],
-
-        '_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_' => [
-            'FileCA' => 'amazon_ca_FBA.txt',
-            'FileUS' => 'amazon_us_FBA.txt',
-            'TTL'    => '10 minutes',
-        ],
-
-        '_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_' => [
-            'FileCA' => 'amazon_ca_unshipped.txt',
-            'FileUS' => 'amazon_us_unshipped.txt',
-            'TTL'    => '10 minutes',
-        ],
-
-        '_GET_REFERRAL_FEE_PREVIEW_REPORT_' => [
-            'FileCA' => 'amazon_ca_referral_report.txt',
-            'FileUS' => 'amazon_us_referral_report.txt',
-            'TTL'    => '1 days',
-        ],
-
-        '_GET_FLAT_FILE_PAYMENT_SETTLEMENT_DATA_' => [
-            'FileCA' => 'amazon-ca-payment.txt',
-            'FileUS' => 'amazon-us-payment.txt',
-            'TTL'    => '1 days',
-        ],
-
-        '_GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_' => [
-            'FileCA' => 'amazon-ca-fba-fee.txt',
-            'FileUS' => 'amazon-us-fba-fee.txt',
-            'TTL'    => '1 days',
-        ]
-    ];
+    protected $reportInfo;
 
     public function run($argv = [])
     {
         $this->log('>> '. __CLASS__);
 
+        /*
+        Array
+        (
+            [_GET_ORDERS_DATA_] => Array
+            (
+                [reportType] => _GET_ORDERS_DATA_
+                [fileCA] => OrdersData_ca.txt
+                [fileUS] => OrdersData_us.txt
+                [TTL] => 1 days
+            )
+            [ ... ] => Array( ... )
+        )
+        */
+        $this->reportInfo = $this->getReportInfo();
+
         // CA
         $this->store = 'bte-amazon-ca';
 
-        $list = $this->getReportRequestList();
+        $list = $this->getReportRequestList('report_list_ca.csv');
 
         foreach ($list as $reportType => $reportId) {
             $reportFile = $this->reportInfo[$reportType]['FileCA'];
@@ -87,7 +42,7 @@ class AmazonReportDownloadJob extends Job
         // US
         $this->store = 'bte-amazon-us';
 
-        $list = $this->getReportRequestList();
+        $list = $this->getReportRequestList('report_list_us.csv');
 
         foreach ($list as $reportType => $reportId) {
             $reportFile = $this->reportInfo[$reportType]['FileUS'];
@@ -96,7 +51,7 @@ class AmazonReportDownloadJob extends Job
         }
     }
 
-    protected function getReportRequestList()
+    protected function getReportRequestList($reportFilename)
     {
         $this->log('Requesting Amazon report list: '.$this->store);
 
@@ -110,16 +65,6 @@ class AmazonReportDownloadJob extends Job
         if (empty($list)) {
             $this->log('WHAT! empty report list: '.$this->store.' '.__METHOD__);
             return [];
-        }
-
-        $reportFilename = 'report_list.csv';
-
-        if ($this->store == 'bte-amazon-ca') {
-            $reportFilename = 'report_list_ca.csv';
-        }
-
-        if ($this->store == 'bte-amazon-us') {
-            $reportFilename = 'report_list_us.csv';
         }
 
         $fp = fopen($this->reportFolder.$reportFilename, 'w');
@@ -176,6 +121,14 @@ class AmazonReportDownloadJob extends Job
         $report = new \AmazonReport($this->store, $reportId);
         $report->fetchReport();
         $report->saveReport($reportFilename);
+    }
+
+    protected function getReportInfo()
+    {
+        $sql = 'SELECT report_type reportType, file_ca fileCA, file_us fileUS, ttl TTL FROM amazon_report_request';
+        $result = $this->db->fetchAll($sql);
+
+        return array_column($result, null, 'reportType');
     }
 }
 
