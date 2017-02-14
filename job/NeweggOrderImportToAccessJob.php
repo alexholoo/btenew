@@ -61,36 +61,21 @@ class NeweggOrderImportToAccessJob extends Job
 
             echo "Importing $orderNo\n";
 
-            $sql = "INSERT INTO Newegg (
-                        [Work Date],
-                        [Channel],
-                        [PO #],
-                        [Xpress],
-                        [Stock Status],
-                        [Qty],
-                        [Supplier],
-                        [Supplier SKU],
-                        [Mfr #],
-                        [Supplier #],
-                        [Remarks],
-                        [RelatedSKU],
-                        [Dimension]
-                    )
-                    VALUES (
-                        '$date',
-                        '$channel',
-                        '$orderNo',
-                        $xpress,
-                        '$stockStatus',
-                        '$qty',
-                        '$supplier',
-                        '$ponum',
-                        '$mfrpn',
-                        '',
-                        '',
-                        '',
-                        ''
-                    )";
+            $sql = $this->insertMssql("Newegg", [
+                'Work Date'    => $date,
+                'Channel'      => $channel,
+                'PO #'         => $orderNo,
+                'Xpress'       => $xpress,
+                'Stock Status' => $stockStatus,
+                'Qty'          => $qty,
+                'Supplier'     => $supplier,
+                'Supplier SKU' => $ponum,
+                'Mfr #'        => $mfrpn,
+                'Supplier #'   => '',
+                'Remarks'      => '',
+                'RelatedSKU'   => '',
+                'Dimension'    => '',
+            ]);
 
             $ret = $accdb->exec($sql);
 
