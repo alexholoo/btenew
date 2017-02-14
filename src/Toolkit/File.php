@@ -4,6 +4,16 @@ namespace Toolkit;
 
 class File // FileUtils
 {
+    public static function rename($oldname, $newname)
+    {
+        rename($oldname, $newname);
+    }
+
+    public static function delete($filename)
+    {
+        unlink($filename);
+    }
+
     public static function unzip($zipfile)
     {
          $zip = new \ZipArchive;
