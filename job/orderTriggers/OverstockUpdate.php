@@ -147,7 +147,7 @@ class OverstockUpdate extends Job
         $list = $this->di->get('skuService')->getAltSkus($sku);
 
         if (count($list) == 0) {
-            $this->error(__METHOD__.": $sku not found in master_sku_list, please check");
+            $this->error(__METHOD__.": no alternative sku found for $sku");
             return false;
         }
 

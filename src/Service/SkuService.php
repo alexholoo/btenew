@@ -67,6 +67,7 @@ class SkuService extends Injectable
             $info['asi_pn'],
             $info['tak_pn'],
             $info['ep_pn'],
+            $info['BTE_PN'],
         ]);
     }
 
