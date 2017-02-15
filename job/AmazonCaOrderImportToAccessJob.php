@@ -58,7 +58,9 @@ class AmazonCaOrderImportToAccessJob extends Job
             $ret = $accdb->exec($sql);
 
             if (!$ret) {
-                $this->log($this->accdb->errorInfo());
+                $this->error(__METHOD__);
+                $this->error($this->accdb->errorInfo());
+                $this->error($sql);
             }
 
             $this->log($orderid);
@@ -88,7 +90,7 @@ class AmazonCaOrderImportToAccessJob extends Job
         }
 
         if (($fh = @fopen($file, 'rb')) === false) {
-            $this->log("Failed to open file: $file");
+            $this->error("Failed to open file: $file");
             return [];
         }
 
