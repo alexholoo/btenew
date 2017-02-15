@@ -91,7 +91,7 @@ class WorldshipAddressBookJob extends Job
 
     protected function getOrders()
     {
-        $start = date('Y-m-d', strtotime('-30 days'));
+        $start = date('Y-m-d', strtotime('-10 days'));
 
         $sql = "SELECT o.date, oi.order_id, oi.sku, oi.price, oi.qty, oi.product_name,
                        sa.buyer, sa.address, sa.city, sa.province, sa.postalcode,
