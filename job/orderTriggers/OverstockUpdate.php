@@ -80,6 +80,7 @@ class OverstockUpdate extends Job
 
                 $ret = $accdb->exec($sql);
                 if (!$ret && $accdb->errorCode() != '00000') {
+                    $this->error(__METHOD__);
                     $this->error(print_r($accdb->errorInfo(), true));
                     $this->error($sql);
                 }
@@ -89,6 +90,7 @@ class OverstockUpdate extends Job
                     $sql = "UPDATE [overstock] SET [SKU Number]='***$sku' WHERE [SKU Number]='$sku'";
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
+                        $this->error(__METHOD__);
                         $this->error(print_r($accdb->errorInfo(), true));
                         $this->error($sql);
                     }
@@ -128,6 +130,7 @@ class OverstockUpdate extends Job
 
                 $ret = $accdb->exec($sql);
                 if (!$ret && $accdb->errorCode() != '00000') {
+                    $this->error(__METHOD__);
                     $this->error(print_r($accdb->errorInfo(), true));
                     $this->error($sql);
                 }

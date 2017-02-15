@@ -80,7 +80,9 @@ class SyncAccessMySqlJob extends Job
             $ret = $this->accdb->exec($sql);
 
             if (!$ret) {
-                print_r($this->accdb->errorInfo());
+                $this->error(__METHOD__);
+                $this->error(print_r($this->accdb->errorInfo(), true));
+                $this->error($sql);
             }
 
             echo $orderid, EOL;
@@ -200,7 +202,9 @@ class SyncAccessMySqlJob extends Job
             $ret = $this->accdb->exec($sql);
 
             if (!$ret) {
-                print_r($this->accdb->errorInfo());
+                $this->error(__METHOD__);
+                $this->error(print_r($this->accdb->errorInfo(), true));
+                $this->error($sql);
             }
 
             echo $orderid, EOL;

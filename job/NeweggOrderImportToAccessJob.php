@@ -80,7 +80,9 @@ class NeweggOrderImportToAccessJob extends Job
             $ret = $accdb->exec($sql);
 
             if (!$ret) {
-                print_r($accdb->errorInfo());
+                $this->error(__METHOD__);
+                $this->error(print_r($accdb->errorInfo(), true));
+                $this->error($sql);
             }
 
             $lastOrderNo = $orderNo;

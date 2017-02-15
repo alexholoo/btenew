@@ -74,8 +74,9 @@ class BTEInventoryUpdate extends Job
 
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
-                        $this->log(print_r($accdb->errorInfo(), true));
-                        $this->log($sql);
+                        $this->error(__METHOD__);
+                        $this->error(print_r($accdb->errorInfo(), true));
+                        $this->error($sql);
                     }
 
                     // Mark the item as 'out of stock' by prefixing *** the part number
@@ -83,8 +84,9 @@ class BTEInventoryUpdate extends Job
                         $sql = "UPDATE [bte-inventory] SET [Part Number]='***$sku' WHERE [Part Number]='$sku'";
                         $ret = $accdb->exec($sql);
                         if (!$ret && $accdb->errorCode() != '00000') {
-                            $this->log(print_r($accdb->errorInfo(), true));
-                            $this->log($sql);
+                            $this->error(__METHOD__);
+                            $this->error(print_r($accdb->errorInfo(), true));
+                            $this->error($sql);
                         }
                         $this->log("***$sku");
                     }
@@ -134,8 +136,9 @@ class BTEInventoryUpdate extends Job
 
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
-                        $this->log(print_r($accdb->errorInfo(), true));
-                        $this->log($sql);
+                        $this->error(__METHOD__);
+                        $this->error(print_r($accdb->errorInfo(), true));
+                        $this->error($sql);
                     }
                 }
             }
