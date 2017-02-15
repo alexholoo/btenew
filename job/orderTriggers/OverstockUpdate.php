@@ -80,7 +80,8 @@ class OverstockUpdate extends Job
 
                 $ret = $accdb->exec($sql);
                 if (!$ret && $accdb->errorCode() != '00000') {
-                    $this->log(print_r($accdb->errorInfo(), true));
+                    $this->error(print_r($accdb->errorInfo(), true));
+                    $this->error($sql);
                 }
 
                 // Mark the item as 'out of stock' by prefixing *** the part number
@@ -88,22 +89,23 @@ class OverstockUpdate extends Job
                     $sql = "UPDATE [overstock] SET [SKU Number]='***$sku' WHERE [SKU Number]='$sku'";
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
-                        $this->log(print_r($accdb->errorInfo(), true));
+                        $this->error(print_r($accdb->errorInfo(), true));
+                        $this->error($sql);
                     }
                     $this->log("***$sku");
                 }
 
                 $SKUNumber      = $row['SKU Number'];
                 $Title          = $row['Title'];
-                $cost           = $row['cost'] ?: 'NULL';
+                $cost           = $row['cost'] ?: NULL;
                 $condition      = $row['condition'];
                 $Allocation     = $row['Allocation'];
                 $ActualQuantity = $x; //$row['Actual Quantity'] ?: 'NULL';
                 $MPN            = $row['MPN'];
                 $note           = $row['note'];
                 $UPCCode        = $row['UPC Code'];
-                $Weight         = $row['Weight(lbs)'] ?: 'NULL';
-                $Reserved       = $row['Reserved'] ?: 'NULL';
+                $Weight         = $row['Weight(lbs)'] ?: NULL;
+                $Reserved       = $row['Reserved'] ?: NULL;
 
                 // log the change
                 $sql = $this->insertMssql("overstock-change", [
@@ -126,7 +128,8 @@ class OverstockUpdate extends Job
 
                 $ret = $accdb->exec($sql);
                 if (!$ret && $accdb->errorCode() != '00000') {
-                    $this->log(print_r($accdb->errorInfo(), true));
+                    $this->error(print_r($accdb->errorInfo(), true));
+                    $this->error($sql);
                 }
             }
         }

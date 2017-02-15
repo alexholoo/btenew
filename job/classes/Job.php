@@ -104,6 +104,9 @@ abstract class Job
             if (is_string($val)) {
                 $data[$key] = "'" .addslashes($val). "'";
             }
+            if (is_null($val)) {
+                $data[$key] = 'NULL';
+            }
         }
 
         $values = implode(', ', $data);
