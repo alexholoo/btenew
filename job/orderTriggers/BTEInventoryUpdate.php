@@ -75,6 +75,7 @@ class BTEInventoryUpdate extends Job
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
                         $this->log(print_r($accdb->errorInfo(), true));
+                        $this->log($sql);
                     }
 
                     // Mark the item as 'out of stock' by prefixing *** the part number
@@ -83,6 +84,7 @@ class BTEInventoryUpdate extends Job
                         $ret = $accdb->exec($sql);
                         if (!$ret && $accdb->errorCode() != '00000') {
                             $this->log(print_r($accdb->errorInfo(), true));
+                            $this->log($sql);
                         }
                         $this->log("***$sku");
                     }
@@ -95,13 +97,13 @@ class BTEInventoryUpdate extends Job
                     $Notes         = $row['Notes'];
                     $Condition     = $row['Condition'];
                     $QtyOnHand     = $x; //$row['QtyOnHand'];
-                    $Weight        = $row['Weight(lbs)'] ?: 'NULL';
+                    $Weight        = $row['Weight(lbs)'] ?: NULL;
                     $UPCCode       = $row['UPC Code'];
                     $MfrName       = $row['Mfr_Name'];
                     $MPN           = $row['MPN'];
-                    $Length        = $row['Length(inch)'] ?: 'NULL';
-                    $Width         = $row['Width(inch)'] ?: 'NULL';
-                    $Depth         = $row['Depth(inch)'] ?: 'NULL';
+                    $Length        = $row['Length(inch)'] ?: NULL;
+                    $Width         = $row['Width(inch)'] ?: NULL;
+                    $Depth         = $row['Depth(inch)'] ?: NULL;
                     $PurchasePrice = $row['PurchasePrice'];
                     $total         = $row['total'];
 
@@ -133,6 +135,7 @@ class BTEInventoryUpdate extends Job
                     $ret = $accdb->exec($sql);
                     if (!$ret && $accdb->errorCode() != '00000') {
                         $this->log(print_r($accdb->errorInfo(), true));
+                        $this->log($sql);
                     }
                 }
             }
