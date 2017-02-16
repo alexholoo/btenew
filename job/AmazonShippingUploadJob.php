@@ -90,10 +90,10 @@ class AmazonShippingUploadJob extends Job
 
     private function uploadFeed($store, $file)
     {
+        return;
         $this->log('=> '. __FUNCTION__);
 
         if (!IS_PROD) {
-            return;
             throw new Exception('This script can only run on production server.');
         }
 
