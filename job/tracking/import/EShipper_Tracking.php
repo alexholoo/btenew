@@ -1,8 +1,8 @@
 <?php
 
-class EShipper_Tracking extends TrackingCollector
+class EShipper_Tracking extends TrackingImporter
 {
-    public function collect()
+    public function import()
     {
         $filename = 'w:/out/shipping/eshipper_shipment.csv';
 

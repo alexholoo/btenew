@@ -1,8 +1,8 @@
 <?php
 
-class Synnex_Tracking extends TrackingCollector
+class Synnex_Tracking extends TrackingImporter
 {
-    public function collect()
+    public function import()
     {
         $this->mergeFiles();
     }

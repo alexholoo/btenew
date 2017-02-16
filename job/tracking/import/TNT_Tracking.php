@@ -1,8 +1,8 @@
 <?php
 
-class TNT_Tracking extends TrackingCollector
+class TNT_Tracking extends TrackingImporter
 {
-    public function collect()
+    public function import()
     {
         $filename = 'w:/out/shipping/tntshipments.csv';
 

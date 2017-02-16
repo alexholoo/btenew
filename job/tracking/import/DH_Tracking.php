@@ -1,8 +1,8 @@
 <?php
 
-class DH_Tracking extends TrackingCollector
+class DH_Tracking extends TrackingImporter
 {
-    public function collect()
+    public function import()
     {
         #$columns = [
         #    // 0,    1,             2,           3,              4,          5,

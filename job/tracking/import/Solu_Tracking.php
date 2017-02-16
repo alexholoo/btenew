@@ -1,8 +1,8 @@
 <?php
 
-class Solu_Tracking extends TrackingCollector
+class Solu_Tracking extends TrackingImporter
 {
-    public function collect()
+    public function import()
     {
         $filename = 'w:/out/shipping/solu_shipment.csv';
 

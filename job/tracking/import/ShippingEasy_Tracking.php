@@ -1,8 +1,8 @@
 <?php
 
-class ShippingEasy_Tracking extends TrackingCollector
+class ShippingEasy_Tracking extends TrackingImporter
 {
-    public function collect()
+    public function import()
     {
         $filename = 'w:/out/shipping/shippingeasy-shipping-report.csv';
 

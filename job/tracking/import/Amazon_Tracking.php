@@ -1,8 +1,8 @@
 <?php
 
-class Amazon_Tracking extends TrackingCollector
+class Amazon_Tracking extends TrackingImporter
 {
-    public function collect()
+    public function import()
     {
         $filename = 'E:/BTE/tracking/amazon/amazon_ca_dropship_tracking.csv';
         $this->collectTracking($filename, 'Amazon_CA_DS');

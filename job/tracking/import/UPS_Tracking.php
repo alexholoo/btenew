@@ -1,8 +1,8 @@
 <?php
 
-class UPS_Tracking extends TrackingCollector
+class UPS_Tracking extends TrackingImporter
 {
-    public function collect()
+    public function import()
     {
         $filename = 'w:/out/shipping/UPS/UPS_CSV_EXPORT.csv';
 

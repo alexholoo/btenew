@@ -1,8 +1,8 @@
 <?php
 
-class Techdata_Tracking extends TrackingCollector
+class Techdata_Tracking extends TrackingImporter
 {
-    public function collect()
+    public function import()
     {
         /*
                     $this->saveToDb([

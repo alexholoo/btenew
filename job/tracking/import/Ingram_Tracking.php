@@ -1,8 +1,8 @@
 <?php
 
-class Ingram_Tracking extends TrackingCollector
+class Ingram_Tracking extends TrackingImporter
 {
-    public function collect()
+    public function import()
     {
         /*
                     $this->saveToDb([
