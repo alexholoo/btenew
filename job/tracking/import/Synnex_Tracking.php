@@ -4,10 +4,10 @@ class Synnex_Tracking extends TrackingImporter
 {
     public function import()
     {
-        $this->mergeFiles();
+        $this->importFiles();
     }
 
-    protected function mergeFile($xml)
+    protected function importFile($xml)
     {
         //$xml = simplexml_load_file($filename);
 
@@ -50,7 +50,7 @@ class Synnex_Tracking extends TrackingImporter
         }
     }
 
-    protected function mergeFiles()
+    protected function importFiles()
     {
         $filename = 'E:/BTE/tracking/synnex/synnex-master-shipment.xml';
         $out = fopen($filename, 'w');
