@@ -8,7 +8,7 @@ class ShipmentService extends Injectable
 {
     public function getMasterTracking($key)
     {
-        $sql = "SELECT * FROM master_tracking WHERE order_id='$key' OR trackingnum='$key'";
+        $sql = "SELECT * FROM master_order_tracking WHERE order_id='$key' OR tracking_number='$key'";
         $info = $this->db->fetchOne($sql);
         return $info;
     }
