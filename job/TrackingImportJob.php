@@ -37,7 +37,6 @@ class TrackingImportJob extends Job
 
         return $jobs;
     }
-
 }
 
 include __DIR__ . '/../public/init.php';
