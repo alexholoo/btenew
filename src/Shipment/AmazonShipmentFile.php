@@ -11,24 +11,23 @@ class AmazonShipmentFile
 
     public function __construct($country)
     {
+        $this->csvtitle = [
+            'order-id',
+            'order-item-id',
+            'quantity',
+            'ship-date',
+            'carrier-code',
+            'carrier-name',
+            'tracking-number',
+            'ship-method',
+        ];
+
         if ($country == 'CA') {
             $this->filename = 'w:/out/shipping/amazon_ca_shipment.txt';
 
             if (!IS_PROD) {
                 $this->filename = 'E:/BTE/shipping/amazon_ca_shipment.txt';
             }
-
-            $this->csvtitle = [
-                'order-id',
-                'order-item-id',
-                'quantity',
-                'ship-date',
-                'carrier-code',
-                'carrier-name',
-                'tracking-number',
-                'ship-method',
-                'site'
-            ];
         }
 
         if ($country == 'US') {
@@ -37,17 +36,6 @@ class AmazonShipmentFile
             if (!IS_PROD) {
                 $this->filename = 'E:/BTE/shipping/amazon_us_shipment.txt';
             }
-
-            $this->csvtitle = [
-                'order-id',
-                'order-item-id',
-                'quantity',
-                'ship-date',
-                'carrier-code',
-                'carrier-name',
-                'tracking-number',
-                'ship-method'
-            ];
         }
     }
 
