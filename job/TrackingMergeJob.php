@@ -36,9 +36,9 @@ class TrackingMergeJob extends Job
         $jobs = [];
 
         // base class for all tracking job
-        include_once('tracking/Tracking.php');
+        include_once('tracking/merge/Base.php');
 
-        foreach (glob("tracking/*.php") as $filename) {
+        foreach (glob("tracking/merge/*.php") as $filename) {
             include_once($filename);
 
             $path = pathinfo($filename);
