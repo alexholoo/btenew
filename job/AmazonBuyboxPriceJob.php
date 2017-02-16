@@ -13,12 +13,12 @@ class AmazonBuyboxPriceJob extends Job
         $this->log('>> '. __CLASS__);
 
         $this->store = 'bte-amazon-ca';
-        $this->fbaItemsFilename = 'E:/BTE/amazon-ca-fba-items.txt';
+        $this->fbaItemsFilename = 'E:/BTE/amazon/reports/amazon-ca-fba-items.txt';
         $this->buyboxFilename = 'W:/data/csv/amazon/amazon-ca-fba-buybox.csv';
         $this->genBuyboxPriceReport();
 
         $this->store = 'bte-amazon-us';
-        $this->fbaItemsFilename = 'E:/BTE/amazon-us-fba-items.txt';
+        $this->fbaItemsFilename = 'E:/BTE/amazon/reports/amazon-us-fba-items.txt';
         $this->buyboxFilename = 'W:/data/csv/amazon/amazon-us-fba-buybox.csv';
         $this->genBuyboxPriceReport();
     }
