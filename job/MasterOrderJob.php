@@ -183,7 +183,7 @@ class MasterOrderJob extends Job
     {
         $triggers = [];
 
-        foreach (glob("orderTriggers/*.php") as $filename) {
+        foreach (glob("order/triggers/*.php") as $filename) {
             include $filename;
 
             $path = pathinfo($filename);
