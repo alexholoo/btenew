@@ -1,19 +1,8 @@
 <?php
 
-class BTEInventoryUpdate extends Job
+class BTEInventoryUpdate extends OrderTrigger
 {
     protected $priority = 10;  // 0 to disable
-    protected $orders;
-
-    public function setOrders($orders)
-    {
-        $this->orders = $orders;
-    }
-
-    public function getPriority()
-    {
-        return $this->priority;
-    }
 
     public function run($argv = [])
     {

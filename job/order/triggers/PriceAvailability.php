@@ -1,19 +1,8 @@
 <?php
 
-class PriceAvailability extends Job
+class PriceAvailability extends OrderTrigger
 {
     protected $priority = 0;  // 0 to disable
-    protected $orders;
-
-    public function getPriority()
-    {
-        return $this->priority;
-    }
-
-    public function setOrders($orders)
-    {
-        $this->orders = $orders;
-    }
 
     public function run($argv = [])
     {

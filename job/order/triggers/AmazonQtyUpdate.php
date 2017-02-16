@@ -3,20 +3,9 @@
 use Supplier\Supplier;
 use Marketplace\Amazon\Feeds\PriceAndQuantityUpdateFile;
 
-class AmazonQtyUpdate extends Job
+class AmazonQtyUpdate extends OrderTrigger
 {
     protected $priority = 0;  // 0 to disable
-    protected $orders;
-
-    public function setOrders($orders)
-    {
-        $this->orders = $orders;
-    }
-
-    public function getPriority()
-    {
-        return $this->priority;
-    }
 
     public function run($argv = [])
     {

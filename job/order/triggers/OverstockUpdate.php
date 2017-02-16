@@ -1,19 +1,8 @@
 <?php
 
-class OverstockUpdate extends Job
+class OverstockUpdate extends OrderTrigger
 {
     protected $priority = 20;  // 0 to disable
-    protected $orders;
-
-    public function setOrders($orders)
-    {
-        $this->orders = $orders;
-    }
-
-    public function getPriority()
-    {
-        return $this->priority;
-    }
 
     public function run($argv = [])
     {

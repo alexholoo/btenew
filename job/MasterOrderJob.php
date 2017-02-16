@@ -183,6 +183,9 @@ class MasterOrderJob extends Job
     {
         $triggers = [];
 
+        // base class for all order triggers
+        include_once('order/triggers/Base.php');
+
         foreach (glob("order/triggers/*.php") as $filename) {
             include $filename;
 
