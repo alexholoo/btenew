@@ -20,10 +20,10 @@ class TrackingCollectJob extends Job
     {
         $jobs = [];
 
-        // base class for all tracking collectors
-        include_once('trackingCollectors/TrackingCollector.php');
+        // base class for all tracking importers
+        include_once('tracking/import/Base.php');
 
-        foreach (glob("trackingCollectors/*.php") as $filename) {
+        foreach (glob("tracking/import/*.php") as $filename) {
             include_once($filename);
 
             $path = pathinfo($filename);
