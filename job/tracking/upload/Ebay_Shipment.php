@@ -1,6 +1,6 @@
 <?php
 
-class Amazon_Tracking extends TrackingUploader
+class Ebay_Shipment extends TrackingUploader
 {
     public function upload()
     {
