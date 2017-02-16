@@ -64,6 +64,7 @@ class Synnex_Tracking extends TrackingImporter
        #$files = glob('w:/data/csv/amazon/synnex-tracking/*_BTE_COMPUTER_856.xml');
 
         $files = glob('E:/BTE/tracking/synnex/*_BTE_COMPUTER_856.xml');
+        $files = glob('w:/data/csv/amazon/synnex-tracking/*_BTE_COMPUTER_856.xml');
         foreach($files as $file) {
             // echo $file, EOL;
 

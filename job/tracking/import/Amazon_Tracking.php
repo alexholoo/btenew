@@ -4,14 +4,14 @@ class Amazon_Tracking extends TrackingImporter
 {
     public function import()
     {
-        $filename = 'E:/BTE/tracking/amazon/amazon_ca_dropship_tracking.csv';
-        $this->collectTracking($filename, 'Amazon_CA_DS');
+        $filename = 'w:/out/shipping/amazon/amazon_ca_dropship_tracking.csv';
+        $this->importTracking($filename, 'Amazon_CA_DS');
 
-        $filename = 'E:/BTE/tracking/amazon/amazon_us_dropship_tracking.csv';
-        $this->collectTracking($filename, 'Amazon_US_DS');
+        $filename = 'w:/out/shipping/amazon/amazon_us_dropship_tracking.csv';
+        $this->importTracking($filename, 'Amazon_US_DS');
     }
 
-    public function collectTracking($filename, $site)
+    public function importTracking($filename, $site)
     {
         if (($fp = fopen($filename, 'r')) == false) {
             $this->error("File not found: $filename");
