@@ -20,6 +20,25 @@ class ShipmentService extends Injectable
         return $info;
     }
 
+    public function getOrderTracking($orderId)
+    {
+        $sql = "SELECT * FROM master_order_tracking WHERE order_id='$orderId'";
+
+        $info = $this->db->fetchOne($sql);
+
+        if ($info) {
+            return [
+                'orderId'        => $info['order_id'],
+                'shipDate'       => $info['ship_date'],
+                'carrier'        => $info['carrier'],
+                'trackingNumber' => $info['tracking_number'],
+                'shipMethod'     => $info['ship_method'],
+            ];
+        }
+
+        return $info;
+    }
+
     /**
      * Order SHIPPED means the tracking number of the order has been uploaded
      */
