@@ -2,7 +2,7 @@
 
 include 'classes/Job.php';
 
-class TrackingCollectJob extends Job
+class TrackingImportJob extends Job
 {
     public function run($argv = [])
     {
@@ -42,5 +42,5 @@ class TrackingCollectJob extends Job
 
 include __DIR__ . '/../public/init.php';
 
-$job = new TrackingCollectJob();
+$job = new TrackingImportJob();
 $job->run($argv);
