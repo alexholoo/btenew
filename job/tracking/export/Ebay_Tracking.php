@@ -1,5 +1,7 @@
 <?php
 
+use Shipment\EbayShipmentFile;
+
 class Ebay_Tracking extends TrackingExporter
 {
     public function export()
@@ -15,7 +17,8 @@ class Ebay_Tracking extends TrackingExporter
 
     protected function exportTracking($orders, $filename)
     {
-        $columns = [ 'OrderID', 'Date', 'Carrier', 'TrackingNumber', 'TransactionID' ];
+        $file = new EbayShipmentFile($filename);
+       #$file->write($data);
     }
 
     protected function getUnshippedOrders($channel)

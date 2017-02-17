@@ -1,17 +1,20 @@
 <?php
 
+use Shipment\RakutenShipmentFile;
+
 class Rakuten_Tracking extends TrackingExporter
 {
     public function export()
     {
         $orders = $this->getUnshippedOrders('Rakuten');
         $filename = 'w:/out/shipping/rakuten_tracking.txt';
-        $this->exportTracking($orders, $filename);
+        $this->exportTracking('US', $orders, $filename);
     }
 
-    protected function exportTracking($orders, $filename)
+    protected function exportTracking($country, $orders, $filename)
     {
-        $columns = [ 'receipt-id', 'receipt-item-id', 'quantity', 'tracking-type', 'tracking-number', 'ship-date' ];
+        $file = new RakutenShipmentFile($country);
+       #$file->write($data);
     }
 
     protected function getUnshippedOrders($channel)
