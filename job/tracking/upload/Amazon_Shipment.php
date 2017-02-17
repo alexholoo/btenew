@@ -4,6 +4,8 @@ class Amazon_Shipment extends TrackingUploader
 {
     public function upload()
     {
-        //File::backup($file);
+        // Nothing to do, it's done in AmazonShippingUploadJob
+        //
+        // It's might be better to move AmazonShippingUploadJob here
     }
 }

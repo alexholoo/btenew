@@ -4,7 +4,8 @@ class Amazon_Tracking extends TrackingExporter
 {
     public function export()
     {
-        // see AmazonShippingUploadJob
-        // Nothing to do here
+        // Nothing to do, it's done in AmazonShippingUploadJob
+        //
+        // It's might be better to move AmazonShippingUploadJob here
     }
 }
