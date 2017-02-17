@@ -187,7 +187,7 @@ class MasterOrderJob extends Job
         include_once('order/triggers/Base.php');
 
         foreach (glob("order/triggers/*.php") as $filename) {
-            include $filename;
+            include_once $filename;
 
             $path = pathinfo($filename);
             $class = $path['filename'];
