@@ -35,7 +35,7 @@ class NeweggOrderImportToAccessJob extends Job
             $orderNo    = $fields[0];
             $date       = date('Y-m-d', strtotime($fields[1]));
             $sku        = $fields[16];
-            $qty        = $fields[26];
+            $qty        = $fields[27];
             $shipMethod = $fields[15];
 
             if ($date < $start) {
