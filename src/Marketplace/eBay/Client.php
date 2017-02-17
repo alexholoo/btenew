@@ -21,8 +21,11 @@ class Client
     /**
      * __construct
      */
-    public function __construct($config)
+    public function __construct($store)
     {
+        $config = require APP_DIR . '/config/ebay.php';
+        $config = $config[strtolower($store)];
+
         $this->userToken = Arr::val($config, 'userToken');
         $this->devID     = Arr::val($config, 'devID');
         $this->appID     = Arr::val($config, 'appID');

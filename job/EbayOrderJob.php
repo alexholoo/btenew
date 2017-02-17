@@ -8,10 +8,8 @@ class EbayOrderJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $config = include __DIR__ . '/../app/config/ebay.php';
-
         // BTE - CAD
-        $client = new Marketplace\eBay\Client($config['bte']);
+        $client = new Marketplace\eBay\Client('bte');
         $table = 'ebay_order_report_bte';
 
         $res = $client->getOrders();
@@ -25,7 +23,7 @@ class EbayOrderJob extends Job
         }
 
         // ODO - USD
-        $client = new Marketplace\eBay\Client($config['odo']);
+        $client = new Marketplace\eBay\Client('odo');
         $table = 'ebay_order_report_odo';
 
         $res = $client->getOrders();
