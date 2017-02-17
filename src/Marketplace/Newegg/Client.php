@@ -20,7 +20,7 @@ class Client
             $this->config = $config;
         } else {
             $config = require APP_DIR . '/config/newegg.php';
-            $this->config = $config[strtoupper($site)];
+            $this->config = $config['ftp'][strtoupper($site)];
         }
     }
 
