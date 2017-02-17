@@ -1,17 +1,16 @@
 <?php
 
 use Toolkit\File;
-use Marketplace\Newegg\Ftp;
 
 class Newegg_Shipment extends TrackingUploader
 {
     public function upload()
     {
-        $localFile = 'w:/out/shipping/newegg_canada_tracking.csv';
-        $remoteFile = '/Inbound/Shipping/newegg_canada_tracking.csv';
+        $filename = 'w:/out/shipping/newegg_canada_tracking.csv';
 
-        Ftp::upload($localFile, $remoteFile);
+        $client = new Marketplace\Newegg\Client('CA');
+        $client->uploadTracking($filename);
 
-        File::backup($localFile);
+        File::backup($filename);
     }
 }

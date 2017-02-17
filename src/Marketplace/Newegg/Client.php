@@ -64,18 +64,7 @@ class Client
         return $folder;
     }
 
-    public function getTrackingFile()
-    {
-        if ($this->site == 'CA') {
-            $file = 'E:/BTE/newegg_canada_tracking.csv';
-        } else if ($this->site == 'US') {
-            $file = 'E:/BTE/newegg_usa_tracking.csv';
-        }
-
-        return $file;
-    }
-
-    public function uploadTracking()
+    public function uploadTracking($localFile)
     {
         echo "Start uploading tracking to Newegg Canada ftp.", EOL;
 
@@ -86,11 +75,7 @@ class Client
             return;
         }
 
-        // TODO: generate 'E:/BTE/newegg_canada_tracking.csv'
-        // TrackingFile
-
-        $localFile  = $this->getTrackingFile();
-        $remoteFile = './Inbound/Shipping/newegg_canada_tracking.csv';
+        $remoteFile = '/Inbound/Shipping/'.basename($localFile);
 
         $ftp->upload($localFile, $remoteFile);
 
