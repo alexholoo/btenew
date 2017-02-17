@@ -20,7 +20,7 @@ class Client
             $this->config = $config;
         } else {
             $config = require APP_DIR . '/config/rakuten.php';
-            $this->config = $config[strtoupper($site)];
+            $this->config = $config['ftp'][strtoupper($site)];
         }
     }
 
@@ -59,5 +59,23 @@ class Client
         }
 
         return $folder;
+    }
+
+    public function uploadTracking($localFile)
+    {
+        echo "Start uploading tracking to Rakuten ftp.", EOL;
+
+        $ftp = new FtpClient($this->config);
+
+        if (!$ftp->connect()) {
+            echo "Failed to login Rakuten {$this->site} FTP server", EOL;
+            return;
+        }
+
+        $remoteFile = '/Fulfillment/'.basename($localFile);
+
+        $ftp->upload($localFile, $remoteFile);
+
+        echo "Successfully uploaded tracking to Rakuten ftp.", EOL;
     }
 }
