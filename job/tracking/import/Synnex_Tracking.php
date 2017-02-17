@@ -39,11 +39,11 @@ class Synnex_Tracking extends TrackingImporter
                 $trackingNumber = $request->ShipTrackNo;
 
                 $this->saveToDb([
-                    'orderId'        => trim(strval($orderId)),
+                    'orderId'        => strval($orderId),
                     'shipDate'       => $shipDate,
                     'carrier'        => $carrierCode,
                     'shipMethod'     => '',
-                    'trackingNumber' => trim(strval($trackingNumber)),
+                    'trackingNumber' => strval($trackingNumber),
                     'sender'         => 'SYN-DS',
                 ]);
             }

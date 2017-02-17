@@ -8,7 +8,7 @@ class TrackingImporter extends Job
     {
         try {
             $this->db->insertAsDict('master_order_tracking', [
-                'order_id'        => $fields['orderId'],
+                'order_id'        => trim($fields['orderId']),
                 'ship_date'       => $fields['shipDate'],
                 'carrier'         => $fields['carrier'],
                 'ship_method'     => $fields['shipMethod'],
