@@ -28,14 +28,19 @@ class Ebay_Shipment extends TrackingUploader
             return;
         }
 
+        fgetcsv($fp); // skip first line
+
+        $columns = [ 'OrderID', 'Date', 'Carrier', 'TrackingNumber', 'TransactionID' ];
+
         while (($fields = fgetcsv($fp))) {
-            $client->completeSale([
-                'OrderID'        => $fields[0],
-                'TransactionID'  => $fields[0],
-                'TrackingNumber' => $fields[0],
-                'Carrier'        => $fields[0],
-                'Date'           => $fields[0],
-            ]);
+            if (count($columns) != count($fields)) {
+                $this->error(__METHOD__ . print_r($fields, true));
+                continue;
+            }
+
+            $data = array_combine($columns, $fields);
+
+            $client->completeSale($data);
         }
 
         fclose($fp);
