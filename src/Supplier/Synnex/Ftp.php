@@ -4,8 +4,6 @@ namespace Supplier\Synnex;
 
 use Toolkit\File;
 use Toolkit\FtpClient;
-use Supplier\DropshipTrackingLog;
-use Supplier\Model\OrderStatusResult;
 
 class Ftp
 {
@@ -80,37 +78,9 @@ class Ftp
 
         return true;
     }
-
-    // TODO: move this method to a better place, it should not be here
-    public static function importTracking($file)
-    {
-        $fmtdate = function($date, $time) {
-            return '20'.implode('-', str_split($date, 2)).' '.implode(':', str_split($time, 2));
-        };
-
-        $xml = simplexml_load_file($file);
-
-        $result = new OrderStatusResult();
-
-        $result->orderNo = (string)$xml->ShipNotice3D->PONumber;
-        $result->trackingNumber = (string)$xml->ShipNotice3D->ShipTrackNo;
-        $result->carrier = (string)$xml->ShipNotice3D->ShipDescription;
-        $result->service = '';
-        $result->shipDate = $fmtdate($xml->ShipNotice3D->ShipDate, $xml->ShipNotice3D->ShipTime);
-
-        if ($result->trackingNumber) {
-            echo $result->orderNo, ' ', $result->trackingNumber, EOL;
-            #var_export($result);
-            DropshipTrackingLog::save($result);
-        }
-    }
 }
 
 #include 'public/init.php';
 
 #Ftp::getPricelist();
 #Ftp::getTracking();
-#Ftp::importTracking('E:/BTE/20161028130637837_BTE_COMPUTER_856.xml');  // 1 item in 1 package
-#Ftp::importTracking('E:/BTE/20160714210556347_BTE_COMPUTER_856.xml');  // 13 items in 1 package
-#Ftp::importTracking('E:/BTE/20160718150700317_BTE_COMPUTER_856.xml');  // 26 packages
-#Ftp::importTracking('E:/BTE/20160715_000602057_BTE_COMPUTER_810.xml'); // Invoice, not shipment
