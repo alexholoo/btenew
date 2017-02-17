@@ -70,7 +70,7 @@ class Synnex_Tracking extends TrackingImporter
 
             $xml = simplexml_load_file($file);
 
-            $this->mergeFile($xml);
+            $this->importFile($xml);
 
             $result = $xml->xpath('/SynnexB2B/ShipNotice3D');
 
