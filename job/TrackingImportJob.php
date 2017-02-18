@@ -22,6 +22,7 @@ class TrackingImportJob extends Job
 
         // base class for all tracking importers
         include_once('tracking/import/Base.php');
+        include_once('tracking/Filenames.php');
 
         foreach (glob("tracking/import/*.php") as $filename) {
             include_once($filename);

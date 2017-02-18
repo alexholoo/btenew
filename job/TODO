@@ -39,6 +39,7 @@
 ../src/Shipment/NeweggShipmentFile.php
 ../src/Shipment/RakutenShipmentFile.php
 
+./tracking/Filenames.php
 
 #/tracking/upload/Base.php
 #/tracking/upload/Amazon_Shipment.php

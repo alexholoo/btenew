@@ -22,6 +22,7 @@ class TrackingDownloadJob extends Job
 
         // base class for all tracking downloaders
         include_once('tracking/download/Base.php');
+        include_once('tracking/Filenames.php');
 
         foreach (glob("tracking/download/*.php") as $filename) {
             include_once($filename);
