@@ -8,7 +8,7 @@ class EbayShipmentFile
     protected $filename;
     protected $csvtitle;
 
-    public function __construct($country)
+    public function __construct($filename)
     {
         $this->csvtitle = [
             'OrderID',
@@ -18,8 +18,7 @@ class EbayShipmentFile
             'TransactionID'
         ];
 
-#       $this->filename = 'w:/out/shipping/rakuten_tracking.txt';
-        $this->filename = 'E:/BTE/shipping/ebay_tracking.txt';
+        $this->filename = $filename;
     }
 
     public function __destruct()
@@ -48,4 +47,3 @@ class EbayShipmentFile
         return fputcsv($this->handle, $data);
     }
 }
-
