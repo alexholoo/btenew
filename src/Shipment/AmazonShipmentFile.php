@@ -45,7 +45,7 @@ class AmazonShipmentFile
         }
 
         if (count($data) != count($this->csvtitle)) {
-            throw new \Exception('Wrong number of elements: '. var_export($data, true));
+            throw new \Exception(__METHOD__. ' Wrong number of elements: '. var_export($data, true));
         }
 
         return fputcsv($this->handle, $data, $this->delimiter);
