@@ -8,12 +8,11 @@ class NeweggShipmentFile
     protected $filename;
     protected $csvtitle;
 
-    public function __construct($country)
+    public function __construct($country, $filename)
     {
-        if ($country == 'CA') {
-#           $this->filename = 'w:/out/shipping/newegg_canada_tracking.csv';
-            $this->filename = 'E:/BTE/shipping/newegg_canada_tracking.csv';
+        $this->filename = $filename;
 
+        if ($country == 'CA') {
             $this->csvtitle = [
                 'Order Number',
                 'Order Date & Time',
@@ -56,9 +55,6 @@ class NeweggShipmentFile
         }
 
         if ($country == 'US') {
-#           $this->filename = 'w:/out/shipping/newegg_usa_tracking.csv';
-            $this->filename = 'E:/BTE/shipping/newegg_usa_tracking.csv';
-
             $this->csvtitle = [
                 'Order Number',
                 'Order Date & Time',

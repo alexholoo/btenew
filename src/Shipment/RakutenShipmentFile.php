@@ -9,7 +9,7 @@ class RakutenShipmentFile
     protected $csvtitle;
     protected $delimiter = "\t";
 
-    public function __construct($country)
+    public function __construct($country, $filename)
     {
         $this->csvtitle = [
             'receipt-id',
@@ -20,13 +20,10 @@ class RakutenShipmentFile
             'ship-date',
         ];
 
-        if ($country == 'CA') {
-        }
+        if ($country == 'CA') { }
+        if ($country == 'US') { }
 
-        if ($country == 'US') {
-#           $this->filename = 'w:/out/shipping/rakuten_tracking.txt';
-            $this->filename = 'E:/BTE/shipping/rakuten_tracking.txt';
-        }
+        $this->filename = $filename;
     }
 
     public function __destruct()
