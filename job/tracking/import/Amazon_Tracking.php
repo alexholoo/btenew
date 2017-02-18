@@ -4,10 +4,10 @@ class Amazon_Tracking extends TrackingImporter
 {
     public function import()
     {
-        $filename = 'w:/out/shipping/amazon_ca_drop_ship_tracking.csv';
+        $filename = Filenames::get('amazon.ca.tracking');
         $this->importTracking($filename, 'Amazon_CA_DS');
 
-        $filename = 'w:/out/shipping/amazon_us_drop_ship_tracking.csv';
+        $filename = Filenames::get('amazon.us.tracking');
         $this->importTracking($filename, 'Amazon_US_DS');
     }
 

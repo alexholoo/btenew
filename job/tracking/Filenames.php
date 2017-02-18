@@ -7,8 +7,8 @@ class Filenames
         'amazon.us.tracking'    => 'E:/BTE/tracking/amazon_us_dropship_tracking.csv',
 
         'dh.tracking'           => 'E:/BTE/tracking/dh/DH-TRACKING',
-        'techdata.tracking'     => 'E:/BTE/tracking/techdata/DH-TRACKING',
-        'ingram.tracking'       => 'E:/BTE/tracking/ingram/DH-TRACKING',
+        'techdata.tracking'     => 'E:/BTE/tracking/techdata/TD-TRACKING',
+        'ingram.tracking'       => 'E:/BTE/tracking/ingram/ING-TRACKING',
         'synnex.tracking'       => 'E:/BTE/tracking/synnex/*.xml',
 
         'amazon.ca.shipping'    => 'E:/BTE/shipping/amazon_ca_shipment.txt',

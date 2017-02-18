@@ -11,7 +11,7 @@ class DH_Tracking extends TrackingImporter
         #    [ 'D2', 'ModelNo',     'Qty',       'SerialNo+',    'Price' ],
         #];
 
-        $filename = 'W:/out/shipping/DH-TRACKING';
+        $filename = Filenames::get('dh.tracking');
 
         #if (IS_PROD) {
         #    $filename = 'E:/BTE/tracking/dh/DH-TRACKING';
