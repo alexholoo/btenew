@@ -7,8 +7,7 @@ class Newegg_Tracking extends TrackingExporter
     public function export()
     {
         $orders = $this->getUnshippedOrders('NeweggCA');
-        $filename = 'w:/out/shipping/newegg_canada_tracking.csv';
-        $filename = 'E:/BTE/shipping/newegg_canada_tracking.csv';
+        $filename = Filenames::get('newegg.ca.shipping');
         $this->exportTracking('CA', $orders, $filename);
     }
 

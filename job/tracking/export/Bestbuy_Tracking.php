@@ -5,7 +5,7 @@ class Bestbuy_Tracking extends TrackingExporter
     public function export()
     {
         $orders = $this->getUnshippedOrders();
-        $filename = 'w:/out/ship/bestbuy_shipping.csv';
+        $filename = Filenames::get('bestbuy.shipping');
         $this->exportTracking($orders, $filename);
     }
 

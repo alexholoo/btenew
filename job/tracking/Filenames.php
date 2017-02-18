@@ -7,6 +7,8 @@ class Filenames
         'amazon.us.tracking'    => 'E:/BTE/tracking/amazon_us_dropship_tracking.csv',
 
         'dh.tracking'           => 'E:/BTE/tracking/dh/DH-TRACKING',
+        'techdata.tracking'     => 'E:/BTE/tracking/techdata/DH-TRACKING',
+        'ingram.tracking'       => 'E:/BTE/tracking/ingram/DH-TRACKING',
         'synnex.tracking'       => 'E:/BTE/tracking/synnex/*.xml',
 
         'amazon.ca.shipping'    => 'E:/BTE/shipping/amazon_ca_shipment.txt',
@@ -24,7 +26,7 @@ class Filenames
         'rakuten.us.shipping'   => 'E:/BTE/shipping/rakuten_tracking.txt',
     ];
 
-    public function get($key)
+    public static function get($key)
     {
         return self::$filenames[$key] ?? '';
     }

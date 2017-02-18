@@ -7,8 +7,7 @@ class Rakuten_Tracking extends TrackingExporter
     public function export()
     {
         $orders = $this->getUnshippedOrders('Rakuten');
-        $filename = 'w:/out/shipping/rakuten_tracking.txt';
-        $filename = 'E:/BTE/shipping/rakuten_tracking.txt';
+        $filename = Filenames::get('rakuten.us.shipping');
         $this->exportTracking('US', $orders, $filename);
     }
 
