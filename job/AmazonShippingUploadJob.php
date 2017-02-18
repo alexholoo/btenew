@@ -14,13 +14,15 @@ class AmazonShippingUploadJob extends Job
         $store    = 'bte-amazon-ca';
         $orders   = $this->getUnshippedOrders($store);
         #filename = 'w:/out/shipping/amazon_ca_shipment.txt';
-        $filename = $this->outputFeed('CA', $orders);
+        $filename = 'E:/BTE/shipping/amazon_ca_shipment.txt';
+        $this->outputFeed($filename, $orders);
         $this->uploadFeed($store, $filename);
 
         $store    = 'bte-amazon-us';
         $orders   = $this->getUnshippedOrders($store);
         #filename = 'w:/out/shipping/amazon_us_shipment.txt';
-        $filename = $this->outputFeed('US', $orders);
+        $filename = 'E:/BTE/shipping/amazon_us_shipment.txt';
+        $this->outputFeed($filename, $orders);
         $this->uploadFeed($store, $filename);
     }
 
@@ -60,11 +62,11 @@ class AmazonShippingUploadJob extends Job
         return $orders;
     }
 
-    private function outputFeed($site, $orders)
+    private function outputFeed($filename, $orders)
     {
         $this->log('=> '. __FUNCTION__);
 
-        $feedFile = new AmazonShipmentFile($site);
+        $feedFile = new AmazonShipmentFile($filename);
 
         $shipmentService = $this->di->get('shipmentService');
 
@@ -84,8 +86,6 @@ class AmazonShippingUploadJob extends Job
                 ]);
             }
         }
-
-        return $feedFile->getFilename();
     }
 
     private function uploadFeed($store, $file)

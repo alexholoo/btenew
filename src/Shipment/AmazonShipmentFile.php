@@ -9,7 +9,7 @@ class AmazonShipmentFile
     protected $csvtitle;
     protected $delimiter = "\t";
 
-    public function __construct($country)
+    public function __construct($filename)
     {
         $this->csvtitle = [
             'order-id',
@@ -22,23 +22,7 @@ class AmazonShipmentFile
             'ship-method',
         ];
 
-        if ($country == 'CA') {
-#           $this->filename = 'w:/out/shipping/amazon_ca_shipment.txt';
-            $this->filename = 'E:/BTE/shipping/amazon_ca_shipment.txt';
-
-#           if (!IS_PROD) {
-#               $this->filename = 'E:/BTE/shipping/amazon_ca_shipment.txt';
-#           }
-        }
-
-        if ($country == 'US') {
-#           $this->filename = 'w:/out/shipping/amazon_us_shipment.txt';
-            $this->filename = 'E:/BTE/shipping/amazon_us_shipment.txt';
-
-#           if (!IS_PROD) {
-#               $this->filename = 'E:/BTE/shipping/amazon_us_shipment.txt';
-#           }
-        }
+        $this->filename = $filename;
     }
 
     public function __destruct()
