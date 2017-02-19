@@ -4,7 +4,7 @@ class Solu_Tracking extends TrackingImporter
 {
     public function import()
     {
-        $filename = 'w:/out/shipping/solu_shipment.csv';
+        $filename = Filenames::get('solu.tracking');
 
         if (($fp = fopen($filename, 'r')) == false) {
             $this->error("File not found: $filename");

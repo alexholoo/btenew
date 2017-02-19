@@ -4,7 +4,7 @@ class Techdata_Tracking extends TrackingImporter
 {
     public function import()
     {
-        $filename = 'W:/out/shipping/TD_tracking.csv';
+        $filename = Filenames::get('techdata.tracking');
 
         if (($fp = fopen($filename, 'r')) == false) {
             $this->error("File not found: $filename");

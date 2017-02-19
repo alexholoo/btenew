@@ -22,7 +22,7 @@
 #/tracking/import/Ingram_Tracking.php
 #/tracking/import/ShippingEasy_Tracking.php
 #/tracking/import/Solu_Tracking.php
-#/tracking/import/Synnex_Tracking.php
+./tracking/import/Synnex_Tracking.php
 #/tracking/import/Techdata_Tracking.php
 #/tracking/import/TNT_Tracking.php
 #/tracking/import/UPS_Tracking.php

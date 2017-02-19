@@ -7,6 +7,7 @@ class Synnex_Tracking extends TrackingDownloader
     public function download()
     {
         // Tracking is saved in "E:/BTE/tracking/synnex/*.xml";
-        Ftp::getTracking();
+        $folder = Filenames::get('synnex.tracking');
+        Ftp::getTracking($folder);
     }
 }

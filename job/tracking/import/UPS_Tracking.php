@@ -4,7 +4,7 @@ class UPS_Tracking extends TrackingImporter
 {
     public function import()
     {
-        $filename = 'w:/out/shipping/UPS/UPS_CSV_EXPORT.csv';
+        $filename = Filenames::get('ups.tracking');
 
         if (($fp = fopen($filename, 'r')) == false) {
             $this->error("File not found: $filename");

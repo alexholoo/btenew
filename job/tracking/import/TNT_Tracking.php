@@ -4,7 +4,7 @@ class TNT_Tracking extends TrackingImporter
 {
     public function import()
     {
-        $filename = 'w:/out/shipping/tntshipments.csv';
+        $filename = Filenames::get('tnt.tracking');
 
         if (($fp = fopen($filename, 'r')) == false) {
             $this->error("File not found: $filename");

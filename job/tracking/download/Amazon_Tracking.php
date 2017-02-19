@@ -3,20 +3,19 @@
 class Amazon_Tracking extends TrackingDownloader
 {
     protected $store;
-    protected $folder = 'E:/BTE/amazon/reports/';
 
     public function download()
     {
         // CA
         $this->store = 'bte-amazon-ca';
-        $this->orderFile = 'amazon_ca_drop_ship.csv';
-        $this->trackingFile = 'amazon_ca_drop_ship_tracking.csv';
+        $this->orderFile = Filenames::get('amazon.ca.dropship');
+        $this->trackingFile = Filenames::get('amazon.ca.tracking');
         $list = $this->downloadTracking();
 
         // US
         $this->store = 'bte-amazon-us';
-        $this->orderFile = 'amazon_us_drop_ship.csv';
-        $this->trackingFile = 'amazon_us_drop_ship_tracking.csv';
+        $this->orderFile = Filenames::get('amazon.us.dropship');
+        $this->trackingFile = Filenames::get('amazon.us.tracking');
         $list = $this->downloadTracking();
     }
 
@@ -35,10 +34,10 @@ class Amazon_Tracking extends TrackingDownloader
             return;
         }
 
-        $orderFile = fopen($this->folder.$this->orderFile, 'w');
+        $orderFile = fopen($this->orderFile, 'w');
        #fputcsv($orderFile, ['orderId', 'orderDate']);
 
-        $trackingFile = fopen($this->folder.$this->trackingFile, 'w');
+        $trackingFile = fopen($this->trackingFile, 'w');
        #fputcsv($trackingFile, ['orderId', 'shipmentStatus', 'Carrier', 'TrackingNumber', 'shippingDate']);
 
         foreach ($list as $fulfillment) {

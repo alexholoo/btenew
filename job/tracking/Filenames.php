@@ -3,14 +3,26 @@
 class Filenames
 {
     protected static $filenames = [
+        // tracking
+        'canada.post.tracking'  => 'E:/BTE/tracking/cpc.xml',
+        'eshipper.tracking'     => 'E:/BTE/tracking/eshipper_shipment.csv',
+        'shippingeasy.tracking' => 'E:/BTE/tracking/shippingeasy-shipping-report.csv',
+        'solu.tracking'         => 'E:/BTE/tracking/solu_shipment.csv',
+        'tnt.tracking'          => 'E:/BTE/tracking/tnt_shipments.csv',
+        'ups.tracking'          => 'E:/BTE/tracking/ups_tracking.csv',
+
+        'amazon.ca.dropship'    => 'E:/BTE/tracking/amazon_ca_dropship_orders.csv',
+        'amazon.us.dropship'    => 'E:/BTE/tracking/amazon_us_dropship_orders.csv',
+
         'amazon.ca.tracking'    => 'E:/BTE/tracking/amazon_ca_dropship_tracking.csv',
         'amazon.us.tracking'    => 'E:/BTE/tracking/amazon_us_dropship_tracking.csv',
 
-        'dh.tracking'           => 'E:/BTE/tracking/dh/DH-TRACKING',
-        'techdata.tracking'     => 'E:/BTE/tracking/techdata/TD-TRACKING',
-        'ingram.tracking'       => 'E:/BTE/tracking/ingram/ING-TRACKING',
-        'synnex.tracking'       => 'E:/BTE/tracking/synnex/*.xml',
+        'dh.tracking'           => 'E:/BTE/tracking/DH-TRACKING',
+        'techdata.tracking'     => 'E:/BTE/tracking/TD-tracking',
+        'ingram.tracking'       => 'E:/BTE/tracking/ING-tracking',
+        'synnex.tracking'       => 'E:/BTE/tracking/synnex/',
 
+        // shipping
         'amazon.ca.shipping'    => 'E:/BTE/shipping/amazon_ca_shipment.txt',
         'amazon.us.shipping'    => 'E:/BTE/shipping/amazon_us_shipment.txt',
 

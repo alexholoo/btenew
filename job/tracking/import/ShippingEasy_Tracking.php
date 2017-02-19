@@ -4,7 +4,7 @@ class ShippingEasy_Tracking extends TrackingImporter
 {
     public function import()
     {
-        $filename = 'w:/out/shipping/shippingeasy-shipping-report.csv';
+        $filename = Filenames::get('shippingeasy.tracking');
 
         if (($fp = fopen($filename, 'r')) == false) {
             $this->error("File not found: $filename");

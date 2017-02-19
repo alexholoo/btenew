@@ -4,7 +4,7 @@ class Ingram_Tracking extends TrackingImporter
 {
     public function import()
     {
-        $filename = 'W:/out/shipping/ing_tracking.csv';
+        $filename = Filenames::get('ingram.tracking');
 
         if (($fp = fopen($filename, 'r')) == false) {
             $this->error("File not found: $filename");

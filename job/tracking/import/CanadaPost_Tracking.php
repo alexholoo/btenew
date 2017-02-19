@@ -4,7 +4,7 @@ class CanadaPost_Tracking extends TrackingImporter
 {
     public function import()
     {
-        $filename = 'w:/out/shipping/cpc.xml';
+        $filename = Filenames::get('canada.post.tracking');
         if (!file_exists($filename)) {
             $this->error("File not found: $filename");
             return;
