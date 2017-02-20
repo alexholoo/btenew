@@ -9,17 +9,20 @@ class AmazonPriceQtyUpdateJob extends Job
         $this->log('>> '. __CLASS__);
 
         $today = date('m-d-Y');
+        $folder = 'w:/out/amazon_update';
+
+        $type = '_POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA_';
 
         $store = 'bte-amazon-ca';
-        $filename = "w:/out/amazon_update/amazon_cad_update$today.txt";
-        $this->uploadFeed($store, $filename);
+        $filename = "$folder/amazon_cad_update$today.txt";
+        $this->uploadFeed($store, $filename, $type);
 
         $store = 'bte-amazon-us';
-        $filename = "w:/out/amazon_update/amazon_usa_update$today.txt";
-        $this->uploadFeed($store, $filename);
+        $filename = "$folder/amazon_usa_update$today.txt";
+        $this->uploadFeed($store, $filename, $type);
     }
 
-    private function uploadFeed($store, $file)
+    private function uploadFeed($store, $file, $type)
     {
         if (!IS_PROD) {
             throw new Exception('This script can only run on production server.');
@@ -30,12 +33,12 @@ class AmazonPriceQtyUpdateJob extends Job
             return;
         }
 
-        $this->log("Uploading PriceQty: $file");
+        $this->log("Uploading $type: $file");
 
         $feed = file_get_contents($file);
 
         $api = new AmazonFeed($store);
-        $api->setFeedType('_POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA_');
+        $api->setFeedType($type);
         $api->setFeedContent($feed);
         $api->submitFeed();
 

@@ -9,17 +9,20 @@ class AmazonNewItemsJob extends Job
         $this->log('>> '. __CLASS__);
 
         $today = date('m-d-Y');
+        $folder = 'w:/out/amazon_update';
+
+        $type = '_POST_FLAT_FILE_INVLOADER_DATA_';
 
         $store = 'bte-amazon-ca';
-        $filename = "w:/out/amazon_update/newitems_amazoncanada-$today.txt";
-        $this->uploadFeed($store, $filename);
+        $filename = "$folder/newitems_amazoncanada-$today.txt";
+        $this->uploadFeed($store, $filename, $type);
 
         $store = 'bte-amazon-us';
-        $filename = "w:/out/amazon_update/newitems_amazonusa-$today.txt";
-        $this->uploadFeed($store, $filename);
+        $filename = "$folder/newitems_amazonusa-$today.txt";
+        $this->uploadFeed($store, $filename, $type);
     }
 
-    private function uploadFeed($store, $file)
+    private function uploadFeed($store, $file, $type)
     {
         if (!IS_PROD) {
             throw new Exception('This script can only run on production server.');
@@ -30,12 +33,12 @@ class AmazonNewItemsJob extends Job
             return;
         }
 
-        $this->log("Uploading newitems: $file");
+        $this->log("Uploading $type: $file");
 
         $feed = file_get_contents($file);
 
         $api = new AmazonFeed($store);
-        $api->setFeedType('_POST_FLAT_FILE_INVLOADER_DATA_');
+        $api->setFeedType($type);
         $api->setFeedContent($feed);
         $api->submitFeed();
 

@@ -8,16 +8,19 @@ class AmazonShippingTemplateJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
+        $folder = 'w:/out/amazon_update';
+        $type = '_POST_FLAT_FILE_INVLOADER_DATA_';
+
         $store = 'bte-amazon-ca';
-        $filename = "w:/out/amazon_update/ca-shipping-template.txt";
-        $this->uploadFeed($store, $filename);
+        $filename = "$folder/ca-shipping-template.txt";
+        $this->uploadFeed($store, $filename, $type);
 
         $store = 'bte-amazon-us';
-        $filename = "w:/out/amazon_update/us-shipping-template.txt";
-        $this->uploadFeed($store, $filename);
+        $filename = "$folder/us-shipping-template.txt";
+        $this->uploadFeed($store, $filename, $type);
     }
 
-    private function uploadFeed($store, $file)
+    private function uploadFeed($store, $file, $type)
     {
         if (!IS_PROD) {
             throw new Exception('This script can only run on production server.');
@@ -28,12 +31,12 @@ class AmazonShippingTemplateJob extends Job
             return;
         }
 
-        $this->log("Uploading shipping templates: $file");
+        $this->log("Uploading $type: $file");
 
         $feed = file_get_contents($file);
 
         $api = new AmazonFeed($store);
-        $api->setFeedType('_POST_FLAT_FILE_INVLOADER_DATA_');
+        $api->setFeedType($type);
         $api->setFeedContent($feed);
         $api->submitFeed();
 
