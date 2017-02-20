@@ -51,7 +51,7 @@ class Ftp
         rename("$folder/1150897.ap", "$folder/SYN-1150897.ap");
     }
 
-    public static function getTracking()
+    public static function getTracking($folder)
     {
         $ftp = self::connect();
 
@@ -68,11 +68,9 @@ class Ftp
                 # old tracking files locate at
                 # ./data/csv/amazon/synnex-tracking/*.xml
 
-                $localFile = "E:/BTE/tracking/synnex/$file";
+                $localFile = "$folder/$file";
                 $ftp->download($file, $localFile);
                 #$ftp->deleteFile($file); // TODO; enable this
-
-                //self::importTracking($localFile);
             }
         }
 

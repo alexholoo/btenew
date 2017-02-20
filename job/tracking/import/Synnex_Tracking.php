@@ -52,7 +52,9 @@ class Synnex_Tracking extends TrackingImporter
 
     protected function importFiles()
     {
-        $filename = 'E:/BTE/tracking/synnex/synnex-master-shipment.xml';
+        $folder = Filenames::get('synnex.tracking');
+
+        $filename = "$folder/synnex-master-shipment.xml";
         $out = fopen($filename, 'w');
 
         fwrite($out, '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>');
@@ -60,11 +62,10 @@ class Synnex_Tracking extends TrackingImporter
         fwrite($out, "<SynnexB2B>\n");
 
        #$today = date('Ymd');
-       #$files = glob("W:/data/csv/amazon/synnex-tracking/$today*_BTE_COMPUTER_856.xml");
-       #$files = glob('w:/data/csv/amazon/synnex-tracking/*_BTE_COMPUTER_856.xml');
+       #$files = glob("$folder/$today*_BTE_COMPUTER_856.xml");
+       #$files = glob("$folder/*_BTE_COMPUTER_856.xml");
 
-        $files = glob('E:/BTE/tracking/synnex/*_BTE_COMPUTER_856.xml');
-        $files = glob('w:/data/csv/amazon/synnex-tracking/*_BTE_COMPUTER_856.xml');
+        $files = glob("$folder/*_BTE_COMPUTER_856.xml");
         foreach($files as $file) {
             // echo $file, EOL;
 

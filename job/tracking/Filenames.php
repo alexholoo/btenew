@@ -20,7 +20,7 @@ class Filenames
         'dh.tracking'           => 'E:/BTE/tracking/DH-TRACKING',
         'techdata.tracking'     => 'E:/BTE/tracking/TD-tracking',
         'ingram.tracking'       => 'E:/BTE/tracking/ING-tracking',
-        'synnex.tracking'       => 'E:/BTE/tracking/synnex/',
+        'synnex.tracking'       => 'E:/BTE/tracking/synnex',
 
         // shipping
         'amazon.ca.shipping'    => 'E:/BTE/shipping/amazon_ca_shipment.txt',
