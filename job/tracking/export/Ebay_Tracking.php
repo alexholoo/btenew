@@ -7,12 +7,12 @@ class Ebay_Tracking extends TrackingExporter
     public function export()
     {
         // BTE
+        $orders = $this->getUnshippedOrders('eBay'); // channel?
         $filename = Filenames::get('ebay.bte.shipping');
-        $orders = $this->getUnshippedOrders('eBay-bte');
         $this->exportTracking($orders, $filename);
 
         // ODO
-        $orders = $this->getUnshippedOrders('eBay-odo');
+        $orders = $this->getUnshippedOrders('eBay'); // channel?
         $filename = Filenames::get('ebay.odo.shipping');
         $this->exportTracking($orders, $filename);
     }
@@ -34,8 +34,6 @@ class Ebay_Tracking extends TrackingExporter
 
     protected function getUnshippedOrders($channel)
     {
-        // TODO: channel?
-
         $sql = "SELECT t.order_id AS orderId,
                        t.ship_date AS shipDate,
                        t.carrier,
@@ -44,7 +42,7 @@ class Ebay_Tracking extends TrackingExporter
                   FROM master_order_tracking t
              LEFT JOIN master_order o ON t.order_id=o.order_id
              LEFT JOIN master_order_shipped s ON t.order_id=s.order_id
-                 WHERE o.channel='ebay' AND s.createdon IS NULL";
+                 WHERE o.channel='$channel' AND s.createdon IS NULL";
 
         $result = $this->db->fetchAll($sql);
         if (!$result) {
