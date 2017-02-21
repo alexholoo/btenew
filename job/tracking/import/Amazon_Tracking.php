@@ -18,6 +18,8 @@ class Amazon_Tracking extends TrackingImporter
             return;
         }
 
+        // 232076139,SHIPPED,7316971217505329,"Canada Post",2017-01-11
+
         while (($fields = fgetcsv($fp))) {
             $this->saveToDb([
                 'orderId'        => $fields[0],

@@ -11,6 +11,15 @@ class UPS_Tracking extends TrackingImporter
             return;
         }
 
+        /**
+         * ,"114-6686534-2495411","1Z37Y0596840271065","20170221161655"
+         *
+         * 0 - empty
+         * 1 - orderId
+         * 2 - tracking number
+         * 3 - shipping date
+         */
+
         while (($fields = fgetcsv($fp)) !== FALSE) {
 
             $orderId = $fields[1];
@@ -19,7 +28,7 @@ class UPS_Tracking extends TrackingImporter
             }
 
             $shipDate = $fields[3];
-            if (strlen($shipDate) < 10) {
+            if (strlen($shipDate) < 10) { // not end-of-day yet
                 continue;
             }
 

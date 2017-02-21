@@ -23,12 +23,20 @@ class Rakuten_Shipment extends TrackingUploader
             return;
         }
 
-        fgetcsv($fp); // skip first line
+        $columns = fgetcsv($fp); // skip first line
+        /*
+            'receipt-id',
+            'receipt-item-id',
+            'quantity',
+            'tracking-type',
+            'tracking-number',
+            'ship-date',
+        */
 
         $shipmentService = $this->di->get('shipmentService');
 
         while (($fields = fgetcsv($fp))) {
-            $orderId = $fields[0]; // TODO: fix
+            $orderId = $fields[0];
             $shipmentService->markOrderAsShipped($orderId);
         }
 
