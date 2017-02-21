@@ -6,7 +6,7 @@ class Newegg_Shipment extends TrackingUploader
 {
     public function upload()
     {
-        $filename = 'w:/out/shipping/newegg_canada_tracking.csv';
+        $filename = Filenames::get('newegg.ca.shipping');
 
         $client = new Marketplace\Newegg\Client('CA');
         $client->uploadTracking($filename);

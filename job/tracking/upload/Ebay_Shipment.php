@@ -8,14 +8,14 @@ class Ebay_Shipment extends TrackingUploader
     {
         // BTE
         $client = new Marketplace\eBay\Client('bte');
-        $filename = 'w:/out/ship/ebay_shipping_bte.csv';
+        $filename = Filenames::get('ebay.bte.shipping');
         $this->uploadTracking($client, $filename);
 
         File::backup($filename);
 
         // ODO
         $client = new Marketplace\eBay\Client('odo');
-        $filename = 'w:/out/ship/ebay_shipping_odo.csv';
+        $filename = Filenames::get('ebay.odo.shipping');
         $this->uploadTracking($client, $filename);
 
         File::backup($filename);
