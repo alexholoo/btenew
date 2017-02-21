@@ -32,6 +32,8 @@ class Ebay_Shipment extends TrackingUploader
 
         $columns = [ 'OrderID', 'Date', 'Carrier', 'TrackingNumber', 'TransactionID' ];
 
+        $shipmentService = $this->di->get('shipmentService');
+
         while (($fields = fgetcsv($fp))) {
             if (count($columns) != count($fields)) {
                 $this->error(__METHOD__ . print_r($fields, true));
@@ -41,6 +43,8 @@ class Ebay_Shipment extends TrackingUploader
             $data = array_combine($columns, $fields);
 
             $client->completeSale($data);
+
+            $shipmentService->markOrderAsShipped($data['OrderID']);
         }
 
         fclose($fp);
