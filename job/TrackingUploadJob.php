@@ -11,7 +11,7 @@ class TrackingUploadJob extends Job
         $jobs = $this->getUploadJobs();
 
         foreach ($jobs as $job) {
-            $this->log('=> ' . get_class($job));
+            $this->log('=> Uploading ' . get_class($job));
             $job->upload();
         }
     }
