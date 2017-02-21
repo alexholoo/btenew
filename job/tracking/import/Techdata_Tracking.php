@@ -12,6 +12,28 @@ class Techdata_Tracking extends TrackingImporter
         }
 
         $columns = fgetcsv($fp);
+        /*
+            PO #,
+            Order Number,
+            Invoice Number,
+            Name,
+            Address 1,
+            Address 2,
+            City,
+            Province,
+            Postal Code,
+            Date,
+            Ship Method,
+            Tracking,
+            Weight(lb),
+            Container Value,
+            Handling Charge,
+            COD Charge,
+            Debit Charge,
+            Freight Charge,
+            Tax,
+            Total
+        */
 
         while ($fields = fgetcsv($fp)) {
             if (count($columns) != count($fields)) {
@@ -25,7 +47,7 @@ class Techdata_Tracking extends TrackingImporter
             $data['Date'] = "20$y-$m-$d";
 
             $this->saveToDb([
-                'orderId'        => $data['PO #'],
+                'orderId'        => $data['PO #'], // TODO: ??
                 'shipDate'       => $data['Date'],
                 'carrier'        => $data['Ship Method'],
                 'shipMethod'     => $data['Ship Method'],
