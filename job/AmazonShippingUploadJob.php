@@ -36,7 +36,7 @@ class AmazonShippingUploadJob extends Job
             $api = new AmazonOrderList($store);
 
             $api->setFulfillmentChannelFilter("MFN");
-            $api->setLimits('Modified', "-3 days");
+            $api->setLimits('Modified', "-7 days");
             $api->setOrderStatusFilter(["Unshipped", "PartiallyShipped", "Canceled", "Unfulfillable"]);
             $api->setUseToken();
             $api->fetchOrders();
