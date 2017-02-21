@@ -40,7 +40,6 @@
 ../src/Shipment/RakutenShipmentFile.php
 
 ./tracking/Filenames.php
-./job/NeweggOrderImportToAccessJob.php:38
 
 #/tracking/upload/Base.php
 #/tracking/upload/Amazon_Shipment.php
