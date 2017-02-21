@@ -28,15 +28,23 @@ class NeweggOrderImportToAccessJob extends Job
         $accdb = $this->openAccessDB();
 
         $orderFile = fopen($filename, 'r');
-        $title = fgetcsv($orderFile);
+        $columns = fgetcsv($orderFile);
 
         while (($fields = fgetcsv($orderFile)) != false) {
 
-            $orderNo    = $fields[0];
-            $date       = date('Y-m-d', strtotime($fields[1]));
-            $sku        = $fields[16];
-            $qty        = $fields[27];
-            $shipMethod = $fields[15];
+            if (count($columns) != count($fields)) {
+                $this->error(__METHOD__. print_r($fields, true));
+                continue;
+            }
+
+            $data = array_combine($columns, $fields);
+            #print_r($data); break;
+
+            $orderNo    = $data['Order Number'];
+            $date       = date('Y-m-d', strtotime($data['Order Date & Time']));
+            $sku        = $data['Item Seller Part #'];
+            $qty        = $data['Quantity Ordered'];
+            $shipMethod = $data['Order Shipping Method'];
 
             if ($date < $start) {
                 // date is UTC time
@@ -55,9 +63,6 @@ class NeweggOrderImportToAccessJob extends Job
             $ponum    = $this->getSku($sku);
             $xpress   = $this->isExpress($shipMethod);
             $mfrpn    = $this->getMfrPartNum($sku);
-
-            #$data = array_combine($title, $fields);
-            #print_r($data); break;
 
             echo "Importing $orderNo\n";
 
