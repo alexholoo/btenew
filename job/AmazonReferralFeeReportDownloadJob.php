@@ -23,7 +23,7 @@ class AmazonReferralFeeReportDownloadJob extends Job
     protected function getReferralFeeReport()
     {
         if (file_exists($this->reportFilename) && time() < strtotime('1 days', filemtime($this->reportFilename))) {
-            $this->log("File $this->reportFilename is not too old");
+            //$this->log("File $this->reportFilename is not too old");
             return;
         }
 

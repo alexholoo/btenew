@@ -112,7 +112,7 @@ class AmazonReportDownloadJob extends Job
         $reportFilename = $this->reportFolder.$reportFile;
 
         if (file_exists($reportFilename) && time() < strtotime($ttl, filemtime($reportFilename))) {
-            $this->log("File $reportFile is not too old");
+            //$this->log("File $reportFile is not too old");
             return;
         }
 
