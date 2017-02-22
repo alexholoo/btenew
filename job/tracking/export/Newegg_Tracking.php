@@ -15,7 +15,7 @@ class Newegg_Tracking extends TrackingExporter
     {
         $file = new NeweggShipmentFile($country, $filename);
         foreach ($orders as $order) {
-            $file->write($order); // TODO: not correct
+            //$file->write($order); // TODO: not correct
         }
     }
 
