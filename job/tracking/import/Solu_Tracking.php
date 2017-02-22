@@ -40,7 +40,7 @@ class Solu_Tracking extends TrackingImporter
 
             $orderId = str_replace(' ', '', $data['Reference 1']);
 
-            $trackingNumber = str_replace(' ', '', $data[1]);
+            $trackingNumber = str_replace(' ', '', $data['Tracking']);
             $shipDate       = date('Y-m-d', strtotime(str_replace('/', '-', $data['Ship Date'])));
             $carrierCode    = $data['Carrier']; // i.e. DHL
             $shipMethod     = $data['Service']; // i.e. Express
