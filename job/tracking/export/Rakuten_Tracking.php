@@ -15,33 +15,60 @@ class Rakuten_Tracking extends TrackingExporter
     {
         $file = new RakutenShipmentFile($country, $filename);
         foreach ($orders as $order) {
-            $file->write([ // TODO
-                $order['orderId'],        //'receipt-id',
-                '',                       //'receipt-item-id',
-                '',                       //'quantity',
-                $order['carrier'],        //'tracking-type',
-                $order['trackingNumber'], //'tracking-number',
-                $order['shipDate'],       //'ship-date',
-            ]);
+            $file->write($order);
         }
     }
 
     protected function getUnshippedOrders($channel)
     {
-        $sql = "SELECT t.order_id as orderId,
-                       t.ship_date as shipDate,
-                       t.carrier,
-                       t.ship_method as shipMethod,
-                       t.tracking_number as trackingNumber
-                  FROM master_order_tracking t
-             LEFT JOIN master_order o ON t.order_id=o.order_id
-             LEFT JOIN master_order_shipped s ON t.order_id=s.order_id
-                 WHERE o.channel='$channel' AND s.createdon IS NULL";
+        $shipmentService = $this->di->get('shipmentService');
 
-        $result = $this->db->fetchAll($sql);
-        if (!$result) {
+        $orderFile = 'w:/data/csv/rakuten/orders/rakuten_master_orders.csv';
+
+        if (!($fp = fopen($orderFile, 'r'))) {
+            $this->error("File not found: $orderFile");
             return [];
         }
-        return $result;
+
+        $orders = [];
+
+        while (($fields = fgetcsv($fp)) !== FALSE) {
+
+            // TODO: fix the hard code
+            $receiptId     = $fields[1]; // rakuten order id
+            $receiptItemId = $fields[2];
+            $qty           = $fields[7];
+
+            if ($shipmentService->isOrderShipped($receiptId)) {
+                continue;
+            }
+
+            $tracking = $shipmentService->getOrderTracking($orderId);
+
+            if ($tracking) {
+                $trackingType = '5'; // other courier
+
+                if (strtoupper($tracking['carrier']) == 'USPS') {
+                    $trackingType = '3';
+                }
+
+                // TODO: more carrier codes
+
+                $shipDate = date('m/d/Y', strtotime($tracking['shipDate']));
+
+                $orders[] = [
+                    $receiptId,                   // 'receipt-id'
+                    $receiptItemId,               // 'receipt-item-id'
+                    $qty,                         // 'quantity'
+                    $trackingType,                // 'tracking-type'
+                    $tracking['trackingNumber'],  // 'tracking-number'
+                    $shipDate,                    // 'ship-date'
+                ];
+            }
+        }
+
+        fclose($fp);
+
+        return $orders;
     }
 }
