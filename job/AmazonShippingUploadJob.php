@@ -28,7 +28,7 @@ class AmazonShippingUploadJob extends Job
 
     private function getUnshippedOrders($store)
     {
-        $this->log('=> '. __FUNCTION__);
+        //$this->log('=> '. __FUNCTION__);
 
         $orders = [];
 
@@ -64,7 +64,7 @@ class AmazonShippingUploadJob extends Job
 
     private function outputFeed($filename, $orders)
     {
-        $this->log('=> '. __FUNCTION__);
+        //$this->log('=> '. __FUNCTION__);
 
         $feedFile = new AmazonShipmentFile($filename);
 
@@ -90,15 +90,14 @@ class AmazonShippingUploadJob extends Job
 
     private function uploadFeed($store, $file)
     {
-        return;
-        $this->log('=> '. __FUNCTION__);
+        //$this->log('=> '. __FUNCTION__);
 
         if (!IS_PROD) {
             throw new Exception('This script can only run on production server.');
         }
 
         if (!file_exists($file)) {
-            $this->error("File not found: $file");
+            //$this->error("File not found: $file");
             return;
         }
 
