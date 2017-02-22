@@ -15,26 +15,48 @@ class Newegg_Tracking extends TrackingExporter
     {
         $file = new NeweggShipmentFile($country, $filename);
         foreach ($orders as $order) {
-            //$file->write($order); // TODO: not correct
+            $file->write($order);
         }
     }
 
     protected function getUnshippedOrders($channel)
     {
-        $sql = "SELECT t.order_id AS orderId,
-                       t.ship_date AS shipDate,
-                       t.carrier,
-                       t.ship_method AS shipMethod,
-                       t.tracking_number AS trackingNumber
-                  FROM master_order_tracking t
-             LEFT JOIN master_order o ON t.order_id=o.order_id
-             LEFT JOIN master_order_shipped s ON t.order_id=s.order_id
-                 WHERE o.channel='$channel' AND s.createdon IS NULL";
+        $shipmentService = $this->di->get('shipmentService');
 
-        $result = $this->db->fetchAll($sql);
-        if (!$result) {
+        $orderFile = 'w:/data/csv/newegg/canada_order/neweggcanada_master_orders.csv';
+
+        if (!($fp = fopen($orderFile, 'r'))) {
+            $this->error("File not found: $orderFile");
             return [];
         }
-        return $result;
+
+        $orders = [];
+
+        while (($fields = fgetcsv($fp)) !== FALSE) {
+
+            $order   = $fields;
+            $orderId = $fields[0];
+
+            if ($shipmentService->isOrderShipped($orderId)) {
+                continue;
+            }
+
+            $tracking = $shipmentService->getOrderTracking($orderId);
+
+            if ($tracking) {
+                // TODO: fix
+                $order[27] = $fields[26];                 // qty shipped is qty ordered
+                $order[28] = $tracking['shipDate'];       // shipment date
+                $order[29] = $tracking['carrier'];        // shipment carrier
+                $order[30] = $fields[15];                 // shipping method as per order specified
+                $order[31] = $tracking['trackingNumber']; // shipment tracking
+
+                $orders[]  = $order;
+            }
+        }
+
+        fclose($fp);
+
+        return $orders;
     }
 }
