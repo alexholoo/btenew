@@ -34,6 +34,7 @@ class OrderList
         'Item Unit Shipping Charge',
         'Extend Shipping Charge',
         'Order Shipping Total',
+        'Order Discount Amount',
         'GST or HST Total',
         'PST or QST Total',
         'Order Total',
