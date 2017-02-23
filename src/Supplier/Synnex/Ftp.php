@@ -70,7 +70,7 @@ class Ftp
 
                 $localFile = "$folder/$file";
                 $ftp->download($file, $localFile);
-                #$ftp->deleteFile($file); // TODO; enable this
+                $ftp->deleteFile($file);
             }
         }
 
