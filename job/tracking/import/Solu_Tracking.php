@@ -11,6 +11,8 @@ class Solu_Tracking extends TrackingImporter
             return;
         }
 
+        // TODO: need a class Shipment\SoluTrackingFile
+
         $columns = fgetcsv($fp);
         /*
             Order Id,

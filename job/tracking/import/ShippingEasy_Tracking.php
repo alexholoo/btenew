@@ -11,6 +11,8 @@ class ShippingEasy_Tracking extends TrackingImporter
             return;
         }
 
+        // TODO: need a class: Shipment\ShippingEasyTrackingFile
+
         // skip the first few lines
         fgetcsv($fp); fgetcsv($fp); fgetcsv($fp);
         fgetcsv($fp); fgetcsv($fp);

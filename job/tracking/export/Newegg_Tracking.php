@@ -23,7 +23,7 @@ class Newegg_Tracking extends TrackingExporter
     {
         $shipmentService = $this->di->get('shipmentService');
 
-        // TODO: need a class: NeweggOrderFile
+        // TODO: need a class: Marketplace\Newegg\MasterOrderFile
         $orderFile = 'w:/data/csv/newegg/canada_order/neweggcanada_master_orders.csv';
 
         if (!($fp = fopen($orderFile, 'r'))) {

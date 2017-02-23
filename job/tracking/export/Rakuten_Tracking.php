@@ -23,7 +23,7 @@ class Rakuten_Tracking extends TrackingExporter
     {
         $shipmentService = $this->di->get('shipmentService');
 
-        // TODO: need a class: RakutenOrderFile
+        // TODO: need a class: Marketplace\Rakuten\MasterOrderFile
         $orderFile = 'w:/data/csv/rakuten/orders/rakuten_master_orders.csv';
 
         if (!($fp = fopen($orderFile, 'r'))) {

@@ -11,6 +11,8 @@ class EShipper_Tracking extends TrackingImporter
             return;
         }
 
+        // TODO: need a class: Shipment\EShipperTrackingFile
+
         $columns = fgetcsv($fp);
         /*
             Ship Date,
