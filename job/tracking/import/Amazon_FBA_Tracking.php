@@ -70,32 +70,26 @@ class Amazon_FBA_Tracking extends TrackingImporter
             sales-channel
         }*/
 
-        while (($fields = fgetcsv($fp, 0, "\t"))) {
-            if (count($columns) != count($fields)) {
-                $this->error(__METHOD__. print_r($fields, true));
+        while (($values = fgetcsv($fp, 0, "\t"))) {
+            if (count($columns) != count($values)) {
+                $this->error(__METHOD__. print_r($values, true));
                 continue;
             }
-            $data = array_combine($columns, $fields);
+            $fields = array_combine($columns, $values);
+
+            $orderId = $fields['merchant-order-id'];
+            if (empty($orderId)) {
+                $orderId = $fields['amazon-order-id'];
+            }
 
             $this->saveToDb([
-                'orderId'        => $data['amazon-order-id'],
-                'shipDate'       => $data['shipment-date'],
-                'carrier'        => $data['carrier'],
+                'orderId'        => $fields['amazon-order-id'],
+                'shipDate'       => $fields['shipment-date'],
+                'carrier'        => $fields['carrier'],
                 'shipMethod'     => '',
-                'trackingNumber' => $data['tracking-number'],
+                'trackingNumber' => $fields['tracking-number'],
                 'sender'         => $site,
             ]);
-
-            if ($data['merchant-order-id']) {
-                $this->saveToDb([
-                    'orderId'        => $data['merchant-order-id'],
-                    'shipDate'       => $data['shipment-date'],
-                    'carrier'        => $data['carrier'],
-                    'shipMethod'     => '',
-                    'trackingNumber' => $data['tracking-number'],
-                    'sender'         => $site,
-                ]);
-            }
         }
 
         fclose($fp);
