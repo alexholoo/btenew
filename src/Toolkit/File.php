@@ -28,14 +28,18 @@ class File // FileUtils
 
     public static function expired($filename, $ttl)
     {
-        return (file_exists($filename) && time() - filemtime($filename) > $ttl);
-       #return (file_exists($filename) && time() > strtotime($ttl, filemtime($filename)));
+        if (ctype_digit($ttl)) {
+            return (file_exists($filename) && time() - filemtime($filename) > $ttl);
+        }
+        return (file_exists($filename) && time() > strtotime($ttl, filemtime($filename)));
     }
 
     public static function notExpired($filename, $ttl)
     {
-        return (file_exists($filename) && time() - filemtime($filename) < $ttl);
-       #return (file_exists($filename) && time() < strtotime($ttl, filemtime($filename)));
+        if (ctype_digit($ttl)) {
+            return (file_exists($filename) && time() - filemtime($filename) < $ttl);
+        }
+        return (file_exists($filename) && time() < strtotime($ttl, filemtime($filename)));
     }
 
     /**
