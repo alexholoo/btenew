@@ -30,21 +30,21 @@ class Solu_Tracking extends TrackingImporter
             Reference 2
         */
 
-        while (($fields = fgetcsv($fp)) !== FALSE) {
-            if (count($columns) != count($fields)) {
-                $this->error(__METHOD__ . print_r($fields, true));
+        while (($values = fgetcsv($fp)) !== FALSE) {
+            if (count($columns) != count($values)) {
+                $this->error(__METHOD__ . print_r($values, true));
                 continue;
             }
 
-            $data = array_combine($columns, $fields);
+            $fields = array_combine($columns, $values);
 
-            $orderId = str_replace(' ', '', $data['Reference 1']);
+            $orderId = str_replace(' ', '', $fields['Reference 1']);
 
-            $trackingNumber = str_replace(' ', '', $data['Tracking']);
-            $shipDate       = date('Y-m-d', strtotime(str_replace('/', '-', $data['Ship Date'])));
-            $carrierCode    = $data['Carrier']; // i.e. DHL
-            $shipMethod     = $data['Service']; // i.e. Express
-           #$fullAddress    = $data['To Address'];
+            $trackingNumber = str_replace(' ', '', $fields['Tracking']);
+            $shipDate       = date('Y-m-d', strtotime(str_replace('/', '-', $fields['Ship Date'])));
+            $carrierCode    = $fields['Carrier']; // i.e. DHL
+            $shipMethod     = $fields['Service']; // i.e. Express
+           #$fullAddress    = $fields['To Address'];
 
             $this->saveToDb([
                 'orderId'        => $orderId,

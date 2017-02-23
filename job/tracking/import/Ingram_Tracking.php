@@ -13,20 +13,20 @@ class Ingram_Tracking extends TrackingImporter
 
         $columns = [ 'shipDate', 'orderId', 'carrier', 'trackingNumber' ];
 
-        while ($fields = fgetcsv($fp)) {
-            if (count($columns) != count($fields)) {
-                $this->error(__METHOD__ . print_r($fields, true));
+        while ($values = fgetcsv($fp)) {
+            if (count($columns) != count($values)) {
+                $this->error(__METHOD__ . print_r($values, true));
                 continue;
             }
 
-            $data = array_combine($columns, $fields);
+            $fields = array_combine($columns, $values);
 
             $this->saveToDb([
-                'orderId'        => $data['orderId'],
-                'shipDate'       => $data['shipDate'],
-                'carrier'        => $data['carrier'],
-                'shipMethod'     => $data['carrier'],
-                'trackingNumber' => $data['trackingNumber'],
+                'orderId'        => $fields['orderId'],
+                'shipDate'       => $fields['shipDate'],
+                'carrier'        => $fields['carrier'],
+                'shipMethod'     => $fields['carrier'],
+                'trackingNumber' => $fields['trackingNumber'],
                 'sender'         => 'ING-DS',
             ]);
         }

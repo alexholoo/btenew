@@ -50,18 +50,18 @@ class ShippingEasy_Tracking extends TrackingImporter
             Item Name
         */
 
-        while ($fields = fgetcsv($fp)) {
-            if (count($columns) != count($fields)) {
-                $this->error(__METHOD__ . print_r($fields, true));
+        while ($values = fgetcsv($fp)) {
+            if (count($columns) != count($values)) {
+                $this->error(__METHOD__ . print_r($values, true));
                 continue;
             }
 
-            $data = array_combine($columns, $fields);
+            $fields = array_combine($columns, $values);
 
-            $orderId        = trim($data['Order Number']);
-            $shipDate       = $data['Ship Date'];
-            $carrier        = $data['Carrier'];
-            $trackingNumber = ltrim($data['Tracking Number'], "'");
+            $orderId        = trim($fields['Order Number']);
+            $shipDate       = $fields['Ship Date'];
+            $carrier        = $fields['Carrier'];
+            $trackingNumber = ltrim($fields['Tracking Number'], "'");
 
             $this->saveToDb([
                 'orderId'        => $orderId,

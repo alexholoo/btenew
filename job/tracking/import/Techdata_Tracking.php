@@ -35,23 +35,23 @@ class Techdata_Tracking extends TrackingImporter
             Total
         */
 
-        while ($fields = fgetcsv($fp)) {
-            if (count($columns) != count($fields)) {
-                $this->error(__METHOD__ . print_r($fields, true));
+        while ($values = fgetcsv($fp)) {
+            if (count($columns) != count($values)) {
+                $this->error(__METHOD__ . print_r($values, true));
                 continue;
             }
 
-            $data = array_combine($columns, $fields);
+            $fields = array_combine($columns, $values);
 
-            list($m, $d, $y) = explode('/', $data['Date']);
-            $data['Date'] = "20$y-$m-$d";
+            list($m, $d, $y) = explode('/', $fields['Date']);
+            $fields['Date'] = "20$y-$m-$d";
 
             $this->saveToDb([
-                'orderId'        => $data['PO #'], // TODO: ??
-                'shipDate'       => $data['Date'],
-                'carrier'        => $data['Ship Method'],
-                'shipMethod'     => $data['Ship Method'],
-                'trackingNumber' => $data['Tracking'],
+                'orderId'        => $fields['PO #'], // TODO: ??
+                'shipDate'       => $fields['Date'],
+                'carrier'        => $fields['Ship Method'],
+                'shipMethod'     => $fields['Ship Method'],
+                'trackingNumber' => $fields['Tracking'],
                 'sender'         => 'TD-DS',
             ]);
         }

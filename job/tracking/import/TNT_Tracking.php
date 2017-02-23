@@ -13,6 +13,7 @@ class TNT_Tracking extends TrackingImporter
 
         while (($fields = fgetcsv($fp)) !== FALSE) {
 
+            // TODO: fix the hard code
             $shipmentStatus = $fields[11];
 
             if ($shipmentStatus == 'Shipped') {

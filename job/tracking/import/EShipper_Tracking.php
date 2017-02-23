@@ -70,19 +70,19 @@ class EShipper_Tracking extends TrackingImporter
             Currency
         */
 
-        while (($fields = fgetcsv($fp))!== FALSE) {
-            if (count($columns) != count($fields)) {
-                $this->error(__METHOD__ . print_r($fields, true));
+        while (($values = fgetcsv($fp))!== FALSE) {
+            if (count($columns) != count($values)) {
+                $this->error(__METHOD__ . print_r($values, true));
                 continue;
             }
 
-            $data = array_combine($columns, $fields);
+            $fields = array_combine($columns, $values);
 
-            $orderId        = $data['Reference'];
-            $trackingNumber = $data['Tracking #s'];
-            $shipDate       = $data['Ship Date'];
-            $carrier        = $data['Carrier'];
-            $shipMethod     = $data['Service'];
+            $orderId        = $fields['Reference'];
+            $trackingNumber = $fields['Tracking #s'];
+            $shipDate       = $fields['Ship Date'];
+            $carrier        = $fields['Carrier'];
+            $shipMethod     = $fields['Service'];
 
             $this->saveToDb([
                 'orderId'        => $orderId,

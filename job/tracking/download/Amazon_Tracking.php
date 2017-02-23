@@ -34,6 +34,12 @@ class Amazon_Tracking extends TrackingDownloader
             return;
         }
 
+        // save the response to log file
+        $logfile = str_replace('job', 'Amazon-FBA-Orders', $this->getLogFilename());
+        foreach ($api->getRawResponses() as $response) {
+            file_put_contents($logfile, $response['body'], FILE_APPEND);
+        }
+
         $orderFile = fopen($this->orderFile, 'w');
        #fputcsv($orderFile, ['orderId', 'orderDate']);
 

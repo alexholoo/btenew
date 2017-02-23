@@ -23,6 +23,7 @@ class Rakuten_Tracking extends TrackingExporter
     {
         $shipmentService = $this->di->get('shipmentService');
 
+        // TODO: need a class: RakutenOrderFile
         $orderFile = 'w:/data/csv/rakuten/orders/rakuten_master_orders.csv';
 
         if (!($fp = fopen($orderFile, 'r'))) {
@@ -30,20 +31,61 @@ class Rakuten_Tracking extends TrackingExporter
             return [];
         }
 
+        $columns = fgetcsv($fp);
+        /*
+         0   SellerShopperNumber,
+         1   Receipt_ID,
+         2   Receipt_Item_ID,
+         3   ListingID,
+         4   Date_Entered,
+         5   Sku,
+         6   ReferenceId,
+         7   Quantity,
+         8   Qty_Shipped,
+         9   Qty_Cancelled,
+         10  Title,
+         11  Price,
+         12  Product_Rev,
+         13  Shipping_Cost,
+         14  ProductOwed,
+         15  ShippingOwed,
+         16  Commission,
+         17  ShippingFee,
+         18  PerItemFee,
+         19  Tax_Cost,
+         20  Bill_To_Company,
+         21  Bill_To_Phone,
+         22  Bill_To_Fname,
+         23  Bill_To_Lname,
+         24  Email,
+         25  Ship_To_Name,
+         26  Ship_To_Company,
+         27  Ship_To_Street1,
+         28  Ship_To_Street2,
+         29  Ship_To_City,
+         30  Ship_To_State,
+         31  Ship_To_Zip,
+         32  ShippingMethodId
+        */
+
         $orders = [];
 
-        while (($fields = fgetcsv($fp)) !== FALSE) {
+        while (($values = fgetcsv($fp)) !== FALSE) {
+            if (count($columns) != count($values)) {
+                $this->error(__METHOD__. print_r($values, true));
+                continue;
+            }
+            $fields = array_combine($columns, $values);
 
-            // TODO: fix the hard code
-            $receiptId     = $fields[1]; // rakuten order id
-            $receiptItemId = $fields[2];
-            $qty           = $fields[7];
+            $receiptId     = $fields['Receipt_ID']; // rakuten order id
+            $receiptItemId = $fields['Receipt_Item_ID'];
+            $qty           = $fields['Quantity'];
 
             if ($shipmentService->isOrderShipped($receiptId)) {
                 continue;
             }
 
-            $tracking = $shipmentService->getOrderTracking($orderId);
+            $tracking = $shipmentService->getOrderTracking($receiptId);
 
             if ($tracking) {
                 $trackingType = '5'; // other courier

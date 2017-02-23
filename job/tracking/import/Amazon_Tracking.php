@@ -20,13 +20,27 @@ class Amazon_Tracking extends TrackingImporter
 
         // 232076139,SHIPPED,7316971217505329,"Canada Post",2017-01-11
 
-        while (($fields = fgetcsv($fp))) {
+        $columns = [
+            'orderId',
+            'status',
+            'trackingNumber',
+            'carrier',
+            'shipDate',
+        ];
+
+        while (($values = fgetcsv($fp))) {
+            if (count($columns) != count($values)) {
+                $this->error(__METHOD__. print_r($values, true));
+                continue;
+            }
+            $fields = array_combine($columns, $values);
+
             $this->saveToDb([
-                'orderId'        => $fields[0],
-                'shipDate'       => $fields[4],
-                'carrier'        => $fields[3],
+                'orderId'        => $fields['orderId'],
+                'shipDate'       => $fields['shipDate'],
+                'carrier'        => $fields['carrier'],
                 'shipMethod'     => '',
-                'trackingNumber' => $fields[2],
+                'trackingNumber' => $fields['trackingNumber'],
                 'sender'         => $site,
             ]);
         }
