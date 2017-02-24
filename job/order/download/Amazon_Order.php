@@ -1,13 +1,9 @@
 <?php
 
-include 'classes/Job.php';
-
-class AmazonOrderJob extends Job
+class Amazon_Order extends OrderDownloader
 {
-    public function run($argv = [])
+    public function download()
     {
-        $this->log('>> '. __CLASS__);
-
         // Amazon CA
         $client = new Marketplace\Amazon\Client('bte-amazon-ca');
         $channel = 'Amazon-ACA';
@@ -181,8 +177,3 @@ class AmazonOrderJob extends Job
         return str_replace(['T', 'Z'], [' ', ''], $value);
     }
 }
-
-include __DIR__ . '/../public/init.php';
-
-$job = new AmazonOrderJob();
-$job->run($argv);

@@ -1,13 +1,9 @@
 <?php
 
-include 'classes/Job.php';
-
-class NeweggOrderJob extends Job
+class Newegg_Order extends OrderDownloader
 {
-    public function run($argv = [])
+    public function download()
     {
-        $this->log('>> '. __CLASS__);
-
         $client = new Marketplace\Newegg\Client('CA');
         $client->getOrders();
 
@@ -193,8 +189,3 @@ class NeweggOrderJob extends Job
         ];
     }
 }
-
-include __DIR__ . '/../public/init.php';
-
-$job = new NeweggOrderJob();
-$job->run($argv);

@@ -1,13 +1,9 @@
 <?php
 
-include 'classes/Job.php';
-
-class EbayOrderJob extends Job
+class Ebay_Order extends OrderDownloader
 {
-    public function run($argv = [])
+    public function download()
     {
-        $this->log('>> '. __CLASS__);
-
         // BTE - CAD
         $client = new Marketplace\eBay\Client('bte');
         $table = 'ebay_order_report_bte';
@@ -149,8 +145,3 @@ class EbayOrderJob extends Job
         }
     }
 }
-
-include __DIR__ . '/../public/init.php';
-
-$job = new EbayOrderJob();
-$job->run($argv);

@@ -1,13 +1,9 @@
 <?php
 
-include 'classes/Job.php';
-
-class BestbuyOrderJob extends Job
+class Bestbuy_Order extends OrderDownloader
 {
-    public function run($argv = [])
+    public function download()
     {
-        $this->log('>> '. __CLASS__);
-
         $this->skuService = $this->di->get('skuService');
 
         $this->importBestbuyOrders();
@@ -109,8 +105,3 @@ class BestbuyOrderJob extends Job
         return $db;
     }
 }
-
-include __DIR__ . '/../public/init.php';
-
-$job = new BestbuyOrderJob();
-$job->run($argv);

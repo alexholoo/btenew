@@ -1,13 +1,9 @@
 <?php
 
-include 'classes/Job.php';
-
-class RakutenOrderJob extends Job
+class Rakuten_Order extends OrderDownloader
 {
-    public function run($argv = [])
+    public function download()
     {
-        $this->log('>> '. __CLASS__);
-
         $client = new Marketplace\Rakuten\Client('US');
         $client->getOrders();
 
@@ -172,8 +168,3 @@ class RakutenOrderJob extends Job
         return $result;
     }
 }
-
-include __DIR__ . '/../public/init.php';
-
-$job = new RakutenOrderJob();
-$job->run($argv);
