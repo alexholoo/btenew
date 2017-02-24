@@ -6,10 +6,12 @@ class UPS_Tracking extends TrackingImporter
     {
         $filename = Filenames::get('ups.tracking');
 
-        if (($fp = fopen($filename, 'r')) == false) {
+        if (!file_exists($filename)) {
             $this->error("File not found: $filename");
             return;
         }
+
+        $fp = fopen($filename, 'r');
 
         /**
          * ,"114-6686534-2495411","1Z37Y0596840271065","20170221161655"

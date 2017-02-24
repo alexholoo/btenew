@@ -26,10 +26,12 @@ class Rakuten_Tracking extends TrackingExporter
         // TODO: need a class: Marketplace\Rakuten\MasterOrderFile
         $orderFile = 'w:/data/csv/rakuten/orders/rakuten_master_orders.csv';
 
-        if (!($fp = fopen($orderFile, 'r'))) {
+        if (!file_exists($orderFile)) {
             $this->error("File not found: $orderFile");
             return [];
         }
+
+        $fp = fopen($orderFile, 'r');
 
         $columns = fgetcsv($fp);
         /*

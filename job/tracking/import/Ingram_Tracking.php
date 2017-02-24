@@ -6,10 +6,12 @@ class Ingram_Tracking extends TrackingImporter
     {
         $filename = Filenames::get('ingram.tracking');
 
-        if (($fp = fopen($filename, 'r')) == false) {
+        if (!file_exists($filename)) {
             $this->error("File not found: $filename");
             return;
         }
+
+        $fp = fopen($filename, 'r');
 
         $columns = [ 'shipDate', 'orderId', 'carrier', 'trackingNumber' ];
 

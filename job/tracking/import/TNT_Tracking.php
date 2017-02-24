@@ -6,10 +6,12 @@ class TNT_Tracking extends TrackingImporter
     {
         $filename = Filenames::get('tnt.tracking');
 
-        if (($fp = fopen($filename, 'r')) == false) {
+        if (!file_exists($filename)) {
             $this->error("File not found: $filename");
             return;
         }
+
+        $fp = fopen($filename, 'r');
 
         while (($fields = fgetcsv($fp)) !== FALSE) {
 

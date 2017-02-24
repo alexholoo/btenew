@@ -18,10 +18,12 @@ class Rakuten_Shipment extends TrackingUploader
 
     protected function markOrdersShipped($filename)
     {
-        if (($fp = fopen($filename, 'r')) == false) {
+        if (!file_exists($filename)) {
             $this->error("File not found: $filename");
             return;
         }
+
+        $fp = fopen($filename, 'r');
 
         $columns = fgetcsv($fp); // skip first line
         /*

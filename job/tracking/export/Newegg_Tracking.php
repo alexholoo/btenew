@@ -26,10 +26,12 @@ class Newegg_Tracking extends TrackingExporter
         // TODO: need a class: Marketplace\Newegg\MasterOrderFile
         $orderFile = 'w:/data/csv/newegg/canada_order/neweggcanada_master_orders.csv';
 
-        if (!($fp = fopen($orderFile, 'r'))) {
+        if (!file_exists($orderFile)) {
             $this->error("File not found: $orderFile");
             return [];
         }
+
+        $fp = fopen($orderFile, 'r');
 
         $columns = fgetcsv($fp);
         /*

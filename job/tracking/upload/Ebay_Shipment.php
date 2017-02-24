@@ -23,10 +23,12 @@ class Ebay_Shipment extends TrackingUploader
 
     protected function uploadTracking($client, $filename)
     {
-        if (($fp = fopen($filename, 'r')) == false) {
+        if (!file_exists($filename)) {
             $this->error("File not found: $filename");
             return;
         }
+
+        $fp = fopen($filename, 'r');
 
         fgetcsv($fp); // skip first line
 

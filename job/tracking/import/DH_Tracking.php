@@ -22,10 +22,12 @@ class DH_Tracking extends TrackingImporter
         };
 
         // import to dropship_tracking
-        if (($fp = fopen($filename, 'r')) == false) {
+        if (!file_exists($filename)) {
             $this->error("File not found: $filename");
             return;
         }
+
+        $fp = fopen($filename, 'r');
 
         while ($fields = fgetcsv($fp, 0, '|')) {
             if ($fields[0] == 'H1') {

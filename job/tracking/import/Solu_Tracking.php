@@ -6,10 +6,12 @@ class Solu_Tracking extends TrackingImporter
     {
         $filename = Filenames::get('solu.tracking');
 
-        if (($fp = fopen($filename, 'r')) == false) {
+        if (!file_exists($filename)) {
             $this->error("File not found: $filename");
             return;
         }
+
+        $fp = fopen($filename, 'r');
 
         // TODO: need a class Shipment\SoluTrackingFile
 

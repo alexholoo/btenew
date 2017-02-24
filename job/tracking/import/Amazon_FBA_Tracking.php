@@ -13,10 +13,12 @@ class Amazon_FBA_Tracking extends TrackingImporter
 
     public function importTracking($filename, $site)
     {
-        if (($fp = fopen($filename, 'r')) == false) {
+        if (!file_exists($filename)) {
             $this->error("File not found: $filename");
             return;
         }
+
+        $fp = fopen($filename, 'r');
 
         // TODO: need a class: Marketplace\Amazon\FbaReportFile
 
