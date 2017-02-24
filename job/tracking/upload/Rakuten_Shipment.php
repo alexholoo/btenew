@@ -9,7 +9,7 @@ class Rakuten_Shipment extends TrackingUploader
         $filename = Filenames::get('rakuten.us.shipping');
 
         $client = new Marketplace\Rakuten\Client('US');
-        $client->uploadTracking($filename);
+#       $client->uploadTracking($filename);
 
         $this->markOrdersShipped($filename);
 
