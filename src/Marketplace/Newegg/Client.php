@@ -24,7 +24,7 @@ class Client
         }
     }
 
-    public function getOrders($days = 10)
+    public function downloadOrders($folder, $days = 10)
     {
         $ftp = new FtpClient($this->config);
 
@@ -35,7 +35,7 @@ class Client
 
         $files = $ftp->listFiles('/Outbound/OrderList/');
 
-        $localFolder = $this->getOrderFolder();
+        $localFolder = rtrim($folder, '/') . '/';
 
         foreach ($files as $file) {
 
@@ -51,17 +51,6 @@ class Client
                 $ftp->download($file, $localFile);
             }
         }
-    }
-
-    public function getOrderFolder()
-    {
-        if ($this->site == 'CA') {
-            $folder = 'E:/BTE/orders/newegg/orders_ca/';
-        } else if ($this->site == 'US') {
-            $folder = 'E:/BTE/orders/newegg/orders_us/';
-        }
-
-        return $folder;
     }
 
     public function uploadTracking($localFile)
