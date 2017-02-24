@@ -23,7 +23,11 @@ class Rakuten_Order extends OrderDownloader
         $first = true;
 
         foreach ($files as $file) {
-            // TODO: if file is too old, archive it
+            // if file is too old, archive it
+            if ((time() - filemtime($file)) / (3600*24) > 30) {
+#               rename($file, dirname($file).'/archive/'.basename($file));
+#               continue;
+            }
 
             $in = fopen($file, 'r');
             $title = fgets($in);
