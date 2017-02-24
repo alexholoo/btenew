@@ -4,6 +4,8 @@ class Newegg_Order extends OrderDownloader
 {
     public function download()
     {
+        return;
+
         $client = new Marketplace\Newegg\Client('CA');
         $client->getOrders();
 

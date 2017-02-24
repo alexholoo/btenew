@@ -4,6 +4,8 @@ class Ebay_Order extends OrderDownloader
 {
     public function download()
     {
+        return;
+
         // BTE - CAD
         $client = new Marketplace\eBay\Client('bte');
         $table = 'ebay_order_report_bte';

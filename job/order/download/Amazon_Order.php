@@ -4,6 +4,8 @@ class Amazon_Order extends OrderDownloader
 {
     public function download()
     {
+        return;
+
         // Amazon CA
         $client = new Marketplace\Amazon\Client('bte-amazon-ca');
         $channel = 'Amazon-ACA';

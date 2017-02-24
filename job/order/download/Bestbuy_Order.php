@@ -4,6 +4,8 @@ class Bestbuy_Order extends OrderDownloader
 {
     public function download()
     {
+        return;
+
         $this->skuService = $this->di->get('skuService');
 
         $this->importBestbuyOrders();
