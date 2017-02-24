@@ -4,19 +4,20 @@ class Newegg_Order extends OrderImporter
 {
     public function import()
     {
-        $client = new Marketplace\Newegg\Client('CA');
-        $client->getOrders();
+        $filename = Filenames::get('newegg.ca.master.order');
 
-        $folder = $client->getOrderFolder();
-        $this->importOrders($folder);
+        $orders = $this->getOrders($filename);
+        $this->importOrders($orders);
     }
 
-    private function importOrders($path)
+    private function getOrders($filename)
     {
-        $path = trim($path, '/');
+        // orderId indexed
+    }
 
-        $files = glob("$path/OrderList_*.*");
-        foreach ($files as $file) {
+    private function importOrders($masterOrders)
+    {
+        foreach ($masterOrders as $orderId => $orders) {
             $this->importOrderFile($file);
         }
     }

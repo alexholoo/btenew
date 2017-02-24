@@ -4,19 +4,20 @@ class Rakuten_Order extends OrderImporter
 {
     public function import()
     {
-        $client = new Marketplace\Rakuten\Client('US');
-        $client->getOrders();
+        $filename = Filenames::get('rakuten.us.master.order');
 
-        $folder = $client->getOrderFolder();
-        $this->importOrders($folder);
+        $orders = $this->getOrders($filename);
+        $this->importOrders($orders);
     }
 
-    private function importOrders($path)
+    private function getOrders($filename)
     {
-        $path = trim($path, '/');
+        // orderId indexed
+    }
 
-        $files = glob("$path/23267604_*.*");
-        foreach ($files as $file) {
+    private function importOrders($masterOrders)
+    {
+        foreach ($masterOrders as $orderId => $orders) {
             $this->importOrderFile($file);
         }
     }
@@ -166,5 +167,11 @@ class Rakuten_Order extends OrderImporter
         $sql = "SELECT filename FROM rakuten_order_file WHERE filename='$file'";
         $result = $this->db->fetchOne($sql);
         return $result;
+    }
+
+    private function getColumns()
+    {
+        return [
+        ];
     }
 }
