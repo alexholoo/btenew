@@ -2,17 +2,17 @@
 
 include 'classes/Job.php';
 
-class OrderImportJob extends Job
+class DropshipOrderImportJob extends Job
 {
     public function run($args = [])
     {
         $this->log('>> '. __CLASS__);
 
-        $this->importOrders();
-        $this->importDropship();
+        $this->importAllOrders();
+        $this->importDropshipOrders();
     }
 
-    public function importOrders()
+    public function importAllOrders()
     {
         $file = 'all_mgn_orders.csv';
         $table = 'all_mgn_orders';
@@ -77,7 +77,7 @@ class OrderImportJob extends Job
         echo "$count orders imported\n";
     }
 
-    public function importDropship()
+    public function importDropshipOrders()
     {
         $file  = 'ca_order_notes.csv';
         $table = 'ca_order_notes';
@@ -160,5 +160,5 @@ class OrderImportJob extends Job
 
 include __DIR__ . '/../public/init.php';
 
-$job = new OrderImportJob();
+$job = new DropshipOrderImportJob();
 $job->run($argv);
