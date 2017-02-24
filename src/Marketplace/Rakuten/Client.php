@@ -24,7 +24,7 @@ class Client
         }
     }
 
-    public function getOrders()
+    public function downloadOrders($folder)
     {
         $ftp = new FtpClient($this->config);
 
@@ -35,9 +35,8 @@ class Client
 
         $files = $ftp->listFiles('/Orders/');
 
-        $localFolder = $this->getOrderFolder();
-
         $rakutenPrefix ='23267604_';
+        $localFolder = rtrim($folder, '/') . '/';
 
         foreach ($files as $file) {
 
@@ -48,17 +47,6 @@ class Client
                 $ftp->download("/Orders/$file", $localFile);
             }
         }
-    }
-
-    public function getOrderFolder()
-    {
-        if ($this->site == 'CA') {
-            $folder = 'E:/BTE/orders/rakuten/orders_ca/';
-        } else if ($this->site == 'US') {
-            $folder = 'E:/BTE/orders/rakuten/orders_us/';
-        }
-
-        return $folder;
     }
 
     public function uploadTracking($localFile)
