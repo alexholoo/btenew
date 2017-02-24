@@ -25,7 +25,7 @@ class Rakuten_Shipment extends TrackingUploader
 
         $fp = fopen($filename, 'r');
 
-        $columns = fgetcsv($fp); // skip first line
+        $columns = fgetcsv($fp, 0, "\t"); // skip first line
         /*
             'receipt-id',
             'receipt-item-id',
@@ -37,7 +37,7 @@ class Rakuten_Shipment extends TrackingUploader
 
         $shipmentService = $this->di->get('shipmentService');
 
-        while (($fields = fgetcsv($fp))) {
+        while (($fields = fgetcsv($fp, 0, "\t"))) {
             $orderId = $fields[0];
             $shipmentService->markOrderAsShipped($orderId);
         }
