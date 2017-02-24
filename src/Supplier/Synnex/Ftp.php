@@ -62,7 +62,7 @@ class Ftp
         $files = $ftp->listFiles('.');
 
         foreach($files as $file) {
-            if (preg_match("/BTE_COMPUTER_856.xml/i", $file)) {
+            if (preg_match("/BTE_COMPUTER_/i", $file)) {
                 echo "Downloading $file ...", EOL;
 
                 # old tracking files locate at
