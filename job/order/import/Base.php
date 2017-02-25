@@ -4,7 +4,7 @@ class OrderImporter extends Job
 {
     public function import() { }
 
-    protected function insertMasterOrders($masterOrders)
+    protected function importMasterOrders($masterOrders)
     {
         foreach ($masterOrders as $orderId => $orders) {
             if (!$this->orderExists($orderId)) {

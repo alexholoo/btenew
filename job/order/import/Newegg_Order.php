@@ -7,12 +7,61 @@ class Newegg_Order extends OrderImporter
         $filename = Filenames::get('newegg.ca.master.order');
 
         $orders = $this->getOrders($filename);
-        $this->importOrders($orders);
+        $this->importMasterOrders($orders);
     }
 
     private function getOrders($filename)
     {
-        // orderId indexed
+        $orders = [];
+
+        if (!file_exists($filename)) {
+            $this->log("Failed to open file: $filename");
+            return;
+        }
+
+        $fp = fopen($filename, 'r');
+
+        $columns = fgetcsv($fp);
+
+        while (($fields = fgetcsv($fp))) {
+            if (count($columns) != count($fields)) {
+                $this->error(__METHOD__.' Error: '.$fields[0].' in file '.$filename);
+                continue;
+            }
+
+            $order = array_combine($columns, $fields);
+
+            $orderId = $order['OrderNumber'];
+            $orders[$orderId][] = $this->toStdOrder($order);
+        }
+
+        fclose($fp);
+
+        return $orders;
+    }
+
+    private function toStdOrder($order)
+    {
+        return [
+             'orderId'      => $order[''],
+             'date'         => $order[''],
+             'orderItemId'  => $order[''],
+             'channel'      => $order[''],
+             'express'      => $order[''],
+             'buyer'        => $order[''],
+             'address'      => $order[''],
+             'city'         => $order[''],
+             'province'     => $order[''],
+             'country'      => $order[''],
+             'postalcode'   => $order[''],
+             'email'        => $order[''],
+             'phone'        => $order[''],
+             'sku'          => $order[''],
+             'qty'          => $order[''],
+             'price'        => $order[''],
+             'shipping'     => $order[''],
+             'productName'  => $order[''],
+        ];
     }
 
     private function importOrders($masterOrders)
