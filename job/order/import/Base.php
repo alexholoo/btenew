@@ -37,13 +37,17 @@ class OrderImporter extends Job
             try {
                 $this->db->insertAsDict('master_order_item', [
                     'order_id'      => $order['orderId'],
+                   #'order_item_id' => $order['orderItemId'],
                     'sku'           => $order['sku'],
                     'price'         => $order['price'],
                     'qty'           => $order['qty'],
                     'product_name'  => $order['productName'],
                 ]);
 
-                $order['order_item_id'] = $this->db->lastInsertId();
+                if (empty($order['orderItemId'])) {
+                    $order['orderItemId'] = $this->db->lastInsertId();
+                }
+
                 $this->insertOrderStatus($order);
             } catch (\Exception $e) {
                 //echo $e->getMessage(), EOL;
