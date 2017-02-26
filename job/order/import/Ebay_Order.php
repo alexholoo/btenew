@@ -6,7 +6,6 @@ class Ebay_Order extends OrderImporter
     {
         // BTE - CAD
         $client = new Marketplace\eBay\Client('bte');
-        $table = 'ebay_order_report_bte';
 
         $res = $client->getOrders();
         //print_r($res);
@@ -14,13 +13,12 @@ class Ebay_Order extends OrderImporter
             $orders = $res->OrderArray->Order;
             foreach ($orders as $order) {
                 echo $order->OrderID, PHP_EOL;
-                $this->saveOrder($order, $table);
+                $this->saveOrder($order);
             }
         }
 
         // ODO - USD
         $client = new Marketplace\eBay\Client('odo');
-        $table = 'ebay_order_report_odo';
 
         $res = $client->getOrders();
         //print_r($res);
@@ -28,19 +26,17 @@ class Ebay_Order extends OrderImporter
             $orders = $res->OrderArray->Order;
             foreach ($orders as $order) {
                 echo $order->OrderID, PHP_EOL;
-                $this->saveOrder($order, $table);
+                $this->saveOrder($order);
             }
         }
     }
 
-    public function saveOrder($order, $table)
+    public function saveOrder($order)
     {
-        if ($order->OrderStatus == "Cancelled") {
-            return;
-        }
+        if ($order->OrderStatus == "Cancelled") { return; }
 
         $OrderID             = (string)$order->OrderID;
-       #$ExtOrderID          = (string)$order->ExtendedOrderID;
+        $ExtOrderID          = (string)$order->ExtendedOrderID;
         $Status              = (string)$order->OrderStatus;
         $BuyerUsername       = (string)$order->BuyerUserID;
         $DatePaid            = substr($order->PaidTime, 0, 10);
@@ -49,33 +45,6 @@ class Ebay_Order extends OrderImporter
         $SalesTaxAmount      = (string)$order->ShippingDetails->SalesTax->SalesTaxAmount;
         $ShippingService     = (string)$order->ShippingServiceSelected->ShippingService;
         $ShippingServiceCost = (string)$order->ShippingServiceSelected->ShippingCost;
-
-        try {
-            $success = $this->db->insertAsDict($table,
-                array(
-                    'OrderID'             => $OrderID,
-                    'Status'              => $Status,
-                    'BuyerUsername'       => $BuyerUsername,
-                    'DatePaid'            => $DatePaid,
-                    'Currency'            => $Currency,
-                    'AmountPaid'          => $AmountPaid,
-                    'SalesTaxAmount'      => $SalesTaxAmount,
-                    'ShippingService'     => $ShippingService,
-                    'ShippingServiceCost' => $ShippingServiceCost,
-                )
-            );
-
-            $this->saveOrderItem($order);
-            $this->saveShippingAddress($order);
-
-        } catch (Exception $e) {
-            // echo $e->getMessage(), EOL;
-        }
-    }
-
-    private function saveOrderItem($order)
-    {
-        $OrderID = (string)$order->OrderID;
 
         $transactions = $order->TransactionArray;
 
@@ -89,33 +58,9 @@ class Ebay_Order extends OrderImporter
             $Email             = (string)$transaction->Buyer->Email;
             $RecordNumber      = (string)$transaction->ShippingDetails->SellingManagerSalesRecordNumber;
 
-            if (!$Tracking) {
-                $Tracking = 'NA';
-            }
-
-            try {
-                $success = $this->db->insertAsDict('ebay_order_item',
-                    array(
-                        'OrderID'           => $OrderID,
-                        'SKU'               => $SKU,
-                        'QuantityPurchased' => $QuantityPurchased,
-                        'TransactionID'     => $TransactionID,
-                        'TransactionPrice'  => $TransactionPrice,
-                        'Tracking'          => $Tracking,
-                        'ItemID'            => $ItemID,
-                        'Email'             => $Email,
-                        'RecordNumber'      => $RecordNumber,
-                    )
-                );
-            } catch (Exception $e) {
-                // echo $e->getMessage(), EOL;
-            }
+            if (!$Tracking) { $Tracking = 'NA'; }
         }
-    }
 
-    private function saveShippingAddress($order)
-    {
-        $OrderID         = (string)$order->OrderID;
         $shippingAddress = $order->ShippingAddress;
         $Name            = (string)$shippingAddress->Name;
         $Address         = (string)$shippingAddress->Street1;
@@ -125,23 +70,36 @@ class Ebay_Order extends OrderImporter
         $PostalCode      = (string)$shippingAddress->PostalCode;
         $Country         = (string)$shippingAddress->Country;
         $Phone           = (string)$shippingAddress->Phone;
+    }
 
-        try {
-            $success = $this->db->insertAsDict('ebay_order_shipping_address',
-                array(
-                    'OrderID'    => $OrderID,
-                    'Name'       => $Name,
-                    'Address'    => $Address,
-                    'Address2'   => $Address2,
-                    'City'       => $City,
-                    'Province'   => $Province,
-                    'PostalCode' => $PostalCode,
-                    'Country'    => $Country,
-                    'Phone'      => $Phone,
-                )
-            );
-        } catch (Exception $e) {
-            // echo $e->getMessage(), EOL;
-        }
+    private function toStdOrder($order)
+    {
+        $express = $this->isExpress($order);
+
+        return [
+             'orderId'      => $order[''],
+             'date'         => $order[''],
+             'orderItemId'  => $order[''],
+             'channel'      => 'eBay',
+             'express'      => $express,
+             'buyer'        => $order[''],
+             'address'      => $order[''],
+             'city'         => $order[''],
+             'province'     => $order[''],
+             'country'      => $order[''],
+             'postalcode'   => $order[''],
+             'email'        => $order[''],
+             'phone'        => $order[''],
+             'sku'          => $order[''],
+             'qty'          => $order[''],
+             'price'        => $order[''],
+             'shipping'     => $order[''],
+             'productName'  => $order[''],
+        ];
+    }
+
+    private function isExpress($order)
+    {
+        return 0;
     }
 }
