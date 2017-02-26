@@ -4,6 +4,9 @@ class Filenames
 {
     protected static $filenames = [
 
+        'master.order'             => 'E:/BTE/orders/master_orders.csv',
+        'dropship.order'           => 'E:/BTE/orders/dropship_orders.csv',
+
         'amazon.ca.order'          => 'E:/BTE/orders/amazon/amazon_ca_orders.csv',
         'amazon.us.order'          => 'E:/BTE/orders/amazon/amazon_us_orders.csv',
 
