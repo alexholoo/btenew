@@ -4,65 +4,8 @@ class Bestbuy_Order extends OrderImporter
 {
     public function import()
     {
-        $this->skuService = $this->di->get('skuService');
-
-        $this->importBestbuyOrders();
-    }
-
-    protected function importBestbuyOrders()
-    {
-        $accdb = $this->openAccessDB();
-
         $orders = $this->getBestbuyOrders();
-
-        foreach ($orders as $order) {
-            $workDate    = $order['date'];
-            $orderId     = $order['orderId'];
-            $sku         = $order['sku'];
-            $channel     = 'BestbuyCA';
-            $xpress      = $order['express'];
-            $qty         = $order['qty'];
-            $supplier    = $this->skuService->getSupplier($sku);
-            $ponum       = ' ';
-            $mfrpn       = $this->skuService->getMpn($sku);
-            $stockStatus = ' ';
-
-            // TODO: fix multi-items-order issue
-            $sql = "SELECT * FROM BestbuyCA WHERE [Order #]='$orderId'";
-            $result = $accdb->query($sql)->fetch();
-            if ($result) {
-                continue;
-            }
-
-            $data = [
-                'Work Date'     => $workDate,
-                'Channel'       => $channel,
-                'Order #'       => $orderId,
-                'Express'       => $xpress,
-                'Stock Status'  => $stockStatus,
-                'Qty'           => $qty,
-                'Supplier'      => $supplier,
-                'Supplier SKU'  => $sku,
-                'Mfr #'         => $mfrpn,
-                'Supplier #'    => ' ',
-                'Remarks'       => '',
-                'Xpress'        => $xpress,
-                'RelatedSKU'    => '',
-                'Dimension'     => '',
-            ];
-
-            $sql = $this->insertMssql('BestbuyCA', $data);
-
-            $ret = $accdb->exec($sql);
-
-            if (!$ret) {
-                $this->error(__METHOD__);
-                $this->error(print_r($accdb->errorInfo(), true));
-                $this->error($sql);
-            }
-
-            $this->log($orderId);
-        }
+        $this->importMasterOrders($orders);
     }
 
     protected function getBestbuyOrders()
@@ -73,35 +16,48 @@ class Bestbuy_Order extends OrderImporter
         $start = date('Y-m-d\T00:00:00');
         $end   = date('Y-m-d\T23:59:59');
 
-        $orders = $client->listOrders($start, $end);
+        $orderList = $client->listOrders($start, $end);
 
-        // TODO: move this to Marketplace\Bestbuy\Client?
-        foreach ($orders as $key => $order) {
-            // order_state:
-            // - WAITING_ACCEPTANCE
-            // - WAITING_DEBIT_PAYMENT
-            // - CANCELED
-            // - RECEIVED
-            if ($order['state'] != 'RECEIVED') {
-                unset($orders[$key]);
-                $this->log($order['orderId'].' '.$order['state']);
+        // reindex the array to fix multi-items-order issue
+        foreach ($orderList as $orderId => $orders) {
+            foreach ($orders as $key => $order) {
+                if ($order['state'] != 'RECEIVED') {
+                    // order_state:
+                    // - WAITING_ACCEPTANCE
+                    // - WAITING_DEBIT_PAYMENT
+                    // - CANCELED
+                    // - RECEIVED
+                    unset($orders[$key]);
+                    continue;
+                }
+                $orderList[$orderId][$key] = $this->toStdOrder($order);
             }
         }
 
-        return $orders;
+        return $orderList;
     }
 
-    protected function openAccessDB()
+    private function toStdOrder($order)
     {
-        $dbname = "Z:/Purchasing/General Purchase.accdb";
-
-        if (!IS_PROD) {
-            $dbname = "C:/Users/BTE/Desktop/General Purchase.accdb";
-        }
-
-        $dsn = "odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=$dbname;";
-        $db = new PDO($dsn);
-
-        return $db;
+        return [
+             'orderId'      => $order['orderId'],
+             'date'         => $order['date'],
+             'orderItemId'  => $order[''],
+             'channel'      => 'Bestbuy',
+             'express'      => $order['express'],
+             'buyer'        => $order[''],
+             'address'      => $order[''],
+             'city'         => $order[''],
+             'province'     => $order[''],
+             'country'      => $order[''],
+             'postalcode'   => $order[''],
+             'email'        => $order[''],
+             'phone'        => $order[''],
+             'sku'          => $order['sku'],
+             'qty'          => $order['qty'],
+             'price'        => $order[''],
+             'shipping'     => $order[''],
+             'productName'  => $order[''],
+        ];
     }
 }
