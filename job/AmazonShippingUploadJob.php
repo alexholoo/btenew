@@ -79,8 +79,8 @@ class AmazonShippingUploadJob extends Job
                     '',                           //'order-item-id'
                     '',                           //'quantity'
                     $tracking['shipDate'],        //'ship-date'
-                    $tracking['carrier'],         //'carrier-code'
-                    '',                           //'carrier-name'
+                    $tracking['carrierCode'],     //'carrier-code'
+                    $tracking['carrierName'],     //'carrier-name'
                     $tracking['trackingNumber'],  //'tracking-number'
                     $tracking['shipMethod'],      //'ship-method'
                 ]);

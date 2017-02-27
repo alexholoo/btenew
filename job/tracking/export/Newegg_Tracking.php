@@ -100,7 +100,7 @@ class Newegg_Tracking extends TrackingExporter
                 $order['Actual Shipping Method']  = $fields['Order Shipping Method'];
                 $order['Tracking Number']         = $tracking['trackingNumber'];
 
-                $orders[]  = $order;
+                $orders[] = $order;
             }
         }
 
