@@ -44,7 +44,7 @@ class Amazon_Tracking extends TrackingDownloader
        #fputcsv($orderFile, ['orderId', 'orderDate']);
 
         $trackingFile = fopen($this->trackingFile, 'w');
-       #fputcsv($trackingFile, ['orderId', 'shipmentStatus', 'Carrier', 'TrackingNumber', 'shippingDate']);
+       #fputcsv($trackingFile, ['orderId', 'shipmentStatus', 'TrackingNumber', 'Carrier', 'shippingDate']);
 
         foreach ($list as $fulfillment) {
             $order     = $fulfillment->getOrder();
@@ -72,8 +72,8 @@ class Amazon_Tracking extends TrackingDownloader
                     fputcsv($trackingFile, [
                         $orderId,
                         $shipmentStatus,
-                        $package['CarrierCode'],
                         $package['TrackingNumber'],
+                        $package['CarrierCode'],
                         $shippingDate
                     ]);
                 }
