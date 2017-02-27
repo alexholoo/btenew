@@ -92,6 +92,10 @@ class Newegg_Tracking extends TrackingExporter
             $tracking = $shipmentService->getOrderTracking($orderId);
 
             if ($tracking) {
+                if ($tracking['carrierCode'] == 'Other') {
+                    $tracking['carrierCode'] = $tracking['carrierName'];
+                }
+
                 $order = $fields;
 
                 $order['Quantity Shipped']        = $fields['Quantity Ordered'];
