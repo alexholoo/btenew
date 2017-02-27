@@ -7,7 +7,7 @@ class Ingram_Tracking extends TrackingImporter
         $filename = Filenames::get('ingram.tracking');
 
         if (!file_exists($filename)) {
-            $this->error("File not found: $filename");
+            $this->error(__METHOD_." File not found: $filename");
             return;
         }
 

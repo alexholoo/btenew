@@ -27,7 +27,7 @@ class Newegg_Tracking extends TrackingExporter
         $orderFile = 'w:/data/csv/newegg/canada_order/neweggcanada_master_orders.csv';
 
         if (!file_exists($orderFile)) {
-            $this->error("File not found: $orderFile");
+            $this->error(__METHOD_." File not found: $orderFile");
             return [];
         }
 

@@ -23,7 +23,7 @@ class DH_Tracking extends TrackingImporter
 
         // import to dropship_tracking
         if (!file_exists($filename)) {
-            $this->error("File not found: $filename");
+            $this->error(__METHOD_." File not found: $filename");
             return;
         }
 

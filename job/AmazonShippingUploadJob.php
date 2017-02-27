@@ -97,7 +97,7 @@ class AmazonShippingUploadJob extends Job
         }
 
         if (!file_exists($file)) {
-            //$this->error("File not found: $file");
+            //$this->error(__METHOD_." File not found: $file");
             return;
         }
 

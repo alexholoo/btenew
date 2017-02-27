@@ -27,7 +27,7 @@ class Rakuten_Tracking extends TrackingExporter
         $orderFile = 'w:/data/csv/rakuten/orders/rakuten_master_orders.csv';
 
         if (!file_exists($orderFile)) {
-            $this->error("File not found: $orderFile");
+            $this->error(__METHOD_." File not found: $orderFile");
             return [];
         }
 

@@ -7,7 +7,7 @@ class UPS_Tracking extends TrackingImporter
         $filename = Filenames::get('ups.tracking');
 
         if (!file_exists($filename)) {
-            $this->error("File not found: $filename");
+            $this->error(__METHOD_." File not found: $filename");
             return;
         }
 
