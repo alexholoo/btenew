@@ -24,6 +24,9 @@ class Synnex_Tracking extends TrackingImporter
                 $carrierCode = $request->ShipCode;
                 $carrierName = '';
 
+                // Amazon Report the Error: The carrier-code field contains an invalid value: Purolator.
+                // Amazon Report the Error: The carrier-code field contains an invalid value: Loomis.
+
                 if (in_array($carrierCode, ['LMG', 'L18G', 'L18A'])) {
                     $carrierCode = "Other";
                     $carrierName = "Loomis";
