@@ -11,7 +11,7 @@ class TrackingImportJob extends Job
         $jobs = $this->getTrackingJobs();
 
         foreach ($jobs as $job) {
-            $this->log('=> Importing ' . get_class($job));
+           #$this->log('=> Importing ' . get_class($job));
             $job->import();
         }
     }

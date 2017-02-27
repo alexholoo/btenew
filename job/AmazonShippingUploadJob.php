@@ -112,7 +112,7 @@ class AmazonShippingUploadJob extends Job
 
         File::backup($file);
 
-        $this->log(print_r($api->getResponse(), true));
+       #$this->log(print_r($api->getResponse(), true));
     }
 }
 

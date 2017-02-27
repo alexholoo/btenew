@@ -42,7 +42,7 @@ class AmazonPriceQtyUpdateJob extends Job
         $api->setFeedContent($feed);
         $api->submitFeed();
 
-        $this->log(print_r($api->getResponse(), true));
+       #$this->log(print_r($api->getResponse(), true));
     }
 }
 
