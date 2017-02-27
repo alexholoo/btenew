@@ -30,7 +30,8 @@ class ShipmentService extends Injectable
             return [
                 'orderId'        => $info['order_id'],
                 'shipDate'       => $info['ship_date'],
-                'carrier'        => $info['carrier'],
+                'carrierCode'    => $info['carrier_code'],
+                'carrierName'    => $info['carrier_name'],
                 'trackingNumber' => $info['tracking_number'],
                 'shipMethod'     => $info['ship_method'],
             ];

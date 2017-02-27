@@ -40,7 +40,8 @@ class Amazon_Tracking extends TrackingImporter
             $this->saveToDb([
                 'orderId'        => $fields['orderId'],
                 'shipDate'       => $fields['shipDate'],
-                'carrier'        => $fields['carrier'],
+                'carrierCode'    => $fields['carrier'],
+                'carrierName'    => '',
                 'shipMethod'     => '',
                 'trackingNumber' => $fields['trackingNumber'],
                 'sender'         => $site,

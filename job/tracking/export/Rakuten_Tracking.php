@@ -92,7 +92,7 @@ class Rakuten_Tracking extends TrackingExporter
             if ($tracking) {
                 $trackingType = '5'; // other courier
 
-                if (strtoupper($tracking['carrier']) == 'USPS') {
+                if (strtoupper($tracking['carrierCode']) == 'USPS') {
                     $trackingType = '3';
                 }
 

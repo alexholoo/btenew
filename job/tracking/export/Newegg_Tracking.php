@@ -96,7 +96,7 @@ class Newegg_Tracking extends TrackingExporter
 
                 $order['Quantity Shipped']        = $fields['Quantity Ordered'];
                 $order['ShipDate']                = $tracking['shipDate'];
-                $order['Actual Shipping Carrier'] = $tracking['carrier'];
+                $order['Actual Shipping Carrier'] = $tracking['carrierCode'];
                 $order['Actual Shipping Method']  = $fields['Order Shipping Method'];
                 $order['Tracking Number']         = $tracking['trackingNumber'];
 

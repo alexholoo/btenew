@@ -25,7 +25,7 @@ class Ebay_Tracking extends TrackingExporter
             $file->write([
                 $order['orderId'],
                 $order['shipDate'],
-                $order['carrier'],
+                $order['carrierCode'],
                 $order['trackingNumber'],
                 '', // 'TransactionID'
             ]);
@@ -36,7 +36,8 @@ class Ebay_Tracking extends TrackingExporter
     {
         $sql = "SELECT t.order_id AS orderId,
                        t.ship_date AS shipDate,
-                       t.carrier,
+                       t.carrier_code AS carrierCode,
+                       t.carrier_name AS carrierName,
                        t.ship_method AS shipMethod,
                        t.tracking_number AS trackingNumber
                   FROM master_order_tracking t

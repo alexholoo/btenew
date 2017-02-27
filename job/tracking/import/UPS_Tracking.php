@@ -40,7 +40,8 @@ class UPS_Tracking extends TrackingImporter
             $this->saveToDb([
                 'orderId'        => $orderId,
                 'shipDate'       => $shipDate,
-                'carrier'        => 'UPS',
+                'carrierCode'    => 'UPS',
+                'carrierName'    => '',
                 'shipMethod'     => '',
                 'trackingNumber' => $trackingNumber,
                 'sender'         => 'BTE',

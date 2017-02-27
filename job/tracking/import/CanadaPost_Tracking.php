@@ -34,7 +34,8 @@ class CanadaPost_Tracking extends TrackingImporter
                 $this->saveToDb([
                     'orderId'        => strval($orderId),
                     'shipDate'       => strval($shipDate),
-                    'carrier'        => 'Canada Post',
+                    'carrierCode'    => 'Canada Post',
+                    'carrierName'    => '',
                     'shipMethod'     => '',
                     'trackingNumber' => strval($trackingNumber),
                     'sender'         => 'BTE',

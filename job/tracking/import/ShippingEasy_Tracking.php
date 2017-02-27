@@ -66,12 +66,14 @@ class ShippingEasy_Tracking extends TrackingImporter
             $shipDate       = $fields['Ship Date'];
             $carrier        = $fields['Carrier'];
             $trackingNumber = ltrim($fields['Tracking Number'], "'");
+            $serviceType    = $fields['Service Type'];
 
             $this->saveToDb([
                 'orderId'        => $orderId,
                 'shipDate'       => $shipDate,
-                'carrier'        => $carrier,
-                'shipMethod'     => '',
+                'carrierCode'    => $carrier,
+                'carrierName'    => '',
+                'shipMethod'     => $serviceType,
                 'trackingNumber' => $trackingNumber,
                 'sender'         => 'ShippingEasy',
             ]);

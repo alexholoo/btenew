@@ -26,8 +26,9 @@ class Ingram_Tracking extends TrackingImporter
             $this->saveToDb([
                 'orderId'        => $fields['orderId'],
                 'shipDate'       => $fields['shipDate'],
-                'carrier'        => $fields['carrier'],
-                'shipMethod'     => $fields['carrier'],
+                'carrierCode'    => $fields['carrier'],
+                'carrierName'    => '',
+                'shipMethod'     => '',
                 'trackingNumber' => $fields['trackingNumber'],
                 'sender'         => 'ING-DS',
             ]);

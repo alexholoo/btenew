@@ -53,7 +53,8 @@ class Techdata_Tracking extends TrackingImporter
             $this->saveToDb([
                 'orderId'        => $fields['PO #'], // TODO: ??
                 'shipDate'       => $fields['Date'],
-                'carrier'        => $fields['Ship Method'],
+                'carrierCode'    => $fields['Ship Method'],
+                'carrierName'    => '',
                 'shipMethod'     => $fields['Ship Method'],
                 'trackingNumber' => $fields['Tracking'],
                 'sender'         => 'TD-DS',

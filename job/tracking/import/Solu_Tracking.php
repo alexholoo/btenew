@@ -53,7 +53,8 @@ class Solu_Tracking extends TrackingImporter
             $this->saveToDb([
                 'orderId'        => $orderId,
                 'shipDate'       => $shipDate,
-                'carrier'        => $carrierCode,
+                'carrierCode'    => $carrierCode,
+                'carrierName'    => '',
                 'shipMethod'     => $shipMethod,
                 'trackingNumber' => $trackingNumber,
                 'sender'         => 'Solu',

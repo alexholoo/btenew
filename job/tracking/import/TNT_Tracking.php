@@ -22,17 +22,19 @@ class TNT_Tracking extends TrackingImporter
 
                 $orderId        = $fields[1];
                 $shipDate       = date('Y-m-d', strtotime($fields[6]));
-                $carrierCode    = 'TNT';
+                $carrierCode    = 'Other';
+                $carrierName    = 'TNT';
                 $trackingNumber = $fields[0];
                 $shipMethod     = 'Standard';
 
                 $this->saveToDb([
                     'orderId'        => $orderId,
                     'shipDate'       => $shipDate,
-                    'carrier'        => $carrierCode,
+                    'carrierCode'    => $carrierCode,
+                    'carrierName'    => $carrierName,
                     'shipMethod'     => $shipMethod,
                     'trackingNumber' => $trackingNumber,
-                    'sender'         => 'TNT',
+                    'sender'         => 'BTE',
                 ]);
             }
         }

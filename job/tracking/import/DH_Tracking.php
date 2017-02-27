@@ -50,7 +50,8 @@ class DH_Tracking extends TrackingImporter
                     $this->saveToDb([
                         'orderId'        => $orderId,
                         'shipDate'       => $shipDate,
-                        'carrier'        => $carrierCode,
+                        'carrierCode'    => $carrierCode,
+                        'carrierName'    => $carrierName,
                         'shipMethod'     => '',
                         'trackingNumber' => $trackingNumber,
                         'sender'         => 'DH-DS',

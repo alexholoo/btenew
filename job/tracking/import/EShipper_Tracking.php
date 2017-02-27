@@ -91,7 +91,8 @@ class EShipper_Tracking extends TrackingImporter
             $this->saveToDb([
                 'orderId'        => $orderId,
                 'shipDate'       => $shipDate,
-                'carrier'        => $carrier,
+                'carrierCode'    => $carrier,
+                'carrierName'    => '',
                 'shipMethod'     => $shipMethod,
                 'trackingNumber' => $trackingNumber,
                 'sender'         => 'eShipper',

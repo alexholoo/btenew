@@ -22,15 +22,18 @@ class Synnex_Tracking extends TrackingImporter
                 $synShipDate = '20'.$request->ShipDate;
                 $shipDate = date ('Y-m-d' ,strtotime($synShipDate));
                 $carrierCode = $request->ShipCode;
+                $carrierName = '';
 
                 if (in_array($carrierCode, ['LMG', 'L18G', 'L18A'])) {
-                    $carrierCode = "Loomis";
+                    $carrierCode = "Other";
+                    $carrierName = "Loomis";
                 }
                 elseif ($carrierCode == 'UPG') {
                     $carrierCode = "UPS";
                 }
                 elseif (in_array($carrierCode, ['PUX', 'PUG'])) {
-                    $carrierCode = "Purolator";
+                    $carrierCode = "Other";
+                    $carrierName = "Purolator";
                 }
                 elseif ($carrierCode == 'FDXH') {
                     $carrierCode = "Fedex";
@@ -41,7 +44,8 @@ class Synnex_Tracking extends TrackingImporter
                 $this->saveToDb([
                     'orderId'        => strval($orderId),
                     'shipDate'       => $shipDate,
-                    'carrier'        => $carrierCode,
+                    'carrierCode'    => $carrierCode,
+                    'carrierName'    => $carrierName,
                     'shipMethod'     => '',
                     'trackingNumber' => strval($trackingNumber),
                     'sender'         => 'SYN-DS',
