@@ -9,7 +9,7 @@ class Newegg_Shipment extends TrackingUploader
         $filename = Filenames::get('newegg.ca.shipping');
 
         $client = new Marketplace\Newegg\Client('CA');
-#       $client->uploadTracking($filename);
+        $client->uploadTracking($filename);
 
         $this->markOrdersShipped($filename);
 

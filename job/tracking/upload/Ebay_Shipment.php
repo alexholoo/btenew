@@ -44,7 +44,7 @@ class Ebay_Shipment extends TrackingUploader
 
             $data = array_combine($columns, $fields);
 
-#           $client->completeSale($data);
+            $client->completeSale($data);
 
             $shipmentService->markOrderAsShipped($data['OrderID']);
         }
