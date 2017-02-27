@@ -41,8 +41,9 @@ class DH_Tracking extends TrackingImporter
                     $fields = array_map('trim', $fields);
 
                     $trackingNumber = $fields[1];
-                    $carrierCode = $fields[2]; //. ' ' .$fields[3];
-                    $carrierName = ''; //$fields[4];
+                    $carrierCode = $fields[2];
+                    $carrierName = '';
+                    $shipMethod  = $fields[3];
                     $shipDate = $fmtdate($fields[5]);
                 }
 
@@ -64,7 +65,7 @@ class DH_Tracking extends TrackingImporter
                         'shipDate'       => $shipDate,
                         'carrierCode'    => $carrierCode,
                         'carrierName'    => $carrierName,
-                        'shipMethod'     => '',
+                        'shipMethod'     => $shipMethod,
                         'trackingNumber' => $trackingNumber,
                         'sender'         => 'DH-DS',
                     ]);

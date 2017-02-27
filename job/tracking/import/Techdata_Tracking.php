@@ -50,12 +50,15 @@ class Techdata_Tracking extends TrackingImporter
             list($m, $d, $y) = explode('/', $fields['Date']);
             $fields['Date'] = "20$y-$m-$d";
 
+            $shipMethod = $fields['Ship Method'];
+            list($carrier, $service) = explode(' ', $shipMethod, 2);
+
             $this->saveToDb([
-                'orderId'        => $fields['PO #'], // TODO: ??
+                'orderId'        => $fields['PO #'],
                 'shipDate'       => $fields['Date'],
-                'carrierCode'    => $fields['Ship Method'],
+                'carrierCode'    => $carrier,
                 'carrierName'    => '',
-                'shipMethod'     => $fields['Ship Method'],
+                'shipMethod'     => $service,
                 'trackingNumber' => $fields['Tracking'],
                 'sender'         => 'TD-DS',
             ]);
