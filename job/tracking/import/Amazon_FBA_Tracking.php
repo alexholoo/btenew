@@ -87,7 +87,7 @@ class Amazon_FBA_Tracking extends TrackingImporter
             }
 
             $this->saveToDb([
-                'orderId'        => $fields['amazon-order-id'],
+                'orderId'        => $orderId, // $fields['amazon-order-id'],
                 'shipDate'       => $fields['shipment-date'],
                 'carrierCode'    => $fields['carrier'],
                 'carrierName'    => '',
