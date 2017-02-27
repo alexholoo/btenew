@@ -14,7 +14,7 @@ class Amazon_FBA_Tracking extends TrackingImporter
     public function importTracking($filename, $site)
     {
         if (!file_exists($filename)) {
-            $this->error(__METHOD_." File not found: $filename");
+            $this->error(__METHOD__." File not found: $filename");
             return;
         }
 

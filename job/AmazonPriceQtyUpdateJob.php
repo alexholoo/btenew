@@ -29,7 +29,7 @@ class AmazonPriceQtyUpdateJob extends Job
         }
 
         if (!file_exists($file)) {
-            $this->error(__METHOD_." File not found: $file");
+            $this->error(__METHOD__." File not found: $file");
             return;
         }
 

@@ -19,7 +19,7 @@ class Rakuten_Shipment extends TrackingUploader
     protected function markOrdersShipped($filename)
     {
         if (!file_exists($filename)) {
-            $this->error(__METHOD_." File not found: $filename");
+            $this->error(__METHOD__." File not found: $filename");
             return;
         }
 
