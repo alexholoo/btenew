@@ -11,6 +11,32 @@ abstract class Job
         $this->redis = $this->di->get('redis');
     }
 
+    protected function csvToArray($filename, $delimiter = ',', $header = null)
+    {
+        // read the CSV lines into a numerically indexed array
+        $lines = @file($filename);
+        if (!$lines) {
+            return [];
+        }
+
+        $csv = array_map(function(&$line) use ($delimiter) {
+            return str_getcsv($line, $delimiter);
+        }, $lines);
+
+        // use the first row's values as keys for all other rows if header not specified
+        $columns = $header ? $header : $csv[0];
+
+        array_walk($csv, function(&$a) use ($columns) {
+            $a = array_combine($columns, $a);
+        });
+
+        if (!$header) {
+            array_shift($csv); // remove column header row
+        }
+
+        return $csv;
+    }
+
     protected function log($line)
     {
         static $first = true;
