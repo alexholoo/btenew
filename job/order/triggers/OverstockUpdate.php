@@ -144,7 +144,7 @@ class OverstockUpdate extends OrderTrigger
         $list = $this->di->get('skuService')->getAltSkus($sku);
 
         if (count($list) == 0) {
-            $this->error(__METHOD__.": no alternative sku found for $sku");
+           #$this->error(__METHOD__.": no alternative sku found for $sku");
             return false;
         }
 
