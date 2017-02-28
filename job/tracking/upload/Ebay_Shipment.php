@@ -8,25 +8,29 @@ class Ebay_Shipment extends TrackingUploader
     {
         // BTE
         $client = new Marketplace\eBay\Client('bte');
-        $filename = Filenames::get('ebay.bte.shipping');
-        $this->uploadTracking($client, $filename);
 
-        File::backup($filename);
+        $filename = Filenames::get('ebay.bte.shipping');
+        if (file_exists($filename)) {
+            $this->uploadTracking($client, $filename);
+            File::backup($filename);
+        }
 
         // ODO
         $client = new Marketplace\eBay\Client('odo');
-        $filename = Filenames::get('ebay.odo.shipping');
-        $this->uploadTracking($client, $filename);
 
-        File::backup($filename);
+        $filename = Filenames::get('ebay.odo.shipping');
+        if (file_exists($filename)) {
+            $this->uploadTracking($client, $filename);
+            File::backup($filename);
+        }
     }
 
     protected function uploadTracking($client, $filename)
     {
-        if (!file_exists($filename)) {
-            $this->error(__METHOD__." File not found: $filename");
-            return;
-        }
+       #if (!file_exists($filename)) {
+           #$this->error(__METHOD__." File not found: $filename");
+           #return;
+       #}
 
         $fp = fopen($filename, 'r');
 

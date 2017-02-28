@@ -6,22 +6,24 @@ class Newegg_Shipment extends TrackingUploader
 {
     public function upload()
     {
+        $client = new Marketplace\Newegg\Client('CA');
+
         $filename = Filenames::get('newegg.ca.shipping');
 
-        $client = new Marketplace\Newegg\Client('CA');
-        $client->uploadTracking($filename);
+        if (file_exists($filename)) {
+            $client->uploadTracking($filename);
+            $this->markOrdersShipped($filename);
 
-        $this->markOrdersShipped($filename);
-
-        File::backup($filename);
+            File::backup($filename);
+        }
     }
 
     protected function markOrdersShipped($filename)
     {
-        if (!file_exists($filename)) {
-            $this->error(__METHOD__." File not found: $filename");
-            return;
-        }
+       #if (!file_exists($filename)) {
+           #$this->error(__METHOD__." File not found: $filename");
+           #return;
+       #}
 
         $fp = fopen($filename, 'r');
 
