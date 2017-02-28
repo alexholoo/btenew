@@ -187,7 +187,7 @@ class Client
     public function completeSale($order)
     {
         $orderID = $order['OrderID'];
-        $TransactionID = $order['TransactionID'];
+        $transactionID = $order['TransactionID'];
         $trackingNumber = $order['TrackingNumber'];
         $carrier = $order['Carrier'];
         $date = $order['Date'];
