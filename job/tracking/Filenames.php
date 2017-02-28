@@ -10,6 +10,7 @@ class Filenames
         'solu.tracking'            => 'E:/BTE/tracking/solu_shipment.csv',
         'tnt.tracking'             => 'E:/BTE/tracking/tnt_shipments.csv',
         'ups.tracking'             => 'E:/BTE/tracking/ups_tracking.csv',
+        'fedex.tracking'           => 'E:/BTE/tracking/fedex_tracking.txt',
 
         'amazon.ca.dropship'       => 'E:/BTE/tracking/amazon_ca_dropship_orders.csv',
         'amazon.us.dropship'       => 'E:/BTE/tracking/amazon_us_dropship_orders.csv',
