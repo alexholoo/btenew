@@ -4,6 +4,8 @@ include 'classes/Job.php';
 
 class AmazonRequestReportsJob extends Job
 {
+    protected $reportFolder = 'E:/BTE/amazon/reports/';
+
     public function run($argv = [])
     {
         $this->log('>> '. __CLASS__);
@@ -11,31 +13,34 @@ class AmazonRequestReportsJob extends Job
         /*
         Array
         (
-            [_GET_MERCHANT_LISTINGS_DATA_LITER_] =>
-            [_GET_AFN_INVENTORY_DATA_] =>
-            [_GET_ORDERS_DATA_] =>
-            [_GET_MERCHANT_LISTINGS_DATA_] =>
-            [_GET_FLAT_FILE_ORDERS_DATA_] => -7 days
-            [_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_] => -7 days
-            [_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_] => -7 days
-            [_GET_REFERRAL_FEE_PREVIEW_REPORT_] => -7 days
-            [_GET_FLAT_FILE_PAYMENT_SETTLEMENT_DATA_] => -7 days
-            [_GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_] => -30 days
+            [_GET_AFN_INVENTORY_DATA_] => [
+                'startDate' => ...,
+                'fileCA' => ...,
+                'fileUS' => ...,
+                'TTL'    => ...,
+            ],
         )
         */
         $reportList = $this->getReportRequestList();
 
-        foreach ($reportList as $reportType => $startDate) {
+        foreach ($reportList as $reportType => $info) {
             $store = 'bte-amazon-ca';
-            $this->requestReport($store, $reportType, $startDate);
+            $this->requestReport($store, $reportType, $info['startDate'], $info['fileCA'], $info['TTL']);
 
             $store = 'bte-amazon-us';
-            $this->requestReport($store, $reportType, $startDate);
+            $this->requestReport($store, $reportType, $info['startDate'], $info['fileUS'], $info['TTL']);
         }
     }
 
-    private function requestReport($store, $reportType, $startDate)
+    private function requestReport($store, $reportType, $startDate, $reportFile, $ttl)
     {
+        $reportFilename = $this->reportFolder.$reportFile;
+
+        if (file_exists($reportFilename) && time() < strtotime($ttl, filemtime($reportFilename))) {
+            //$this->log("File $reportFile is not too old");
+            return;
+        }
+
         $this->log("Requesting report: $store $reportType");
 
         $api = new AmazonReportRequest($store);
@@ -50,10 +55,10 @@ class AmazonRequestReportsJob extends Job
 
     private function getReportRequestList()
     {
-        $sql = 'SELECT report_type reportType, start_date startDate FROM amazon_report_request';
+        $sql = 'SELECT report_type reportType, start_date startDate, file_ca fileCA, file_us fileUS, ttl TTL FROM amazon_report_request';
         $result = $this->db->fetchAll($sql);
 
-        return array_column($result, 'startDate', 'reportType');
+        return array_column($result, null, 'reportType');
     }
 }
 
