@@ -31,8 +31,8 @@ class Bestbuy_Order extends OrderDownloader
             // - WAITING_DEBIT_PAYMENT
             // - CANCELED
             // - RECEIVED
-            if ($order['state'] != 'RECEIVED') {
-                unset($orders[$key]);
+            if ($order['status'] != 'RECEIVED') {
+               #unset($orders[$key]);
                #$this->log($order['orderId'].' '.$order['state']);
             }
         }

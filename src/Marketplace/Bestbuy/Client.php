@@ -35,7 +35,7 @@ class Client
 
             // address is empty for CANCELED orders
             if ($order->order_state == 'CANCELED' || empty($address)) {
-                $address = new stdClass();
+                $address = new \stdClass();
                 $address->firstname = $order->customer->firstname;
                 $address->lastname  = $order->customer->lastname;
                 $address->street_1  = '';
@@ -55,7 +55,7 @@ class Client
                     'price'   => $item->price,
                     'qty'     => $item->quantity,
                     'express' => intval($order->shipping_type_code == 'E'),
-                    'state'   => $order->order_state,
+                    'status'  => $order->order_state,
                     'buyer'   => $address->firstname.' '.$address->lastname,
                     'address' => $address->street_1.' '.$address->street_2,
                     'city'    => $address->city,

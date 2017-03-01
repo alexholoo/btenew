@@ -22,7 +22,7 @@ class OrderReportFile
             'price',
             'qty',
             'express',
-            'state',
+            'status',
             'buyer',
             'address',
             'city',
@@ -35,7 +35,7 @@ class OrderReportFile
         $this->fileReader = new CsvFileReader($filename);
         $this->fileWriter = new CsvFileWriter($filename);
 
-        $this->fileReader->setHeadline($columns);
+        $this->fileReader->setColumns($columns);
         $this->fileWriter->setHeadline($columns);
     }
 
@@ -53,7 +53,7 @@ class OrderReportFile
             $order['price'],
             $order['qty'],
             $order['express'],
-            $order['state'],
+            $order['status'],
             $order['buyer'],
             $order['address'],
             $order['city'],
