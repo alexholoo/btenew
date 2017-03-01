@@ -32,7 +32,20 @@ class Client
 
         foreach ($json->orders as $order) {
             $address = $order->customer->shipping_address;
-
+            /**
+             *  "order_state":
+             *      "STAGING" |
+             *      "WAITING_ACCEPTANCE" |
+             *      "WAITING_DEBIT" |
+             *      "WAITING_DEBIT_PAYMENT" |
+             *      "SHIPPING" |
+             *      "SHIPPED" |
+             *      "TO_COLLECT" |
+             *      "RECEIVED" |
+             *      "CLOSED" |
+             *      "REFUSED" |
+             *      "CANCELED",
+             */
             // address is empty for CANCELED orders
             if ($order->order_state == 'CANCELED' || empty($address)) {
                 $address = new \stdClass();
