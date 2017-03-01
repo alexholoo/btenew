@@ -4,66 +4,13 @@ class Bestbuy_Order extends OrderDownloader
 {
     public function download()
     {
-        return;
-
-        $this->skuService = $this->di->get('skuService');
-
-        $this->importBestbuyOrders();
-    }
-
-    protected function importBestbuyOrders()
-    {
-        $accdb = $this->openAccessDB();
+        $filename = Filenames::get('bestbuy.order');
+        $orderFile = new Marketplace\Bestbuy\OrderReportFile($filename);
 
         $orders = $this->getBestbuyOrders();
 
         foreach ($orders as $order) {
-            $workDate    = $order['date'];
-            $orderId     = $order['orderId'];
-            $sku         = $order['sku'];
-            $channel     = 'BestbuyCA';
-            $xpress      = $order['express'];
-            $qty         = $order['qty'];
-            $supplier    = $this->skuService->getSupplier($sku);
-            $ponum       = ' ';
-            $mfrpn       = $this->skuService->getMpn($sku);
-            $stockStatus = ' ';
-
-            // TODO: fix multi-items-order issue
-            $sql = "SELECT * FROM BestbuyCA WHERE [Order #]='$orderId'";
-            $result = $accdb->query($sql)->fetch();
-            if ($result) {
-                continue;
-            }
-
-            $data = [
-                'Work Date'     => $workDate,
-                'Channel'       => $channel,
-                'Order #'       => $orderId,
-                'Express'       => $xpress,
-                'Stock Status'  => $stockStatus,
-                'Qty'           => $qty,
-                'Supplier'      => $supplier,
-                'Supplier SKU'  => $sku,
-                'Mfr #'         => $mfrpn,
-                'Supplier #'    => ' ',
-                'Remarks'       => '',
-                'Xpress'        => $xpress,
-                'RelatedSKU'    => '',
-                'Dimension'     => '',
-            ];
-
-            $sql = $this->insertMssql('BestbuyCA', $data);
-
-            $ret = $accdb->exec($sql);
-
-            if (!$ret) {
-                $this->error(__METHOD__);
-                $this->error(print_r($accdb->errorInfo(), true));
-                $this->error($sql);
-            }
-
-            $this->log($orderId);
+            $orderFile->write($order);
         }
     }
 
@@ -86,24 +33,10 @@ class Bestbuy_Order extends OrderDownloader
             // - RECEIVED
             if ($order['state'] != 'RECEIVED') {
                 unset($orders[$key]);
-                $this->log($order['orderId'].' '.$order['state']);
+               #$this->log($order['orderId'].' '.$order['state']);
             }
         }
 
         return $orders;
-    }
-
-    protected function openAccessDB()
-    {
-        $dbname = "Z:/Purchasing/General Purchase.accdb";
-
-        if (!IS_PROD) {
-            $dbname = "C:/Users/BTE/Desktop/General Purchase.accdb";
-        }
-
-        $dsn = "odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=$dbname;";
-        $db = new PDO($dsn);
-
-        return $db;
     }
 }
