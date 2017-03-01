@@ -63,20 +63,23 @@ class Client
 
             foreach ($order->order_lines as $item) {
                 $orders[] = [
-                    'date'    => substr($order->created_date, 0, 10),
-                    'orderId' => $order->order_id,
-                    'sku'     => $item->offer_sku,
-                    'price'   => $item->price,
-                    'qty'     => $item->quantity,
-                    'express' => intval($order->shipping_type_code == 'E'),
-                    'status'  => $order->order_state,
-                    'buyer'   => $address->firstname.' '.$address->lastname,
-                    'address' => $address->street_1.' '.$address->street_2,
-                    'city'    => $address->city,
-                    'state'   => $address->state,
-                    'country' => $address->country,
-                    'zipcode' => $address->zip_code,
-                    'phone'   => $address->phone,
+                    'date'        => substr($order->created_date, 0, 10),
+                    'orderId'     => $order->order_id,
+                    'orderItemId' => $item->order_line_id,
+                    'sku'         => $item->offer_sku,
+                    'price'       => $item->price,
+                    'qty'         => $item->quantity,
+                    'shipping'    => $item->shipping_price,
+                    'product'     => $item->product_title,
+                    'express'     => intval($order->shipping_type_code == 'E'),
+                    'status'      => $order->order_state,
+                    'buyer'       => $address->firstname.' '.$address->lastname,
+                    'address'     => $address->street_1.' '.$address->street_2,
+                    'city'        => $address->city,
+                    'state'       => $address->state,
+                    'country'     => $address->country,
+                    'zipcode'     => $address->zip_code,
+                    'phone'       => $address->phone,
                 ];
             }
         }

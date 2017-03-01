@@ -1,5 +1,7 @@
 <?php
 
+use Marketplace\Bestbuy\OrderReportFile;
+
 class Bestbuy_Order extends OrderImporter
 {
     public function import()
@@ -10,31 +12,20 @@ class Bestbuy_Order extends OrderImporter
 
     protected function getBestbuyOrders()
     {
-        $client = new Marketplace\Bestbuy\Client();
+        $filename = Filenames::get('bestbuy.order');
+        $orderFile = new OrderReportFile($filename);
 
-        // only today's orders
-        $start = date('Y-m-d\T00:00:00');
-        $end   = date('Y-m-d\T23:59:59');
+        $orders = [];
 
-        $orderList = $client->listOrders($start, $end);
-
-        // reindex the array to fix multi-items-order issue
-        foreach ($orderList as $orderId => $orders) {
-            foreach ($orders as $key => $order) {
-                if ($order['state'] != 'RECEIVED') {
-                    // order_state:
-                    // - WAITING_ACCEPTANCE
-                    // - WAITING_DEBIT_PAYMENT
-                    // - CANCELED
-                    // - RECEIVED
-                    unset($orders[$key]);
-                    continue;
-                }
-                $orderList[$orderId][$key] = $this->toStdOrder($order);
+        while ($order = $orderFile->read()) {
+            if ($order['status'] != 'RECEIVED') {
+                continue;
             }
+            $orderId = $order['orderId'];
+            $orders[$orderId][] = $this->toStdOrder($order);
         }
 
-        return $orderList;
+        return $orders;
     }
 
     private function toStdOrder($order)
@@ -42,22 +33,22 @@ class Bestbuy_Order extends OrderImporter
         return [
              'orderId'      => $order['orderId'],
              'date'         => $order['date'],
-             'orderItemId'  => $order[''],
+             'orderItemId'  => $order['orderItemId'],
              'channel'      => 'Bestbuy',
              'express'      => $order['express'],
-             'buyer'        => $order[''],
-             'address'      => $order[''],
-             'city'         => $order[''],
-             'province'     => $order[''],
-             'country'      => $order[''],
-             'postalcode'   => $order[''],
-             'email'        => $order[''],
-             'phone'        => $order[''],
+             'buyer'        => $order['buyer'],
+             'address'      => $order['address'],
+             'city'         => $order['city'],
+             'province'     => $order['state'],
+             'country'      => $order['country'],
+             'postalcode'   => $order['zipcode'],
+             'email'        => '',
+             'phone'        => $order['phone'],
              'sku'          => $order['sku'],
              'qty'          => $order['qty'],
-             'price'        => $order[''],
-             'shipping'     => $order[''],
-             'productName'  => $order[''],
+             'price'        => $order['price'],
+             'shipping'     => $order['shipping'],
+             'productName'  => $order['product'],
         ];
     }
 }
