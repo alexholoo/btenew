@@ -22,7 +22,6 @@ class FedexAddressBookJob extends Job
         $orders = $this->getOrders();
 
         $filename = 'w:/out/shipping/tnt_shipment_import.csv';
-        $filename = 'e:/tnt_shipment_import.csv';
 
         $out = fopen($filename, 'w');
         stream_filter_append($out, "newlines");
@@ -119,7 +118,7 @@ class FedexAddressBookJob extends Job
                   FROM master_order_item oi
                   JOIN master_order o ON o.order_id = oi.order_id
                   JOIN master_order_shipping_address sa ON sa.order_id = o.order_id
-                 WHERE (o.channel = 'Amazon-US' OR o.channel = 'Amazon-ACA') AND o.date >= '$start'";
+                 WHERE o.date >= '$start'";
 
         $result = $this->db->fetchAll($sql);
         return $result;
