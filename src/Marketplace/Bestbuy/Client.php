@@ -92,14 +92,14 @@ class Client
         return $this->callApi('GET', 'api/offers');
     }
 
-    public function updateTracking($orderId, $trackingInfo)
+    public function updateTracking($orderId, $tracking)
     {
-        /*{
-            "carrier_code": String,
-            "carrier_name": String,
-            "carrier_url": String,
-            "tracking_number": String
-        }*/
+        $trackingInfo = [
+            'carrier_code'    => $tracking['carrierCode'],
+           #'carrier_name'    => $tracking['carrierName'],
+           #'carrier_url'     => $tracking['carrierUrl'],
+            'tracking_number' => $tracking['trackingNumber'],
+        ];
 
         return $this->callApi('PUT', "api/orders/$orderId/tracking", $trackingInfo);
     }
@@ -111,18 +111,21 @@ class Client
 
     public function callApi($method, $apiUrl, $params = [])
     {
+        $method = strtoupper($method);
+
         $url = $this->hostname . trim($apiUrl, '/');
-        if ($params) {
+
+        $options['http']['method'] = $method;
+        $options['http']['header'] = "Authorization: " . $this->apikey . "\r\n";
+
+        if ($method == 'GET' && $params) {
             $url .= '?' . http_build_query($params);
         }
 
-        $options = [
-            'http' => [
-                'header'  => "Authorization: " . $this->apikey . "\r\n",
-                'method'  => strtoupper($method),
-               #'content' => http_build_query($data)
-            ]
-        ];
+        if (($method == 'PUT' || $method == 'POST') && $params) {
+            $options['http']['content'] = json_encode($params);
+            $options['http']['header'] .= "Content-Type: application/json\r\n";
+        }
 
         $context = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
