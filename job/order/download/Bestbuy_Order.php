@@ -1,11 +1,13 @@
 <?php
 
+use Marketplace\Bestbuy\OrderReportFile;
+
 class Bestbuy_Order extends OrderDownloader
 {
     public function download()
     {
         $filename = Filenames::get('bestbuy.order');
-        $orderFile = new Marketplace\Bestbuy\OrderReportFile($filename);
+        $orderFile = new OrderReportFile($filename);
 
         $orders = $this->getBestbuyOrders();
 
