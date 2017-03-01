@@ -31,6 +31,7 @@ class Client
         $orders = [];
 
         foreach ($json->orders as $order) {
+            $address = $order->customer->shipping_address;
             foreach ($order->order_lines as $item) {
                 $orders[] = [
                     'date'    => substr($order->created_date, 0, 10),
@@ -40,7 +41,13 @@ class Client
                     'qty'     => $item->quantity,
                     'express' => intval($order->shipping_type_code == 'E'),
                     'state'   => $order->order_state,
-                    //TODO shipping address
+                    'buyer'   => $address->firstname.' '.$address->lastname,
+                    'address' => $address->street_1.' '.$address->street_2,
+                    'city'    => $address->city,
+                    'state'   => $address->state,
+                    'country' => $address->country,
+                    'zipcode' => $address->zip_code,
+                    'phone'   => $address->phone,
                 ];
             }
         }
