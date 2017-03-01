@@ -32,6 +32,21 @@ class Client
 
         foreach ($json->orders as $order) {
             $address = $order->customer->shipping_address;
+
+            // address is empty for CANCELED orders
+            if ($order->order_state == 'CANCELED' || empty($address)) {
+                $address = new stdClass();
+                $address->firstname = $order->customer->firstname;
+                $address->lastname  = $order->customer->lastname;
+                $address->street_1  = '';
+                $address->street_2  = '';
+                $address->city      = '';
+                $address->state     = '';
+                $address->country   = '';
+                $address->zip_code  = '';
+                $address->phone     = '';
+            }
+
             foreach ($order->order_lines as $item) {
                 $orders[] = [
                     'date'    => substr($order->created_date, 0, 10),
