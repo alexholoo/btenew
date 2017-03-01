@@ -109,7 +109,10 @@ class Client
          *   - LTL
          *   - Other:carrierName
          */
-        $carrier = strtoupper($tracking['carrier']);
+        $carrier = strtoupper($tracking['carrierCode']);
+        if ($carrier == 'OTHER') {
+            $carrier = strtoupper($tracking['carrierName']);
+        }
 
         if ($carrier == 'CANADA POST') {
             $carrier = 'CPCL';
