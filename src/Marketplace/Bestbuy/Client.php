@@ -24,6 +24,7 @@ class Client
         $params = [
             'start_date' => $start,
             'end_date'   => $end,
+            'max'        => 100,
         ];
 
         $json = $this->callApi('GET', 'api/orders', $params);
