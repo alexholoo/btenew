@@ -14,6 +14,12 @@ class Client
         $this->apikey = $this->config->bestbuy->apikey;
     }
 
+    public function listCarriers()
+    {
+        $json = $this->callApi('GET', 'api/shipping/carriers');
+        return $json;
+    }
+
     public function listOrders($start = '', $end = '')
     {
         if (!$start) {
