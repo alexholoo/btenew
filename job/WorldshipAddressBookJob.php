@@ -99,7 +99,7 @@ class WorldshipAddressBookJob extends Job
                   FROM master_order o
                   JOIN master_order_item oi ON o.order_id = oi.order_id
                   JOIN master_order_shipping_address sa ON sa.order_id = o.order_id
-                 WHERE o.channel = 'Amazon-US' and o.date >= '$start'";
+                 WHERE o.date >= '$start'";
 
         $orders = [];
 
