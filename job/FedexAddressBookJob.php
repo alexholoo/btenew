@@ -49,12 +49,19 @@ class FedexAddressBookJob extends Job
             */
 
             $sku      = $order['sku'];
-            $province = AmericaState::nameToCode($order['province']);
-            $province = CanadaProvince::nameToCode($order['province']);
             $phone    = Utils::formatPhoneNumber($order['phone']);
             $price    = $order['price'];
             $qty      = $order['qty'];
             $value    = $price * $qty;
+            $info     = $this->getMasterSku($sku);
+
+            if ($order['country'] == 'US') {
+                $province = AmericaState::nameToCode($order['province']);
+            }
+
+            if ($order['country'] == 'CA') {
+                $province = CanadaProvince::nameToCode($order['province']);
+            }
 
             $data = [
                 '1',
@@ -77,6 +84,10 @@ class FedexAddressBookJob extends Job
                 '',
                 '',
                 $value,
+                $info['Weight'],
+                $info['Width'],
+                $info['Length'],
+                $info['Depth'],
             ];
 
             fputcsv($out, $data);
@@ -105,18 +116,13 @@ class FedexAddressBookJob extends Job
                        sa.country,
                        sa.phone,
                        sa.email
-                  FROM master_order o
-                  JOIN master_order_item oi ON o.order_id = oi.order_id
+                  FROM master_order_item oi
+                  JOIN master_order o ON o.order_id = oi.order_id
                   JOIN master_order_shipping_address sa ON sa.order_id = o.order_id
                  WHERE (o.channel = 'Amazon-US' OR o.channel = 'Amazon-ACA') AND o.date >= '$start'";
 
         $result = $this->db->fetchAll($sql);
         return $result;
-    }
-
-    protected function getWeight($sku)
-    {
-        return $this->skuService->getWeight($sku);
     }
 }
 
