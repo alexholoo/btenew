@@ -94,8 +94,29 @@ class Client
 
     public function updateTracking($orderId, $tracking)
     {
+        /**
+         * carrierCode:
+         *   - CPCL
+         *   - ASYN
+         *   - PRLA
+         *   - UPSN
+         *   - LTL
+         *   - Other:carrierName
+         */
+        $carrier = strtoupper($tracking['carrier']);
+
+        if ($carrier == 'CANADA POST') {
+            $carrier = 'CPCL';
+        }
+        if ($carrier == 'PUROLATOR') {
+            $carrier = 'PRLA';
+        }
+        if ($carrier == 'UPS') {
+            $carrier = 'UPSN';
+        }
+
         $trackingInfo = [
-            'carrier_code'    => $tracking['carrierCode'],
+            'carrier_code'    => $carrier,
            #'carrier_name'    => $tracking['carrierName'],
            #'carrier_url'     => $tracking['carrierUrl'],
             'tracking_number' => $tracking['trackingNumber'],
