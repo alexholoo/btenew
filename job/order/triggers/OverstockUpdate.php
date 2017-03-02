@@ -90,15 +90,15 @@ class OverstockUpdate extends OrderTrigger
 
                 $SKUNumber      = $row['SKU Number'];
                 $Title          = $row['Title'];
-                $cost           = $row['cost'] ?: NULL;
+                $cost           = $row['cost'] ? floatval($row['cost']) : NULL;
                 $condition      = $row['condition'];
                 $Allocation     = $row['Allocation'];
                 $ActualQuantity = $x; //$row['Actual Quantity'] ?: 'NULL';
                 $MPN            = $row['MPN'];
                 $note           = $row['note'];
                 $UPCCode        = $row['UPC Code'];
-                $Weight         = $row['Weight(lbs)'] ?: NULL;
-                $Reserved       = ''; //$row['Reserved'] ?: NULL;
+                $Weight         = $row['Weight(lbs)'] ? floatval($row['Weight(lbs)']) : NULL;
+                $Reserved       = NULL; //$row['Reserved'] ?: NULL;
 
                 // log the change
                 $sql = $this->insertMssql("overstock-change", [
