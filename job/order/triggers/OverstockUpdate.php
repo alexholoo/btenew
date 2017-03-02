@@ -98,7 +98,7 @@ class OverstockUpdate extends OrderTrigger
                 $note           = $row['note'];
                 $UPCCode        = $row['UPC Code'];
                 $Weight         = $row['Weight(lbs)'] ?: NULL;
-                $Reserved       = $row['Reserved'] ?: NULL;
+                $Reserved       = ''; //$row['Reserved'] ?: NULL;
 
                 // log the change
                 $sql = $this->insertMssql("overstock-change", [
@@ -116,7 +116,7 @@ class OverstockUpdate extends OrderTrigger
                     'note'            => $note,
                     'UPC Code'        => $UPCCode,
                     'Weight(lbs)'     => $Weight,
-                    'Reserved'        => $Reserved,
+                    'Reserved'        => $Reserved, // number!
                 ]);
 
                 $ret = $accdb->exec($sql);
