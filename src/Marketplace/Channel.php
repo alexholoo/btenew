@@ -11,4 +11,5 @@ abstract class Channel // Store?
     const EBAY      = 'ebay';
     const EBAY_CA   = 'ebay-ca';
     const EBAY_US   = 'ebay-us';
+    const BESTBUY   = 'Bestbuy';
 }
