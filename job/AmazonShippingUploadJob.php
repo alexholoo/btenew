@@ -41,10 +41,12 @@ class AmazonShippingUploadJob extends Job
             $api->setUseToken();
             $api->fetchOrders();
 
-            // save the response to log file
-            $logfile = str_replace('job', 'Amazon-List-Orders', $this->getLogFilename());
-            foreach ($api->getRawResponses() as $response) {
-                file_put_contents($logfile, $response['body'], FILE_APPEND);
+            if (0) {
+                // save the response to log file
+                $logfile = str_replace('job', 'Amazon-List-Orders', $this->getLogFilename());
+                foreach ($api->getRawResponses() as $response) {
+                    file_put_contents($logfile, $response['body'], FILE_APPEND);
+                }
             }
 
             // return only unshipped orders
@@ -74,6 +76,7 @@ class AmazonShippingUploadJob extends Job
             $orderId = $order->getAmazonOrderId();
             $tracking = $shipmentService->getOrderTracking($orderId);
             if ($tracking) {
+                // TODO: change unrecognized carrier to 'Other'
                 $feedFile->write([
                     $orderId,                     //'order-id'
                     '',                           //'order-item-id'
@@ -110,9 +113,27 @@ class AmazonShippingUploadJob extends Job
         $api->setFeedContent($feed);
         $api->submitFeed();
 
+        $this->markOrdersShipped($file);
+
         File::backup($file);
 
        #$this->log(print_r($api->getResponse(), true));
+    }
+
+    protected function markOrdersShipped($filename)
+    {
+        $fp = fopen($filename, 'r');
+
+        $columns = fgetcsv($fp); // skip first line
+
+        $shipmentService = $this->di->get('shipmentService');
+
+        while (($fields = fgetcsv($fp))) {
+            $orderId = $fields[0];
+            $shipmentService->markOrderAsShipped($orderId);
+        }
+
+        fclose($fp);
     }
 }
 
