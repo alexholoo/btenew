@@ -22,8 +22,8 @@ class TNT_Tracking extends TrackingImporter
 
                 $orderId        = $fields[1];
                 $shipDate       = date('Y-m-d', strtotime($fields[6]));
-                $carrierCode    = 'Other';
-                $carrierName    = 'TNT';
+                $carrierCode    = 'TNT';
+                $carrierName    = '';
                 $trackingNumber = $fields[0];
                 $shipMethod     = 'Standard';
 

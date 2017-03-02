@@ -94,6 +94,11 @@ class AmazonShippingUploadJob extends Job
                     $carrierName = 'Loomis';
                 }
 
+                if ($carrierCode == 'TNT') {
+                    $carrierCode = 'Other';
+                    $carrierName = 'TNT';
+                }
+
                 $feedFile->write([
                     $orderId,                     //'order-id'
                     '',                           //'order-item-id'
