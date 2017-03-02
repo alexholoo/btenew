@@ -41,10 +41,14 @@ class BestbuyShipmentFile
             fputcsv($this->handle, $this->columns);
         }
 
-        if (count($data) != count($this->columns)) {
-            throw new \Exception(__METHOD__. ' Wrong number of elements: '. var_export($data, true));
-        }
-
-        return fputcsv($this->handle, $data);
+        return fputcsv($this->handle, [
+                $data['orderId'],
+                $data['shipDate'],
+                $data['carrierCode'],
+                $data['carrierName'],
+                $data['shipMethod'],
+                $data['trackingNumber'],
+            ]
+        );
     }
 }

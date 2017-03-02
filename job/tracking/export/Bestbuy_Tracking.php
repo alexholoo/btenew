@@ -16,15 +16,7 @@ class Bestbuy_Tracking extends TrackingExporter
         $file = new BestbuyShipmentFile($filename);
 
         foreach ($orders as $order) {
-            // TODO: move this to BestbuyShipmentFile
-            $file->write([
-                $order['orderId'],
-                $order['shipDate'],
-                $order['carrierCode'],
-                $order['carrierName'],
-                $order['shipMethod'],
-                $order['trackingNumber'],
-            ]);
+            $file->write($order);
         }
     }
 
