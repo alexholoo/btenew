@@ -12,8 +12,6 @@ class FedexAddressBookJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $this->skuService = $this->di->get('skuService');
-
         $this->generateAddressBook();
     }
 
