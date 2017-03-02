@@ -74,16 +74,33 @@ class AmazonShippingUploadJob extends Job
 
         foreach ($orders as $order) {
             $orderId = $order->getAmazonOrderId();
+
             $tracking = $shipmentService->getOrderTracking($orderId);
+
             if ($tracking) {
-                // TODO: change unrecognized carrier to 'Other'
+                // change unrecognized carriers to 'Other'
+                $carrierCode = $tracking['carrierCode'];
+                $carrierName = $tracking['carrierName'];
+
+                // Amazon Report the Error: The carrier-code field contains an invalid value: Purolator.
+                if ($carrierCode == 'Purolator') {
+                    $carrierCode = 'Other';
+                    $carrierName = 'Purolator';
+                }
+
+                // Amazon Report the Error: The carrier-code field contains an invalid value: Loomis.
+                if ($carrierCode == 'Loomis') {
+                    $carrierCode = 'Other';
+                    $carrierName = 'Loomis';
+                }
+
                 $feedFile->write([
                     $orderId,                     //'order-id'
                     '',                           //'order-item-id'
                     '',                           //'quantity'
                     $tracking['shipDate'],        //'ship-date'
-                    $tracking['carrierCode'],     //'carrier-code'
-                    $tracking['carrierName'],     //'carrier-name'
+                    $carrierCode,                 //'carrier-code'
+                    $carrierName,                 //'carrier-name'
                     $tracking['trackingNumber'],  //'tracking-number'
                     $tracking['shipMethod'],      //'ship-method'
                 ]);

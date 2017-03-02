@@ -20,23 +20,18 @@ class Synnex_Tracking extends TrackingImporter
 
             if ($orderId) {
                 $synShipDate = '20'.$request->ShipDate;
-                $shipDate = date ('Y-m-d' ,strtotime($synShipDate));
+                $shipDate    = date ('Y-m-d' ,strtotime($synShipDate));
                 $carrierCode = $request->ShipCode;
                 $carrierName = '';
 
-                // Amazon Report the Error: The carrier-code field contains an invalid value: Purolator.
-                // Amazon Report the Error: The carrier-code field contains an invalid value: Loomis.
-
                 if (in_array($carrierCode, ['LMG', 'L18G', 'L18A'])) {
-                    $carrierCode = "Other";
-                    $carrierName = "Loomis";
+                    $carrierCode = "Loomis";
                 }
                 elseif ($carrierCode == 'UPG') {
                     $carrierCode = "UPS";
                 }
                 elseif (in_array($carrierCode, ['PUX', 'PUG'])) {
-                    $carrierCode = "Other";
-                    $carrierName = "Purolator";
+                    $carrierCode = "Purolator";
                 }
                 elseif ($carrierCode == 'FDXH') {
                     $carrierCode = "Fedex";

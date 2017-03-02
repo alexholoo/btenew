@@ -45,30 +45,18 @@ class DH_Tracking extends TrackingImporter
                     $carrierName = '';
                     $shipMethod  = $fields[3];
                     $shipDate = $fmtdate($fields[5]);
-                }
 
-                // Amazon Report the Error: The carrier-code field contains an invalid value: Purolator.
-                if ($carrierCode == 'Purolator') {
-                    $carrierCode = 'Other';
-                    $carrierName = 'Purolator';
-                }
-
-                // Amazon Report the Error: The carrier-code field contains an invalid value: Loomis.
-                if ($carrierCode == 'Loomis') {
-                    $carrierCode = 'Other';
-                    $carrierName = 'Loomis';
-                }
-
-                if ($trackingNumber) {
-                    $this->saveToDb([
-                        'orderId'        => $orderId,
-                        'shipDate'       => $shipDate,
-                        'carrierCode'    => $carrierCode,
-                        'carrierName'    => $carrierName,
-                        'shipMethod'     => $shipMethod,
-                        'trackingNumber' => $trackingNumber,
-                        'sender'         => 'DH-DS',
-                    ]);
+                    if ($trackingNumber) {
+                        $this->saveToDb([
+                            'orderId'        => $orderId,
+                            'shipDate'       => $shipDate,
+                            'carrierCode'    => $carrierCode,
+                            'carrierName'    => $carrierName,
+                            'shipMethod'     => $shipMethod,
+                            'trackingNumber' => $trackingNumber,
+                            'sender'         => 'DH-DS',
+                        ]);
+                    }
                 }
             }
         }
