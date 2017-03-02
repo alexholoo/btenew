@@ -4,6 +4,7 @@ include 'classes/Job.php';
 
 use Toolkit\Utils;
 use Toolkit\AmericaState;
+use Toolkit\CanadaProvince;
 
 class WorldshipAddressBookJob extends Job
 {
@@ -49,7 +50,6 @@ class WorldshipAddressBookJob extends Job
             $buyer      = $order['buyer'];
             $address    = trim($order['address']);
             $city       = $order['city'];
-            $province   = AmericaState::nameToCode($order['province']);
             $postalcode = $order['postalcode'];
             $country    = $order['country'];
             $phone      = Utils::formatPhoneNumber($order['phone']);
@@ -57,6 +57,14 @@ class WorldshipAddressBookJob extends Job
            #$price      = $order['price'];
            #$qty        = $order['qty'];
             $product    = $order['product_name'];
+
+            if ($order['country'] == 'US') {
+                $province = AmericaState::nameToCode($order['province']);
+            }
+
+            if ($order['country'] == 'CA') {
+                $province = CanadaProvince::nameToCode($order['province']);
+            }
 
             $data = array_combine($title, array_fill(0, count($title), ''));
 
