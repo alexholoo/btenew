@@ -17,7 +17,7 @@ class FedexAddressBookJob extends Job
 
     protected function generateAddressBook()
     {
-        $orders = $this->getOrders();
+        $orders = $this->getUnshippedOrders();
 
         $filename = 'w:/out/shipping/tnt_shipment_import.csv';
 
@@ -95,7 +95,7 @@ class FedexAddressBookJob extends Job
         $this->log(count($orders). " orders imported to $filename");
     }
 
-    protected function getOrders()
+    protected function getUnshippedOrders()
     {
         $start = date('Y-m-d', strtotime('-10 days'));
 
@@ -113,10 +113,11 @@ class FedexAddressBookJob extends Job
                        sa.country,
                        sa.phone,
                        sa.email
-                  FROM master_order_item oi
-                  JOIN master_order o ON o.order_id = oi.order_id
+                  FROM master_order_item             oi
+                  JOIN master_order                   o ON  o.order_id = oi.order_id
                   JOIN master_order_shipping_address sa ON sa.order_id = o.order_id
-                 WHERE o.date >= '$start'";
+             LEFT JOIN master_order_shipped           s ON oi.order_id = s.order_id
+                 WHERE o.date >= '$start' AND s.createdon IS NULL";
 
         $result = $this->db->fetchAll($sql);
         return $result;

@@ -17,7 +17,7 @@ class WorldshipAddressBookJob extends Job
 
     protected function generateAddressBook()
     {
-        $orders = $this->getOrders();
+        $orders = $this->getUnshippedOrders();
 
         $filename = 'w:/out/shipping/UPS/worldship.csv';
         $out = fopen($filename, 'w');
@@ -97,17 +97,29 @@ class WorldshipAddressBookJob extends Job
         $this->log(count($orders). " orders imported to $filename");
     }
 
-    protected function getOrders()
+    protected function getUnshippedOrders()
     {
         $start = date('Y-m-d', strtotime('-10 days'));
 
-        $sql = "SELECT o.date, oi.order_id, oi.sku, oi.price, oi.qty, oi.product_name,
-                       sa.buyer, sa.address, sa.city, sa.province, sa.postalcode,
-                       sa.country, sa.phone, sa.email
-                  FROM master_order o
-                  JOIN master_order_item oi ON o.order_id = oi.order_id
+        $sql = "SELECT o.date,
+                       oi.order_id,
+                       oi.sku,
+                       oi.price,
+                       oi.qty,
+                       oi.product_name,
+                       sa.buyer,
+                       sa.address,
+                       sa.city,
+                       sa.province,
+                       sa.postalcode,
+                       sa.country,
+                       sa.phone,
+                       sa.email
+                  FROM master_order                   o
+                  JOIN master_order_item             oi ON  o.order_id = oi.order_id
                   JOIN master_order_shipping_address sa ON sa.order_id = o.order_id
-                 WHERE o.date >= '$start'";
+             LEFT JOIN master_order_shipped           s ON  o.order_id = s.order_id
+                 WHERE o.date >= '$start' AND s.createdon IS NULL";
 
         $orders = [];
 
