@@ -4,8 +4,6 @@ class Fedex_Tracking extends TrackingImporter
 {
     public function import()
     {
-        return;
-
         $filename = Filenames::get('fedex.tracking');
 
         if (!file_exists($filename)) {
@@ -15,8 +13,46 @@ class Fedex_Tracking extends TrackingImporter
 
         $fp = fopen($filename, 'r');
 
-        while (($fields = fgetcsv($fp)) !== FALSE) {
+        // skip first 5 lines
+        fgets($fp);
+        fgets($fp);
+        fgets($fp);
+        fgets($fp);
+        fgets($fp);
 
+        while (($line1 = fgets($fp)) !== FALSE) {
+            $line2 = fgets($fp);
+
+            $line = trim($line1);
+
+            if (strlen($line2) < 20) {
+                $line .= trim($line2);
+            }
+
+            if (substr($line, 112, 4) == 'CAFE') {
+                continue;
+            }
+
+            if (substr($line, -5) == '*****') {
+                continue;
+            }
+
+            $shipDate = substr($line, 0, 10);
+            list($m, $d, $y) = explode('/', $shipDate);
+            $shipDate = "$y-$m-$d";
+
+            $trackingNumber = substr($line, 17, 12);
+            $orderId = substr($line, 114);
+
+            $this->saveToDb([
+                'orderId'        => $orderId,
+                'shipDate'       => $shipDate,
+                'carrierCode'    => 'Fedex',
+                'carrierName'    => '',
+                'shipMethod'     => '',
+                'trackingNumber' => $trackingNumber,
+                'sender'         => 'BTE',
+            ]);
         }
 
         fclose($fp);
