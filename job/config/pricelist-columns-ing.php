@@ -24,5 +24,7 @@ return array(
     'category',
     'new_item_receipt_flag',
     'substitute_part',
-    'instant_rebate_flag'
+    'a',
+    'instant_rebate_flag',
+    'b',
 );

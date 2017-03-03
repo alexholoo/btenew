@@ -28,7 +28,16 @@ class Ingram_Pricelist extends PricelistImporter
 
             $item = array_combine($columns, $fields);
 
-            $item['sku'] = 'ING-' . $item['sku'];
+            $item['sku']    = 'ING-' . $item['sku'];
+            $item['length'] = floatval($item['length']);
+            $item['width']  = floatval($item['width']);
+            $item['height'] = floatval($item['height']);
+            $item['weight'] = floatval($item['weight']);
+            $item['a']      = floatval($item['a']); // TODO ??
+            $item['upc']    = $item['upc'] == '9999999999999' ? null : $item['upc'];
+
+            $item['retail_price']   = floatval($item['retail_price']);
+            $item['customer_price'] = floatval($item['customer_price']);
 
             $items[] = array_values($item);
 
