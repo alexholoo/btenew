@@ -4,6 +4,8 @@ class Ebay_Order extends OrderImporter
 {
     public function import()
     {
+        return; // NOT DONE YET
+
         // BTE - CAD
         $client = new Marketplace\eBay\Client('bte');
 

@@ -4,22 +4,24 @@ class Amazon_Order extends OrderImporter
 {
     public function import()
     {
+        return; // NOT DONE YET
+
         // Amazon CA
-        $channel = 'Amazon-ACA';
+        $this->channel = 'Amazon-ACA';
         $client = new Marketplace\Amazon\Client('bte-amazon-ca');
         $orders = $client->getOrderList();
-        $orders = $this->reindexOrders($orders, $channel);
+        $orders = $this->reindexOrders($orders);
         $this->importMasterOrders($orders);
 
         // Amazon US
-        $channel = 'Amazon-US';
+        $this->channel = 'Amazon-US';
         $client = new Marketplace\Amazon\Client('bte-amazon-us');
         $orders = $client->getOrderList();
-        $orders = $this->reindexOrders($orders, $channel);
+        $orders = $this->reindexOrders($orders);
         $this->importMasterOrders($orders);
     }
 
-    public function reindexOrders($orders, $channel)
+    public function reindexOrders($orders)
     {
         $data = $order->getData();
 
@@ -50,7 +52,7 @@ class Amazon_Order extends OrderImporter
         }
 
         $this->db->insertAsDict('amazon_order', [
-            $channel,
+            $this->channel,
             $data['AmazonOrderId'],
             $this->dtime($data['PurchaseDate']),
             $this->dtime($data['LastUpdateDate']),
@@ -122,6 +124,30 @@ class Amazon_Order extends OrderImporter
             $address['CountryCode'],
             $address['Phone'],
         ]);
+    }
+
+    private function toStdOrder($order)
+    {
+        return [
+             'orderId'      => $order[''],
+             'date'         => $order[''],
+             'orderItemId'  => $order[''],
+             'channel'      => $this->channel,
+             'express'      => $order[''],
+             'buyer'        => $order[''],
+             'address'      => $order[''],
+             'city'         => $order[''],
+             'province'     => $order[''],
+             'country'      => $order[''],
+             'postalcode'   => $order[''],
+             'email'        => '',
+             'phone'        => $order[''],
+             'sku'          => $order[''],
+             'qty'          => $order[''],
+             'price'        => $order[''],
+             'shipping'     => $order[''],
+             'productName'  => $order[''],
+        ];
     }
 
     private function yesNo($value)
