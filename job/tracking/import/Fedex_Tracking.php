@@ -29,6 +29,10 @@ class Fedex_Tracking extends TrackingImporter
                 $line .= trim($line2);
             }
 
+            if (strlen($line) == 0) {
+                continue;
+            }
+
             if (substr($line, 112, 4) == 'CAFE') {
                 continue;
             }
