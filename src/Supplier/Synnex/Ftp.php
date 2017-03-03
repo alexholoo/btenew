@@ -39,16 +39,17 @@ class Ftp
         return false;
     }
 
-    public static function getPricelist()
+    public static function getPricelist($localFile)
     {
-        $localFile = 'E:/BTE/pricelist/SYN-c1150897.zip';
-
-        self::download('c1150897.zip', $localFile);
-
-        File::unzip($localFile);
-
         $folder = dirname($localFile);
-        rename("$folder/1150897.ap", "$folder/SYN-1150897.ap");
+
+        $zipfile = "$folder/syn-c1150897.zip";
+
+        self::download('c1150897.zip', $zipfile);
+
+        File::unzip($zipfile);
+
+        rename("$folder/1150897.ap", $localFile);
     }
 
     public static function getTracking($folder)

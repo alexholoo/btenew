@@ -6,7 +6,7 @@ class Filenames
         'dh.pricelist'          => 'E:/BTE/pricelist/DH-ITEMLIST',
 
         'synnex.pricelist.zip'  => 'E:/BTE/pricelist/syn-c1150897.zip',
-        'synnex.pricelist'      => 'E:/BTE/pricelist/1150897.ap',
+        'synnex.pricelist'      => 'E:/BTE/pricelist/syn-c1150897.ap',
 
         'techdata.prodcod.zip'  => 'E:/BTE/pricelist/prodcode.zip',
         'techdata.prodlist.zip' => 'E:/BTE/pricelist/prodlist.zip',
