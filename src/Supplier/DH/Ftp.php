@@ -37,10 +37,10 @@ class Ftp
         return false;
     }
 
-    public static function getPricelist()
+    public static function getPricelist($localFile)
     {
         echo 'Downloading pricelist from DH FTP server', EOL;
-        self::download('ITEMLIST', 'E:/BTE/pricelist/DH-ITEMLIST');
+        self::download('ITEMLIST', $localFile);
     }
 
     public static function getTracking($saveTo = null)
