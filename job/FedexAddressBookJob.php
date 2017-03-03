@@ -45,12 +45,12 @@ class FedexAddressBookJob extends Job
             )
             */
 
-            $sku      = $order['sku'];
-            $phone    = Utils::formatPhoneNumber($order['phone']);
-            $price    = $order['price'];
-            $qty      = $order['qty'];
-            $value    = $price * $qty;
-            $info     = $this->getMasterSku($sku);
+            $sku   = $order['sku'];
+            $phone = Utils::formatPhoneNumber($order['phone']);
+            $price = $order['price'];
+            $qty   = $order['qty'];
+            $value = $price * $qty;
+            $info  = $this->getMasterSku($sku);
 
             if ($order['country'] == 'US') {
                 $province = AmericaState::nameToCode($order['province']);
