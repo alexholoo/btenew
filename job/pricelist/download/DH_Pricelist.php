@@ -9,7 +9,7 @@ class DH_Pricelist extends PricelistDownloader
     {
         $filename = Filenames::get('dh.pricelist');
 
-        if (File::expired($filename, '1 day')) {
+        if (File::expired($filename, '12 hours')) {
             Ftp::getPricelist($filename);
         }
     }

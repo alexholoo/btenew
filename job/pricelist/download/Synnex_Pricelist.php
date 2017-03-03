@@ -9,7 +9,7 @@ class Synnex_Pricelist extends PricelistDownloader
     {
         $filename = Filenames::get('synnex.pricelist');
 
-        if (File::expired($filename, '1 day')) {
+        if (File::expired($filename, '12 hours')) {
             Ftp::getPricelist($filename);
         }
     }
