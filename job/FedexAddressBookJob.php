@@ -19,7 +19,7 @@ class FedexAddressBookJob extends Job
     {
         $orders = $this->getUnshippedOrders();
 
-        $filename = 'w:/out/shipping/tnt_shipment_import.csv';
+        $filename = 'w:/out/shipping/fedex_addressbook.csv';
 
         $out = fopen($filename, 'w');
         stream_filter_append($out, "newlines");
