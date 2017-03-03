@@ -58,7 +58,7 @@ class AmazonShippingUploadJob extends Job
                 }
             }
         } catch (Exception $ex) {
-            echo 'There was a problem with the Amazon library. Error: '.$ex->getMessage();
+            $this->error(__METHOD__.' There was a problem with the Amazon library. Error: '.$ex->getMessage());
         }
 
         return $orders;
