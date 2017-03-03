@@ -3,13 +3,18 @@
 class Filenames
 {
     protected static $filenames = [
-        // tracking
-        'ebay.odo.shipping'        => 'E:/BTE/shipping/ebay_shipping_odo.csv',
-        'newegg.ca.shipping'       => 'E:/BTE/shipping/newegg_ca_shipping.csv',
-        'newegg.us.shipping'       => 'E:/BTE/shipping/newegg_us_shipping.csv',
+        'dh.pricelist'          => 'E:/BTE/pricelist/DH-ITEMLIST',
 
-        'rakuten.ca.shipping'      => 'E:/BTE/shipping/rakuten_tracking.txt',
-        'rakuten.us.shipping'      => 'E:/BTE/shipping/rakuten_tracking.txt',
+        'synnex.pricelist.zip'  => 'E:/BTE/pricelist/syn-c1150897.zip',
+        'synnex.pricelist'      => 'E:/BTE/pricelist/1150897.ap',
+
+        'techdata.prodcod.zip'  => 'E:/BTE/pricelist/prodcode.zip',
+        'techdata.prodlist.zip' => 'E:/BTE/pricelist/prodlist.zip',
+        'techdata.prodmast'     => 'E:/BTE/pricelist/prodmast.txt',
+        'techdata.pricelist'    => 'E:/BTE/pricelist/prodmast.txt',
+
+        'ingram.pricelist.zip'  => 'E:/BTE/pricelist/ing-price.zip',
+        'ingram.pricelist'      => 'E:/BTE/pricelist/ing-price.csv',
     ];
 
     public static function get($key)
@@ -17,5 +22,3 @@ class Filenames
         return self::$filenames[$key] ?? '';
     }
 }
-
-//echo Filenames::get('rakuten.us.shipping'), PHP_EOL;
