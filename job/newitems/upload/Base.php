@@ -1,6 +1,6 @@
 <?php
 
-class NewItemsUploader extends Job
+abstract class NewItemsUploader extends Job
 {
-    public function upload() { }
+    abstract public function upload();
 }

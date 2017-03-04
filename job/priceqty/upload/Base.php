@@ -1,6 +1,6 @@
 <?php
 
-class PriceQtyUploader extends Job
+abstract class PriceQtyUploader extends Job
 {
-    public function upload() { }
+    abstract public function upload();
 }

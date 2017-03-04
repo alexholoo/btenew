@@ -1,8 +1,8 @@
 <?php
 
-class OrderImporter extends Job
+abstract class OrderImporter extends Job
 {
-    public function import() { }
+    abstract public function import();
 
     protected function importMasterOrders($masterOrders)
     {

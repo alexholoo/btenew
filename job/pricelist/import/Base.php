@@ -1,6 +1,6 @@
 <?php
 
-class PricelistImporter extends Job
+abstract class PricelistImporter extends Job
 {
-    public function import() { }
+    abstract public function import();
 }

@@ -1,6 +1,6 @@
 <?php
 
-class ListingDownloader extends Job
+abstract class ListingDownloader extends Job
 {
-    public function download() { }
+    abstract public function download();
 }

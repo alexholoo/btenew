@@ -1,6 +1,6 @@
 <?php
 
-class NewItemsExporter extends Job
+abstract class NewItemsExporter extends Job
 {
-    public function export() { }
+    abstract public function export();
 }

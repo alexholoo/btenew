@@ -1,8 +1,8 @@
 <?php
 
-class TrackingImporter extends Job
+abstract class TrackingImporter extends Job
 {
-    public function import() { }
+    abstract public function import();
 
     protected function saveToDb($fields)
     {
