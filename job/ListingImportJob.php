@@ -12,7 +12,7 @@ class ListingImportJob extends Job
 
         foreach ($jobs as $job) {
             $this->log('=> Importing ' . get_class($job));
-            $job->download();
+            $job->import();
         }
     }
 

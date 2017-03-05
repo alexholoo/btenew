@@ -12,7 +12,7 @@ class PriceQtyUploadJob extends Job
 
         foreach ($jobs as $job) {
             $this->log('=> Uploading ' . get_class($job));
-            $job->download();
+            $job->upload();
         }
     }
 
