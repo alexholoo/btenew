@@ -21,6 +21,10 @@ class Fedex_Tracking extends TrackingImporter
         fgets($fp);
 
         while (($line1 = fgets($fp)) !== FALSE) {
+            if (substr($line1, 135, 4) == 'Page') {
+                continue;
+            }
+
             $line2 = fgets($fp);
 
             $line = trim($line1);
