@@ -15,14 +15,23 @@ class Bestbuy_PriceQty extends PriceQtyExporter
         foreach ($offers as $offer) {
             $fields = array_combine($columns, array_fill(0, count($columns), '1'));
 
+            $msku = $this->getMasterSku($offer['sku']);
+
+            $price = $msku['best_cost'] ? $msku['best_cost']*2 : $offer['price'];
+            $qty = min(round($msku['overall_qty']/5), 10);
+
+           #echo $offer['sku'], "\t",
+           #     $msku['best_cost'],   "($price)", "\t",
+           #     $msku['overall_qty'], "($qty)", EOL;
+
             $fields['sku']                   = $offer['sku'];
             $fields['product-id']            = $offer['product_id'];
             $fields['product-id-type']       = 'SKU';
             $fields['description']           = '';
             $fields['internal-description']  = '';
-            $fields['price']                 = $offer['price'];  // TODO: new price
+            $fields['price']                 = $price;
             $fields['price-additional-info'] = '';
-            $fields['quantity']              = $offer['qty']; // TODO: new qty
+            $fields['quantity']              = $qty;
             $fields['min-quantity-alert']    = '';
             $fields['state']                 = '11';
             $fields['available-start-date']  = '';
