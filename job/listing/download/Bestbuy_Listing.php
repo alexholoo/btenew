@@ -24,7 +24,8 @@ class Bestbuy_Listing extends ListingDownloader
             'state_code',
             'category_code',
             'category_label',
-            'product_title'
+            'logistic_class',
+            'product_title',
         ]);
 
         do {
@@ -52,6 +53,7 @@ class Bestbuy_Listing extends ListingDownloader
                     $offer->state_code,
                     $offer->category_code,
                     $offer->category_label,
+                    $offer->logistic_class->code,
                     $offer->product_title,
                 ]);
             }
