@@ -93,9 +93,14 @@ class Client
         return $orders;
     }
 
-    public function listOffers()
+    public function listOffers($offset, $max = 100)
     {
-        return $this->callApi('GET', 'api/offers');
+        $params = [
+            'offset' => $offset,
+            'max'    => $max,
+        ];
+
+        return $this->callApi('GET', 'api/offers', $params);
     }
 
     public function updateTracking($orderId, $tracking)
