@@ -27,11 +27,7 @@ class Fedex_Tracking extends TrackingImporter
 
             $line2 = fgets($fp);
 
-            $line = trim($line1);
-
-            if (strlen($line2) < 20) {
-                $line .= trim($line2);
-            }
+            $line = trim($line1) . trim($line2);
 
             if (strlen($line) == 0) {
                 continue;
