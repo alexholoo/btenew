@@ -108,6 +108,11 @@ class Client
         return $this->callApi('GET', 'api/additional_fields');
     }
 
+    public function updateOffers($data)
+    {
+        return $this->callApi('POST', 'api/offers', $data);
+    }
+
     public function updateTracking($orderId, $tracking)
     {
         /**
