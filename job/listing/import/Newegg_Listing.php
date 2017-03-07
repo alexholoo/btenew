@@ -39,10 +39,12 @@ class Newegg_Listing extends ListingImporter
     {
         $listings = [];
 
-        if (!($fh = @fopen($file, 'rb'))) {
+        if (!file_exists($file)) {
             //$this->log("Failed to open file: $fname");
-            return false;
+            return $listings;
         }
+
+        $fh = fopen($file, 'rb');
 
         fgetcsv($fh); // skip first line
 

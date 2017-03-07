@@ -42,10 +42,12 @@ class Amazon_Listing extends ListingImporter
     {
         $listings = [];
 
-        if (!($fh = @fopen($file, 'rb'))) {
+        if (!file_exists($file)) {
             //$this->log("Failed to open file: $fname");
-            return false;
+            return $listings;
         }
+
+        $fh = fopen($file, 'rb');
 
         $title = fgetcsv($fh, 0, "\t");
 
