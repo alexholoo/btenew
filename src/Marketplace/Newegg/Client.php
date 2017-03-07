@@ -2,6 +2,7 @@
 
 namespace Marketplace\Newegg;
 
+use Toolkit\File;
 use Toolkit\FtpClient;
 
 class Client
@@ -69,5 +70,44 @@ class Client
         $ftp->upload($localFile, $remoteFile);
 
         echo "Successfully uploaded tracking to Newegg Canada ftp.", EOL;
+    }
+
+    public function downloadInventory($localFile)
+    {
+        echo "Start download inventory from Newegg ftp.", EOL;
+
+        $ftp = new FtpClient($this->config);
+
+        if (!$ftp->connect()) {
+            echo "Failed to login Newegg {$this->site} FTP server", PHP_EOL;
+            return;
+        }
+
+        $prefix = 'InventorySnapShot_A7BB_' . date('Ymd');
+
+        $files = $ftp->listFiles('/Outbound/Inventory/');
+
+        $zipfile = dirname($localFile) . '/newegg_listing_tmp.zip';
+
+        foreach ($files as $file) {
+            if (preg_match("/$prefix/i", $file)) {
+                $ftp->download($file, $zipfile);
+                break;
+            }
+        }
+
+        File::unzip($zipfile);
+
+        $unzipedFiles = glob(dirname($localFile) . "/$prefix*.CSV");
+
+        foreach($unzipedFiles as $file){
+            if (file_exists($localFile)) {
+                unlink($localFile);
+            }
+            rename($file, $localFile);
+            break;
+        }
+
+        echo "Successfully download inventory from Newegg ftp.", EOL;
     }
 }
