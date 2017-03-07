@@ -3,7 +3,7 @@ USE bte;
 CREATE TABLE IF NOT EXISTS `rakuten_us_listing` (
 	`ListingId` VARCHAR(20) NOT NULL,
 	`Sku` VARCHAR(40) NOT NULL,
-	`Title` VARCHAR(200) NOT NULL,
+	`Title` VARCHAR(400) NOT NULL,
 	`ItemConditionId` VARCHAR(10) NOT NULL,
 	`ItemCondition` VARCHAR(20) NOT NULL,
 	`ListingStatusId` VARCHAR(10) NOT NULL,
@@ -31,10 +31,10 @@ CREATE TABLE IF NOT EXISTS `rakuten_us_listing` (
 	`TaxonomyCategoryId` VARCHAR(10) NOT NULL,
 	`TaxonomyCategoryPath` VARCHAR(200) NOT NULL,
 	`PartitionID` VARCHAR(10) NOT NULL,
-	`PartitionName` VARCHAR(80) NOT NULL,
+	`PartitionName` VARCHAR(20) NOT NULL,
 	`UPC` VARCHAR(20) NOT NULL,
 	`MfgName` VARCHAR(40) NOT NULL,
-	`MfgPartNo` VARCHAR(20) NOT NULL,
+	`MfgPartNo` VARCHAR(40) NOT NULL,
 	PRIMARY KEY (`Sku`)
 )
 COLLATE='utf8_general_ci'
