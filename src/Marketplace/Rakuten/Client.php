@@ -2,6 +2,7 @@
 
 namespace Marketplace\Rakuten;
 
+use Toolkit\File;
 use Toolkit\FtpClient;
 
 class Client
@@ -65,5 +66,36 @@ class Client
         $ftp->upload($localFile, $remoteFile);
 
         echo "Successfully uploaded tracking to Rakuten ftp.", EOL;
+    }
+
+    public function downloadInventory($localFile)
+    {
+        echo "Start downloading inventory from Rakuten ftp.", EOL;
+
+        $ftp = new FtpClient($this->config);
+
+        if (!$ftp->connect()) {
+            echo "Failed to login Rakuten {$this->site} FTP server", EOL;
+            return;
+        }
+
+        $remoteFile = '/Inventory/Archive/DetailedListingDownload.zip';
+        $zipFile = dirname($localFile) . '/rakuten_listing_tmp.zip';
+
+        $ftp->download($remoteFile, $zipFile);
+
+        File::unzip($zipFile);
+
+        $unzippedFile = dirname($localFile).'/DetailedListingDownload.txt';
+
+        if (file_exists($unzippedFile)) {
+            if (file_exists($localFile)) {
+                unlink($localFile);
+            }
+
+            rename($unzippedFile, $localFile);
+        }
+
+        echo "Successfully downloaded inventory from Rakuten ftp.", EOL;
     }
 }
