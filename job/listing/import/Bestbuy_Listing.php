@@ -34,4 +34,41 @@ class Bestbuy_Listing extends ListingImporter
             }
         }
     }
+
+    private function getColumns()
+    {
+        return [
+            'SKU',
+            'Product_ID',
+            'Category_Code',
+            'Category_Label',
+            'Product_Name',
+            'Condition',
+            'Price',
+            'Qty',
+            'Alert_Threshold',
+            'Logistic_Class',
+            'Activated',
+            'Available_Start_Date',
+            'Available_End_Date',
+        ];
+    }
+
+    private function getCsvHeader()
+    {
+        return [
+            'offer_id',
+            'active',
+            'shop_sku',
+            'upc',
+            'product_sku',
+            'price',
+            'quantity',
+            'state_code',
+            'category_code',
+            'category_label',
+            'logistic_class',
+            'product_title'
+        ];
+    }
 }
