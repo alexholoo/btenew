@@ -4,15 +4,15 @@ class Newegg_Listing extends ListingImporter
 {
     public function import()
     {
-        $filename = Filenames::get('newegg.ca.listing');
         $table = 'newegg_ca_listing';
+        $filename = Filenames::get('newegg.ca.listing');
 
         $this->importListings($filename, $table);
     }
 
     private function importListings($file, $table)
     {
-        $this->log("Importing $file");
+        //$this->log("Importing $file");
 
         $listings = $this->getListings($file);
 

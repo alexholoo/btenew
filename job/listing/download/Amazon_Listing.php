@@ -6,10 +6,14 @@ class Amazon_Listing extends ListingDownloader
     {
         $source = 'E:/BTE/amazon/reports/amazon_ca_listings.txt';
         $filename = Filenames::get('amazon.ca.listing');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
 
         $source = 'E:/BTE/amazon/reports/amazon_us_listings.txt';
         $filename = Filenames::get('amazon.us.listing');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
     }
 }

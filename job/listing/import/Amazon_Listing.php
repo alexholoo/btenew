@@ -6,12 +6,10 @@ class Amazon_Listing extends ListingImporter
     {
         $table = 'amazon_ca_listings';
         $file = Filenames::get('amazon.ca.listing');
-       #$file = 'w:/data/csv/amazon/amazon_ca_listings.txt';
         $this->importAmazonListings($file, $table);
 
         $table = 'amazon_us_listings';
         $file = Filenames::get('amazon.us.listing');
-       #$file = 'w:/data/csv/amazon/amazon_us_listings.txt';
         $this->importAmazonListings($file, $table);
     }
 

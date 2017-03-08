@@ -4,15 +4,15 @@ class Rakuten_Listing extends ListingImporter
 {
     public function import()
     {
-        $filename = Filenames::get('rakuten.us.listing');
         $table = 'rakuten_us_listing';
+        $filename = Filenames::get('rakuten.us.listing');
 
         $this->importListings($filename, $table);
     }
 
     private function importListings($file, $table)
     {
-        $this->log("Importing $file");
+        //$this->log("Importing $file");
 
         $listings = $this->getListings($file);
 
@@ -44,7 +44,7 @@ class Rakuten_Listing extends ListingImporter
             return $listings;
         }
 
-        $fh = @fopen($file, 'rb');
+        $fh = fopen($file, 'rb');
 
         $title = fgetcsv($fh, 0, "\t");
 
