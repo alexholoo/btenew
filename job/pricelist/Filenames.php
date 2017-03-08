@@ -5,6 +5,8 @@ class Filenames
     protected static $filenames = [
         'dh.pricelist'          => 'E:/BTE/pricelist/DH-ITEMLIST',
 
+        'tak.pricelist'         => 'E:/BTE/pricelist/atoz.csv',
+
         'synnex.pricelist.zip'  => 'E:/BTE/pricelist/syn-c1150897.zip',
         'synnex.pricelist'      => 'E:/BTE/pricelist/syn-c1150897.ap',
 
