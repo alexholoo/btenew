@@ -45,6 +45,8 @@ class Amazon_Listing extends ListingImporter
             return $listings;
         }
 
+        // TODO: use marketplace\Amazon\StdListingFile instead
+
         $fh = fopen($file, 'rb');
 
         $title = fgetcsv($fh, 0, "\t");
@@ -74,6 +76,9 @@ class Amazon_Listing extends ListingImporter
         ];
     }
 
+    /**
+     * For reference only
+     */
     private function getCsvHeader()
     {
         return [

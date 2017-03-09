@@ -35,6 +35,9 @@ class Bestbuy_Listing extends ListingImporter
         }
     }
 
+    /**
+     * For reference only
+     */
     private function getColumns()
     {
         return [
@@ -54,6 +57,9 @@ class Bestbuy_Listing extends ListingImporter
         ];
     }
 
+    /**
+     * For reference only
+     */
     private function getCsvHeader()
     {
         return [

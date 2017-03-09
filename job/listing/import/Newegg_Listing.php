@@ -76,6 +76,9 @@ class Newegg_Listing extends ListingImporter
         ];
     }
 
+    /**
+     * For reference only
+     */
     private function getCsvHeader()
     {
         return [

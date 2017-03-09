@@ -218,6 +218,9 @@ class Rakuten_Order extends OrderImporter
         return $result;
     }
 
+    /**
+     * For reference only
+     */
     private function getColumns()
     {
         return [

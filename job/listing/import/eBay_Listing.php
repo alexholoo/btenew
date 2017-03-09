@@ -69,6 +69,9 @@ class eBay_Listing extends ListingImporter
         ];
     }
 
+    /**
+     * For reference only
+     */
     private function getCsvHeader()
     {
         return [
