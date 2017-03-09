@@ -51,12 +51,12 @@ class Bestbuy_PriceQty extends PriceQtyExporter
 
     protected function getOffers()
     {
-        $sql = 'SELECT SKU sku,
-                       Product_ID product_id,
-                       Price price,
-                       Qty qty,
-                       Logistic_Class logistic_class,
-                       Activated active
+        $sql = 'SELECT SKU              sku,
+                       Product_ID       product_id,
+                       Price            price,
+                       Qty              qty,
+                       Logistic_Class   logistic_class,
+                       Activated        active
                   FROM bestbuy_ca_listing';
 
         return $this->db->fetchAll($sql);
