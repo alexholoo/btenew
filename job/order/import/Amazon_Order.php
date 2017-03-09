@@ -61,7 +61,6 @@ class Amazon_Order extends OrderImporter
 
     private function isExpress($order)
     {
-        # "2016-09-22T06:59:59Z" => "2016-09-22 06:59:59"
         // $order['ShipServiceLevel']
         return 0;
     }
