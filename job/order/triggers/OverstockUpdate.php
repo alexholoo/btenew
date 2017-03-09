@@ -30,7 +30,7 @@ class OverstockUpdate extends OrderTrigger
 
                 $sku = $this->findSku($accdb, $skuOrig);
                 if (!$sku) {
-                    $this->log("$date $channel $orderId $skuOrig $qty Not overstocked");
+                    $this->log("$channel $orderId $skuOrig $qty Not overstocked");
                     continue; // skip it if not found
                 }
 
@@ -46,7 +46,7 @@ class OverstockUpdate extends OrderTrigger
                 $row = $accdb->query($sql)->fetch();
                 if (!$row) {
                     // This will not happen
-                    $this->log("$date $channel $orderId $sku $qty Not overstocked");
+                    $this->log("$channel $orderId $sku $qty Not overstocked");
                     continue; // skip it if not found
                 }
 
