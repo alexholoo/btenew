@@ -50,7 +50,7 @@ abstract class Job
             error_log("\n", 3, $filename);
         }
 
-        $line = date('Y-m-d H:i:s '). $line ."\n";
+        $line = date('H:i:s '). $line ."\n";
 
         error_log($line, 3, $filename);
     }
