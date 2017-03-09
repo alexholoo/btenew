@@ -75,14 +75,14 @@ class Ebay_Order extends OrderDownloader
             $QuantityPurchased = (string)$transaction->QuantityPurchased;
             $TransactionID     = (string)$transaction->TransactionID;
             $TransactionPrice  = (string)$transaction->TransactionPrice;
-            $Tracking          = (string)$transaction->ShippingDetails->ShipmentTrackingDetails->ShipmentTrackingNumber;
+           #$Tracking          = (string)$transaction->ShippingDetails->ShipmentTrackingDetails->ShipmentTrackingNumber;
             $ItemID            = (string)$transaction->Item->ItemID;
             $Email             = (string)$transaction->Buyer->Email;
-            $RecordNumber      = (string)$transaction->ShippingDetails->SellingManagerSalesRecordNumber;
+           #$RecordNumber      = (string)$transaction->ShippingDetails->SellingManagerSalesRecordNumber;
 
-            if (!$Tracking) {
-                $Tracking = 'NA';
-            }
+           #if (!$Tracking) {
+           #    $Tracking = 'NA';
+           #}
 
             $orderFile->write(compact(
                 // Order
@@ -100,10 +100,10 @@ class Ebay_Order extends OrderDownloader
                 'QuantityPurchased',
                 'TransactionID',
                 'TransactionPrice',
-                'Tracking',
+               #'Tracking',
                 'ItemID',
                 'Email',
-                'RecordNumber',
+               #'RecordNumber',
                 'ProductName',
                 // Address
                 'Name',

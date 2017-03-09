@@ -69,10 +69,10 @@ class OrderReportFile
             'QuantityPurchased',
             'TransactionID',
             'TransactionPrice',
-            'Tracking',
+           #'Tracking',
             'ItemID',
             'Email',
-            'RecordNumber',
+           #'RecordNumber',
             'ProductName',
             // Address
             'Name',
