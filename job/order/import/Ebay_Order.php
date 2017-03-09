@@ -51,13 +51,12 @@ class Ebay_Order extends OrderImporter
              'qty'          => $order['QuantityPurchased'],
              'price'        => $order['TransactionPrice'],
              'shipping'     => $order['ShippingServiceCost'],
-             'productName'  => '',
+             'productName'  => $order['ProductName'],
         ];
     }
 
     private function isExpress($order)
     {
-        # 'ShippingService',
-        return 0;
+        return $order['ShippingService'] == 'ShippingMethodExpress';
     }
 }

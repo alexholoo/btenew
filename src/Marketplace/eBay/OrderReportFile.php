@@ -73,6 +73,7 @@ class OrderReportFile
             'ItemID',
             'Email',
             'RecordNumber',
+            'ProductName',
             // Address
             'Name',
             'Address',

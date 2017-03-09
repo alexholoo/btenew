@@ -71,6 +71,7 @@ class Ebay_Order extends OrderDownloader
 
         foreach ($transactions->Transaction as $transaction) {
             $SKU               = (string)$transaction->Item->SKU;
+            $ProductName       = (string)$transaction->Item->Title;
             $QuantityPurchased = (string)$transaction->QuantityPurchased;
             $TransactionID     = (string)$transaction->TransactionID;
             $TransactionPrice  = (string)$transaction->TransactionPrice;
@@ -103,6 +104,7 @@ class Ebay_Order extends OrderDownloader
                 'ItemID',
                 'Email',
                 'RecordNumber',
+                'ProductName',
                 // Address
                 'Name',
                 'Address',
