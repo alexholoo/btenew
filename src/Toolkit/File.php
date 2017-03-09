@@ -78,7 +78,7 @@ class File // FileUtils
     }
 
     /**
-     * Rename the filen by suffixing filename with timestamp, then move the file
+     * Rename the file by suffixing filename with timestamp, then move the file
      * to archive/ folder
      *
      * Before:
