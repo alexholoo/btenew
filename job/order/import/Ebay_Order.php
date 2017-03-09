@@ -1,5 +1,7 @@
 <?php
 
+use Marketplace\eBay\OrderReportFile;
+
 class Ebay_Order extends OrderImporter
 {
     public function import()
