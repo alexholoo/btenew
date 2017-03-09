@@ -25,6 +25,9 @@ class OrderReportFile
     public function read()
     {
         if (!$this->handle) {
+            if (!file_exists($this->filename)) {
+                return false;
+            }
             $this->handle = fopen($this->filename, 'r');
             fgetcsv($this->handle); // skip the header
         }
