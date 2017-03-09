@@ -128,7 +128,7 @@ abstract class Job
 
         foreach($data as $key => $val) {
             if (is_string($val)) {
-                $data[$key] = "'" .addslashes($val). "'";
+                $data[$key] = "'" .str_replace("'", "''", $val). "'";
             }
             if (is_null($val)) {
                 $data[$key] = 'NULL';
