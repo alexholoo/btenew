@@ -6,8 +6,8 @@ class Rakuten_Order extends OrderDownloader
     {
         $folder = Filenames::get('rakuten.us.order');
 
-#       $client = new Marketplace\Rakuten\Client('US');
-#       $client->downloadOrders($folder);
+        $client = new Marketplace\Rakuten\Client('US');
+        $client->downloadOrders($folder);
 
         $master = Filenames::get('rakuten.us.master.order');
         $this->genMasterOrderFile($folder, $master);
@@ -25,8 +25,8 @@ class Rakuten_Order extends OrderDownloader
         foreach ($files as $file) {
             // if file is too old, archive it
             if ((time() - filemtime($file)) / (3600*24) > 30) {
-#               rename($file, dirname($file).'/archive/'.basename($file));
-#               continue;
+                rename($file, dirname($file).'/archive/'.basename($file));
+                continue;
             }
 
             $in = fopen($file, 'r');

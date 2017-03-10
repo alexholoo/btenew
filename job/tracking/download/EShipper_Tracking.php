@@ -7,6 +7,8 @@ class EShipper_Tracking extends TrackingDownloader
         // Nothing to do, the file is already there
         $source = 'w:/out/shipping/eshipper_shipment.csv';
         $filename = Filenames::get('eshipper.tracking');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
     }
 }

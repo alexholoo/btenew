@@ -7,6 +7,8 @@ class Techdata_Tracking extends TrackingDownloader
         // No idea how to do
         $source = 'w:/out/shipping/TD_tracking.csv';
         $filename = Filenames::get('techdata.tracking');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
     }
 }

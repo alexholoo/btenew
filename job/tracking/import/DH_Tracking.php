@@ -13,10 +13,6 @@ class DH_Tracking extends TrackingImporter
 
         $filename = Filenames::get('dh.tracking');
 
-        #if (IS_PROD) {
-        #    $filename = 'E:/BTE/tracking/dh/DH-TRACKING';
-        #}
-
         $fmtdate = function($str) {
             return substr($str, 4).'-'.substr($str, 0, 2).'-'.substr($str, 2, 2);
         };

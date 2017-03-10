@@ -11,7 +11,7 @@ class Amazon_Order extends OrderDownloader
         $filename = Filenames::get('amazon.ca.order');
         $orderFile = new OrderReportFile($filename);
 
-        $orders = $client->getOrderList();
+        $orders = $client->getOrderList(); // TODO: start time
         foreach ($orders as $order) {
             $this->saveOrder($order, $orderFile);
         }
@@ -21,7 +21,7 @@ class Amazon_Order extends OrderDownloader
         $filename = Filenames::get('amazon.us.order');
         $orderFile = new OrderReportFile($filename);
 
-        $orders = $client->getOrderList();
+        $orders = $client->getOrderList(); // TODO: start time
         foreach ($orders as $order) {
             $this->saveOrder($order, $orderFile);
         }

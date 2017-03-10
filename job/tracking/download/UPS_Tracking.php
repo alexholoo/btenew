@@ -7,6 +7,8 @@ class UPS_Tracking extends TrackingDownloader
         // Nothing to do, the file is already there
         $source = 'w:/out/shipping/UPS/UPS_CSV_EXPORT.csv';
         $filename = Filenames::get('ups.tracking');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
     }
 }

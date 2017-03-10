@@ -10,10 +10,6 @@ class CanadaPost_Tracking extends TrackingImporter
             return;
         }
 
-        #if (IS_PROD) {
-        #    $filename = 'E:/BTE/shipping/cpc.xml';
-        #}
-
         $xml = simplexml_load_file($filename);
 
         foreach ($xml->{'delivery-request'} as $request) {

@@ -6,8 +6,8 @@ class Newegg_Order extends OrderDownloader
     {
         $folder = Filenames::get('newegg.ca.order');
 
-#       $client = new Marketplace\Newegg\Client('CA');
-#       $client->downloadOrders($folder);
+        $client = new Marketplace\Newegg\Client('CA');
+        $client->downloadOrders($folder);
 
         $master = Filenames::get('newegg.ca.master.order');
         $this->genMasterOrderFile($folder, $master);
@@ -26,8 +26,8 @@ class Newegg_Order extends OrderDownloader
             // if file is too old, archive it
             $datetime = strtotime(preg_replace('/[^0-9]/', '', $file));
             if ((time() - $datetime) / (3600*24) > 30) {
-#               rename($file, dirname($file).'/archive/'.basename($file));
-#               continue;
+                rename($file, dirname($file).'/archive/'.basename($file));
+                continue;
             }
 
             $in = fopen($file, 'r');

@@ -7,6 +7,8 @@ class TNT_Tracking extends TrackingDownloader
         // Nothing to do, the file is already there
         $source = 'w:/out/shipping/tntshipments.csv';
         $filename = Filenames::get('tnt.tracking');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
     }
 }

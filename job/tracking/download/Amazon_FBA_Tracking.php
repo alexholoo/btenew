@@ -6,10 +6,14 @@ class Amazon_FBA_Tracking extends TrackingDownloader
     {
         $source = 'E:/BTE/amazon/reports/amazon_ca_FBA.txt';
         $filename = Filenames::get('amazon.ca.fba.tracking');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
 
         $source = 'E:/BTE/amazon/reports/amazon_us_FBA.txt';
         $filename = Filenames::get('amazon.us.fba.tracking');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
     }
 }

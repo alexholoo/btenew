@@ -21,11 +21,15 @@ class Client
         return $this->store;
     }
 
-    public function getOrderList()
+    /**
+     * @param string $mode  "Created" or "Modified"
+     * @param string $start
+     */
+    public function getOrderList($mode = 'Modified', $start = '-24 hours')
     {
         try {
             $amz = new \AmazonOrderList($this->store);
-            $amz->setLimits('Modified', "-24 hours");
+            $amz->setLimits($mode, $start);
             $amz->setFulfillmentChannelFilter("MFN");
             $amz->setOrderStatusFilter([
                 "Unshipped",

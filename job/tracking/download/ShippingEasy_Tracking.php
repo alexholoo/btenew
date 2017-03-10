@@ -7,6 +7,8 @@ class ShippingEasy_Tracking extends TrackingDownloader
         // Nothing to do, the file is already there
         $source = 'w:/out/shipping/shippingeasy-shipping-report.csv';
         $filename = Filenames::get('shippingeasy.tracking');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
     }
 }

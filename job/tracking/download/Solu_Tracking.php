@@ -7,6 +7,8 @@ class Solu_Tracking extends TrackingDownloader
         // Nothing to do, the file is already there
         $source = 'w:/out/shipping/solu_shipment.csv';
         $filename = Filenames::get('solu.tracking');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
     }
 }

@@ -7,6 +7,8 @@ class Fedex_Tracking extends TrackingDownloader
         // Nothing to do, the file is already there
         $source = 'w:/out/shipping/fedex_shipment.txt';
         $filename = Filenames::get('fedex.tracking');
-        copy($source, $filename);
+        if (file_exists($source)) {
+            copy($source, $filename);
+        }
     }
 }
