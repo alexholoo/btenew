@@ -110,4 +110,22 @@ class Client
 
         echo "Successfully download inventory from Newegg ftp.", EOL;
     }
+
+    public function uploadNewItems($localFile)
+    {
+        echo "Start uploading newitems to Newegg Canada ftp.", EOL;
+
+        $ftp = new FtpClient($this->config);
+
+        if (!$ftp->connect()) {
+            echo "Failed to login Newegg {$this->site} FTP server", PHP_EOL;
+            return;
+        }
+
+        $remoteFile = '/Inbound/CreateItem/'.basename($localFile);
+
+        $ftp->upload($localFile, $remoteFile);
+
+        echo "Successfully uploaded newitems to Newegg Canada ftp.", EOL;
+    }
 }
