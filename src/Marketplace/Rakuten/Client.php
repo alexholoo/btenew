@@ -98,4 +98,22 @@ class Client
 
         echo "Successfully downloaded inventory from Rakuten ftp.", EOL;
     }
+
+    public function uploadNewItems($localFile)
+    {
+        echo "Start uploading newitems to Rakuten ftp.", EOL;
+
+        $ftp = new FtpClient($this->config);
+
+        if (!$ftp->connect()) {
+            echo "Failed to login Rakuten {$this->site} FTP server", EOL;
+            return;
+        }
+
+        $remoteFile = '/NewSku/'.basename($localFile);
+
+        $ftp->upload($localFile, $remoteFile);
+
+        echo "Successfully uploaded newitems to Rakuten ftp.", EOL;
+    }
 }
