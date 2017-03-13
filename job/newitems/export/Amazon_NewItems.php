@@ -14,27 +14,22 @@ class Amazon_NewItems extends NewItemsExporter
 
     protected function exportNewItemsCA()
     {
-        $store = 'bte-amazon-ca';
-
         $listing = $this->loadListingCA();
         $blocked = $this->loadBlockedItemsCA();
         $skulist = $this->loadMasterSkuList();
 
-        $newItems = $this->generateNewItems('CA', $skuList, $listing, $blocked);
+        $newItems = $this->generateNewItems($skulist, $listing, $blocked);
 
         $this->saveNewItemsCA($newItems);
     }
 
     protected function exportNewItemsUS()
     {
-        $store = 'bte-amazon-us';
-        $filename = Filenames::get('amazon.us.newitems');
-
         $listing = $this->loadListingUS();
         $blocked = $this->loadBlockedItemsUS();
         $skulist = $this->loadMasterSkuList();
 
-        $newItems = $this->generateNewItems('US', $skuList, $listing, $blocked);
+        $newItems = $this->generateNewItems($skulist, $listing, $blocked);
 
         $this->saveNewItemsUS($newItems);
     }
@@ -67,23 +62,7 @@ class Amazon_NewItems extends NewItemsExporter
         return array_column($result, null, 'upc');
     }
 
-    protected function loadMasterSkuList()
-    {
-        static $skuList = [];
-
-        if ($skuList) {
-            return $skuList;
-        }
-
-        $sql = "SELECT * FROM master_sku_list";
-        $result = $this->db->fetchAll($sql);
-
-        $skuList = array_column($result, null, 'SKU');
-
-        return $skuList;
-    }
-
-    protected function generateNewItems($site, $skuList, $listing, $blocked)
+    protected function generateNewItems($skuList, $listing, $blocked)
     {
         $newItems = [];
 
@@ -103,34 +82,35 @@ class Amazon_NewItems extends NewItemsExporter
                     break;
                 }
 
-                $upc = ltrim($result['UPC'], '0');
-                $brand = $result['Manufacturer'];
+                $upc = ltrim($item['UPC'], '0');
+                $brand = $item['Manufacturer'];
 
                 // skip item if in blocked item
                 if (isset($blocked[$upc])) {
                     break;
                 }
 
-                $key = $strtolower($site) . '_amazon_blocked';
-                $blocking = $result[$key]; //contain 'Y' if blocked
+                $blockedCA = $item['ca_amazon_blocked'];
+                $blockedUS = $item['us_amazon_blocked'];
 
-                $cost   = $result['best_cost'];
-                $mpn    = $result['MPN'];
-                $weight = $result['Weight'];
-                $title  = $result['name'];
+                $cost   = $item['best_cost'];
+                $mpn    = $item['MPN'];
+                $weight = $item['Weight'];
+                $title  = $item['name'];
 
                 $condition = $this->getCondition($title, $brand);
 
                 if (!isset($listing[$sku]) && ($item['overall_qty'] > 0) && ($cost < 3000) && ($weight < 150)) {
                     $items[$sku] = [
-                         'sku'       => $sku,
-                         'cost'      => $cost,
-                         'mpn'       => $mpn,
-                         'upc'       => $upc,
-                         'weight'    => $weight,
-                         'blocking'  => $blocking,
-                         'condition' => $condition,
-                         'brand'     => $brand,
+                         'sku'        => $sku,
+                         'cost'       => $cost,
+                         'mpn'        => $mpn,
+                         'upc'        => $upc,
+                         'weight'     => $weight,
+                         'ca_blocked' => $blockedCA,
+                         'us_blocked' => $blockedUS,
+                         'condition'  => $condition,
+                         'brand'      => $brand,
                     ];
                 }
             }
@@ -185,15 +165,21 @@ class Amazon_NewItems extends NewItemsExporter
             $price =  ceil($item['cost'] * 1.5);
             $note = 'GST/HST Only, No PST. Part Number: '. $item['mpn'];
 
+            $tmpPrice  = 5555;
+            $minPrice  = 4444;
+            $maxPrice  = 55555;
+            $condition = $item['condition'];
+            $qty       = 0;
+
             $data = [
                 $item['sku'],       // sku
                 $item['upc'],       // upc
                 '3',
-                5555,               // temp price for new item
-                4444,               // minimum price, use delete if not in use
-                55555,              // maximum price, use delete if not in use
-                $item['condition'], // condition
-                '0',                // $qty
+                $tmpPrice,          // temp price for new item
+                $minPrice,          // minimum price, use delete if not in use
+                $maxPrice,          // maximum price, use delete if not in use
+                $condition,         // condition
+                $qty,               // qty
                 'a',
                 '22',               // ship international
                 '20',               // express shipping available in canada
@@ -201,7 +187,7 @@ class Amazon_NewItems extends NewItemsExporter
                 '',                 // fulfillment center id
             ];
 
-            if ($item['blocking'] != 'Y') {
+            if ($item['ca_blocked'] != 'Y') {
                 fputcsv($fp, $data, "\t");
             }
         }
@@ -234,19 +220,27 @@ class Amazon_NewItems extends NewItemsExporter
             'leadtime-to-ship'
         ];
 
+        fputcsv($fp, $header, "\t");
+
         foreach ($newItems as $item) {
             $price = ceil($item['cost'] * 1.5);
-            $note = 'No Sales Tax. Part Number: '. $item['mpn'];
+            $note  = 'No Sales Tax. Part Number: '. $item['mpn'];
+
+            $tmpPrice  = 5555;
+            $minPrice  = 4444;
+            $maxPrice  = 55555;
+            $condition = $item['condition'];
+            $qty       = 0;
 
             $data = [
                 $item['sku'],       // sku
                 $item['upc'],       // upc
                 '3',
-                5555,               // temp price for new item
-                4444,               // minimum price, use delete if not in use
-                55555,              // maximum price, use delete if not in use
-                $item['condition'], // condition
-                '0',                // $qty
+                $tmpPrice,          // temp price for new item
+                $minPrice,          // minimum price, use delete if not in use
+                $maxPrice,          // maximum price, use delete if not in use
+                $condition,         // condition
+                $qty,               // $qty
                 'a',
                 '2',                // Will ship in US only, no Canada (set in Amazon shipping rate)
                 '',                 // expedited-shipping
@@ -257,7 +251,7 @@ class Amazon_NewItems extends NewItemsExporter
                 '4',                // leadtime-to-ship
             ];
 
-            if ($item['blocking'] != 'Y') {
+            if ($item['us_blocked'] != 'Y') {
                 fputcsv($fp, $data, "\t");
             }
         }
