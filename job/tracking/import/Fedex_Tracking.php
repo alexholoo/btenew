@@ -46,7 +46,7 @@ class Fedex_Tracking extends TrackingImporter
             $shipDate = "$y-$m-$d";
 
             $trackingNumber = substr($line, 17, 12);
-            $orderId = substr($line, 114);
+            $orderId = substr($line, strrpos($line, ' ') + 1);
 
             $this->saveToDb([
                 'orderId'        => $orderId,
