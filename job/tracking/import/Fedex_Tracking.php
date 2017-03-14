@@ -29,15 +29,7 @@ class Fedex_Tracking extends TrackingImporter
 
             $line = trim($line1) . trim($line2);
 
-            if (strlen($line) == 0) {
-                continue;
-            }
-
-            if (substr($line, 112, 4) == 'CAFE') {
-                continue;
-            }
-
-            if (substr($line, -5) == '*****') {
+            if (!preg_match('%\d{2}/\d{2}/\d{4} \d{2}:\d{2} \d{12}%', $line)) {
                 continue;
             }
 
