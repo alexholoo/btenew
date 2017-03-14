@@ -13,20 +13,22 @@ while (($values = fgetcsv($fp, 0, "\t"))) {
 
     $asin   = $fields['asin1'];
     $sku    = str_replace('/', '_', $fields['seller-sku']);
-    $in     = "item-desc/html/$asin.html";
-    $out    = "item-desc/$sku.html";
 
-    if (file_exists($in) && filesize($in) > 0) {
-        if (!file_exists($out)) {
+    $fhtml  = "item-desc/html/$asin.html";
+    $fsku   = "item-desc/sku-desc/$sku.html";
+    $fasin  = "item-desc/asin-desc/$asin.html";
+
+    if (file_exists($fhtml) && filesize($fhtml) > 0) {
+        if (!file_exists($fsku)) {
             echo "$asin, $sku", PHP_EOL;
-            fetchDesc($in, $out);
+            fetchDesc($fhtml, $fsku, $fasin);
         }
     }
 }
 
 fclose($fp);
 
-function fetchDesc($in, $out)
+function fetchDesc($in, $fsku, $fasin)
 {
     $html = file_get_contents($in);
 
@@ -45,5 +47,7 @@ function fetchDesc($in, $out)
 #   shuffle($desc);
 
     $result = implode("\n", $desc);
-    file_put_contents($out, "<ul>\n$result\n</ul>\n");
+
+    file_put_contents($fsku, "<ul>\n$result\n</ul>\n");
+    file_put_contents($fasin, "<ul>\n$result\n</ul>\n");
 }
