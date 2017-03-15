@@ -1,0 +1,10 @@
+USE bte;
+
+CREATE TABLE IF NOT EXISTS `amazon_asin_desc` (
+	`asin` VARCHAR(20) NOT NULL,
+	`desc` TEXT NOT NULL,
+	`createdon` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (`asin`)
+)
+ENGINE=InnoDB
+;
