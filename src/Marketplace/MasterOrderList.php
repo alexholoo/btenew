@@ -2,53 +2,81 @@
 
 namespace Marketplace;
 
-use Toolkit\CsvFileWriter;
-use Toolkit\CsvFileReader;
-
 class MasterOrderList
 {
-    protected $csvWriter;
-    protected $csvReader;
+    protected $handle;
+    protected $filename;
 
-    protected $csvTitle = array(
-        'channel',
-        'date',
-        'channel_order_id',
-        'mgn_order_id',
-        'express?',
-        'buyer',
-        'address',
-        'city',
-        'province',
-        'postalcode',
-        'country',
-        'phone',
-        'email',
-        'skus_sold',
-        'sku_price',
-        'skus_qty',
-        'shipping',
-        'product_name'
-    );
-
-    public function __construct()
+    public function __construct($filename)
     {
-        $filename = 'E:/BTE/orders/all_mgn_orders.csv';
+        $this->filename = $filename;
+    }
 
-        $this->csvWriter = new CsvFileWriter($filename, $this->csvTitle);
-        $this->csvWriter->setFilemode(CsvFileWriter::MODE_CREATE);
+    public function __destruct()
+    {
+        if (is_resource($this->handle)) {
+            fclose($this->handle);
+        }
+    }
 
-        $this->csvReader = new CsvFileReader($filename, true);
-        $this->csvReader->setColumns($this->csvTitle);
+    public function getFilename()
+    {
+        return $this->filename;
     }
 
     public function read()
     {
-        return $this->csvReader->read();
+        if (!$this->handle) {
+            if (!file_exists($this->filename)) {
+                return false;
+            }
+            $this->handle = fopen($this->filename, 'r');
+            fgetcsv($this->handle); // skip the header
+        }
+
+        $fields = fgetcsv($this->handle);
+        if ($fields) {
+            return array_combine($this->getHeader(), $fields);
+        }
+
+        return $fields;
     }
 
-    public function write($data)
+    public function write($order)
     {
-        return $this->csvWriter->write($data);
+        if (!$this->handle) {
+            $this->handle = fopen($this->filename, 'w');
+            fputcsv($this->handle, $this->getHeader());
+        }
+
+        if (count($order) != count($this->getHeader())) {
+            throw new \Exception(__METHOD__. ' Wrong number of elements: '. var_export($order, true));
+        }
+
+        return fputcsv($this->handle, $order);
+    }
+
+    public function getHeader()
+    {
+        return [
+            'channel',
+            'date',
+            'channel_order_id',
+            'mgn_order_id',
+            'express',
+            'buyer',
+            'address',
+            'city',
+            'province',
+            'postalcode',
+            'country',
+            'phone',
+            'email',
+            'skus_sold',
+            'sku_price',
+            'skus_qty',
+            'shipping',
+            'product_name'
+        ];
     }
 }
