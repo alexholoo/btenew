@@ -13,15 +13,8 @@ class Fedex_Tracking extends TrackingImporter
 
         $fp = fopen($filename, 'r');
 
-        // skip first 5 lines
-        fgets($fp);
-        fgets($fp);
-        fgets($fp);
-        fgets($fp);
-        fgets($fp);
-
         while (($line1 = fgets($fp)) !== FALSE) {
-            if (substr($line1, 135, 4) == 'Page') {
+            if (substr(trim($line1), -6, 4) == 'Page') {
                 continue;
             }
 
