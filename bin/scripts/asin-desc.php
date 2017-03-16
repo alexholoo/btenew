@@ -2,19 +2,36 @@
 
 date_default_timezone_set("America/Toronto");
 
-$file = 'e:/BTE/amazon/reports/amazon_us_listings.txt';
+$db = new \Phalcon\Db\Adapter\Pdo\Mysql(
+    array(
+        "host"     => "localhost",
+        "username" => "root",
+        "password" => "",
+        "dbname"   => "bte",
+        "options"  => array(
+        #   PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES \'UTF8\'",
+        #   PDO::ATTR_CASE               => PDO::CASE_LOWER
+        )
+    )
+);
+
+$file = 'w:/data/master_sku_list.csv';
 
 $fp = fopen($file, 'r');
-
-$title = fgetcsv($fp, 0, "\t");
+$title = fgetcsv($fp);
+$title[1] = 'PN';
 
 $cnt = 0;
-while (($values = fgetcsv($fp, 0, "\t"))) {
+while (($values = fgetcsv($fp))) {
     $fields = array_combine($title, $values);
 
-    $asin   = $fields['asin1'];
-    $sku    = $fields['seller-sku'];
-    $fname  = "item-desc/html/$asin.html";
+    $sku   = str_replace('overstock ', '', $fields['PN']);
+    $asin  = getASIN($db, $sku);
+    $fname = "item-desc/html/$asin.html";
+
+    if (!$asin) {
+        continue;
+    }
 
     if (!file_exists($fname)) {
         echo "$asin, $sku", PHP_EOL;
@@ -37,3 +54,13 @@ while (($values = fgetcsv($fp, 0, "\t"))) {
 }
 
 fclose($fp);
+
+function getASIN($db, $sku)
+{
+    $sql = "SELECT asin FROM amazon_us_listings WHERE sku='$sku'";
+    $result = $db->fetchOne($sql);
+    if (!$result) {
+        return false;
+    }
+    return $result['asin'];
+}
