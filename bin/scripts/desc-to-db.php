@@ -41,8 +41,8 @@ foreach ($files as $file) {
         $feature = addslashes(getFeature($dom));
         $desc = addslashes(getDescription($dom));
 
-        $sql = "INSERT INTO amazon_asin_desc (asin, title, feature, description) '.
-               'VALUES ('$asin', '$title', '$feature', '$desc')";
+        $sql = "INSERT INTO amazon_asin_desc (asin, title, feature, description) ".
+               "VALUES ('$asin', '$title', '$feature', '$desc')";
         $db->execute($sql);
     }
 }
@@ -56,7 +56,7 @@ function getTitle($dom)
 
     $el = $span[0];
 
-    return $el->text();
+    return trim($el->text());
 }
 
 function getFeature($dom)
