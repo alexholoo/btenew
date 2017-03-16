@@ -37,8 +37,8 @@ foreach ($files as $file) {
 
         $dom = str_get_html($html);
 
-        $feature = getFeature($dom);
-        $desc = getDescription($dom);
+        $feature = addslashes(getFeature($dom));
+        $desc = addslashes(getDescription($dom));
 
         $sql = "INSERT INTO amazon_asin_desc (asin, feature, description) VALUES ('$asin', '$feature', '$desc')";
         $db->execute($sql);
@@ -62,7 +62,7 @@ function getFeature($dom)
 
     $result = implode("\n", $desc);
 
-    return addslashes("<ul>\n$result\n</ul>\n");
+    return "<ul>\n$result\n</ul>\n";
 }
 
 function getDescription($dom)
@@ -90,5 +90,5 @@ function getDescription($dom)
         $result .= "<p>$desc</p>\n";
     }
 
-    return addslashes($result);
+    return $result;
 }

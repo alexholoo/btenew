@@ -21,18 +21,24 @@ while (($values = fgetcsv($fp, 0, "\t"))) {
     if (file_exists($fhtml) && filesize($fhtml) > 0) {
         if (!file_exists($fsku)) {
             echo "$asin, $sku", PHP_EOL;
-            getFeature($fhtml, $fsku, $fasin);
+
+            $html = file_get_contents($fhtml);
+
+            $dom = str_get_html($html);
+
+            $feature = getFeature($dom);
+            $desc = getDescription($dom);
+
+            file_put_contents($fsku, $desc . $feature);
+            file_put_contents($fasin, $desc . $feature);
         }
     }
 }
 
 fclose($fp);
 
-function getFeature($in, $fsku, $fasin)
+function getFeature($dom)
 {
-    $html = file_get_contents($in);
-
-    $dom = str_get_html($html);
     $list = $dom->find('#feature-bullets li');
 
     $desc = [];
@@ -48,6 +54,33 @@ function getFeature($in, $fsku, $fasin)
 
     $result = implode("\n", $desc);
 
-    file_put_contents($fsku, "<ul>\n$result\n</ul>\n");
-    file_put_contents($fasin, "<ul>\n$result\n</ul>\n");
+    return "<ul>\n$result\n</ul>\n";
+}
+
+function getDescription($dom)
+{
+    $result = '';
+
+    $div = $dom->find('#productDescription');
+    if (!$div) {
+        return $result;
+    }
+
+    $div = $div[0];
+
+    $el = $div->find('.disclaim');
+    if ($el) {
+        $el = $el[0];
+        $disclaim = str_replace(["\n", '  '], '', trim($el->text()));
+        $result .= "<div>$disclaim</div>\n";
+    }
+
+    $el = $div->find('p');
+    if ($el) {
+        $el = $el[0];
+        $desc = trim($el->text());
+        $result .= "<p>$desc</p>\n";
+    }
+
+    return $result;
 }
