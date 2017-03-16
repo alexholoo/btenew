@@ -40,7 +40,7 @@ foreach ($files as $file) {
         $feature = getFeature($dom);
         $desc = getDescription($dom);
 
-        $sql = "INSERT INTO amazon_asin_desc (asin, feature, `desc`) VALUES ('$asin', '$feature', '$desc')";
+        $sql = "INSERT INTO amazon_asin_desc (asin, feature, description) VALUES ('$asin', '$feature', '$desc')";
         $db->execute($sql);
     }
 }
@@ -67,15 +67,28 @@ function getFeature($dom)
 
 function getDescription($dom)
 {
-    $div = $dom->find('#productDescription')[0];
+    $result = '';
 
-    $el = $div->find('.disclaim')[0];
-    $disclaim = str_replace(["\n", '  '], '', trim($el->text()));
+    $div = $dom->find('#productDescription');
+    if (!$div) {
+        return $result;
+    }
 
-    $el = $div->find('p')[0];
-    $desc = trim($el->text());
+    $div = $div[0];
 
-    $result = "<div>$disclaim</div>\n<p>$desc</p>\n";
+    $el = $div->find('.disclaim');
+    if ($el) {
+        $el = $el[0];
+        $disclaim = str_replace(["\n", '  '], '', trim($el->text()));
+        $result .= "<div>$disclaim</div>\n";
+    }
+
+    $el = $div->find('p');
+    if ($el) {
+        $el = $el[0];
+        $desc = trim($el->text());
+        $result .= "<p>$desc</p>\n";
+    }
 
     return addslashes($result);
 }
