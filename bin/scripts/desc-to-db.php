@@ -30,14 +30,14 @@ foreach ($files as $file) {
         //echo $sql, EOL;
         echo $asin, EOL;
 
-        $desc = fetchDesc($file);
+        $desc = getFeature($file);
 
         $sql = "INSERT INTO amazon_asin_desc (asin, `desc`) VALUES ('$asin', '$desc')";
         $db->execute($sql);
     }
 }
 
-function fetchDesc($file)
+function getFeature($file)
 {
     $html = file_get_contents($file);
     if (!$html) {

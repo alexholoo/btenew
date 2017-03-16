@@ -21,14 +21,14 @@ while (($values = fgetcsv($fp, 0, "\t"))) {
     if (file_exists($fhtml) && filesize($fhtml) > 0) {
         if (!file_exists($fsku)) {
             echo "$asin, $sku", PHP_EOL;
-            fetchDesc($fhtml, $fsku, $fasin);
+            getFeature($fhtml, $fsku, $fasin);
         }
     }
 }
 
 fclose($fp);
 
-function fetchDesc($in, $fsku, $fasin)
+function getFeature($in, $fsku, $fasin)
 {
     $html = file_get_contents($in);
 
