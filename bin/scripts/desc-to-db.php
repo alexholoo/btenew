@@ -19,6 +19,7 @@ $db = new \Phalcon\Db\Adapter\Pdo\Mysql(
 );
 
 $files = glob('item-desc/html/*.html');
+
 foreach ($files as $file) {
     $path = pathinfo($file);
     $asin = $path['filename'];
@@ -27,24 +28,25 @@ foreach ($files as $file) {
     $result = $db->fetchOne($sql);
 
     if (!$result) {
-        //echo $sql, EOL;
         echo $asin, EOL;
 
-        $desc = getFeature($file);
+        $html = file_get_contents($file);
+        if (!$html) { // empty file
+            continue;
+        }
 
-        $sql = "INSERT INTO amazon_asin_desc (asin, `desc`) VALUES ('$asin', '$desc')";
+        $dom = str_get_html($html);
+
+        $feature = getFeature($dom);
+        $desc = getDescription($dom);
+
+        $sql = "INSERT INTO amazon_asin_desc (asin, feature, `desc`) VALUES ('$asin', '$feature', '$desc')";
         $db->execute($sql);
     }
 }
 
-function getFeature($file)
+function getFeature($dom)
 {
-    $html = file_get_contents($file);
-    if (!$html) {
-        return '';
-    }
-
-    $dom = str_get_html($html);
     $list = $dom->find('#feature-bullets li');
 
     $desc = [];
@@ -61,4 +63,19 @@ function getFeature($file)
     $result = implode("\n", $desc);
 
     return addslashes("<ul>\n$result\n</ul>\n");
+}
+
+function getDescription($dom)
+{
+    $div = $dom->find('#productDescription')[0];
+
+    $el = $div->find('.disclaim')[0];
+    $disclaim = str_replace(["\n", '  '], '', trim($el->text()));
+
+    $el = $div->find('p')[0];
+    $desc = trim($el->text());
+
+    $result = "<div>$disclaim</div>\n<p>$desc</p>\n";
+
+    return addslashes($result);
 }
