@@ -18,7 +18,7 @@ $db = new \Phalcon\Db\Adapter\Pdo\Mysql(
     )
 );
 
-$files = glob('item-desc/html/*.html');
+$files = glob('e:/BTE/amazon/item-desc/html/*.html');
 
 foreach ($files as $file) {
     $path = pathinfo($file);
@@ -37,12 +37,26 @@ foreach ($files as $file) {
 
         $dom = str_get_html($html);
 
+        $title = addslashes(getTitle($dom));
         $feature = addslashes(getFeature($dom));
         $desc = addslashes(getDescription($dom));
 
-        $sql = "INSERT INTO amazon_asin_desc (asin, feature, description) VALUES ('$asin', '$feature', '$desc')";
+        $sql = "INSERT INTO amazon_asin_desc (asin, title, feature, description) '.
+               'VALUES ('$asin', '$title', '$feature', '$desc')";
         $db->execute($sql);
     }
+}
+
+function getTitle($dom)
+{
+    $span = $dom->find('#productTitle');
+    if (!$span) {
+        return '';
+    }
+
+    $el = $span[0];
+
+    return $el->text();
 }
 
 function getFeature($dom)

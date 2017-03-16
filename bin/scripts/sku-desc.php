@@ -14,9 +14,9 @@ while (($values = fgetcsv($fp, 0, "\t"))) {
     $asin   = $fields['asin1'];
     $sku    = str_replace('/', '_', $fields['seller-sku']);
 
-    $fhtml  = "item-desc/html/$asin.html";
-    $fsku   = "item-desc/sku-desc/$sku.html";
-    $fasin  = "item-desc/asin-desc/$asin.html";
+    $fhtml  = "e:/BTE/amazon/item-desc/html/$asin.html";
+    $fsku   = "e:/BTE/amazon/item-desc/sku-desc/$sku.html";
+    $fasin  = "e:/BTE/amazon/item-desc/asin-desc/$asin.html";
 
     if (file_exists($fhtml) && filesize($fhtml) > 0) {
         if (!file_exists($fsku)) {
