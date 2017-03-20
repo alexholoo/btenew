@@ -21,7 +21,7 @@ $fp = fopen($file, 'r');
 $title = fgetcsv($fp);
 $title[1] = 'PN';
 
-$cnt = 0;
+$failed = 0;
 while (($values = fgetcsv($fp))) {
     $fields = array_combine($title, $values);
 
@@ -29,27 +29,26 @@ while (($values = fgetcsv($fp))) {
     $asin  = getASIN($db, $sku);
     $fname = "item-desc/html/$asin.html";
 
-    if (!$asin) {
-        continue;
-    }
+    if (!$asin) continue;
+    if (file_exists($fname)) continue;
 
-    if (!file_exists($fname)) {
-        echo "$asin, $sku", PHP_EOL;
+    echo "$asin, $sku", PHP_EOL;
 
-        $url = "https://www.amazon.com/dp/$asin";
-       #exec("psexec -d wget $url -O $fname");
-        exec("wget $url -O $fname");
+    $url = "https://www.amazon.com/dp/$asin";
 
-        // not in office hours
-        if (date('H') < 11 || date('H') >= 18) {
-            if (++$cnt < 2) {
-                sleep(30);
-            } else {
-                break;
-            }
-        } else {
-            break;
-        }
+   #exec("psexec -d wget $url -O $fname");
+    exec("wget $url -O $fname");
+
+    if (filesize($fname) < 10000) {
+        echo chr(7);
+        if (++$failed == 3) break;
+    } else $failed = 0;
+
+    // not in office hours
+    if (date('H') < 11 || date('H') >= 18) {
+        sleep(30);
+    } else {
+        sleep(rand(90, 150));
     }
 }
 
