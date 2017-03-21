@@ -18,6 +18,7 @@ class Filenames
         'newegg.ca.order'          => 'E:/BTE/orders/newegg/orders_ca',  // folder
         'newegg.us.order'          => 'E:/BTE/orders/newegg/orders_us',  // folder
 
+        // @see ../tracking/Filenames.php:41
         'newegg.ca.master.order'   => 'E:/BTE/orders/newegg/newegg_ca_master_orders.csv',
         'newegg.us.master.order'   => 'E:/BTE/orders/newegg/newegg_us_master_orders.csv',
 

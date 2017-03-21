@@ -38,6 +38,10 @@ class Filenames
         'newegg.ca.shipping'       => 'E:/BTE/shipping/newegg_ca_shipping.csv',
         'newegg.us.shipping'       => 'E:/BTE/shipping/newegg_us_shipping.csv',
 
+        // @see ../order/Filenames.php:21
+        'newegg.ca.master.order'   => 'E:/BTE/orders/newegg/newegg_ca_master_orders.csv',
+        'newegg.us.master.order'   => 'E:/BTE/orders/newegg/newegg_us_master_orders.csv',
+
         'rakuten.ca.shipping'      => 'E:/BTE/shipping/rakuten_tracking.txt',
         'rakuten.us.shipping'      => 'E:/BTE/shipping/rakuten_tracking.txt',
     ];
