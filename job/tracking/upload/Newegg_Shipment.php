@@ -6,14 +6,23 @@ class Newegg_Shipment extends TrackingUploader
 {
     public function upload()
     {
+        // CA
         $client = new Marketplace\Newegg\Client('CA');
-
         $filename = Filenames::get('newegg.ca.shipping');
 
         if (file_exists($filename)) {
             $client->uploadTracking($filename);
             $this->markOrdersShipped($filename);
+            File::backup($filename);
+        }
 
+        // US
+        $client = new Marketplace\Newegg\Client('US');
+        $filename = Filenames::get('newegg.us.shipping');
+
+        if (file_exists($filename)) {
+            $client->uploadTracking($filename);
+            $this->markOrdersShipped($filename);
             File::backup($filename);
         }
     }
