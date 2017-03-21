@@ -4,8 +4,15 @@ class Newegg_Order extends OrderImporter
 {
     public function import()
     {
+        // CA
+        $this->channel = 'NeweggCA';
         $filename = Filenames::get('newegg.ca.master.order');
+        $orders = $this->getOrders($filename);
+        $this->importMasterOrders($orders);
 
+        // US
+        $this->channel = 'NeweggUS';
+        $filename = Filenames::get('newegg.us.master.order');
         $orders = $this->getOrders($filename);
         $this->importMasterOrders($orders);
     }
@@ -48,7 +55,7 @@ class Newegg_Order extends OrderImporter
              'orderId'      => $order['OrderNumber'],
              'date'         => date('Y-m-d H:i:s', strtotime($order['OrderDateTime'])),
              'orderItemId'  => '',
-             'channel'      => 'NeweggCA',
+             'channel'      => $this->channel,
              'express'      => $express,
              'buyer'        => $order['ShipToFirstName'].' '.$order['ShipToLastName'],
              'address'      => $order['ShipToAddressLine1'].' '.$order['ShipToAddressLine2'],
