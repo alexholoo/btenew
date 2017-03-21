@@ -6,11 +6,14 @@ class Newegg_Listing extends ListingImporter
     {
         $table = 'newegg_ca_listing';
         $filename = Filenames::get('newegg.ca.listing');
+        $this->importListings('CA', $filename, $table);
 
-        $this->importListings($filename, $table);
+        $table = 'newegg_us_listing';
+        $filename = Filenames::get('newegg.us.listing');
+        $this->importListings('US', $filename, $table);
     }
 
-    private function importListings($file, $table)
+    private function importListings($site, $file, $table)
     {
         //$this->log("Importing $file");
 
@@ -22,7 +25,7 @@ class Newegg_Listing extends ListingImporter
 
         $this->db->execute("TRUNCATE TABLE $table");
 
-        $columns = $this->getColumns();
+        $columns = $this->getColumns($site);
 
         $chunks = array_chunk($listings, 2000);
         foreach ($chunks as $chunk) {
@@ -59,21 +62,33 @@ class Newegg_Listing extends ListingImporter
         return $listings;
     }
 
-    private function getColumns()
+    private function getColumns($site)
     {
-        return [
-            'sku',
-            'newegg_item_id',
-            'currency',
-            'MSRP',
-            'MAP',
-            'checkout_map',
-            'selling_price',
-            'inventory',
-            'fulfillment_option',
-            'shipping',
-            'activation_mark',
+        $columns = [
+            'CA' => [
+                'sku',
+                'newegg_item_id',
+                'currency',
+                'MSRP',
+                'MAP',
+                'checkout_map',
+                'selling_price',
+                'inventory',
+                'fulfillment_option',
+                'shipping',
+                'activation_mark',
+            ],
+
+            'US' => [
+                'sku',
+                'newegg_item_id',
+                'warehouse_location',
+                'fulfillment_option',
+                'inventory',
+            ],
         ];
+
+        return $columns[$site];
     }
 
     /**
@@ -81,6 +96,7 @@ class Newegg_Listing extends ListingImporter
      */
     private function getCsvHeader()
     {
+        // CA
         return [
             'Seller Part #',
             'NE Item #',
@@ -93,6 +109,15 @@ class Newegg_Listing extends ListingImporter
             'Fulfillment Option',
             'Shipping',
             'Activation Mark'
+        ];
+
+        // US
+        return [
+            'Seller Part #',
+            'NE Item #',
+            'Warehouse Location',
+            'Fulfillment Option',
+            'Inventory'
         ];
     }
 }
