@@ -4,12 +4,22 @@ class Newegg_Order extends OrderDownloader
 {
     public function download()
     {
+        // CA
         $folder = Filenames::get('newegg.ca.order');
 
         $client = new Marketplace\Newegg\Client('CA');
         $client->downloadOrders($folder);
 
         $master = Filenames::get('newegg.ca.master.order');
+        $this->genMasterOrderFile($folder, $master);
+
+        // US
+        $folder = Filenames::get('newegg.us.order');
+
+        $client = new Marketplace\Newegg\Client('US');
+        $client->downloadOrders($folder);
+
+        $master = Filenames::get('newegg.us.master.order');
         $this->genMasterOrderFile($folder, $master);
     }
 
