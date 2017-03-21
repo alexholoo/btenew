@@ -32,10 +32,10 @@ class StdOrderReportFile
                 return false;
             }
             $this->handle = fopen($this->filename, 'r');
-            fgetcsv($this->handle, 0 , $this->delimeter); // skip the header
+            fgetcsv($this->handle, 0 , $this->delimiter); // skip the header
         }
 
-        $fields = fgetcsv($this->handle, 0 , $this->delimeter);
+        $fields = fgetcsv($this->handle, 0 , $this->delimiter);
         if ($fields) {
             return array_combine($this->getHeader(), $fields);
         }
@@ -47,14 +47,14 @@ class StdOrderReportFile
     {
         if (!$this->handle) {
             $this->handle = fopen($this->filename, 'w');
-            fputcsv($this->handle, $this->getHeader(), $this->delimeter);
+            fputcsv($this->handle, $this->getHeader(), $this->delimiter);
         }
 
         if (count($order) != count($this->getHeader())) {
             throw new \Exception(__METHOD__. ' Wrong number of elements: '. var_export($order, true));
         }
 
-        return fputcsv($this->handle, $order, $this->delimeter);
+        return fputcsv($this->handle, $order, $this->delimiter);
     }
 
     public function getHeader()
