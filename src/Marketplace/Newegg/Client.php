@@ -83,14 +83,18 @@ class Client
             return;
         }
 
-        $prefix = 'InventorySnapShot_A7BB_' . date('Ymd');
+        $prefix = 'InventorySnapShot';
+        $pattern = $prefix .'_...._'. date('Ymd');
+
+        // 'InventorySnapShot_A7BB_' . date('Ymd'); // CA
+        // 'InventorySnapShot_AD6H_' . date('Ymd'); // US
 
         $files = $ftp->listFiles('/Outbound/Inventory/');
 
-        $zipfile = dirname($localFile) . '/newegg_listing_tmp.zip';
+        $zipfile = dirname($localFile) . "/newegg_{$this->site}_listing_tmp.zip";
 
         foreach ($files as $file) {
-            if (preg_match("/$prefix/i", $file)) {
+            if (preg_match("/$pattern/i", $file)) {
                 $ftp->download($file, $zipfile);
                 break;
             }
