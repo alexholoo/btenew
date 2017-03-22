@@ -21,9 +21,9 @@ class Rakuten_Order extends OrderImporter
 
         $fp = fopen($filename, 'r');
 
-        $columns = fgetcsv($fp);
+        $columns = fgetcsv($fp, 0, "\t");
 
-        while (($fields = fgetcsv($fp))) {
+        while (($fields = fgetcsv($fp, 0, "\t"))) {
             if (count($columns) != count($fields)) {
                 $this->error(__METHOD__.' Error: '.$fields[0].' in file '.$filename);
                 continue;
@@ -58,7 +58,7 @@ class Rakuten_Order extends OrderImporter
              'postalcode'   => $order['Ship_To_Zip'],
              'email'        => $order['Email'],
              'phone'        => $order['Bill_To_Phone'],
-             'sku'          => $order['Sku'],
+             'sku'          => $order['ReferenceId'],
              'qty'          => $order['Quantity'],
              'price'        => $order['Price'],
              'shipping'     => $order['ShippingFee'],
@@ -68,20 +68,7 @@ class Rakuten_Order extends OrderImporter
 
     private function isExpress($order)
     {
-        # $order['SellerShopperNumber'],
-        # $order['Shipping_Cost'],
-        # $order['ProductOwed'],
-        # $order['ShippingOwed'],
-        # $order['Commission'],
-        # $order['PerItemFee'],
         # $order['ShippingMethodId'],
-        # $order['ListingID'],
-        # $order['ReferenceId'],
-        # $order['Qty_Shipped'],
-        # $order['Qty_Cancelled'],
-        # $order['Product_Rev'],
-        # $order['Ship_To_Company'],
-
         return 0;
     }
 }
