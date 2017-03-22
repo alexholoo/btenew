@@ -16,12 +16,12 @@ class Newegg_Tracking extends TrackingExporter
         }
 
         // US
-       #$orderFile = Filenames::get('newegg.us.master.order');
-       #if (file_exists($orderFile)) {
-       #    $orders = $this->getUnshippedOrders('US', $orderFile);
-       #    $filename = Filenames::get('newegg.us.shipping');
-       #    $this->exportTracking('US', $orders, $filename);
-       #}
+        $orderFile = Filenames::get('newegg.us.master.order');
+        if (file_exists($orderFile)) {
+            $orders = $this->getUnshippedOrders('US', $orderFile);
+            $filename = Filenames::get('newegg.us.shipping');
+            $this->exportTracking('US', $orders, $filename);
+        }
     }
 
     protected function exportTracking($site, $orders, $filename)
@@ -35,9 +35,6 @@ class Newegg_Tracking extends TrackingExporter
     protected function getUnshippedOrders($site, $filename)
     {
         $shipmentService = $this->di->get('shipmentService');
-
-        // TODO: use the filename passed in
-        $filename = 'w:/data/csv/newegg/canada_order/neweggcanada_master_orders.csv';
 
         $orderFile = new StdOrderListFile($filename, $site);
 
@@ -69,8 +66,6 @@ class Newegg_Tracking extends TrackingExporter
                 $orders[] = $order;
             }
         }
-
-        fclose($fp);
 
         return $orders;
     }

@@ -1,5 +1,7 @@
 <?php
 
+namespace Marketplace\Newegg;
+
 class StdOrderListFile
 {
     protected $site;

@@ -1,5 +1,7 @@
 <?php
 
+use Marketplace\Newegg\StdOrderListFile;
+
 class Newegg_Order extends OrderImporter
 {
     public function import()
@@ -7,42 +9,30 @@ class Newegg_Order extends OrderImporter
         // CA
         $this->channel = 'NeweggCA';
         $filename = Filenames::get('newegg.ca.master.order');
-        $orders = $this->getOrders($filename);
-        $this->importMasterOrders($orders);
+        if (file_exists($filename)) {
+            $orders = $this->getOrders($filename, 'CA');
+            $this->importMasterOrders($orders);
+        }
 
         // US
         $this->channel = 'NeweggUS';
         $filename = Filenames::get('newegg.us.master.order');
-        $orders = $this->getOrders($filename);
-        $this->importMasterOrders($orders);
+        if (file_exists($filename)) {
+            $orders = $this->getOrders($filename, 'US');
+            $this->importMasterOrders($orders);
+        }
     }
 
-    private function getOrders($filename)
+    private function getOrders($filename, $site)
     {
         $orders = [];
 
-        if (!file_exists($filename)) {
-            $this->log("Failed to open file: $filename");
-            return;
-        }
+        $orderFile = new StdOrderListFile($filename, $site);
 
-        $fp = fopen($filename, 'r');
-
-        $columns = fgetcsv($fp);
-
-        while (($fields = fgetcsv($fp))) {
-            if (count($columns) != count($fields)) {
-                $this->error(__METHOD__.' Error: '.$fields[0].' in file '.$filename);
-                continue;
-            }
-
-            $order = array_combine($columns, $fields);
-
-            $orderId = $order['OrderNumber'];
+        while (($order = $orderFile->read())) {
+            $orderId = $order['Order Number'];
             $orders[$orderId][] = $this->toStdOrder($order);
         }
-
-        fclose($fp);
 
         return $orders;
     }
@@ -52,36 +42,36 @@ class Newegg_Order extends OrderImporter
         $express = $this->isExpress($order);
 
         return [
-             'orderId'      => $order['OrderNumber'],
-             'date'         => date('Y-m-d H:i:s', strtotime($order['OrderDateTime'])),
+             'orderId'      => $order['Order Number'],
+             'date'         => date('Y-m-d H:i:s', strtotime($order['Order Date & Time'])),
              'orderItemId'  => '',
              'channel'      => $this->channel,
              'express'      => $express,
-             'buyer'        => $order['ShipToFirstName'].' '.$order['ShipToLastName'],
-             'address'      => $order['ShipToAddressLine1'].' '.$order['ShipToAddressLine2'],
-             'city'         => $order['ShipToCity'],
-             'province'     => $order['ShipToState'],
-             'country'      => $order['ShipToCountry'],
-             'postalcode'   => $order['ShipToZipCode'],
-             'email'        => $order['OrderCustomerEmail'],
-             'phone'        => $order['ShipToPhoneNumber'],
-             'sku'          => $order['ItemSellerPartNo'],
-             'qty'          => $order['QuantityOrdered'],
-             'price'        => $order['ItemUnitPrice'], // $order['OrderTotal'],
-             'shipping'     => $order['ItemUnitShippingCharge'], // $order['OrderShippingTotal'],
+             'buyer'        => $order['Ship To First Name'].' '.$order['Ship To LastName'],
+             'address'      => $order['Ship To Address Line 1'].' '.$order['Ship To Address Line 2'],
+             'city'         => $order['Ship To City'],
+             'province'     => $order['Ship To State'],
+             'country'      => $order['Ship To Country'],
+             'postalcode'   => $order['Ship To ZipCode'],
+             'email'        => $order['Order Customer Email'],
+             'phone'        => $order['Ship To Phone Number'],
+             'sku'          => $order['Item Seller Part #'],
+             'qty'          => $order['Quantity Ordered'],
+             'price'        => $order['Item Unit Price'], // $order['OrderTotal'],
+             'shipping'     => $order['Item Unit Shipping Charge'], // $order['OrderShippingTotal'],
              'productName'  => '',
         ];
     }
 
     private function isExpress($order)
     {
-        # $order['SalesChannel'],
-        # $order['FulfillmentOption'],
-        # $order['OrderShippingMethod'],
-        # $order['ItemNeweggNo'],
-        # $order['ExtendUnitPrice'],
-        # $order['ExtendShippingCharge'],
-        # $order['ShipToCompany'],
+        $shippingMethod = $order['Order Shipping Method'];
+
+        if ($shippingMethod == 'One-Day Shipping(Next day)' ||
+            $shippingMethod == 'Two-Day Shipping(2 business days)' ||
+            $shippingMethod == 'Expedited Shipping (3-5 business days)') {
+            return 1;
+        }
 
         return 0;
     }
