@@ -128,6 +128,7 @@ class StdOrderListFile
                 'Extend VAT',
                 'Extend Duty',
                 'Order Shipping Total',
+                'Order Discount Amount',
                 'Sales Tax',
                 'VAT Total',
                 'Duty Total',
