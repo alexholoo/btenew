@@ -16,6 +16,7 @@ $db = new \Phalcon\Db\Adapter\Pdo\Mysql(
 );
 
 $file = 'w:/data/master_sku_list.csv';
+$file = 'e:/BTE/import/master_sku_list.csv';
 
 $fp = fopen($file, 'r');
 $title = fgetcsv($fp);
@@ -23,6 +24,9 @@ $title[1] = 'PN';
 
 $failed = 0;
 while (($values = fgetcsv($fp))) {
+    if (count($title) != count($values)) {
+        continue;
+    }
     $fields = array_combine($title, $values);
 
     $sku   = str_replace('overstock ', '', $fields['PN']);
@@ -39,7 +43,8 @@ while (($values = fgetcsv($fp))) {
    #exec("psexec -d wget $url -O $fname");
     exec("wget $url -O $fname");
 
-    if (filesize($fname) < 10000) {
+    $filesize = filesize($fname);
+    if ($filesize > 0 && $filesize < 10000) {
         echo chr(7);
         if (++$failed == 3) break;
     } else $failed = 0;
@@ -48,7 +53,9 @@ while (($values = fgetcsv($fp))) {
     if (date('H') < 11 || date('H') >= 18) {
         sleep(30);
     } else {
-        sleep(rand(90, 150));
+        sleep(10);
+       #sleep(rand(40, 60));
+       #sleep(rand(90, 150));
     }
 }
 
