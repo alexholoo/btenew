@@ -17,9 +17,9 @@ class CanadaPost_Tracking extends TrackingImporter
             $recipient = $request->{'delivery-spec'}->destination->recipient;
             $reference = $request->{'delivery-spec'}->reference;
 
-            $orderId = $recipient->{'customer-client-id'};
+            $orderId = $reference->{'customer-ref1'};
             if (!$orderId) {
-                $orderId = $reference->{'customer-ref1'};
+                $orderId = $recipient->{'customer-client-id'};
             }
 
             if ($orderId) {
