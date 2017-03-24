@@ -28,7 +28,7 @@ class NeweggOrderImportToAccessJob extends Job
 
         $channel = $this->channel;
 
-        $stockStatus = '';
+        $stockStatus = ' ';
         $lastOrderNo = '';
 
         $accdb = $this->openAccessDB();
