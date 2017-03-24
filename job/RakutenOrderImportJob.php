@@ -11,7 +11,7 @@ class RakutenOrderImportJob extends Job
         include_once('order/import/Base.php');
         include_once('order/Filenames.php');
 
-        $job = $this->getJob("order/import/Rakuten_Order.php");
+        $job = $this->getJob("order/import/Rakuten_Order_Importer.php");
 
         $job->import();
     }

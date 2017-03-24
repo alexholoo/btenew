@@ -11,7 +11,7 @@ class RakutenListingDownloadJob extends Job
         include_once('listing/download/Base.php');
         include_once('listing/Filenames.php');
 
-        $job = $this->getJob("listing/download/Rakuten_Listing.php");
+        $job = $this->getJob("listing/download/Rakuten_Listing_Downloader.php");
 
         $job->download();
     }

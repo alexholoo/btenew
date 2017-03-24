@@ -11,7 +11,7 @@ class RakutenShipmentUploadJob extends Job
         include_once('tracking/upload/Base.php');
         include_once('tracking/Filenames.php');
 
-        $job = $this->getJob("tracking/upload/Rakuten_Shipment.php");
+        $job = $this->getJob("tracking/upload/Rakuten_Shipment_Uploader.php");
 
         $job->upload();
     }

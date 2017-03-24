@@ -11,7 +11,7 @@ class eBayOrderImportJob extends Job
         include_once('order/import/Base.php');
         include_once('order/Filenames.php');
 
-        $job = $this->getJob("order/import/eBay_Order.php");
+        $job = $this->getJob("order/import/Ebay_Order_Importer.php");
 
         $job->import();
     }

@@ -11,7 +11,7 @@ class TrackingExportJob extends Job
         $jobs = $this->getExportJobs();
 
         foreach ($jobs as $job) {
-           #$this->log('=> Exporting ' . get_class($job));
+            $this->log('=> ' . get_class($job));
             $job->export();
         }
     }

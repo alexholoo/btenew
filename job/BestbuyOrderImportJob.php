@@ -11,7 +11,7 @@ class BestbuyOrderImportJob extends Job
         include_once('order/import/Base.php');
         include_once('order/Filenames.php');
 
-        $job = $this->getJob("order/import/Bestbuy_Order.php");
+        $job = $this->getJob("order/import/Bestbuy_Order_Importer.php");
 
         $job->import();
     }

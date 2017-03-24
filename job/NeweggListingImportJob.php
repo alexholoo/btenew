@@ -11,7 +11,7 @@ class NeweggListingImportJob extends Job
         include_once('listing/import/Base.php');
         include_once('listing/Filenames.php');
 
-        $job = $this->getJob("listing/import/Newegg_Listing.php");
+        $job = $this->getJob("listing/import/Newegg_Listing_Importer.php");
 
         $job->import();
     }

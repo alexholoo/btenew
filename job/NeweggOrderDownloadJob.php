@@ -11,7 +11,7 @@ class NeweggOrderDownloadJob extends Job
         include_once('order/download/Base.php');
         include_once('order/Filenames.php');
 
-        $job = $this->getJob("order/download/Newegg_Order.php");
+        $job = $this->getJob("order/download/Newegg_Order_Downloader.php");
 
         $job->download();
     }

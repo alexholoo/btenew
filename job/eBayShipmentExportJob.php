@@ -11,7 +11,7 @@ class eBayShipmentExportJob extends Job
         include_once('tracking/export/Base.php');
         include_once('tracking/Filenames.php');
 
-        $job = $this->getJob("tracking/export/eBay_Tracking.php");
+        $job = $this->getJob("tracking/export/Ebay_Tracking_Exporter.php");
 
         $job->export();
     }

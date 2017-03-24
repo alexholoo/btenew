@@ -11,7 +11,7 @@ class BestbuyShipmentUploadJob extends Job
         include_once('tracking/upload/Base.php');
         include_once('tracking/Filenames.php');
 
-        $job = $this->getJob("tracking/upload/Bestbuy_Shipment.php");
+        $job = $this->getJob("tracking/upload/Bestbuy_Shipment_Uploader.php");
 
         $job->upload();
     }

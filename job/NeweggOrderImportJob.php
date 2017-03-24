@@ -11,7 +11,7 @@ class NeweggOrderImportJob extends Job
         include_once('order/import/Base.php');
         include_once('order/Filenames.php');
 
-        $job = $this->getJob("order/import/Newegg_Order.php");
+        $job = $this->getJob("order/import/Newegg_Order_Importer.php");
 
         $job->import();
     }

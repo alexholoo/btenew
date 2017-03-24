@@ -11,7 +11,7 @@ class NeweggListingDownloadJob extends Job
         include_once('listing/download/Base.php');
         include_once('listing/Filenames.php');
 
-        $job = $this->getJob("listing/download/Newegg_Listing.php");
+        $job = $this->getJob("listing/download/Newegg_Listing_Downloader.php.php");
 
         $job->download();
     }

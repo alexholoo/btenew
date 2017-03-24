@@ -11,7 +11,7 @@ class ListingDownloadJob extends Job
         $jobs = $this->getJobs();
 
         foreach ($jobs as $job) {
-            $this->log('=> Downloading ' . get_class($job));
+            $this->log('=> ' . get_class($job));
             $job->download();
         }
     }

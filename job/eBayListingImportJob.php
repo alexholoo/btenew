@@ -11,7 +11,7 @@ class eBayListingImportJob extends Job
         include_once('listing/import/Base.php');
         include_once('listing/Filenames.php');
 
-        $job = $this->getJob("listing/import/eBay_Listing.php");
+        $job = $this->getJob("listing/import/eBay_Listing_Importer.php");
 
         $job->import();
     }
