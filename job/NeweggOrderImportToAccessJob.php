@@ -8,19 +8,33 @@ class NeweggOrderImportToAccessJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        # W:\data\csv\newegg\canada_order\neweggcanada_master_orders.csv
-        $neweggOrderReport = "E:/BTE/orders/newegg/neweggcanada_master_orders.csv";
-        $this->importNeweggOrders($neweggOrderReport, 'NeweggCA');
+        /**
+         * Before this job is running, the files
+         *
+         *    w:\data\csv\newegg\canada_order\neweggcanada_master_orders.csv
+         *    w:\data\csv\newegg\us_order\neweggusa_master_orders.csv
+         *
+         * have been copyied to
+         *
+         *    E:/BTE/orders/newegg/neweggcanada_master_orders.csv
+         *    E:/BTE/orders/newegg/neweggusa_master_orders.csv
+         */
 
-        # w:\data\csv\newegg\us_order\neweggusa_master_orders.csv
-       #$neweggOrderReport = "E:/BTE/orders/newegg/neweggusa_master_orders.csv";
-       #$this->importNeweggOrders($neweggOrderReport, 'NeweggUS');
+        $neweggOrderReport = "E:/BTE/orders/newegg/neweggcanada_master_orders.csv";
+        $this->channel = 'NeweggCA';
+        $this->importNeweggOrders($neweggOrderReport, 'Newegg');
+
+        $neweggOrderReport = "E:/BTE/orders/newegg/neweggusa_master_orders.csv";
+        $this->channel = 'NeweggUS';
+        $this->importNeweggOrders($neweggOrderReport, 'NeweggUSA');
     }
 
-    protected function importNeweggOrders($filename, $channel)
+    protected function importNeweggOrders($filename, $table)
     {
         // start from yesterday to avoid midnight issue (UTC timezone)
         $start = date('Y-m-d', strtotime('Yesterday'));
+
+        $channel = $this->channel;
 
         $stockStatus = ' ';
         $lastOrderNo = '';
@@ -44,7 +58,7 @@ class NeweggOrderImportToAccessJob extends Job
             }
 
             // check if the order already imported
-            $sql = "SELECT * FROM Newegg WHERE [PO #]='$orderNo'";
+            $sql = "SELECT * FROM $table WHERE [PO #]='$orderNo'";
             $result = $accdb->query($sql)->fetch();
             if ($result && $orderNo != $lastOrderNo) {
                 echo "Skip $orderNo\n";
@@ -59,9 +73,9 @@ class NeweggOrderImportToAccessJob extends Job
             #$data = array_combine($title, $fields);
             #print_r($data); break;
 
-            echo "Importing $orderNo\n";
+            echo "Importing $orderNo $channel\n";
 
-            $sql = $this->insertMssql("Newegg", [
+            $sql = $this->insertMssql($table, [
                 'Work Date'    => $date,
                 'Channel'      => $channel,
                 'PO #'         => $orderNo,
