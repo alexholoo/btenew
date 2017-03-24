@@ -65,14 +65,17 @@ class Newegg_Order extends OrderImporter
 
     private function isExpress($order)
     {
+        # Expedited Shipping (3-5 business days)
+        # One-Day Shipping(Next day)
+        # Standard Shipping (5-7 business days)
+        # Two-Day Shipping(2 business days)
+
         $shippingMethod = $order['Order Shipping Method'];
 
-        if ($shippingMethod == 'One-Day Shipping(Next day)' ||
-            $shippingMethod == 'Two-Day Shipping(2 business days)' ||
-            $shippingMethod == 'Expedited Shipping (3-5 business days)') {
-            return 1;
+        if (strpos($shippingMethod, 'Standard Shipping') !== false) {
+            return 0;
         }
 
-        return 0;
+        return 1;
     }
 }
