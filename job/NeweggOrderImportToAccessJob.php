@@ -140,7 +140,7 @@ class NeweggOrderImportToAccessJob extends Job
         # Standard Shipping (5-7 business days)
         # Two-Day Shipping(2 business days)
 
-        $keywords = [ 'Expedited', 'One-Day', 'Standard', 'Two-Day' ];
+        $keywords = [ 'Economy', 'Expedited', 'One-Day', 'Standard', 'Two-Day' ];
 
         foreach ($keywords as $keyword) {
             if (strpos($shipMethod, $keyword) !== false) {
