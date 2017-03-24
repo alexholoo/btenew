@@ -135,12 +135,20 @@ class NeweggOrderImportToAccessJob extends Job
     protected function getShipMethod($shipMethod)
     {
         # Expedited Shipping (3-5 business days)
+        # International Expedited Shipping (3-5 business days)
         # One-Day Shipping(Next day)
         # Standard Shipping (5-7 business days)
         # Two-Day Shipping(2 business days)
 
-        $parts = explode(' ', $shipMethod);
-        return $parts[0];
+        $keywords = [ 'Expedited', 'One-Day', 'Standard', 'Two-Day' ];
+
+        foreach ($keywords as $keyword) {
+            if (strpos($shipMethod, $keyword) !== false) {
+                return $keyword;
+            }
+        }
+
+        return '';
     }
 
     protected function getMfrPartNum($sku)
