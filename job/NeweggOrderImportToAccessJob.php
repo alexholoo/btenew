@@ -2,34 +2,26 @@
 
 include 'classes/Job.php';
 
+use Marketplace\Newegg\StdOrderListFile;
+
 class NeweggOrderImportToAccessJob extends Job
 {
     public function run($argv = [])
     {
         $this->log('>> '. __CLASS__);
 
-        /**
-         * Before this job is running, the files
-         *
-         *    w:\data\csv\newegg\canada_order\neweggcanada_master_orders.csv
-         *    w:\data\csv\newegg\us_order\neweggusa_master_orders.csv
-         *
-         * have been copyied to
-         *
-         *    E:/BTE/orders/newegg/neweggcanada_master_orders.csv
-         *    E:/BTE/orders/newegg/neweggusa_master_orders.csv
-         */
+        include('order/Filenames.php');
 
-        $neweggOrderReport = "E:/BTE/orders/newegg/neweggcanada_master_orders.csv";
+        $neweggOrderReport = Filenames::get('newegg.ca.master.order');
         $this->channel = 'NeweggCA';
-        $this->importNeweggOrders($neweggOrderReport, 'Newegg');
+        $this->importNeweggOrders($neweggOrderReport, 'Newegg', 'CA');
 
-        $neweggOrderReport = "E:/BTE/orders/newegg/neweggusa_master_orders.csv";
+        $neweggOrderReport = Filenames::get('newegg.us.master.order');
         $this->channel = 'NeweggUS';
-        $this->importNeweggOrders($neweggOrderReport, 'NeweggUSA');
+        $this->importNeweggOrders($neweggOrderReport, 'NeweggUSA', 'US');
     }
 
-    protected function importNeweggOrders($filename, $table)
+    protected function importNeweggOrders($filename, $table, $site)
     {
         // start from yesterday to avoid midnight issue (UTC timezone)
         $start = date('Y-m-d', strtotime('Yesterday'));
@@ -41,16 +33,15 @@ class NeweggOrderImportToAccessJob extends Job
 
         $accdb = $this->openAccessDB();
 
-        $orderFile = fopen($filename, 'r');
-        $title = fgetcsv($orderFile);
+        $orderFile = new StdOrderListFile($filename, $site);
 
-        while (($fields = fgetcsv($orderFile)) != false) {
+        while ($fields = $orderFile->read()) {
 
-            $orderNo    = $fields[0];
-            $date       = date('Y-m-d', strtotime($fields[1]));
-            $sku        = $fields[16];
-            $qty        = $fields[27];
-            $shipMethod = $fields[15];
+            $orderNo    = $fields['Order Number'];
+            $date       = date('Y-m-d', strtotime($fields['Order Date & Time']));
+            $sku        = $fields['Item Seller Part #'];
+            $qty        = $fields['Quantity Ordered'];
+            $shipMethod = $fields['Order Shipping Method'];
 
             if ($date < $start) {
                 // date is UTC time
@@ -61,7 +52,7 @@ class NeweggOrderImportToAccessJob extends Job
             $sql = "SELECT * FROM $table WHERE [PO #]='$orderNo'";
             $result = $accdb->query($sql)->fetch();
             if ($result && $orderNo != $lastOrderNo) {
-                echo "Skip $orderNo\n";
+                //echo "Skip $orderNo $channel\n";
                 continue;
             }
 
@@ -101,8 +92,6 @@ class NeweggOrderImportToAccessJob extends Job
 
             $lastOrderNo = $orderNo;
         }
-
-        fclose($orderFile);
     }
 
     protected function openAccessDB()
