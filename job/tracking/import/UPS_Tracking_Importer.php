@@ -1,6 +1,6 @@
 <?php
 
-class UPS_Tracking extends TrackingImporter
+class UPS_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

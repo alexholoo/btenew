@@ -1,6 +1,6 @@
 <?php
 
-class Rakuten_Listing extends ListingDownloader
+class Rakuten_Listing_Downloader extends Listing_Downloader
 {
     public function download()
     {

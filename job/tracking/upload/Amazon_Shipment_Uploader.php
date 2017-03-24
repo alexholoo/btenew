@@ -1,6 +1,6 @@
 <?php
 
-class Amazon_Shipment extends TrackingUploader
+class Amazon_Shipment_Uploader extends Tracking_Uploader
 {
     public function upload()
     {

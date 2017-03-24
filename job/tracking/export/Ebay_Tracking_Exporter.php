@@ -2,7 +2,7 @@
 
 use Shipment\EbayShipmentFile;
 
-class Ebay_Tracking extends TrackingExporter
+class Ebay_Tracking_Exporter extends Tracking_Exporter
 {
     public function export()
     {

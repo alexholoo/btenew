@@ -2,7 +2,7 @@
 
 use Marketplace\eBay\OrderReportFile;
 
-class Ebay_Order extends OrderImporter
+class Ebay_Order_Importer extends Order_Importer
 {
     public function import()
     {

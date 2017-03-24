@@ -1,6 +1,6 @@
 <?php
 
-class Amazon_NewItems extends NewItemsUploader
+class Amazon_NewItems_Uploader extends NewItems_Uploader
 {
     public function upload()
     {

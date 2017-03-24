@@ -1,6 +1,6 @@
 <?php
 
-class ShippingEasy_Tracking extends TrackingImporter
+class ShippingEasy_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

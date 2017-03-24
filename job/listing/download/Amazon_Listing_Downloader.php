@@ -1,6 +1,6 @@
 <?php
 
-class Amazon_Listing extends ListingDownloader
+class Amazon_Listing_Downloader extends Listing_Downloader
 {
     public function download()
     {

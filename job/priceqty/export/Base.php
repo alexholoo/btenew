@@ -1,6 +1,6 @@
 <?php
 
-abstract class PriceQtyExporter extends Job
+abstract class PriceQty_Exporter extends Job
 {
     abstract public function export();
 }

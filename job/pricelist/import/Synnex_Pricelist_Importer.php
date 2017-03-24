@@ -1,6 +1,6 @@
 <?php
 
-class Synnex_Pricelist extends PricelistImporter
+class Synnex_Pricelist_Importer extends Pricelist_Importer
 {
     public function import()
     {

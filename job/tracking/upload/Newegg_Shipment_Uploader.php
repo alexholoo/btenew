@@ -2,7 +2,7 @@
 
 use Toolkit\File;
 
-class Newegg_Shipment extends TrackingUploader
+class Newegg_Shipment_Uploader extends Tracking_Uploader
 {
     public function upload()
     {

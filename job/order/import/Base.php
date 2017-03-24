@@ -1,6 +1,6 @@
 <?php
 
-abstract class OrderImporter extends Job
+abstract class Order_Importer extends Job
 {
     abstract public function import();
 

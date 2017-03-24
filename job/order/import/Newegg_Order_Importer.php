@@ -2,7 +2,7 @@
 
 use Marketplace\Newegg\StdOrderListFile;
 
-class Newegg_Order extends OrderImporter
+class Newegg_Order_Importer extends Order_Importer
 {
     public function import()
     {

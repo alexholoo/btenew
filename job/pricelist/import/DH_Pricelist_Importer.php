@@ -1,6 +1,6 @@
 <?php
 
-class DH_Pricelist extends PricelistImporter
+class DH_Pricelist_Importer extends Pricelist_Importer
 {
     public function import()
     {

@@ -2,7 +2,7 @@
 
 use Marketplace\Bestbuy\OrderReportFile;
 
-class Bestbuy_Order extends OrderImporter
+class Bestbuy_Order_Importer extends Order_Importer
 {
     public function import()
     {

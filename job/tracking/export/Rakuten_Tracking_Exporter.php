@@ -2,7 +2,7 @@
 
 use Shipment\RakutenShipmentFile;
 
-class Rakuten_Tracking extends TrackingExporter
+class Rakuten_Tracking_Exporter extends Tracking_Exporter
 {
     public function export()
     {

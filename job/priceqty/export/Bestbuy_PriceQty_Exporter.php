@@ -1,6 +1,6 @@
 <?php
 
-class Bestbuy_PriceQty extends PriceQtyExporter
+class Bestbuy_PriceQty_Exporter extends PriceQty_Exporter
 {
     public function export()
     {

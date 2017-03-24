@@ -1,6 +1,6 @@
 <?php
 
-class ShippingEasy_Tracking extends TrackingDownloader
+class ShippingEasy_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

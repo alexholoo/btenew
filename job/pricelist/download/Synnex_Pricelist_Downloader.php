@@ -3,7 +3,7 @@
 use Toolkit\File;
 use Supplier\Synnex\Ftp;
 
-class Synnex_Pricelist extends PricelistDownloader
+class Synnex_Pricelist_Downloader extends Pricelist_Downloader
 {
     public function download()
     {

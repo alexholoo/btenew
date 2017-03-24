@@ -1,6 +1,6 @@
 <?php
 
-class Ingram_Tracking extends TrackingImporter
+class Ingram_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

@@ -1,6 +1,6 @@
 <?php
 
-class CanadaPost_Tracking extends TrackingImporter
+class CanadaPost_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

@@ -1,6 +1,6 @@
 <?php
 
-class DH_Tracking extends TrackingImporter
+class DH_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

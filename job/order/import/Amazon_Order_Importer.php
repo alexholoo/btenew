@@ -2,7 +2,7 @@
 
 use Marketplace\Amazon\OrderReportFile;
 
-class Amazon_Order extends OrderImporter
+class Amazon_Order_Importer extends Order_Importer
 {
     public function import()
     {

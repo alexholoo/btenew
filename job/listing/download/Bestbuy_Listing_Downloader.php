@@ -1,6 +1,6 @@
 <?php
 
-class Bestbuy_Listing extends ListingDownloader
+class Bestbuy_Listing_Downloader extends Listing_Downloader
 {
     public function download()
     {

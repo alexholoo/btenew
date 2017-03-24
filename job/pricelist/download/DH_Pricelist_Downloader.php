@@ -3,7 +3,7 @@
 use Toolkit\File;
 use Supplier\DH\Ftp;
 
-class DH_Pricelist extends PricelistDownloader
+class DH_Pricelist_Downloader extends Pricelist_Downloader
 {
     public function download()
     {

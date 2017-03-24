@@ -1,6 +1,6 @@
 <?php
 
-class UPS_Tracking extends TrackingDownloader
+class UPS_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

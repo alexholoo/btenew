@@ -1,6 +1,6 @@
 <?php
 
-class Techdata_Tracking extends TrackingDownloader
+class Techdata_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

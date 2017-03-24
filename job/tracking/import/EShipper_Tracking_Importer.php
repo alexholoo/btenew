@@ -1,6 +1,6 @@
 <?php
 
-class EShipper_Tracking extends TrackingImporter
+class EShipper_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

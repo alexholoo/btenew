@@ -1,6 +1,6 @@
 <?php
 
-class Amazon_Tracking extends TrackingImporter
+class Amazon_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

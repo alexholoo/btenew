@@ -1,6 +1,6 @@
 <?php
 
-class Rakuten_NewItems extends NewItemsExporter
+class Rakuten_NewItems_Exporter extends NewItems_Exporter
 {
     public function export()
     {

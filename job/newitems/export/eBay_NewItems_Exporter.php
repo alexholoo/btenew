@@ -1,6 +1,6 @@
 <?php
 
-class eBay_NewItems extends NewItemsExporter
+class eBay_NewItems_Exporter extends NewItems_Exporter
 {
     public function export()
     {

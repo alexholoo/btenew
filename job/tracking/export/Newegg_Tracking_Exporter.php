@@ -3,7 +3,7 @@
 use Shipment\NeweggShipmentFile;
 use Marketplace\Newegg\StdOrderListFile;
 
-class Newegg_Tracking extends TrackingExporter
+class Newegg_Tracking_Exporter extends Tracking_Exporter
 {
     public function export()
     {

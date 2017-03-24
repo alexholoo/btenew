@@ -1,6 +1,6 @@
 <?php
 
-class Ingram_Pricelist extends PricelistImporter
+class Ingram_Pricelist_Importer extends Pricelist_Importer
 {
     public function import()
     {

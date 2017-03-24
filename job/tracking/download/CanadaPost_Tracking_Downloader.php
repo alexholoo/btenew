@@ -1,6 +1,6 @@
 <?php
 
-class CanadaPost_Tracking extends TrackingDownloader
+class CanadaPost_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

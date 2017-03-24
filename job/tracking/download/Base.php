@@ -1,6 +1,6 @@
 <?php
 
-abstract class TrackingDownloader extends Job
+abstract class Tracking_Downloader extends Job
 {
     abstract public function download();
 }

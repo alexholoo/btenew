@@ -1,6 +1,6 @@
 <?php
 
-class Bestbuy_PriceQty extends PriceQtyUploader
+class Bestbuy_PriceQty_Uploader extends PriceQty_Uploader
 {
     public function upload()
     {

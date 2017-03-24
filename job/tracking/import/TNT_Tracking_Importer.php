@@ -1,6 +1,6 @@
 <?php
 
-class TNT_Tracking extends TrackingImporter
+class TNT_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

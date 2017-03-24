@@ -1,6 +1,6 @@
 <?php
 
-class Amazon_Listing extends ListingImporter
+class Amazon_Listing_Importer extends Listing_Importer
 {
     public function import()
     {

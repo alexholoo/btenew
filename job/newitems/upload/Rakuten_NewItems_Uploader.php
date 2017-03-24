@@ -2,7 +2,7 @@
 
 use Toolkit\File;
 
-class Rakuten_NewItems extends NewItemsUploader
+class Rakuten_NewItems_Uploader extends NewItems_Uploader
 {
     public function upload()
     {

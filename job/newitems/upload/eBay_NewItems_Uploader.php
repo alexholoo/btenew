@@ -1,6 +1,6 @@
 <?php
 
-class eBay_NewItems extends NewItemsUploader
+class eBay_NewItems_Uploader extends NewItems_Uploader
 {
     public function upload()
     {

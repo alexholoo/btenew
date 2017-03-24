@@ -1,6 +1,6 @@
 <?php
 
-abstract class TrackingImporter extends Job
+abstract class Tracking_Importer extends Job
 {
     abstract public function import();
 

@@ -1,6 +1,6 @@
 <?php
 
-class EShipper_Tracking extends TrackingDownloader
+class EShipper_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

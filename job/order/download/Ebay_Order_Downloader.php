@@ -2,7 +2,7 @@
 
 use Marketplace\eBay\OrderReportFile;
 
-class Ebay_Order extends OrderDownloader
+class Ebay_Order_Downloader extends Order_Downloader
 {
     public function download()
     {

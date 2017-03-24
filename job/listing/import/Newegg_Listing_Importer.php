@@ -1,6 +1,6 @@
 <?php
 
-class Newegg_Listing extends ListingImporter
+class Newegg_Listing_Importer extends Listing_Importer
 {
     public function import()
     {

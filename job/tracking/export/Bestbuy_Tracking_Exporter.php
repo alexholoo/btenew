@@ -2,7 +2,7 @@
 
 use Shipment\BestbuyShipmentFile;
 
-class Bestbuy_Tracking extends TrackingExporter
+class Bestbuy_Tracking_Exporter extends Tracking_Exporter
 {
     public function export()
     {

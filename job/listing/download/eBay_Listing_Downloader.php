@@ -1,6 +1,6 @@
 <?php
 
-class eBay_Listing extends ListingDownloader
+class eBay_Listing_Downloader extends Listing_Downloader
 {
     public function download()
     {

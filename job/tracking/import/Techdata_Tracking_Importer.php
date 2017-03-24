@@ -1,6 +1,6 @@
 <?php
 
-class Techdata_Tracking extends TrackingImporter
+class Techdata_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

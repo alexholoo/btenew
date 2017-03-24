@@ -1,6 +1,6 @@
 <?php
 
-class Newegg_Order extends OrderDownloader
+class Newegg_Order_Downloader extends Order_Downloader
 {
     public function download()
     {

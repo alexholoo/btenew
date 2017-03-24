@@ -2,7 +2,7 @@
 
 use Marketplace\Amazon\OrderReportFile;
 
-class Amazon_Order extends OrderDownloader
+class Amazon_Order_Downloader extends Order_Downloader
 {
     public function download()
     {

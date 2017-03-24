@@ -1,6 +1,6 @@
 <?php
 
-class Amazon_FBA_Tracking extends TrackingDownloader
+class Amazon_FBA_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

@@ -1,6 +1,6 @@
 <?php
 
-abstract class PricelistDownloader extends Job
+abstract class Pricelist_Downloader extends Job
 {
     abstract public function download();
 }

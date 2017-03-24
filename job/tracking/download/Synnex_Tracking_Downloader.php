@@ -2,7 +2,7 @@
 
 use Supplier\Synnex\Ftp;
 
-class Synnex_Tracking extends TrackingDownloader
+class Synnex_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

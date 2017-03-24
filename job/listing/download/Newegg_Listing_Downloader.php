@@ -1,6 +1,6 @@
 <?php
 
-class Newegg_Listing extends ListingDownloader
+class Newegg_Listing_Downloader extends Listing_Downloader
 {
     public function download()
     {

@@ -1,6 +1,6 @@
 <?php
 
-class Fedex_Tracking extends TrackingDownloader
+class Fedex_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

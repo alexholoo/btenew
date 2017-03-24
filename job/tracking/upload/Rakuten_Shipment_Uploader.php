@@ -2,7 +2,7 @@
 
 use Toolkit\File;
 
-class Rakuten_Shipment extends TrackingUploader
+class Rakuten_Shipment_Uploader extends Tracking_Uploader
 {
     public function upload()
     {

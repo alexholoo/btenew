@@ -1,6 +1,6 @@
 <?php
 
-class Amazon_Tracking extends TrackingDownloader
+class Amazon_Tracking_Downloader extends Tracking_Downloader
 {
     protected $store;
 

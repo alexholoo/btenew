@@ -1,6 +1,6 @@
 <?php
 
-class Ingram_Tracking extends TrackingDownloader
+class Ingram_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

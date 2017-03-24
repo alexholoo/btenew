@@ -1,6 +1,6 @@
 <?php
 
-class Fedex_Tracking extends TrackingImporter
+class Fedex_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

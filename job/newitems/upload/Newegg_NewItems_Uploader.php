@@ -2,7 +2,7 @@
 
 use Toolkit\File;
 
-class Newegg_NewItems extends NewItemsUploader
+class Newegg_NewItems_Uploader extends NewItems_Uploader
 {
     public function upload()
     {

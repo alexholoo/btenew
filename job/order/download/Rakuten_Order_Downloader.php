@@ -1,6 +1,6 @@
 <?php
 
-class Rakuten_Order extends OrderDownloader
+class Rakuten_Order_Downloader extends Order_Downloader
 {
     public function download()
     {

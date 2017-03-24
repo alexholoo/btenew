@@ -1,6 +1,6 @@
 <?php
 
-class Newegg_NewItems extends NewItemsExporter
+class Newegg_NewItems_Exporter extends NewItems_Exporter
 {
     public function export()
     {

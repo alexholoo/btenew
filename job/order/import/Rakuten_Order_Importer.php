@@ -1,6 +1,6 @@
 <?php
 
-class Rakuten_Order extends OrderImporter
+class Rakuten_Order_Importer extends Order_Importer
 {
     public function import()
     {

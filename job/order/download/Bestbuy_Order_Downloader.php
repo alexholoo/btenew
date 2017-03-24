@@ -2,7 +2,7 @@
 
 use Marketplace\Bestbuy\OrderReportFile;
 
-class Bestbuy_Order extends OrderDownloader
+class Bestbuy_Order_Downloader extends Order_Downloader
 {
     public function download()
     {

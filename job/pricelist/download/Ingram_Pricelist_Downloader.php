@@ -3,7 +3,7 @@
 use Toolkit\File;
 use Supplier\Ingram\Ftp;
 
-class Ingram_Pricelist extends PricelistDownloader
+class Ingram_Pricelist_Downloader extends Pricelist_Downloader
 {
     public function download()
     {

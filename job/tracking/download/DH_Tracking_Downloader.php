@@ -2,7 +2,7 @@
 
 use Supplier\DH\Ftp;
 
-class DH_Tracking extends TrackingDownloader
+class DH_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

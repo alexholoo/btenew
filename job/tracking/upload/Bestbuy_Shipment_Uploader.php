@@ -2,7 +2,7 @@
 
 use Toolkit\File;
 
-class Bestbuy_Shipment extends TrackingUploader
+class Bestbuy_Shipment_Uploader extends Tracking_Uploader
 {
     public function upload()
     {

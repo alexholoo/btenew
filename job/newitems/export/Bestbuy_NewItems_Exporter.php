@@ -1,6 +1,6 @@
 <?php
 
-class Bestbuy_NewItems extends NewItemsExporter
+class Bestbuy_NewItems_Exporter extends NewItems_Exporter
 {
     public function export()
     {

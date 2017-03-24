@@ -1,6 +1,6 @@
 <?php
 
-class TNT_Tracking extends TrackingDownloader
+class TNT_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

@@ -1,6 +1,6 @@
 <?php
 
-class eBay_Listing extends ListingImporter
+class eBay_Listing_Importer extends Listing_Importer
 {
     public function import()
     {

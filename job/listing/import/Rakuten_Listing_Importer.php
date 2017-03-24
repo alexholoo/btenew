@@ -1,6 +1,6 @@
 <?php
 
-class Rakuten_Listing extends ListingImporter
+class Rakuten_Listing_Importer extends Listing_Importer
 {
     public function import()
     {

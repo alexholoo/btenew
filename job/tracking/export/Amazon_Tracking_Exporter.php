@@ -1,6 +1,6 @@
 <?php
 
-class Amazon_Tracking extends TrackingExporter
+class Amazon_Tracking_Exporter extends Tracking_Exporter
 {
     public function export()
     {

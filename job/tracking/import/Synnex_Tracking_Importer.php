@@ -1,6 +1,6 @@
 <?php
 
-class Synnex_Tracking extends TrackingImporter
+class Synnex_Tracking_Importer extends Tracking_Importer
 {
     public function import()
     {

@@ -4,7 +4,7 @@
 //include 'classes/Job.php';
 
 //class Amazon_NewItems extends Job
-class Amazon_NewItems extends NewItemsExporter
+class Amazon_NewItems_Exporter extends NewItems_Exporter
 {
     public function export()
     {

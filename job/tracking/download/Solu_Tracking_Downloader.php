@@ -1,6 +1,6 @@
 <?php
 
-class Solu_Tracking extends TrackingDownloader
+class Solu_Tracking_Downloader extends Tracking_Downloader
 {
     public function download()
     {

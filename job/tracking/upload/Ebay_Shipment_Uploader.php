@@ -2,7 +2,7 @@
 
 use Toolkit\File;
 
-class Ebay_Shipment extends TrackingUploader
+class Ebay_Shipment_Uploader extends Tracking_Uploader
 {
     public function upload()
     {

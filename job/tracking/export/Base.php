@@ -1,6 +1,6 @@
 <?php
 
-abstract class TrackingExporter extends Job
+abstract class Tracking_Exporter extends Job
 {
     abstract public function export();
 }

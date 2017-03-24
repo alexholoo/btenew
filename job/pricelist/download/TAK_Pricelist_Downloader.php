@@ -3,7 +3,7 @@
 use Toolkit\File;
 use Supplier\TAK\Ftp;
 
-class TAK_Pricelist extends PricelistDownloader
+class TAK_Pricelist_Downloader extends Pricelist_Downloader
 {
     public function download()
     {
