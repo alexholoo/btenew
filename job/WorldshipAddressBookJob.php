@@ -72,6 +72,10 @@ class WorldshipAddressBookJob extends Job
             $addr1 = $arr[0];
             $addr2 = isset($arr[1]) ? $arr[1] : '';
 
+            // Get last 7 digits for Amazon order, full orderId for non-Amazon order
+            $parts = explode('-', $orderId);
+            $searchKey = isset($parts[2]) ? $parts[2] : $parts[0];
+
             $data["ConsigneeName"]  = $buyer;
             $data["ConsigneeID"]    = $orderId;
             $data["Address"]        = $addr1;
@@ -83,7 +87,7 @@ class WorldshipAddressBookJob extends Job
             $data["ConsigneePhone"] = $phone;
             $data["ContactName"]    = $buyer;
             $data["ContactEmail"]   = '';
-            $data["Instruction"]    = substr($orderId, -7);
+            $data["Instruction"]    = $searchKey;
             $data["Reference"]      = $orderId;
             $data["Description"]    = $product;
             $data["SKU"]            = $sku;
