@@ -56,10 +56,10 @@ class NeweggOrderImportToAccessJob extends Job
                 continue;
             }
 
-            $supplier = $this->getSupplier($sku);
-            $ponum    = $this->getSku($sku);
-            $xpress   = $this->isExpress($shipMethod);
-            $mfrpn    = $this->getMfrPartNum($sku);
+            $supplier   = $this->getSupplier($sku);
+            $ponum      = $this->getSku($sku);
+            $shipMethod = $this->getShipMethod($shipMethod);
+            $mfrpn      = $this->getMfrPartNum($sku);
 
             #$data = array_combine($title, $fields);
             #print_r($data); break;
@@ -70,7 +70,7 @@ class NeweggOrderImportToAccessJob extends Job
                 'Work Date'    => $date,
                 'Channel'      => $channel,
                 'PO #'         => $orderNo,
-                'Xpress'       => $xpress,
+                'ShipMethod'   => $shipMethod,
                 'Stock Status' => $stockStatus,
                 'Qty'          => $qty,
                 'Supplier'     => $supplier,
@@ -132,18 +132,15 @@ class NeweggOrderImportToAccessJob extends Job
         return isset($names[$prefix]) ? $names[$prefix] : $prefix;
     }
 
-    protected function isExpress($shipMethod)
+    protected function getShipMethod($shipMethod)
     {
         # Expedited Shipping (3-5 business days)
         # One-Day Shipping(Next day)
         # Standard Shipping (5-7 business days)
         # Two-Day Shipping(2 business days)
 
-        if (strpos($shipMethod, 'Standard Shipping') !== false) {
-            return 0;
-        }
-
-        return 1;
+        $parts = explode(' ', $shipMethod);
+        return $parts[0];
     }
 
     protected function getMfrPartNum($sku)
