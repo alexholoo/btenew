@@ -74,7 +74,7 @@ class WorldshipAddressBookJob extends Job
 
             // Get last 7 digits for Amazon order, full orderId for non-Amazon order
             $parts = explode('-', $orderId);
-            $searchKey = isset($parts[2]) ? $parts[2] : $parts[0];
+            $searchKey = end($parts);
 
             $data["ConsigneeName"]  = $buyer;
             $data["ConsigneeID"]    = $orderId;
