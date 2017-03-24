@@ -15,7 +15,7 @@ class Newegg_Order_Importer extends Order_Importer
         }
 
         // US
-        $this->channel = 'NeweggUS';
+        $this->channel = 'NeweggUSA';
         $filename = Filenames::get('newegg.us.master.order');
         if (file_exists($filename)) {
             $orders = $this->getOrders($filename, 'US');
