@@ -20,8 +20,8 @@ class Bestbuy_Order_Downloader extends Order_Downloader
     {
         $client = new Marketplace\Bestbuy\Client();
 
-        // only today's orders
-        $start = date('Y-m-d\T00:00:00');
+        // orders since 7 days ago
+        $start = date('Y-m-d\T00:00:00', strtotime('-7 days'));
         $end   = date('Y-m-d\T23:59:59');
 
         $orders = $client->listOrders($start, $end);
