@@ -1,5 +1,7 @@
 <?php
 
+namespace Marketplace\eBay;
+
 class OrderReportFile
 {
     protected $handle;
