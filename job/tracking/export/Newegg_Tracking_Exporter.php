@@ -58,10 +58,14 @@ class Newegg_Tracking_Exporter extends Tracking_Exporter
                 $order = $fields;
 
                 $order['Quantity Shipped']        = $fields['Quantity Ordered'];
-                $order['ShipDate']                = $tracking['shipDate'];
                 $order['Actual Shipping Carrier'] = $tracking['carrierCode'];
                 $order['Actual Shipping Method']  = $fields['Order Shipping Method'];
                 $order['Tracking Number']         = $tracking['trackingNumber'];
+
+                // ShipDate is only required in NeweggCA, not in NeweggUS
+                if (isset($order['ShipDate'])) {
+                    $order['ShipDate'] = $tracking['shipDate'];
+                }
 
                 $orders[] = $order;
             }
