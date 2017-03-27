@@ -35,6 +35,10 @@ class Client
         }
 
         $files = $ftp->listFiles('/Outbound/OrderList/');
+        if (!$files) {
+            echo "No order files on Newegg {$this->site} FTP server", PHP_EOL;
+            return;
+        }
 
         $localFolder = rtrim($folder, '/') . '/';
 
@@ -90,6 +94,10 @@ class Client
         // 'InventorySnapShot_AD6H_' . date('Ymd'); // US
 
         $files = $ftp->listFiles('/Outbound/Inventory/');
+        if (!$files) {
+            echo "No inventory files on Newegg {$this->site} FTP server", PHP_EOL;
+            return;
+        }
 
         $zipfile = dirname($localFile) . "/newegg_{$this->site}_listing_tmp.zip";
 

@@ -61,6 +61,9 @@ class Ftp
         }
 
         $files = $ftp->listFiles('.');
+        if (!$files) {
+            return false;
+        }
 
         foreach($files as $file) {
             if (preg_match("/BTE_COMPUTER_/i", $file)) {

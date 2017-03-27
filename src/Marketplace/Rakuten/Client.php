@@ -35,6 +35,10 @@ class Client
         }
 
         $files = $ftp->listFiles('/Orders/');
+        if (!$files) {
+            echo "No order files on Rakuten {$this->site} FTP server", PHP_EOL;
+            return;
+        }
 
         $rakutenPrefix ='23267604_';
         $localFolder = rtrim($folder, '/') . '/';
