@@ -30,9 +30,10 @@ class UPS_Tracking_Importer extends Tracking_Importer
             }
 
             $shipDate = $fields[3];
-            if (strlen($shipDate) < 10) { // not end-of-day yet
-                continue;
-            }
+
+           #if (strlen($shipDate) < 10) { // not end-of-day yet
+           #    continue;
+           #}
 
             $shipDate  = date('Y-m-d', strtotime($fields[3]));
             $trackingNumber = $fields[2];
