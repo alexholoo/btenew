@@ -17,7 +17,13 @@ class Bestbuy_PriceQty_Exporter extends PriceQty_Exporter
 
             $msku = $this->getMasterSku($offer['sku']);
 
-            $price = $msku['best_cost'] ? $msku['best_cost']*2 : $offer['price'];
+            $price1 = $msku['best_cost'] * 1.25;
+            $price2 = $msku['best_cost'] + 5;
+
+            $shipping = 10 + $msku['Weight'] * 0.5;
+
+            $price = round(max($price1, $price2) + $shipping) - round(rand(1, 5)/100.0, 2);
+
             $qty = min(round($msku['overall_qty']/5), 10);
 
            #echo $offer['sku'], "\t",
