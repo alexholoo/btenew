@@ -15,7 +15,7 @@
   <p>SKU information for <b>{{ sku }}</b></p>
   <table class="table table-bordered table-hover">
     <tbody>
-      <tr>
+      <tr class="active">
         <th align="left">Name</th>
         <th align="left" colspan="3">{{ data['name'] }}</th>
       </tr>
@@ -96,7 +96,7 @@
       </tr>
       <tr class="active">
         <th align="left">Note</th>
-        <th align="left" colspan="3">{{ data['note'] }}</th>
+        <td align="left" colspan="3">{{ data['note'] }}</td>
       </tr>
     </tbody>
   </table>
