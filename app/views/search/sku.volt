@@ -5,13 +5,14 @@
   <div class="well">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group col-xs-5 col-lg-5">
-        <input class="form-control" name="sku" placeholder="Part number" value="{{ sku }}" type="text" style="width:100%">
+        <input class="form-control" name="sku" placeholder="Enter SKU/UPC/MPN" value="" type="text" style="width:100%">
       </div>
       <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search </button>
     </form>
   </div>
 
   {% if data is not empty %}
+  <p>SKU information for <b>{{ sku }}</b></p>
   <table class="table table-bordered table-hover">
     <tbody>
       <tr>
