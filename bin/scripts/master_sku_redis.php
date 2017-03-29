@@ -24,7 +24,11 @@ function loadMasterSkuList()
 
     while (($fields = fgetcsv($skulist)) !== false) {
         $json = json_encode($fields);
-        $redis->set($fields[0], $json);
+
+        $redis->set($fields[0],  $json); // SKU
+        $redis->set($fields[27], $json); // UPC
+        $redis->set($fields[28], $json); // MPN
+
         for ($i = 0; $i < 8; $i++) {
             $pn = $fields[ $i * 3 + 2 ];
             if ($pn != '') {
