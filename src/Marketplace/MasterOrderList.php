@@ -62,7 +62,7 @@ class MasterOrderList
             'channel',
             'date',
             'channel_order_id',
-            'mgn_order_id',
+            'order_item_id',
             'express',
             'buyer',
             'address',
@@ -72,11 +72,10 @@ class MasterOrderList
             'country',
             'phone',
             'email',
-            'skus_sold',
-            'sku_price',
-            'skus_qty',
+            'sku',
+            'price',
+            'qty',
             'shipping',
-            'product_name'
         ];
     }
 }
