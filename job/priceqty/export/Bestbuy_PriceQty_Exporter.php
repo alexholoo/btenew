@@ -17,14 +17,22 @@ class Bestbuy_PriceQty_Exporter extends PriceQty_Exporter
 
             $msku = $this->getMasterSku($offer['sku']);
 
-            $price1 = $msku['best_cost'] * 1.25;
-            $price2 = $msku['best_cost'] + 5;
+            $price = $offer['price'];
+            $qty = 0;
 
-            $shipping = 10 + $msku['Weight'] * 0.5;
+            if ($msku) {
+                $price1 = $msku['best_cost'] * 1.25;
+                $price2 = $msku['best_cost'] + 5;
 
-            $price = round(max($price1, $price2) + $shipping) - round(rand(1, 5)/100.0, 2);
+                $shipping = 10 + $msku['Weight'] * 0.5;
 
-            $qty = min(round($msku['overall_qty']/5), 10);
+                $price = round(max($price1, $price2) + $shipping) - round(rand(1, 5)/100.0, 2);
+
+                $qty = min(round($msku['overall_qty']/5), 10);
+            } else {
+               #$this->error(__METHOD__. ' ' .$offer['sku']. ' not found in master_sku_list');
+                echo $offer['sku'], ' not found in master_sku_list', EOL;
+            }
 
            #echo $offer['sku'], "\t",
            #     $msku['best_cost'],   "($price)", "\t",
