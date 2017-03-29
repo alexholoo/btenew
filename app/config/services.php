@@ -180,6 +180,8 @@ $di->set('logger', function ($filename = null, $format = null) use ($config) {
     return $logger;
 });
 
+$di->set('loggerService', function() { return new \Service\LoggerService(); });
+
 $di->setShared('queue', function () use ($config) {
     if (isset($config->beanstalk->disabled) && $config->beanstalk->disabled) {
         return new class {
