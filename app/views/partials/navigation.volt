@@ -19,6 +19,7 @@
             <li><a href="/purchase/assist">Purchase assistance</a></li>
             <li><a href="/fbaitems">Generate FBA lines</a></li>
             <li><a href="/search/priceavail">Price & Availability</a></li>
+            <li><a href="/search/sku">SKU Information</a></li>
           </ul>
         </li>
         <li><a href="/about">About</a></li>
