@@ -29,6 +29,9 @@ abstract class Client
     public function __construct($config = [])
     {
         $this->di = Di::getDefault();
+
+        $this->logger = $this->di->get('loggerService');
+
         $this->config = $config;
 
         if (!$config) {

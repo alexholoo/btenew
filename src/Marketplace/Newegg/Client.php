@@ -9,12 +9,17 @@ class Client
 {
     protected $di;
     protected $db;
+    protected $logger;
     protected $site;
     protected $config;
 
     public function __construct($site, $config = [])
     {
-        // TODO: di & db
+        $this->di = \Phalcon\Di::getDefault();
+        $this->db = $this->di->get('db');
+
+        $this->logger = $this->di->get('loggerService');
+
         $this->site = $site = strtoupper($site);
 
         if ($config) {
@@ -30,7 +35,7 @@ class Client
         $ftp = new FtpClient($this->config);
 
         if (!$ftp->connect()) {
-            echo "Failed to login Newegg {$this->site} FTP server", PHP_EOL;
+            $this->logger->error(__METHOD__ ." Failed to login Newegg {$this->site} FTP server");
             return;
         }
 
@@ -65,7 +70,7 @@ class Client
         $ftp = new FtpClient($this->config);
 
         if (!$ftp->connect()) {
-            echo "Failed to login Newegg {$this->site} FTP server", PHP_EOL;
+            $this->logger->error(__METHOD__ ." Failed to login Newegg {$this->site} FTP server");
             return;
         }
 
@@ -83,7 +88,7 @@ class Client
         $ftp = new FtpClient($this->config);
 
         if (!$ftp->connect()) {
-            echo "Failed to login Newegg {$this->site} FTP server", PHP_EOL;
+            $this->logger->error(__METHOD__ ." Failed to login Newegg {$this->site} FTP server");
             return;
         }
 
@@ -130,7 +135,7 @@ class Client
         $ftp = new FtpClient($this->config);
 
         if (!$ftp->connect()) {
-            echo "Failed to login Newegg {$this->site} FTP server", PHP_EOL;
+            $this->logger->error(__METHOD__ ." Failed to login Newegg {$this->site} FTP server");
             return;
         }
 
