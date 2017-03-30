@@ -113,8 +113,8 @@ class Master_Order extends Job
             $masterFile->write([
                 $channel,
                 $order['DatePaid'],
-                $order['RecordNumber'], // shipment likes to use this as OrderID, because it's shorter than real OrderID.
-                $order['OrderID'], // so, we have to store real orderID here, $order['ItemID'] is not very useful.
+                $order['OrderID'], // shipment likes to use RecordNumber as OrderID, because it's shorter than OrderID.
+                $order['RecordNumber'], // so, we have to store RecordNumber here, $order['ItemID'] is not very useful.
                 $express,
                 $order['Name'],
                 $order['Address'].' '.$order['Address2'],
