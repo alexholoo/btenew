@@ -12,8 +12,8 @@ class Master_Order extends Job
 
         $this->importBestbuyOrders($masterFile);
 
-#       $this->importEbayOrders($masterFile, 'BTE');
-#       $this->importEbayOrders($masterFile, 'ODO');
+        $this->importEbayOrders($masterFile, 'GFS');
+        $this->importEbayOrders($masterFile, 'ODO');
 
         $this->importNeweggOrders($masterFile, 'CA');
         $this->importNeweggOrders($masterFile, 'US');
@@ -41,7 +41,7 @@ class Master_Order extends Job
 
             $masterFile->write([
                 $channel,
-                $order['purchase-date'],
+                substr($order['purchase-date'], 0, 10),
                 $order['order-id'],
                 $order['order-item-id'],
                 $express,
@@ -96,9 +96,9 @@ class Master_Order extends Job
 
     public function importEbayOrders($masterFile, $site)
     {
-        if ($site == 'BTE') {
-            $channel = 'eBay-BTE';
-            $filename = Filenames::get('ebay.bte.order');
+        if ($site == 'GFS') {
+            $channel = 'eBay-GFS';
+            $filename = Filenames::get('ebay.gfs.order');
         }
 
         if ($site == 'ODO') {
@@ -109,12 +109,12 @@ class Master_Order extends Job
         $orderFile = new Marketplace\eBay\OrderReportFile($filename);
 
         while ($order = $orderFile->read()) {
-            $express = $order['ShippingService'];
+            $express = ($order['ShippingService'] == 'ShippingMethodExpress') ? 1 : 0;
             $masterFile->write([
                 $channel,
                 $order['DatePaid'],
-                $order['OrderID'],
-                $order['ItemID'],
+                $order['RecordNumber'], // shipment likes to use this as OrderID, because it's shorter than real OrderID.
+                $order['OrderID'], // so, we have to store real orderID here, $order['ItemID'] is not very useful.
                 $express,
                 $order['Name'],
                 $order['Address'].' '.$order['Address2'],
