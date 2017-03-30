@@ -93,6 +93,20 @@ class Client
         return $orders;
     }
 
+    public function acceptOrder($orderId, $accept = true)
+    {
+        $params = [
+            'order_lines' => [
+                [
+                    'accepted' => $accept,
+                    'id'       => '1',
+                ],
+            ]
+        ];
+
+        return $this->callApi('PUT', "api/orders/$orderId/accept", $params);
+    }
+
     public function listOffers($offset, $max = 100)
     {
         $params = [
