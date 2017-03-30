@@ -10,6 +10,8 @@ class SearchController extends ControllerBase
 
     public function priceAvailAction()
     {
+        $this->view->pageTitle = 'Price Availability';
+
         if ($this->request->isGet()) {
             $sku = $this->request->getQuery('sku');
         }
@@ -35,6 +37,8 @@ class SearchController extends ControllerBase
 
     public function skuAction()
     {
+        $this->view->pageTitle = 'SKU Information';
+
         if ($this->request->isGet()) {
             $sku = $this->request->getQuery('sku');
         }

@@ -10,6 +10,8 @@ class AmazonController extends ControllerBase
 
     public function fbaItemsAction()
     {
+        $this->view->pageTitle = 'FBA Items';
+
         $this->view->retry = false;
         $this->view->upc = '';
         $this->view->mpn = '';

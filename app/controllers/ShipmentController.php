@@ -6,6 +6,8 @@ class ShipmentController extends ControllerBase
 {
     public function searchAction()
     {
+        $this->view->pageTitle = 'Shipment Search';
+
         $this->view->data = [];
         $this->view->keyword = '';
 

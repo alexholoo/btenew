@@ -6,6 +6,8 @@ class ChitchatController extends ControllerBase
 {
     public function indexAction()
     {
+        $this->view->pageTitle = 'Chitchat';
+
         $saved = 0;
 
         if ($this->request->isPost()) {
