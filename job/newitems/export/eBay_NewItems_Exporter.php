@@ -4,19 +4,19 @@ class eBay_NewItems_Exporter extends NewItems_Exporter
 {
     public function export()
     {
-        $this->exportNewItemsBTE();
+        $this->exportNewItemsGFS();
         $this->exportNewItemsODO();
     }
 
-    protected function exportNewItemsBTE()
+    protected function exportNewItemsGFS()
     {
-        $listing = $this->loadListingBTE();
-        $blocked = $this->loadBlockedItemsBTE();
+        $listing = $this->loadListingGFS();
+        $blocked = $this->loadBlockedItemsGFS();
         $skulist = $this->loadMasterSkuList();
 
         $newItems = $this->generateNewItems($skulist, $listing, $blocked);
 
-        $this->saveNewItemsBTE($newItems);
+        $this->saveNewItemsGFS($newItems);
     }
 
     protected function exportNewItemsODO()
@@ -30,7 +30,7 @@ class eBay_NewItems_Exporter extends NewItems_Exporter
         $this->saveNewItemsODO($newItems);
     }
 
-    protected function loadListingBTE()
+    protected function loadListingGFS()
     {
         $sql = "SELECT sku FROM amazon_ca_listings";
         $result = $this->db->fetchAll($sql);
@@ -44,7 +44,7 @@ class eBay_NewItems_Exporter extends NewItems_Exporter
         return array_column($result, 'sku');
     }
 
-    protected function loadBlockedItemsBTE()
+    protected function loadBlockedItemsGFS()
     {
         $sql = "SELECT sku_ca sku, upc, mpn FROM amazon_blocked_items";
         $result = $this->db->fetchAll($sql);
@@ -115,9 +115,9 @@ class eBay_NewItems_Exporter extends NewItems_Exporter
         return $newItems;
     }
 
-    protected function saveNewItemsBTE($newItems)
+    protected function saveNewItemsGFS($newItems)
     {
-        $filename = Filenames::get('ebay.bte.newitems');
+        $filename = Filenames::get('ebay.gfs.newitems');
 
         $fp = fopen($filename, 'w+');
 

@@ -7,9 +7,9 @@ class Ebay_Shipment_Uploader extends Tracking_Uploader
     public function upload()
     {
         // BTE
-        $client = new Marketplace\eBay\Client('bte');
+        $client = new Marketplace\eBay\Client('gfs');
 
-        $filename = Filenames::get('ebay.bte.shipping');
+        $filename = Filenames::get('ebay.gfs.shipping');
         if (file_exists($filename)) {
             $this->uploadTracking($client, $filename);
             File::backup($filename);

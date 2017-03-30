@@ -8,7 +8,7 @@ class Ebay_Tracking_Exporter extends Tracking_Exporter
     {
         // BTE
         $orders = $this->getUnshippedOrders('eBay'); // channel?
-        $filename = Filenames::get('ebay.bte.shipping');
+        $filename = Filenames::get('ebay.gfs.shipping');
         $this->exportTracking($orders, $filename);
 
         // ODO

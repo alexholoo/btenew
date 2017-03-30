@@ -7,8 +7,8 @@ class Ebay_Order_Downloader extends Order_Downloader
     public function download()
     {
         // BTE - CAD
-        $client = new Marketplace\eBay\Client('bte');
-        $filename = Filenames::get('ebay.bte.order');
+        $client = new Marketplace\eBay\Client('gfs');
+        $filename = Filenames::get('ebay.gfs.order');
         $orderFile = new OrderReportFile($filename);
 
         $res = $client->getOrders();

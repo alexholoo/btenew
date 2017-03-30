@@ -5,8 +5,8 @@ class eBay_Listing_Downloader extends Listing_Downloader
     public function download()
     {
         // BTE
-        $client = new Marketplace\eBay\Client('bte');
-        $filename = Filenames::get('ebay.bte.listing');
+        $client = new Marketplace\eBay\Client('gfs');
+        $filename = Filenames::get('ebay.gfs.listing');
         $this->downloadListing($client, $filename);
 
         // ODO

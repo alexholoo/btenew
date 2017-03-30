@@ -7,7 +7,7 @@ class Ebay_Order_Importer extends Order_Importer
     public function import()
     {
         // BTE - CAD
-        $filename = Filenames::get('ebay.bte.order');
+        $filename = Filenames::get('ebay.gfs.order');
         $orders = $this->getOrders($filename);
         $this->importMasterOrders($orders);
 

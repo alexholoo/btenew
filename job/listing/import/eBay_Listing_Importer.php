@@ -4,8 +4,8 @@ class eBay_Listing_Importer extends Listing_Importer
 {
     public function import()
     {
-        $table = 'ebay_bte_listing';
-        $file = Filenames::get('ebay.bte.listing');
+        $table = 'ebay_gfs_listing';
+        $file = Filenames::get('ebay.gfs.listing');
         $this->importListings($file, $table);
 
         $table = 'ebay_odo_listing';
