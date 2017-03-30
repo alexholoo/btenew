@@ -9,7 +9,7 @@
       </div>
 
       <div class="col-sm-10">
-        <input autofocus required type="text" pattern=".{3,}" title="3 characters minimum" class="form-control" name="keyword" placeholder="Enter order id or tracking number">
+        <input autofocus required type="text" pattern=".{3,}" title="3 characters minimum" class="form-control" name="keyword" autofocus placeholder="Enter order id or tracking number">
       </div>
 
       <div class="col-sm-2">

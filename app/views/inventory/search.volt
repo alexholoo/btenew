@@ -9,7 +9,7 @@
       </div>
 
       <div class="col-sm-10">
-        <input autofocus required type="text" class="form-control" name="keyword" placeholder="Enter PartNumber/UPC/Location/Quantity">
+        <input autofocus required type="text" class="form-control" name="keyword" autofocus placeholder="Enter PartNumber/UPC/Location/Quantity">
       </div>
 
       <div class="col-sm-2">
