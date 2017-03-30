@@ -17,6 +17,14 @@ class LoggerService extends Injectable
 
     protected $filename;
     protected $firstCall = [];
+    protected $buffers = [];
+
+    public function __destruct()
+    {
+        foreach ($this->buffers as $filename => $message) {
+            error_log($message, 3, $filename);
+        }
+    }
 
     public function setFilename($filename)
     {
@@ -122,6 +130,10 @@ class LoggerService extends Injectable
             $msg .= var_export($context, true)."\n";
         }
 
-        error_log($msg, 3, $filename);
+        if (!isset($this->buffers[$filename])) {
+            $this->buffers[$filename] = '';
+        }
+
+        $this->buffers[$filename] .= $msg;
     }
 }
