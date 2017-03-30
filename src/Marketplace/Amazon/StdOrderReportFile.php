@@ -1,5 +1,7 @@
 <?php
 
+namespace Marketplace\Amazon;
+
 class StdOrderReportFile
 {
     protected $site;
