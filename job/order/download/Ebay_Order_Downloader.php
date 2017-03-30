@@ -78,7 +78,7 @@ class Ebay_Order_Downloader extends Order_Downloader
            #$Tracking          = (string)$transaction->ShippingDetails->ShipmentTrackingDetails->ShipmentTrackingNumber;
             $ItemID            = (string)$transaction->Item->ItemID;
             $Email             = (string)$transaction->Buyer->Email;
-           #$RecordNumber      = (string)$transaction->ShippingDetails->SellingManagerSalesRecordNumber;
+            $RecordNumber      = (string)$transaction->ShippingDetails->SellingManagerSalesRecordNumber;
 
            #if (!$Tracking) {
            #    $Tracking = 'NA';
@@ -86,6 +86,7 @@ class Ebay_Order_Downloader extends Order_Downloader
 
             $orderFile->write(compact(
                 // Order
+                'RecordNumber',
                 'OrderID',
                 'Status',
                 'BuyerUsername',

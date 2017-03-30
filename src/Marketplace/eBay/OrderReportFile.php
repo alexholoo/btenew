@@ -60,6 +60,7 @@ class OrderReportFile
     {
         return [
             // Order
+            'RecordNumber',
             'OrderID',
             'Status',
             'BuyerUsername',
