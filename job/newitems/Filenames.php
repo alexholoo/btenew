@@ -10,6 +10,7 @@ class Filenames
 
         'ebay.bte.newitems'        => 'E:/BTE/newitems/ebay_newitems_bte.csv',
         'ebay.odo.newitems'        => 'E:/BTE/newitems/ebay_newitems_oto.csv',
+        'ebay.gfs.newitems'        => 'E:/BTE/newitems/ebay_newitems_gfs.csv',
 
         'newegg.ca.newitems'       => 'E:/BTE/newitems/newegg_ca_newitems.csv',
         'newegg.us.newitems'       => 'E:/BTE/newitems/newegg_us_newitems.csv',

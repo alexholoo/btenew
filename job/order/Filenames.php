@@ -14,6 +14,7 @@ class Filenames
 
         'ebay.bte.order'           => 'E:/BTE/orders/ebay/ebay_orders_bte.csv',
         'ebay.odo.order'           => 'E:/BTE/orders/ebay/ebay_orders_odo.csv',
+        'ebay.gfs.order'           => 'E:/BTE/orders/ebay/ebay_orders_gfs.csv',
 
         'newegg.ca.order'          => 'E:/BTE/orders/newegg/orders_ca',  // folder
         'newegg.us.order'          => 'E:/BTE/orders/newegg/orders_us',  // folder

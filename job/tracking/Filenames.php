@@ -34,6 +34,7 @@ class Filenames
 
         'ebay.bte.shipping'        => 'E:/BTE/shipping/ebay_shipping_bte.csv',
         'ebay.odo.shipping'        => 'E:/BTE/shipping/ebay_shipping_odo.csv',
+        'ebay.gfs.shipping'        => 'E:/BTE/shipping/ebay_shipping_gfs.csv',
 
         'newegg.ca.shipping'       => 'E:/BTE/shipping/newegg_ca_shipping.csv',
         'newegg.us.shipping'       => 'E:/BTE/shipping/newegg_us_shipping.csv',

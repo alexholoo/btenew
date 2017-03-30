@@ -10,6 +10,7 @@ class Filenames
 
         'ebay.bte.priceqty'        => 'E:/BTE/priceqty/ebay_priceqty_bte.csv',
         'ebay.odo.priceqty'        => 'E:/BTE/priceqty/ebay_priceqty_odo.csv',
+        'ebay.gfs.priceqty'        => 'E:/BTE/priceqty/ebay_priceqty_gfs.csv',
 
         'newegg.ca.priceqty'       => 'E:/BTE/priceqty/newegg_ca_priceqty.csv',
         'newegg.us.priceqty'       => 'E:/BTE/priceqty/newegg_us_priceqty.csv',

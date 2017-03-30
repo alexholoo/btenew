@@ -10,6 +10,7 @@ class Filenames
 
         'ebay.bte.listing'        => 'E:/BTE/listing/ebay_listing_bte.csv',
         'ebay.odo.listing'        => 'E:/BTE/listing/ebay_listing_odo.csv',
+        'ebay.gfs.listing'        => 'E:/BTE/listing/ebay_listing_gfs.csv',
 
         'newegg.ca.listing'       => 'E:/BTE/listing/newegg_ca_listing.csv',
         'newegg.us.listing'       => 'E:/BTE/listing/newegg_us_listing.csv',
