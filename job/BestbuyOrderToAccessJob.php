@@ -19,7 +19,7 @@ class BestbuyOrderToAccessJob extends Job
 
         foreach ($orders as $order) {
             $workDate    = $order['date'];
-            $orderId     = $order['orderId'];
+            $orderId     = substr($order['orderId'], 0, -2);
             $sku         = $order['sku'];
             $channel     = 'Bestbuy';
             $xpress      = $order['express'];
@@ -27,10 +27,10 @@ class BestbuyOrderToAccessJob extends Job
             $supplier    = $this->skuService->getSupplier($sku);
             $ponum       = ' ';
             $mfrpn       = $this->skuService->getMpn($sku);
-            $stockStatus = '';
+            $stockStatus = ' ';
 
             // TODO: fix multi-items-order issue
-            $sql = "SELECT * FROM Bestbuy WHERE [Order #]='$orderId'";
+            $sql = "SELECT * FROM BestbuyCA WHERE [Order #]='$orderId'";
             $result = $accdb->query($sql)->fetch();
             if ($result) {
                 continue;
@@ -53,7 +53,7 @@ class BestbuyOrderToAccessJob extends Job
                 'Dimension'     => '',
             ];
 
-            $sql = $this->insertMssql('Bestbuy', $data);
+            $sql = $this->insertMssql('BestbuyCA', $data);
 
             $ret = $accdb->exec($sql);
 
