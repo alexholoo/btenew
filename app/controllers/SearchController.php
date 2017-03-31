@@ -13,11 +13,11 @@ class SearchController extends ControllerBase
         $this->view->pageTitle = 'Price Availability';
 
         if ($this->request->isGet()) {
-            $sku = $this->request->getQuery('sku');
+            $sku = $this->request->getQuery('sku', 'trim');
         }
 
         if ($this->request->isPost()) {
-            $sku = $this->request->getPost('sku');
+            $sku = $this->request->getPost('sku', 'trim');
         }
 
         if ($sku) {
@@ -40,11 +40,11 @@ class SearchController extends ControllerBase
         $this->view->pageTitle = 'SKU Information';
 
         if ($this->request->isGet()) {
-            $sku = $this->request->getQuery('sku');
+            $sku = $this->request->getQuery('sku', 'trim');
         }
 
         if ($this->request->isPost()) {
-            $sku = $this->request->getPost('sku');
+            $sku = $this->request->getPost('sku', 'trim');
         }
 
         if ($sku) {

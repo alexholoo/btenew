@@ -12,7 +12,7 @@ class ShipmentController extends ControllerBase
         $this->view->keyword = '';
 
         if ($this->request->isPost()) {
-            $keyword = $this->request->getPost('keyword');
+            $keyword = $this->request->getPost('keyword', 'trim');
             $tracking = $this->shipmentService->getMasterTracking($keyword);
 
             $this->view->keyword = $keyword;
