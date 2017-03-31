@@ -18,7 +18,7 @@ class Bestbuy_Order_Importer extends Order_Importer
         $orders = [];
 
         while ($order = $orderFile->read()) {
-            if ($order['status'] != 'RECEIVED') {
+            if ($order['status'] == 'CANCELED') {
                 continue;
             }
             $orderId = $order['orderId'];

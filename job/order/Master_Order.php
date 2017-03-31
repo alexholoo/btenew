@@ -69,7 +69,7 @@ class Master_Order extends Job
         $orderFile = new Marketplace\Bestbuy\OrderReportFile($filename);
 
         while ($order = $orderFile->read()) {
-            if ($order['status'] != 'RECEIVED') {
+            if ($order['status'] == 'CANCELED') {
                 continue;
             }
             $masterFile->write([
