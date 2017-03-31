@@ -172,4 +172,28 @@ abstract class Job
         $skuService = $this->di->get('skuService');
         return $skuService->getMasterSku($sku);
     }
+
+    protected function getJob($filename)
+    {
+        // load base class if exists
+        $dir = dirname($filename);
+        $base = "$dir/Base.php";
+        if (file_exists($base)) {
+            include_once($base);
+        }
+
+        // load the job class
+        include_once($filename);
+
+        // get class name from filename
+        $class = pathinfo($filename, PATHINFO_FILENAME);
+
+        // create job object
+        $job = false;
+        if (class_exists($class)) {
+            $job = new $class;
+        }
+
+        return $job;
+    }
 }
