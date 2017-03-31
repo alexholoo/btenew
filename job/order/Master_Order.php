@@ -24,12 +24,12 @@ class Master_Order extends Job
     public function importAmazonOrders($masterFile, $site)
     {
         if ($site == 'CA') {
-            $channel = 'AmazonACA';
+            $channel = 'Amazon-ACA';
             $filename = Filenames::get('amazon.ca.order');
         }
 
         if ($site == 'US') {
-            $channel = 'AmazonUS';
+            $channel = 'Amazon-US';
             $filename = Filenames::get('amazon.us.order');
         }
 
