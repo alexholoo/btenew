@@ -22,7 +22,6 @@ class ListingImportJob extends Job
 
         // base class for all listing importers 
         include_once('listing/import/Base.php');
-        include_once('listing/Filenames.php');
 
         foreach (glob("listing/import/*.php") as $filename) {
             include_once($filename);

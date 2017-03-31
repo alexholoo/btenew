@@ -70,8 +70,6 @@ class BestbuyOrderToAccessJob extends Job
 
     protected function getBestbuyOrders()
     {
-        include ('order/Filenames.php');
-
         $filename = Filenames::get('bestbuy.order');
         $orderFile = new Marketplace\Bestbuy\OrderReportFile($filename);
 

@@ -22,7 +22,6 @@ class NewItemsUploadJob extends Job
 
         // base class for all newitems uploaders
         include_once('newitems/upload/Base.php');
-        include_once('newitems/Filenames.php');
 
         foreach (glob("newitems/upload/*.php") as $filename) {
             include_once($filename);

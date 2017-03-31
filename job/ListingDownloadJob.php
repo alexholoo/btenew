@@ -22,7 +22,6 @@ class ListingDownloadJob extends Job
 
         // base class for all listing downloaders
         include_once('listing/download/Base.php');
-        include_once('listing/Filenames.php');
 
         foreach (glob("listing/download/*.php") as $filename) {
             include_once($filename);

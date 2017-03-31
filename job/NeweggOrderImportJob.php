@@ -9,7 +9,6 @@ class NeweggOrderImportJob extends Job
         $this->log('>> '. __CLASS__);
 
         include_once('order/import/Base.php');
-        include_once('order/Filenames.php');
 
         $job = $this->getJob("order/import/Newegg_Order_Importer.php");
 

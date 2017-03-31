@@ -24,6 +24,11 @@ try {
     include 'error.php';
 
     /**
+     * include all filenames that almost every job needs
+     */
+    include '../job/Filenames.php';
+
+    /**
      * include autoload earlier, so we can use class-constants in config.php
      */
     require_once __DIR__ . '/../vendor/autoload.php';

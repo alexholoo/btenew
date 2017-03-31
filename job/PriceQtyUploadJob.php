@@ -22,7 +22,6 @@ class PriceQtyUploadJob extends Job
 
         // base class for all priceqty uploaders 
         include_once('priceqty/upload/Base.php');
-        include_once('priceqty/Filenames.php');
 
         foreach (glob("priceqty/upload/*.php") as $filename) {
             include_once($filename);

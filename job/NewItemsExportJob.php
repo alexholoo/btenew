@@ -22,7 +22,6 @@ class NewItemsExportJob extends Job
 
         // base class for all newitems exporters 
         include_once('newitems/export/Base.php');
-        include_once('newitems/Filenames.php');
 
         foreach (glob("newitems/export/*.php") as $filename) {
             include_once($filename);

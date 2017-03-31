@@ -22,7 +22,6 @@ class OrderDownloadJob extends Job
 
         // base class for all order downloaders
         include_once('order/download/Base.php');
-        include_once('order/Filenames.php');
 
         foreach (glob("order/download/*.php") as $filename) {
             include_once($filename);

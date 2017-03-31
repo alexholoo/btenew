@@ -10,8 +10,6 @@ class NeweggOrderImportToAccessJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include('order/Filenames.php');
-
         $neweggOrderReport = Filenames::get('newegg.ca.master.order');
         $this->channel = 'NeweggCA';
         $this->importNeweggOrders($neweggOrderReport, 'Newegg', 'CA');

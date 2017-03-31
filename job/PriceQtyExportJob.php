@@ -22,7 +22,6 @@ class PriceQtyExportJob extends Job
 
         // base class for all priceqty exporters 
         include_once('priceqty/export/Base.php');
-        include_once('priceqty/Filenames.php');
 
         foreach (glob("priceqty/export/*.php") as $filename) {
             include_once($filename);

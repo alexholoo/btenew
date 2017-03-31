@@ -22,7 +22,6 @@ class PricelistImportJob extends Job
 
         // base class for all pricelist downloaders
         include_once('pricelist/import/Base.php');
-        include_once('pricelist/Filenames.php');
 
         foreach (glob("pricelist/import/*.php") as $filename) {
             include_once($filename);

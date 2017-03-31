@@ -9,7 +9,6 @@ class NeweggShipmentUploadJob extends Job
         $this->log('>> '. __CLASS__);
 
         include_once('tracking/upload/Base.php');
-        include_once('tracking/Filenames.php');
 
         $job = $this->getJob("tracking/upload/Newegg_Shipment_Uploader.php");
 

@@ -22,7 +22,6 @@ class OrderImportJob extends Job
 
         // base class for all order importers
         include_once('order/import/Base.php');
-        include_once('order/Filenames.php');
 
         foreach (glob("order/import/*.php") as $filename) {
             include_once($filename);

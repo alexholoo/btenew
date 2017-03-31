@@ -9,7 +9,6 @@ class RakutenListingImportJob extends Job
         $this->log('>> '. __CLASS__);
 
         include_once('listing/import/Base.php');
-        include_once('listing/Filenames.php');
 
         $job = $this->getJob("listing/import/Rakuten_Listing_Importer.php");
 

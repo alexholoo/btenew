@@ -9,7 +9,6 @@ class eBayListingDownloadJob extends Job
         $this->log('>> '. __CLASS__);
 
         include_once('listing/download/Base.php');
-        include_once('listing/Filenames.php');
 
         $job = $this->getJob("listing/download/eBay_Listing_Downloader.php");
 
