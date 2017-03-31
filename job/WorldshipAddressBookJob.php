@@ -12,6 +12,8 @@ class WorldshipAddressBookJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
+        $this->skuService = $this->di->get('skuService');
+
         $this->generateAddressBook();
     }
 
@@ -138,8 +140,7 @@ class WorldshipAddressBookJob extends Job
 
     protected function getWeight($sku)
     {
-        $skuService = $this->di->get('skuService');
-        return $skuService->getWeight($sku);
+        return $this->skuService->getWeight($sku);
     }
 
     protected function getAddressBookTitle()
