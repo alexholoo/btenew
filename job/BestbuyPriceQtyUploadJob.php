@@ -8,8 +8,6 @@ class BestbuyPriceQtyUploadJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('priceqty/upload/Base.php');
-
         $job = $this->getJob("priceqty/upload/Bestbuy_PriceQty_Uploader.php");
 
         $job->upload();

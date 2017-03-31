@@ -8,8 +8,6 @@ class RakutenShipmentExportJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('tracking/export/Base.php');
-
         $job = $this->getJob("tracking/export/Rakuten_Tracking_Exporter.php");
 
         $job->export();

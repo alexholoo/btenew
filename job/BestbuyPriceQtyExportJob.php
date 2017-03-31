@@ -8,8 +8,6 @@ class BestbuyPriceQtyExportJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('priceqty/export/Base.php');
-
         $job = $this->getJob("priceqty/export/Bestbuy_PriceQty_Exporter.php");
 
         $job->export();

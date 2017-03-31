@@ -8,8 +8,6 @@ class NeweggShipmentExportJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('tracking/export/Base.php');
-
         $job = $this->getJob("tracking/export/Newegg_Tracking_Exporter.php");
 
         $job->export();

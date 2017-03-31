@@ -8,8 +8,6 @@ class NeweggOrderDownloadJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('order/download/Base.php');
-
         $job = $this->getJob("order/download/Newegg_Order_Downloader.php");
 
         $job->download();

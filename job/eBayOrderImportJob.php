@@ -8,8 +8,6 @@ class eBayOrderImportJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('order/import/Base.php');
-
         $job = $this->getJob("order/import/Ebay_Order_Importer.php");
 
         $job->import();

@@ -8,8 +8,6 @@ class RakutenListingDownloadJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('listing/download/Base.php');
-
         $job = $this->getJob("listing/download/Rakuten_Listing_Downloader.php");
 
         $job->download();

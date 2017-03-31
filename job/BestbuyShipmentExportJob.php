@@ -8,8 +8,6 @@ class BestbuyShipmentExportJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('tracking/export/Base.php');
-
         $job = $this->getJob("tracking/export/Bestbuy_Tracking_Exporter.php");
 
         $job->export();

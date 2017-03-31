@@ -8,8 +8,6 @@ class BestbuyListingDownloadJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('listing/download/Base.php');
-
         $job = $this->getJob("listing/download/Bestbuy_Listing_Downloader.php");
 
         $job->download();

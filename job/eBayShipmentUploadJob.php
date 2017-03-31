@@ -8,8 +8,6 @@ class eBayShipmentUploadJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('tracking/upload/Base.php');
-
         $job = $this->getJob("tracking/upload/Ebay_Shipment_Uploader.php");
 
         $job->upload();

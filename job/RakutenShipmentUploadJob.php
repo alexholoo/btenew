@@ -8,8 +8,6 @@ class RakutenShipmentUploadJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        include_once('tracking/upload/Base.php');
-
         $job = $this->getJob("tracking/upload/Rakuten_Shipment_Uploader.php");
 
         $job->upload();
