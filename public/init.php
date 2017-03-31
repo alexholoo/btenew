@@ -24,9 +24,10 @@ try {
     include 'error.php';
 
     /**
-     * include all filenames that almost every job needs
+     * include classes that almost every job needs
      */
     include '../job/Filenames.php';
+    include '../job/classes/Job.php';
 
     /**
      * include autoload earlier, so we can use class-constants in config.php
