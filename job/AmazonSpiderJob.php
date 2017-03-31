@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 include 'classes/simple_html_dom.php';
 
 class AmazonSpiderJob extends Job
@@ -373,8 +373,6 @@ class AmazonSpiderJob extends Job
         return '';
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new AmazonSpiderJob();
 $job->run($argv);

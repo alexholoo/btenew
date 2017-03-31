@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 use Toolkit\File;
 use Shipment\AmazonShipmentFile;
@@ -158,8 +158,6 @@ class AmazonShippingUploadJob extends Job
         fclose($fp);
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new AmazonShippingUploadJob();
 $job->run($argv);

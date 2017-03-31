@@ -12,7 +12,6 @@ if (!file_exists("$jobClass.php")) {
 
 include __DIR__ . '/../public/init.php';
 
-include 'classes/Job.php';
 include "$jobClass.php";
 
 if (!class_exists($jobClass)) {

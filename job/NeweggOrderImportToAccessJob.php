@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 use Marketplace\Newegg\StdOrderListFile;
 
@@ -154,8 +154,6 @@ class NeweggOrderImportToAccessJob extends Job
         return $this->di->get('skuService')->getMpn($sku);
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new NeweggOrderImportToAccessJob();
 $job->run($argv);

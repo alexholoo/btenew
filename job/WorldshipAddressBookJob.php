@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 use Toolkit\Utils;
 use Toolkit\AmericaState;
@@ -164,8 +164,6 @@ class WorldshipAddressBookJob extends Job
         ];
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new WorldshipAddressBookJob();
 $job->run($argv);

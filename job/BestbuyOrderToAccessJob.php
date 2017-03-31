@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class BestbuyOrderToAccessJob extends Job 
 {
@@ -100,8 +100,6 @@ class BestbuyOrderToAccessJob extends Job
         return $db;
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new BestbuyOrderToAccessJob();
 $job->run($argv);

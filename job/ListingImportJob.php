@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class ListingImportJob extends Job
 {
@@ -38,8 +38,6 @@ class ListingImportJob extends Job
         return $jobs;
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new ListingImportJob();
 $job->run($argv);

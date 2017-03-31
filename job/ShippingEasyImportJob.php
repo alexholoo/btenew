@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class ShippingEasyImportJob extends Job
 {
@@ -192,8 +192,6 @@ class ShippingEasyImportJob extends Job
         return $data;
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new ShippingEasyImportJob();
 $job->run($argv);

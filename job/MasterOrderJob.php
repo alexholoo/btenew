@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class MasterOrderJob extends Job
 {
@@ -221,8 +221,6 @@ class MasterOrderJob extends Job
         return $this->db->fetchOne($sql);
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new MasterOrderJob();
 $job->run($argv);

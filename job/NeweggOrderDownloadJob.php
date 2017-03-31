@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class NeweggOrderDownloadJob extends Job
 {
@@ -13,8 +13,6 @@ class NeweggOrderDownloadJob extends Job
         $job->download();
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new NeweggOrderDownloadJob();
 $job->run($argv);

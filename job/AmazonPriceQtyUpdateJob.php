@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class AmazonPriceQtyUpdateJob extends Job
 {
@@ -45,8 +45,6 @@ class AmazonPriceQtyUpdateJob extends Job
        #$this->log(print_r($api->getResponse(), true));
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new AmazonPriceQtyUpdateJob();
 $job->run($argv);

@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class AmazonLowestOfferListingsJob extends Job
 {
@@ -98,8 +98,6 @@ class AmazonLowestOfferListingsJob extends Job
         return array_chunk($asins, 20);
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new AmazonLowestOfferListingsJob();
 $job->run($argv);

@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class AccessDbExportJob extends Job
 {
@@ -135,8 +135,6 @@ class AccessDbExportJob extends Job
         return $db;
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new AccessDbExportJob();
 $job->run($argv);

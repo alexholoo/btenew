@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class AmazonCategoryJob extends Job
 {
@@ -198,8 +198,6 @@ class AmazonCategoryJob extends Job
         return $orders;
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new AmazonCategoryJob();
 $job->run($argv);

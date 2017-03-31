@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class SkuMapImportJob extends Job
 {
@@ -179,8 +179,6 @@ class SkuMapImportJob extends Job
         $this->log("$count sku-upc maps imported in $duration secs");
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new SkuMapImportJob();
 $job->run();

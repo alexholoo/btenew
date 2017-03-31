@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class eBayOrderImportJob extends Job
 {
@@ -13,8 +13,6 @@ class eBayOrderImportJob extends Job
         $job->import();
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new eBayOrderImportJob();
 $job->run($argv);

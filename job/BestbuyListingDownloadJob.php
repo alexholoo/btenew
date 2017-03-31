@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class BestbuyListingDownloadJob extends Job
 {
@@ -13,8 +13,6 @@ class BestbuyListingDownloadJob extends Job
         $job->download();
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new BestbuyListingDownloadJob();
 $job->run($argv);

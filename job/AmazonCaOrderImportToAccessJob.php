@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class AmazonCaOrderImportToAccessJob extends Job
 {
@@ -151,8 +151,6 @@ class AmazonCaOrderImportToAccessJob extends Job
         return $this->di->get('skuService')->getMpn($sku);
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new AmazonCaOrderImportToAccessJob();
 $job->run($argv);

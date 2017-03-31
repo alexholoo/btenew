@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 use Toolkit\File;
 use Supplier\Supplier;
@@ -155,8 +155,6 @@ class ShoppingCartCheckoutJob extends Job
         return isset($defaultBranches[$supplier]) ? $defaultBranches[$supplier] : '';
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new ShoppingCartCheckoutJob();
 $job->run($argv);

@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class AmazonRequestReportsJob extends Job
 {
@@ -61,8 +61,6 @@ class AmazonRequestReportsJob extends Job
         return array_column($result, null, 'reportType');
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new AmazonRequestReportsJob();
 $job->run($argv);

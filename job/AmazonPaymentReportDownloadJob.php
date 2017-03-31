@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class AmazonPaymentReportDownloadJob extends Job
 {
@@ -60,8 +60,6 @@ class AmazonPaymentReportDownloadJob extends Job
         $report->saveReport($this->reportFilename);
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new AmazonPaymentReportDownloadJob();
 $job->run($argv);

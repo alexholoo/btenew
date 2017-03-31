@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class AmazonBuyboxPriceJob extends Job
 {
@@ -195,8 +195,6 @@ class AmazonBuyboxPriceJob extends Job
         return $this->fbaItemsFilename;
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new AmazonBuyboxPriceJob();
 $job->run($argv);

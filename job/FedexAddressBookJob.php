@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 use Toolkit\Utils;
 use Toolkit\AmericaState;
@@ -138,8 +138,6 @@ class StreamFilterNewlines extends php_user_filter
 }
 
 stream_filter_register("newlines", "StreamFilterNewlines");
-
-include __DIR__ . '/../public/init.php';
 
 $job = new FedexAddressBookJob();
 $job->run($argv);

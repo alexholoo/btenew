@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class NeweggShipmentExportJob extends Job
 {
@@ -13,8 +13,6 @@ class NeweggShipmentExportJob extends Job
         $job->export();
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new NeweggShipmentExportJob();
 $job->run($argv);

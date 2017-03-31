@@ -1,6 +1,6 @@
 <?php
 
-include 'classes/Job.php';
+include __DIR__ . '/../public/init.php';
 
 class RakutenShipmentUploadJob extends Job
 {
@@ -13,8 +13,6 @@ class RakutenShipmentUploadJob extends Job
         $job->upload();
     }
 }
-
-include __DIR__ . '/../public/init.php';
 
 $job = new RakutenShipmentUploadJob();
 $job->run($argv);
