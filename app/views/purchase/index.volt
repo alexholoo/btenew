@@ -304,7 +304,7 @@ function orderDetailHtml(order) {
       <tr>
         <td>${order.date}</td>
         <td>${order.channel}</td>
-        <td>${order.sku}</td>
+        <td><a href="/search/sku?sku=${order.sku}" target="_blank">${order.sku}</a></td>
         <td>${order.price}</td>
         <td>${order.qty}</td>
         <td>${order.express == 1 ? 'Yes' : '&nbsp;'}</td>
