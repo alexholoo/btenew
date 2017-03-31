@@ -6,6 +6,8 @@ class BestbuyOrderToAccessJob extends Job
 {
     public function run($argv = [])
     {
+        $this->log('>> '. __CLASS__);
+
         $this->skuService = $this->di->get('skuService');
 
         $this->importBestbuyOrders();
@@ -21,7 +23,7 @@ class BestbuyOrderToAccessJob extends Job
             $workDate    = $order['date'];
             $orderId     = substr($order['orderId'], 0, -2);
             $sku         = $order['sku'];
-            $channel     = 'Bestbuy';
+            $channel     = 'BestbuyCA';
             $xpress      = $order['express'];
             $qty         = $order['qty'];
             $supplier    = $this->skuService->getSupplier($sku);
@@ -48,7 +50,6 @@ class BestbuyOrderToAccessJob extends Job
                 'Mfr #'         => $mfrpn,
                 'Supplier #'    => ' ',
                 'Remarks'       => '',
-                'Xpress'        => $xpress,
                 'RelatedSKU'    => '',
                 'Dimension'     => '',
             ];
