@@ -4,6 +4,11 @@ use Toolkit\File;
 
 class Newegg_NewItems_Uploader extends NewItems_Uploader
 {
+    public function run($argv = [])
+    {
+        $this->upload();
+    }
+
     public function upload()
     {
         // CA

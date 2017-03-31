@@ -2,6 +2,11 @@
 
 class Amazon_FBA_Tracking_Downloader extends Tracking_Downloader
 {
+    public function run($argv = [])
+    {
+        $this->download();
+    }
+
     public function download()
     {
         $source = 'E:/BTE/amazon/reports/amazon_ca_FBA.txt';

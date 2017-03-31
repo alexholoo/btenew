@@ -4,6 +4,11 @@ use Marketplace\eBay\OrderReportFile;
 
 class Ebay_Order_Importer extends Order_Importer
 {
+    public function run($argv = [])
+    {
+        $this->import();
+    }
+
     public function import()
     {
         // BTE - CAD

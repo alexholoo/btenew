@@ -4,6 +4,11 @@ use Marketplace\Amazon\OrderReportFile;
 
 class Amazon_Order_Importer extends Order_Importer
 {
+    public function run($argv = [])
+    {
+        $this->import();
+    }
+
     public function import()
     {
         // Amazon CA

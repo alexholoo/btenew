@@ -2,6 +2,11 @@
 
 class EShipper_Tracking_Downloader extends Tracking_Downloader
 {
+    public function run($argv = [])
+    {
+        $this->download();
+    }
+
     public function download()
     {
         // Nothing to do, the file is already there

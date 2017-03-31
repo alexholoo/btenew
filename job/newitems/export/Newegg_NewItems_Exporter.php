@@ -2,6 +2,11 @@
 
 class Newegg_NewItems_Exporter extends NewItems_Exporter
 {
+    public function run($argv = [])
+    {
+        $this->export();
+    }
+
     public function export()
     {
         $listing = $this->loadListing();

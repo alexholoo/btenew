@@ -6,6 +6,11 @@ class Bestbuy_Order_Downloader extends Order_Downloader
 {
     protected $newOrders = [];
 
+    public function run($argv = [])
+    {
+        $this->download();
+    }
+
     public function download()
     {
         $filename = Filenames::get('bestbuy.order');

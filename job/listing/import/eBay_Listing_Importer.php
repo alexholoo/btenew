@@ -2,6 +2,11 @@
 
 class eBay_Listing_Importer extends Listing_Importer
 {
+    public function run($argv = [])
+    {
+        $this->import();
+    }
+
     public function import()
     {
         $table = 'ebay_gfs_listing';

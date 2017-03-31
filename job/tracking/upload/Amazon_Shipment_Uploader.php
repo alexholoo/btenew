@@ -2,6 +2,11 @@
 
 class Amazon_Shipment_Uploader extends Tracking_Uploader
 {
+    public function run($argv = [])
+    {
+        $this->upload();
+    }
+
     public function upload()
     {
         // Nothing to do, it's done in AmazonShippingUploadJob

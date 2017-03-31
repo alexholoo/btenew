@@ -2,6 +2,11 @@
 
 class Rakuten_Order_Downloader extends Order_Downloader
 {
+    public function run($argv = [])
+    {
+        $this->download();
+    }
+
     public function download()
     {
         $folder = Filenames::get('rakuten.us.order');

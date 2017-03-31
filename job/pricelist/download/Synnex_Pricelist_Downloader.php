@@ -5,6 +5,11 @@ use Supplier\Synnex\Ftp;
 
 class Synnex_Pricelist_Downloader extends Pricelist_Downloader
 {
+    public function run($argv = [])
+    {
+        $this->download();
+    }
+
     public function download()
     {
         $filename = Filenames::get('synnex.pricelist');

@@ -2,6 +2,11 @@
 
 class Rakuten_Order_Importer extends Order_Importer
 {
+    public function run($argv = [])
+    {
+        $this->import();
+    }
+
     public function import()
     {
         $filename = Filenames::get('rakuten.us.master.order');

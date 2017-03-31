@@ -2,6 +2,11 @@
 
 class Techdata_Tracking_Importer extends Tracking_Importer
 {
+    public function run($argv = [])
+    {
+        $this->import();
+    }
+
     public function import()
     {
         $filename = Filenames::get('techdata.tracking');

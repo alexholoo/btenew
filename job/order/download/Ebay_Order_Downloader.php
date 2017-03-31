@@ -4,6 +4,11 @@ use Marketplace\eBay\OrderReportFile;
 
 class Ebay_Order_Downloader extends Order_Downloader
 {
+    public function run($argv = [])
+    {
+        $this->download();
+    }
+
     public function download()
     {
         // BTE - CAD

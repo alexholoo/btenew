@@ -2,6 +2,11 @@
 
 class Solu_Tracking_Importer extends Tracking_Importer
 {
+    public function run($argv = [])
+    {
+        $this->import();
+    }
+
     public function import()
     {
         $filename = Filenames::get('solu.tracking');

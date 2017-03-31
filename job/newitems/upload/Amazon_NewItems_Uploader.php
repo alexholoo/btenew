@@ -2,6 +2,11 @@
 
 class Amazon_NewItems_Uploader extends NewItems_Uploader
 {
+    public function run($argv = [])
+    {
+        $this->upload();
+    }
+
     public function upload()
     {
         $type = '_POST_FLAT_FILE_INVLOADER_DATA_';

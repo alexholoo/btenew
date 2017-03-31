@@ -2,6 +2,11 @@
 
 class Techdata_Tracking_Downloader extends Tracking_Downloader
 {
+    public function run($argv = [])
+    {
+        $this->download();
+    }
+
     public function download()
     {
         // No idea how to do

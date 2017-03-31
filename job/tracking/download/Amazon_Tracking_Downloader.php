@@ -4,6 +4,11 @@ class Amazon_Tracking_Downloader extends Tracking_Downloader
 {
     protected $store;
 
+    public function run($argv = [])
+    {
+        $this->download();
+    }
+
     public function download()
     {
         // CA

@@ -4,6 +4,11 @@ use Marketplace\Bestbuy\OrderReportFile;
 
 class Bestbuy_Order_Importer extends Order_Importer
 {
+    public function run($argv = [])
+    {
+        $this->import();
+    }
+
     public function import()
     {
         $orders = $this->getBestbuyOrders();

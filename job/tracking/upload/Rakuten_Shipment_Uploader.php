@@ -4,6 +4,11 @@ use Toolkit\File;
 
 class Rakuten_Shipment_Uploader extends Tracking_Uploader
 {
+    public function run($argv = [])
+    {
+        $this->upload();
+    }
+
     public function upload()
     {
         $client = new Marketplace\Rakuten\Client('US');

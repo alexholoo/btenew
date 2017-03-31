@@ -2,6 +2,11 @@
 
 class Bestbuy_Listing_Downloader extends Listing_Downloader
 {
+    public function run($argv = [])
+    {
+        $this->download();
+    }
+
     public function download()
     {
         $client = new Marketplace\Bestbuy\Client();

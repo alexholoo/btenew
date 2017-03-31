@@ -2,6 +2,11 @@
 
 class Synnex_Tracking_Importer extends Tracking_Importer
 {
+    public function run($argv = [])
+    {
+        $this->import();
+    }
+
     public function import()
     {
         $this->importFiles();

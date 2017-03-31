@@ -2,6 +2,11 @@
 
 class Amazon_Tracking_Exporter extends Tracking_Exporter
 {
+    public function run($argv = [])
+    {
+        $this->export();
+    }
+
     public function export()
     {
         // Nothing to do, it's done in AmazonShippingUploadJob
