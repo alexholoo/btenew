@@ -12,22 +12,6 @@ class NeweggListingDownloadJob extends Job
 
         $job->download();
     }
-
-    protected function getJob($filename)
-    {
-        include_once($filename);
-
-        $path = pathinfo($filename);
-        $class = $path['filename'];
-
-        $job = false;
-
-        if (class_exists($class)) {
-            $job = new $class;
-        }
-
-        return $job;
-    }
 }
 
 $job = new NeweggListingDownloadJob();
