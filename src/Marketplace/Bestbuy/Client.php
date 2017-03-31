@@ -93,13 +93,13 @@ class Client
         return $orders;
     }
 
-    public function acceptOrder($orderId, $accept = true)
+    public function acceptOrder($orderId, $orderLineId, $accept = true)
     {
         $params = [
             'order_lines' => [
                 [
                     'accepted' => $accept,
-                    'id'       => '1',
+                    'id'       => $orderLineId,
                 ],
             ]
         ];

@@ -4,6 +4,8 @@ use Marketplace\Bestbuy\OrderReportFile;
 
 class Bestbuy_Order_Downloader extends Order_Downloader
 {
+    protected $newOrders = [];
+
     public function download()
     {
         $filename = Filenames::get('bestbuy.order');
@@ -14,6 +16,8 @@ class Bestbuy_Order_Downloader extends Order_Downloader
         foreach ($orders as $order) {
             $orderFile->write($order);
         }
+
+        $this->acceptNewOrders();
     }
 
     protected function getBestbuyOrders()
@@ -37,8 +41,32 @@ class Bestbuy_Order_Downloader extends Order_Downloader
                #unset($orders[$key]);
                #$this->log($order['orderId'].' '.$order['state']);
             }
+
+            if ($order['status'] == 'WAITING_ACCEPTANCE') {
+                $this->newOrders[] = $order;
+            }
         }
 
         return $orders;
+    }
+
+    protected function acceptNewOrders()
+    {
+        $client = new Marketplace\Bestbuy\Client();
+
+        foreach ($this->newOrders as $order) {
+            $sku = $order['sku'];
+            $orderId = $order['orderId'];
+            $orderLineId = $order['orderItemId'];
+
+            $msku = $this->getMasterSku($sku);
+
+            if ($msku && $msku['overall_qty'] > 0) {
+                $this->log(__METHOD__ . " Order $orderId accepted");
+                $client->acceptOrder($orderId, $orderLineId);
+            } else {
+                $this->error(__METHOD__ . " cannot accept order $orderId, $sku is out of stock");
+            }
+        }
     }
 }
