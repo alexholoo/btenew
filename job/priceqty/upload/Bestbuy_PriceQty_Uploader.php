@@ -14,7 +14,7 @@ class Bestbuy_PriceQty_Uploader extends PriceQty_Uploader
         $filename = Filenames::get('bestbuy.priceqty');
 
         $offers = $this->csvToArray($filename, ';');
-        $chunks = array_chunk($offers, 100);
+        $chunks = array_chunk($offers, 1000);
 
         foreach ($chunks as $chunk) {
             $data['offers'] = [];
