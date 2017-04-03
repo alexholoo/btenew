@@ -70,7 +70,7 @@ class Client
             foreach ($order->order_lines as $item) {
                 $orders[] = [
                     'date'        => substr($order->created_date, 0, 10),
-                    'orderId'     => $order->order_id,
+                    'orderId'     => $order->commercial_id, // order_id,
                     'orderItemId' => $item->order_line_id,
                     'sku'         => $item->offer_sku,
                     'price'       => $item->price,

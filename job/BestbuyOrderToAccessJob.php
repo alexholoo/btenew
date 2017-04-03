@@ -21,7 +21,7 @@ class BestbuyOrderToAccessJob extends Job
 
         foreach ($orders as $order) {
             $workDate    = $order['date'];
-            $orderId     = substr($order['orderId'], 0, -2);
+            $orderId     = $order['orderId'];
             $sku         = $order['sku'];
             $channel     = 'BestbuyCA';
             $xpress      = $order['express'];
