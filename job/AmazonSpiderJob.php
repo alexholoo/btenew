@@ -333,15 +333,19 @@ class AmazonSpiderJob extends Job
         $el = $div->find('.disclaim');
         if ($el) {
             $el = $el[0];
-            $disclaim = str_replace(["\n", '  '], '', trim($el->text()));
+            $disclaim = str_replace(["\n", '  '], '', trim($el->innertext()));
             $result .= "<div>$disclaim</div>\n";
         }
 
         $el = $div->find('p');
         if ($el) {
             $el = $el[0];
-            $desc = trim($el->text());
+            $desc = trim($el->innertext());
             $result .= "<p>$desc</p>\n";
+        }
+
+        if (strlen($result) > 1024) {
+            $result = strip_tags($result, '<p><div><strong><h4><h5><span><table><tbody><tr><td><br><ul><li><ol>');
         }
 
         return $result;
