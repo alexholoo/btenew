@@ -47,11 +47,11 @@ foreach ($files as $file) {
         $db->execute($sql);
     } else {
         $sql = "UPDATE amazon_asin_desc SET ".
-               "asin='$asin', ".
-               "title='$title', ".
-               "feature='$feature', ".
-               "description='$desc', ".
-               "imageurl='$imgurl'";
+                   "title='$title', ".
+                   "feature='$feature', ".
+                   "description='$desc', ".
+                   "imageurl='$imgurl' ".
+               "WHERE asin='$asin'";
         $db->execute($sql);
     }
 }
