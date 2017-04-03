@@ -110,3 +110,29 @@ function getDescription($dom)
 
     return $result;
 }
+
+function getImageUrl($dom)
+{
+    $el = $dom->find('#imgTagWrapperId img');
+   #$el = $dom->find('#landingImage');
+
+    if ($el) {
+       #$el = $el[0];
+        $el = current($el);
+
+        $imgurl = $el->getAttribute('data-old-hires');
+        return urldecode($imgurl);
+
+        // we can get more images
+        $imgurl = $el->getAttribute('src');
+        if (substr(trim($imgurl), 0, 23) == 'data:image/jpeg;base64,') {
+            $imgdat = base64_decode(substr($imgurl, 23));
+            file_put_contents("$asin.jpg", $imgdat);
+        }
+
+        // even more
+        $json = $el->getAttribute('data-a-dynamic-image');
+    }
+
+    return '';
+}
