@@ -39,7 +39,7 @@ class Client
             return;
         }
 
-        $files = $ftp->listFiles('/Orders/');
+        $files = $ftp->listFiles('/Orders/*.txt');
         if (!$files) {
             echo "No order files on Rakuten {$this->site} FTP server", PHP_EOL;
             return;
