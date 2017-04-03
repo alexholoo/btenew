@@ -24,25 +24,34 @@ foreach ($files as $file) {
     $path = pathinfo($file);
     $asin = $path['filename'];
 
+    echo $asin, EOL;
+
+    $html = file_get_contents($file);
+    if (!$html) { // empty file
+        continue;
+    }
+
+    $dom = str_get_html($html);
+
+    $title = addslashes(getTitle($dom));
+    $feature = addslashes(getFeature($dom));
+    $desc = addslashes(getDescription($dom));
+    $imgurl = trim(addslashes(getImageUrl($dom)));
+
     $sql = "SELECT * FROM amazon_asin_desc WHERE asin='$asin'";
     $result = $db->fetchOne($sql);
 
     if (!$result) {
-        echo $asin, EOL;
-
-        $html = file_get_contents($file);
-        if (!$html) { // empty file
-            continue;
-        }
-
-        $dom = str_get_html($html);
-
-        $title = addslashes(getTitle($dom));
-        $feature = addslashes(getFeature($dom));
-        $desc = addslashes(getDescription($dom));
-
-        $sql = "INSERT INTO amazon_asin_desc (asin, title, feature, description) ".
-               "VALUES ('$asin', '$title', '$feature', '$desc')";
+        $sql = "INSERT INTO amazon_asin_desc (asin, title, feature, description, imageurl) ".
+               "VALUES ('$asin', '$title', '$feature', '$desc', '$imgurl')";
+        $db->execute($sql);
+    } else {
+        $sql = "UPDATE amazon_asin_desc SET ".
+               "asin='$asin', ".
+               "title='$title', ".
+               "feature='$feature', ".
+               "description='$desc', ".
+               "imageurl='$imgurl'";
         $db->execute($sql);
     }
 }
