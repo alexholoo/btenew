@@ -89,6 +89,16 @@ class AmazonService extends Injectable
         return "http://images.amazon.com/images/P/$asin.01.$size.jpg";
     }
 
+    public function getDescription($sku)
+    {
+        $asin = $this->getAsin($sku, 'US');
+
+        $sql = "SELECT * FROM amazon_asin_desc WHERE asin='$asin'";
+        $result = $this->db->fetchOne($sql);
+
+        return $result ? $result['description'].$result['feature'] : '';
+    }
+
     public function doSomething()
     {
         fpr(__FILE__."\n".__METHOD__);

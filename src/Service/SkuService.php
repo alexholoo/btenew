@@ -161,6 +161,12 @@ class SkuService extends Injectable
         return $amazonService->getImageUrl($sku, $size);
     }
 
+    public function getDescription($sku)
+    {
+        $amazonService = $this->di->get('amazonService');
+        return $amazonService->getDescription($sku);
+    }
+
     public function getMinAllowedPrice($sku, $currency = 'CAD')
     {
         // 'MAP_USD'/'MAP_CAD',
