@@ -100,6 +100,19 @@
       </tr>
     </tbody>
   </table>
+
+  <table class="table table-bordered">
+    <tbody>
+      <tr class="active">
+        <th align="left">Product Description</th>
+        <th align="left">Product Image</th>
+      </tr>
+      <tr>
+        <td align="left" width="50%">{{ desc }}</td>
+        <td align="left" width="50%">{% if imgurl is not empty %}<img src="{{ imgurl }}">{% else %}&nbsp;{% endif %}</td>
+      </tr>
+    </tbody>
+  </table>
   {% else %}
     No information found.
   {% endif %}

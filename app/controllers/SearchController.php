@@ -50,6 +50,8 @@ class SearchController extends ControllerBase
         if ($sku) {
             $info = $this->skuService->getMasterSku($sku);
             $this->view->data = $info;
+            $this->view->desc = $this->skuService->getDescription($sku);
+            $this->view->imgurl = $this->skuService->getImageUrl($sku);
         }
 
         $this->view->sku = $sku;
