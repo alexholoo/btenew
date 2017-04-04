@@ -8,7 +8,7 @@ date_default_timezone_set("America/Toronto");
 #mb_language('uni');
 #mb_regex_encoding('UTF-8');
 
-const EOL = (PHP_SAPI=='cli') ? "\n" : "<br>\n";  // unix-style, PHP_EOL is os-specific
+const EOL = "\n";  // unix, PHP_EOL is os-specific
 
 try {
     /**
