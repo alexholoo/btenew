@@ -9,6 +9,10 @@ abstract class Job
 
         $this->queue = $this->di->get('queue');
         $this->redis = $this->di->get('redis');
+
+        $this->errlog = $this->di->get('loggerService');
+        $this->joblog = $this->di->get('loggerService');
+        $this->joblog->setFilename('job.log');
     }
 
     protected function csvToArray($filename, $delimiter = ',', $header = null)
@@ -39,38 +43,14 @@ abstract class Job
 
     protected function log($line)
     {
-        static $first = true;
-
-        $filename = $this->getLogFilename();
-
         echo $line, "\n";
-
-        if ($first) {
-            $first = false;
-            error_log("\n", 3, $filename);
-        }
-
-        $line = date('H:i:s '). $line ."\n";
-
-        error_log($line, 3, $filename);
+        $this->joblog->info($line);
     }
 
     protected function error($line)
     {
-        static $first = true;
-
-        $filename = $this->getErrorLogFilename();
-
         echo 'ERROR: ', $line, "\n";
-
-        if ($first) {
-            $first = false;
-            error_log("\n", 3, $filename);
-        }
-
-        $line = date('H:i:s '). $line ."\n";
-
-        error_log($line, 3, $filename);
+        $this->errlog->error($line);
     }
 
     // batch insert, MySql Syntax
@@ -138,28 +118,6 @@ abstract class Job
         $values = implode(', ', $data);
 
         return "$query ($values)";
-    }
-
-    /**
-     * This method can be overrided by derived class to return different filename
-     */
-    protected function getLogFilename()
-    {
-        $today = date('Y-m-d');
-        $filename = APP_DIR . "/logs/job-$today.log";
-
-        return $filename;
-    }
-
-    /**
-     * This method can be overrided by derived class to return different filename
-     */
-    protected function getErrorLogFilename()
-    {
-        $today = date('Y-m-d');
-        $filename = APP_DIR . "/logs/error-$today.log";
-
-        return $filename;
     }
 
     protected function elapsed($start)
