@@ -20,14 +20,14 @@ try {
     define('IS_PHP64', PHP_INT_SIZE == 8);
     define('IS_PHP32', PHP_INT_SIZE == 4);
 
-    include 'trace.php';
-    include 'error.php';
+    include __DIR__ . '/trace.php';
+    include __DIR__ . '/error.php';
 
     /**
      * include classes that almost every job needs
      */
-    include '../job/Filenames.php';
-    include '../job/classes/Job.php';
+    include BASE_DIR . '/job/Filenames.php';
+    include BASE_DIR . '/job/classes/Job.php';
 
     /**
      * include autoload earlier, so we can use class-constants in config.php
