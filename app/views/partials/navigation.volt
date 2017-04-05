@@ -20,6 +20,7 @@
             <li><a href="/fbaitems">Generate FBA lines</a></li>
             <li><a href="/search/priceavail">Price & Availability</a></li>
             <li><a href="/search/sku">SKU Information</a></li>
+            <li><a href="/search/order">Order Information</a></li>
           </ul>
         </li>
         <li><a href="/about">About</a></li>

@@ -56,4 +56,27 @@ class SearchController extends ControllerBase
 
         $this->view->sku = $sku;
     }
+
+    public function orderAction()
+    {
+        $this->view->pageTitle = 'Order Information';
+
+        if ($this->request->isGet()) {
+            $orderId = $this->request->getQuery('id', 'trim');
+        }
+
+        if ($this->request->isPost()) {
+            $orderId = $this->request->getPost('id', 'trim');
+        }
+
+        $order = $this->orderService->getOrder($orderId);
+
+        if ($order) {
+            $this->view->order = $order;
+            $this->view->items = $this->orderService->getOrderItems($orderId);
+            $this->view->address = $this->orderService->getShippingAddress($orderId);
+        }
+
+        $this->view->id = $orderId;
+    }
 }
