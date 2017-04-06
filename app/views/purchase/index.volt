@@ -237,11 +237,11 @@ function priceAvailHtml(items) {
     <table class="table table-bordered table-condensed">
     <thead>
       <tr>
-        <th align="left">&nbsp;</th>
-        <th align="left">PartNum</th>
-        <th align="left">Price</th>
-        <th align="left">Branch</th>
-        <th align="left">Qty</th>
+        <th>&nbsp;</th>
+        <th>PartNum</th>
+        <th>Price</th>
+        <th>Branch</th>
+        <th>Qty</th>
       </tr>
     </thead>
     <tbody>

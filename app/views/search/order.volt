@@ -16,30 +16,30 @@
   <table class="table table-bordered table-hover">
     <tbody>
       <tr class="active">
-        <th align="left">Date</th>
-        <th align="left">Channel</th>
-        <th align="left">Order ID</th>
-        <th align="left">SKU</th>
-        <th align="left">Qty</th>
-        <th align="left">Price</th>
-        <th align="left">Buyer</th>
-        <th align="left">Express</th>
+        <th>Date</th>
+        <th>Channel</th>
+        <th>Order ID</th>
+        <th>SKU</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Buyer</th>
+        <th>Express</th>
       </tr>
       {% for item in items %}
       <tr>
-        <td align="left">{{ order['date'] }}</td>
-        <td align="left">{{ order['channel'] }}</td>
-        <td align="left">{{ order['order_id'] }}</td>
-        <td align="left">{{ item['sku'] }}</td>
-        <td align="left">{{ item['qty'] }}</td>
-        <td align="left">{{ item['price'] }}</td>
-        <td align="left">{{ address['buyer'] }}</td>
-        <td align="left">{{ order['express'] == 0 ? '' : 'Yes' }}</td>
+        <td>{{ order['date'] }}</td>
+        <td>{{ order['channel'] }}</td>
+        <td>{{ order['order_id'] }}</td>
+        <td>{{ item['sku'] }}</td>
+        <td>{{ item['qty'] }}</td>
+        <td>{{ item['price'] }}</td>
+        <td>{{ address['buyer'] }}</td>
+        <td>{{ order['express'] == 0 ? '' : 'Yes' }}</td>
       </tr>
       {% endfor %}
       <tr><td colspan="8"></td></tr>
       <tr>
-        <th align="left" class="active">Address</th>
+        <th class="active">Address</th>
         <td colspan="2">{{ address['address'] }}</td>
         <td>{{ address['city'] }}</td>
         <td>{{ address['province'] }}</td>

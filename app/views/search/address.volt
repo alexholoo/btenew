@@ -17,33 +17,33 @@
   <table class="table table-bordered">
     <tbody>
       <tr class="active">
-        <th align="left">&nbsp;</th>
-        <th align="left">Date</th>
-        <th align="left">Channel</th>
-        <th align="left">Order ID</th>
-        <th align="left">SKU</th>
-        <th align="left">Qty</th>
-        <th align="left">Price</th>
+        <th align="center"><span class="glyphicon glyphicon-remove"></span></th>
+        <th>Date</th>
+        <th>Channel</th>
+        <th>Order ID</th>
+        <th>SKU</th>
+        <th>Qty</th>
+        <th>Price</th>
       </tr>
       {% for item in order['items'] %}
       <tr>
-        <th align="left" class="active">Order</th>
-        <td align="left">{{ order['date'] }}</td>
-        <td align="left">{{ order['channel'] }}</td>
-        <td align="left">{{ order['order_id'] }}</td>
-        <td align="left">{{ item['sku'] }}</td>
-        <td align="left">{{ item['qty'] }}</td>
-        <td align="left">{{ item['price'] }}</td>
+        <th class="active">Order</th>
+        <td>{{ order['date'] }}</td>
+        <td>{{ order['channel'] }}</td>
+        <td>{{ order['order_id'] }}</td>
+        <td>{{ item['sku'] }}</td>
+        <td>{{ item['qty'] }}</td>
+        <td>{{ item['price'] }}</td>
       </tr>
       {% endfor %}
       <tr>
-        <th align="left" class="active">Buyer</th>
-        <td align="left" colspan="2" data-container="body" data-toggle="tooltip" title="Click to copy">{{ order['address']['buyer'] }}</td>
-        <th align="left" class="active">Phone</th>
-        <td align="left" colspan="3" data-container="body" data-toggle="tooltip" title="Click to copy">{{ order['address']['phone'] }}</td>
+        <th class="active">Buyer</th>
+        <td colspan="2" data-container="body" data-toggle="tooltip" title="Click to copy">{{ order['address']['buyer'] }}</td>
+        <th class="active">Phone</th>
+        <td colspan="3" data-container="body" data-toggle="tooltip" title="Click to copy">{{ order['address']['phone'] }}</td>
       </tr>
       <tr>
-        <th align="left" class="active">Address</th>
+        <th class="active">Address</th>
         <td colspan="2" data-toggle="tooltip" data-container="body" title="Click to copy">{{ order['address']['address'] }}</td>
         <td data-toggle="tooltip" data-container="body" title="Click to copy">{{ order['address']['city'] }}</td>
         <td data-toggle="tooltip" data-container="body" title="Click to copy">{{ order['address']['province'] }}</td>
