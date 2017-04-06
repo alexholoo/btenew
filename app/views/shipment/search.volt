@@ -1,11 +1,11 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
-<header class="jumbotron subhead clearfix" id="searchbox">
+<header class="well clearfix" id="searchbox">
   <form role="form" method="post">
 
       <div class="col-sm-12">
-        <h2 style="margin-top: 0;">Shipment search</h2>
+        <h3 style="margin-top: 0;">Shipment search</h3>
       </div>
 
       <div class="col-sm-10">

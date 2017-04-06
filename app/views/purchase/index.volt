@@ -1,7 +1,7 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
-  <h2>Purchase assistant</h2>
+  <h2 style="margin-top:0;">Purchase assistant</h2>
   <div class="well">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group col-xs">
