@@ -14,28 +14,34 @@
   {% if orders is not empty %}
   <p>Address information for <b>{{ key }}</b></p>
   {% for order in orders %}
-  <table class="table table-bordered table-hover">
+  <table class="table table-bordered">
     <tbody>
       <tr class="active">
+        <th align="left">&nbsp;</th>
         <th align="left">Date</th>
         <th align="left">Channel</th>
         <th align="left">Order ID</th>
         <th align="left">SKU</th>
         <th align="left">Qty</th>
         <th align="left">Price</th>
-        <th align="left">Buyer</th>
       </tr>
       {% for item in order['items'] %}
       <tr>
+        <th align="left" class="active">Order</th>
         <td align="left">{{ order['date'] }}</td>
         <td align="left">{{ order['channel'] }}</td>
         <td align="left">{{ order['order_id'] }}</td>
         <td align="left">{{ item['sku'] }}</td>
         <td align="left">{{ item['qty'] }}</td>
         <td align="left">{{ item['price'] }}</td>
-        <td align="left">{{ order['address']['buyer'] }}</td>
       </tr>
       {% endfor %}
+      <tr>
+        <th align="left" class="active">Buyer</th>
+        <td align="left" colspan="2">{{ order['address']['buyer'] }}</td>
+        <th align="left" class="active">Phone</th>
+        <td align="left" colspan="3">{{ order['address']['phone'] }}</td>
+      </tr>
       <tr>
         <th align="left" class="active">Address</th>
         <td colspan="2">{{ order['address']['address'] }}</td>
