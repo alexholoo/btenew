@@ -12,16 +12,26 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="/">Home</a></li>
         <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Purchase <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/purchase/assist">Purchase assistance</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Search <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/shipment/search">Shipment search</a></li>
-            <li><a href="/inventory/search">Inventory search</a></li>
-            <li><a href="/purchase/assist">Purchase assistance</a></li>
-            <li><a href="/fbaitems">Generate FBA lines</a></li>
-            <li><a href="/search/priceavail">Price & Availability</a></li>
-            <li><a href="/search/sku">SKU Information</a></li>
             <li><a href="/search/order">Order Information</a></li>
+            <li><a href="/search/sku">SKU Information</a></li>
+            <li><a href="/inventory/search">Inventory search</a></li>
+            <li><a href="/shipment/search">Shipment search</a></li>
+            <li><a href="/search/priceavail">Price & Availability</a></li>
             <li><a href="/search/address">Address Information</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Amazon <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/fbaitems">Generate FBA lines</a></li>
           </ul>
         </li>
         <li><a href="/about">About</a></li>

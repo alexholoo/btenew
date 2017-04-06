@@ -1,7 +1,7 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
-  <h2 style="margin-top:0;">Amazon FBA items generator</h2>
+  <h3 style="margin-top:0;">Amazon FBA items generator</h3>
   <div class="well clearfix">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group">
