@@ -35,7 +35,7 @@
 
     {% for tracking in data %}
     <tr>
-      <td class="order_id"><a href="/search/order?id={{ tracking['order_id'] }}" target="_blank">{{ tracking['order_id'] }}</a></td>
+      <td class="order-id"><a href="#" data-order-id="{{ tracking['order_id'] }}">{{ tracking['order_id'] }}</a></td>
       <td>{{ tracking['ship_date'] }}</td>
       <td>{{ tracking['carrier_code'] }}</td>
       <td>{{ tracking['tracking_number'] }}</td>
@@ -53,4 +53,83 @@
   {% endif %}
 {% endif %}
 
+{% endblock %}
+
+{% block jscode %}
+function orderDetailHtml(order) {
+  return `<div style="padding: 20px 20px 0 20px;">
+    <table class="table table-bordered table-condensed">
+    <caption>Order ID: <b>${order.orderId}</b></caption>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Market</th>
+        <th>SKU</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Express</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>${order.date}</td>
+        <td>${order.channel}</td>
+        <td><a href="/search/sku?sku=${order.sku}" target="_blank">${order.sku}</a></td>
+        <td>${order.price}</td>
+        <td>${order.qty}</td>
+        <td>${order.express == 1 ? 'Yes' : '&nbsp;'}</td>
+      </tr>
+    </tbody>
+    </table>
+
+    <p class="text-primary">${order.productName}</p>
+
+    <table class="table table-condensed">
+    <caption>Customer Information</caption>
+    <tbody>
+      <tr><td><b>Name</b></td><td>${order.buyer}</td></tr>
+      <tr><td><b>Address</b></td><td>${order.address}</td></tr>
+      <tr><td><b>&nbsp;</b></td><td>${order.city}, ${order.province}, ${order.postalcode}, ${order.country}</td></tr>
+      <tr><td><b>Phone</b></td><td>${order.phone}</td></tr>
+      <tr><td><b>Email</b></td><td>${order.email}</td></tr>
+    </table>
+    </div>`;
+}
+
+function getOrderDetail(orderId, done) {
+  ajaxCall('/ajax/order/detail', { orderId: orderId },
+    function(data) {
+      layer.open({
+        title: false,
+        area: ['550px', 'auto'],
+        shadeClose: true,
+        end: function(index, layero) {
+          done();
+        },
+        content: orderDetailHtml(data)
+      })
+    },
+    function(message) {
+      done();
+      showError(message);
+    }
+  );
+}
+{% endblock %}
+
+{% block docready %}
+  layer.config({
+    type: 1,
+    moveType: 1,
+    skin: 'layui-layer-molv',
+  });
+
+  // click on order id
+  $('.order-id a').click(function() {
+    var orderId = $(this).data('order-id');
+
+    getOrderDetail(orderId, function() {
+      /*tr.removeClass('info');*/
+    });
+  });
 {% endblock %}
