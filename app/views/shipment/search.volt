@@ -8,11 +8,11 @@
         <h3 style="margin-top: 0;">Shipment search</h3>
       </div>
 
-      <div class="col-sm-10">
-        <input autofocus required type="text" pattern=".{3,}" title="3 characters minimum" class="form-control" name="keyword" autofocus placeholder="Enter order id or tracking number">
+      <div class="col-sm-8">
+        <input autofocus required type="text" pattern=".{4,}" title="4 characters minimum" class="form-control" name="keyword" autofocus placeholder="Enter last 4+ digits of order id">
       </div>
 
-      <div class="col-sm-2">
+      <div class="col-sm-4">
         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search </button>
       </div>
   </form>
@@ -33,14 +33,16 @@
     </thead>
     <tbody>
 
+    {% for tracking in data %}
     <tr>
-      <td>{{ data['order_id'] }}</td>
-      <td>{{ data['ship_date'] }}</td>
-      <td>{{ data['carrier_code'] }}</td>
-      <td>{{ data['tracking_number'] }}</td>
-      <td>{{ data['ship_method'] }}</td>
-      <td>{{ data['sender'] }}</td>
+      <td><a href="/search/order?id={{ tracking['order_id'] }}" target="_blank">{{ tracking['order_id'] }}</a></td>
+      <td>{{ tracking['ship_date'] }}</td>
+      <td>{{ tracking['carrier_code'] }}</td>
+      <td>{{ tracking['tracking_number'] }}</td>
+      <td>{{ tracking['ship_method'] }}</td>
+      <td>{{ tracking['sender'] }}</td>
     </tr>
+    {% endfor %}
 
     </tbody>
   </table>

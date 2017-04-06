@@ -9,7 +9,13 @@ class ShipmentService extends Injectable
     public function getMasterTracking($key)
     {
         $sql = "SELECT * FROM master_order_tracking WHERE order_id='$key' OR tracking_number='$key'";
-        $info = $this->db->fetchOne($sql);
+        $info = $this->db->fetchAll($sql);
+
+        if (!$info) {
+            $sql = "SELECT * FROM master_order_tracking WHERE order_id LIKE '%$key'";
+            $info = $this->db->fetchAll($sql);
+        }
+
         return $info;
     }
 
