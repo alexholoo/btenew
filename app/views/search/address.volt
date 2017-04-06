@@ -17,7 +17,7 @@
   <table class="table table-bordered">
     <tbody>
       <tr class="active">
-        <th align="center"><span class="glyphicon glyphicon-remove"></span></th>
+        <th class="closebtn" style="text-align:center;cursor:pointer;"><span class="glyphicon glyphicon-remove"></span></th>
         <th>Date</th>
         <th>Channel</th>
         <th>Order ID</th>
@@ -74,6 +74,12 @@ $('table td').click(function() {
 
     $(this).selectText();
 });
+
+$('.closebtn').click(function() {
+    var table = $(this).closest('table');
+    table.remove();
+});
+
 $('[data-toggle="tooltip"]').tooltip();
 {% endblock %}
 
