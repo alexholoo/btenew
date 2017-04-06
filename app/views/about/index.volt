@@ -4,13 +4,15 @@
 <div align="center">
 
     <div align="left">
-        <h2>About this Demo</h2>
+      <h2>About</h2>
     </div>
 
     <div align="left">
-    {% if data is not empty %}
-        <pre>{{ data }}</pre>
-    {% endif %}
+      <pre>
+      Server: {{ host }} {{ serverIP }}<br>
+      Client: {{ clientIP }}<br>
+      Browser: {{ userAgent }}<br>
+      </pre>
     </div>
 
 </div>
