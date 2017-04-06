@@ -110,6 +110,7 @@ class AjaxController extends ControllerBase
         }
     }
 
+    // This method was for dropship page, it will deprecate, use orderInfoAction instead.
     public function orderDetailAction()
     {
         $this->view->disable();
@@ -122,6 +123,28 @@ class AjaxController extends ControllerBase
             if ($data) {
                 $this->response->setContentType('application/json', 'utf-8');
                 $this->response->setJsonContent(['status' => 'OK', 'data' => $data]);
+            } else {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
+            }
+
+            return $this->response;
+        }
+    }
+
+    public function orderInfoAction()
+    {
+        $this->view->disable();
+
+        if ($this->request->isPost()) {
+            $orderId = $this->request->getPost('orderId');
+
+            // This might return more than one orders
+            $order = $this->orderService->searchOrders($orderId);
+
+            // For now, we just display first order, first item
+            if ($order) {
+                $this->response->setContentType('application/json', 'utf-8');
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $order[0]]);
             } else {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
             }

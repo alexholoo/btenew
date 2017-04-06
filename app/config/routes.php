@@ -11,6 +11,11 @@ $router->add('/ajax/order/detail', [
     'action' => 'orderDetail'
 ])->via(array("POST"));
 
+$router->add('/ajax/order/info', [
+    'controller' => 'ajax',
+    'action' => 'orderInfo'
+])->via(array("POST"));
+
 $router->add('/ajax/make/purchase', [
     'controller' => 'ajax',
     'action' => 'makePurchase'
