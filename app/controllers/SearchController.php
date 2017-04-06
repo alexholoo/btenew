@@ -79,4 +79,25 @@ class SearchController extends ControllerBase
 
         $this->view->id = $orderId;
     }
+
+    public function addressAction()
+    {
+        $this->view->pageTitle = 'Address Information';
+
+        if ($this->request->isGet()) {
+            $key = $this->request->getQuery('key', 'trim');
+        }
+
+        if ($this->request->isPost()) {
+            $key = $this->request->getPost('key', 'trim');
+        }
+
+        $orders = $this->orderService->searchOrders($key);
+
+        if ($orders) {
+            $this->view->orders = $orders;
+        }
+
+        $this->view->key = $key;
+    }
 }

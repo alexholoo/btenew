@@ -104,6 +104,25 @@ class OrderService extends Injectable
         return $shippingAddress;
     }
 
+    // search orders by partial order id
+    public function searchOrders($orderKey)
+    {
+        $sql = "SELECT * FROM master_order WHERE order_id LIKE '%$orderKey'";
+        $orders = $this->db->fetchAll($sql);
+
+        if (!$orders) {
+            return false;
+        }
+
+        foreach ($orders as $key => $order) {
+            $orderId = $order['order_id'];
+            $orders[$key]['items'] = $this->getOrderItems($orderId);
+            $orders[$key]['address'] = $this->getShippingAddress($orderId);
+        }
+
+        return $orders;
+    }
+
     public function isShipped($orderId)
     {
         return $this->shipmentService->isOrderShipped($orderId);

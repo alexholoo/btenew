@@ -21,6 +21,7 @@
             <li><a href="/search/priceavail">Price & Availability</a></li>
             <li><a href="/search/sku">SKU Information</a></li>
             <li><a href="/search/order">Order Information</a></li>
+            <li><a href="/search/address">Address Information</a></li>
           </ul>
         </li>
         <li><a href="/about">About</a></li>
