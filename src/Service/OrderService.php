@@ -84,6 +84,7 @@ class OrderService extends Injectable
                 'sku'     => $item['sku'],
                 'price'   => $item['price'],
                 'qty'     => $item['qty'],
+                'product' => $item['product_name'],
             ];
         }
 

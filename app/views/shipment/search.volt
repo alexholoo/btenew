@@ -35,7 +35,7 @@
 
     {% for tracking in data %}
     <tr>
-      <td class="order-id"><a href="#" data-order-id="{{ tracking['order_id'] }}">{{ tracking['order_id'] }}</a></td>
+      <td class="order-id"><a href="javascript:void(0)" data-order-id="{{ tracking['order_id'] }}">{{ tracking['order_id'] }}</a></td>
       <td>{{ tracking['ship_date'] }}</td>
       <td>{{ tracking['carrier_code'] }}</td>
       <td>{{ tracking['tracking_number'] }}</td>
@@ -74,30 +74,30 @@ function orderDetailHtml(order) {
       <tr>
         <td>${order.date}</td>
         <td>${order.channel}</td>
-        <td><a href="/search/sku?sku=${order.sku}" target="_blank">${order.sku}</a></td>
-        <td>${order.price}</td>
-        <td>${order.qty}</td>
+        <td><a href="/search/sku?sku=${order.items[0].sku}" target="_blank">${order.items[0].sku}</a></td>
+        <td>${order.items[0].price}</td>
+        <td>${order.items[0].qty}</td>
         <td>${order.express == 1 ? 'Yes' : '&nbsp;'}</td>
       </tr>
     </tbody>
     </table>
 
-    <p class="text-primary">${order.productName}</p>
+    <p class="text-primary">${order.items[0].product}</p>
 
     <table class="table table-condensed">
     <caption>Customer Information</caption>
     <tbody>
-      <tr><td><b>Name</b></td><td>${order.buyer}</td></tr>
-      <tr><td><b>Address</b></td><td>${order.address}</td></tr>
-      <tr><td><b>&nbsp;</b></td><td>${order.city}, ${order.province}, ${order.postalcode}, ${order.country}</td></tr>
-      <tr><td><b>Phone</b></td><td>${order.phone}</td></tr>
-      <tr><td><b>Email</b></td><td>${order.email}</td></tr>
+      <tr><td><b>Name</b></td><td>${order.address.buyer}</td></tr>
+      <tr><td><b>Address</b></td><td>${order.address.address}</td></tr>
+      <tr><td><b>&nbsp;</b></td><td>${order.address.city}, ${order.address.province}, ${order.address.postalcode}, ${order.address.country}</td></tr>
+      <tr><td><b>Phone</b></td><td>${order.address.phone}</td></tr>
+      <tr><td><b>Email</b></td><td>${order.address.email}</td></tr>
     </table>
     </div>`;
 }
 
 function getOrderDetail(orderId, done) {
-  ajaxCall('/ajax/order/detail', { orderId: orderId },
+  ajaxCall('/ajax/order/info', { orderId: orderId },
     function(data) {
       layer.open({
         title: false,
