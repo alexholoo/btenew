@@ -12,7 +12,7 @@ class ShipmentService extends Injectable
         $info = $this->db->fetchAll($sql);
 
         if (!$info) {
-            $sql = "SELECT * FROM master_order_tracking WHERE order_id LIKE '%$key'";
+            $sql = "SELECT * FROM master_order_tracking WHERE order_id LIKE '%$key' ORDER BY ship_date DESC";
             $info = $this->db->fetchAll($sql);
         }
 

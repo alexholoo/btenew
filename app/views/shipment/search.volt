@@ -35,7 +35,7 @@
 
     {% for tracking in data %}
     <tr>
-      <td><a href="/search/order?id={{ tracking['order_id'] }}" target="_blank">{{ tracking['order_id'] }}</a></td>
+      <td class="order_id"><a href="/search/order?id={{ tracking['order_id'] }}" target="_blank">{{ tracking['order_id'] }}</a></td>
       <td>{{ tracking['ship_date'] }}</td>
       <td>{{ tracking['carrier_code'] }}</td>
       <td>{{ tracking['tracking_number'] }}</td>
