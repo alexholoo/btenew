@@ -1,11 +1,11 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
-  <h3 style="margin-top:0;">Order Information</h3>
+  <h3 style="margin-top:0;">Address Information</h3>
   <div class="well">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group col-xs-5 col-lg-5">
-        <input class="form-control" name="key" placeholder="Enter Order ID" pattern=".{4,}" type="text" autofocus required style="width:100%">
+        <input class="form-control" name="key" placeholder="Enter Last 4+ Digits of Order ID" pattern=".{4,}" type="text" autofocus required style="width:100%">
       </div>
       <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search </button>
     </form>
