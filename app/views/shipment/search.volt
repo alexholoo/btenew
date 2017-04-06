@@ -59,7 +59,7 @@
 function orderDetailHtml(order) {
   return `<div style="padding: 20px 20px 0 20px;">
     <table class="table table-bordered table-condensed">
-    <caption>Order ID: <b>${order.orderId}</b></caption>
+    <caption>Order ID: <b>${order.order_id}</b></caption>
     <thead>
       <tr>
         <th>Date</th>
