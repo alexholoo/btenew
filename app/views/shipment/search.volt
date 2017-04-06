@@ -19,7 +19,7 @@
 </header>
 
 {% if data is not empty %}
-  Search result for <b>{{ keyword }}</b>:
+  <p>Search result for <b>{{ keyword }}</b>:</p>
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
