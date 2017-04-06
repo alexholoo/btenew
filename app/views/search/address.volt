@@ -38,17 +38,17 @@
       {% endfor %}
       <tr>
         <th align="left" class="active">Buyer</th>
-        <td align="left" colspan="2">{{ order['address']['buyer'] }}</td>
+        <td align="left" colspan="2" data-container="body" data-toggle="tooltip" title="Click to copy">{{ order['address']['buyer'] }}</td>
         <th align="left" class="active">Phone</th>
-        <td align="left" colspan="3">{{ order['address']['phone'] }}</td>
+        <td align="left" colspan="3" data-container="body" data-toggle="tooltip" title="Click to copy">{{ order['address']['phone'] }}</td>
       </tr>
       <tr>
         <th align="left" class="active">Address</th>
-        <td colspan="2">{{ order['address']['address'] }}</td>
-        <td>{{ order['address']['city'] }}</td>
-        <td>{{ order['address']['province'] }}</td>
-        <td>{{ order['address']['postalcode'] }}</td>
-        <td>{{ order['address']['country'] }}</td>
+        <td colspan="2" data-toggle="tooltip" data-container="body" title="Click to copy">{{ order['address']['address'] }}</td>
+        <td data-toggle="tooltip" data-container="body" title="Click to copy">{{ order['address']['city'] }}</td>
+        <td data-toggle="tooltip" data-container="body" title="Click to copy">{{ order['address']['province'] }}</td>
+        <td data-toggle="tooltip" data-container="body" title="Click to copy">{{ order['address']['postalcode'] }}</td>
+        <td data-toggle="tooltip" data-container="body" title="Click to copy">{{ order['address']['country'] }}</td>
       </tr>
     </tbody>
   </table>
@@ -74,6 +74,7 @@ $('table td').click(function() {
 
     $(this).selectText();
 });
+$('[data-toggle="tooltip"]').tooltip();
 {% endblock %}
 
 {% block jscode %}
