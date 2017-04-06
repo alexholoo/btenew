@@ -5,7 +5,7 @@
   <div class="well">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group col-xs-5 col-lg-5">
-        <input class="form-control" name="key" placeholder="Enter Order ID" value="" type="text" autofocus style="width:100%">
+        <input class="form-control" name="key" placeholder="Enter Order ID" pattern=".{4,}" type="text" autofocus required style="width:100%">
       </div>
       <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search </button>
     </form>
@@ -46,6 +46,7 @@
       </tr>
     </tbody>
   </table>
+  <textarea id="output" style="display:none;"></textarea>
   {% endfor %}
 
   {% else %}
@@ -54,7 +55,35 @@
 {% endblock %}
 
 {% block docready %}
+$('table td').click(function() {
+    var text = $(this).html();
+    console.log(text);
+
+    var textarea = $('#output');
+    textarea.show();
+    textarea.val(text);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.hide();
+
+    $(this).selectText();
+});
 {% endblock %}
 
 {% block jscode %}
+jQuery.fn.selectText = function() {
+    var obj = this[0];
+    if (document.body.createTextRange) {
+        var range = obj.offsetParent.createTextRange();
+        range.moveToElementText(obj);
+        range.select();
+    } else if (window.getSelection) {
+        var selection = obj.ownerDocument.defaultView.getSelection();
+        var range = obj.ownerDocument.createRange();
+        range.selectNodeContents(obj);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+    return this;
+}
 {% endblock %}

@@ -92,10 +92,12 @@ class SearchController extends ControllerBase
             $key = $this->request->getPost('key', 'trim');
         }
 
-        $orders = $this->orderService->searchOrders($key);
+        if ($key) {
+            $orders = $this->orderService->searchOrders($key);
 
-        if ($orders) {
-            $this->view->orders = $orders;
+            if ($orders) {
+                $this->view->orders = $orders;
+            }
         }
 
         $this->view->key = $key;
