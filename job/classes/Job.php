@@ -15,6 +15,8 @@ abstract class Job
         $this->joblog->setFilename('job.log');
     }
 
+    abstract public function run($argv = []);
+
     protected function csvToArray($filename, $delimiter = ',', $header = null)
     {
         // read the CSV lines into a numerically indexed array
