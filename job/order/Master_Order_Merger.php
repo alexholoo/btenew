@@ -1,6 +1,6 @@
 <?php
 
-class Master_Order extends Job
+class Master_Order_Merger extends Job
 {
     public function run($argv = [])
     {
