@@ -17,7 +17,7 @@ class MasterOrderJob_New extends Job
         $job->run();
 
         $this->newOrders = $job->getNewOrders();
-        $this->log(count($this->newOrders). " new orders");
+        $this->log(count($this->newOrders). " new orders\n");
 
         $this->fireOrderTriggers();
     }
@@ -26,12 +26,14 @@ class MasterOrderJob_New extends Job
     {
         if (count($this->newOrders) > 0) {
 
+            $orders = $this->newOrders;
             $triggers = $this->getTriggers();
 
             foreach ($triggers as $trigger) {
-                $trigger->setOrders($this->newOrders);
-                echo get_class($trigger), EOL;
+                $trigger->setOrders($orders);
+                echo 'Order Trigger: ', get_class($trigger), EOL;
 #               $trigger->run();
+                $orders = $trigger->getOrders();
             }
         }
     }
