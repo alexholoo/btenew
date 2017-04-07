@@ -16,7 +16,7 @@ class OverstockUpdate extends OrderTrigger
 
             $accdb = $this->openAccessDB();
 
-            foreach ($this->orders as $order) {
+            foreach ($this->orders as $key => $order) {
                 $date    = $order['date'];
                 $channel = $order['channel'];
                 $orderId = $order['order_id'];
@@ -31,6 +31,8 @@ class OverstockUpdate extends OrderTrigger
 
                 if ($skuOrig != $sku) {
                     $this->log("$orderId $skuOrig ==>> $sku in overstock");
+                    // let other orderTriggers know alternative sku used
+                    $this->orders[$key]['altSku'] = $sku;
                 }
 
                 if ($qty >= 10) {
@@ -68,6 +70,9 @@ class OverstockUpdate extends OrderTrigger
                     $this->error(print_r($accdb->errorInfo(), true));
                     $this->error($sql);
                 }
+
+                // let other orderTriggers know it's in-stock
+                $this->orders[$key]['overstock-changed'] = true;
 
                 // Mark the item as 'out of stock' by prefixing *** the part number
                 if ($x == 0) {
