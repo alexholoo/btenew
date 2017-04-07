@@ -9,6 +9,7 @@
   {% block cssfile %}
     {{ stylesheet_link('/lib/bootstrap/3.3.7/css/bootstrap.min.css') }}
     {{ stylesheet_link('/lib/jquery/plugins/jquery.toast.min.css') }}
+    {{ stylesheet_link('/lib/font-awesome/4.7.0/css/font-awesome.min.css') }}
     {{ assets.outputCss() }}
   {% endblock %}
 
