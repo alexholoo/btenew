@@ -154,4 +154,19 @@ abstract class Job
 
         return $job;
     }
+
+    protected function getJobs($folder)
+    {
+        $jobs = [];
+
+        $folder = trim($folder, '/');
+        foreach (glob("$folder/*.php") as $filename) {
+            $job = $this->getJob($filename);
+            if ($job) {
+                $jobs[] = $job;
+            }
+        }
+
+        return $jobs;
+    }
 }
