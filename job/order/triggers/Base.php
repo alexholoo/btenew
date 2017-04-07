@@ -11,6 +11,11 @@ abstract class OrderTrigger extends Job
         $this->orders = $orders;
     }
 
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
     public function getPriority()
     {
         return $this->priority;
