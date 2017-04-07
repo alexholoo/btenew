@@ -61,7 +61,7 @@ class MasterOrderList
         return [
             'channel',
             'date',
-            'channel_order_id',
+            'order_id',
             'order_item_id',
             'express',
             'buyer',
