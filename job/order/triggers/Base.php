@@ -1,6 +1,6 @@
 <?php
 
-class OrderTrigger extends Job
+abstract class OrderTrigger extends Job
 {
     protected $orders;
     protected $priority = 0; // Trigger with smaller priority runs first

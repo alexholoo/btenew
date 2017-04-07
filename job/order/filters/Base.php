@@ -1,5 +1,5 @@
 <?php
 
-class OrderFilter extends Job
+abstract class OrderFilter extends Job
 {
 }
