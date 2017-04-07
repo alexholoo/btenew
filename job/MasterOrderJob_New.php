@@ -30,7 +30,8 @@ class MasterOrderJob_New extends Job
 
             foreach ($triggers as $trigger) {
                 $trigger->setOrders($this->newOrders);
-                $trigger->run();
+                echo get_class($trigger), EOL;
+#               $trigger->run();
             }
         }
     }
