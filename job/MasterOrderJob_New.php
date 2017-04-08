@@ -2,7 +2,7 @@
 
 include __DIR__ . '/../public/init.php';
 
-class MasterOrderJob_New extends Job
+class MasterOrderJob extends Job
 {
     protected $newOrders;
 
@@ -10,12 +10,15 @@ class MasterOrderJob_New extends Job
     {
         $this->log('>> '. __CLASS__);
 
+        // merge all orderlists of all marketplaces into master_orders.csv
         $job = $this->getJob("order/Master_Order_Merger.php");
         $job->run();
 
+        // import all orders in master_orders.csv into db, find new orders
         $job = $this->getJob("order/Master_Order_Importer.php");
         $job->run();
 
+        // invoke all order triggers with new orders
         $this->newOrders = $job->getNewOrders();
         $this->log(count($this->newOrders). " new orders\n");
 
@@ -25,7 +28,6 @@ class MasterOrderJob_New extends Job
     protected function fireOrderTriggers()
     {
         if (count($this->newOrders) > 0) {
-
             $orders = $this->newOrders;
             $triggers = $this->getTriggers();
 
@@ -42,26 +44,15 @@ class MasterOrderJob_New extends Job
     {
         $triggers = [];
 
-        // base class for all order triggers
-        include_once('order/triggers/Base.php');
-
         foreach (glob("order/triggers/*.php") as $filename) {
-            include_once $filename;
+            $trigger = $this->getJob($filename);
+            $priority = $trigger->getPriority();
 
-            $path = pathinfo($filename);
-            $class = $path['filename'];
-
-            if (class_exists($class)) {
-                $trigger = new $class;
-
-                $priority = $trigger->getPriority();
-
-                if ($priority > 0) {
-                    $triggers[] = [
-                        'priority' => $priority,
-                        'trigger'  => $trigger,
-                    ];
-                }
+            if ($priority > 0) {
+                $triggers[] = [
+                    'priority' => $priority,
+                    'trigger'  => $trigger,
+                ];
             }
         }
 
@@ -74,5 +65,5 @@ class MasterOrderJob_New extends Job
     }
 }
 
-$job = new MasterOrderJob_New();
+$job = new MasterOrderJob();
 $job->run($argv);
