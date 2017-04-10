@@ -60,6 +60,7 @@ class Master_Order_Importer extends Job
                 'order_id'  => $order['order_id'],
                 'express'   => $order['express'],
                 'shipping'  => $order['shipping'],
+                'reference' => $order['reference'],
             ]);
         } catch (\Exception $e) {
             //echo $e->getMessage(), EOL;

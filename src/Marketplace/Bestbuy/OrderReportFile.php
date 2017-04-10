@@ -18,6 +18,7 @@ class OrderReportFile
         $columns = [
             'date',
             'orderId',
+            'bestbuyId',
             'orderItemId',
             'sku',
             'price',
@@ -52,6 +53,7 @@ class OrderReportFile
         $this->fileWriter->write([
             $order['date'],
             $order['orderId'],
+            $order['bestbuyId'],
             $order['orderItemId'],
             $order['sku'],
             $order['price'],

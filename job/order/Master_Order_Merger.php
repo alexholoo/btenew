@@ -44,6 +44,7 @@ class Master_Order_Merger extends Job
                 substr($order['Date'], 0, 10),
                 $order['OrderId'],
                 $order['OrderItemId'],
+                $order['OrderId'], // reference
                 $express,
                 $order['Name'],
                 $address,
@@ -77,6 +78,7 @@ class Master_Order_Merger extends Job
                 $order['date'],
                 $order['orderId'],
                 $order['orderItemId'],
+                $order['bestbuyId'],
                 $order['express'],
                 $order['buyer'],
                 $order['address'],
@@ -113,8 +115,9 @@ class Master_Order_Merger extends Job
             $masterFile->write([
                 $channel,
                 $order['DatePaid'],
-                $order['OrderID'], // shipment likes to use RecordNumber as OrderID, because it's shorter than OrderID.
-                $order['RecordNumber'], // so, we have to store RecordNumber here, $order['ItemID'] is not very useful.
+                $order['OrderID'],
+                $order['ItemID'],
+                $order['RecordNumber'], // reference
                 $express,
                 $order['Name'],
                 $order['Address'].' '.$order['Address2'],
@@ -156,6 +159,7 @@ class Master_Order_Merger extends Job
                 date('Y-m-d', strtotime($order['Order Date & Time'])),
                 $order['Order Number'],
                 $order['Item Newegg #'],
+                $order['Order Number'], // reference
                 $express,
                 $buyer,
                 $address,
@@ -188,6 +192,7 @@ class Master_Order_Merger extends Job
                 date('Y-m-d', strtotime($order['Date_Entered'])),
                 $order['Receipt_ID'],
                 $order['Receipt_Item_ID'],
+                $order['Receipt_ID'], // reference
                 $express,
                 $order['Ship_To_Name'],
                 $address,

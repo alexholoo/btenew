@@ -63,6 +63,7 @@ class MasterOrderList
             'date',
             'order_id',
             'order_item_id',
+            'reference',
             'express',
             'buyer',
             'address',
