@@ -72,6 +72,7 @@ class Master_Order_Importer extends Job
             try {
                 $this->db->insertAsDict('master_order_item', [
                     'order_id'      => $order['order_id'],
+                    'order_item_id' => $order['order_item_id'],
                     'sku'           => $order['sku'],
                     'price'         => $order['price'],
                     'qty'           => $order['qty'],
