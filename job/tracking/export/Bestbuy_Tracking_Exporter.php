@@ -35,7 +35,7 @@ class Bestbuy_Tracking_Exporter extends Tracking_Exporter
                        t.tracking_number     AS trackingNumber
 
                   FROM master_order_tracking t
-             LEFT JOIN master_order          o ON t.order_id=o.order_id
+             LEFT JOIN master_order          o ON t.order_id=o.reference
              LEFT JOIN master_order_shipped  s ON t.order_id=s.order_id
 
                  WHERE o.channel='Bestbuy' AND s.createdon IS NULL";
