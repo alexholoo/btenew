@@ -33,30 +33,30 @@ class Master_Order_Merger extends Job
             $filename = Filenames::get('amazon.us.order');
         }
 
-        $orderFile = new Marketplace\Amazon\StdOrderReportFile($filename, $site);
+        $orderFile = new Marketplace\Amazon\OrderReportFile($filename, $site);
 
         while ($order = $orderFile->read()) {
-            $express = ($order['ship-service-level'] == 'Expedited') ? 1 : 0;
-            $address = $order['ship-address-1'].' '.$order['ship-address-1'].' '.$order['ship-address-1'];
+            $express = strpos($order['ShipServiceLevel'], 'Exp') !== false ? 1 : 0;
+            $address = trim($order['Address1'].' '.$order['Address2'].' '.$order['Address3']);
 
             $masterFile->write([
                 $channel,
-                substr($order['purchase-date'], 0, 10),
-                $order['order-id'],
-                $order['order-item-id'],
+                substr($order['Date'], 0, 10),
+                $order['OrderId'],
+                $order['OrderItemId'],
                 $express,
-                $order['buyer-name'],
+                $order['Name'],
                 $address,
-                $order['ship-city'],
-                $order['ship-state'],
-                $order['ship-postal-code'],
-                $order['ship-country'],
-                $order['ship-phone-number'],
-                $order['buyer-email'],
-                $order['sku'],
-                $order['item-price'],
-                $order['quantity-purchased'],
-                $order['shipping-price'],
+                $order['City'],
+                $order['StateOrRegion'],
+                $order['PostalCode'],
+                $order['CountryCode'],
+                $order['Phone'],
+                $order['BuyerEmail'],
+                $order['SellerSKU'],
+                $order['ItemPrice'],
+                $order['Quantity'],
+                $order['ShippingPrice'],
             ]);
         }
     }
