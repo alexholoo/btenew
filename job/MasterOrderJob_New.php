@@ -46,13 +46,15 @@ class MasterOrderJob extends Job
 
         foreach (glob("order/triggers/*.php") as $filename) {
             $trigger = $this->getJob($filename);
-            $priority = $trigger->getPriority();
+            if ($trigger) {
+                $priority = $trigger->getPriority();
 
-            if ($priority > 0) {
-                $triggers[] = [
-                    'priority' => $priority,
-                    'trigger'  => $trigger,
-                ];
+                if ($priority > 0) {
+                    $triggers[] = [
+                        'priority' => $priority,
+                        'trigger'  => $trigger,
+                    ];
+                }
             }
         }
 
