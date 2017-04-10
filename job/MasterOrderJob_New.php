@@ -33,8 +33,8 @@ class MasterOrderJob extends Job
 
             foreach ($triggers as $trigger) {
                 $trigger->setOrders($orders);
-                echo 'Order Trigger: ', get_class($trigger), EOL;
-#               $trigger->run();
+#               echo 'Order Trigger: ', get_class($trigger), EOL;
+                $trigger->run();
                 $orders = $trigger->getOrders();
             }
         }

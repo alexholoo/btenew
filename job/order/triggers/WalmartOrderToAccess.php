@@ -7,7 +7,7 @@ class WalmartOrderToAccess extends OrderTrigger
     public function run($argv = [])
     {
         return;
-        $this->log('=> '. __CLASS__);
+        $this->log('=> Order Trigger: '. __CLASS__);
 
         // if ($order['channel'] != 'Walmart') continue;
         // if (isset($order['overstock-changed']))

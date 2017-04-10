@@ -6,7 +6,7 @@ class AmazonOrderToAccess extends OrderTrigger
 
     public function run($argv = [])
     {
-        $this->log('=> '. __CLASS__);
+        $this->log('=> Order Trigger: '. __CLASS__);
 
         // if ($order['channel'] != 'Amazon-ACA|Amazon-US') continue;
         // if (isset($order['overstock-changed']))

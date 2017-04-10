@@ -6,7 +6,7 @@ class OverstockUpdate extends OrderTrigger
 
     public function run($argv = [])
     {
-        $this->log('=> '. __CLASS__);
+        $this->log('=> Order Trigger: '. __CLASS__);
         $this->updateOverstock();
     }
 

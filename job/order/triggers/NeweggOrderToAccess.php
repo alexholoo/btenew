@@ -6,7 +6,7 @@ class NeweggOrderToAccess extends OrderTrigger
 
     public function run($argv = [])
     {
-        $this->log('=> '. __CLASS__);
+        $this->log('=> Order Trigger: '. __CLASS__);
 
         $this->importNeweggOrders();
     }
@@ -30,7 +30,7 @@ class NeweggOrderToAccess extends OrderTrigger
                 $table   = 'Newegg';
             } else if ($order['channel'] == 'NeweggUSA') {
                 $channel = 'NeweggUS';
-                $table   = 'NeweggUS';
+                $table   = 'NeweggUSA';
             } else {
                 continue;
             }

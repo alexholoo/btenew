@@ -6,7 +6,7 @@ class BestbuyOrderToAccess extends OrderTrigger
 
     public function run($argv = [])
     {
-        $this->log('=> '. __CLASS__);
+        $this->log('=> Order Trigger: '. __CLASS__);
 
         $this->skuService = $this->di->get('skuService');
 
@@ -16,8 +16,6 @@ class BestbuyOrderToAccess extends OrderTrigger
     protected function importBestbuyOrders()
     {
         $accdb = $this->openAccessDB();
-
-        $orders = $this->getBestbuyOrders();
 
         foreach ($this->orders as $order) {
             if ($order['channel'] != 'Bestbuy') {
