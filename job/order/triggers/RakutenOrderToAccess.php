@@ -6,6 +6,7 @@ class RakutenOrderToAccess extends OrderTrigger
 
     public function run($argv = [])
     {
+        return;
         $this->log('=> '. __CLASS__);
 
         // if ($order['channel'] != 'Rakuten-BUY') continue;

@@ -6,6 +6,7 @@ class EbayOrderToAccess extends OrderTrigger
 
     public function run($argv = [])
     {
+        return;
         $this->log('=> '. __CLASS__);
 
         // if ($order['channel'] != 'eBay-ODO|eBay-GFS') continue;
