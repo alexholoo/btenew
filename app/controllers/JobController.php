@@ -41,7 +41,7 @@ class JobController extends ControllerBase
     {
        #$this->runJob('job/AmazonNewItemsJob');
         $this->runJob('job/AmazonPriceQtyUpdateJob');
-       #$this->runJob('job/AmazonShippingTemplateJob');
+        $this->runJob('job/AmazonShippingTemplateJob');
 
         echo "Jobs are running, please check on Amazon Seller Central a minute later.";
     }
