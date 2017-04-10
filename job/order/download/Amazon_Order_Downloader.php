@@ -41,6 +41,11 @@ class Amazon_Order_Downloader extends Order_Downloader
             return;
         }
 
+        $orderId = $data['AmazonOrderId'];
+        if ($this->orderExists($orderId)) {
+            return;
+        }
+
         if (!isset($data['BuyerEmail'])) {
             $data['BuyerEmail'] = '';
         }
@@ -81,5 +86,11 @@ class Amazon_Order_Downloader extends Order_Downloader
                 $address['Phone'],
             ]);
         }
+    }
+
+    private function orderExists($orderId)
+    {
+        $sql = "SELECT order_id FROM master_order WHERE order_id='$orderId'";
+        return $this->db->fetchOne($sql);
     }
 }
