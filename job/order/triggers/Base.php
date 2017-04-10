@@ -20,4 +20,29 @@ abstract class OrderTrigger extends Job
     {
         return $this->priority;
     }
+
+    protected function getSku($sku)
+    {
+        $parts = explode('-', $sku);
+        array_shift($parts);
+        return implode('-', $parts);
+    }
+
+    protected function getSupplier($sku)
+    {
+        $names = [
+            'AS'  => 'ASI',
+            'SYN' => 'Synnex',
+            'ING' => 'Ingram Micro',
+            'EP'  => 'Eprom',
+            'TD'  => 'Techdata',
+            'TAK' => 'Taknology',
+            'SP'  => 'Supercom',
+        ];
+
+        $parts = explode('-', $sku);
+        $prefix = $parts[0];
+
+        return isset($names[$prefix]) ? $names[$prefix] : $prefix;
+    }
 }
