@@ -71,6 +71,7 @@ class Client
                 $orders[] = [
                     'date'        => substr($order->created_date, 0, 10),
                     'orderId'     => $order->order_id,
+                    'bestbuyId'   => $order->commercial_id,
                     'orderItemId' => $item->order_line_id,
                     'sku'         => $item->offer_sku,
                     'price'       => $item->price,
