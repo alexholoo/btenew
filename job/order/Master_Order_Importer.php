@@ -121,17 +121,15 @@ class Master_Order_Importer extends Job
                 'channel'       => $order['channel'],
                 'order_id'      => $order['order_id'],
                 'stock_status'  => '',
+                'sku'           => $order['sku'],
+                'qty'           => $order['qty'],
                 'supplier'      => '',
                 'supplier_sku'  => '',
                 'mfrpn'         => '',
                 'ponum'         => '',
                 'invoice'       => '',
-                'ship_method'   => '',
-                'trackingnum'   => '',
                 'remarks'       => '',
                 'flag'          => '',
-                'related_sku'   => '',
-                'dimension'     => '',
             ]);
         } catch (\Exception $e) {
             //echo $e->getMessage(), EOL;
