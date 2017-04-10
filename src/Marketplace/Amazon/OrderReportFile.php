@@ -1,5 +1,7 @@
 <?php
 
+namespace Marketplace\Amazon;
+
 /**
  * This is not Amazon standard order report file (StdOrderReportFile).
  * This is only used to download/import Amazon orders by MWS.

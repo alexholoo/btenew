@@ -1,5 +1,7 @@
 <?php
 
+namespace Marketplace\Amazon;
+
 /**
  * This class is used to read Amaozn Listing Report.
  */
