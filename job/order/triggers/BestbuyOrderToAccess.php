@@ -17,7 +17,7 @@ class BestbuyOrderToAccess extends OrderTrigger
 
     protected function importBestbuyOrders()
     {
-        $this->skuService = $this->di->get('skuService');
+        $skuService = $this->di->get('skuService');
 
         $accdb = $this->openAccessDB();
 
