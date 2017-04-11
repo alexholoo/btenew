@@ -8,34 +8,12 @@ class NewItemsExportJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $jobs = $this->getExportJobs();
+        $jobs = $this->getJobs('newitems/export');
 
         foreach ($jobs as $job) {
             $this->log('=> ' . get_class($job));
             $job->run();
         }
-    }
-
-    protected function getExportJobs()
-    {
-        $jobs = [];
-
-        // base class for all newitems exporters 
-        include_once('newitems/export/Base.php');
-
-        foreach (glob("newitems/export/*.php") as $filename) {
-            include_once($filename);
-
-            $path = pathinfo($filename);
-            $class = $path['filename'];
-
-            if (class_exists($class)) {
-                $job = new $class;
-                $jobs[] = $job;
-            }
-        }
-
-        return $jobs;
     }
 }
 

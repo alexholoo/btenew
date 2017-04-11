@@ -8,34 +8,12 @@ class OrderDownloadJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $jobs = $this->getDownloadJobs();
+        $jobs = $this->getJobs('order/download');
 
         foreach ($jobs as $job) {
             $this->log('=> ' . get_class($job));
             $job->run();
         }
-    }
-
-    protected function getDownloadJobs()
-    {
-        $jobs = [];
-
-        // base class for all order downloaders
-        include_once('order/download/Base.php');
-
-        foreach (glob("order/download/*.php") as $filename) {
-            include_once($filename);
-
-            $path = pathinfo($filename);
-            $class = $path['filename'];
-
-            if (class_exists($class)) {
-                $job = new $class;
-                $jobs[] = $job;
-            }
-        }
-
-        return $jobs;
     }
 }
 
