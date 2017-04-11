@@ -10,7 +10,7 @@ class NeweggShipmentUploadJob extends Job
 
         $job = $this->getJob("tracking/upload/Newegg_Shipment_Uploader.php");
 
-        $job->upload();
+        $job->run();
     }
 }
 

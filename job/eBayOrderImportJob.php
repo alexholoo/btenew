@@ -10,7 +10,7 @@ class eBayOrderImportJob extends Job
 
         $job = $this->getJob("order/import/Ebay_Order_Importer.php");
 
-        $job->import();
+        $job->run();
     }
 }
 

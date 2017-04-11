@@ -10,7 +10,7 @@ class eBayOrderDownloadJob extends Job
 
         $job = $this->getJob("order/download/Ebay_Order_Downloader.php");
 
-        $job->download();
+        $job->run();
     }
 }
 

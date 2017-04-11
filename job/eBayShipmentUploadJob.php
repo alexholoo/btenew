@@ -10,7 +10,7 @@ class eBayShipmentUploadJob extends Job
 
         $job = $this->getJob("tracking/upload/Ebay_Shipment_Uploader.php");
 
-        $job->upload();
+        $job->run();
     }
 }
 

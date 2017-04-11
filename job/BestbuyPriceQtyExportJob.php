@@ -10,7 +10,7 @@ class BestbuyPriceQtyExportJob extends Job
 
         $job = $this->getJob("priceqty/export/Bestbuy_PriceQty_Exporter.php");
 
-        $job->export();
+        $job->run();
     }
 }
 

@@ -10,7 +10,7 @@ class RakutenOrderImportJob extends Job
 
         $job = $this->getJob("order/import/Rakuten_Order_Importer.php");
 
-        $job->import();
+        $job->run();
     }
 }
 

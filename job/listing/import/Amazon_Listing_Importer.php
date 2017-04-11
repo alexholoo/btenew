@@ -4,7 +4,11 @@ class Amazon_Listing_Importer extends Listing_Importer
 {
     public function run($argv = [])
     {
-        $this->import();
+        try {
+            $this->import();
+        } catch (\Exception $e) {
+            echo $e->getMessage, EOL;
+        }
     }
 
     public function import()

@@ -7,18 +7,22 @@ class Master_Order_Merger extends Job
         $filename = Filenames::get('master.order');
         $masterFile = new Marketplace\MasterOrderList($filename);
 
-        $this->importAmazonOrders($masterFile, 'CA');
-        $this->importAmazonOrders($masterFile, 'US');
+        try {
+            $this->importAmazonOrders($masterFile, 'CA');
+            $this->importAmazonOrders($masterFile, 'US');
 
-        $this->importBestbuyOrders($masterFile);
+            $this->importBestbuyOrders($masterFile);
 
-        $this->importEbayOrders($masterFile, 'GFS');
-        $this->importEbayOrders($masterFile, 'ODO');
+            $this->importEbayOrders($masterFile, 'GFS');
+            $this->importEbayOrders($masterFile, 'ODO');
 
-        $this->importNeweggOrders($masterFile, 'CA');
-        $this->importNeweggOrders($masterFile, 'US');
+            $this->importNeweggOrders($masterFile, 'CA');
+            $this->importNeweggOrders($masterFile, 'US');
 
-        $this->importRakutenOrders($masterFile);
+            $this->importRakutenOrders($masterFile);
+        } catch (\Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
     }
 
     public function importAmazonOrders($masterFile, $site)

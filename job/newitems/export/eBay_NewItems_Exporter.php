@@ -4,7 +4,11 @@ class eBay_NewItems_Exporter extends NewItems_Exporter
 {
     public function run($argv = [])
     {
-        $this->export();
+        try {
+            $this->export();
+        } catch (\Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
     }
 
     public function export()

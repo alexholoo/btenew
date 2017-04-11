@@ -12,7 +12,7 @@ class PricelistImportJob extends Job
 
         foreach ($jobs as $job) {
             $this->log('=> ' . get_class($job));
-            $job->import();
+            $job->run();
         }
     }
 

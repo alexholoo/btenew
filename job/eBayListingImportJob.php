@@ -10,7 +10,7 @@ class eBayListingImportJob extends Job
 
         $job = $this->getJob("listing/import/eBay_Listing_Importer.php");
 
-        $job->import();
+        $job->run();
     }
 
     protected function getJob($filename)

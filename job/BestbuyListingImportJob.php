@@ -10,7 +10,7 @@ class BestbuyListingImportJob extends Job
 
         $job = $this->getJob("listing/import/Bestbuy_Listing_Importer.php");
 
-        $job->import();
+        $job->run();
     }
 }
 

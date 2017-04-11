@@ -10,7 +10,7 @@ class eBayListingDownloadJob extends Job
 
         $job = $this->getJob("listing/download/eBay_Listing_Downloader.php");
 
-        $job->download();
+        $job->run();
     }
 }
 

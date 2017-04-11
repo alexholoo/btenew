@@ -7,7 +7,11 @@ class Newegg_Tracking_Exporter extends Tracking_Exporter
 {
     public function run($argv = [])
     {
-        $this->export();
+        try {
+            $this->export();
+        } catch (\Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
     }
 
     public function export()

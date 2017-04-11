@@ -10,7 +10,7 @@ class BestbuyOrderImportJob extends Job
 
         $job = $this->getJob("order/import/Bestbuy_Order_Importer.php");
 
-        $job->import();
+        $job->run();
     }
 }
 

@@ -10,7 +10,7 @@ class BestbuyShipmentExportJob extends Job
 
         $job = $this->getJob("tracking/export/Bestbuy_Tracking_Exporter.php");
 
-        $job->export();
+        $job->run();
     }
 }
 

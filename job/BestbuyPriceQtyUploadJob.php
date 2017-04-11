@@ -10,7 +10,7 @@ class BestbuyPriceQtyUploadJob extends Job
 
         $job = $this->getJob("priceqty/upload/Bestbuy_PriceQty_Uploader.php");
 
-        $job->upload();
+        $job->run();
     }
 }
 

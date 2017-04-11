@@ -10,7 +10,7 @@ class BestbuyListingDownloadJob extends Job
 
         $job = $this->getJob("listing/download/Bestbuy_Listing_Downloader.php");
 
-        $job->download();
+        $job->run();
     }
 }
 

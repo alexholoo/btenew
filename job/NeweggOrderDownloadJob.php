@@ -10,7 +10,7 @@ class NeweggOrderDownloadJob extends Job
 
         $job = $this->getJob("order/download/Newegg_Order_Downloader.php");
 
-        $job->download();
+        $job->run();
     }
 }
 

@@ -10,7 +10,7 @@ class NeweggListingImportJob extends Job
 
         $job = $this->getJob("listing/import/Newegg_Listing_Importer.php");
 
-        $job->import();
+        $job->run();
     }
 }
 

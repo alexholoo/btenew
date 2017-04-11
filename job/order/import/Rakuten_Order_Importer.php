@@ -4,7 +4,11 @@ class Rakuten_Order_Importer extends Order_Importer
 {
     public function run($argv = [])
     {
-        $this->import();
+        try {
+            $this->import();
+        } catch (\Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
     }
 
     public function import()

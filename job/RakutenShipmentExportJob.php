@@ -10,7 +10,7 @@ class RakutenShipmentExportJob extends Job
 
         $job = $this->getJob("tracking/export/Rakuten_Tracking_Exporter.php");
 
-        $job->export();
+        $job->run();
     }
 }
 

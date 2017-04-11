@@ -10,7 +10,7 @@ class BestbuyShipmentUploadJob extends Job
 
         $job = $this->getJob("tracking/upload/Bestbuy_Shipment_Uploader.php");
 
-        $job->upload();
+        $job->run();
     }
 }
 

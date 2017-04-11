@@ -9,8 +9,12 @@ class Master_Order_Importer extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $this->loadMasterOrders();
-        $this->importMasterOrders();
+        try {
+            $this->loadMasterOrders();
+            $this->importMasterOrders();
+        } catch (\Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
     }
 
     public function getOrders()

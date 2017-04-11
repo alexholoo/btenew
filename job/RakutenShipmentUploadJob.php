@@ -10,7 +10,7 @@ class RakutenShipmentUploadJob extends Job
 
         $job = $this->getJob("tracking/upload/Rakuten_Shipment_Uploader.php");
 
-        $job->upload();
+        $job->run();
     }
 }
 

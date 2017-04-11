@@ -10,7 +10,7 @@ class RakutenListingDownloadJob extends Job
 
         $job = $this->getJob("listing/download/Rakuten_Listing_Downloader.php");
 
-        $job->download();
+        $job->run();
     }
 }
 

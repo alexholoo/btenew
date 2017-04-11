@@ -10,7 +10,7 @@ class NeweggOrderImportJob extends Job
 
         $job = $this->getJob("order/import/Newegg_Order_Importer.php");
 
-        $job->import();
+        $job->run();
     }
 }
 

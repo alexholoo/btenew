@@ -10,7 +10,7 @@ class eBayShipmentExportJob extends Job
 
         $job = $this->getJob("tracking/export/Ebay_Tracking_Exporter.php");
 
-        $job->export();
+        $job->run();
     }
 }
 
