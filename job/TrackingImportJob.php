@@ -8,34 +8,12 @@ class TrackingImportJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $jobs = $this->getTrackingJobs();
+        $jobs = $this->getJobs('tracking/import');
 
         foreach ($jobs as $job) {
             $this->log('=> ' . get_class($job));
             $job->run();
         }
-    }
-
-    protected function getTrackingJobs()
-    {
-        $jobs = [];
-
-        // base class for all tracking importers
-        include_once('tracking/import/Base.php');
-
-        foreach (glob("tracking/import/*.php") as $filename) {
-            include_once($filename);
-
-            $path = pathinfo($filename);
-            $class = $path['filename'];
-
-            if (class_exists($class)) {
-                $job = new $class;
-                $jobs[] = $job;
-            }
-        }
-
-        return $jobs;
     }
 }
 
