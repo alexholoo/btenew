@@ -1,5 +1,7 @@
 <?php
 
+// TODO: split this class into order/merge/* ?
+
 class Master_Order_Merger extends Job
 {
     public function run($argv = [])
@@ -8,6 +10,7 @@ class Master_Order_Merger extends Job
         $masterFile = new Marketplace\MasterOrderList($filename);
 
         try {
+            // issue: if exception thrown in any of the methods, the next method will lost chance to run
             $this->importAmazonOrders($masterFile, 'CA');
             $this->importAmazonOrders($masterFile, 'US');
 
@@ -82,7 +85,7 @@ class Master_Order_Merger extends Job
                 $order['date'],
                 $order['orderId'],
                 $order['orderItemId'],
-                $order['bestbuyId'],
+                $order['bestbuyId'], // reference
                 $order['express'],
                 $order['buyer'],
                 $order['address'],
@@ -206,7 +209,7 @@ class Master_Order_Merger extends Job
                 'US',     // 'country',
                 $order['Bill_To_Phone'],
                 $order['Email'],
-                $order['ReferenceId'],
+                $order['ReferenceId'], // sku
                 $order['Price'],
                 $order['Quantity'],
                 $order['ShippingFee'],
