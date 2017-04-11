@@ -6,7 +6,11 @@ class Amazon_Order_Downloader extends Order_Downloader
 {
     public function run($argv = [])
     {
-        $this->download();
+        try {
+            $this->download();
+        } catch (\Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
     }
 
     public function download()

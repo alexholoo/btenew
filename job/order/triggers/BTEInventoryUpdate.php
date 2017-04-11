@@ -7,7 +7,12 @@ class BTEInventoryUpdate extends OrderTrigger
     public function run($argv = [])
     {
         $this->log('=> Order Trigger: '. __CLASS__);
-        $this->updateInventory();
+
+        try {
+            $this->updateInventory();
+        } catch (\Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
     }
 
     protected function updateInventory()

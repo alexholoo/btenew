@@ -8,13 +8,17 @@ class BestbuyOrderToAccess extends OrderTrigger
     {
         $this->log('=> Order Trigger: '. __CLASS__);
 
-        $this->skuService = $this->di->get('skuService');
-
-        $this->importBestbuyOrders();
+        try {
+            $this->importBestbuyOrders();
+        } catch (\Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
     }
 
     protected function importBestbuyOrders()
     {
+        $this->skuService = $this->di->get('skuService');
+
         $accdb = $this->openAccessDB();
 
         foreach ($this->orders as $order) {
@@ -28,9 +32,9 @@ class BestbuyOrderToAccess extends OrderTrigger
             $channel     = 'BestbuyCA';
             $xpress      = $order['express'];
             $qty         = $order['qty'];
-            $supplier    = $this->skuService->getSupplier($sku);
+            $supplier    = $skuService->getSupplier($sku);
             $ponum       = ' ';
-            $mfrpn       = $this->skuService->getMpn($sku);
+            $mfrpn       = $skuService->getMpn($sku);
             $stockStatus = ' ';
 
             if (isset($order['overstock-changed'])) {

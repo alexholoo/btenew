@@ -8,7 +8,11 @@ class NeweggOrderToAccess extends OrderTrigger
     {
         $this->log('=> Order Trigger: '. __CLASS__);
 
-        $this->importNeweggOrders();
+        try {
+            $this->importNeweggOrders();
+        } catch (\Exception $e) {
+            echo $e->getMessage(), EOL;
+        }
     }
 
     protected function importNeweggOrders()
