@@ -2,7 +2,7 @@
 
 include __DIR__ . '/../public/init.php';
 
-class TestOrderDownloadJob extends Job
+class AmazonOrderDownloadJob extends Job
 {
     public function run($argv = [])
     {
@@ -14,5 +14,5 @@ class TestOrderDownloadJob extends Job
     }
 }
 
-$job = new TestOrderDownloadJob();
+$job = new AmazonOrderDownloadJob();
 $job->run($argv);
