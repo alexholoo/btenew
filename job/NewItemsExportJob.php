@@ -8,7 +8,7 @@ class NewItemsExportJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $jobs = $this->getJobs();
+        $jobs = $this->getExportJobs();
 
         foreach ($jobs as $job) {
             $this->log('=> ' . get_class($job));
@@ -16,7 +16,7 @@ class NewItemsExportJob extends Job
         }
     }
 
-    protected function getJobs()
+    protected function getExportJobs()
     {
         $jobs = [];
 

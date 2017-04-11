@@ -59,7 +59,7 @@ class AmazonCaOrderImportToAccessJob extends Job
 
             if (!$ret) {
                 $this->error(__METHOD__);
-                $this->error($this->accdb->errorInfo());
+                $this->error($accdb->errorInfo());
                 $this->error($sql);
             }
 
