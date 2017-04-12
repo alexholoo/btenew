@@ -6,6 +6,7 @@ class Ebay_Shipment_Uploader extends Tracking_Uploader
 {
     public function run($argv = [])
     {
+        return;
         try {
             $this->upload();
         } catch (\Exception $e) {
