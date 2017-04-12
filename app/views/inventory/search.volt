@@ -35,7 +35,7 @@
 </header>
 
 {% if data is not empty %}
-  <p>Search result for <b>{{ keyword }}</b> in <b>{{ searchby }}</b>:</p>
+  <p>Search result for <b>{{ keyword }}</b> in <b>{{ searchby }}</b>:(only first 20 rows)</p>
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
