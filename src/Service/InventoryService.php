@@ -10,6 +10,11 @@ class InventoryService extends Injectable
     {
         // ORM doesn't help for the special queries
         if ($searchby == 'partnum') {
+            if ($this->skuService->isSku($keyword)) {
+                if ($mpn = $this->skuService->getMpn($keyword)) {
+                    $keyword = $mpn;
+                }
+            }
             $sql = 'SELECT * FROM inventory_location WHERE partnum LIKE ?';
             $result = $this->db->query($sql, array("%$keyword%"));
         } elseif ($searchby == 'upc') {
@@ -48,18 +53,5 @@ class InventoryService extends Injectable
         );
 
         return true;
-    }
-
-    protected function isSku($keyword)
-    {
-        $parts = explode('-', $keyword);
-        $sku = strtoupper($parts[0]);
-
-        return in_array($sku, [ 'AS', 'BTE', 'ODO', 'SYN', 'ING', 'EP', 'TD', 'TAK', 'SP']);
-    }
-
-    protected function getMpn($sku)
-    {
-        return $this->skuService->getMpn($sku);
     }
 }

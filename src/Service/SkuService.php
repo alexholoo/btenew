@@ -214,4 +214,18 @@ class SkuService extends Injectable
 
         return isset($names[$prefix]) ? $names[$prefix] : $prefix;
     }
+
+    public function isSku($str)
+    {
+        $parts = explode('-', $str);
+        $sku = strtoupper($parts[0]);
+
+        return count($parts) > 1 &&
+               in_array($sku, ['AS', 'BTE', 'ODO', 'SYN', 'ING', 'EP', 'TD', 'TAK', 'SP']);
+    }
+
+    public function isUPC($str)
+    {
+        return preg_match('/^\d{12,13}$/', $str);
+    }
 }
