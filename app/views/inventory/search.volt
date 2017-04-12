@@ -51,15 +51,15 @@
     </thead>
     <tbody>
 
-    {% for inventory in data %}
-      <tr>
+    {% for item in data %}
+      <tr data-id="{{ item['id'] }}">
         <td><b>{{ loop.index }}</b></td>
-        <td>{{ inventory['partnum'] }}</td>
-        <td>{{ inventory['upc'] }}</td>
-        <td>{{ inventory['location'] }}</td>
-        <td>{{ inventory['qty'] }}</td>
-        <td>{{ inventory['sn'] }}</td>
-        <td>{{ inventory['note'] }}</td>
+        <td>{{ item['partnum'] }}</td>
+        <td>{{ item['upc'] }}</td>
+        <td>{{ item['location'] }}</td>
+        <td>{{ item['qty'] }}</td>
+        <td>{{ item['sn'] }}</td>
+        <td>{{ item['note'] }}</td>
         <!--
         <td>
           <a href="#" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit </a>

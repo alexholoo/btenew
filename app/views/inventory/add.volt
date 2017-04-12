@@ -36,26 +36,34 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <th>#</th>
+        <th class="text-center">#</th>
         <th>Part Number</th>
         <th>UPC</th>
         <th>Location</th>
         <th>Qty</th>
         <th>SN #</th>
         <th>Note</th>
+        <!--
+        <th class="text-center">Action</th>
+        -->
       </tr>
     </thead>
     <tbody>
 
     {% for item in items %}
-      <tr>
-        <td><b>{{ loop.index }}</b></td>
+      <tr data-id="{{ item['id'] }}">
+        <td class="text-center"><b>{{ loop.index }}</b></td>
         <td>{{ item['partnum'] }}</td>
         <td>{{ item['upc'] }}</td>
         <td>{{ item['location'] }}</td>
         <td>{{ item['qty'] }}</td>
         <td>{{ item['sn'] }}</td>
         <td>{{ item['note'] }}</td>
+        <!--
+        <td class="text-center fit-to-text">
+          <a href="#" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+        </td>
+        -->
       </tr>
     {% endfor %}
 
@@ -66,6 +74,7 @@
 
 {% block csscode %}
   .main-container { width: 1250px; }
+  .fit-to-text { width:1%; white-space:nowrap; }
 {% endblock %}
 
 {% block jscode %}
