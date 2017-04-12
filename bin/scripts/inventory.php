@@ -21,10 +21,11 @@ $columns = [
 ];
 
 $count = 0;
+$db->execute('TRUNCATE TABLE inventory_location');
 while(($fields = fgetcsv($fh))) {
     try {
         $data = array_combine($columns, $fields);
-        $db->insertAsDict('inventory', $data);
+        $db->insertAsDict('inventory_location', $data);
         $count++;
     } catch (Exception $e) {
         echo $e->getMessage(), EOL;
