@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 class InventoryController extends ControllerBase
 {
+    const SESSKEY = 'inventory-locations';
+
     public function searchAction()
     {
         $this->view->pageTitle = 'Inventory Location';
@@ -27,8 +29,6 @@ class InventoryController extends ControllerBase
 
     public function addAction()
     {
-        $sesskey = 'inventory-locations';
-
        #$this->view->disable();
 
         $this->view->pageTitle = 'Inventory Location Add';
@@ -41,10 +41,10 @@ class InventoryController extends ControllerBase
         $this->view->note = '';
 
         if ($this->request->isGet()) {
-           #$this->session->set($sesskey, []);
+           #$this->session->set(self::SESSKEY, []);
         }
 
-        $items = $this->session->get($sesskey);
+        $items = $this->session->get(self::SESSKEY);
 
         if ($this->request->isPost()) {
             $partnum  = $this->request->getPost('partnum');
@@ -67,7 +67,7 @@ class InventoryController extends ControllerBase
 
             $items[] = $this->inventoryLocationService->get($id);
 
-            $this->session->set($sesskey, $items);
+            $this->session->set(self::SESSKEY, $items);
         }
 
         $this->view->items = $items;

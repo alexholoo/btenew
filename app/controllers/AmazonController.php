@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 class AmazonController extends ControllerBase
 {
+    const SESSKEY = 'fbaitems';
+
     public function indexAction()
     {
     }
@@ -21,10 +23,10 @@ class AmazonController extends ControllerBase
         $this->view->condition = '';
 
         if ($this->request->isGet()) {
-            $this->session->set('fbaitems', []);
+            $this->session->set(self::SESSKEY, []);
         }
 
-        $data = $this->session->get('fbaitems');
+        $data = $this->session->get(self::SESSKEY);
 
         if ($this->request->isPost()) {
             $retry = $this->request->getPost('retry');
@@ -102,7 +104,7 @@ class AmazonController extends ControllerBase
                     'upc'        => $item['UPC'],
                 ];
 
-                $this->session->set('fbaitems', $data);
+                $this->session->set(self::SESSKEY, $data);
             }
         }
 
@@ -119,9 +121,9 @@ class AmazonController extends ControllerBase
         if ($this->request->isPost()) {
             $index = $this->request->getPost('index');
 
-            $data = $this->session->get('fbaitems');
+            $data = $this->session->get(self::SESSKEY);
             array_splice($data, $index, 1);
-            $this->session->set('fbaitems', $data);
+            $this->session->set(self::SESSKEY, $data);
 
             $this->response->setJsonContent(['status' => 'OK']);
             return $this->response;
