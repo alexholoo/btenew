@@ -21,16 +21,25 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Search <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/search/order">Order Information</a></li>
+            <li role="separator" class="divider"></li>
             <li><a href="/search/sku">SKU Information</a></li>
-            <li><a href="/inventory/search">Inventory search</a></li>
-            <li><a href="/shipment/search">Shipment search</a></li>
             <li><a href="/search/priceavail">Price & Availability</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/shipment/search">Shipment search</a></li>
             <li><a href="/search/address">Address Information</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inventory <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/inventory/search">Inventory Location Search</a></li>
+            <li><a href="/inventory/add">Inventory Add</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Amazon <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><a href="/reports">Amazon Reports</a></li>
             <li><a href="/fbaitems">Generate FBA lines</a></li>
           </ul>
         </li>

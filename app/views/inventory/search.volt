@@ -5,7 +5,7 @@
   <form role="form" method="post">
 
       <div class="col-sm-12">
-        <h3 style="margin-top: 0;">Inventory search</h3>
+        <h3 style="margin-top: 0;">Inventory Location Search</h3>
       </div>
 
       <div class="col-sm-10">
@@ -35,7 +35,7 @@
 </header>
 
 {% if data is not empty %}
-  Search result for <b>{{ keyword }}</b> in <b>{{ searchby }}</b>:
+  <p>Search result for <b>{{ keyword }}</b> in <b>{{ searchby }}</b>:</p>
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
