@@ -9,7 +9,7 @@
       </div>
 
       <div class="col-sm-10">
-        <input autofocus required type="text" class="form-control" name="keyword" autofocus placeholder="Enter PartNumber/UPC/Location/Quantity">
+        <input autofocus required type="text" class="form-control" name="keyword" autofocus placeholder="Enter PartNumber/UPC/Location/Note">
       </div>
 
       <div class="col-sm-2">
@@ -27,7 +27,7 @@
           <input type="radio" name="searchby" value="location" {% if searchby == 'location' %}checked{% endif %}>Location
         </label>
         <label class="radio-inline">
-          <input type="radio" name="searchby" value="qty" {% if searchby == 'qty' %}checked{% endif %}>Quantity
+          <input type="radio" name="searchby" value="note" {% if searchby == 'note' %}checked{% endif %}>Note
         </label>
       </div>
 
