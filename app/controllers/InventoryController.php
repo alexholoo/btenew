@@ -27,7 +27,14 @@ class InventoryController extends ControllerBase
 
     public function addAction()
     {
-        $this->view->disable();
+       #$this->view->disable();
+
+        $this->view->partnum = '';
+        $this->view->upc = '';
+        $this->view->location = '';
+        $this->view->qty = '';
+        $this->view->sn = '';
+        $this->view->note = '';
 
         if ($this->request->isPost()) {
             $partnum  = $this->request->getPost('partnum');
