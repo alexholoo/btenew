@@ -67,6 +67,23 @@ class InventoryLocationService extends Injectable
         return $this->db->lastInsertId();
     }
 
+    public function update($data)
+    {
+        try {
+            $this->db->updateAsDict('inventory_location',
+                [
+                    'note' => $data['note'],
+                ],
+                'id='. $data['id']
+            );
+        } catch (\Exception $e) {
+            // echo $e->getMessage(), EOL;
+            return false;
+        }
+
+        return $this->db->affectedRows() == 1;
+    }
+
     public function delete($id)
     {
         $sql = "DELETE FROM inventory_location WHERE id=$id";

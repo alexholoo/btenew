@@ -72,4 +72,22 @@ class InventoryController extends ControllerBase
 
         $this->view->items = $items;
     }
+
+    public function updateAction()
+    {
+        $this->view->disable();
+
+        if ($this->request->isPost()) {
+            $data = $this->request->getPost();
+            $data['note'] = strip_tags($data['note']);
+
+            if ($this->inventoryLocationService->update($data)) {
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
+            } else {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Failed to update']);
+            }
+        }
+
+        return $this->response;
+    }
 }

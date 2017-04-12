@@ -54,12 +54,12 @@
     {% for item in data %}
       <tr data-id="{{ item['id'] }}">
         <td><b>{{ loop.index }}</b></td>
-        <td>{{ item['partnum'] }}</td>
-        <td>{{ item['upc'] }}</td>
-        <td>{{ item['location'] }}</td>
-        <td>{{ item['qty'] }}</td>
-        <td>{{ item['sn'] }}</td>
-        <td>{{ item['note'] }}</td>
+        <td class="partnum">{{ item['partnum'] }}</td>
+        <td class="upc">{{ item['upc'] }}</td>
+        <td class="location">{{ item['location'] }}</td>
+        <td class="qty">{{ item['qty'] }}</td>
+        <td class="sn">{{ item['sn'] }}</td>
+        <td class="note">{{ item['note'] }}</td>
         <!--
         <td>
           <a href="#" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit </a>
@@ -78,4 +78,69 @@
   {% endif %}
 {% endif %}
 
+{% endblock %}
+
+{% block csscode %}
+{% endblock %}
+
+{% block jscode %}
+function editNoteHtml(data) {
+  var note = data.note;
+  return `<div style="padding: 20px;">
+     <label for="note">Note</label> (Max 80 chars)<br />
+     <textarea id="note" maxlength="80" style="width: 440px; height: 80px; resize: none;">${note}</textarea>
+   </div>`;
+}
+
+function editNote(data, success, fail, done) {
+  layer.open({
+    title: 'Edit Note',
+    area: ['480px', 'auto'],
+    btn: ['Save', 'Cancel'],
+    yes: function(index, layero) {
+      var note = layero.find('#note').val();
+
+      data.note = note;
+
+      ajaxCall('/inventory/update', data, success, fail);
+      layer.close(index);
+    },
+    end: function(index, layero) {
+      done();
+    },
+    content: editNoteHtml(data)
+  })
+}
+{% endblock %}
+
+{% block docready %}
+  layer.config({
+    type: 1,
+    moveType: 1,
+    skin: 'layui-layer-molv',
+  });
+
+  $('.note').click(function() {
+    $('tr').removeClass('info');
+
+    var self = $(this);
+
+    var tr = self.closest('tr');
+    var id = tr.data('id');
+    var note = self.text();
+
+    tr.addClass('info');
+
+    editNote({ id: id, note: note },
+      function(data) {
+        showToast('Your change has benn saved', 1000);
+        self.text(data.note);
+      },
+      function(message) {
+        showError(message);
+        tr.addClass('danger');
+      },
+      function() {}
+    );
+  });
 {% endblock %}
