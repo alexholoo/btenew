@@ -6,6 +6,13 @@ use Phalcon\Di\Injectable;
 
 class InventoryService extends Injectable
 {
+    public function getLocation($id)
+    {
+        $sql = "SELECT * FROM inventory_location WHERE id=$id";
+        $result = $this->db->fetchOne($sql);
+        return $result;
+    }
+
     public function searchLocation($keyword, $searchby)
     {
         // ORM doesn't help for the special queries
@@ -41,17 +48,29 @@ class InventoryService extends Injectable
     public function addToLocation($data)
     {
         // TODO: who is doing this? add a new column(userid) to table.
-        $this->db->insertAsDict('inventory_location',
-            array(
-                'partnum'  => $data['partnum'],
-                'upc'      => $data['upc'],
-                'location' => $data['location'],
-                'qty'      => $data['qty'],
-                'sn'       => '',
-                'note'     => '',
-            )
-        );
+        try {
+            $this->db->insertAsDict('inventory_location',
+                array(
+                    'partnum'  => $data['partnum'],
+                    'upc'      => $data['upc'],
+                    'location' => $data['location'],
+                    'qty'      => $data['qty'],
+                    'sn'       => $data['sn'],
+                    'note'     => $data['note'],
+                )
+            );
+        } catch (\Exception $e) {
+            // echo $e->getMessage(), EOL;
+            return false;
+        }
 
-        return true;
+        return $this->db->lastInsertId();
+    }
+
+    public function deleteLocation($id)
+    {
+        $sql = "DELETE FROM inventory_location WHERE id=$id";
+        $this->db->execute($sql);
+        return $this->db->affectedRows();
     }
 }

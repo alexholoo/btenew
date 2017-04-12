@@ -27,7 +27,11 @@ class InventoryController extends ControllerBase
 
     public function addAction()
     {
+        $sesskey = 'inventory-locations';
+
        #$this->view->disable();
+
+        $this->view->pageTitle = 'Inventory Location Add';
 
         $this->view->partnum = '';
         $this->view->upc = '';
@@ -36,31 +40,36 @@ class InventoryController extends ControllerBase
         $this->view->sn = '';
         $this->view->note = '';
 
+        if ($this->request->isGet()) {
+           #$this->session->set($sesskey, []);
+        }
+
+        $items = $this->session->get($sesskey);
+
         if ($this->request->isPost()) {
             $partnum  = $this->request->getPost('partnum');
             $upc      = $this->request->getPost('upc');
             $location = $this->request->getPost('location');
             $qty      = $this->request->getPost('qty', 'int');
+            $sn       = $this->request->getPost('sn');
+            $note     = $this->request->getPost('note');
 
-            try {
-                $this->inventoryService->addToLocation(
-                    compact(
-                        'partnum',
-                        'upc',
-                        'location',
-                        'qty'
-                    )
-                );
-            } catch (\Exception $e) {
-                $this->response->setJsonContent([
-                    'status'  => 'ERROR',
-                    'message' => $e->getMessage()
-                ]);
-                return $this->response;
-            }
+            $id = $this->inventoryService->addToLocation(
+                compact(
+                    'partnum',
+                    'upc',
+                    'location',
+                    'qty',
+                    'sn',
+                    'note'
+                )
+            );
 
-            $this->response->setJsonContent(['status' => 'OK']);
-            return $this->response;
+            $items[] = $this->inventoryService->getLocation($id);
+
+            $this->session->set($sesskey, $items);
         }
+
+        $this->view->items = $items;
     }
 }
