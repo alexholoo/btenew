@@ -20,19 +20,19 @@ class Fedex_Tracking_Importer extends Tracking_Importer
             return;
         }
 
-        $fp = fopen($filename, 'r');
+        $lines = file($filename, FILE_IGNORE_NEW_LINES);
 
-        while (($line1 = fgets($fp)) !== FALSE) {
-            if (substr(trim($line1), -6, 4) == 'Page') {
+       #$pattern = '/Man-Wt/'; // this also works!
+        $pattern = '%\d{2}/\d{2}/\d{4} \d{2}:\d{2} \d{12}%';
+
+        $i = 0;
+        while ($i < count($lines)) {
+            $line = trim($lines[$i++]);
+            if (!preg_match($pattern, $line)) {
                 continue;
             }
-
-            $line2 = fgets($fp);
-
-            $line = trim($line1) . trim($line2);
-
-            if (!preg_match('%\d{2}/\d{2}/\d{4} \d{2}:\d{2} \d{12}%', $line)) {
-                continue;
+            if (isset($lines[$i]) && !preg_match($pattern, $lines[$i])) {
+                $line .= trim($lines[$i++]);
             }
 
             $shipDate = substr($line, 0, 10);
@@ -52,7 +52,5 @@ class Fedex_Tracking_Importer extends Tracking_Importer
                 'sender'         => 'BTE',
             ]);
         }
-
-        fclose($fp);
     }
 }
