@@ -225,6 +225,8 @@ $di->setShared('chitchatService',     function() { return new \Service\ChitchatS
 $di->setShared('overstockService',    function() { return new \Service\OverstockService(); });
 $di->setShared('skuService',          function() { return new \Service\SkuService(); });
 
+$di->setShared('inventoryLocationService',    function() { return new \Service\InventoryLocationService(); });
+
 /**
  * Marketplace related services
  */

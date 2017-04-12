@@ -19,7 +19,7 @@ class InventoryController extends ControllerBase
             $this->view->keyword = $keyword;
             $this->view->searchby = $searchby;
 
-            $data = $this->inventoryService->searchLocation($keyword, $searchby);
+            $data = $this->inventoryLocationService->search($keyword, $searchby);
 
             $this->view->data = $data;
         }
@@ -54,7 +54,7 @@ class InventoryController extends ControllerBase
             $sn       = $this->request->getPost('sn');
             $note     = $this->request->getPost('note');
 
-            $id = $this->inventoryService->addToLocation(
+            $id = $this->inventoryLocationService->add(
                 compact(
                     'partnum',
                     'upc',
@@ -65,7 +65,7 @@ class InventoryController extends ControllerBase
                 )
             );
 
-            $items[] = $this->inventoryService->getLocation($id);
+            $items[] = $this->inventoryLocationService->get($id);
 
             $this->session->set($sesskey, $items);
         }
