@@ -15,7 +15,7 @@ class Ebay_Tracking_Exporter extends Tracking_Exporter
 
     public function export()
     {
-        // BTE
+        // GFS
         $orders = $this->getUnshippedOrders('eBay-GFS');
         $filename = Filenames::get('ebay.gfs.shipping');
         $this->exportTracking($orders, $filename);
@@ -31,23 +31,18 @@ class Ebay_Tracking_Exporter extends Tracking_Exporter
         $file = new EbayShipmentFile($filename);
 
         foreach ($orders as $order) {
-            $file->write([
-                $order['orderId'],
-                $order['shipDate'],
-                $order['carrierCode'],
-                $order['trackingNumber'],
-                '', // 'TransactionID'
-            ]);
+            $order['transactionID'] = '';
+            $file->write($order);
         }
     }
 
     protected function getUnshippedOrders($channel)
     {
-        $sql = "SELECT o.order_id        AS orderId,
+        // the columns must match the columns in EbayShipmentFile
+        $sql = "SELECT o.order_id        AS orderID,
+                       o.reference       AS recordNumber,
                        t.ship_date       AS shipDate,
-                       t.carrier_code    AS carrierCode,
-                       t.carrier_name    AS carrierName,
-                       t.ship_method     AS shipMethod,
+                       t.carrier_code    AS carrier,
                        t.tracking_number AS trackingNumber
 
                   FROM master_order_tracking t

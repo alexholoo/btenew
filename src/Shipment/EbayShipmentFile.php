@@ -11,11 +11,12 @@ class EbayShipmentFile
     public function __construct($filename)
     {
         $this->csvtitle = [
-            'OrderID',
-            'Date',
-            'Carrier',
-            'TrackingNumber',
-            'TransactionID'
+            'recordNumber',
+            'orderID',
+            'shipDate',
+            'carrier',
+            'trackingNumber',
+            'transactionID'
         ];
 
         $this->filename = $filename;
@@ -40,10 +41,13 @@ class EbayShipmentFile
             fputcsv($this->handle, $this->csvtitle);
         }
 
-        if (count($data) != count($this->csvtitle)) {
-            throw new \Exception(__METHOD__. ' Wrong number of elements: '. var_export($data, true));
-        }
-
-        return fputcsv($this->handle, $data);
+        return fputcsv($this->handle, [
+            $data['recordNumber'],
+            $data['orderID'],
+            $data['shipDate'],
+            $data['carrier'],
+            $data['trackingNumber'],
+            $data['transactionID']
+        ]);
     }
 }

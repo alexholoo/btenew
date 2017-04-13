@@ -36,32 +36,13 @@ class Ebay_Shipment_Uploader extends Tracking_Uploader
 
     protected function uploadTracking($client, $filename)
     {
-       #if (!file_exists($filename)) {
-           #$this->error(__METHOD__." File not found: $filename");
-           #return;
-       #}
-
-        $fp = fopen($filename, 'r');
-
-        fgetcsv($fp); // skip first line
-
-        $columns = [ 'OrderID', 'Date', 'Carrier', 'TrackingNumber', 'TransactionID' ];
+        $orders = $this->csvToArray($filename);
 
         $shipmentService = $this->di->get('shipmentService');
 
-        while (($fields = fgetcsv($fp))) {
-            if (count($columns) != count($fields)) {
-                $this->error(__METHOD__ . print_r($fields, true));
-                continue;
-            }
-
-            $data = array_combine($columns, $fields);
-
-            $client->completeSale($data);
-
-            $shipmentService->markOrderAsShipped($data['OrderID']);
+        foreach ($orders as $order) {
+            $client->completeSale($order);
+            $shipmentService->markOrderAsShipped($order['RecordNumber']);
         }
-
-        fclose($fp);
     }
 }
