@@ -4,14 +4,19 @@ namespace Toolkit;
 
 class File // FileUtils
 {
+    public static function exists($filename)
+    {
+        return file_exists($filename);
+    }
+
     public static function rename($oldname, $newname)
     {
-        rename($oldname, $newname);
+        return rename($oldname, $newname);
     }
 
     public static function delete($filename)
     {
-        unlink($filename);
+        return unlink($filename);
     }
 
     public static function unzip($zipfile)
