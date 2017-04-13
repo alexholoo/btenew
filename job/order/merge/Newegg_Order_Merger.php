@@ -36,6 +36,12 @@ class Newegg_Order_Merger extends OrderMerger
             $express = preg_match('/Standard|Economy/', $order['Order Shipping Method']) ? 0 : 1;
             $buyer = $order['Ship To First Name'].' '.$order['Ship To LastName'];
 
+            // UPS accepts only format '12345-6789'
+            $zipcode = trim($order['Ship To ZipCode']);
+            if (preg_match('/^\d{9,}$/', $zipcode)) {
+                $zipcode = substr($zipcode, 0, 5).'-'.substr($zipcode, 5);
+            }
+
             $this->masterFile->write([
                 $channel,
                 date('Y-m-d', strtotime($order['Order Date & Time'])),
@@ -47,7 +53,7 @@ class Newegg_Order_Merger extends OrderMerger
                 $address,
                 $order['Ship To City'],
                 $order['Ship To State'],
-                $order['Ship To ZipCode'],
+                $zipcode,
                 $order['Ship To Country'],
                 $order['Ship To Phone Number'],
                 $order['Order Customer Email'],
