@@ -33,7 +33,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inventory <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/inventory/search">Inventory Location Search</a></li>
-            <li><a href="/inventory/add">Inventory Add</a></li>
+            <li><a href="/inventory/add">Inventory Loading</a></li>
           </ul>
         </li>
         <li class="dropdown">

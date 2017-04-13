@@ -1,7 +1,7 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
-  <h3 style="margin-top:0;">Inventory Add</h3>
+  <h3 style="margin-top:0;">Inventory Loading</h3>
   <div class="well clearfix">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group">

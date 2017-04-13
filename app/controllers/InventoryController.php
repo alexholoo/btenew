@@ -31,7 +31,7 @@ class InventoryController extends ControllerBase
     {
        #$this->view->disable();
 
-        $this->view->pageTitle = 'Inventory Location Add';
+        $this->view->pageTitle = 'Inventory Loading';
 
         $this->view->partnum = '';
         $this->view->upc = '';
