@@ -31,7 +31,9 @@ class Bestbuy_Tracking_Exporter extends Tracking_Exporter
 
     protected function getUnshippedOrders()
     {
+        // the columns must match the columns in BestbuyShipmentFile
         $sql = "SELECT t.order_id            AS orderId,
+                       o.reference           AS bestbuyId,
                        t.ship_date           AS shipDate,
                        t.carrier_code        AS carrierCode,
                        t.carrier_name        AS carrierName,

@@ -12,6 +12,7 @@ class BestbuyShipmentFile
     {
         $this->columns = [
             'orderId',
+            'bestbuyId',
             'shipDate',
             'carrierCode',
             'carrierName',
@@ -43,6 +44,7 @@ class BestbuyShipmentFile
 
         return fputcsv($this->handle, [
                 $data['orderId'],
+                $data['bestbuyId'],
                 $data['shipDate'],
                 $data['carrierCode'],
                 $data['carrierName'],

@@ -6,7 +6,6 @@ class Bestbuy_Shipment_Uploader extends Tracking_Uploader
 {
     public function run($argv = [])
     {
-        return;
         try {
             $this->upload();
         } catch (\Exception $e) {
@@ -43,9 +42,7 @@ class Bestbuy_Shipment_Uploader extends Tracking_Uploader
 
             $client->updateTracking($orderId, $tracking);
 
-            $shipmentService->markOrderAsShipped($orderId);
+            $shipmentService->markOrderAsShipped($order['bestbuyId']);
         }
-
-        fclose($fp);
     }
 }
