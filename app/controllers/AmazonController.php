@@ -135,4 +135,27 @@ class AmazonController extends ControllerBase
         $sql = "SELECT * FROM skipped_items WHERE partnum='$partnum'";
         return $this->db->fetchOne($sql);
     }
+
+    public function reportsAction($name = '')
+    {
+        $folder = 'E:/BTE/amazon/reports/';
+
+        if ($name) {
+            $filename = $folder . $name;
+            $this->startDownload($filename);
+            return;
+        }
+
+        $reports = $this->amazonService->getReportList();
+
+        foreach ($reports as $key => $report) {
+            $filename = $folder . $report['file_us'];
+            $reports[$key]['filetime'] = '';
+            if (file_exists($filename)) {
+                $reports[$key]['filetime'] = date('Y-m-d H:i:s', filemtime($filename));
+            }
+        }
+
+        $this->view->reports = $reports;
+    }
 }

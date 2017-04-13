@@ -39,8 +39,8 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Amazon <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/reports">Amazon Reports</a></li>
-            <li><a href="/fbaitems">Generate FBA lines</a></li>
+            <li><a href="/amazon/reports">Amazon Reports</a></li>
+            <li><a href="/amazon/fbaitems">Generate FBA lines</a></li>
           </ul>
         </li>
         <li><a href="/about">About</a></li>

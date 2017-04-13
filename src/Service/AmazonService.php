@@ -106,6 +106,13 @@ class AmazonService extends Injectable
         return $result ? $result['description'].$result['feature'] : '';
     }
 
+    public function getReportList()
+    {
+        $sql = "SELECT * FROM amazon_report_request";
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
+
     public function doSomething()
     {
         fpr(__FILE__."\n".__METHOD__);

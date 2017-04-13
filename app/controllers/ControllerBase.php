@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use Phalcon\Mvc\Controller;
@@ -62,10 +63,24 @@ class ControllerBase extends Controller
         }
     }
 
-    public function runJob($name)
+    protected function runJob($name)
     {
         // $name looks like 'job/Test'
         // exec('psexec -d c:/xampp/php/php ../job/Test.php');
         exec("psexec -d c:/xampp/php64/php ../$name.php");
+    }
+
+    protected function startDownload($filename)
+    {
+        if (file_exists($filename)) {
+            $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/txt');
+            header('Content-Length: ' . filesize($filename));
+            header('Content-Disposition: attachment; filename="'.basename($filename).'"');
+            readfile($filename);
+            die();
+        }
     }
 }
