@@ -157,7 +157,7 @@ class Client
         }
 
         $trackingInfo = [
-            'carrier_code'    => $carrier,
+            'carrier_code'    => $carrierCode,
            #'carrier_name'    => $tracking['carrierName'],
            #'carrier_url'     => $tracking['carrierUrl'],
             'tracking_number' => $tracking['trackingNumber'],
