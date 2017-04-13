@@ -25,7 +25,7 @@ class Bestbuy_Shipment_Uploader extends Tracking_Uploader
         }
     }
 
-    protected function uploadTracking($filename)
+    protected function uploadTracking($client, $filename)
     {
         $orders = $this->csvToArray($filename);
 
