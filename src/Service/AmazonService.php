@@ -8,8 +8,15 @@ class AmazonService extends Injectable
 {
     public function isAmazonOrder($order)
     {
-        return substr($order['channel'], 0, 6) == 'Amazon';
-        #return (boolean)preg_match('/^\d{3}-\d{7}-\d{7}$/', $orderId);
+        if (is_string($order)) {
+            return (boolean)preg_match('/^\d{3}-\d{7}-\d{7}$/', $order);
+        }
+
+        if (is_array($order) && isset($order['channel'])) {
+            return strtolower(substr($order['channel'], 0, 6)) == 'amazon';
+        }
+
+        return false;
     }
 
     public function isOrderCanceled($order)
