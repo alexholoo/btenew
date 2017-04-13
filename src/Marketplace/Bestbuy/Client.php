@@ -139,19 +139,21 @@ class Client
          *   - LTL
          *   - Other:carrierName
          */
-        $carrier = strtoupper($tracking['carrierCode']);
-        if ($carrier == 'OTHER') {
-            $carrier = strtoupper($tracking['carrierName']);
-        }
+        $carrierCode = strtoupper($tracking['carrierCode']);
+        $carrierName = '';
 
-        if ($carrier == 'CANADA POST') {
-            $carrier = 'CPCL';
+        if ($carrierCode == 'CANADA POST') {
+            $carrierCode = 'CPCL';
         }
-        if ($carrier == 'PUROLATOR') {
-            $carrier = 'PRLA';
+        else if ($carrierCode == 'PUROLATOR') {
+            $carrierCode = 'PRLA';
         }
-        if ($carrier == 'UPS') {
-            $carrier = 'UPSN';
+        else if ($carrierCode == 'UPS') {
+            $carrierCode = 'UPSN';
+        }
+        else {
+            $carrierName = $carrierCode;
+            $carrierCode = 'OTHER';
         }
 
         $trackingInfo = [
@@ -160,6 +162,10 @@ class Client
            #'carrier_url'     => $tracking['carrierUrl'],
             'tracking_number' => $tracking['trackingNumber'],
         ];
+
+        if ($carrierName) {
+            $trackingInfo['carrier_name'] = $carrierName;
+        }
 
         return $this->callApi('PUT', "api/orders/$orderId/tracking", $trackingInfo);
     }
