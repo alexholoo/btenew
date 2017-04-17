@@ -13,6 +13,23 @@ class UPS_Tracking_Importer extends Tracking_Importer
 
     public function import()
     {
+        $trackings = $this->getTrackings();
+
+        foreach ($trackings as $tracking) {
+            $this->saveToDb([
+                'orderId'        => $tracking['orderId'],
+                'shipDate'       => $tracking['shipDate'],
+                'carrierCode'    => 'UPS',
+                'carrierName'    => '',
+                'shipMethod'     => '',
+                'trackingNumber' => $tracking['trackingNumber'],
+                'sender'         => 'BTE',
+            ]);
+        }
+    }
+
+    protected function getTrackings()
+    {
         $filename = Filenames::get('ups.tracking');
 
         if (!file_exists($filename)) {
@@ -31,7 +48,6 @@ class UPS_Tracking_Importer extends Tracking_Importer
          * 3 - shipping date
          */
 
-        $today = date('Y-m-d');
         $trackings = [];
 
         while (($fields = fgetcsv($fp)) !== FALSE) {
@@ -41,7 +57,7 @@ class UPS_Tracking_Importer extends Tracking_Importer
                 continue;
             }
 
-            $shipDate = $fields[3];
+           #$shipDate = $fields[3];
 
            #if (strlen($shipDate) < 10) { // not end-of-day yet
            #    continue;
@@ -50,30 +66,15 @@ class UPS_Tracking_Importer extends Tracking_Importer
             $shipDate  = date('Y-m-d', strtotime($fields[3]));
             $trackingNumber = $fields[2];
 
-            $this->saveToDb([
+            $trackings[$orderId] = [
                 'orderId'        => $orderId,
                 'shipDate'       => $shipDate,
-                'carrierCode'    => 'UPS',
-                'carrierName'    => '',
-                'shipMethod'     => '',
                 'trackingNumber' => $trackingNumber,
-                'sender'         => 'BTE',
-            ]);
-
-            if ($shipDate == $today) {
-                if (isset($trackings[$orderId])) {
-                    $trackings[$orderId]++;
-                } else {
-                    $trackings[$orderId] = 1;
-                }
-            }
-        }
-
-        $trackings = array_filter($trackings, function($a) { return $a > 2; });
-        if ($trackings) {
-            $this->error(__METHOD__. " Multiple Tracking Numbers:\n". print_r($trackings, true));
+            ];
         }
 
         fclose($fp);
+
+        return $trackings;
     }
 }
