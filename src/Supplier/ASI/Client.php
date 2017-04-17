@@ -10,11 +10,9 @@ use Supplier\ConfigKey;
 class Client extends BaseClient
 {
     const PA_PROD_URL = 'https://www.asipartner.com/partneraccess/xml/price.asp';
-
-    const PO_TEST_URL = '';
-    const PO_PROD_URL = '';
-
-    const OS_PROD_URL = '';
+    const PO_PROD_URL = 'https://www.asipartner.com/partneraccess/xml/order.asp';
+    const OS_PROD_URL = 'https://www.asipartner.com/partneraccess/xml/shipping.asp';
+    const IN_PROD_URL = 'https://www.asipartner.com/partneraccess/xml/invoice.asp';
 
     /**
      * @param  string $sku
