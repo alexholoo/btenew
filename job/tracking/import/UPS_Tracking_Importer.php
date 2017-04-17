@@ -31,6 +31,9 @@ class UPS_Tracking_Importer extends Tracking_Importer
          * 3 - shipping date
          */
 
+        $today = date('Y-m-d');
+        $trackings = [];
+
         while (($fields = fgetcsv($fp)) !== FALSE) {
 
             $orderId = $fields[1];
@@ -56,6 +59,19 @@ class UPS_Tracking_Importer extends Tracking_Importer
                 'trackingNumber' => $trackingNumber,
                 'sender'         => 'BTE',
             ]);
+
+            if ($shipDate == $today) {
+                if (isset($trackings[$orderId])) {
+                    $trackings[$orderId]++;
+                } else {
+                    $trackings[$orderId] = 1;
+                }
+            }
+        }
+
+        $trackings = array_filter($trackings, function($a) { return $a > 2; });
+        if ($trackings) {
+            $this->error(__METHOD__. " Multiple Tracking Numbers:\n". print_r($trackings, true));
         }
 
         fclose($fp);
