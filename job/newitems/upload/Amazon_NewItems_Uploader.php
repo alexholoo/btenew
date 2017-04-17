@@ -31,7 +31,7 @@ class Amazon_NewItems_Uploader extends NewItems_Uploader
         }
 
         if (!file_exists($file)) {
-            $this->error(__METHOD__." File not found: $file");
+           #$this->error(__METHOD__." File not found: $file");
             return;
         }
 
