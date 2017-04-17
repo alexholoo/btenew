@@ -41,6 +41,7 @@ class Bestbuy_Shipment_Uploader extends Tracking_Uploader
             ];
 
             $client->updateTracking($orderId, $tracking);
+            $client->markOrderAsShipped($orderId);
 
             $shipmentService->markOrderAsShipped($order['bestbuyId']);
         }
