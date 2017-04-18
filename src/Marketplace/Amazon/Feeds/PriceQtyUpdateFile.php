@@ -2,7 +2,7 @@
 
 namespace Marketplace\Amazon\Feeds;
 
-class PriceAndQuantityUpdateFile extends FlatFile
+class PriceQtyUpdateFile extends FlatFile
 {
     protected $columns  = ['sku', 'price', 'quantity'];
 
