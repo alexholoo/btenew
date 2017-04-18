@@ -1,5 +1,7 @@
 <?php
 
+use Toolkit\File;
+
 class Bestbuy_PriceQty_Uploader extends PriceQty_Uploader
 {
     public function run($argv = [])
@@ -13,9 +15,16 @@ class Bestbuy_PriceQty_Uploader extends PriceQty_Uploader
 
     public function upload()
     {
-        $client = new Marketplace\Bestbuy\Client();
-
         $filename = Filenames::get('bestbuy.priceqty');
+        if (file_exists($filename)) {
+            $this->uploadOffers($filename);
+            File::backup($filename);
+        }
+    }
+
+    public function uploadOffers($filename)
+    {
+        $client = new Marketplace\Bestbuy\Client();
 
         $offers = $this->csvToArray($filename, ';');
         $chunks = array_chunk($offers, 1000);

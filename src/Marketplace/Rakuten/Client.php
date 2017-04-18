@@ -77,6 +77,24 @@ class Client
         echo "Successfully uploaded tracking to Rakuten ftp.", EOL;
     }
 
+    public function uploadPriceQty($localFile)
+    {
+        echo "Start uploading tracking to Rakuten ftp.", EOL;
+
+        $ftp = new FtpClient($this->config);
+
+        if (!$ftp->connect()) {
+            $this->logger->error(__METHOD__ ." Failed to login Rakuten {$this->site} FTP server");
+            return;
+        }
+
+        $remoteFile = '/Inventory/'.basename($localFile);
+
+        $ftp->upload($localFile, $remoteFile);
+
+        echo "Successfully uploaded tracking to Rakuten ftp.", EOL;
+    }
+
     public function downloadInventory($localFile)
     {
         echo "Start downloading inventory from Rakuten ftp.", EOL;

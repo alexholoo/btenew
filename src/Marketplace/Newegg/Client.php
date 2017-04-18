@@ -65,7 +65,7 @@ class Client
 
     public function uploadTracking($localFile)
     {
-        echo "Start uploading tracking to Newegg Canada ftp.", EOL;
+        echo "Start uploading tracking to Newegg ftp.", EOL;
 
         $ftp = new FtpClient($this->config);
 
@@ -78,7 +78,25 @@ class Client
 
         $ftp->upload($localFile, $remoteFile);
 
-        echo "Successfully uploaded tracking to Newegg Canada ftp.", EOL;
+        echo "Successfully uploaded tracking to Newegg ftp.", EOL;
+    }
+
+    public function uploadPriceQty($localFile)
+    {
+        echo "Start uploading PriceQty to Newegg ftp.", EOL;
+
+        $ftp = new FtpClient($this->config);
+
+        if (!$ftp->connect()) {
+            $this->logger->error(__METHOD__ ." Failed to login Newegg {$this->site} FTP server");
+            return;
+        }
+
+        $remoteFile = '/Inbound/Inventory/'.basename($localFile);
+
+        $ftp->upload($localFile, $remoteFile);
+
+        echo "Successfully uploaded PriceQty to Newegg ftp.", EOL;
     }
 
     public function downloadInventory($localFile)

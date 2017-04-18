@@ -1,5 +1,7 @@
 <?php
 
+use Toolkit\File;
+
 class Newegg_PriceQty_Uploader extends PriceQty_Uploader
 {
     public function run($argv = [])
@@ -13,5 +15,18 @@ class Newegg_PriceQty_Uploader extends PriceQty_Uploader
 
     public function upload()
     {
+        $filename = Filenames::get('newegg.ca.priceqty');
+        if (file_exists($filename)) {
+            $client = new Marketplace\Newegg\Client('CA');
+            $client->uploadPriceQty($filename);
+            File::backup($filename);
+        }
+
+        $filename = Filenames::get('newegg.us.priceqty');
+        if (file_exists($filename)) {
+            $client = new Marketplace\Newegg\Client('US');
+            $client->uploadPriceQty($filename);
+            File::backup($filename);
+        }
     }
 }

@@ -64,7 +64,7 @@ class OutOfStockUpdate extends OrderTrigger
 
         foreach ($jobs as $job) {
             $this->log('=> ' . get_class($job));
-           #$job->run();
+            $job->run();
         }
     }
 }

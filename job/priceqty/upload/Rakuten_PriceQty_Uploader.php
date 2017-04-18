@@ -13,5 +13,11 @@ class Rakuten_PriceQty_Uploader extends PriceQty_Uploader
 
     public function upload()
     {
+        $filename = Filenames::get('rakuten.us.priceqty');
+        if (file_exists($filename)) {
+            $client = new Marketplace\Rakuten\Client('US');
+            $client->uploadPriceQty($filename);
+            File::backup($filename);
+        }
     }
 }
