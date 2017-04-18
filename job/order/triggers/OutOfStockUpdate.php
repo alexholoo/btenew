@@ -2,7 +2,7 @@
 
 class OutOfStockUpdate extends OrderTrigger
 {
-    protected $priority = 200;  // 0 to disable
+    protected $priority = 0;//200;  // 0 to disable
 
     public function run($argv = [])
     {
