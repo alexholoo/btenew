@@ -26,7 +26,7 @@ class AmazonOrderToAccess extends OrderTrigger
                 continue;
             }
 
-            $sku         = $this->getSku($order['sku']);
+            $sku         = $this->getSupplierSku($order['sku']);
             $date        = $order['date'];
             $orderid     = $order['order_id'];
             $xpress      = $order['express'];

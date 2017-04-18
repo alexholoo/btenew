@@ -6,11 +6,13 @@ use Phalcon\Di\Injectable;
 
 class EbayService extends Injectable
 {
-    public function doSomething()
+    public function findSku($sku, $site)
     {
-        fpr(__FILE__."\n".__METHOD__);
+        $table = ($site == 'GFS') ? 'ebay_gfs_listings' : 'ebay_odo_listings';
 
-        $logger = $this->di->get('logger');
-        $logger->info('Hello from ' . __METHOD__);
+        $sql = "SELECT * FROM $table WHERE sku='$sku'";
+        $result = $this->db->fetchOne($sql);
+
+        return $result;
     }
 }

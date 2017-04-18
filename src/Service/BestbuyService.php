@@ -7,9 +7,10 @@ use Phalcon\Di\Injectable;
 
 class BestbuyService extends Injectable
 {
-    public function findSku($sku)
+    public function findSku($sku, $site = 'CA')
     {
-        $result = $this->db->fetchOne("SELECT * FROM bestbuy_ca_listing WHERE sku='$sku'");
+        $sql = "SELECT * FROM bestbuy_ca_listings WHERE sku='$sku'";
+        $result = $this->db->fetchOne($sql);
         return $result;
     }
 

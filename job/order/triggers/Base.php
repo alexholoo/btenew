@@ -2,7 +2,7 @@
 
 abstract class OrderTrigger extends Job
 {
-    protected $orders;
+    protected $orders = [];
     protected $priority = 0; // Trigger with smaller priority runs first
                              // 0 to disable the trigger
 
@@ -21,7 +21,7 @@ abstract class OrderTrigger extends Job
         return $this->priority;
     }
 
-    protected function getSku($sku)
+    protected function getSupplierSku($sku)
     {
         $parts = explode('-', $sku);
         array_shift($parts);

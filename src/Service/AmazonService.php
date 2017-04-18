@@ -113,11 +113,13 @@ class AmazonService extends Injectable
         return $result;
     }
 
-    public function doSomething()
+    public function findSku($sku, $site)
     {
-        fpr(__FILE__."\n".__METHOD__);
+        $table = ($site == 'US') ? 'amazon_us_listings' : 'amazon_ca_listings';
 
-        $ebayService = $this->di->get('ebayService');
-        $ebayService->doSomething();
+        $sql = "SELECT * FROM $table WHERE sku='$sku'";
+        $result = $this->db->fetchOne($sql);
+
+        return $result;
     }
 }

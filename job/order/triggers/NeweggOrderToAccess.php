@@ -53,7 +53,7 @@ class NeweggOrderToAccess extends OrderTrigger
             }
 
             $supplier = $this->getSupplier($sku);
-            $ponum    = $this->getSku($sku);
+            $ponum    = $this->getSupplierSku($sku);
             $mfrpn    = $this->getMfrPartNum($sku);
 
             echo "Importing $orderNo $channel\n";
