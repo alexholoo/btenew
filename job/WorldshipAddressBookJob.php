@@ -60,12 +60,13 @@ class WorldshipAddressBookJob extends Job
            #$qty        = $order['qty'];
             $product    = $order['product_name'];
 
+            $province = $order['province'];
             if ($order['country'] == 'US') {
-                $province = AmericaState::nameToCode($order['province']);
+                $province = AmericaState::nameToCode($province);
             }
 
             if ($order['country'] == 'CA') {
-                $province = CanadaProvince::nameToCode($order['province']);
+                $province = CanadaProvince::nameToCode($province);
             }
 
             $data = array_combine($title, array_fill(0, count($title), ''));
