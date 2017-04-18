@@ -34,9 +34,9 @@ class OutOfStockUpdate extends OrderTrigger
 
                     $this->log("\t$sku\t$availQty");
 
-                    if ($availQty == 0) {
+#                   if ($availQty == 0) {
                         $outOfStockItems[] = $sku;
-                    }
+#                   }
                 }
             }
         }
@@ -53,14 +53,14 @@ class OutOfStockUpdate extends OrderTrigger
         foreach ($jobs as $job) {
             $this->log('=> ' . get_class($job));
             $job->setItems($outOfStockItems);
-           #$job->run();
+            $job->run();
         }
 
         $jobs = $this->getJobs('priceqty/upload');
 
         foreach ($jobs as $job) {
-            $this->log('=> ' . get_class($job));
-            $job->run();
+#           $this->log('=> ' . get_class($job));
+#           $job->run();
         }
     }
 }
