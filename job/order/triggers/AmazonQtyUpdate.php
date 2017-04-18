@@ -1,7 +1,7 @@
 <?php
 
 use Supplier\Supplier;
-use Marketplace\Amazon\Feeds\PriceAndQuantityUpdateFile;
+use Marketplace\Amazon\Feeds\PriceQtyUpdateFile;
 
 class AmazonQtyUpdate extends OrderTrigger
 {
@@ -21,8 +21,8 @@ class AmazonQtyUpdate extends OrderTrigger
 
         $now = date('ymd-H');
 
-        $flatFileCA = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-ca-qty-$now.csv");
-        $flatFileUS = new PriceAndQuantityUpdateFile("E:/BTE/amazon/update/amazon-us-qty-$now.csv");
+        $flatFileCA = new PriceQtyUpdateFile("E:/BTE/amazon/update/amazon-ca-qty-$now.csv");
+        $flatFileUS = new PriceQtyUpdateFile("E:/BTE/amazon/update/amazon-us-qty-$now.csv");
 
         foreach ($this->orders as $order) {
             $channel = $order['channel'];
