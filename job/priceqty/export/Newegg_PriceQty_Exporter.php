@@ -31,7 +31,8 @@ class Newegg_PriceQty_Exporter extends PriceQty_Exporter
         foreach ($this->items as $sku) {
             $info = $neweggService->findSku($sku, $site);
             if ($info) {
-                $file->write([ $sku, $info['selling_price'], 0 ]);
+                $price = isset($info['selling_price']) ? $info['selling_price'] : 9999;
+                $file->write([ $sku, $price, 0 ]);
             }
         }
     }
