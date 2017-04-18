@@ -23,7 +23,6 @@ class OutOfStockUpdate extends OrderTrigger
             foreach ($this->orders as $key => $order) {
                 $orderId = $order['order_id'];
                 $sku     = $order['sku'];
-                $price   = $order['price'];
 
                 $this->log("Checking Price & Availability for $sku of $orderId");
 
@@ -36,10 +35,7 @@ class OutOfStockUpdate extends OrderTrigger
                     $this->log("\t$sku\t$availQty");
 
                     if ($availQty == 0) {
-                        $outOfStockItems[] = [
-                            'sku'   => $sku,
-                            'price' => $price,
-                        ];
+                        $outOfStockItems[] = $sku;
                     }
                 }
             }
