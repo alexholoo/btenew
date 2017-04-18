@@ -8,7 +8,7 @@ class EbayService extends Injectable
 {
     public function findSku($sku, $site)
     {
-        $table = ($site == 'GFS') ? 'ebay_gfs_listings' : 'ebay_odo_listings';
+        $table = ($site == 'GFS') ? 'ebay_gfs_listing' : 'ebay_odo_listing';
 
         $sql = "SELECT * FROM $table WHERE sku='$sku'";
         $result = $this->db->fetchOne($sql);

@@ -9,7 +9,7 @@ class BestbuyService extends Injectable
 {
     public function findSku($sku, $site = 'CA')
     {
-        $sql = "SELECT * FROM bestbuy_ca_listings WHERE sku='$sku'";
+        $sql = "SELECT * FROM bestbuy_ca_listing WHERE sku='$sku'";
         $result = $this->db->fetchOne($sql);
         return $result;
     }
