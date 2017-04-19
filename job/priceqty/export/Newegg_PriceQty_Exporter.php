@@ -16,20 +16,33 @@ class Newegg_PriceQty_Exporter extends PriceQty_Exporter
     public function export()
     {
         $filename = Filenames::get('newegg.ca.priceqty');
-        $file = new PriceQtyUpdateFile($filename);
-        $this->exportToFile($file, 'CA');
+        $file = new PriceQtyUpdateFileCA($filename);
+        $this->exportToFileCA($file);
 
         $filename = Filenames::get('newegg.us.priceqty');
-        $file = new PriceQtyUpdateFile($filename);
-        $this->exportToFile($file, 'US');
+        $file = new PriceQtyUpdateFileUS($filename);
+        $this->exportToFileUS($file);
     }
 
-    public function exportToFile($file, $site)
+    public function exportToFileCA($file)
     {
         $neweggService = $this->di->get('neweggService');
 
         foreach ($this->items as $sku) {
-            $info = $neweggService->findSku($sku, $site);
+            $info = $neweggService->findSku($sku, 'CA');
+            if ($info) {
+                $price = isset($info['selling_price']) ? $info['selling_price'] : 9999;
+                $file->write([ $sku, $price, 0 ]);
+            }
+        }
+    }
+
+    public function exportToFileUS($file)
+    {
+        $neweggService = $this->di->get('neweggService');
+
+        foreach ($this->items as $sku) {
+            $info = $neweggService->findSku($sku, 'US');
             if ($info) {
                 $price = isset($info['selling_price']) ? $info['selling_price'] : 9999;
                 $file->write([ $sku, $price, 0 ]);
