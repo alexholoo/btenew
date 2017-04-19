@@ -22,28 +22,6 @@ class PriceQtyUpdateFileUS
 
     public function __destruct()
     {
-        $this->close();
-    }
-
-    public function getFilename()
-    {
-        return $this->filename;
-    }
-
-    public function setDelimiter($delimiter)
-    {
-        $this->delimiter = $delimiter;
-        return $this;
-    }
-
-    public function setColumns($columns)
-    {
-        $this->columns = $columns;
-        return $this;
-    }
-
-    public function close()
-    {
         if (is_resource($this->handle)) {
             fclose($this->handle);
         }
@@ -56,15 +34,13 @@ class PriceQtyUpdateFileUS
                 $this->handle = fopen($this->filename, 'a');
             } else {
                 $this->handle = fopen($this->filename, 'w');
-                if ($this->columns) {
-                    fputs($this->handle, "Version=2.0\n");
-                    fputcsv($this->handle, $this->columns, $this->delimiter);
-                }
+                fputs($this->handle, "Version=2.0\n");
+                fputcsv($this->handle, $this->columns, $this->delimiter);
             }
         }
 
         if (count($data) != count($this->columns)) {
-            throw new \Exception(get_called_class().': Wrong number of elements: '. var_export($data, true));
+            throw new \Exception(__METHOD__.': Wrong number of elements: '. var_export($data, true));
         }
 
         return fputcsv($this->handle, $data, $this->delimiter);
