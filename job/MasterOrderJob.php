@@ -20,7 +20,7 @@ class MasterOrderJob extends Job
 
         // invoke all order triggers with new orders
         $this->newOrders = $job->getNewOrders();
-        $this->log(count($this->newOrders). " new orders\n");
+        $this->log(count($this->newOrders). " new orders");
 
         $this->fireOrderTriggers();
     }
