@@ -40,11 +40,13 @@ class OutOfStockUpdate extends OrderTrigger
                     }
                 }
             }
+
+            if ($outOfStockItems) {
+                $this->updateOutOfStock($outOfStockItems);
+            }
         }
 
-        $this->log(count($this->orders). ' new orders');
-
-        $this->updateOutOfStock($outOfStockItems);
+       #$this->log(count($this->orders). ' new orders');
     }
 
     protected function updateOutOfStock($outOfStockItems)
