@@ -23,8 +23,9 @@ class OutOfStockUpdate extends OrderTrigger
             foreach ($this->orders as $key => $order) {
                 $orderId = $order['order_id'];
                 $sku     = $order['sku'];
+                $qty     = $order['qty'];
 
-                $this->log("Checking Price & Availability for $sku of $orderId");
+                $this->log("Price & Availability for $sku of $orderId");
 
                 $client = \Supplier\Supplier::createClient($sku);
 
@@ -32,9 +33,9 @@ class OutOfStockUpdate extends OrderTrigger
                     $result = $client->getPriceAvailability($sku);
                     $availQty = $result->getFirst()->getTotalQty();
 
-                    $this->log("\t$sku\t$availQty");
+                    $this->log("\t$sku\t$availQty - $qty");
 
-                    if ($availQty <= 0) {
+                    if ($availQty - $qty <= 0) {
                         $outOfStockItems[] = $sku;
                     }
                 }
