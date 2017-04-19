@@ -2,7 +2,16 @@
 
 abstract class Job
 {
-    public function __construct()
+    protected $di;
+    protected $db;
+
+    protected $queue;
+    protected $redis;
+
+    protected $errlog;
+    protected $joblog;
+
+    public function __construct($parentJob = false)
     {
         $this->di = \Phalcon\Di::getDefault();
         $this->db = $this->di->get('db');
@@ -10,9 +19,14 @@ abstract class Job
         $this->queue = $this->di->get('queue');
         $this->redis = $this->di->get('redis');
 
-        $this->errlog = $this->di->get('loggerService');
-        $this->joblog = $this->di->get('loggerService');
-        $this->joblog->setFilename('job.log');
+        if ($parentJob) {
+            $this->errlog = $parentJob->errlog;
+            $this->joblog = $parentJob->joblog;
+        } else {
+            $this->errlog = $this->di->get('loggerService');
+            $this->joblog = $this->di->get('loggerService');
+            $this->joblog->setFilename('job.log');
+        }
     }
 
     abstract public function run($argv = []);
@@ -151,7 +165,7 @@ abstract class Job
         // create job object
         $job = false;
         if (class_exists($class)) {
-            $job = new $class;
+            $job = new $class($this);
         }
 
         return $job;
