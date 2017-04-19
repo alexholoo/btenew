@@ -7,7 +7,7 @@ class Master_Order_Importer extends Job
 
     public function run($argv = [])
     {
-        $this->log('>> '. __CLASS__);
+        $this->log('=> '. __CLASS__);
 
         try {
             $this->loadMasterOrders();
