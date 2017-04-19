@@ -31,7 +31,7 @@ class eBay_PriceQty_Exporter extends PriceQty_Exporter
         foreach ($this->items as $sku) {
             $info = $ebayService->findSku($sku, $site);
             if ($info) {
-                $file->write([ $sku, $info['price'], 0 ]);
+                $file->write([ $sku, $info['item_id'], $info['price'], 0 ]);
             }
         }
     }

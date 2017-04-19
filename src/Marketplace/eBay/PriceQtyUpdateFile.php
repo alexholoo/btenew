@@ -7,7 +7,7 @@ class PriceQtyUpdateFile
     protected $filename;
     protected $delimiter = ",";
     protected $handle;
-    protected $columns  = ['sku', 'price', 'quantity'];
+    protected $columns  = ['sku', 'item_id', 'price', 'quantity'];
 
     public function __construct($filename)
     {

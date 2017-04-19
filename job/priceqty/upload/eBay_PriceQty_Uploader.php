@@ -30,5 +30,17 @@ class eBay_PriceQty_Uploader extends PriceQty_Uploader
 
     protected function updatePriceQty($client, $filename)
     {
+        $client = new Marketplace\eBay\Client();
+
+        $items = $this->csvToArray($filename);
+
+        foreach ($items as $item) {
+            $data = [
+                'ItemID'   => $item['item_id'],
+                'Quantity' => $item['quantity'],
+                'Price'    => $item['price'],
+            ];
+            $res = $client->reviseInventoryStatus($data);
+        }
     }
 }
