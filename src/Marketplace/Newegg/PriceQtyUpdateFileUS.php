@@ -7,7 +7,13 @@ class PriceQtyUpdateFileUS
     protected $filename;
     protected $delimiter = ",";
     protected $handle;
-    protected $columns  = ['sku', 'price', 'quantity'];
+    protected $columns = [
+                "Seller Part #",
+                "NE Item #",
+                "Warehouse Location",
+                "Fulfillment Option",
+                "Inventory"
+              ];
 
     public function __construct($filename)
     {
@@ -51,6 +57,7 @@ class PriceQtyUpdateFileUS
             } else {
                 $this->handle = fopen($this->filename, 'w');
                 if ($this->columns) {
+                    fputs($this->handle, "Version=2.0\n");
                     fputcsv($this->handle, $this->columns, $this->delimiter);
                 }
             }

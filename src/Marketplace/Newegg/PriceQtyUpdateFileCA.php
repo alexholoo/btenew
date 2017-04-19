@@ -2,12 +2,24 @@
 
 namespace Marketplace\Newegg;
 
-class PriceQtyUpdateFile
+class PriceQtyUpdateFileCA
 {
     protected $filename;
     protected $delimiter = ",";
     protected $handle;
-    protected $columns  = ['sku', 'price', 'quantity'];
+    protected $columns  = [
+                "Seller Part #",
+                "NE Item #",
+                "Currency",
+                "MSRP",
+                "MAP",
+                "Checkout MAP",
+                "Selling Price",
+                "Inventory",
+                "Fulfillment option",
+                "Shipping",
+                "Activation Mark"
+            ];
 
     public function __construct($filename)
     {
@@ -51,6 +63,7 @@ class PriceQtyUpdateFile
             } else {
                 $this->handle = fopen($this->filename, 'w');
                 if ($this->columns) {
+                    fputs($this->handle, 'Overwrite=No,,"* Changing the setting to ""Overwrite=Yes"" will have the added effect of deactivating all of your items from the website except for those listed on this datafeed. If this is not intended, keep ""Overwrite=No"".",,,,,,,,'."\n");
                     fputcsv($this->handle, $this->columns, $this->delimiter);
                 }
             }

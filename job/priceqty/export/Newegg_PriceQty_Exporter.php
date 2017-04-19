@@ -1,6 +1,7 @@
 <?php
 
-use Marketplace\Newegg\PriceQtyUpdateFile;
+use Marketplace\Newegg\PriceQtyUpdateFileCA;
+use Marketplace\Newegg\PriceQtyUpdateFileUS;
 
 class Newegg_PriceQty_Exporter extends PriceQty_Exporter
 {
@@ -31,8 +32,20 @@ class Newegg_PriceQty_Exporter extends PriceQty_Exporter
         foreach ($this->items as $sku) {
             $info = $neweggService->findSku($sku, 'CA');
             if ($info) {
-                $price = isset($info['selling_price']) ? $info['selling_price'] : 9999;
-                $file->write([ $sku, $price, 0 ]);
+                $info['inventory'] = 0;
+                $file->write([
+                    $info['sku'],
+                    $info['newegg_item_id'],
+                    $info['currency'],
+                    $info['MSRP'],
+                    $info['MAP'],
+                    $info['checkout_map'],
+                    $info['selling_price'],
+                    $info['inventory'],
+                    $info['fulfillment_option'],
+                    $info['shipping'],
+                    $info['activation_mark'],
+                ]);
             }
         }
     }
@@ -44,8 +57,14 @@ class Newegg_PriceQty_Exporter extends PriceQty_Exporter
         foreach ($this->items as $sku) {
             $info = $neweggService->findSku($sku, 'US');
             if ($info) {
-                $price = isset($info['selling_price']) ? $info['selling_price'] : 9999;
-                $file->write([ $sku, $price, 0 ]);
+                $info['inventory'] = 0;
+                $file->write([
+                    $info['sku'],
+                    $info['newegg_item_id'],
+                    $info['warehouse_location'],
+                    $info['fulfillment_option'],
+                    $info['inventory'],
+                ]);
             }
         }
     }
