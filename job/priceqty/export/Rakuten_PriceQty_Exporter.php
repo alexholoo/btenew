@@ -27,7 +27,24 @@ class Rakuten_PriceQty_Exporter extends PriceQty_Exporter
         foreach ($this->items as $sku) {
             $info = $rakutenService->findSku($sku, $site);
             if ($info) {
-                $file->write([ $sku, $info['Price'], 0 ]);
+                $info['Quantity'] = 0;
+                $info['ProductIdType'] = 0;
+                $info['Description'] = '';
+                $file->write([
+                    $info['ListingId'],
+                    $info['ReferenceId'],
+                    $info['ProductIdType'],
+                    $info['ItemConditionId'],
+                    $info['Price'],
+                    $info['MAP'],
+                    $info['Quantity'],
+                    $info['OfferExpeditedShipping'],
+                    $info['Description'],
+                    $info['ShippingRateStandard'],
+                    $info['ShippingRateExpedited'],
+                    $info['ShippingLeadTime'],
+                    $info['Sku'],
+                ]);
             }
         }
     }

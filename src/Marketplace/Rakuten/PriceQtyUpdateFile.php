@@ -5,9 +5,23 @@ namespace Marketplace\Rakuten;
 class PriceQtyUpdateFile
 {
     protected $filename;
-    protected $delimiter = ",";
+    protected $delimiter = "\t";
     protected $handle;
-    protected $columns = ['sku', 'price', 'quantity'];
+    protected $columns = [
+                'ListingId',
+                'ProductId',
+                'ProductIdType',
+                'ItemCondition',
+                'Price',
+                'MAP',
+                'Quantity',
+                'OfferExpeditedShipping',
+                'Description',
+                'ShippingRateStandard',
+                'ShippingRateExpedited',
+                'ShippingLeadTime',
+                'ReferenceId',
+              ];
 
     public function __construct($filename)
     {
@@ -28,6 +42,7 @@ class PriceQtyUpdateFile
                 $this->handle = fopen($this->filename, 'a');
             } else {
                 $this->handle = fopen($this->filename, 'w');
+                fputs($this->handle, "##Type=Inventory;Version=3.0\n");
                 fputcsv($this->handle, $this->columns, $this->delimiter);
             }
         }
