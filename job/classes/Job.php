@@ -2,6 +2,8 @@
 
 abstract class Job
 {
+    protected $parentJob;
+
     protected $di;
     protected $db;
 
@@ -13,20 +15,16 @@ abstract class Job
 
     public function __construct($parentJob = false)
     {
+        $this->parentJob = $parentJob;
+
         $this->di = \Phalcon\Di::getDefault();
         $this->db = $this->di->get('db');
 
         $this->queue = $this->di->get('queue');
         $this->redis = $this->di->get('redis');
 
-        if ($parentJob) {
-            $this->errlog = $parentJob->errlog;
-            $this->joblog = $parentJob->joblog;
-        } else {
-            $this->errlog = $this->di->get('loggerService');
-            $this->joblog = $this->di->get('loggerService');
-            $this->joblog->setFilename('job.log');
-        }
+        $this->errlog = $this->di->get('errLogger');
+        $this->joblog = $this->di->get('jobLogger');
     }
 
     abstract public function run($argv = []);

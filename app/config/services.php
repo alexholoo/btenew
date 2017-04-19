@@ -182,6 +182,16 @@ $di->set('logger', function ($filename = null, $format = null) use ($config) {
 
 $di->set('loggerService', function() { return new \Service\LoggerService(); });
 
+$di->setShared('errLogger', function() use ($di) {
+    return $di->get('loggerService');
+});
+
+$di->setShared('jobLogger', function() use ($di) {
+    $logger = $di->get('loggerService');
+    $logger->setFilename('job.log');
+    return $logger;
+});
+
 $di->setShared('queue', function () use ($config) {
     if (isset($config->beanstalk->disabled) && $config->beanstalk->disabled) {
         return new class {
