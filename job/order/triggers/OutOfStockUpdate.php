@@ -2,7 +2,7 @@
 
 class OutOfStockUpdate extends OrderTrigger
 {
-    protected $priority = 0;//200;  // 0 to disable
+    protected $priority = 200;  // 0 to disable
 
     public function run($argv = [])
     {
@@ -34,9 +34,9 @@ class OutOfStockUpdate extends OrderTrigger
 
                     $this->log("\t$sku\t$availQty");
 
-#                   if ($availQty <= 0) {
+                    if ($availQty <= 0) {
                         $outOfStockItems[] = $sku;
-#                   }
+                    }
                 }
             }
         }
