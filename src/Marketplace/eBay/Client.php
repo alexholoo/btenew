@@ -190,7 +190,7 @@ class Client
         $transactionID = $order['TransactionID'];
         $trackingNumber = $order['TrackingNumber'];
         $carrier = $order['Carrier'];
-        $date = $order['Date'];
+        $date = $order['ShipDate'];
 
         $lines = [];
 

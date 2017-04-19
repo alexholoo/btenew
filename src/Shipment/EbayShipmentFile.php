@@ -11,12 +11,12 @@ class EbayShipmentFile
     public function __construct($filename)
     {
         $this->csvtitle = [
-            'recordNumber',
-            'orderID',
-            'shipDate',
-            'carrier',
-            'trackingNumber',
-            'transactionID'
+            'RecordNumber',
+            'OrderID',
+            'ShipDate',
+            'Carrier',
+            'TrackingNumber',
+            'TransactionID'
         ];
 
         $this->filename = $filename;
