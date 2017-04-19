@@ -133,7 +133,7 @@ class BTEInventoryUpdate extends OrderTrigger
             }
         }
 
-        $this->log(count($this->orders). ' new orders');
+       #$this->log(count($this->orders). ' new orders');
     }
 
     protected function openAccessDB()

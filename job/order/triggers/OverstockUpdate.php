@@ -65,7 +65,7 @@ class OverstockUpdate extends OrderTrigger
                     }
                 }
 
-                $this->log("$date $channel $orderId $sku $qty => $x");
+                $this->log("$channel $orderId $sku $qty => $x");
 
                 $sql = "UPDATE [overstock] SET [Actual Quantity]=$x, [Reserved]='' WHERE [SKU Number]='$sku'";
 
@@ -133,7 +133,7 @@ class OverstockUpdate extends OrderTrigger
             }
         }
 
-        $this->log(count($this->orders). ' new orders');
+       #$this->log(count($this->orders). ' new orders');
     }
 
     protected function findSku($accdb, $sku)
