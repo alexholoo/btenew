@@ -34,7 +34,7 @@ class OutOfStockUpdate extends OrderTrigger
 
                     $this->log("\t$sku\t$availQty");
 
-#                   if ($availQty == 0) {
+#                   if ($availQty <= 0) {
                         $outOfStockItems[] = $sku;
 #                   }
                 }

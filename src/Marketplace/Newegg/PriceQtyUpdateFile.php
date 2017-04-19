@@ -5,7 +5,7 @@ namespace Marketplace\Newegg;
 class PriceQtyUpdateFile
 {
     protected $filename;
-    protected $delimiter = ";";
+    protected $delimiter = ",";
     protected $handle;
     protected $columns  = ['sku', 'price', 'quantity'];
 

@@ -5,7 +5,7 @@ namespace Marketplace\eBay;
 class PriceQtyUpdateFile
 {
     protected $filename;
-    protected $delimiter = ";";
+    protected $delimiter = ",";
     protected $handle;
     protected $columns  = ['sku', 'price', 'quantity'];
 

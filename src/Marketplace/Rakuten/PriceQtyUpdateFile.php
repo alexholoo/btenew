@@ -5,7 +5,7 @@ namespace Marketplace\Rakuten;
 class PriceQtyUpdateFile
 {
     protected $filename;
-    protected $delimiter = ";";
+    protected $delimiter = ",";
     protected $handle;
     protected $columns  = ['sku', 'price', 'quantity'];
 
