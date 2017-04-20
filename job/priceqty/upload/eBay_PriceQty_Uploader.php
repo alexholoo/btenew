@@ -1,5 +1,7 @@
 <?php
 
+use Toolkit\File;
+
 class eBay_PriceQty_Uploader extends PriceQty_Uploader
 {
     public function run($argv = [])
@@ -30,8 +32,6 @@ class eBay_PriceQty_Uploader extends PriceQty_Uploader
 
     protected function updatePriceQty($client, $filename)
     {
-        $client = new Marketplace\eBay\Client();
-
         $items = $this->csvToArray($filename);
 
         foreach ($items as $item) {
