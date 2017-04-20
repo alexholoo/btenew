@@ -43,7 +43,9 @@ class Supplier
 
         case \Supplier\Prefix::BTE:
             // php64 is requred because of AccessDB
-            $client = new \Supplier\BTE\Client();
+            if (PHP_SAPI == 'cli') {
+                $client = new \Supplier\BTE\Client();
+            }
             break;
 
         default:
