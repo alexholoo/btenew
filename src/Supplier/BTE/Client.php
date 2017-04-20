@@ -28,7 +28,7 @@ class Client extends BaseClient
 
         if ($row) {
             $qtyOnHand = $row['QtyOnHand'];
-            $price= $row['Selling Cost'];
+            $price = $row['Selling Cost'];
         }
 
         $item = new PriceAvailabilityItem($res);
@@ -39,7 +39,7 @@ class Client extends BaseClient
         ];
 
         $result = new PriceAvailabilityResult();
-        $result->status = Response::OK;
+        $result->status = Response::STATUS_OK;
         $result->add($item);
 
         return $result;
