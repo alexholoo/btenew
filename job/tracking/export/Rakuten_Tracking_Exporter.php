@@ -33,7 +33,8 @@ class Rakuten_Tracking_Exporter extends Tracking_Exporter
         $shipmentService = $this->di->get('shipmentService');
 
         // TODO: need a class: Marketplace\Rakuten\MasterOrderFile
-        $orderFile = Filenames::get('rakuten.us.master.order');
+#       $orderFile = Filenames::get('rakuten.us.master.order');
+        $orderFile = 'w:/data/csv/rakuten/orders/rakuten_master_orders.csv';
 
         if (!file_exists($orderFile)) {
             $this->error(__METHOD__." File not found: $orderFile");
