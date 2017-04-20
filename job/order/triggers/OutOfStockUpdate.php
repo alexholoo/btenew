@@ -62,8 +62,8 @@ class OutOfStockUpdate extends OrderTrigger
         $jobs = $this->getJobs('priceqty/upload');
 
         foreach ($jobs as $job) {
-#           $this->log('=> ' . get_class($job));
-#           $job->run();
+            $this->log('=> ' . get_class($job));
+            $job->run();
         }
     }
 }

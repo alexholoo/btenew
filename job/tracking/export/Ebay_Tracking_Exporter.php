@@ -1,6 +1,6 @@
 <?php
 
-use Shipment\EbayShipmentFile;
+use Marketplace\eBay\ShipmentFile;
 
 class Ebay_Tracking_Exporter extends Tracking_Exporter
 {
@@ -28,7 +28,7 @@ class Ebay_Tracking_Exporter extends Tracking_Exporter
 
     protected function exportTracking($orders, $filename)
     {
-        $file = new EbayShipmentFile($filename);
+        $file = new ShipmentFile($filename);
 
         foreach ($orders as $order) {
             $order['transactionID'] = '';
@@ -38,7 +38,7 @@ class Ebay_Tracking_Exporter extends Tracking_Exporter
 
     protected function getUnshippedOrders($channel)
     {
-        // the columns must match the columns in EbayShipmentFile
+        // the columns must match the columns in ShipmentFile
         $sql = "SELECT o.order_id        AS orderID,
                        o.reference       AS recordNumber,
                        t.ship_date       AS shipDate,

@@ -1,6 +1,6 @@
 <?php
 
-use Shipment\BestbuyShipmentFile;
+use Marketplace\Bestbuy\ShipmentFile;
 
 class Bestbuy_Tracking_Exporter extends Tracking_Exporter
 {
@@ -22,7 +22,7 @@ class Bestbuy_Tracking_Exporter extends Tracking_Exporter
 
     protected function exportTracking($orders, $filename)
     {
-        $file = new BestbuyShipmentFile($filename);
+        $file = new ShipmentFile($filename);
 
         foreach ($orders as $order) {
             $file->write($order);
@@ -31,7 +31,7 @@ class Bestbuy_Tracking_Exporter extends Tracking_Exporter
 
     protected function getUnshippedOrders()
     {
-        // the columns must match the columns in BestbuyShipmentFile
+        // the columns must match the columns in ShipmentFile
         $sql = "SELECT o.order_id            AS orderId,
                        o.reference           AS bestbuyId,
                        t.ship_date           AS shipDate,

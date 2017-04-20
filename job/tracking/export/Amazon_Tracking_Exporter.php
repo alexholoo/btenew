@@ -67,7 +67,7 @@ class Amazon_Tracking_Exporter extends Tracking_Exporter
 
     private function outputFeed($filename, $orders)
     {
-        $feedFile = new AmazonShipmentFile($filename);
+        $feedFile = new Marketplace\Amazon\ShipmentFile($filename);
 
         $shipmentService = $this->di->get('shipmentService');
 

@@ -3,7 +3,7 @@
 include __DIR__ . '/../public/init.php';
 
 use Toolkit\File;
-use Shipment\AmazonShipmentFile;
+use Marketplace\Amazon\ShipmentFile;
 
 class AmazonShippingUploadJob extends Job
 {
@@ -68,7 +68,7 @@ class AmazonShippingUploadJob extends Job
     {
         //$this->log('=> '. __FUNCTION__);
 
-        $feedFile = new AmazonShipmentFile($filename);
+        $feedFile = new ShipmentFile($filename);
 
         $shipmentService = $this->di->get('shipmentService');
 

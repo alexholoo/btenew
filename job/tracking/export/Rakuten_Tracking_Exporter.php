@@ -1,6 +1,6 @@
 <?php
 
-use Shipment\RakutenShipmentFile;
+use Marketplace\Rakuten\ShipmentFile;
 
 class Rakuten_Tracking_Exporter extends Tracking_Exporter
 {
@@ -22,7 +22,7 @@ class Rakuten_Tracking_Exporter extends Tracking_Exporter
 
     protected function exportTracking($country, $orders, $filename)
     {
-        $file = new RakutenShipmentFile($country, $filename);
+        $file = new ShipmentFile($country, $filename);
         foreach ($orders as $order) {
             $file->write($order);
         }
@@ -33,7 +33,7 @@ class Rakuten_Tracking_Exporter extends Tracking_Exporter
         $shipmentService = $this->di->get('shipmentService');
 
         // TODO: need a class: Marketplace\Rakuten\MasterOrderFile
-        $orderFile = 'w:/data/csv/rakuten/orders/rakuten_master_orders.csv';
+        $orderFile = Filenames::get('rakuten.us.master.order');
 
         if (!file_exists($orderFile)) {
             $this->error(__METHOD__." File not found: $orderFile");

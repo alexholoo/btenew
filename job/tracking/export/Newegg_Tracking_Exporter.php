@@ -1,6 +1,6 @@
 <?php
 
-use Shipment\NeweggShipmentFile;
+use Marketplace\Newegg\ShipmentFile;
 use Marketplace\Newegg\StdOrderListFile;
 
 class Newegg_Tracking_Exporter extends Tracking_Exporter
@@ -35,7 +35,7 @@ class Newegg_Tracking_Exporter extends Tracking_Exporter
 
     protected function exportTracking($site, $orders, $filename)
     {
-        $file = new NeweggShipmentFile($filename, $site);
+        $file = new ShipmentFile($filename, $site);
         foreach ($orders as $order) {
             $file->write($order);
         }
