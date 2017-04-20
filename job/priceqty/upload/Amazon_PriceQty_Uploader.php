@@ -34,7 +34,7 @@ class Amazon_PriceQty_Uploader extends PriceQty_Uploader
 
     private function uploadFeed($store, $file, $type)
     {
-        $this->log("Uploading $type: $file");
+       #$this->log("Uploading $type: $file");
 
         $feed = file_get_contents($file);
 
