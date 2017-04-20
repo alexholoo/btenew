@@ -34,7 +34,9 @@
         <label><input type="checkbox" name="multitem" value="1"{% if multitem == 1 %} checked{% endif %}> Multi Items</label>
       </div>
       <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filter </button>
+      <!--
       <button type="button" class="btn btn-success" onclick="checkout()"><span class="glyphicon glyphicon-check"></span> Checkout </button>
+      -->
     </form>
   </div>
 
