@@ -52,12 +52,17 @@ class FedexAddressBookJob extends Job
             $value = $price * $qty;
             $info  = $this->getMasterSku($sku);
 
+            // convert country and province/state to code
             $province = $order['province'];
-            if ($order['country'] == 'US') {
+            $country = $order['country'];
+
+            if ($country == 'US' || strtoupper($country) == 'UNITED STATES') {
+                $country = 'US';
                 $province = AmericaState::nameToCode($province);
             }
 
-            if ($order['country'] == 'CA') {
+            if ($country == 'CA' || strtoupper($country) == 'CANADA') {
+                $country = 'CA';
                 $province = CanadaProvince::nameToCode($province);
             }
 
@@ -75,7 +80,7 @@ class FedexAddressBookJob extends Job
                 $order['city'],
                 $province,
                 $order['postalcode'],
-                $order['country'],
+                $country,
                 $phone,
                 '',
                 '',
