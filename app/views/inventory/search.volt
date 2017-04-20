@@ -8,7 +8,7 @@
         <h3 style="margin-top: 0;">Inventory Location Search</h3>
       </div>
 
-      <div class="col-sm-10">
+      <div class="col-sm-6">
         <input autofocus required type="text" class="form-control" name="keyword" autofocus placeholder="Enter PartNumber/UPC/Location/Note">
       </div>
 
