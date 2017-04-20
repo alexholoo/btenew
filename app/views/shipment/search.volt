@@ -8,7 +8,7 @@
         <h3 style="margin-top: 0;">Shipment search</h3>
       </div>
 
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <input autofocus required type="text" pattern=".{4,}" title="4 characters minimum" class="form-control" name="keyword" autofocus placeholder="Enter last 4+ digits of order id">
       </div>
 
