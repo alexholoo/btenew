@@ -30,7 +30,7 @@ class Amazon_Tracking_Downloader extends Tracking_Downloader
 
     protected function downloadTracking()
     {
-        $this->log('Downloading Amazon Dropship Tracking: '.$this->store);
+       #$this->log('Downloading Amazon Dropship Tracking: '.$this->store);
 
         $api = new \AmazonFulfillmentOrderList($this->store);
 
@@ -45,9 +45,10 @@ class Amazon_Tracking_Downloader extends Tracking_Downloader
 
         if (0) {
             // save the response to log file
-            $logfile = str_replace('job', 'Amazon-FBA-Orders', $this->getLogFilename());
+            $logger = $this->di->get('loggerService');
+            $logger->setFilename('Amazon-FBA-Orders.log');
             foreach ($api->getRawResponses() as $response) {
-                file_put_contents($logfile, $response['body'], FILE_APPEND);
+                $logger->info($response['body']);
             }
         }
 

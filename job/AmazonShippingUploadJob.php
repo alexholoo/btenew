@@ -43,9 +43,10 @@ class AmazonShippingUploadJob extends Job
 
             if (0) {
                 // save the response to log file
-                $logfile = str_replace('job', 'Amazon-List-Orders', $this->getLogFilename());
+                $logger = $this->di->get('loggerService');
+                $logger->setFilename('Amazon-List-Orders.log');
                 foreach ($api->getRawResponses() as $response) {
-                    file_put_contents($logfile, $response['body'], FILE_APPEND);
+                    $logger->info($response['body']);
                 }
             }
 
