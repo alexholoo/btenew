@@ -38,11 +38,6 @@ class Newegg_Shipment_Uploader extends Tracking_Uploader
 
     protected function markOrdersShipped($filename)
     {
-       #if (!file_exists($filename)) {
-           #$this->error(__METHOD__." File not found: $filename");
-           #return;
-       #}
-
         $fp = fopen($filename, 'r');
 
         $columns = fgetcsv($fp); // skip first line

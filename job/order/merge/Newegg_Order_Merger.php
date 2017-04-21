@@ -31,10 +31,13 @@ class Newegg_Order_Merger extends OrderMerger
 
         $orderFile = new Marketplace\Newegg\StdOrderListFile($filename, $site);
 
+        $neweggService = $this->di->get('neweggService');
+
         while ($order = $orderFile->read()) {
             $address = $order['Ship To Address Line 1'].' '.$order['Ship To Address Line 2'];
-            $express = preg_match('/Standard|Economy/', $order['Order Shipping Method']) ? 0 : 1;
             $buyer = $order['Ship To First Name'].' '.$order['Ship To LastName'];
+
+            $shipMethod = $neweggService->getShipMethodCode($order['Order Shipping Method']);
 
             // UPS accepts only format '12345-6789'
             $zipcode = trim($order['Ship To ZipCode']);
@@ -48,7 +51,7 @@ class Newegg_Order_Merger extends OrderMerger
                 $order['Order Number'],
                 $order['Item Newegg #'],
                 $order['Order Number'], // reference
-                $express,
+                $shipMethod,
                 $buyer,
                 $address,
                 $order['Ship To City'],

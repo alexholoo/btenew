@@ -21,13 +21,16 @@ class NeweggOrderToAccess extends OrderTrigger
 
         $accdb = $this->openAccessDB();
 
+        $neweggService = $this->di->get('neweggService');
+
         foreach ($this->orders as $order) {
 
             $orderNo = $order['order_id'];
             $date    = $order['date'];
             $sku     = $order['sku'];
             $qty     = $order['qty'];
-            $express = $order['express'];
+
+            $shipMethod = $neweggService->getShipMethodName($order['express']);
 
             if ($order['channel'] == 'NeweggCA') {
                 $channel = 'NeweggCA';
@@ -62,7 +65,7 @@ class NeweggOrderToAccess extends OrderTrigger
                 'Work Date'    => $date,
                 'Channel'      => $channel,
                 'PO #'         => $orderNo,
-                'ShipMethod'   => $express ? 'Express' : 'Standard',
+                'ShipMethod'   => $shipMethod,
                 'Stock Status' => $stockStatus,
                 'Qty'          => $qty,
                 'Supplier'     => $supplier,
