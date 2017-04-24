@@ -182,6 +182,7 @@ class Client
         $url = $this->hostname . trim($apiUrl, '/');
 
         $options['http']['method'] = $method;
+       #$options['http']['ignore_errors'] = true;
         $options['http']['header'] = "Authorization: " . $this->apikey . "\r\n";
 
         if ($method == 'GET' && $params) {
@@ -195,6 +196,7 @@ class Client
 
         $context = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
+        #echo $result;
         $json = json_decode($result);
         return $json;
 
