@@ -48,7 +48,9 @@
         <th>Order ID</th>
         <th>Note</th>
         <th>Related SKU</th>
+        <!--
         <th>Cart</th>
+        -->
         <th>Dimension</th>
         <th>Action</th>
       </tr>
@@ -80,6 +82,7 @@
             {% endif %}
           {% endif %}
         </td>
+        <!--
         <td class="add">
           {% if not order['multi_items'] %}
           {% if order['related_sku'] is not empty and order['status'] != 'purchased' %}
@@ -87,6 +90,7 @@
           {% endif %}
           {% endif %}
         </td>
+        -->
         <td>{{ order['dimension'] }}</td>
         <td class="action">
           {% if not order['multi_items'] %}
