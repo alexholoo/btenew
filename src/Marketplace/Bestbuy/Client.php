@@ -195,10 +195,20 @@ class Client
 
         $context = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
-
         $json = json_decode($result);
-        // print_r($json);
-
         return $json;
+
+       #$fp = fopen($url, "rb", false, $context);
+       #if ($fp) {
+       #    $result = stream_get_contents($fp);
+       #    print_r(stream_get_meta_data($fp));
+       #    fclose($fp);
+
+       #    $json = json_decode($result);
+       #    print_r($json);
+       #    return $json;
+       #}
+
+       #return false;
     }
 }
