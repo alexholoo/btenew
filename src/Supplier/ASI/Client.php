@@ -104,11 +104,9 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
         $request->setOrder($orderId);
 
-        $xml = $request->toXml();
+        $params = $request->toXml();
 
-        $res = $this->curlPost($url, $xml, array(
-            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
-        ));
+        $res = $this->httpGet($url . $params);
 
         $response = new OrderStatusResponse($res);
 

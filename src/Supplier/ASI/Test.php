@@ -9,6 +9,8 @@ use Supplier\ASI\PriceAvailabilityRequest;
 use Supplier\ASI\PriceAvailabilityResponse;
 use Supplier\ASI\PurchaseOrderRequest;
 use Supplier\ASI\PurchaseOrderResponse;
+use Supplier\ASI\OrderStatusRequest;
+use Supplier\ASI\OrderStatusResponse;
 use Supplier\Model\Order;
 
 function testPriceAvailabilityRequest()
@@ -108,10 +110,42 @@ function realPurchaseOrder()
 {
 }
 
+function testOrderStatusRequest()
+{
+    $config = include __DIR__ . '/app/config/xmlapi.php';
+
+    $request = new OrderStatusRequest();
+    $request->setConfig($config[ConfigKey::ASI]);
+    $request->setOrder('701-3707503-5766613');
+
+    $xml = $request->toXml();
+
+    echo $xml, PHP_EOL;
+}
+
+function testOrderStatusResponse()
+{
+    $xml = file_get_contents(__DIR__ . './src/Supplier/ASI/fixtures/asi-os-response-1.xml');
+    $xml = file_get_contents(__DIR__ . './src/Supplier/ASI/fixtures/asi-os-response-2.xml');
+    $response = new OrderStatusResponse($xml);
+    $result = $response->parseXml();
+
+    pr($xml);
+    pr($result);
+}
+
+function realOrderStatus()
+{
+}
+
 #testPriceAvailabilityRequest();
 #testPriceAvailabilityResponse();
 #realPriceAvailability();
 
 #testPurchaseOrderRequest();
- testPurchaseOrderResponse();
+#testPurchaseOrderResponse();
 #realPurchaseOrder();
+
+ testOrderStatusRequest();
+ testOrderStatusResponse();
+#realOrderStatus();

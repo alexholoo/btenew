@@ -17,16 +17,26 @@ class OrderStatusResponse extends BaseResponse
 
         $result = new OrderStatusResult();
 
-        $result->status = ''; // strval($xml->STATUS);
-        $result->orderNo = ''; // strval($xml->ORDERNUM);
-        $result->errorMessage = ''; // strval($xml->MESSAGE);
+        $result->status         = Response::STATUS_OK;
+        $result->poNum          = strval($xml->order['id']);
+        $result->orderNo        = strval($xml->order['po']);
+        $result->invoice        = '';
+        $result->sku            = '';
+        $result->qty            = '';
+        $result->carrier        = strval($xml->order->tracknum['shipvia']);
+        $result->service        = '';
+        $result->trackingNumber = strval($xml->order->tracknum);
+        $result->shipDate       = '';
 
-        if ($result->status == 'success') {
-            $result->status = Response::STATUS_OK;
+        if (!$result->poNum || !$result->carrier) {
+            $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = $result->trackingNumber;
+            $result->trackingNumber = '';
         }
 
-        if ($result->status == 'failure') {
-            $result->status = Response::STATUS_ERROR;
+        if ($result->carrier == 'FDG') {
+            $result->carrier = 'Fedex';
+            $result->service = 'Ground';
         }
 
         return $result;

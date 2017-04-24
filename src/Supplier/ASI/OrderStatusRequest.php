@@ -12,9 +12,10 @@ class OrderStatusRequest extends BaseRequest
      */
     public function toXml()
     {
-        $lines = array();
-        // ...
-        return Utils::formatXml(implode("\n", $lines));
+        $cid = $this->config['CID'];
+        $orderId = $this->orderId;
+
+        return "?cid=$cid&po=$orderId";
     }
 }
 
