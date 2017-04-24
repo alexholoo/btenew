@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<ASIShippingReply>
+  <order po="40200" id="10688740">
+    <tracknum shipvia=?FDG?>062803353306719</tracknum>
+  </order>
+</ASIShippingReply>

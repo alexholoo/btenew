@@ -17,16 +17,15 @@ class PurchaseOrderResponse extends BaseResponse
 
         $result = new PurchaseOrderResult();
 
-        $result->status = ''; // strval($xml->STATUS);
-        $result->orderNo = ''; // strval($xml->ORDERNUM);
-        $result->errorMessage = ''; // strval($xml->MESSAGE);
-
-        if ($result->status == 'success') {
-            $result->status = Response::STATUS_OK;
+        if ($xml->error) {
+            $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = strval($xml->error->message);
+            return $result;
         }
 
-        if ($result->status == 'failure') {
-            $result->status = Response::STATUS_ERROR;
+        if ($xml->order) {
+            $result->status = Response::STATUS_OK;
+            $result->orderNo = strval($xml->order->orderid);
         }
 
         return $result;

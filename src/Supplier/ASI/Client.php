@@ -52,12 +52,79 @@ class Client extends BaseClient
      */
     public function purchaseOrder($order)
     {
-        throw \Exception('Purchase Order not supported for ASI');
+        $url = self::PO_PROD_URL;
+
+        $order = $this->getPrices($order);
+
+        $request = new PurchaseOrderRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
+        $request->setOrder($order);
+
+        $xml = $request->toXml();
+        $this->di->get('logger')->debug($xml);
+
+        $res = $this->curlPost($url, $xml, array(
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
+        ));
+
+        $response = new PurchaseOrderResponse($res);
+        $result = $response->parseXml();
+
+        $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
+
+        PurchaseOrderLog::saveXml($url, $request, $response);
+
+        if ($result->status == Response::STATUS_OK) {
+            PurchaseOrderLog::save($order, $result->orderNo);
+            PriceAvailabilityLog::invalidate($order);
+        }
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
+    }
+
+    protected function getPrices($order)
+    {
+        foreach ($order->items as $key => $item) {
+            $result = $this->getPriceAvailability($item->sku);
+            $first = $result->getFirst();
+            $order->items[$key]->price = $first->price;
+        }
+
+        return $order;
     }
 
     public function getOrderStatus($orderId)
     {
-        throw \Exception('Order Status not supported for ASI');
+        $url = self::OS_PROD_URL;
+
+        $request = new OrderStatusRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
+        $request->setOrder($orderId);
+
+        $xml = $request->toXml();
+
+        $res = $this->curlPost($url, $xml, array(
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
+        ));
+
+        $response = new OrderStatusResponse($res);
+
+        $result = $response->parseXml();
+
+        OrderStatusQueryLog::save($orderId, $url, $xml, $res);
+
+        if ($result->trackingNumber) {
+            PurchaseOrderLog::markShipped($orderId);
+            DropshipTrackingLog::save($result);
+        }
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
     }
 
     protected function httpGet($url)
