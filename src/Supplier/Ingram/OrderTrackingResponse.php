@@ -32,13 +32,19 @@ class OrderTrackingResponse extends BaseResponse
             return $result;
         }
 
+        if (!$xml->Order->Suffix->Carrier) {
+            $result->status = Response::STATUS_ERROR;
+            $result->errorMessage = 'Not shipped yet';
+            return $result;
+        }
+
         $result->status = Response::STATUS_OK;
         $result->poNum = strval($xml->CustomerPO);
         $result->orderNo = strval($xml->Order->BranchOrderNumber);
        #$result->invoice = '';
         $result->sku = 'ING-'.strval($xml->Order->Suffix->Package->Contents->ContentDetail->SKU);
         $result->qty = strval($xml->Order->Suffix->Package->Contents->ContentDetail->Quantity);
-        $result->carrier = strval($xml->Order->Suffix->Carrier);
+        $result->carrier = strval($xml->Order->Suffix->Carrier['Code']);
        #$result->service = strval($xml->Order->Suffix->Package->TrackingURL);
         $result->trackingNumber = strval($xml->Order->Suffix->Package['ID']);
         $result->shipDate = strval($xml->Order->Suffix->Package->ShipDate);
