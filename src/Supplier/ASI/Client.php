@@ -23,7 +23,7 @@ class Client extends BaseClient
             $response = new PriceAvailabilityResponse($res);
             $this->request = null;
             $this->response = $response;
-            return $response->parseXml();
+            return $response->parse();
         }
 
         $url = self::PA_PROD_URL;
@@ -37,7 +37,7 @@ class Client extends BaseClient
         $res = $this->httpGet($url . $params);
 
         $response = new PriceAvailabilityResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         PriceAvailabilityLog::save($url, $request, $response);
 
@@ -68,7 +68,7 @@ class Client extends BaseClient
         ));
 
         $response = new PurchaseOrderResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
 
@@ -110,7 +110,7 @@ class Client extends BaseClient
 
         $response = new OrderStatusResponse($res);
 
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         OrderStatusQueryLog::save($orderId, $url, $xml, $res);
 

@@ -22,7 +22,7 @@ function testPriceAvailabilityRequest()
     $request->addPartnum('AS-177420');
     $request->addPartnum('AS-172600');
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml, PHP_EOL;
 }
@@ -31,7 +31,7 @@ function testPriceAvailabilityResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/ASI/fixtures/asi-pna-response-1.xml');
     $response = new Supplier\ASI\PriceAvailabilityResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($result->getFirst()->toArray());
 }
@@ -90,7 +90,7 @@ function testPurchaseOrderRequest()
     $request->setConfig($config[ConfigKey::ASI]);
     $request->setOrder($order);
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml, PHP_EOL;
 }
@@ -100,7 +100,7 @@ function testPurchaseOrderResponse()
     $xml = file_get_contents(__DIR__ . './src/Supplier/ASI/fixtures/asi-po-response-1.xml');
     $xml = file_get_contents(__DIR__ . './src/Supplier/ASI/fixtures/asi-po-response-2.xml');
     $response = new PurchaseOrderResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($xml);
     pr($result);
@@ -118,7 +118,7 @@ function testOrderStatusRequest()
     $request->setConfig($config[ConfigKey::ASI]);
     $request->setOrder('701-3707503-5766613');
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml, PHP_EOL;
 }
@@ -128,7 +128,7 @@ function testOrderStatusResponse()
     $xml = file_get_contents(__DIR__ . './src/Supplier/ASI/fixtures/asi-os-response-1.xml');
     $xml = file_get_contents(__DIR__ . './src/Supplier/ASI/fixtures/asi-os-response-2.xml');
     $response = new OrderStatusResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($xml);
     pr($result);
