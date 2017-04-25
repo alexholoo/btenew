@@ -26,6 +26,21 @@ class SearchController extends ControllerBase
 
                 // Make a xmlapi call to get price and availability
                 $data = $this->priceAvailService->getPriceAvailability($skus);
+
+                /* disabled, this requires php64
+                // check overstock
+                $info = $this->overstockService->get($sku);
+                if ($info) {
+                     $data[] = [
+                         'sku'   => $sku,
+                         'price' => $info['cost'],
+                         'avail' => [
+                             [ 'branch' => 'BTE OVERSTOCK', 'qty' => $info['qty'] ],
+                         ]
+                     ];
+                }
+                */
+
                 $this->view->data = $data;
             } catch (\Exception $e) {
                 $this->view->error = $e->getMessage();
