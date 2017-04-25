@@ -5,6 +5,7 @@ namespace Supplier\ASI;
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
 use Supplier\PurchaseOrderLog;
+use Supplier\OrderStatusQueryLog;
 use Supplier\ConfigKey;
 
 class Client extends BaseClient
@@ -112,7 +113,7 @@ class Client extends BaseClient
 
         $result = $response->parse();
 
-        OrderStatusQueryLog::save($orderId, $url, $xml, $res);
+        OrderStatusQueryLog::save($orderId, $url, $params, $res);
 
         $this->request = $request;
         $this->response = $response;

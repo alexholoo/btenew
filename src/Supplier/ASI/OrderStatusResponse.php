@@ -8,6 +8,12 @@ use Supplier\Model\OrderStatusResponse as BaseResponse;
 
 class OrderStatusResponse extends BaseResponse
 {
+    protected $shipMethods = [
+        'FDG' => [ 'carrier' => 'Fedex',     'service' => 'Ground' ],
+        'PGD' => [ 'carrier' => 'Purolator', 'service' => 'Ground' ],
+        'UP1' => [ 'carrier' => 'UPS',       'service' => 'Next Day Saver' ],
+    ];
+
     /**
      * @return Supplier\Model\OrderStatusResult
      */
@@ -34,9 +40,10 @@ class OrderStatusResponse extends BaseResponse
             $result->trackingNumber = '';
         }
 
-        if ($result->carrier == 'FDG') {
-            $result->carrier = 'Fedex';
-            $result->service = 'Ground';
+        if (isset($this->shipMethods[$result->carrier])) {
+            $info = $this->shipMethods[$result->carrier];
+            $result->carrier = $info['carrier'];
+            $result->service = $info['service'];
         }
 
         return $result;
