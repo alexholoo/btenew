@@ -32,7 +32,7 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
         $request->addPartnum($sku);
 
-        $params = $request->toXml();
+        $params = $request->build();
 
         $res = $this->httpGet($url . $params);
 
@@ -60,7 +60,7 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
         $request->setOrder($order);
 
-        $xml = $request->toXml();
+        $xml = $request->build();
         $this->di->get('logger')->debug($xml);
 
         $res = $this->curlPost($url, $xml, array(
@@ -104,7 +104,7 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
         $request->setOrder($orderId);
 
-        $params = $request->toXml();
+        $params = $request->build();
 
         $res = $this->httpGet($url . $params);
 

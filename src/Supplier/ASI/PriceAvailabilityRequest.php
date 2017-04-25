@@ -9,7 +9,7 @@ class PriceAvailabilityRequest extends BaseRequest
     /**
      * @return string
      */
-    public function toXml()
+    public function build()
     {
         $cid  = $this->config['CID'];
         $cert = $this->config['CERT'];
