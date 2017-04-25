@@ -6,26 +6,36 @@ use Phalcon\Di\Injectable;
 
 class OverstockService extends Injectable
 {
-    public function isOverstocked($sku)
+    public function get($sku)
     {
         $accdb = $this->openAccessDB();
 
         $sql = "SELECT * FROM [overstock] WHERE [SKU Number] ='$sku'";
-        $result = $accdb->query($sql)->fetch();
+
+        $result = $accdb->query($sql)->fetch(\PDO::FETCH_ASSOC);
+        if ($result) {
+            $result['sku']    = $result['SKU Number'];
+            $result['qty']    = $result['Actual Quantity'];
+            $result['UPC']    = $result['UPC Code'];
+            $result['weight'] = $result['Weight(lbs)'];
+        }
+        return $result;
+    }
+
+    public function isOverstocked($sku)
+    {
+        $result = $this->get($sku);
         return (boolean)$result;
     }
 
     public function getAvail($sku)
     {
-        $accdb = $this->openAccessDB();
-
-        $sql = "SELECT [Actual Quantity] FROM [overstock] WHERE [SKU Number]='$sku'";
-        $row = $accdb->query($sql)->fetch();
+        $result = $this->get($sku);
 
         $qty = 0;
 
-        if ($row) {
-            $qty = $row['Actual Quantity'];
+        if ($result) {
+            $qty = $result['Actual Quantity'];
         }
 
         return $qty;
