@@ -30,7 +30,7 @@
         <td>{{ order['date'] }}</td>
         <td>{{ order['channel'] }}</td>
         <td>{{ order['order_id'] }}</td>
-        <td>{{ item['sku'] }}</td>
+        <td><a href="/search/sku?sku={{ item['sku'] }}" target="_blank">{{ item['sku'] }}</a></td>
         <td>{{ item['qty'] }}</td>
         <td>{{ item['price'] }}</td>
         <td>{{ address['buyer'] }}</td>
