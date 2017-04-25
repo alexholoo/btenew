@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<ASIOrderReply>
+  <error>
+    <code>502</code>
+    <message>Your certificate is invalid</message>
+  </error>
+</ASIOrderReply>

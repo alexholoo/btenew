@@ -23,7 +23,7 @@ class Client extends BaseClient
             $response = new PriceAvailabilityResponse($res);
             $this->request = null;
             $this->response = $response;
-            return $response->parseXml();
+            return $response->parse();
         }
 
         $url = self::PA_PROD_URL;
@@ -32,12 +32,12 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
         $request->addPartnum($sku);
 
-        $params = $request->toXml();
+        $params = $request->build();
 
         $res = $this->httpGet($url . $params);
 
         $response = new PriceAvailabilityResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         PriceAvailabilityLog::save($url, $request, $response);
 
@@ -52,12 +52,72 @@ class Client extends BaseClient
      */
     public function purchaseOrder($order)
     {
-        throw \Exception('Purchase Order not supported for ASI');
+        $url = self::PO_PROD_URL;
+
+        $order = $this->getPrices($order);
+
+        $request = new PurchaseOrderRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
+        $request->setOrder($order);
+
+        $xml = $request->build();
+        $this->di->get('logger')->debug($xml);
+
+        $res = $this->curlPost($url, $xml, array(
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
+        ));
+
+        $response = new PurchaseOrderResponse($res);
+        $result = $response->parse();
+
+        $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
+
+        PurchaseOrderLog::saveXml($url, $request, $response);
+
+        if ($result->status == Response::STATUS_OK) {
+            PurchaseOrderLog::save($order, $result->orderNo);
+            PriceAvailabilityLog::invalidate($order);
+        }
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
+    }
+
+    protected function getPrices($order)
+    {
+        foreach ($order->items as $key => $item) {
+            $result = $this->getPriceAvailability($item->sku);
+            $first = $result->getFirst();
+            $order->items[$key]->price = $first->price;
+        }
+
+        return $order;
     }
 
     public function getOrderStatus($orderId)
     {
-        throw \Exception('Order Status not supported for ASI');
+        $url = self::OS_PROD_URL;
+
+        $request = new OrderStatusRequest();
+        $request->setConfig($this->config['xmlapi'][ConfigKey::ASI]);
+        $request->setOrder($orderId);
+
+        $params = $request->build();
+
+        $res = $this->httpGet($url . $params);
+
+        $response = new OrderStatusResponse($res);
+
+        $result = $response->parse();
+
+        OrderStatusQueryLog::save($orderId, $url, $xml, $res);
+
+        $this->request = $request;
+        $this->response = $response;
+
+        return $result;
     }
 
     protected function httpGet($url)
