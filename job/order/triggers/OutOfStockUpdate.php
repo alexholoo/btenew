@@ -19,11 +19,18 @@ class OutOfStockUpdate extends OrderTrigger
     {
         $outOfStockItems = [];
 
+        $overstockService = $this->di->get('overstockService');
+
         if (count($this->orders) > 0) {
             foreach ($this->orders as $key => $order) {
                 $orderId = $order['order_id'];
                 $sku     = $order['sku'];
                 $qty     = $order['qty'];
+
+                // overstock-changed, no $qty again
+                if ($overstockService->getAvail($sku) > 0) {
+                    continue;
+                }
 
                 $this->log("Price & Availability for $sku of $orderId");
 

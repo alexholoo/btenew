@@ -8,8 +8,27 @@ class OverstockService extends Injectable
 {
     public function isOverstocked($sku)
     {
-        $result = $this->db->fetchOne("SELECT * FROM overstock WHERE sku='$sku'");
+        $accdb = $this->openAccessDB();
+
+        $sql = "SELECT * FROM [overstock] WHERE [SKU Number] ='$sku'";
+        $result = $accdb->query($sql)->fetch();
         return (boolean)$result;
+    }
+
+    public function getAvail($sku)
+    {
+        $accdb = $this->openAccessDB();
+
+        $sql = "SELECT [Actual Quantity] FROM [overstock] WHERE [SKU Number]='$sku'";
+        $row = $accdb->query($sql)->fetch();
+
+        $qty = 0;
+
+        if ($row) {
+            $qty = $row['Actual Quantity'];
+        }
+
+        return $qty;
     }
 
     /**
@@ -103,5 +122,19 @@ class OverstockService extends Injectable
             'reserved',
             'row_num',
         ];
+    }
+
+    protected function openAccessDB()
+    {
+        $dbname = "z:/BTE-Price-List/bte-dataprocess-files.accdb";
+
+        if (!IS_PROD) {
+            $dbname = "C:/Users/BTE/Desktop/bte-dataprocess-files.accdb";
+        }
+
+        $dsn = "odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=$dbname;";
+        $db = new \PDO($dsn);
+
+        return $db;
     }
 }
