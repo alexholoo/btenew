@@ -4,6 +4,7 @@ namespace Supplier;
 
 use Phalcon\Di;
 
+// TODO: delete this class
 class DropshipTrackingLog
 {
     /**

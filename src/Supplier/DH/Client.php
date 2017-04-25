@@ -7,7 +7,6 @@ use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
 use Supplier\PurchaseOrderLog;
 use Supplier\OrderStatusQueryLog;
-use Supplier\DropshipTrackingLog;
 use Supplier\ConfigKey;
 use Supplier\Model\Response;
 
@@ -107,11 +106,6 @@ class Client extends BaseClient
         $result = $response->parseXml();
 
         OrderStatusQueryLog::save($orderId, $url, $xml, $res);
-
-        if ($result->trackingNumber) {
-            PurchaseOrderLog::markShipped($orderId);
-            DropshipTrackingLog::save($result);
-        }
 
         $this->request = $request;
         $this->response = $response;
