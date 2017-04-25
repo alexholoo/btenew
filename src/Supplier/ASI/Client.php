@@ -114,11 +114,6 @@ class Client extends BaseClient
 
         OrderStatusQueryLog::save($orderId, $url, $xml, $res);
 
-        if ($result->trackingNumber) {
-            PurchaseOrderLog::markShipped($orderId);
-            DropshipTrackingLog::save($result);
-        }
-
         $this->request = $request;
         $this->response = $response;
 
