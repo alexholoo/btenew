@@ -9,5 +9,5 @@ abstract class OrderStatusResponse extends Response
     /**
      * @return Supplier\Model\OrderStatusResult
      */
-    abstract public function parseXml();
+    abstract public function parse();
 }

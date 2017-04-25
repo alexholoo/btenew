@@ -9,5 +9,5 @@ abstract class PriceAvailabilityResponse extends Response
     /**
      * @return Supplier\Model\PriceAvailabilityResult
      */
-    abstract public function parseXml();
+    abstract public function parse();
 }

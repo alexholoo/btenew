@@ -9,5 +9,5 @@ abstract class PurchaseOrderResponse extends Response
     /**
      * @return Supplier\Model\PurchaseOrderResult
      */
-    abstract public function parseXml();
+    abstract public function parse();
 }

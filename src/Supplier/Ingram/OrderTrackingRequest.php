@@ -10,7 +10,7 @@ class OrderTrackingRequest extends BaseRequest
     /**
      * @return string
      */
-    public function toXml()
+    public function build()
     {
         $loginId  = $this->config['loginId'];
         $password = $this->config['password'];

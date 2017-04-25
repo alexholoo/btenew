@@ -10,7 +10,7 @@ class PriceAvailabilityRequest extends BaseRequest
     /**
      * @return string
      */
-    public function toXml()
+    public function build()
     {
         $customerNo = $this->config['customerNo'];
         $username   = $this->config['username'];

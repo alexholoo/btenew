@@ -9,7 +9,7 @@ class FreightQuoteResponse extends BaseResponse
     /**
      * @return Supplier\Model\FreightQuoteResult
      */
-    public function parseXml()
+    public function parse()
     {
         $xml = simplexml_load_string($this->xmldoc);
 

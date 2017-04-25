@@ -20,7 +20,7 @@ function testPriceAvailabilityRequest()
    #$request->addPartnum('DH-00WG685CA');
    #$request->addPartnum('DH-DEFNANOSBKW');
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -29,7 +29,7 @@ function testPriceAvailabilityResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/DH/fixtures/dh-pna-response-1');
     $response = new Supplier\DH\PriceAvailabilityResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     #pr($result->getItems());
     pr($result->getFirst()->toArray());
@@ -89,7 +89,7 @@ function testPurchaseOrderRequest()
     $request->setConfig($config[ConfigKey::DH]);
     $request->setOrder($order);
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -98,7 +98,7 @@ function testPurchaseOrderResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/DH/fixtures/dh-order-entry-response-2');
     $response = new Supplier\DH\PurchaseOrderResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($xml);
     pr($result);
@@ -128,7 +128,7 @@ function testOrderStatusRequest()
     $request->setConfig($config[ConfigKey::DH]);
     $request->setOrder('701-3707503-5766613');
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -137,7 +137,7 @@ function testOrderStatusResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/DH/fixtures/DH-OS-Response-2');
     $response = new Supplier\DH\OrderStatusResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($xml);
     pr($result);

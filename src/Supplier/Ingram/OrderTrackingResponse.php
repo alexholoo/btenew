@@ -11,7 +11,7 @@ class OrderTrackingResponse extends BaseResponse
     /**
      * @return Supplier\Model\OrderStatusResult
      */
-    public function parseXml()
+    public function parse()
     {
         $xml = simplexml_load_string($this->xmldoc);
 

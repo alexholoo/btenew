@@ -12,7 +12,7 @@ class PriceAvailabilityResponse extends BaseResponse
     /**
      * @return Supplier\Model\PriceAvailabilityResult
      */
-    public function parseXml()
+    public function parse()
     {
         /**
          *  <?xml version="1.0" encoding="UTF-8" ?>

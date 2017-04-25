@@ -10,7 +10,7 @@ class OrderStatusRequest extends BaseRequest
     /**
      * @return string
      */
-    public function toXml()
+    public function build()
     {
         $username   = $this->config['username'];
         $password   = $this->config['password'];

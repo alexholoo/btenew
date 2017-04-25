@@ -29,7 +29,7 @@ class Client extends BaseClient
             $response = new PriceAvailabilityResponse($res);
             $this->request = null;
             $this->response = $response;
-            return $response->parseXml();
+            return $response->parse();
         }
 
         $url = self::PA_TEST_URL;
@@ -39,12 +39,12 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
         $request->addPartnum($sku);
 
-        $xml = $request->toXml();
+        $xml = $request->build();
 
         $res = $this->curlPost($url, $xml);
 
         $response = new PriceAvailabilityResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         PriceAvailabilityLog::save($url, $request, $response);
 
@@ -66,13 +66,13 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
         $request->setOrder($order);
 
-        $xml = $request->toXml();
+        $xml = $request->build();
         $this->di->get('logger')->debug($xml);
 
         $res = $this->curlPost($url, $xml);
 
         $response = new PurchaseOrderResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
 
@@ -102,12 +102,12 @@ class Client extends BaseClient
         $request->setPoNumber($detail->poNum);
         $request->setInvoice($detail->invoice);
 
-        $xml = $request->toXml();
+        $xml = $request->build();
 
         $res = $this->curlPost($url, $xml);
 
         $response = new OrderStatusResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         $temp = $result->poNum;
         $result->poNum = $result->orderNo;
@@ -130,12 +130,12 @@ class Client extends BaseClient
         $request->setPurpose('01'); // Order Detail
         $request->setPoNumber($orderId);
 
-        $xml = $request->toXml();
+        $xml = $request->build();
 
         $res = $this->curlPost($url, $xml);
 
         $response = new OrderStatusResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         OrderStatusQueryLog::save($orderId, $url, $xml, $res);
 

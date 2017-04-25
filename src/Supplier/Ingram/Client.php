@@ -25,7 +25,7 @@ class Client extends BaseClient
             $response = new PriceAvailabilityResponse($res);
             $this->request = null;
             $this->response = $response;
-            return $response->parseXml();
+            return $response->parse();
         }
 
         $url = self::PA_PROD_URL;
@@ -34,12 +34,12 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::INGRAM]);
         $request->addPartnum($sku);
 
-        $xml = $request->toXml();
+        $xml = $request->build();
 
         $res = $this->curlPost($url, $xml);
 
         $response = new PriceAvailabilityResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         PriceAvailabilityLog::save($url, $request, $response);
 
@@ -60,13 +60,13 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::INGRAM]);
         $request->setOrder($order);
 
-        $xml = $request->toXml();
+        $xml = $request->build();
         $this->di->get('logger')->debug($xml);
 
         $res = $this->curlPost($url, $xml);
 
         $response = new PurchaseOrderResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
 
@@ -91,12 +91,12 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::INGRAM]);
         $request->setOrder(OrderNumberMapper::getFakeOrderNo($orderId));
 
-        $xml = $request->toXml();
+        $xml = $request->build();
 
         $res = $this->curlPost($url, $xml);
 
         $response = new OrderTrackingResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         OrderStatusQueryLog::save($orderId, $url, $xml, $res);
 

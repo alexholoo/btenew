@@ -18,7 +18,7 @@ function testPriceAvailabilityRequest()
    #$request->addPartnum('TD-1892ZJ');
     $request->addPartnum('TD-0331ZE');
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -27,7 +27,7 @@ function testPriceAvailabilityResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-pna-response-3.xml');
     $response = new Supplier\Techdata\PriceAvailabilityResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($result);
    #pr($result->getFirst()->toArray());
@@ -90,7 +90,7 @@ function testPurchaseOrderRequest()
     $request->setConfig($config[ConfigKey::TECHDATA]);
     $request->setOrder($order);
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -100,7 +100,7 @@ function testPurchaseOrderResponse()
     $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-po-response-2.xml');
     $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-po-response-1.xml');
     $response = new Supplier\Techdata\PurchaseOrderResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($response);
     pr($result);
@@ -132,7 +132,7 @@ function testOrderStatusRequest()
     $request->setInvoice('INV');
     $request->setPurpose('01');
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -144,7 +144,7 @@ function testOrderStatusResponse()
     $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-os-response-02.xml');
     $xml = file_get_contents(__DIR__ . './src/Supplier/Techdata/fixtures/td-os-response-01.xml');
     $response = new Supplier\Techdata\OrderStatusResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($response);
     pr($result);

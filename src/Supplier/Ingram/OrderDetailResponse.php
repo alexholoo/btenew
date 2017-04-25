@@ -11,7 +11,7 @@ class OrderDetailResponse extends BaseResponse
     /**
      * @return Supplier\Model\OrderDetailResult
      */
-    public function parseXml()
+    public function parse()
     {
         $xml = simplexml_load_string($this->xmldoc);
 

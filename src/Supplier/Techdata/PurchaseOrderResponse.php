@@ -11,7 +11,7 @@ class PurchaseOrderResponse extends BaseResponse
     /**
      * @return Supplier\Model\PurchaseOrderResult
      */
-    public function parseXml()
+    public function parse()
     {
         $xml = simplexml_load_string($this->xmldoc);
 

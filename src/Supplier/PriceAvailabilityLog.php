@@ -22,7 +22,7 @@ class PriceAvailabilityLog
             [
                 'sku' => $request->getPartnum(),
                 'url' => $url,
-                'request' => $request->toXml(),
+                'request' => $request->build(),
                 'response' => $response->getXmlDoc(),
                #'status' => $response->getStatus(),
             ]

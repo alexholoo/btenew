@@ -25,7 +25,7 @@ class Client extends BaseClient
             $response = new PriceAvailabilityResponse($res);
             $this->request = null;
             $this->response = $response;
-            return $response->parseXml();
+            return $response->parse();
         }
 
         $url = self::PA_PROD_URL;
@@ -34,14 +34,14 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::DH]);
         $request->addPartnum($sku);
 
-        $xml = $request->toXml();
+        $xml = $request->build();
 
         $res = $this->curlPost($url, $xml, array(
             CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
         ));
 
         $response = new PriceAvailabilityResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         PriceAvailabilityLog::save($url, $request, $response);
 
@@ -62,7 +62,7 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::DH]);
         $request->setOrder($order);
 
-        $xml = $request->toXml();
+        $xml = $request->build();
         $this->di->get('logger')->debug($xml);
 
         $res = $this->curlPost($url, $xml, array(
@@ -70,7 +70,7 @@ class Client extends BaseClient
         ));
 
         $response = new PurchaseOrderResponse($res);
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         $this->di->get('logger')->debug(Utils::formatXml($response->getXmlDoc()));
 
@@ -95,7 +95,7 @@ class Client extends BaseClient
         $request->setConfig($this->config['xmlapi'][ConfigKey::DH]);
         $request->setOrder($orderId);
 
-        $xml = $request->toXml();
+        $xml = $request->build();
 
         $res = $this->curlPost($url, $xml, array(
             CURLOPT_HTTPHEADER => array('Content-Type: text/plain')
@@ -103,7 +103,7 @@ class Client extends BaseClient
 
         $response = new OrderStatusResponse($res);
 
-        $result = $response->parseXml();
+        $result = $response->parse();
 
         OrderStatusQueryLog::save($orderId, $url, $xml, $res);
 

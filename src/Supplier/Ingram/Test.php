@@ -19,7 +19,7 @@ function testPriceAvailabilityRequest()
    #$request->addPartnum('ING-36438W');
     $request->addPartnum('ING-69905Z');
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -28,7 +28,7 @@ function testPriceAvailabilityResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/Ingram/fixtures/ing-pna-response-2.xml');
     $response = new Supplier\Ingram\PriceAvailabilityResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($result->getFirst()->toArray());
 }
@@ -87,7 +87,7 @@ function testPurchaseOrderRequest()
     $request->setConfig($config[ConfigKey::INGRAM]);
     $request->setOrder($order);
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -102,7 +102,7 @@ $xml=<<<EOS
 EOS;
 */
     $response = new Supplier\Ingram\PurchaseOrderResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($result);
 }
@@ -164,7 +164,7 @@ function testOrderTrackingRequest()
     $request->setConfig($config[ConfigKey::INGRAM]);
     $request->setOrder('702-9287700-2279402');
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -177,7 +177,7 @@ function testOrderTrackingResponse()
     $xml = file_get_contents(__DIR__ . './src/Supplier/Ingram/fixtures/ing-orderTracking-Response-2.xml');
 
     $response = new Supplier\Ingram\OrderTrackingResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($xml);
     pr($result);

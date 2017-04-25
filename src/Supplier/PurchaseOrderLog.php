@@ -15,7 +15,7 @@ class PurchaseOrderLog
                 'sku' => $request->getSku(),
                 'order_id' => $request->getOrderId(),
                 'url' => $url,
-                'request' => $request->toXml(),
+                'request' => $request->build(),
                 'response' => $response->getXmlDoc(),
                #'status' => $response->getStatus(),
             ]

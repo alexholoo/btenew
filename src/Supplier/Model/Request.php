@@ -33,5 +33,5 @@ abstract class Request
     /**
      * @return string
      */
-    abstract public function toXml();
+    abstract public function build();
 }

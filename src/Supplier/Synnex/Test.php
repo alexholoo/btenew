@@ -19,7 +19,7 @@ function testPriceAvailabilityRequest()
    #$request->addPartnum('SYN-5471137');
    #$request->addPartnum('SYN-5497540');
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -28,7 +28,7 @@ function testPriceAvailabilityResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-pna-response-1.xml');
     $response = new Supplier\Synnex\PriceAvailabilityResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($result->getFirst()->toArray());
 }
@@ -88,7 +88,7 @@ function testPurchaseOrderRequest()
     $request->setConfig($config[ConfigKey::SYNNEX]);
     $request->setOrder($order);
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -97,7 +97,7 @@ function testPurchaseOrderResponse()
 {
     $xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-po-response-6.xml');
     $response = new Supplier\Synnex\PurchaseOrderResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     pr($xml);
     pr($result);
@@ -126,7 +126,7 @@ function testFreightQuoteRequest()
     $request->setConfig($config[ConfigKey::SYNNEX]);
     $request->setOrder($order);
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -136,7 +136,7 @@ function testFreightQuoteResponse()
     $xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-fq-response-3.xml');
    #$xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-fq-response-error.xml');
     $response = new Supplier\Synnex\FreightQuoteResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
     //pr($xml);
     //pr($result);
@@ -164,7 +164,7 @@ function testOrderStatusRequest()
     $request->setConfig($config[ConfigKey::SYNNEX]);
     $request->setOrder('702-0611280-7687416');
 
-    $xml = $request->toXml();
+    $xml = $request->build();
 
     echo $xml;
 }
@@ -175,7 +175,7 @@ function testOrderStatusPurchaseOrderResponse()
    #$xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-os-response-2.xml');
    #$xml = file_get_contents(__DIR__ . './src/Supplier/Synnex/fixtures/synnex-os-notfound.xml');
     $response = new Supplier\Synnex\OrderStatusResponse($xml);
-    $result = $response->parseXml();
+    $result = $response->parse();
 
 #   pr($xml);
     pr($result);
