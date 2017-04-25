@@ -12,6 +12,10 @@ use Supplier\Model\Response;
 
 class Client extends BaseClient
 {
+    const PURPOSE_ORDER_DETAIL    = '01';
+    const PURPOSE_SHIPMENT_DETAIL = '03';
+    const PURPOSE_INVOICE_DETAIL  = '02';
+
     const PA_TEST_URL = 'http://tdxml.cstenet.com/xmlservlet';
     const PA_PROD_URL = 'https://tdxml.techdata.com/xmlservlet';
 
@@ -97,7 +101,7 @@ class Client extends BaseClient
 
         $request = new OrderStatusRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
-        $request->setPurpose('03'); // Shipment Detail
+        $request->setPurpose(self::PURPOSE_SHIPMENT_DETAIL);
         $request->setOrderNum($detail->orderNo);
         $request->setPoNumber($detail->poNum);
         $request->setInvoice($detail->invoice);
@@ -127,7 +131,7 @@ class Client extends BaseClient
 
         $request = new OrderStatusRequest();
         $request->setConfig($this->config['xmlapi'][ConfigKey::TECHDATA]);
-        $request->setPurpose('01'); // Order Detail
+        $request->setPurpose(self::PURPOSE_ORDER_DETAIL);
         $request->setPoNumber($orderId);
 
         $xml = $request->build();
@@ -147,6 +151,6 @@ class Client extends BaseClient
 
     public function getInvoiceDetail($orderId, $invoice)
     {
-        $request->setPurpose('02'); // Invoice Detail
+        $request->setPurpose(self::PURPOSE_INVOICE_DETAIL);
     }
 }

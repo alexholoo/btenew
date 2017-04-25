@@ -17,8 +17,16 @@ class OrderStatusResponse extends BaseResponse
 
         $result = new OrderStatusResult();
 
+        $result->status = Response::STATUS_ERROR;
+
+        $result->poNum = '';
+        $result->invoice = '';
+
+        if (!$xml->Detail) {
+            return $result;
+        }
+
         if ($xml->Detail->ErrorInfo) {
-            $result->status = Response::STATUS_ERROR;
             $result->errorMessage = strval($xml->Detail->ErrorInfo->ErrorDesc);
             return $result;
         }
@@ -43,9 +51,13 @@ class OrderStatusResponse extends BaseResponse
             $result->sku = 'TD-'.strval($xml->Detail->ContainerInfo->ItemInfo->ProductID);
             $result->qty = strval($xml->Detail->ContainerInfo->ItemInfo->QtyShipped);
             $result->carrier = strval($xml->Detail->ContainerInfo->ShipVia);
-           #$result->service = strval($xml->Detail->);
             $result->trackingNumber = strval($xml->Detail->ContainerInfo->ContainerID);
             $result->shipDate = $this->fmtdate(strval($xml->Detail->ContainerInfo->DateShipped));
+
+            // $result->carrier looks like UPS GRND SML BOX
+            $arr = explode(' ', $result->carrier, 2);
+            $result->carrier = $arr[0]; // UPS
+            $result->service = $arr[1]; // GRND SML BOX
         }
 
         return $result;
