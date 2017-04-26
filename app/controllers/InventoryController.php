@@ -54,20 +54,22 @@ class InventoryController extends ControllerBase
             $sn       = $this->request->getPost('sn');
             $note     = $this->request->getPost('note');
 
-            $id = $this->inventoryLocationService->add(
-                compact(
-                    'partnum',
-                    'upc',
-                    'location',
-                    'qty',
-                    'sn',
-                    'note'
-                )
-            );
+            if (strlen($partnum.$upc) > 0 && strlen($location) > 0 && $qty > 0) {
+                $id = $this->inventoryLocationService->add(
+                    compact(
+                        'partnum',
+                        'upc',
+                        'location',
+                        'qty',
+                        'sn',
+                        'note'
+                    )
+                );
 
-            $items[] = $this->inventoryLocationService->get($id);
+                $items[] = $this->inventoryLocationService->get($id);
 
-            $this->session->set(self::SESSKEY, $items);
+                $this->session->set(self::SESSKEY, $items);
+            }
         }
 
         $this->view->items = $items;
