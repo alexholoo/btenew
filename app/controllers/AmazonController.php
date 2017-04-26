@@ -98,9 +98,9 @@ class AmazonController extends ControllerBase
                     'cost'       => $cost,
                     'condition'  => $condition,
                     'mpn'        => $mpn,
-                    'source'     => $item['source'],
+                    'source'     => '', // $item['source'],
                     'source_sku' => $item['SKU'],
-                    'id'         => $item['id'],
+                    'id'         => '', // $item['id'],
                     'upc'        => $item['UPC'],
                 ];
 
