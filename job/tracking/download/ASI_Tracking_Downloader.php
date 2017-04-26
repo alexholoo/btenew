@@ -2,7 +2,7 @@
 
 use Supplier\Supplier;
 
-class Ingram_Tracking_Downloader extends Tracking_Downloader
+class ASI_Tracking_Downloader extends Tracking_Downloader
 {
     public function run($argv = [])
     {
@@ -17,9 +17,9 @@ class Ingram_Tracking_Downloader extends Tracking_Downloader
     {
         $trackings = [];
 
-        $client = Supplier::createClient('ING');
+        $client = Supplier::createClient('AS');
 
-        $orders = $this->getDropshippedOrders('Ingram Micro');
+        $orders = $this->getDropshippedOrders('ASI');
 
         foreach ($orders as $order) {
             $orderId = $order['orderId'];
@@ -34,7 +34,7 @@ class Ingram_Tracking_Downloader extends Tracking_Downloader
         }
 
         if ($trackings) {
-            $filename = Filenames::get('ingram.tracking');
+            $filename = Filenames::get('asi.tracking');
 
             $fp = fopen($filename, 'w');
 

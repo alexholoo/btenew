@@ -22,7 +22,7 @@ class Ingram_Tracking_Importer extends Tracking_Importer
 
         $fp = fopen($filename, 'r');
 
-        $columns = [ 'shipDate', 'orderId', 'carrier', 'trackingNumber' ];
+        $columns = fgetcsv($fp);
 
         while ($values = fgetcsv($fp)) {
             if (count($columns) != count($values)) {
@@ -37,7 +37,7 @@ class Ingram_Tracking_Importer extends Tracking_Importer
                 'shipDate'       => $fields['shipDate'],
                 'carrierCode'    => $fields['carrier'],
                 'carrierName'    => '',
-                'shipMethod'     => '',
+                'shipMethod'     => $fields['service'],
                 'trackingNumber' => $fields['trackingNumber'],
                 'sender'         => 'ING-DS',
             ]);

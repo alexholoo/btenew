@@ -1,6 +1,6 @@
 <?php
 
-class Techdata_Tracking_Importer extends Tracking_Importer
+class ASI_Tracking_Importer extends Tracking_Importer
 {
     public function run($argv = [])
     {
@@ -13,7 +13,7 @@ class Techdata_Tracking_Importer extends Tracking_Importer
 
     public function import()
     {
-        $filename = Filenames::get('techdata.tracking');
+        $filename = Filenames::get('asi.tracking');
 
         if (!file_exists($filename)) {
             $this->error(__METHOD__." File not found: $filename");
@@ -39,7 +39,7 @@ class Techdata_Tracking_Importer extends Tracking_Importer
                 'carrierName'    => '',
                 'shipMethod'     => $fields['service'],
                 'trackingNumber' => $fields['trackingNumber'],
-                'sender'         => 'TD-DS',
+                'sender'         => 'ASI-DS',
             ]);
         }
 

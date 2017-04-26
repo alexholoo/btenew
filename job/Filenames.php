@@ -124,9 +124,10 @@ class Filename
     const AMAZON_CA_FBA_TRACKING    =  self::BASEDIR. '/tracking/amazon_ca_FBA.csv';
     const AMAZON_US_FBA_TRACKING    =  self::BASEDIR. '/tracking/amazon_us_FBA.csv';
 
-    const DH_TRACKING               =  self::BASEDIR. '/tracking/DH-tracking';
-    const TECHDATA_TRACKING         =  self::BASEDIR. '/tracking/TD-tracking';
-    const INGRAM_TRACKING           =  self::BASEDIR. '/tracking/ING-tracking';
+    const DH_TRACKING               =  self::BASEDIR. '/tracking/DH-tracking.csv';
+    const TECHDATA_TRACKING         =  self::BASEDIR. '/tracking/TD-tracking.csv';
+    const INGRAM_TRACKING           =  self::BASEDIR. '/tracking/ING-tracking.csv';
+    const ASI_TRACKING              =  self::BASEDIR. '/tracking/ASI-tracking.csv';
     const SYNNEX_TRACKING           =  self::BASEDIR. '/tracking/synnex'; // folder
 
     // shipping
