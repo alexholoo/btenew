@@ -16,12 +16,14 @@
       <div class="form-group">
         <input type="text" class="form-control" name="qty" placeholder="Quantity" data-toggle="tooltip" title="Quantity" value="{{qty}}">
       </div>
+      <!--
       <div class="form-group">
         <input type="text" class="form-control" name="sn" placeholder="SN #" data-toggle="tooltip" title="SN #" value="{{sn}}">
       </div>
       <div class="form-group">
         <input type="text" class="form-control" name="note" placeholder="Note" data-toggle="tooltip" title="Note" value="{{note}}">
       </div>
+      -->
       <div class="form-group">
         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-tags"></span>&nbsp; Enter </button>
       </div>
@@ -41,8 +43,10 @@
         <th>UPC</th>
         <th>Location</th>
         <th>Qty</th>
+        <!--
         <th>SN #</th>
         <th>Note</th>
+        -->
         <!--
         <th class="text-center">Action</th>
         -->
@@ -57,8 +61,10 @@
         <td>{{ item['upc'] }}</td>
         <td>{{ item['location'] }}</td>
         <td>{{ item['qty'] }}</td>
+        <!--
         <td>{{ item['sn'] }}</td>
         <td>{{ item['note'] }}</td>
+        -->
         <!--
         <td class="text-center fit-to-text">
           <a href="#" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
@@ -82,4 +88,25 @@
 
 {% block docready %}
 $('[data-toggle="tooltip"]').tooltip();
+
+$('body').on('keydown', 'input, select, textarea', function(e) {
+  var self = $(this),
+      form = self.parents('form:eq(0)'),
+      submit = (self.attr('type') == 'submit' || self.attr('type') == 'button'),
+      focusable,
+      next;
+
+  if (e.keyCode == 13 && !submit) {
+      focusable = form.find('input,a,select,button,textarea').filter(':visible:not([readonly]):not([disabled])');
+      next = focusable.eq(focusable.index(this)+1);
+
+      if (next.length) {
+          next.focus();
+      } else {
+          form.submit();
+      }
+
+      return false;
+  }
+});
 {% endblock %}
