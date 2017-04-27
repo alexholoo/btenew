@@ -22,16 +22,16 @@ class InventoryLocationService extends Injectable
                     $keyword = $mpn;
                 }
             }
-            $sql = 'SELECT * FROM inventory_location WHERE partnum LIKE ? ORDER BY updatedon DESC LIMIT 20';
+            $sql = 'SELECT * FROM inventory_location WHERE partnum LIKE ? LIMIT 20';
             $result = $this->db->query($sql, array("%$keyword%"));
         } elseif ($searchby == 'upc') {
-            $sql = 'SELECT * FROM inventory_location WHERE upc LIKE ? ORDER BY updatedon DESC LIMIT 20';
+            $sql = 'SELECT * FROM inventory_location WHERE upc LIKE ? LIMIT 20';
             $result = $this->db->query($sql, array("%$keyword"));
         } elseif ($searchby == 'location') {
-            $sql = "SELECT * FROM inventory_location WHERE location = ? ORDER BY updatedon DESC LIMIT 20";
+            $sql = "SELECT * FROM inventory_location WHERE location = ? LIMIT 20";
             $result = $this->db->query($sql, array($keyword));
         } elseif ($searchby == 'note') {
-            $sql = "SELECT * FROM inventory_location WHERE note LIKE ? ORDER BY updatedon DESC LIMIT 20";
+            $sql = "SELECT * FROM inventory_location WHERE note LIKE ? LIMIT 20";
             $result = $this->db->query($sql, array("%$keyword%"));
         } else {
             return false;
@@ -81,10 +81,7 @@ class InventoryLocationService extends Injectable
             return false;
         }
 
-        return true;
-
-        // if nothing changed, affectedRows() return 0
-        // return $this->db->affectedRows() == 1;
+        return $this->db->affectedRows() == 1;
     }
 
     public function delete($id)

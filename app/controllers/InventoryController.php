@@ -51,8 +51,8 @@ class InventoryController extends ControllerBase
             $upc      = $this->request->getPost('upc');
             $location = $this->request->getPost('location');
             $qty      = $this->request->getPost('qty', 'int');
-            $sn       = $this->request->getPost('sn', null, '');
-            $note     = $this->request->getPost('note', null, '');
+            $sn       = $this->request->getPost('sn');
+            $note     = $this->request->getPost('note');
 
             if (strlen($partnum.$upc) > 0 && strlen($location) > 0 && $qty > 0) {
                 $id = $this->inventoryLocationService->add(

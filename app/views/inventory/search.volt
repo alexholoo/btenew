@@ -120,24 +120,25 @@ function editNote(data, success, fail, done) {
     skin: 'layui-layer-molv',
   });
 
-  $('tr').click(function() {
+  $('.note').click(function() {
     $('tr').removeClass('info');
 
     var self = $(this);
 
-    var id = self.data('id');
-    var note = self.find('.note').text();
+    var tr = self.closest('tr');
+    var id = tr.data('id');
+    var note = self.text();
 
-    self.addClass('info');
+    tr.addClass('info');
 
     editNote({ id: id, note: note },
       function(data) {
         showToast('Your change has benn saved', 1000);
-        self.find('.note').text(data.note);
+        self.text(data.note);
       },
       function(message) {
         showError(message);
-        self.addClass('danger');
+        tr.addClass('danger');
       },
       function() {}
     );
