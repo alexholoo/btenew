@@ -81,6 +81,8 @@
 {% endblock %}
 
 {% block csscode %}
+.upc, .note { cursor: pointer; }
+.upc:hover, .note:hover { text-decoration: underline; }
 {% endblock %}
 
 {% block jscode %}
