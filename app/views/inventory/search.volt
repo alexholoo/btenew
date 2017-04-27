@@ -111,6 +111,37 @@ function editNote(data, success, fail, done) {
     content: editNoteHtml(data)
   })
 }
+
+function skuListHtml(skus, upc) {
+  var content = '';
+
+  for (var i=0; i<skus.length; i++) {
+    content += `<li>${skus[i]}</li>`;
+  }
+
+  return `<div style="padding: 20px; font-size: 20px;">
+     SKUs for UPC <label>${upc}</label><br />
+     <ul>${content}</ul>
+   </div>`;
+}
+
+function skuListForUPC(upc, done) {
+  ajaxCall('/inventory/upc/' + upc, { upc: upc },
+    function(data) {
+      layer.open({
+        title: false,
+        area: ['400px', 'auto'],
+        shadeClose: true,
+        end: function(index, layero) { done(); },
+        content: skuListHtml(data, upc)
+      })
+    },
+    function(message) {
+      done();
+      showError(message);
+    }
+  );
+}
 {% endblock %}
 
 {% block docready %}
@@ -120,6 +151,7 @@ function editNote(data, success, fail, done) {
     skin: 'layui-layer-molv',
   });
 
+  // click note to edit note
   $('.note').click(function() {
     $('tr').removeClass('info');
 
@@ -142,5 +174,19 @@ function editNote(data, success, fail, done) {
       },
       function() {}
     );
+  });
+
+  // click upc to view sku list
+  $('.upc').click(function() {
+    $('tr').removeClass('info');
+
+    var self = $(this);
+
+    var tr = self.closest('tr');
+    var upc = self.text();
+
+    tr.addClass('info');
+
+    skuListForUPC(upc, function() {});
   });
 {% endblock %}
