@@ -197,6 +197,12 @@ class SkuService extends Injectable
         return '';
     }
 
+    public function getSkuListByUPC($upc)
+    {
+        $result = $this->db->fetchAll("SELECT sku FROM sku_upc_map WHERE upc='$upc'");
+        return $result ? array_column($result, 'sku') : [];
+    }
+
     public function getSupplier($sku)
     {
         $names = [

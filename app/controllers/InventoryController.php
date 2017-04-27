@@ -92,4 +92,14 @@ class InventoryController extends ControllerBase
 
         return $this->response;
     }
+
+    public function upcAction($upc)
+    {
+        $this->view->disable();
+
+        $skuList = $this->skuService->getSkuListByUPC($upc);
+        $this->response->setJsonContent(['status' => 'OK', 'data' => $skuList ]);
+
+        return $this->response;
+    }
 }
