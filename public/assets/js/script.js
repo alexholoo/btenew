@@ -156,14 +156,38 @@ bte.OrderDetailModal = class OrderDetailModal {
     }
 }
 
+bte.utils = { }
+
 /**
  * RFC4122 version 4 compliant unique id creator.
  * Added by https://github.com/tufanbarisyildirim/
  * @returns {String}
  */
-function newGuid() {
+bte.utils.newGuid = function () {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
+}
+
+bte.utils.showToast = function (msg, autoHide=false) {
+    $.toast({
+        heading: 'Success',
+        text: msg,
+        showHideTransition: 'fade',
+        hideAfter: autoHide,
+        position: { right: 30, top: 60 },
+        icon: 'success'
+    })
+}
+
+bte.utils.showError = function (msg) {
+    $.toast({
+        heading: 'Error',
+        text: msg,
+        showHideTransition: 'fade',
+        hideAfter: 5000,
+        position: { right: 30, top: 60 },
+        icon: 'error'
+    })
 }
