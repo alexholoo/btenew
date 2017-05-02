@@ -36,7 +36,7 @@ $('#link1').on('click', function(){
 });
 
 $('#link2').on('click', function(){
-  var modal = new bte.PriceAvailModal(['ING-50089U']);
+  var modal = new bte.PriceAvailModal(['ING-50089U', 'SYN-5756548', 'AS-192375']);
   modal.show();
 });
 {% endblock %}
