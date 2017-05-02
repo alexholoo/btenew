@@ -339,16 +339,20 @@ bte.PurchaseModal = class {
     }
 
     yes(index, layero) {
-        var comment = layero.find('#comment').val();
-        this.data.comment = comment;
-
-        var shipMethod = layero.find('#ship-method option:selected').val();
+        var comment     = layero.find('#comment').val();
+        var shipMethod  = layero.find('#ship-method option:selected').val();
         var notifyEmail = layero.find('#notify-email option:selected').text();
 
-        this.data.shipMethod = shipMethod;
+        this.data.comment     = comment;
+        this.data.shipMethod  = shipMethod;
         this.data.notifyEmail = notifyEmail;
 
-        ajaxCall('/ajax/make/purchase', this.data, this.onSuccess, this.onFailure);
+        var ajaxCall = new bte.AjaxCall('/ajax/make/purchase', this.data);
+
+        ajaxCall.success = this.onSuccess;
+        ajaxCall.failure = this.onFailure;
+        ajaxCall.exec();
+
         layer.close(index);
     }
 
