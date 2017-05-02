@@ -212,16 +212,16 @@ bte.PriceAvailModal = class PriceAvailModal {
         return `<div style="padding: 20px;">
             <table class="table table-bordered table-condensed">
             <thead>
-            <tr>
-            <th>&nbsp;</th>
-            <th>PartNum</th>
-            <th>Price</th>
-            <th>Branch</th>
-            <th>Qty</th>
-            </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <th>PartNum</th>
+                <th>Price</th>
+                <th>Branch</th>
+                <th>Qty</th>
+              </tr>
             </thead>
             <tbody>
-            ${content}
+              ${content}
             </tbody>
             </table>
             </div>`;
