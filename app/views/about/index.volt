@@ -15,6 +15,7 @@
       </pre>
       <a href="javascript:;" id="link1">Order Info</a><br>
       <a href="javascript:;" id="link2">Price Avail</a><br>
+      <a href="javascript:;" id="link3">Purchase</a><br>
     </div>
 
 </div>
@@ -37,6 +38,11 @@ $('#link1').on('click', function(){
 
 $('#link2').on('click', function(){
   var modal = new bte.PriceAvailModal(['ING-50089U', 'SYN-5756548', 'AS-192375']);
+  modal.show();
+});
+
+$('#link3').on('click', function(){
+  var modal = new bte.PurchaseModal({sku: 'ING-50089U', branch: 'Markham', qty: '2'});
   modal.show();
 });
 {% endblock %}
