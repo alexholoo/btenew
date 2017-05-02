@@ -13,7 +13,8 @@
       Client: {{ clientIP }}<br>
       Browser: {{ userAgent }}<br>
       </pre>
-      <a href="javascript:;" id="about">Click Me</a>
+      <a href="javascript:;" id="link1">Order Info</a><br>
+      <a href="javascript:;" id="link2">Price Avail</a><br>
     </div>
 
 </div>
@@ -44,7 +45,7 @@ class PriceAvailModal {
             var branch = tr.data('branch');
             var code = tr.data('branch-code');
 
-            onSelected({sku: sku, branch: branch, code: code});
+            this.onSelected({sku: sku, branch: branch, code: code});
         }
         layer.close(index);
     }
@@ -101,9 +102,9 @@ class PriceAvailModal {
                 title:   'Price and Availability',
                 area:    ['600px', 'auto'],
                 btn:     ['OK', 'Cancel'],
-                yes:     self.yes,
-                success: self.success,
-                end:     self.end,
+                yes:     (index, layero) => { self.yes(index, layero) },
+                success: (index, layero) => { self.success(index, layero) },
+                end:     (index, layero) => { self.end(index, layero) },
                 content: self.content(data)
             })
             self.onClose();
@@ -127,8 +128,12 @@ layer.config({
   skin: 'layui-layer-molv',
 });
 
-$('#about').on('click', function(){
-  //var modal = new bte.OrderDetailModal('701-5568212-2791469');
+$('#link1').on('click', function(){
+  var modal = new bte.OrderDetailModal('701-5568212-2791469');
+  modal.show();
+});
+
+$('#link2').on('click', function(){
   //var modal = new bte.PriceAvailModal(['ING-50089U']);
   var modal = new PriceAvailModal(['ING-50089U']);
   modal.show();

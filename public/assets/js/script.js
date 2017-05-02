@@ -141,11 +141,11 @@ bte.OrderDetailModal = class OrderDetailModal {
             //    skin: 'layui-layer-molv',
             //});
             layer.open({
-                title: false,
-                area: ['550px', 'auto'],
+                title:      false,
+                area:       ['550px', 'auto'],
                 shadeClose: true,
-                end: self.end,
-                content: self.content(data)
+                end:        (index, layero) => { self.end(index, layero) },
+                content:    self.content(data)
             })
         };
 
