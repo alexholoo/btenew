@@ -84,76 +84,76 @@ bte.AjaxCall = class AjaxCall {
 
 bte.OrderDetailModal = class OrderDetailModal {
     constructor(orderId) {
-      this.orderId = orderId;
+        this.orderId = orderId;
     }
 
     end(index, layero) { }
 
     content(order) {
-      return `<div style="padding: 20px 20px 0 20px;">
-        <table class="table table-bordered table-condensed">
-        <caption>Order ID: <b>${order.orderId}</b></caption>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Market</th>
-            <th>SKU</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Express</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>${order.date}</td>
-            <td>${order.channel}</td>
-            <td><a href="/search/sku?sku=${order.sku}" target="_blank">${order.sku}</a></td>
-            <td>${order.price}</td>
-            <td>${order.qty}</td>
-            <td>${order.express == 1 ? 'Yes' : '&nbsp;'}</td>
-          </tr>
-        </tbody>
-        </table>
+        return `<div style="padding: 20px 20px 0 20px;">
+          <table class="table table-bordered table-condensed">
+          <caption>Order ID: <b>${order.orderId}</b></caption>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Market</th>
+              <th>SKU</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Express</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>${order.date}</td>
+              <td>${order.channel}</td>
+              <td><a href="/search/sku?sku=${order.sku}" target="_blank">${order.sku}</a></td>
+              <td>${order.price}</td>
+              <td>${order.qty}</td>
+              <td>${order.express == 1 ? 'Yes' : '&nbsp;'}</td>
+            </tr>
+          </tbody>
+          </table>
 
-        <p class="text-primary">${order.productName}</p>
+          <p class="text-primary">${order.productName}</p>
 
-        <table class="table table-condensed">
-        <caption>Customer Information</caption>
-        <tbody>
-          <tr><td><b>Name</b></td><td>${order.buyer}</td></tr>
-          <tr><td><b>Address</b></td><td>${order.address}</td></tr>
-          <tr><td><b>&nbsp;</b></td><td>${order.city}, ${order.province}, ${order.postalcode}, ${order.country}</td></tr>
-          <tr><td><b>Phone</b></td><td>${order.phone}</td></tr>
-          <tr><td><b>Email</b></td><td>${order.email}</td></tr>
-        </table>
-        </div>`;
+          <table class="table table-condensed">
+          <caption>Customer Information</caption>
+          <tbody>
+            <tr><td><b>Name</b></td><td>${order.buyer}</td></tr>
+            <tr><td><b>Address</b></td><td>${order.address}</td></tr>
+            <tr><td><b>&nbsp;</b></td><td>${order.city}, ${order.province}, ${order.postalcode}, ${order.country}</td></tr>
+            <tr><td><b>Phone</b></td><td>${order.phone}</td></tr>
+            <tr><td><b>Email</b></td><td>${order.email}</td></tr>
+          </table>
+          </div>`;
     }
 
     show() {
-      var self = this;
+        var self = this;
 
-      var ajaxCall = new bte.AjaxCall('/ajax/order/detail', { orderId: self.orderId });
+        var ajaxCall = new bte.AjaxCall('/ajax/order/detail', { orderId: self.orderId });
 
-      ajaxCall.success = function(data) {
-          //layer.config({
-          //  type: 1,
-          //  moveType: 1,
-          //  skin: 'layui-layer-molv',
-          //});
-          layer.open({
-            title: false,
-            area: ['550px', 'auto'],
-            shadeClose: true,
-            end: self.end,
-            content: self.content(data)
-          })
-      };
+        ajaxCall.success = function(data) {
+            //layer.config({
+            //    type: 1,
+            //    moveType: 1,
+            //    skin: 'layui-layer-molv',
+            //});
+            layer.open({
+                title: false,
+                area: ['550px', 'auto'],
+                shadeClose: true,
+                end: self.end,
+                content: self.content(data)
+            })
+        };
 
-      ajaxCall.failure = function(message) {
-          showError(message);
-      };
+        ajaxCall.failure = function(message) {
+            showError(message);
+        };
 
-      ajaxCall.exec();
+        ajaxCall.exec();
     }
 }
 
