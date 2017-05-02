@@ -132,9 +132,8 @@ bte.OrderDetailModal = class OrderDetailModal {
     show() {
       var self = this;
 
-      ajaxCall = new bte.AjaxCall('/ajax/order/detail', {
-          orderId: self.orderId
-      });
+      var ajaxCall = new bte.AjaxCall('/ajax/order/detail', { orderId: self.orderId });
+
       ajaxCall.success = function(data) {
           //layer.config({
           //  type: 1,
@@ -149,11 +148,16 @@ bte.OrderDetailModal = class OrderDetailModal {
             content: self.content(data)
           })
       };
+
       ajaxCall.failure = function(message) {
           showError(message);
       };
+
       ajaxCall.exec();
     }
+}
+
+bte.PriceAvailModal = class PriceAvailModal {
 }
 
 bte.utils = { }
