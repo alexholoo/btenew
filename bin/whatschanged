@@ -1,0 +1,4 @@
+# !/bin/bash
+
+# clear cache
+rsync -rvn --exclude-from 'bin/rsync-exclude' --chmod=ugo=rwX "/cygdrive/C/xampp/htdocs/btenew/" "192.168.0.12::btenew"
