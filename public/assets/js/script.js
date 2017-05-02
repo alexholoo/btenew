@@ -51,7 +51,7 @@ function ajaxCall(url, data, success, fail) {
 
 var bte = { }
 
-bte.AjaxCall = class AjaxCall {
+bte.AjaxCall = class {
     constructor(url, data) {
         this.url = url;
         this.data = data;
@@ -82,7 +82,7 @@ bte.AjaxCall = class AjaxCall {
     }
 }
 
-bte.OrderDetailModal = class OrderDetailModal {
+bte.OrderDetailModal = class {
     constructor(orderId) {
         this.orderId = orderId;
     }
@@ -157,7 +157,7 @@ bte.OrderDetailModal = class OrderDetailModal {
     }
 }
 
-bte.PriceAvailModal = class PriceAvailModal {
+bte.PriceAvailModal = class {
     constructor(sku) {
         this.sku = sku;
         this.onClose = function() { };
