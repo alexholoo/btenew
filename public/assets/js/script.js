@@ -136,11 +136,11 @@ bte.OrderDetailModal = class OrderDetailModal {
           orderId: self.orderId
       });
       ajaxCall.success = function(data) {
-          layer.config({
-            type: 1,
-            moveType: 1,
-            skin: 'layui-layer-molv',
-          });
+          //layer.config({
+          //  type: 1,
+          //  moveType: 1,
+          //  skin: 'layui-layer-molv',
+          //});
           layer.open({
             title: false,
             area: ['550px', 'auto'],
