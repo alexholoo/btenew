@@ -254,6 +254,140 @@ bte.PriceAvailModal = class {
     }
 }
 
+bte.PurchaseModal = class {
+    constructor(data) {
+        this.data = data;
+        this.onSuccess = function() {};
+        this.onFailure = function() {};
+        this.onClose = function() {};
+    }
+
+    set success(val) {
+        this.onSuccess = val;
+    }
+
+    set failure(val) {
+        this.onFailure = val;
+    }
+
+    set done(val) {
+        this.onClose = val;
+    }
+
+    getShipMethods(data) {
+        var shipMethod = '';
+
+        if (data.sku.substr(0, 3) != 'SYN') {
+            return shipMethod;
+        }
+
+        var loading = layer.load(1, { shade: false });
+
+        $.ajax({
+            type: 'POST',
+            url: '/ajax/freight/quote',
+            data: data,
+            async: false,
+            success: function(res) {
+                layer.close(loading);
+                shipMethod = `
+                    <label>Ship Method</label>
+                    <select id="ship-method" style="float:right;width:320px;">
+                    ${res.data}
+                    </select><br><br>`;
+            }
+        });
+
+        return shipMethod;
+    }
+
+    getNotifyEmails(data) {
+        var emails = '';
+
+        if (data.sku.substr(0, 2) == 'TD') {
+            emails = `<div style="margin-top:15px">
+              <label>Email Notification</label>
+              <select id="notify-email" style="float:right;width:300px;">
+                <option>doris@btecanada.com</option>
+              </select></div>`;
+        }
+
+        return emails;
+    }
+
+    getMaxLength(data) {
+        if (data.sku.substr(0, 2) == 'DH') {
+            return '58';
+        }
+        if (data.sku.substr(0, 3) == 'ING') {
+            return '35';
+        }
+        if (data.sku.substr(0, 3) == 'SYN') {
+            return '60';
+        }
+        if (data.sku.substr(0, 2) == 'TD') {
+            return '52';
+        }
+        return '60';
+    }
+
+    getPurchaseNote(data) {
+        if (data.sku.substr(0, 2) == 'DH') {
+            return 'Drop ship';
+        }
+        return '';
+    }
+
+    yes(index, layero) {
+        var comment = layero.find('#comment').val();
+        this.data.comment = comment;
+
+        var shipMethod = layero.find('#ship-method option:selected').val();
+        var notifyEmail = layero.find('#notify-email option:selected').text();
+
+        this.data.shipMethod = shipMethod;
+        this.data.notifyEmail = notifyEmail;
+
+        ajaxCall('/ajax/make/purchase', this.data, this.onSuccess, this.onFailure);
+        layer.close(index);
+    }
+
+    end(index, layero) {
+        this.onClose();
+    }
+
+    content(data) {
+        var shipMethod   = this.getShipMethods(data);
+        var notifyEmails = this.getNotifyEmails(data);
+        var maxLength    = this.getMaxLength(data);
+        var purchaseNote = this.getPurchaseNote(data);
+
+        return `<div style="padding: 20px;">
+           <table class="table table-condensed">
+             <tr><td><b>SKU: </b></td><td>${data.sku ? data.sku : '-'}</td></tr>
+             <tr><td><b>Branch: </b></td><td>${data.branch ? data.branch: '-'}</td></tr>
+             <tr><td><b>Qty: </b></td><td>${data.qty? data.qty: '-'}</td></tr>
+           </table>
+           ${shipMethod}
+           <label for="comment">Purchase note</label> (Max ${maxLength} chars)<br />
+           <textarea id="comment" maxlength="${maxLength}" style="width: 440px; height: 80px; resize: none;">${purchaseNote}</textarea>
+           ${notifyEmails}
+         </div>`;
+    }
+
+    show() {
+        var self = this;
+        layer.open({
+            title:   'Purchase',
+            area:    ['480px', 'auto'],
+            btn:     ['Purchase', 'Cancel'],
+            yes:     (index, layero) => { self.yes(index, layero) },
+            end:     (index, layero) => { self.end(index, layero) },
+            content: self.content(self.data)
+        });
+    }
+}
+
 bte.utils = { }
 
 /**
