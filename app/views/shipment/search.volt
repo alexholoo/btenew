@@ -56,6 +56,65 @@
 {% endblock %}
 
 {% block jscode %}
+function orderDetailHtml(order) {
+  return `<div style="padding: 20px 20px 0 20px;">
+    <table class="table table-bordered table-condensed">
+    <caption>Order ID: <b>${order.order_id}</b></caption>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Market</th>
+        <th>SKU</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Express</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>${order.date}</td>
+        <td>${order.channel}</td>
+        <td><a href="/search/sku?sku=${order.items[0].sku}" target="_blank">${order.items[0].sku}</a></td>
+        <td>${order.items[0].price}</td>
+        <td>${order.items[0].qty}</td>
+        <td>${order.express == 1 ? 'Yes' : '&nbsp;'}</td>
+      </tr>
+    </tbody>
+    </table>
+
+    <p class="text-primary">${order.items[0].product}</p>
+
+    <table class="table table-condensed">
+    <caption>Customer Information</caption>
+    <tbody>
+      <tr><td><b>Name</b></td><td>${order.address.buyer}</td></tr>
+      <tr><td><b>Address</b></td><td>${order.address.address}</td></tr>
+      <tr><td><b>&nbsp;</b></td><td>${order.address.city}, ${order.address.province}, ${order.address.postalcode}, ${order.address.country}</td></tr>
+      <tr><td><b>Phone</b></td><td>${order.address.phone}</td></tr>
+      <tr><td><b>Email</b></td><td>${order.address.email}</td></tr>
+    </table>
+    </div>`;
+}
+
+function getOrderDetail(orderId, done) {
+  ajaxCall('/ajax/order/info', { orderId: orderId },
+    function(data) {
+      layer.open({
+        title: false,
+        area: ['550px', 'auto'],
+        shadeClose: true,
+        end: function(index, layero) {
+          done();
+        },
+        content: orderDetailHtml(data)
+      })
+    },
+    function(message) {
+      done();
+      showError(message);
+    }
+  );
+}
 {% endblock %}
 
 {% block docready %}
@@ -69,8 +128,8 @@
   $('.order-id a').click(function() {
     var orderId = $(this).data('order-id');
 
-    var modal = new bte.OrderDetailModal(orderId);
-    modal.setUrl('/ajax/order/info');
-    modal.show();
+    getOrderDetail(orderId, function() {
+      /*tr.removeClass('info');*/
+    });
   });
 {% endblock %}
