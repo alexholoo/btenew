@@ -85,6 +85,11 @@ bte.AjaxCall = class {
 bte.OrderDetailModal = class {
     constructor(orderId) {
         this.orderId = orderId;
+        this.url = '/ajax/order/detail';
+    }
+
+    setUrl(url) {
+        this.url = url;
     }
 
     end(index, layero) { }
@@ -132,7 +137,7 @@ bte.OrderDetailModal = class {
     show() {
         var self = this;
 
-        var ajaxCall = new bte.AjaxCall('/ajax/order/detail', { orderId: self.orderId });
+        var ajaxCall = new bte.AjaxCall(self.url, { orderId: self.orderId });
 
         ajaxCall.success = function(data) {
             //layer.config({
