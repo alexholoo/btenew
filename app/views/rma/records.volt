@@ -67,7 +67,7 @@
         <td>{{ row['our_recnum'] }}</td>
         <td>{{ row['status'] }}</td>
         <td>{{ row['supplier'] }}</td>
-        <td>{{ row['order_id'] }}</td>
+        <td class="order-id">{{ row['order_id'] }}</td>
         <td>{{ row['after_checked'] }}</td>
         <td>{{ row['date_shipout'] }}</td>
         <td>{{ row['ship_method'] }}</td>
@@ -96,10 +96,30 @@
 {% block csscode %}
   #rmatbl td, #rmatbl th { vertical-align: middle; }
   .main-container { width: 100%; }
+  .order-id { cursor: pointer; }
+  .order-id:hover { text-decoration: underline; }
 {% endblock %}
 
 {% block docready %}
+  layer.config({
+    type: 1,
+    moveType: 1,
+    skin: 'layui-layer-molv',
+  });
+
   $('#pagesel').change(function() {
     window.location = '/rma/records?page=' + $(this).val();
   })
+
+  // click on order id
+  $('.order-id').click(function() {
+    $('tr').removeClass('info');
+
+    var tr = $(this).closest('tr');
+    tr.addClass('info');
+
+    var orderId = $(this).text();
+    var modal = new bte.OrderInfoModal(orderId);
+    modal.show();
+  });
 {% endblock %}
