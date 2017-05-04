@@ -17,7 +17,19 @@
     </form>
   </div>
 
-  {% if records is not empty %}
+  <div>
+    <ul class="pagination pull-left" style="margin: 0 0 10px 0;">
+      <li><a href="/rma/records">First</a></li>
+      <li><a href="/rma/records?page={{ (page.current+1)%page.total_pages }}">Next</a></li>
+      <li><a href="/rma/records?page={{ (page.current-1)%page.total_pages }}">Prev</a></li>
+      <li><a href="/rma/records?page={{ page.total_pages }}">Last</a></li>
+    </ul>
+    <ul class="pagination pull-right" style="margin: 10px 0 0 0;">
+      <li>Page: {{ page.current }} of {{ page.total_pages }}</li>
+    </ul>
+  </div>
+
+  {% if page.items is not empty %}
   <table id="rmatbl" class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -36,7 +48,7 @@
       </tr>
     </thead>
     <tbody>
-    {% for row in records %}
+    {% for row in page.items %}
       <tr data-id="{{ row['id'] }}">
         <td>{{ row['date_in'] }}</td>
         <td>{{ row['product_desc'] }}</td>
@@ -54,6 +66,18 @@
     {% endfor %}
     </tbody>
   </table>
+
+  <div>
+    <ul class="pagination pull-left" style="margin: 0 0 10px 0;">
+      <li><a href="/rma/records">First</a></li>
+      <li><a href="/rma/records?page={{ (page.current+1)%page.total_pages }}">Next</a></li>
+      <li><a href="/rma/records?page={{ (page.current-1)%page.total_pages }}">Prev</a></li>
+      <li><a href="/rma/records?page={{ page.total_pages }}">Last</a></li>
+    </ul>
+    <ul class="pagination pull-right" style="margin: 10px 0 0 0;">
+      <li>Page: {{ page.current }} of {{ page.total_pages }}</li>
+    </ul>
+  </div>
   {% endif %}
 {% endblock %}
 
