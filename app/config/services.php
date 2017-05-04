@@ -234,6 +234,7 @@ $di->setShared('priceAvailService',   function() { return new \Service\PriceAvai
 $di->setShared('chitchatService',     function() { return new \Service\ChitchatService(); });
 $di->setShared('overstockService',    function() { return new \Service\OverstockService(); });
 $di->setShared('skuService',          function() { return new \Service\SkuService(); });
+$di->setShared('rmaService',          function() { return new \Service\RmaService(); });
 
 $di->setShared('inventoryLocationService',    function() { return new \Service\InventoryLocationService(); });
 
