@@ -27,6 +27,8 @@
             <li role="separator" class="divider"></li>
             <li><a href="/shipment/search">Shipment search</a></li>
             <li><a href="/search/address">Address Information</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/rma/records">RMA Records</a></li>
           </ul>
         </li>
         <li class="dropdown">
