@@ -45,16 +45,11 @@
     <thead>
       <tr>
         <th>Date In</th>
-        <th>Product</th>
+        <th>Rec#</th>
         <th>PartNum</th>
-        <th>Our Rec#</th>
+        <th>Product</th>
         <th>Status</th>
-        <th>Supplier</th>
-        <th>Order ID</th>
         <th>After Checked</th>
-        <th>Date Shipout</th>
-        <th>Ship Info</th>
-        <th>Supplier Recv Rec#</th>
         <th>DONE</th>
       </tr>
     </thead>
@@ -62,16 +57,11 @@
     {% for row in page.items %}
       <tr data-id="{{ row['id'] }}">
         <td>{{ row['date_in'] }}</td>
-        <td>{{ row['product_desc'] }}</td>
-        <td>{{ row['partnum'] }}</td>
         <td>{{ row['our_recnum'] }}</td>
+        <td>{{ row['partnum'] }}</td>
+        <td>{{ row['product_desc'] }}</td>
         <td>{{ row['status'] }}</td>
-        <td>{{ row['supplier'] }}</td>
-        <td class="order-id">{{ row['order_id'] }}</td>
         <td>{{ row['after_checked'] }}</td>
-        <td>{{ row['date_shipout'] }}</td>
-        <td>{{ row['ship_method'] }}</td>
-        <td>{{ row['supplier_recv_recnum'] }}</td>
         <td>{{ row['done'] }}</td>
       </tr>
     {% endfor %}
@@ -95,7 +85,6 @@
 
 {% block csscode %}
   #rmatbl td, #rmatbl th { vertical-align: middle; }
-  .main-container { width: 100%; }
   .order-id { cursor: pointer; }
   .order-id:hover { text-decoration: underline; }
 {% endblock %}
