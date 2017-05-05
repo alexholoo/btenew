@@ -85,6 +85,7 @@
 
 {% block csscode %}
   #rmatbl td, #rmatbl th { vertical-align: middle; }
+  tbody tr { cursor: pointer; }
   .order-id { cursor: pointer; }
   .order-id:hover { text-decoration: underline; }
 {% endblock %}
@@ -99,6 +100,12 @@
   $('#pagesel').change(function() {
     window.location = '/rma/records?page=' + $(this).val();
   })
+
+  // click on table row
+  $('tbody tr').click(function() {
+    var id = $(this).data('id');
+    window.location = '/rma/detail/' + id;
+  });
 
   // click on order id
   $('.order-id').click(function() {
