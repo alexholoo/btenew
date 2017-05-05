@@ -12,4 +12,11 @@ class RmaService extends Injectable
         $rows = $this->db->fetchAll($sql);
         return $rows;
     }
+
+    public function getDetail($id)
+    {
+        $sql = "SELECT * FROM rma_records WHERE id=$id";
+        $row = $this->db->fetchOne($sql);
+        return $row;
+    }
 }

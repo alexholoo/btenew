@@ -29,4 +29,10 @@ class RmaController extends ControllerBase
 
         $this->view->page = $paginator->getPaginate();
     }
+
+    public function detailAction($id)
+    {
+        $this->view->pageTitle = 'RMA Detail';
+        $this->view->detail = $this->rmaService->getDetail($id);
+    }
 }
