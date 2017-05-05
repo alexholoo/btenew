@@ -24,11 +24,18 @@ class InventoryLocationService extends Injectable
             }
             $sql = 'SELECT * FROM inventory_location WHERE partnum LIKE ? ORDER BY updatedon DESC LIMIT 20';
             $result = $this->db->query($sql, array("%$keyword%"));
+        } elseif ($searchby == 'sku') {
+            $upc = $this->skuService->getUpc($keyword);
+            if (!$upc) {
+                return false;
+            }
+            $sql = 'SELECT * FROM inventory_location WHERE upc=? ORDER BY updatedon DESC LIMIT 20';
+            $result = $this->db->query($sql, array("$upc"));
         } elseif ($searchby == 'upc') {
             $sql = 'SELECT * FROM inventory_location WHERE upc LIKE ? ORDER BY updatedon DESC LIMIT 20';
             $result = $this->db->query($sql, array("%$keyword"));
         } elseif ($searchby == 'location') {
-            $sql = "SELECT * FROM inventory_location WHERE location = ? ORDER BY updatedon DESC LIMIT 20";
+            $sql = "SELECT * FROM inventory_location WHERE location=? ORDER BY updatedon DESC LIMIT 20";
             $result = $this->db->query($sql, array($keyword));
         } elseif ($searchby == 'note') {
             $sql = "SELECT * FROM inventory_location WHERE note LIKE ? ORDER BY updatedon DESC LIMIT 20";

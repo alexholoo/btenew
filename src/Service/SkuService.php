@@ -73,8 +73,21 @@ class SkuService extends Injectable
 
     public function getUpc($sku)
     {
+        // First, try to get UPC from master_sku_list in Redis
         $info = $this->getMasterSku($sku);
-        return isset($info['UPC']) ? $info['UPC'] : '';
+
+        if (isset($info['UPC']) && $this->isUPC($info['UPC'])) {
+            return $info['UPC'];
+        }
+
+        // If not found, try to get UPC from database
+        $sql = "SELECT * FROM sku_upc_map WHERE sku='$sku'";
+        $row = $this->db->fetchOne($sql);
+        if ($row && $this->isUPC($row['upc'])) {
+            return $row['upc'];
+        }
+
+        return false;
     }
 
     public function getMpn($sku)

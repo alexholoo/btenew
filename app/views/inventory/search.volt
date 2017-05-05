@@ -9,7 +9,7 @@
       </div>
 
       <div class="col-sm-6">
-        <input autofocus required type="text" class="form-control" name="keyword" autofocus placeholder="Enter PartNumber/UPC/Location/Note">
+        <input autofocus required type="text" class="form-control" name="keyword" autofocus placeholder="Enter keyword to search">
       </div>
 
       <div class="col-sm-2">
@@ -19,6 +19,9 @@
       <div class="col-sm-12">
         <label class="radio-inline">
           <input type="radio" name="searchby" value="partnum" {% if searchby == 'partnum' %}checked{% endif %}>Part number
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="searchby" value="sku" {% if searchby == 'sku' %}checked{% endif %}>SKU
         </label>
         <label class="radio-inline">
           <input type="radio" name="searchby" value="upc" {% if searchby == 'upc' %}checked{% endif %}>UPC
