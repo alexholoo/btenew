@@ -16,10 +16,6 @@
     skin: 'layui-layer-molv',
   });
 
-  $('#pagesel').change(function() {
-    window.location = '/rma/records?page=' + $(this).val();
-  })
-
   // click on order id
   $('.order-id').click(function() {
     var orderId = $(this).text();

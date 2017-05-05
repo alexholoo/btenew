@@ -35,4 +35,15 @@ class RmaController extends ControllerBase
         $this->view->pageTitle = 'RMA Detail';
         $this->view->detail = $this->rmaService->getDetail($id);
     }
+
+    public function updateAction()
+    {
+        $this->view->disable();
+        $this->response->setJsonContent(['status' => 'OK', 'data' => '']);
+    }
+
+    public function addAction()
+    {
+        $this->view->pageTitle = 'New RMA Record';
+    }
 }
