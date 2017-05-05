@@ -8,6 +8,10 @@ class RmaController extends ControllerBase
 {
     public function indexAction()
     {
+        $this->dispatcher->forward([
+            'controller' => 'rma',
+            'action'     => 'records',
+        ]);
     }
 
     public function recordsAction()
