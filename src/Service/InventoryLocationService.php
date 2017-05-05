@@ -80,6 +80,7 @@ class InventoryLocationService extends Injectable
             $this->db->updateAsDict('inventory_location',
                 [
                     'note' => $data['note'],
+                    'sn' => $data['sn'],
                 ],
                 'id='. $data['id']
             );

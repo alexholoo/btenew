@@ -91,7 +91,12 @@
 {% block jscode %}
 function editNoteHtml(data) {
   var note = data.note;
+  var sn = data.sn;
   return `<div style="padding: 20px;">
+     <div>
+       <label for="sn" style="width: 3em;">SN#</label>
+       <input type="text" id="sn" size="60" value="${sn}">
+     </div><br>
      <label for="note">Note</label> (Max 80 chars)<br />
      <textarea id="note" maxlength="80" style="width: 440px; height: 80px; resize: none;">${note}</textarea>
    </div>`;
@@ -104,7 +109,9 @@ function editNote(data, success, fail, done) {
     btn: ['Save', 'Cancel'],
     yes: function(index, layero) {
       var note = layero.find('#note').val();
+      var sn = layero.find('#sn').val();
 
+      data.sn = sn;
       data.note = note;
 
       ajaxCall('/inventory/update', data, success, fail);
@@ -157,21 +164,23 @@ function skuListForUPC(upc, done) {
   });
 
   // click note to edit note
-  $('.note').click(function() {
+  $('.note, .sn').click(function() {
     $('tr').removeClass('info');
 
     var self = $(this);
-
     var tr = self.closest('tr');
+
     var id = tr.data('id');
-    var note = self.text();
+    var note = tr.find('.note');
+    var sn = tr.find('.sn');
 
     tr.addClass('info');
 
-    editNote({ id: id, note: note },
+    editNote({ id: id, note: note.text(), sn: sn.text() },
       function(data) {
         showToast('Your change has benn saved', 1000);
-        self.text(data.note);
+        note.text(data.note);
+        sn.text(data.sn);
       },
       function(message) {
         showError(message);
