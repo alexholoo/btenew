@@ -24,15 +24,17 @@ class OverstockController extends ControllerBase
 
             if ($info) {
                 $sku = str_replace('overstock ', '', $info['recommended_pn']);
+                $mfr = $info['Manufacturer'];
+                $altSkus = $this->skuService->getAltSkus($sku);
                 $data[] = [
                     'sku'        => $sku,
-                    'title'      => $info['name'],
+                    'title'      => $mfr. ' ' .$info['name'],
                     'cost'       => round($info['best_cost']),
                     'condition'  => 'New',
                     'allocation' => '',
                     'qty'        => '1',
                     'mpn'        => $info['MPN'],
-                    'note'       => '',
+                    'note'       => implode('; ', $altSkus),
                     'weight'     => $info['Weight'], //round($info['Weight']) ?? '',
                     'upc'        => $info['UPC'],
                 ];
