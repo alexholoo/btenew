@@ -64,4 +64,29 @@ class OverstockController extends ControllerBase
             return $this->response;
         }
     }
+
+    /**
+     * Ajax Handler
+     */
+    public function updateAction()
+    {
+        $this->view->disable();
+
+        if ($this->request->isPost()) {
+
+            $pk = $this->request->getPost('pk');
+            $name = $this->request->getPost('name');
+            $value = $this->request->getPost('value');
+
+            $data = $this->session->get(self::SESSKEY);
+
+            if (isset($data[$pk])) {
+                $data[$pk][$name] = $value;
+                $this->session->set(self::SESSKEY, $data);
+            }
+
+            $this->response->setJsonContent(['status' => 'OK']);
+            return $this->response;
+        }
+    }
 }

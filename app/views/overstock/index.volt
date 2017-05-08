@@ -57,9 +57,9 @@
         <td><b class="index">{{ loop.index }}</b></td>
         <td>{{ item['sku'] }}</td>
         <td>{{ item['title'] }}</td>
-        <td>{{ item['cost'] }}</td>
-        <td>{{ item['condition'] }}</td>
-        <td>{{ item['qty'] }}</td>
+        <td><a href="#" class="cost" data-pk="{{ loop.index-1 }}">{{ item['cost'] }}</a></td>
+        <td><a href="#" class="condition" data-pk="{{ loop.index-1 }}">{{ item['condition'] }}</a></td>
+        <td><a href="#" class="qty" data-pk="{{ loop.index-1 }}">{{ item['qty'] }}</a></td>
         <td>{{ item['mpn'] }}</td>
         <td>{{ item['weight'] }}</td>
         <td>{{ item['upc'] }}</td>
@@ -72,6 +72,16 @@
     </tbody>
   </table>
 {% endif %}
+{% endblock %}
+
+{% block cssfile %}
+  {{ super() }}
+  {{ stylesheet_link('/lib/bootstrap3-editable/css/bootstrap-editable.css') }}
+{% endblock %}
+
+{% block jsfile %}
+  {{ super() }}
+  {{ javascript_include('/lib/bootstrap3-editable/js/bootstrap-editable.min.js') }}
 {% endblock %}
 
 {% block csscode %}
@@ -90,5 +100,23 @@
         $(this).find('.index').text($(this).index() + 1);
       });
     });
+  });
+
+  $('.cost').editable({
+    type: 'text',
+    name: 'cost',
+    url: '/overstock/update',
+  });
+
+  $('.condition').editable({
+    type: 'text',
+    name: 'condition',
+    url: '/overstock/update',
+  });
+
+  $('.qty').editable({
+    type: 'text',
+    name: 'qty',
+    url: '/overstock/update',
   });
 {% endblock %}
