@@ -39,7 +39,7 @@
       </tr>
       <tr>
         <th class="active">MFR/UPC/MPN</th>
-        <td data-container="body" data-toggle="tooltip" title="MFR">{{ data['Manufacturer'] }}</td>
+        <td data-container="body" data-toggle="tooltip" title="MFR">{{ data['MFR'] }}</td>
         <td data-container="body" data-toggle="tooltip" title="UPC">{{ data['UPC'] }}</td>
         <td data-container="body" data-toggle="tooltip" title="MPN">{{ data['MPN'] }}</td>
       </tr>
