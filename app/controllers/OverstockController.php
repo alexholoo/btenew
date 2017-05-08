@@ -95,8 +95,7 @@ class OverstockController extends ControllerBase
         $data = $this->session->get(self::SESSKEY);
 
         if ($data) {
-            $today = date('Y-m-d');
-            $filename = "E:/BTE/import/overstock-$today.csv";
+            $filename = "E:/BTE/import/overstock-add.csv";
 
             $fp = fopen($filename, 'w');
             fputcsv($fp, array_keys($data[0]));
