@@ -89,4 +89,29 @@ class OverstockController extends ControllerBase
             return $this->response;
         }
     }
+
+    public function appendAction()
+    {
+        $data = $this->session->get(self::SESSKEY);
+
+        if ($data) {
+            $today = date('Y-m-d');
+            $filename = "E:/BTE/import/overstock-$today.csv";
+
+            $fp = fopen($filename, 'w');
+            fputcsv($fp, array_keys($data[0]));
+
+            foreach ($data as $row) {
+                fputcsv($fp, $row);
+            }
+
+            fclose($fp);
+
+            $this->runJob('job/OverstockAddJob');
+        }
+
+        $this->session->set(self::SESSKEY, []);
+
+        $this->response->redirect('overstock/index');
+    }
 }

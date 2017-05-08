@@ -10,11 +10,11 @@
       </div>
 
       <div class="col-sm-2">
-        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Submit </button>
+        <button type="submit" class="btn btn-primary" id="btn1"><span class="glyphicon glyphicon-plus"></span> Submit </button>
       </div>
 
       <div class="col-sm-2">
-        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-check"></span> Overstock </button>
+        <button type="button" class="btn btn-success" id="btn2"><span class="glyphicon glyphicon-check"></span> Overstock </button>
       </div>
 
       <!--
@@ -118,5 +118,9 @@
     type: 'text',
     name: 'qty',
     url: '/overstock/update',
+  });
+
+  $('#btn2').click(function() {
+    window.location = '/overstock/append';
   });
 {% endblock %}
