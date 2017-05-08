@@ -53,8 +53,8 @@
     <tbody>
 
     {% for item in items %}
-      <tr data-id="{{ loop.index }}">
-        <td><b>{{ loop.index }}</b></td>
+      <tr>
+        <td><b class="index">{{ loop.index }}</b></td>
         <td>{{ item['sku'] }}</td>
         <td>{{ item['title'] }}</td>
         <td>{{ item['cost'] }}</td>
@@ -85,6 +85,10 @@
     var tr = $(this).closest('tr');
     var index = tr.index();
     tr.remove();
-    ajaxCall('/overstock/delete', { index: index });
+    ajaxCall('/overstock/delete', { index: index }, function() {
+      $('tbody tr').each(function() {
+        $(this).find('.index').text($(this).index() + 1);
+      });
+    });
   });
 {% endblock %}
