@@ -48,7 +48,7 @@ class OverstockAddJob extends Job
                     'Title'           => $fields['title'],
                     'cost'            => intval($fields['cost']),
                     'condition'       => $fields['condition'],
-                    'Allocation'      => '',
+                    'Allocation'      => $fields['allocation'],
                     'Actual Quantity' => intval($fields['qty']),
                     'MPN'             => $fields['mpn'],
                     'note'            => $fields['note'],

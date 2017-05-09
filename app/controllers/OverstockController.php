@@ -31,7 +31,7 @@ class OverstockController extends ControllerBase
                     'title'      => $mfr. ' ' .$info['name'],
                     'cost'       => round($info['best_cost']),
                     'condition'  => 'New',
-                    'allocation' => '',
+                    'allocation' => 'All',
                     'qty'        => '1',
                     'mpn'        => $info['MPN'],
                     'note'       => implode('; ', $altSkus),
