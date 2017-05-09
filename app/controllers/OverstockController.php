@@ -23,7 +23,7 @@ class OverstockController extends ControllerBase
             $info = $this->skuService->getMasterSku($keyword);
 
             if ($info) {
-                $sku = str_replace('overstock ', '', $info['recommended_pn']);
+                $sku = $info['recommended_pn'];
                 $mfr = $info['MFR'];
                 $altSkus = $this->skuService->getAltSkus($sku);
                 $data[] = [

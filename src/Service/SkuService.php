@@ -44,7 +44,9 @@ class SkuService extends Injectable
         $value = json_decode($this->redis->get($sku));
 
         if (count($value) == count($names)) {
-            return array_combine($names, $value);
+            $info = array_combine($names, $value);
+            $info['recommended_pn'] = str_replace('overstock ', '', $info['recommended_pn']);
+            return $info;
         }
 
         return $value;
