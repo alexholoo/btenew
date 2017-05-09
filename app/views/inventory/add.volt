@@ -79,7 +79,6 @@
 {% endblock %}
 
 {% block csscode %}
-  .main-container { width: 1250px; }
   .fit-to-text { width:1%; white-space:nowrap; }
 {% endblock %}
 
