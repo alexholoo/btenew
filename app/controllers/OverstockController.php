@@ -106,7 +106,7 @@ class OverstockController extends ControllerBase
 
             fclose($fp);
 
-            $this->runJob('job/OverstockAddJob');
+            $this->runJob('job/OverstockAddJob', $filename);
         }
 
         $this->session->set(self::SESSKEY, []);
@@ -155,14 +155,14 @@ class OverstockController extends ControllerBase
                 'upc'        => $info['UPC'],
             ];
 
-            $filename = "E:/BTE/import/overstock-add.csv";
+            $filename = "E:/BTE/import/overstock-new.csv";
 
             $fp = fopen($filename, 'w');
             fputcsv($fp, array_keys($data));
             fputcsv($fp, $data);
             fclose($fp);
 
-            $this->runJob('job/OverstockAddJob');
+            $this->runJob('job/OverstockAddJob', $filename);
 
             $this->inventoryLocationService->add([
                 'partnum'  => $info['MPN'] ?? $partnum,

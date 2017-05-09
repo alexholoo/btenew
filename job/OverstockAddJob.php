@@ -8,7 +8,7 @@ class OverstockAddJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $filename = "E:/BTE/import/overstock-add.csv";
+        $filename = $args[1];
 
         if (!file_exists($filename)) {
             echo "$filename not found\n";
