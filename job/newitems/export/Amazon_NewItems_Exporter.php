@@ -92,7 +92,7 @@ class Amazon_NewItems_Exporter extends NewItems_Exporter
                 }
 
                 $upc = ltrim($item['UPC'], '0');
-                $brand = $item['Manufacturer'];
+                $brand = $item['MFR'];
 
                 // skip item if in blocked item
                 if (isset($blocked[$upc])) {

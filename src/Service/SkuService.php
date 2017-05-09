@@ -19,7 +19,7 @@ class SkuService extends Injectable
             'tak_pn', 'tak_cost', 'tak_qty',
             'ep_pn',  'ep_cost',  'ep_qty',
             'BTE_PN', 'BTE_cost', 'BTE_qty',
-            'Manufacturer',
+            'MFR',
             'UPC',
             'MPN',
             'MAP_USD',
@@ -106,7 +106,7 @@ class SkuService extends Injectable
     {
         $info = $this->getMasterSku($sku);
 
-        $mfr = isset($info['Manufacturer']) ? $info['Manufacturer'] : '';
+        $mfr = isset($info['MFR']) ? $info['MFR'] : '';
 
         if (!$mfr) {
             $mfr = $this->getBrand($sku);
