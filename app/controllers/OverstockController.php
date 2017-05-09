@@ -31,7 +31,7 @@ class OverstockController extends ControllerBase
                     'title'      => $mfr. ' ' .$info['name'],
                     'cost'       => round($info['best_cost']),
                     'condition'  => 'New',
-                    'allocation' => 'All',
+                    'allocation' => 'ALL',
                     'qty'        => '1',
                     'mpn'        => $info['MPN'],
                     'note'       => implode('; ', $altSkus),
@@ -111,6 +111,70 @@ class OverstockController extends ControllerBase
 
         $this->session->set(self::SESSKEY, []);
 
-        $this->response->redirect('overstock/index');
+        $this->response->redirect('/overstock/index');
+    }
+
+    /**
+     * Ajax Handler
+     */
+    public function newAction()
+    {
+        $this->view->disable();
+
+        if ($this->request->isPost()) {
+
+            $partnum = $this->request->getPost('partnum');
+            $upc = $this->request->getPost('upc');
+            $qty = $this->request->getPost('qty');
+            $location = $this->request->getPost('location');
+
+            if ($partnum) {
+                $info = $this->skuService->getMasterSku($partnum);
+            } else {
+                $info = $this->skuService->getMasterSku($upc);
+            }
+
+            if (!$info) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Item not found']);
+                return $this->response;
+            }
+
+            $sku = $info['recommended_pn'];
+            $mfr = $info['MFR'];
+            $altSkus = $this->skuService->getAltSkus($sku);
+            $data = [
+                'sku'        => $sku,
+                'title'      => $mfr. ' ' .$info['name'],
+                'cost'       => round($info['best_cost']),
+                'condition'  => 'New',
+                'allocation' => 'ALL',
+                'qty'        => $qty,
+                'mpn'        => $info['MPN'],
+                'note'       => implode('; ', $altSkus),
+                'weight'     => $info['Weight'],
+                'upc'        => $info['UPC'],
+            ];
+
+            $filename = "E:/BTE/import/overstock-add.csv";
+
+            $fp = fopen($filename, 'w');
+            fputcsv($fp, array_keys($data));
+            fputcsv($fp, $data);
+            fclose($fp);
+
+            $this->runJob('job/OverstockAddJob');
+
+            $this->inventoryLocationService->add([
+                'partnum'  => $info['MPN'] ?? $partnum,
+                'upc'      => $info['UPC'] ?? $upc,
+                'location' => $location,
+                'qty'      => $qty,
+                'sn'       => '',
+                'note'     => '',
+            ]);
+
+            $this->response->setJsonContent(['status' => 'OK']);
+            return $this->response;
+        }
     }
 }
