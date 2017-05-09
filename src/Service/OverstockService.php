@@ -136,6 +136,10 @@ class OverstockService extends Injectable
 
     protected function openAccessDB()
     {
+        if (!empty($this->accdb)) {
+            return $this->accdb;
+        }
+
         $dbname = "z:/BTE-Price-List/bte-dataprocess-files.accdb";
 
         if (!IS_PROD) {
@@ -143,8 +147,8 @@ class OverstockService extends Injectable
         }
 
         $dsn = "odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=$dbname;";
-        $db = new \PDO($dsn);
+        $this->accdb = new \PDO($dsn);
 
-        return $db;
+        return $this->accdb;
     }
 }
