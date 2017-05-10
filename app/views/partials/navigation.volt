@@ -38,6 +38,7 @@
             <li><a href="/inventory/add">Inventory Loading</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/overstock">New Overstock</a></li>
+            <li><a href="/overstock/viewlog">Overstock Log</a></li>
           </ul>
         </li>
         <li class="dropdown">
