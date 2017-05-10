@@ -10,6 +10,7 @@ $loader = new Loader();
 $loader->registerNamespaces([
     'App\Models'      => $config->application->modelsDir,
     'App\Controllers' => $config->application->controllersDir,
+    'Api\Controllers' => $config->application->controllersDir . 'api/',
     'App\Forms'       => $config->application->formsDir,
     'App\Library'     => $config->application->libraryDir,
     'App\Plugins'     => $config->application->pluginsDir,
