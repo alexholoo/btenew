@@ -167,6 +167,11 @@ class OverstockService extends Injectable
         ]);
     }
 
+    public function update($id, $info)
+    {
+        // TODO
+    }
+
     public function loadHistory()
     {
         $sql = "SELECT * FROM overstock_log ORDER BY id DESC";
