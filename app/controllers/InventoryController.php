@@ -103,4 +103,14 @@ class InventoryController extends ControllerBase
 
         return $this->response;
     }
+
+    public function mpnAction($mpn)
+    {
+        $this->view->disable();
+
+        $skuList = $this->skuService->getSkuListByMPN($mpn);
+        $this->response->setJsonContent(['status' => 'OK', 'data' => $skuList ]);
+
+        return $this->response;
+    }
 }
