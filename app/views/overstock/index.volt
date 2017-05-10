@@ -53,15 +53,15 @@
     </thead>
     <tbody>
     {% for row in page.items %}
-      <tr>
-        <td nowrap>{{ row['sku'] }}</td>
+      <tr data-id="{{ row['id'] }}">
+        <td class="sku" nowrap>{{ row['sku'] }}</td>
         <td>{{ row['condition'] }}</td>
         <td>{{ row['cost'] }}</td>
         <td>{{ row['qty'] }}</t>
         <td>{{ row['title'] }}</t>
-        <td class="mpn"><a href="javascript:;">{{ row['mpn'] }}</a></td>
+        <td class="mpn">{{ row['mpn'] }}</td>
         <td class="upc"><a href="javascript:;">{{ row['upc'] }}</a></td>
-        <td>{{ row['note'] }}</td>
+        <td class="note">{{ row['note'] }}</td>
         <td>{{ row['weight'] }}</td>
       </tr>
     {% endfor %}
@@ -87,9 +87,39 @@
 {% block csscode %}
   .main-container { width: 100%; }
   #overstocktbl td { vertical-align: middle; }
+  .mpn, .note { cursor: pointer; }
 {% endblock %}
 
 {% block jscode %}
+function editNoteHtml(data) {
+  var note = data.note;
+  return `<div style="padding: 20px;">
+     <label for="note">Note</label> (Max 200 chars)<br />
+     <textarea id="note" maxlength="200" style="width: 440px; height: 80px; resize: none;">${note}</textarea>
+   </div>`;
+}
+
+function editNote(data, success, fail, done) {
+  layer.open({
+    title: 'Edit Note',
+    area: ['480px', 'auto'],
+    btn: ['Save', 'Cancel'],
+    yes: function(index, layero) {
+      var note = layero.find('#note').val();
+      var sn = layero.find('#sn').val();
+
+      data.note = note;
+
+      ajaxCall('/overstock/note', data, success, fail);
+      layer.close(index);
+    },
+    end: function(index, layero) {
+      done();
+    },
+    content: editNoteHtml(data)
+  })
+}
+
 function skuListHtml(skus, upc) {
   var content = '';
 
@@ -98,7 +128,7 @@ function skuListHtml(skus, upc) {
   }
 
   return `<div style="padding: 20px; font-size: 20px;">
-     SKUs for UPC <label>${upc}</label><br />
+     SKUs for <label>${upc}</label><br />
      <ul>${content}</ul>
    </div>`;
 }
@@ -112,6 +142,24 @@ function skuListForUPC(upc, done) {
         shadeClose: true,
         end: function(index, layero) { done(); },
         content: skuListHtml(data, upc)
+      })
+    },
+    function(message) {
+      done();
+      showError(message);
+    }
+  );
+}
+
+function skuListForMPN(mpn, done) {
+  ajaxCall('/inventory/mpn/' + mpn, { mpn: mpn },
+    function(data) {
+      layer.open({
+        title: false,
+        area: ['400px', 'auto'],
+        shadeClose: true,
+        end: function(index, layero) { done(); },
+        content: skuListHtml(data, mpn)
       })
     },
     function(message) {
@@ -146,4 +194,44 @@ function skuListForUPC(upc, done) {
 
     skuListForUPC(upc, function() {});
   });
+
+  // click upc to view sku list
+  $('.mpn').click(function() {
+    $('tr').removeClass('info');
+
+    var self = $(this);
+
+    var tr = self.closest('tr');
+    var mpn = self.text();
+
+    tr.addClass('info');
+
+    skuListForMPN(mpn, function() {});
+  });
+
+  // click note to edit note
+  $('.note').click(function() {
+    $('tr').removeClass('info');
+
+    var self = $(this);
+    var tr = self.closest('tr');
+
+    var id = tr.data('id');
+    var note = tr.find('.note');
+
+    tr.addClass('info');
+
+    editNote({ id: id, note: note.text() },
+      function(data) {
+        showToast('Your change has benn saved', 1000);
+        note.text(data.note);
+      },
+      function(message) {
+        showError(message);
+        tr.addClass('danger');
+      },
+      function() {}
+    );
+  });
+
 {% endblock %}
