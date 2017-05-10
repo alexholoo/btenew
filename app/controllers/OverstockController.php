@@ -46,6 +46,12 @@ class OverstockController extends ControllerBase
         $this->view->items = $data;
     }
 
+    public function viewLogAction()
+    {
+        $data = $this->overstockService->loadHistory();
+        $this->view->data = $data;
+    }
+
     /**
      * Ajax Handler
      */
