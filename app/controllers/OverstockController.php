@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Phalcon\Paginator\Adapter\NativeArray as Paginator;
+
 class OverstockController extends ControllerBase
 {
     const SESSKEY = 'overstock-newitems';
@@ -48,8 +50,18 @@ class OverstockController extends ControllerBase
 
     public function viewLogAction()
     {
+        $this->view->pageTitle = 'Overstock Log';
+
+        $currentPage = $this->request->getQuery('page', 'int', 1);
         $data = $this->overstockService->loadHistory();
-        $this->view->data = $data;
+
+        $paginator = new Paginator([
+            "data"  => $data,
+            "limit" => 20,
+            "page"  => $currentPage,
+        ]);
+
+        $this->view->page = $paginator->getPaginate();
     }
 
     /**
