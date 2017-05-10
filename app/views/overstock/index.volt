@@ -17,7 +17,7 @@
         <button type="button" class="btn btn-success" id="btn2"><span class="glyphicon glyphicon-check"></span> Overstock </button>
       </div>
 
-      <!--
+{#
       <div class="col-sm-12">
         <label class="radio-inline">
           <input type="radio" name="searchby" value="partnum" {% if searchby == 'partnum' %}checked{% endif %}>Part number
@@ -29,7 +29,7 @@
           <input type="radio" name="searchby" value="upc" {% if searchby == 'upc' %}checked{% endif %}>UPC
         </label>
       </div>
-      -->
+#}
 
   </form>
 </header>
