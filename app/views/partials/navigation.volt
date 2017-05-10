@@ -34,7 +34,7 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inventory <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/inventory/search">Inventory Location Search</a></li>
+            <li><a href="/inventory/search">Inventory Search</a></li>
             <li><a href="/inventory/add">Inventory Loading</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/overstock">New Overstock</a></li>
