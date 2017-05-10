@@ -138,7 +138,7 @@ function skuListHtml(skus, upc) {
 }
 
 function skuListForUPC(upc, done) {
-  ajaxCall('/inventory/upc/' + upc, { upc: upc },
+  ajaxCall('/api/query/upc/' + upc, { upc: upc },
     function(data) {
       layer.open({
         title: false,
