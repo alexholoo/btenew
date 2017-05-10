@@ -10,6 +10,10 @@ class OverstockController extends ControllerBase
 
     public function indexAction()
     {
+    }
+
+    public function addAction()
+    {
         $this->view->pageTitle = 'New Overstock Items';
         $this->view->searchby = 'sku';
 
