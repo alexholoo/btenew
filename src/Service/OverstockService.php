@@ -120,6 +120,7 @@ class OverstockService extends Injectable
      */
     protected function saveLog($info)
     {
+        /*
         $accdb = $this->openAccessDB();
 
         $sql = $this->insertMssql("overstock-log", [
@@ -143,6 +144,20 @@ class OverstockService extends Injectable
             $logger->error(print_r($accdb->errorInfo(), true));
             $logger->error($sql);
         }
+        */
+
+        $this->db->insertAsDict("overstock_log", [
+            'sku'        => $info['sku'],
+            'title'      => $info['title'],
+            'cost'       => $info['cost'],
+            'condition'  => $info['condition'],
+            'allocation' => $info['allocation'],
+            'qty'        => $info['qty'],
+            'mpn'        => $info['mpn'],
+            'note'       => $info['note'],
+            'upc'        => $info['upc'],
+            'weight'     => $info['weight'],
+        ]);
     }
 
     /**
