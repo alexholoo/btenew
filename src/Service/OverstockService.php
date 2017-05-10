@@ -41,6 +41,56 @@ class OverstockService extends Injectable
         return $qty;
     }
 
+    public function add($info)
+    {
+        $accdb = $this->openAccessDB();
+        $logger = $this->loggerService;
+
+        $sku = $info['sku'];
+
+        $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$sku'";
+        $row = $accdb->query($sql)->fetch();
+
+        if ($row) {
+            $totalQty = $row['Actual Quantity'] + $info['qty'];
+            $totalPrice = $row['Actual Quantity'] * $row['cost'] + $info['cost'] * $info['qty'];
+            $newCost = round($totalPrice/$totalQty);
+
+            $sql = "UPDATE [overstock] SET [Actual Quantity]=$totalQty, [cost]=$newCost"
+                 . " WHERE [SKU Number]='$sku'";
+
+            $ret = $accdb->exec($sql);
+
+            if (!$ret && $accdb->errorCode() != '00000') {
+                $logger->error(__METHOD__);
+                $logger->error(print_r($accdb->errorInfo(), true));
+                $logger->error($sql);
+            }
+        } else {
+            $sql = $this->insertMssql("overstock", [
+                'SKU Number'      => $info['sku'],
+                'Title'           => $info['title'],
+                'cost'            => intval($info['cost']),
+                'condition'       => $info['condition'],
+                'Allocation'      => $info['allocation'],
+                'Actual Quantity' => intval($info['qty']),
+                'MPN'             => $info['mpn'],
+                'note'            => $info['note'],
+                'UPC Code'        => $info['upc'],
+                'Weight(lbs)'     => floatval($info['weight']),
+                'Reserved'        => '',
+               #'ID'              => '',
+            ]);
+
+            $ret = $accdb->exec($sql);
+            if (!$ret && $accdb->errorCode() != '00000') {
+                $logger->error(__METHOD__);
+                $logger->error(print_r($accdb->errorInfo(), true));
+                $logger->error($sql);
+            }
+        }
+    }
+
     /**
      * for restore
      */
@@ -150,5 +200,25 @@ class OverstockService extends Injectable
         $this->accdb = new \PDO($dsn);
 
         return $this->accdb;
+    }
+
+    protected function insertMssql($table, $data)
+    {
+        $columns = '[' . implode('], [', array_keys($data)) . ']';
+
+        $query = "INSERT INTO [$table] ($columns) VALUES\n";
+
+        foreach($data as $key => $val) {
+            if (is_string($val)) {
+                $data[$key] = "'" .str_replace("'", "''", $val). "'";
+            }
+            if (is_null($val)) {
+                $data[$key] = 'NULL';
+            }
+        }
+
+        $values = implode(', ', $data);
+
+        return "$query ($values)";
     }
 }
