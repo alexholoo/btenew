@@ -11,6 +11,13 @@ use Phalcon\Di\Injectable;
  */
 class OverstockService extends Injectable
 {
+    public function load()
+    {
+        $sql = "SELECT * FROM overstock ORDER BY id DESC";
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
+
     public function get($sku)
     {
         $accdb = $this->openAccessDB();

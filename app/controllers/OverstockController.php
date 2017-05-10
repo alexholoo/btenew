@@ -10,6 +10,18 @@ class OverstockController extends ControllerBase
 
     public function indexAction()
     {
+        $this->view->pageTitle = 'Overstock';
+
+        $currentPage = $this->request->getQuery('page', 'int', 1);
+        $data = $this->overstockService->load();
+
+        $paginator = new Paginator([
+            "data"  => $data,
+            "limit" => 20,
+            "page"  => $currentPage,
+        ]);
+
+        $this->view->page = $paginator->getPaginate();
     }
 
     public function addAction()
