@@ -37,7 +37,9 @@
             <li><a href="/inventory/search">Inventory Search</a></li>
             <li><a href="/inventory/add">Inventory Loading</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="/overstock">New Overstock</a></li>
+            <li><a href="/overstock">Overstock Items</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/overstock/add">New Overstock</a></li>
             <li><a href="/overstock/viewlog">Overstock Log</a></li>
           </ul>
         </li>
