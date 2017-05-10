@@ -155,6 +155,9 @@ class OverstockController extends ControllerBase
                 'upc'        => $info['UPC'],
             ];
 
+            // TODO: call overstockService directly
+            // $this->overstockService->add($data);
+
             $filename = "E:/BTE/import/overstock-new.csv";
 
             $fp = fopen($filename, 'w');
