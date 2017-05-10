@@ -95,7 +95,7 @@ class OverstockController extends ControllerBase
         $data = $this->session->get(self::SESSKEY);
 
         if ($data) {
-            $filename = "E:/BTE/import/overstock-add.csv";
+            $filename = "E:/BTE/import/overstock/overstock-add.csv";
 
             $fp = fopen($filename, 'w');
             fputcsv($fp, array_keys($data[0]));
@@ -111,7 +111,7 @@ class OverstockController extends ControllerBase
 
         $this->session->set(self::SESSKEY, []);
 
-        $this->response->redirect('/overstock/index');
+        $this->response->redirect('/overstock');
     }
 
     /**
@@ -155,10 +155,10 @@ class OverstockController extends ControllerBase
                 'upc'        => $info['UPC'],
             ];
 
-            // TODO: call overstockService directly
+            // TODO: call overstockService directly when php64 is available
             // $this->overstockService->add($data);
 
-            $filename = "E:/BTE/import/overstock-new.csv";
+            $filename = "E:/BTE/import/overstock/overstock-new.csv";
 
             $fp = fopen($filename, 'w');
             fputcsv($fp, array_keys($data));
