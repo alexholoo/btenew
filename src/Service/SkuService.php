@@ -218,6 +218,12 @@ class SkuService extends Injectable
         return $result ? array_column($result, 'sku') : [];
     }
 
+    public function getSkuListByMPN($mpn)
+    {
+        $result = $this->db->fetchAll("SELECT sku FROM sku_mpn_map WHERE mpn='$mpn'");
+        return $result ? array_column($result, 'sku') : [];
+    }
+
     public function getSupplier($sku)
     {
         $names = [
