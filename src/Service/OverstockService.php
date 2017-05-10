@@ -4,6 +4,11 @@ namespace Service;
 
 use Phalcon\Di\Injectable;
 
+/**
+ * NOTE:
+ *   OverstockService can only call from backend Job, it cannot
+ *   call from frontend (in browser), because it needs php64
+ */
 class OverstockService extends Injectable
 {
     public function get($sku)
@@ -41,6 +46,20 @@ class OverstockService extends Injectable
         return $qty;
     }
 
+    /**
+     *  $info = [
+     *      'sku'        => '',
+     *      'title'      => '',
+     *      'cost'       => '0',
+     *      'condition'  => 'New',
+     *      'allocation' => 'ALL',
+     *      'qty'        => '0',
+     *      'mpn'        => '',
+     *      'note'       => '',
+     *      'weight'     => '0',
+     *      'upc'        => '',
+     *  ];
+     */
     public function add($info)
     {
         $accdb = $this->openAccessDB();
@@ -65,6 +84,7 @@ class OverstockService extends Injectable
                 $logger->error(__METHOD__);
                 $logger->error(print_r($accdb->errorInfo(), true));
                 $logger->error($sql);
+                return false;
             }
         } else {
             $sql = $this->insertMssql("overstock", [
@@ -87,7 +107,41 @@ class OverstockService extends Injectable
                 $logger->error(__METHOD__);
                 $logger->error(print_r($accdb->errorInfo(), true));
                 $logger->error($sql);
+                return false;
             }
+        }
+
+        $this->saveLog($info);
+    }
+
+    /**
+     * @param array $info
+     * @see this->add()
+     */
+    protected function saveLog($info)
+    {
+        $accdb = $this->openAccessDB();
+
+        $sql = $this->insertMssql("overstock-log", [
+            'sku'        => $info['sku'],
+            'title'      => $info['title'],
+            'cost'       => intval($info['cost']),
+            'condition'  => $info['condition'],
+            'allocation' => $info['allocation'],
+            'qty'        => intval($info['qty']),
+            'mpn'        => $info['mpn'],
+            'note'       => $info['note'],
+            'upc'        => $info['upc'],
+            'weight'     => floatval($info['weight']),
+        ]);
+
+        $ret = $accdb->exec($sql);
+
+        if (!$ret && $accdb->errorCode() != '00000') {
+            $logger = $this->loggerService;
+            $logger->error(__METHOD__);
+            $logger->error(print_r($accdb->errorInfo(), true));
+            $logger->error($sql);
         }
     }
 
