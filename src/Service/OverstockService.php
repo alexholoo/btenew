@@ -154,7 +154,7 @@ class OverstockService extends Injectable
             'allocation' => $info['allocation'],
             'qty'        => $info['qty'],
             'mpn'        => $info['mpn'],
-            'note'       => $info['note'],
+           #'note'       => $info['note'],
             'upc'        => $info['upc'],
             'weight'     => $info['weight'],
         ]);
