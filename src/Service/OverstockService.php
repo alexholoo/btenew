@@ -92,6 +92,61 @@ class OverstockService extends Injectable
         $this->saveLog($info);
     }
 
+    public function deduct($sku, $order)
+    {
+        $row = $this->get($sku);
+        if (!$row) {
+            return false;
+        }
+
+        $qty = $order['qty'];
+        $qtyOnHand = $row['qty'];
+
+        $remaining = 0;
+        $change = 'No change';
+        if ($qtyOnHand > 0) {
+            $change = "-$qty";
+            $remaining = $qtyOnHand - $qty;
+            if ($remaining < 0) {
+                $remaining = 0;
+                $change = "-$qtyOnHand oversold";
+            }
+        }
+
+        $updateFields = [
+            'qty'      => $remaining,
+            'reserved' => '',
+        ];
+
+        // Mark the item as 'out of stock' by prefixing *** the part number
+        if ($remaining == 0) {
+            $today = date('Y-m-d');
+            $updateFields['sku'] = "***$sku";
+            $updateFields['reserved'] = "Sold out on $today";
+        }
+
+        $this->db->updateAsDict('overstock', $updateFields, "sku='$sku'");
+
+        // log the deduction
+        $sql = $this->insertMssql("overstock_change", [
+            'order_date'      => $order['date'],
+            'channel'         => $order['channel'],
+            'order_id'        => $order['order_id'],
+            'change'          => $change,
+            'sku'             => $sku,
+            'title'           => $row['title'],
+            'cost'            => $row['cost'],
+            'condition'       => $row['condition'],
+            'allocation'      => $row['allocation'],
+            'qty'             => $remaining,
+            'mpn'             => $row['mpn'],
+            'note'            => $row['note'],
+            'upc'             => $row['upc'],
+            'weight'          => $row['weight'],
+            'reserved'        => '',
+        ]);
+    }
+
     /**
      * @param array $info
      * @see this->add()
