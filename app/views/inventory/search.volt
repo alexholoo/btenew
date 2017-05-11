@@ -89,71 +89,6 @@
 {% endblock %}
 
 {% block jscode %}
-function editNoteHtml(data) {
-  var note = data.note;
-  var sn = data.sn;
-  return `<div style="padding: 20px;">
-     <div>
-       <label for="sn" style="width: 3em;">SN#</label>
-       <input type="text" id="sn" size="60" value="${sn}">
-     </div><br>
-     <label for="note">Note</label> (Max 80 chars)<br />
-     <textarea id="note" maxlength="80" style="width: 440px; height: 80px; resize: none;">${note}</textarea>
-   </div>`;
-}
-
-function editNote(data, success, fail, done) {
-  layer.open({
-    title: 'Edit Note',
-    area: ['480px', 'auto'],
-    btn: ['Save', 'Cancel'],
-    yes: function(index, layero) {
-      var note = layero.find('#note').val();
-      var sn = layero.find('#sn').val();
-
-      data.sn = sn;
-      data.note = note;
-
-      ajaxCall('/inventory/update', data, success, fail);
-      layer.close(index);
-    },
-    end: function(index, layero) {
-      done();
-    },
-    content: editNoteHtml(data)
-  })
-}
-
-function skuListHtml(skus, upc) {
-  var content = '';
-
-  for (var i=0; i<skus.length; i++) {
-    content += `<li>${skus[i]}</li>`;
-  }
-
-  return `<div style="padding: 20px; font-size: 20px;">
-     SKUs for UPC <label>${upc}</label><br />
-     <ul>${content}</ul>
-   </div>`;
-}
-
-function skuListForUPC(upc, done) {
-  ajaxCall('/api/query/upc/' + upc, { upc: upc },
-    function(data) {
-      layer.open({
-        title: false,
-        area: ['400px', 'auto'],
-        shadeClose: true,
-        end: function(index, layero) { done(); },
-        content: skuListHtml(data, upc)
-      })
-    },
-    function(message) {
-      done();
-      showError(message);
-    }
-  );
-}
 {% endblock %}
 
 {% block docready %}
@@ -170,18 +105,17 @@ function skuListForUPC(upc, done) {
 
     tr.addClass('info');
 
-    editNote({ id: id, note: note.text(), sn: sn.text() },
-      function(data) {
+    var modal = new bte.EditInvlocNoteModal({ id: id, note: note.text(), sn: sn.text() });
+    modal.success = function(data) {
         showToast('Your change has benn saved', 1000);
         note.text(data.note);
         sn.text(data.sn);
-      },
-      function(message) {
+    };
+    modal.failure = function(message) {
         showError(message);
         tr.addClass('danger');
-      },
-      function() {}
-    );
+    };
+    modal.show();
   });
 
   // click upc to view sku list
@@ -195,6 +129,7 @@ function skuListForUPC(upc, done) {
 
     tr.addClass('info');
 
-    skuListForUPC(upc, function() {});
+    var modal = new bte.SkuListModal(upc, 'UPC');
+    modal.show();
   });
 {% endblock %}

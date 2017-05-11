@@ -557,10 +557,10 @@ bte.EditInvlocNoteModal = class {
         var note = layero.find('#note').val();
         var sn = layero.find('#sn').val();
 
-        data.sn = sn;
-        data.note = note;
+        self.data.sn = sn;
+        self.data.note = note;
 
-        ajaxCall('/inventory/update', data, self.onSuccess, self.onFailure);
+        ajaxCall('/inventory/update', self.data, self.onSuccess, self.onFailure);
         layer.close(index);
     }
 
