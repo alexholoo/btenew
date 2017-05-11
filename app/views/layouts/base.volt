@@ -48,6 +48,11 @@
   <script type="text/javascript">
     {% block jscode %}{% endblock %}
     $(document).ready(function() {
+      layer.config({
+        type: 1,
+        moveType: 1,
+        skin: 'layui-layer-molv',
+      });
       {% block docready %}{% endblock %}
     });
   </script>

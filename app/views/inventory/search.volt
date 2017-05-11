@@ -157,12 +157,6 @@ function skuListForUPC(upc, done) {
 {% endblock %}
 
 {% block docready %}
-  layer.config({
-    type: 1,
-    moveType: 1,
-    skin: 'layui-layer-molv',
-  });
-
   // click note to edit note
   $('.note, .sn').click(function() {
     $('tr').removeClass('info');

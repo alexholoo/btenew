@@ -25,12 +25,6 @@
 {% endblock %}
 
 {% block docready %}
-layer.config({
-  type: 1,
-  moveType: 1,
-  skin: 'layui-layer-molv',
-});
-
 $('#link1').on('click', function(){
   var modal = new bte.OrderDetailModal('701-5568212-2791469');
   modal.show();

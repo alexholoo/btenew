@@ -8,9 +8,4 @@
 {% endblock %}
 
 {% block docready %}
-  layer.config({
-    type: 1,
-    moveType: 1,
-    skin: 'layui-layer-molv',
-  });
 {% endblock %}

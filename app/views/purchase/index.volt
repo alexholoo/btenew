@@ -362,12 +362,6 @@ function markAsProcessed(order, yesfunc) {
 {% endblock %}
 
 {% block docready %}
-  layer.config({
-    type: 1,
-    moveType: 1,
-    skin: 'layui-layer-molv',
-  });
-
   // click on action button
   $('.action button').click(function() {
     $('tr').removeClass('info');

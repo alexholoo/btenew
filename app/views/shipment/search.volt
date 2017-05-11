@@ -59,12 +59,6 @@
 {% endblock %}
 
 {% block docready %}
-  layer.config({
-    type: 1,
-    moveType: 1,
-    skin: 'layui-layer-molv',
-  });
-
   // click on order id
   $('.order-id a').click(function() {
     var orderId = $(this).data('order-id');

@@ -91,12 +91,6 @@
 {% endblock %}
 
 {% block docready %}
-  layer.config({
-    type: 1,
-    moveType: 1,
-    skin: 'layui-layer-molv',
-  });
-
   $('#pagesel').change(function() {
     window.location = '/rma/records?page=' + $(this).val();
   })

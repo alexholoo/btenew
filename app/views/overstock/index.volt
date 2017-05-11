@@ -171,12 +171,6 @@ function skuListForMPN(mpn, done) {
 {% endblock %}
 
 {% block docready %}
-  layer.config({
-    type: 1,
-    moveType: 1,
-    skin: 'layui-layer-molv',
-  });
-
   $('#pagesel').change(function() {
     window.location = '/overstock/?page=' + $(this).val();
   })
