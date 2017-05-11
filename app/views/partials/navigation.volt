@@ -41,7 +41,7 @@
             <li><a href="/overstock/add">New Overstock</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/overstock/viewlog">View Overstock Log</a></li>
-            <li><a href="/overstock/viewchange">View Overstock Change</a></li>
+            <li><a href="/overstock/viewchange">View Overstock Deduction</a></li>
           </ul>
         </li>
         <li class="dropdown">
