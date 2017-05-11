@@ -469,6 +469,165 @@ bte.PurchaseModal = class {
     }
 }
 
+bte.SkuListModal = class {
+    constructor(data, searchby) {
+        this.data = data;
+        this.searchby = searchby;
+    }
+
+    content(skus, upc) {
+        var content = '';
+        var searchby = this.searchby;
+
+        for (var i=0; i<skus.length; i++) {
+          content += `<li>${skus[i]}</li>`;
+        }
+
+        return `<div style="padding: 20px; font-size: 20px;">
+           SKUs for ${searchby} <label>${upc}</label><br />
+           <ul>${content}</ul>
+         </div>`;
+    }
+
+    show() {
+        var self = this;
+        var upc = self.data;
+
+        var url = '/api/query/upc/';
+        if (self.searchby == 'MPN') {
+            url = '/api/query/mpn/';
+        }
+
+        ajaxCall(url + upc, { upc: upc },
+            function(data) {
+                layer.open({
+                    title:      false,
+                    area:       ['400px', 'auto'],
+                    shadeClose: true,
+                    end:        function(index, layero) { },
+                    content:    self.content(data, upc)
+                })
+            },
+            function(message) {
+                showError(message);
+            }
+        );
+    }
+}
+
+bte.EditInvlocNoteModal = class {
+    constructor(data) {
+        this.data = data;
+        this.onSuccess = function() {};
+        this.onFailure = function() {};
+        this.onClose = function() {};
+    }
+
+    set success(val) {
+        this.onSuccess = val;
+    }
+
+    set failure(val) {
+        this.onFailure = val;
+    }
+
+    set done(val) {
+        this.onClose = val;
+    }
+
+    content(data) {
+        var note = data.note;
+        var sn = data.sn;
+        return `<div style="padding: 20px;">
+           <div>
+             <label for="sn" style="width: 3em;">SN#</label>
+             <input type="text" id="sn" size="60" value="${sn}">
+           </div><br>
+           <label for="note">Note</label> (Max 80 chars)<br />
+           <textarea id="note" maxlength="80" style="width: 440px; height: 80px; resize: none;">${note}</textarea>
+         </div>`;
+    }
+
+    yes(index, layero) {
+        var self = this;
+
+        var note = layero.find('#note').val();
+        var sn = layero.find('#sn').val();
+
+        data.sn = sn;
+        data.note = note;
+
+        ajaxCall('/inventory/update', data, self.onSuccess, self.onFailure);
+        layer.close(index);
+    }
+
+    show() {
+        var self = this;
+
+        layer.open({
+            title:   'Edit Note',
+            area:    ['480px', 'auto'],
+            btn:     ['Save', 'Cancel'],
+            yes:     (index, layero) => { self.yes(index, layero) },
+            end:     (index, layero) => { self.end(index, layero) },
+            content: self.content(self.data)
+        })
+    }
+}
+
+bte.EditOverstockNoteModal = class {
+    constructor(data) {
+        this.data = data;
+        this.onSuccess = function() {};
+        this.onFailure = function() {};
+        this.onClose = function() {};
+    }
+
+    set success(val) {
+        this.onSuccess = val;
+    }
+
+    set failure(val) {
+        this.onFailure = val;
+    }
+
+    set done(val) {
+        this.onClose = val;
+    }
+
+    content(data) {
+        var note = data.note;
+        return `<div style="padding: 20px;">
+           <label for="note">Note</label> (Max 200 chars)<br />
+           <textarea id="note" maxlength="200" style="width: 440px; height: 100px; resize: none;">${note}</textarea>
+         </div>`;
+    }
+
+    yes(index, layero) {
+        var self = this;
+
+        var note = layero.find('#note').val();
+
+        data.note = note;
+
+        ajaxCall('/inventory/update', data, self.onSuccess, self.onFailure);
+        layer.close(index);
+    }
+
+    show() {
+        var self = this;
+
+        layer.open({
+            title:   'Edit Note',
+            area:    ['480px', 'auto'],
+            btn:     ['Save', 'Cancel'],
+            yes:     (index, layero) => { self.yes(index, layero) },
+            end:     (index, layero) => { self.end(index, layero) },
+            content: self.content(self.data)
+        })
+    }
+}
+
 bte.utils = { }
 
 /**
