@@ -33,6 +33,7 @@ $count = 0;
 while(($fields = fgetcsv($fh))) {
     try {
         $data = array_combine($columns, $fields);
+        unset($data['row_num']);
         $db->insertAsDict('overstock', $data);
         $count++;
     } catch (Exception $e) {
