@@ -124,6 +124,13 @@ class OverstockService extends Injectable
         return $result;
     }
 
+    public function loadChange()
+    {
+        $sql = "SELECT * FROM overstock_change ORDER BY id DESC";
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
+
     /**
      * for restore
      */
