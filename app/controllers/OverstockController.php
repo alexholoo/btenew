@@ -162,7 +162,7 @@ class OverstockController extends ControllerBase
     }
 
     /**
-     * Ajax Handler
+     * Ajax Handler (for mobile use)
      */
     public function newAction()
     {
@@ -175,9 +175,12 @@ class OverstockController extends ControllerBase
             $qty = $this->request->getPost('qty');
             $location = $this->request->getPost('location');
 
+            $info = false;
             if ($partnum) {
                 $info = $this->skuService->getMasterSku($partnum);
-            } else {
+            }
+
+            if (!$info && $upc) {
                 $info = $this->skuService->getMasterSku($upc);
             }
 
@@ -202,21 +205,11 @@ class OverstockController extends ControllerBase
                 'upc'        => $info['UPC'],
             ];
 
-            // TODO: call overstockService directly when php64 is available
-            // $this->overstockService->add($data);
-
-            $filename = "E:/BTE/import/overstock/overstock-new.csv";
-
-            $fp = fopen($filename, 'w');
-            fputcsv($fp, array_keys($data));
-            fputcsv($fp, $data);
-            fclose($fp);
-
-            $this->runJob('job/OverstockAddJob', $filename);
+            $this->overstockService->add($data);
 
             $this->inventoryLocationService->add([
-                'partnum'  => $info['MPN'] ?? $partnum,
-                'upc'      => $info['UPC'] ?? $upc,
+                'partnum'  => $partnum ?? $info['MPN'],
+                'upc'      => $upc ?? $info['UPC'],
                 'location' => $location,
                 'qty'      => $qty,
                 'sn'       => '',
