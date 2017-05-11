@@ -8,13 +8,13 @@ $loader = new Loader();
  * We're a registering a set of directories taken from the configuration file
  */
 $loader->registerNamespaces([
-    'App\Models'      => $config->application->modelsDir,
-    'App\Controllers' => $config->application->controllersDir,
-    'Api\Controllers' => $config->application->controllersDir . 'api/',
-    'Ajax\Controllers'=> $config->application->controllersDir . 'ajax/',
-    'App\Forms'       => $config->application->formsDir,
-    'App\Library'     => $config->application->libraryDir,
-    'App\Plugins'     => $config->application->pluginsDir,
+    'App\Models'       => $config->application->modelsDir,
+    'App\Controllers'  => $config->application->controllersDir,
+    'Api\Controllers'  => $config->application->controllersDir . 'api/',
+    'Ajax\Controllers' => $config->application->controllersDir . 'ajax/',
+    'App\Forms'        => $config->application->formsDir,
+    'App\Library'      => $config->application->libraryDir,
+    'App\Plugins'      => $config->application->pluginsDir,
 ]);
 
 $loader->register();
