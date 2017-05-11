@@ -105,7 +105,7 @@ class OverstockController extends ControllerBase
 
     public function viewChangeAction()
     {
-        $this->view->pageTitle = 'Overstock Change';
+        $this->view->pageTitle = 'Overstock Deduction';
 
         $currentPage = $this->request->getQuery('page', 'int', 1);
         $data = $this->overstockService->loadChange();
