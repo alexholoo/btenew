@@ -169,7 +169,7 @@ class OverstockService extends Injectable
 
     public function update($id, $info)
     {
-        // TODO
+        $this->db->updateAsDict("overstock", $info, "id=$id");
     }
 
     public function loadHistory()

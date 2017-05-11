@@ -143,7 +143,7 @@
     var modal = new bte.EditOverstockNoteModal({ id: id, note: note.text() });
     modal.success = function(data) {
         showToast('Your change has benn saved', 1000);
-        note.text(data.note);
+        note.text(data);
     };
     modal.failure = function(message) {
         showError(message);

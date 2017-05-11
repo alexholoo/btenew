@@ -70,9 +70,9 @@ class OverstockController extends ControllerBase
 
         if ($this->request->isPost()) {
             $id = $this->request->getPost('id');
-            $note = $this->request->getPost('note');
+            $note = $this->request->getPost('note', 'striptags');
             $this->overstockService->update($id, ['note' => $note]);
-            $this->response->setJsonContent(['status' => 'OK']);
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $note ]);
             return $this->response;
         }
     }
