@@ -4,11 +4,6 @@ namespace Service;
 
 use Phalcon\Di\Injectable;
 
-/**
- * NOTE:
- *   OverstockService can only call from backend Job, it cannot
- *   call from frontend (in browser), because it needs php64
- */
 class OverstockService extends Injectable
 {
     public function load()
@@ -20,17 +15,8 @@ class OverstockService extends Injectable
 
     public function get($sku)
     {
-        $accdb = $this->openAccessDB();
-
-        $sql = "SELECT * FROM [overstock] WHERE [SKU Number] ='$sku'";
-
-        $result = $accdb->query($sql)->fetch(\PDO::FETCH_ASSOC);
-        if ($result) {
-            $result['sku']    = $result['SKU Number'];
-            $result['qty']    = $result['Actual Quantity'];
-            $result['UPC']    = $result['UPC Code'];
-            $result['weight'] = $result['Weight(lbs)'];
-        }
+        $sql = "SELECT * FROM overstock WHERE sku ='$sku'";
+        $result = $this->db->fetchOne($sql);
         return $result;
     }
 
@@ -47,7 +33,7 @@ class OverstockService extends Injectable
         $qty = 0;
 
         if ($result) {
-            $qty = $result['Actual Quantity'];
+            $qty = $result['qty'];
         }
 
         return $qty;
@@ -69,53 +55,38 @@ class OverstockService extends Injectable
      */
     public function add($info)
     {
-        $accdb = $this->openAccessDB();
         $logger = $this->loggerService;
 
         $sku = $info['sku'];
 
-        $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$sku'";
-        $row = $accdb->query($sql)->fetch();
+        $row = $this->get($sku);
 
         if ($row) {
-            $totalQty = $row['Actual Quantity'] + $info['qty'];
-            $totalPrice = $row['Actual Quantity'] * $row['cost'] + $info['cost'] * $info['qty'];
+            $totalQty = $row['qty'] + $info['qty'];
+            $totalPrice = $row['qty'] * $row['cost'] + $info['cost'] * $info['qty'];
             $newCost = round($totalPrice/$totalQty);
 
-            $sql = "UPDATE [overstock] SET [Actual Quantity]=$totalQty, [cost]=$newCost"
-                 . " WHERE [SKU Number]='$sku'";
-
-            $ret = $accdb->exec($sql);
-
-            if (!$ret && $accdb->errorCode() != '00000') {
-                $logger->error(__METHOD__);
-                $logger->error(print_r($accdb->errorInfo(), true));
-                $logger->error($sql);
-                return false;
-            }
+            $this->db->updateAsDict("overstock",
+                [
+                    'qty'  => $totalQty,
+                    'cost' => $newCost,
+                ],
+                "sku='$sku'"
+            );
         } else {
-            $sql = $this->insertMssql("overstock", [
-                'SKU Number'      => $info['sku'],
-                'Title'           => $info['title'],
-                'cost'            => intval($info['cost']),
-                'condition'       => $info['condition'],
-                'Allocation'      => $info['allocation'],
-                'Actual Quantity' => intval($info['qty']),
-                'MPN'             => $info['mpn'],
-                'note'            => $info['note'],
-                'UPC Code'        => $info['upc'],
-                'Weight(lbs)'     => floatval($info['weight']),
-                'Reserved'        => '',
-               #'ID'              => '',
+            $this->db->insertAsDict("overstock", [
+                'sku'        => $info['sku'],
+                'title'      => $info['title'],
+                'cost'       => $info['cost'],
+                'condition'  => $info['condition'],
+                'allocation' => $info['allocation'],
+                'qty'        => $info['qty'],
+                'mpn'        => $info['mpn'],
+                'note'       => $info['note'],
+                'upc'        => $info['upc'],
+                'Weight'     => $info['weight'],
+                'reserved'   => '',
             ]);
-
-            $ret = $accdb->exec($sql);
-            if (!$ret && $accdb->errorCode() != '00000') {
-                $logger->error(__METHOD__);
-                $logger->error(print_r($accdb->errorInfo(), true));
-                $logger->error($sql);
-                return false;
-            }
         }
 
         $this->saveLog($info);
@@ -127,32 +98,6 @@ class OverstockService extends Injectable
      */
     protected function saveLog($info)
     {
-        /*
-        $accdb = $this->openAccessDB();
-
-        $sql = $this->insertMssql("overstock-log", [
-            'sku'        => $info['sku'],
-            'title'      => $info['title'],
-            'cost'       => intval($info['cost']),
-            'condition'  => $info['condition'],
-            'allocation' => $info['allocation'],
-            'qty'        => intval($info['qty']),
-            'mpn'        => $info['mpn'],
-            'note'       => $info['note'],
-            'upc'        => $info['upc'],
-            'weight'     => floatval($info['weight']),
-        ]);
-
-        $ret = $accdb->exec($sql);
-
-        if (!$ret && $accdb->errorCode() != '00000') {
-            $logger = $this->loggerService;
-            $logger->error(__METHOD__);
-            $logger->error(print_r($accdb->errorInfo(), true));
-            $logger->error($sql);
-        }
-        */
-
         $this->db->insertAsDict("overstock_log", [
             'sku'        => $info['sku'],
             'title'      => $info['title'],
@@ -247,7 +192,8 @@ class OverstockService extends Injectable
                 $row['upc'],
                 $row['weight'],
                 $row['reserved'],
-                $row['row_num'],
+                $row['createdon'],
+                $row['updatedon'],
             ]);
         }
 
@@ -268,45 +214,8 @@ class OverstockService extends Injectable
             'upc',
             'weight',
             'reserved',
-            'row_num',
+            'createdon',
+            'updatedon',
         ];
-    }
-
-    protected function openAccessDB()
-    {
-        if (!empty($this->accdb)) {
-            return $this->accdb;
-        }
-
-        $dbname = "z:/BTE-Price-List/bte-dataprocess-files.accdb";
-
-        if (!IS_PROD) {
-            $dbname = "C:/Users/BTE/Desktop/bte-dataprocess-files.accdb";
-        }
-
-        $dsn = "odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=$dbname;";
-        $this->accdb = new \PDO($dsn);
-
-        return $this->accdb;
-    }
-
-    protected function insertMssql($table, $data)
-    {
-        $columns = '[' . implode('], [', array_keys($data)) . ']';
-
-        $query = "INSERT INTO [$table] ($columns) VALUES\n";
-
-        foreach($data as $key => $val) {
-            if (is_string($val)) {
-                $data[$key] = "'" .str_replace("'", "''", $val). "'";
-            }
-            if (is_null($val)) {
-                $data[$key] = 'NULL';
-            }
-        }
-
-        $values = implode(', ', $data);
-
-        return "$query ($values)";
     }
 }
