@@ -142,18 +142,9 @@ class OverstockController extends ControllerBase
         $data = $this->session->get(self::SESSKEY);
 
         if ($data) {
-            $filename = "E:/BTE/import/overstock/overstock-add.csv";
-
-            $fp = fopen($filename, 'w');
-            fputcsv($fp, array_keys($data[0]));
-
             foreach ($data as $row) {
-                fputcsv($fp, $row);
+                $this->overstockService->add($row);
             }
-
-            fclose($fp);
-
-            $this->runJob('job/OverstockAddJob', $filename);
         }
 
         $this->session->set(self::SESSKEY, []);
