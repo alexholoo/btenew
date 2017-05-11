@@ -87,7 +87,7 @@ class OverstockController extends ControllerBase
         $this->view->pageTitle = 'Overstock Log';
 
         $currentPage = $this->request->getQuery('page', 'int', 1);
-        $data = $this->overstockService->loadHistory();
+        $data = $this->overstockService->loadLogs();
 
         array_walk($data, function(&$item, $key) {
             $item['date'] = substr($item['datetime'], 0, 10);
@@ -108,7 +108,7 @@ class OverstockController extends ControllerBase
         $this->view->pageTitle = 'Overstock Deduction';
 
         $currentPage = $this->request->getQuery('page', 'int', 1);
-        $data = $this->overstockService->loadChange();
+        $data = $this->overstockService->loadChanges();
 
         $paginator = new Paginator([
             "data"  => $data,

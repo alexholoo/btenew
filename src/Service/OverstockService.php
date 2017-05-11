@@ -15,7 +15,7 @@ class OverstockService extends Injectable
 
     public function get($sku)
     {
-        $sql = "SELECT * FROM overstock WHERE sku ='$sku'";
+        $sql = "SELECT * FROM overstock WHERE sku='$sku'";
         $result = $this->db->fetchOne($sql);
         return $result;
     }
@@ -55,8 +55,6 @@ class OverstockService extends Injectable
      */
     public function add($info)
     {
-        $logger = $this->loggerService;
-
         $sku = $info['sku'];
 
         $row = $this->get($sku);
@@ -172,14 +170,14 @@ class OverstockService extends Injectable
         $this->db->updateAsDict("overstock", $info, "id=$id");
     }
 
-    public function loadHistory()
+    public function loadLogs()
     {
         $sql = "SELECT * FROM overstock_log ORDER BY id DESC";
         $result = $this->db->fetchAll($sql);
         return $result;
     }
 
-    public function loadChange()
+    public function loadChanges()
     {
         $sql = "SELECT * FROM overstock_change ORDER BY id DESC";
         $result = $this->db->fetchAll($sql);
