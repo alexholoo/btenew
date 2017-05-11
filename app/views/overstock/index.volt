@@ -53,7 +53,7 @@
     </thead>
     <tbody>
     {% for row in page.items %}
-      <tr data-id="{{ row['id'] }}">
+      <tr data-id="{{ row['id'] }}"{% if row['updatedon'] == today %} class="danger"{% endif %}>
         <td class="sku" nowrap>{{ row['sku'] }}</td>
         <td>{{ row['condition'] }}</td>
         <td>{{ row['cost'] }}</td>

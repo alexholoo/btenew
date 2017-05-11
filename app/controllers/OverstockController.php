@@ -15,12 +15,17 @@ class OverstockController extends ControllerBase
         $currentPage = $this->request->getQuery('page', 'int', 1);
         $data = $this->overstockService->load();
 
+        array_walk($data, function(&$item, $key) {
+            $item['updatedon'] = substr($item['updatedon'], 0, 10);
+        });
+
         $paginator = new Paginator([
             "data"  => $data,
             "limit" => 20,
             "page"  => $currentPage,
         ]);
 
+        $this->view->today = date('Y-m-d');
         $this->view->page = $paginator->getPaginate();
     }
 
@@ -84,12 +89,17 @@ class OverstockController extends ControllerBase
         $currentPage = $this->request->getQuery('page', 'int', 1);
         $data = $this->overstockService->loadHistory();
 
+        array_walk($data, function(&$item, $key) {
+            $item['date'] = substr($item['datetime'], 0, 10);
+        });
+
         $paginator = new Paginator([
             "data"  => $data,
             "limit" => 20,
             "page"  => $currentPage,
         ]);
 
+        $this->view->today = date('Y-m-d');
         $this->view->page = $paginator->getPaginate();
     }
 
