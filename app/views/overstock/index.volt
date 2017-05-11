@@ -119,55 +119,6 @@ function editNote(data, success, fail, done) {
     content: editNoteHtml(data)
   })
 }
-
-function skuListHtml(skus, upc) {
-  var content = '';
-
-  for (var i=0; i<skus.length; i++) {
-    content += `<li>${skus[i]}</li>`;
-  }
-
-  return `<div style="padding: 20px; font-size: 20px;">
-     SKUs for <label>${upc}</label><br />
-     <ul>${content}</ul>
-   </div>`;
-}
-
-function skuListForUPC(upc, done) {
-  ajaxCall('/api/query/upc/' + upc, { upc: upc },
-    function(data) {
-      layer.open({
-        title: false,
-        area: ['400px', 'auto'],
-        shadeClose: true,
-        end: function(index, layero) { done(); },
-        content: skuListHtml(data, upc)
-      })
-    },
-    function(message) {
-      done();
-      showError(message);
-    }
-  );
-}
-
-function skuListForMPN(mpn, done) {
-  ajaxCall('/api/query/mpn/' + mpn, { mpn: mpn },
-    function(data) {
-      layer.open({
-        title: false,
-        area: ['400px', 'auto'],
-        shadeClose: true,
-        end: function(index, layero) { done(); },
-        content: skuListHtml(data, mpn)
-      })
-    },
-    function(message) {
-      done();
-      showError(message);
-    }
-  );
-}
 {% endblock %}
 
 {% block docready %}
@@ -186,7 +137,8 @@ function skuListForMPN(mpn, done) {
 
     tr.addClass('info');
 
-    skuListForUPC(upc, function() {});
+    var modal = new bte.SkuListModal(upc, 'UPC');
+    modal.show();
   });
 
   // click upc to view sku list
@@ -200,7 +152,8 @@ function skuListForMPN(mpn, done) {
 
     tr.addClass('info');
 
-    skuListForMPN(mpn, function() {});
+    var modal = new bte.SkuListModal(mpn, 'MPN');
+    modal.show();
   });
 
   // click note to edit note
