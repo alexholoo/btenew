@@ -91,34 +91,6 @@
 {% endblock %}
 
 {% block jscode %}
-function editNoteHtml(data) {
-  var note = data.note;
-  return `<div style="padding: 20px;">
-     <label for="note">Note</label> (Max 200 chars)<br />
-     <textarea id="note" maxlength="200" style="width: 440px; height: 80px; resize: none;">${note}</textarea>
-   </div>`;
-}
-
-function editNote(data, success, fail, done) {
-  layer.open({
-    title: 'Edit Note',
-    area: ['480px', 'auto'],
-    btn: ['Save', 'Cancel'],
-    yes: function(index, layero) {
-      var note = layero.find('#note').val();
-      var sn = layero.find('#sn').val();
-
-      data.note = note;
-
-      ajaxCall('/overstock/note', data, success, fail);
-      layer.close(index);
-    },
-    end: function(index, layero) {
-      done();
-    },
-    content: editNoteHtml(data)
-  })
-}
 {% endblock %}
 
 {% block docready %}
@@ -168,17 +140,16 @@ function editNote(data, success, fail, done) {
 
     tr.addClass('info');
 
-    editNote({ id: id, note: note.text() },
-      function(data) {
+    var modal = new bte.EditOverstockNoteModal({ id: id, note: note.text() });
+    modal.success = function(data) {
         showToast('Your change has benn saved', 1000);
         note.text(data.note);
-      },
-      function(message) {
+    };
+    modal.failure = function(message) {
         showError(message);
         tr.addClass('danger');
-      },
-      function() {}
-    );
+    };
+    modal.show();
   });
 
 {% endblock %}

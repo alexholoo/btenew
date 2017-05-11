@@ -548,6 +548,9 @@ bte.EditInvlocNoteModal = class {
          </div>`;
     }
 
+    end(index, layero) {
+    }
+
     yes(index, layero) {
         var self = this;
 
@@ -603,14 +606,17 @@ bte.EditOverstockNoteModal = class {
          </div>`;
     }
 
+    end(index, layero) {
+    }
+
     yes(index, layero) {
         var self = this;
 
         var note = layero.find('#note').val();
 
-        data.note = note;
+        self.data.note = note;
 
-        ajaxCall('/inventory/update', data, self.onSuccess, self.onFailure);
+        ajaxCall('/overstock/note', self.data, self.onSuccess, self.onFailure);
         layer.close(index);
     }
 
