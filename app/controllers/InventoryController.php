@@ -10,8 +10,14 @@ class InventoryController extends ControllerBase
     {
         $this->view->pageTitle = 'BTE Inventory';
 
-        $currentPage = $this->request->getQuery('page', 'int', 1);
-        $data = $this->inventoryService->load();
+        if ($this->request->isPost()) {
+            $keyword = $this->request->getPost('keyword', 'trim');
+            $data = $this->inventoryService->search($keyword);
+            $currentPage = 1;
+        } else {
+            $currentPage = $this->request->getQuery('page', 'int', 1);
+            $data = $this->inventoryService->load();
+        }
 
         array_walk($data, function(&$item, $key) {
             $item['updatedon'] = substr($item['updatedon'], 0, 10);

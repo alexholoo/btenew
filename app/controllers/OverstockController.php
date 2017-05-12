@@ -13,7 +13,7 @@ class OverstockController extends ControllerBase
         $this->view->pageTitle = 'Overstock';
 
         if ($this->request->isPost()) {
-            $keyword = $this->request->getPost('keyword');
+            $keyword = $this->request->getPost('keyword', 'trim');
             $data = $this->overstockService->search($keyword);
             $currentPage = 1;
         } else {
