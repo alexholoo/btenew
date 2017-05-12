@@ -79,6 +79,10 @@ class InventoryService extends Injectable
         $row['change']     = $change;
         $row['qty']        = $remaining;
 
+        unset($row['id']);
+        unset($row['createdon']);
+        unset($row['updatedon']);
+
         $this->db->insertAsDict("bte_inventory_change", $row);
 
         return $remaining;
