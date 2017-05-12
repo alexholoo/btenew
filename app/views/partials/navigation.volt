@@ -34,14 +34,18 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inventory <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/inventory/search">Inventory Search</a></li>
-            <li><a href="/inventory/add">Inventory Loading</a></li>
+            <li><a href="/invloc/search">Inventory Search</a></li>
+            <li><a href="/invloc/add">Inventory Loading</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/overstock">Overstock Items</a></li>
             <li><a href="/overstock/add">New Overstock</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/overstock/viewlog">View Overstock Log</a></li>
             <li><a href="/overstock/viewchange">View Overstock Deduction</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/inventory">BTE Inventory</a></li>
+            <li><a href="/inventory/add">New Inventory</a></li>
+            <li><a href="/inventory/viewchange">View Inventory Deduction</a></li>
           </ul>
         </li>
         <li class="dropdown">
