@@ -26,4 +26,21 @@ class InventoryController extends ControllerBase
         $this->view->today = date('Y-m-d');
         $this->view->page = $paginator->getPaginate();
     }
+
+    public function viewChangeAction()
+    {
+        $this->view->pageTitle = 'Inventory Deduction';
+
+        $currentPage = $this->request->getQuery('page', 'int', 1);
+        $data = $this->inventoryService->loadChanges();
+
+        $paginator = new Paginator([
+            "data"  => $data,
+            "limit" => 20,
+            "page"  => $currentPage,
+        ]);
+
+        $this->view->today = date('Y-m-d');
+        $this->view->page = $paginator->getPaginate();
+    }
 }
