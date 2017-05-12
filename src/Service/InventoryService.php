@@ -37,8 +37,51 @@ class InventoryService extends Injectable
     {
     }
 
-    public function deduct($sku, $order)
+    public function deduct($order)
     {
+        $sku = $order['sku'];
+        $qty = $order['qty'];
+
+        $row = $this->get($sku);
+
+        if (!$row || strtolower(trim($row['type'])) != 'self') {
+            return;
+        }
+
+        $qtyOnHand = $row['qty'];
+
+        $remaining = 0;
+        $change = 'No change';
+        if ($qtyOnHand > 0) {
+            $change = "-$qty";
+            $remaining = $qtyOnHand - $qty;
+            if ($remaining < 0) {
+                $remaining = 0;
+                $change = "-$qtyOnHand oversold";
+            }
+        }
+
+        $updateFields = [
+            'qty' => $remaining,
+        ];
+
+        if ($remaining == 0) {
+            // Mark the item as 'out of stock' by prefixing *** the part number
+            $updateFields['partnum'] = "***$sku";
+        }
+
+        $this->db->updateAsDict('bte_inventory', $updateFields, "partnum='$sku'");
+
+        // log the change
+        $row['order_date'] = $order['date'];
+        $row['channel']    = $order['channel'];
+        $row['order_id']   = $order['order_id'];
+        $row['change']     = $change;
+        $row['qty']        = $remaining;
+
+        $this->db->insertAsDict("bte_inventory_change", $row);
+
+        return $remaining;
     }
 
     public function loadChanges()
