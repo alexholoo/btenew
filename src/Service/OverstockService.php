@@ -126,23 +126,19 @@ class OverstockService extends Injectable
         $this->db->updateAsDict('overstock', $updateFields, "sku='$sku'");
 
         // log the deduction
-        $sql = $this->insertMssql("overstock_change", [
-            'order_date'      => $order['date'],
-            'channel'         => $order['channel'],
-            'order_id'        => $order['order_id'],
-            'change'          => $change,
-            'sku'             => $sku,
-            'title'           => $row['title'],
-            'cost'            => $row['cost'],
-            'condition'       => $row['condition'],
-            'allocation'      => $row['allocation'],
-            'qty'             => $remaining,
-            'mpn'             => $row['mpn'],
-            'note'            => $row['note'],
-            'upc'             => $row['upc'],
-            'weight'          => $row['weight'],
-            'reserved'        => '',
-        ]);
+        $row['order_date'] = $order['date'];
+        $row['channel']    = $order['channel'];
+        $row['order_id']   = $order['order_id'];
+        $row['change']     = $change;
+        $row['sku']        = $sku;
+        $row['qty']        = $remaining;
+        $row['reserved']   = '';
+
+        unset($row['id']);
+        unset($row['createdon']);
+        unset($row['updatedon']);
+
+        $this->db->insertAsDict('overstock_change', $row);
     }
 
     /**
