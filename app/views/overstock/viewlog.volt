@@ -42,7 +42,7 @@
     <tbody>
     {% for row in page.items %}
       <tr>
-        <td nowrap{% if row['date'] == today %} class="warning"{% endif %}>{{ row['datetime'] }}</td>
+        <td nowrap{% if row['date'] == today %} class="text-danger"{% endif %}>{{ row['datetime'] }}</td>
         <td>{{ row['sku'] }}</td>
         <td>{{ row['condition'] }}</td>
         <td>{{ row['cost'] }}</td>

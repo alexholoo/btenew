@@ -41,7 +41,7 @@
     <tbody>
     {% for row in page.items %}
       <tr>
-        <td nowrap{% if row['order_date'] == today %} class="warning"{% endif %}>{{ row['order_date'] }}</td>
+        <td nowrap{% if row['order_date'] == today %} class="text-danger"{% endif %}>{{ row['order_date'] }}</td>
         <td>{{ row['channel'] }}</td>
         <td nowrap class="order-id"><a href="javascript:;">{{ row['order_id'] }}</a></td>
         <td class="sku">{{ row['partnum'] }}</td>
