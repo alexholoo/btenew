@@ -1,13 +1,9 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
-<header class="well clearfix" id="searchbox">
-  <form role="form" method="post">
-
-      <div class="col-sm-12">
-        <h3 style="margin-top: 0;">Inventory Location Search</h3>
-      </div>
-
+  <h3 style="margin-top: 0;">Inventory Location Search</h3>
+  <header class="well clearfix" id="searchbox">
+    <form role="form" method="post">
       <div class="col-sm-6">
         <input autofocus required type="text" class="form-control" name="keyword" autofocus placeholder="Enter keyword to search">
       </div>
@@ -33,11 +29,10 @@
           <input type="radio" name="searchby" value="note" {% if searchby == 'note' %}checked{% endif %}>Note
         </label>
       </div>
+    </form>
+  </header>
 
-  </form>
-</header>
-
-{% if data is not empty %}
+  {% if data is not empty %}
   <p>Search result for <b>{{ keyword }}</b> in <b>{{ searchby }}</b>:(only first 20 rows)</p>
   <table class="table table-bordered table-hover">
     <thead>
@@ -74,13 +69,11 @@
 
     </tbody>
   </table>
-
-{% else %}
-  {% if keyword is not empty %}
-    No inventory information found for <b>{{ keyword }}</b> as <b>{{ searchby }}</b>.
+  {% else %}
+    {% if keyword is not empty %}
+      No inventory information found for <b>{{ keyword }}</b> as <b>{{ searchby }}</b>.
+    {% endif %}
   {% endif %}
-{% endif %}
-
 {% endblock %}
 
 {% block csscode %}
