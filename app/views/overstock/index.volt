@@ -12,6 +12,10 @@
       <div class="col-sm-2">
         <button type="submit" class="btn btn-primary" id="btn1"><span class="glyphicon glyphicon-search"></span> Search </button>
       </div>
+
+      <div class="col-sm-2">
+        <a href="/overstock/add" class="btn btn-info" role="button"><span class="glyphicon glyphicon-plus"></span> Add </a>
+      </div>
     </form>
   </header>
 

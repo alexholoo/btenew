@@ -1,7 +1,7 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
-  <h2 style="margin-top:0;">Overstock</h2>
+  <h2 style="margin-top:0;">BTE Inventory</h2>
 
   <header class="well clearfix" id="searchbox">
     <form role="form" method="post">
@@ -11,6 +11,10 @@
 
       <div class="col-sm-2">
         <button type="submit" class="btn btn-primary" id="btn1"><span class="glyphicon glyphicon-search"></span> Search </button>
+      </div>
+
+      <div class="col-sm-2">
+        <a href="/inventory/add" class="btn btn-info" role="button"><span class="glyphicon glyphicon-plus"></span> Add </a>
       </div>
     </form>
   </header>
