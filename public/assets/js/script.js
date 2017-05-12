@@ -560,7 +560,7 @@ bte.EditInvlocNoteModal = class {
         self.data.sn = sn;
         self.data.note = note;
 
-        ajaxCall('/inventory/update', self.data, self.onSuccess, self.onFailure);
+        ajaxCall('/invloc/update', self.data, self.onSuccess, self.onFailure);
         layer.close(index);
     }
 

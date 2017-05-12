@@ -118,11 +118,11 @@ class SearchController extends ControllerBase
         $this->view->key = $key;
     }
 
-    // forward /search/inventory to /inventory/search
-    public function inventoryAction()
+    // forward /search/invloc to /invloc/search
+    public function invlocAction()
     {
         $this->dispatcher->forward([
-            'controller' => 'inventory',
+            'controller' => 'invloc',
             'action'     => 'search',
         ]);
     }
