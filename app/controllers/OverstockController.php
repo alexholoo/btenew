@@ -12,8 +12,14 @@ class OverstockController extends ControllerBase
     {
         $this->view->pageTitle = 'Overstock';
 
-        $currentPage = $this->request->getQuery('page', 'int', 1);
-        $data = $this->overstockService->load();
+        if ($this->request->isPost()) {
+            $keyword = $this->request->getPost('keyword');
+            $data = $this->overstockService->search($keyword);
+            $currentPage = 1;
+        } else {
+            $currentPage = $this->request->getQuery('page', 'int', 1);
+            $data = $this->overstockService->load();
+        }
 
         array_walk($data, function(&$item, $key) {
             $item['updatedon'] = substr($item['updatedon'], 0, 10);
