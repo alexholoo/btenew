@@ -99,7 +99,7 @@
     $('tr').removeClass('info');
 
     var tr = $(this).closest('tr');
-    var orderId = tr.data('order-id');
+    var orderId = $(this).text();
 
     tr.addClass('info');
 
