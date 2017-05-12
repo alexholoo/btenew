@@ -634,6 +634,64 @@ bte.EditOverstockNoteModal = class {
     }
 }
 
+bte.OverstockChangeLogModal = class {
+    constructor(sku) {
+        this.sku = sku;
+    }
+
+    content(data) {
+        return `<h2>Coming soon!</h2>`;
+    }
+
+    show() {
+        var self = this;
+
+        ajaxCall('/api/query/upc/600603127717', { sku: self.sku },
+            function(data) {
+                layer.open({
+                    title:      false,
+                    area:       ['400px', 'auto'],
+                    shadeClose: true,
+                    end:        function(index, layero) { },
+                    content:    self.content(data)
+                })
+            },
+            function(message) {
+                showError(message);
+            }
+        );
+    }
+}
+
+bte.InventoryChangeLogModal = class {
+    constructor(sku) {
+        this.sku = sku;
+    }
+
+    content(data) {
+        return `<h2>Coming soon!</h2>`;
+    }
+
+    show() {
+        var self = this;
+
+        ajaxCall('/api/query/upc/600603127717', { sku: self.sku },
+            function(data) {
+                layer.open({
+                    title:      false,
+                    area:       ['400px', 'auto'],
+                    shadeClose: true,
+                    end:        function(index, layero) { },
+                    content:    self.content(data)
+                })
+            },
+            function(message) {
+                showError(message);
+            }
+        );
+    }
+}
+
 bte.utils = { }
 
 /**

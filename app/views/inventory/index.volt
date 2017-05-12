@@ -59,7 +59,7 @@
     <tbody>
     {% for row in page.items %}
       <tr data-id="{{ row['id'] }}">
-        <td class="sku{% if row['updatedon'] == today %} text-danger{% endif %}" nowrap>{{ row['partnum'] }}</td>
+        <td class="sku{% if row['updatedon'] == today %} warning{% endif %}" nowrap><a href="javascript:;">{{ row['partnum'] }}</a></td>
         <td>{{ row['condition'] }}</td>
         <td>{{ row['selling_cost'] }}</td>
         <td>{{ row['qty'] }}</t>
@@ -158,4 +158,18 @@
     modal.show();
   });
 */
+
+  // click sku to display change log
+  $('.sku').click(function() {
+    $('tr').removeClass('info');
+
+    var self = $(this);
+    var tr = self.closest('tr');
+    var sku = self.text();
+
+    tr.addClass('info');
+
+    var modal = new bte.InventoryChangeLogModal(sku);
+    modal.show();
+  });
 {% endblock %}
