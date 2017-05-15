@@ -307,7 +307,7 @@ bte.PriceAvailModal = class {
     show() {
         var self = this;
 
-        var ajaxCall = new bte.AjaxCall('/ajax/price/avail', { sku: this.sku });
+        var ajaxCall = new bte.AjaxCall('/ajax/query/priceavail', { sku: this.sku });
 
         ajaxCall.success = function(data) {
             layer.open({
@@ -362,7 +362,7 @@ bte.PurchaseModal = class {
 
         $.ajax({
             type: 'POST',
-            url: '/ajax/freight/quote',
+            url: '/ajax/query/freightquote',
             data: data,
             async: false,
             success: function(res) {
@@ -424,7 +424,7 @@ bte.PurchaseModal = class {
         this.data.shipMethod  = shipMethod;
         this.data.notifyEmail = notifyEmail;
 
-        var ajaxCall = new bte.AjaxCall('/ajax/make/purchase', this.data);
+        var ajaxCall = new bte.AjaxCall('/ajax/dropship/purchase', this.data);
 
         ajaxCall.success = this.onSuccess;
         ajaxCall.failure = this.onFailure;
@@ -493,9 +493,9 @@ bte.SkuListModal = class {
         var self = this;
         var upc = self.data;
 
-        var url = '/api/query/upc/';
+        var url = '/ajax/query/upc/';
         if (self.searchby == 'MPN') {
-            url = '/api/query/mpn/';
+            url = '/ajax/query/mpn/';
         }
 
         ajaxCall(url + upc, { upc: upc },

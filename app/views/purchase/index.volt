@@ -127,7 +127,7 @@ function getShipMethods(data) {
 
   $.ajax({
     type: 'POST',
-    url: '/ajax/freight/quote',
+    url: '/ajax/query/freightquote',
     data: data,
     async: false,
     success: function(res) {
@@ -214,7 +214,7 @@ function makePurchase(data, success, fail, done) {
       data.shipMethod = shipMethod;
       data.notifyEmail = notifyEmail;
 
-      ajaxCall('/ajax/make/purchase', data, success, fail);
+      ajaxCall('/ajax/dropship/purchase', data, success, fail);
       layer.close(index);
     },
     end: function(index, layero) {
@@ -258,7 +258,7 @@ function priceAvailHtml(items) {
 }
 
 function getPriceAvail(data, selected, done) {
-  ajaxCall('/ajax/price/avail', { sku: data },
+  ajaxCall('/ajax/query/priceavail', { sku: data },
     function(res) {
       layer.open({
         title: 'Price and Availability',
@@ -345,7 +345,7 @@ function markAsProcessed(order, yesfunc) {
     },
     function(index, layero) {
       layer.close(index);
-      ajaxCall('/ajax/mark/processed', order,
+      ajaxCall('/ajax/dropship/markasprocessed', order,
         function(data) {
           yesfunc();
           showToast(data, 2000);
