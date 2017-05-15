@@ -33,12 +33,12 @@ class InventoryController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
     }
 
-    public function viewChangeAction()
+    public function viewChangeAction($id = '')
     {
         $this->view->pageTitle = 'Inventory Deduction';
 
         $currentPage = $this->request->getQuery('page', 'int', 1);
-        $data = $this->inventoryService->loadChanges();
+        $data = $this->inventoryService->loadChanges($id);
 
         $paginator = new Paginator([
             "data"  => $data,

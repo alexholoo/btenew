@@ -95,9 +95,18 @@ class InventoryService extends Injectable
         return $remaining;
     }
 
-    public function loadChanges()
+    public function loadChanges($id)
     {
         $sql = "SELECT * FROM bte_inventory_change ORDER BY id DESC";
+
+        if ($id) {
+            $change = $this->db->fetchOne("SELECT * FROM bte_inventory WHERE id=$id ORDER BY id DESC");
+            if ($change) {
+                $partnum = $change['partnum'];
+                $sql = "SELECT * FROM bte_inventory_change WHERE partnum='$partnum' ORDER BY id DESC";
+            }
+        }
+
         $result = $this->db->fetchAll($sql);
         return $result;
     }
