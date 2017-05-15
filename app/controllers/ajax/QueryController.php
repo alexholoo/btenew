@@ -7,6 +7,8 @@ use Phalcon\Mvc\Controller;
 class QueryController extends ControllerBase
 {
     /**
+     * return sku list with same UPC
+     *
      * /ajax/query/upc/xxxx
      */
     public function upcAction($upc)
@@ -18,6 +20,8 @@ class QueryController extends ControllerBase
     }
 
     /**
+     * return sku list with same MPN
+     *
      * /ajax/query/mpn/xxxx
      */
     public function mpnAction($mpn)
