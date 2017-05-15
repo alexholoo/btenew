@@ -102,7 +102,7 @@ class InventoryService extends Injectable
         if ($id) {
             $row = $this->db->fetchOne("SELECT * FROM bte_inventory WHERE id=$id");
             if ($row) {
-                $partnum = $row['partnum'];
+                $partnum = trim($row['partnum'], '*');
                 $sql = "SELECT * FROM bte_inventory_change WHERE partnum='$partnum' ORDER BY id DESC";
             }
         }

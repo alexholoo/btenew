@@ -186,7 +186,7 @@ class OverstockService extends Injectable
         if ($id) {
             $row = $this->db->fetchOne("SELECT * FROM overstock WHERE id=$id");
             if ($row) {
-                $sku = $row['sku'];
+                $sku = trim($row['sku'], '*');
                 $sql = "SELECT * FROM overstock_change WHERE sku='$sku' ORDER BY id DESC";
             }
         }
