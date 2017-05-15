@@ -6,11 +6,6 @@ use Phalcon\Mvc\Controller;
 
 class QueryController extends ControllerBase
 {
-    public function initialize()
-    {
-        $this->view->disable();
-    }
-
     public function upcAction($upc)
     {
         $skuList = $this->skuService->getSkuListByUPC($upc);
