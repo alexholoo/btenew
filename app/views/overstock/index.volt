@@ -58,7 +58,7 @@
     <tbody>
     {% for row in page.items %}
       <tr data-id="{{ row['id'] }}">
-        <td class="sku{% if row['updatedon'] == today %} warning{% endif %}" nowrap><a href="javascript:;">{{ row['sku'] }}</a></td>
+        <td class="sku{% if row['updatedon'] == today %} warning{% endif %}" nowrap><a href="/overstock/viewchange/{{ row['id'] }}" target="_blank">{{ row['sku'] }}</a></td>
         <td>{{ row['condition'] }}</td>
         <td>{{ row['cost'] }}</td>
         <td>{{ row['qty'] }}</t>
@@ -155,7 +155,7 @@
     };
     modal.show();
   });
-
+/*
   // click sku to display change log
   $('.sku').click(function() {
     $('tr').removeClass('info');
@@ -169,4 +169,5 @@
     var modal = new bte.OverstockChangeLogModal(sku);
     modal.show();
   });
+*/
 {% endblock %}
