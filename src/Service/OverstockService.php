@@ -187,6 +187,52 @@ class OverstockService extends Injectable
         return $result;
     }
 
+    public function newStock($partnum, $upc, $qty, $location)
+    {
+        $info = false;
+
+        if ($partnum) {
+            $info = $this->skuService->getMasterSku($partnum);
+        }
+
+        if (!$info && $upc) {
+            $info = $this->skuService->getMasterSku($upc);
+        }
+
+        if (!$info) {
+            return false;
+        }
+
+        $sku = $info['recommended_pn'];
+        $mfr = $info['MFR'];
+
+        $altSkus = $this->skuService->getAltSkus($sku);
+
+        $this->add([
+            'sku'        => $sku,
+            'title'      => $mfr. ' ' .$info['name'],
+            'cost'       => round($info['best_cost']),
+            'condition'  => 'New',
+            'allocation' => 'ALL',
+            'qty'        => $qty,
+            'mpn'        => $info['MPN'],
+            'note'       => implode('; ', $altSkus),
+            'weight'     => $info['Weight'],
+            'upc'        => $info['UPC'],
+        ]);
+
+        $this->inventoryLocationService->add([
+            'partnum'  => $partnum ?? $info['MPN'],
+            'upc'      => $upc ?? $info['UPC'],
+            'location' => $location,
+            'qty'      => $qty,
+            'sn'       => '',
+            'note'     => '',
+        ]);
+
+        return true;
+    }
+
     /**
      * for restore
      */

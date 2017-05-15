@@ -193,54 +193,17 @@ class OverstockController extends ControllerBase
         $this->view->disable();
 
         if ($this->request->isPost()) {
-
             $partnum = $this->request->getPost('partnum');
             $upc = $this->request->getPost('upc');
             $qty = $this->request->getPost('qty');
             $location = $this->request->getPost('location');
 
-            $info = false;
-            if ($partnum) {
-                $info = $this->skuService->getMasterSku($partnum);
-            }
-
-            if (!$info && $upc) {
-                $info = $this->skuService->getMasterSku($upc);
-            }
-
-            if (!$info) {
+            if ($this->overstockService->newStock($partnum, $upc, $qty, $location)) {
+                $this->response->setJsonContent(['status' => 'OK']);
+            } else {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Item not found']);
-                return $this->response;
             }
 
-            $sku = $info['recommended_pn'];
-            $mfr = $info['MFR'];
-            $altSkus = $this->skuService->getAltSkus($sku);
-            $data = [
-                'sku'        => $sku,
-                'title'      => $mfr. ' ' .$info['name'],
-                'cost'       => round($info['best_cost']),
-                'condition'  => 'New',
-                'allocation' => 'ALL',
-                'qty'        => $qty,
-                'mpn'        => $info['MPN'],
-                'note'       => implode('; ', $altSkus),
-                'weight'     => $info['Weight'],
-                'upc'        => $info['UPC'],
-            ];
-
-            $this->overstockService->add($data);
-
-            $this->inventoryLocationService->add([
-                'partnum'  => $partnum ?? $info['MPN'],
-                'upc'      => $upc ?? $info['UPC'],
-                'location' => $location,
-                'qty'      => $qty,
-                'sn'       => '',
-                'note'     => '',
-            ]);
-
-            $this->response->setJsonContent(['status' => 'OK']);
             return $this->response;
         }
     }
