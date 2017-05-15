@@ -12,4 +12,9 @@ class AboutController extends ControllerBase
         $this->view->clientIP = $this->request->getClientAddress();
         $this->view->userAgent = $this->request->getUserAgent();
     }
+
+    public function testAction()
+    {
+        $this->view->pageTitle = 'Test';
+    }
 }
