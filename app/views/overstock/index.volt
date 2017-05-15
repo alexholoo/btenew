@@ -58,7 +58,7 @@
     <tbody>
     {% for row in page.items %}
       <tr data-id="{{ row['id'] }}">
-        <td class="sku{% if row['updatedon'] == today %} warning{% endif %}" nowrap><a href="/overstock/viewchange/{{ row['id'] }}" target="_blank">{{ row['sku'] }}</a></td>
+        <td class="sku{% if row['updatedon'] == today %} warning{% endif %}" nowrap><a href="/overstock/viewchange/{{ row['id'] }}">{{ row['sku'] }}</a></td>
         <td>{{ row['condition'] }}</td>
         <td>{{ row['cost'] }}</td>
         <td>{{ row['qty'] }}</t>
