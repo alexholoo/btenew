@@ -114,6 +114,6 @@ $('.delete button').click(function() {
     var tr = $(this).closest('tr');
     var index = tr.index();
     tr.remove();
-    ajaxCall('/ajax/fbaitem/delete', { index: index });
+    ajaxCall('/amazon/fbaitemdelete', { index: index });
 });
 {% endblock %}

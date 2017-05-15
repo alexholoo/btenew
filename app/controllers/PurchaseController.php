@@ -11,6 +11,11 @@ class PurchaseController extends ControllerBase
 
     public function indexAction()
     {
+        $this->dispatcher->forward([ 'action' => 'index' ]);
+    }
+
+    public function assistAction()
+    {
         $params = [
             'date' => date('Y-m-d'), //'all';
             'status' => 'all',

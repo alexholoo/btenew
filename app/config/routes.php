@@ -4,25 +4,10 @@
  */
 $router = new Phalcon\Mvc\Router();
 
-$router->add('/ajax/fbaitem/delete', [
-    'controller' => 'amazon',
-    'action' => 'fbaItemDelete'
-])->via(array("POST"));
-
 // aliases
-$router->add('/purchase/assist', [
-    'controller' => 'purchase',
-    'action' => 'index'
-]);
-
 $router->add('/dropship', [
     'controller' => 'purchase',
-    'action' => 'index'
-]);
-
-$router->add('/fbaitems', [
-    'controller' => 'amazon',
-    'action' => 'fbaitems'
+    'action' => 'assist'
 ]);
 
 $router->add('/api/:controller/:action/:params', [
