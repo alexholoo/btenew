@@ -4,6 +4,9 @@ namespace Ajax\Controllers;
 
 use Phalcon\Mvc\Controller;
 
+use Supplier\Supplier;
+use App\Models\Orders;
+
 class QueryController extends ControllerBase
 {
     /**
@@ -104,6 +107,9 @@ class QueryController extends ControllerBase
         return $this->response;
     }
 
+    /**
+     * /ajax/query/freightquote
+     */
     public function freightQuoteAction()
     {
         if ($this->request->isPost()) {
