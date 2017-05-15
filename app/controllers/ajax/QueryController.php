@@ -77,6 +77,39 @@ class QueryController extends ControllerBase
         return $this->response;
     }
 
+    public function freightQuoteAction()
+    {
+        if ($this->request->isPost()) {
+            $orderId = $this->request->getPost('order_id');
+            $sku = $this->request->getPost('sku');
+            $branch = $this->request->getPost('code', null, '');
+
+            $order = Orders::findFirst("orderId='$orderId'");
+            if (!$order) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Order not found']);
+                return $this->response;
+            }
+
+            $orderInfo = $order->toArray();
+            $orderInfo['sku'] = $sku; // it might be different
+            $orderInfo['branch'] = $branch;
+
+            try {
+               #$client = Supplier::createClient($sku);
+                $client = new \Supplier\Synnex\Client();
+
+                $result = $client->getFreightQuote($orderInfo);
+                $html = $result->toHtml('ship_method');
+
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $html]);
+            } catch (\Exception $e) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => $e->getMessage()]);
+            }
+
+            return $this->response;
+        }
+    }
+
     /**
      * /ajax/query/mastersku?id=SKU
      */

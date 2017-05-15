@@ -153,10 +153,6 @@ class AjaxController extends ControllerBase
         }
     }
 
-    public function priceListDetailAction()
-    {
-    }
-
     public function freightQuoteAction()
     {
         if ($this->request->isPost()) {
