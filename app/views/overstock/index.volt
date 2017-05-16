@@ -52,7 +52,7 @@
         <th>MPN</th>
         <th>UPC</th>
         <th>Note</th>
-        <th>Weight</th>
+        {# <th>Weight</th> #}
       </tr>
     </thead>
     <tbody>
@@ -66,7 +66,7 @@
         <td class="mpn">{{ row['mpn'] }}</td>
         <td class="upc"><a href="javascript:;">{{ row['upc'] }}</a></td>
         <td class="note">{{ row['note'] }}</td>
-        <td>{{ row['weight'] }}</td>
+        {# <td>{{ row['weight'] }}</td> #}
       </tr>
     {% endfor %}
     </tbody>

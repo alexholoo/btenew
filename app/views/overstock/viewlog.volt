@@ -48,7 +48,7 @@
         <th>Product</th>
         <th>MPN</th>
         <th>UPC</th>
-        <th>Weight</th>
+        {# <th>Weight</th> #}
       </tr>
     </thead>
     <tbody>
@@ -62,7 +62,7 @@
         <td>{{ row['title'] }}</t>
         <td>{{ row['mpn'] }}</td>
         <td>{{ row['upc'] }}</td>
-        <td>{{ row['weight'] }}</td>
+        {# <td>{{ row['weight'] }}</td> #}
       </tr>
     {% endfor %}
     </tbody>
