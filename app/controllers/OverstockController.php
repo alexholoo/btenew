@@ -134,6 +134,11 @@ class OverstockController extends ControllerBase
             "page"  => $currentPage,
         ]);
 
+        $this->view->input = true;
+        if (strlen($id) > 0) {
+            $this->view->input = false;
+        }
+
         $this->view->today = date('Y-m-d');
         $this->view->page = $paginator->getPaginate();
     }

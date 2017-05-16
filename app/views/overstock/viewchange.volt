@@ -3,6 +3,7 @@
 {% block main %}
   <h2 style="margin-top:0;">Overstock Deduction</h2>
 
+  {% if input -%}
   <header class="well clearfix" id="searchbox">
     <form role="form" method="post">
       <div class="col-sm-4">
@@ -14,6 +15,7 @@
       </div>
     </form>
   </header>
+  {% endif -%}
 
   <div>
     <ul class="pagination pull-left" style="margin: 10px 0 0 0;">
