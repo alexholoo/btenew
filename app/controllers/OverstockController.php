@@ -92,8 +92,14 @@ class OverstockController extends ControllerBase
     {
         $this->view->pageTitle = 'Overstock Log';
 
-        $currentPage = $this->request->getQuery('page', 'int', 1);
-        $data = $this->overstockService->loadLogs();
+        if ($this->request->isPost()) {
+            $keyword = $this->request->getPost('keyword', 'trim');
+            $data = $this->overstockService->searchLogs($keyword);
+            $currentPage = 1;
+        } else {
+            $currentPage = $this->request->getQuery('page', 'int', 1);
+            $data = $this->overstockService->loadLogs();
+        }
 
         array_walk($data, function(&$item, $key) {
             $item['date'] = substr($item['datetime'], 0, 10);
