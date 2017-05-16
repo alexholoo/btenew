@@ -3,6 +3,18 @@
 {% block main %}
   <h2 style="margin-top:0;">Overstock Deduction</h2>
 
+  <header class="well clearfix" id="searchbox">
+    <form role="form" method="post">
+      <div class="col-sm-4">
+        <input autofocus type="text" class="form-control" name="keyword" autofocus placeholder="Enter SKU">
+      </div>
+
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-primary" id="btn1"><span class="glyphicon glyphicon-search"></span> Search </button>
+      </div>
+    </form>
+  </header>
+
   <div>
     <ul class="pagination pull-left" style="margin: 10px 0 0 0;">
       <li>Page: {{ page.current }} of {{ page.total_pages }}</li>
