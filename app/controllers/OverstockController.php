@@ -109,7 +109,7 @@ class OverstockController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
     }
 
-    public function viewChangeAction($id)
+    public function viewChangeAction($id = '')
     {
         $this->view->pageTitle = 'Overstock Deduction';
 
