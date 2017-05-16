@@ -35,7 +35,7 @@ class InventoryService extends Injectable
 
     public function search($kwd)
     {
-        if (empty($kwd)) {
+        if (strlen($kwd) == 0) {
             return $this->load();
         }
         $sql = "SELECT * FROM bte_inventory WHERE partnum LIKE '%$kwd%' LIMIT 20";
