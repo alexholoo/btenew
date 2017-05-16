@@ -119,8 +119,14 @@ class OverstockController extends ControllerBase
     {
         $this->view->pageTitle = 'Overstock Deduction';
 
-        $currentPage = $this->request->getQuery('page', 'int', 1);
-        $data = $this->overstockService->loadChanges($id);
+        if ($this->request->isPost()) {
+            $keyword = $this->request->getPost('keyword', 'trim');
+            $data = $this->overstockService->searchChanges($keyword);
+            $currentPage = 1;
+        } else {
+            $currentPage = $this->request->getQuery('page', 'int', 1);
+            $data = $this->overstockService->loadChanges($id);
+        }
 
         $paginator = new Paginator([
             "data"  => $data,

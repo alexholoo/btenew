@@ -183,7 +183,7 @@ class OverstockService extends Injectable
         return $result;
     }
 
-    public function searchLogs($kwd = '')
+    public function searchLogs($kwd)
     {
         if (strlen($kwd) == 0) {
             return $this->loadLogs();
@@ -203,6 +203,16 @@ class OverstockService extends Injectable
                 $sql = "SELECT * FROM overstock_change WHERE sku='$sku' ORDER BY id DESC";
             }
         }
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
+
+    public function searchChanges($kwd)
+    {
+        if (strlen($kwd) == 0) {
+            return $this->loadChanges('');
+        }
+        $sql = "SELECT * FROM overstock_change WHERE sku LIKE '%$kwd%' ORDER BY id DESC";
         $result = $this->db->fetchAll($sql);
         return $result;
     }
