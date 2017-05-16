@@ -113,4 +113,14 @@ class InventoryService extends Injectable
         $result = $this->db->fetchAll($sql);
         return $result;
     }
+
+    public function searchChanges($kwd)
+    {
+        if (strlen($kwd) == 0) {
+            return $this->loadChanges('');
+        }
+        $sql = "SELECT * FROM bte_inventory_change WHERE partnum LIKE '%$kwd%' ORDER BY id DESC";
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
 }

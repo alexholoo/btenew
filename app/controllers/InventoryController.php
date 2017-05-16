@@ -37,8 +37,14 @@ class InventoryController extends ControllerBase
     {
         $this->view->pageTitle = 'Inventory Deduction';
 
-        $currentPage = $this->request->getQuery('page', 'int', 1);
-        $data = $this->inventoryService->loadChanges($id);
+        if ($this->request->isPost()) {
+            $keyword = $this->request->getPost('keyword', 'trim');
+            $data = $this->inventoryService->searchChanges($keyword);
+            $currentPage = 1;
+        } else {
+            $currentPage = $this->request->getQuery('page', 'int', 1);
+            $data = $this->inventoryService->loadChanges($id);
+        }
 
         $paginator = new Paginator([
             "data"  => $data,
