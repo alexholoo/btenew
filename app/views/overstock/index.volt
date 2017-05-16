@@ -21,7 +21,7 @@
 
   <div>
     <ul class="pagination pull-left" style="margin: 10px 0 0 0;">
-      <li>Page: {{ page.current }} of {{ page.total_pages }}</li>
+      <li>Page: {{ page.current }} of {{ page.total_pages }} (Total {{ page.total_items }} items)</li>
     </ul>
 
     <div class="pagination pull-right" style="margin: 0 0 10px 20px;">
