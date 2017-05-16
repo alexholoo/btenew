@@ -6,7 +6,7 @@
   <header class="well clearfix" id="searchbox">
     <form role="form" method="post">
       <div class="col-sm-4">
-        <input autofocus required type="text" class="form-control" name="keyword" autofocus placeholder="Enter SKU/UPC/MPN">
+        <input autofocus type="text" class="form-control" name="keyword" autofocus placeholder="Enter SKU/UPC/MPN">
       </div>
 
       <div class="col-sm-2">

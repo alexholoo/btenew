@@ -41,6 +41,9 @@ class OverstockService extends Injectable
 
     public function search($kwd)
     {
+        if (empty($kwd)) {
+            return $this->load();
+        }
         $sql = "SELECT * FROM overstock WHERE sku LIKE '%$kwd%' LIMIT 20";
         $result = $this->db->fetchAll($sql);
         return $result;
