@@ -663,32 +663,96 @@ bte.OverstockChangeLogModal = class {
     }
 }
 
-bte.InventoryChangeLogModal = class {
-    constructor(sku) {
-        this.sku = sku;
+bte.InventoryAddModal = class {
+    constructor() {
     }
 
-    content(data) {
-        return `<h2>Coming soon!</h2>`;
+    content() {
+        return `
+         <style>
+            label {width: 8em;}
+            input { width: 315px; }
+            #length, #width, #depth { width: 102px; }
+            #mfr, #mpn { width: 155px; }
+         </style>
+         <div style="padding: 20px;">
+           <div>
+             <label>PartNum</label>
+             <input type="text" id="partnum" placeholder="">
+           </div>
+           <div>
+             <label>MFR/MPN</label>
+             <input type="text" id="mfr" placeholder="MFR">
+             <input type="text" id="mpn" placeholder="MPN">
+           </div>
+           <div>
+             <label>Title</label>
+             <input type="text" id="title" placeholder="">
+           </div>
+           <div>
+             <label>Condtion</label>
+             <input type="text" id="condition" placeholder="New/Used/Refur/Open...">
+           </div>
+           <div>
+             <label>Qty</label>
+             <input type="text" id="qty" placeholder="">
+           </div>
+           <div>
+             <label>UPC</label>
+             <input type="text" id="upc" placeholder="">
+           </div>
+           <div>
+             <label>Weight</label>
+             <input type="text" id="weight" placeholder="">
+           </div>
+           <div>
+             <label>Dimension</label>
+             <input type="text" id="length" placeholder="Length">
+             <input type="text" id="width" placeholder="Width">
+             <input type="text" id="depth" placeholder="Depth">
+           </div>
+           <div>
+             <label>Type</label>
+             <input type="text" id="type" placeholder="Self/...">
+           </div>
+           <div>
+             <label>FBA Alloc</label>
+             <input type="text" id="alloc" placeholder="NO/US/CA/ALL">
+           </div>
+           <div>
+             <label>Selling Cost</label>
+             <input type="text" id="selling_cost" placeholder="">
+           </div>
+           <div>
+             <label>Purchase Price</label>
+             <input type="text" id="purchase_price" placeholder="">
+           </div>
+           <div>
+             <label>Note</label>
+             <input type="text" id="note" placeholder="">
+           </div>
+         </div>`;
+    }
+
+    end(index, layero) {
+    }
+
+    yes(index, layero) {
+        var self = this;
+        layer.close(index);
     }
 
     show() {
         var self = this;
 
-        ajaxCall('/api/query/upc/600603127717', { sku: self.sku },
-            function(data) {
-                layer.open({
-                    title:      false,
-                    area:       ['400px', 'auto'],
-                    shadeClose: true,
-                    end:        function(index, layero) { },
-                    content:    self.content(data)
-                })
-            },
-            function(message) {
-                showError(message);
-            }
-        );
+        layer.open({
+            title:   'Inventory Add',
+            area:    ['480px', 'auto'],
+            btn:     ['Save', 'Cancel'],
+            yes:     (index, layero) => { self.yes(index, layero) },
+            end:     (index, layero) => { self.end(index, layero) },
+            content: self.content()
+        })
     }
 }
 

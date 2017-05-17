@@ -14,7 +14,7 @@
       </div>
 
       <div class="col-sm-2">
-        <a href="/inventory/add" class="btn btn-info" role="button"><span class="glyphicon glyphicon-plus"></span> Add </a>
+        <a href="javascript:;" class="btn btn-info" id="btn2"><span class="glyphicon glyphicon-plus"></span> Add </a>
       </div>
     </form>
   </header>
@@ -159,19 +159,9 @@
   });
 */
 
-  // click sku to display change log
-/*
-  $('.sku').click(function() {
-    $('tr').removeClass('info');
-
-    var self = $(this);
-    var tr = self.closest('tr');
-    var sku = self.text();
-
-    tr.addClass('info');
-
-    var modal = new bte.InventoryChangeLogModal(sku);
+  // click add button
+  $('#btn2').click(function() {
+    var modal = new bte.InventoryAddModal();
     modal.show();
   });
-*/
 {% endblock %}
