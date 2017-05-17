@@ -45,6 +45,7 @@ class InventoryService extends Injectable
 
     public function add($info)
     {
+        $this->db->insertAsDict('bte_inventory', $info);
     }
 
     public function deduct($order)

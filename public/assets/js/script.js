@@ -717,7 +717,7 @@ bte.InventoryAddModal = class {
            </div>
            <div>
              <label>FBA Alloc</label>
-             <input type="text" id="alloc" placeholder="NO/US/CA/ALL">
+             <input type="text" id="fba_alloc" placeholder="NO/US/CA/ALL">
            </div>
            <div>
              <label>Selling Cost</label>
@@ -729,7 +729,7 @@ bte.InventoryAddModal = class {
            </div>
            <div>
              <label>Note</label>
-             <input type="text" id="note" placeholder="">
+             <input type="text" id="notes" placeholder="">
            </div>
          </div>`;
     }
@@ -738,7 +738,32 @@ bte.InventoryAddModal = class {
     }
 
     yes(index, layero) {
-        var self = this;
+        var data = {};
+
+        data.partnum        = layero.find('#partnum').val();
+        data.title          = layero.find('#title').val();
+        data.selling_cost   = layero.find('#selling_cost').val();
+        data.type           = layero.find('#type').val();
+        data.fba_allocation = layero.find('#fba_alloc').val();
+        data.notes          = layero.find('#notes').val();
+        data.condition      = layero.find('#condition').val();
+        data.qty            = layero.find('#qty').val();
+        data.weight         = layero.find('#weight').val();
+        data.upc            = layero.find('#upc').val();
+        data.mfr            = layero.find('#mfr').val();
+        data.mpn            = layero.find('#mpn').val();
+        data.length         = layero.find('#length').val();
+        data.width          = layero.find('#width').val();
+        data.depth          = layero.find('#depth').val();
+        data.purchase_price = layero.find('#purchase_price').val();
+
+        var ajaxCall = new bte.AjaxCall('/ajax/inventory/add', data);
+
+        ajaxCall.success = function() {
+            showToast('New inventory added successfully', 1000);
+        }
+        ajaxCall.exec();
+
         layer.close(index);
     }
 
