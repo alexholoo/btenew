@@ -16,14 +16,14 @@
       <div class="form-group">
         <input type="text" class="form-control" name="qty" placeholder="Quantity" data-toggle="tooltip" title="Quantity" value="{{qty}}">
       </div>
-      <!--
+{#
       <div class="form-group">
         <input type="text" class="form-control" name="sn" placeholder="SN #" data-toggle="tooltip" title="SN #" value="{{sn}}">
       </div>
       <div class="form-group">
         <input type="text" class="form-control" name="note" placeholder="Note" data-toggle="tooltip" title="Note" value="{{note}}">
       </div>
-      -->
+#}
       <div class="form-group">
         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-tags"></span>&nbsp; Enter </button>
       </div>
