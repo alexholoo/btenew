@@ -133,23 +133,21 @@
     var modal = new bte.SkuListModal(mpn, 'MPN');
     modal.show();
   });
-/*
+
   // click note to edit note
   $('.note').click(function() {
     $('tr').removeClass('info');
 
     var self = $(this);
     var tr = self.closest('tr');
-
     var id = tr.data('id');
-    var note = tr.find('.note');
 
     tr.addClass('info');
 
-    var modal = new bte.EditOverstockNoteModal({ id: id, note: note.text() });
+    var modal = new bte.EditInventoryNoteModal({ id: id, note: self.text() });
     modal.success = function(data) {
         showToast('Your change has benn saved', 1000);
-        note.text(data);
+        self.text(data);
     };
     modal.failure = function(message) {
         showError(message);
@@ -157,7 +155,6 @@
     };
     modal.show();
   });
-*/
 
   // click add button
   $('#btn2').click(function() {

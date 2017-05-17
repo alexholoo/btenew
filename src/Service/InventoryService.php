@@ -48,6 +48,11 @@ class InventoryService extends Injectable
         $this->db->insertAsDict('bte_inventory', $info);
     }
 
+    public function update($id, $info)
+    {
+        $this->db->updateAsDict('bte_inventory', $info, "id=$id");
+    }
+
     public function deduct($order)
     {
         $sku = $order['sku'];

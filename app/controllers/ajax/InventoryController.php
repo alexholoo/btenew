@@ -21,5 +21,22 @@ class InventoryController extends ControllerBase
             return $this->response;
         }
     }
-}
 
+    public function noteAction()
+    {
+        if ($this->request->isPost()) {
+            $data = $this->request->getPost();
+
+            try {
+                $id = $this->request->getPost('id');
+                $note = $this->request->getPost('note', 'striptags');
+                $this->inventoryService->update($id, ['notes' => $note]);
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $note]);
+            } catch (\Exception $e) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => $e->getMessage()]);
+            }
+
+            return $this->response;
+        }
+    }
+}

@@ -634,32 +634,59 @@ bte.EditOverstockNoteModal = class {
     }
 }
 
-bte.OverstockChangeLogModal = class {
-    constructor(sku) {
-        this.sku = sku;
+bte.EditInventoryNoteModal = class {
+    constructor(data) {
+        this.data = data;
+        this.onSuccess = function() {};
+        this.onFailure = function() {};
+        this.onClose = function() {};
+    }
+
+    set success(val) {
+        this.onSuccess = val;
+    }
+
+    set failure(val) {
+        this.onFailure = val;
+    }
+
+    set done(val) {
+        this.onClose = val;
     }
 
     content(data) {
-        return `<h2>Coming soon!</h2>`;
+        var note = data.note;
+        return `<div style="padding: 20px;">
+           <label for="note">Note</label> (Max 100 chars)<br />
+           <textarea id="note" maxlength="100" style="width: 440px; height: 100px; resize: none;">${note}</textarea>
+         </div>`;
+    }
+
+    end(index, layero) {
+    }
+
+    yes(index, layero) {
+        var self = this;
+
+        var note = layero.find('#note').val();
+
+        self.data.note = note;
+
+        ajaxCall('/ajax/inventory/note', self.data, self.onSuccess, self.onFailure);
+        layer.close(index);
     }
 
     show() {
         var self = this;
 
-        ajaxCall('/api/query/upc/600603127717', { sku: self.sku },
-            function(data) {
-                layer.open({
-                    title:      false,
-                    area:       ['400px', 'auto'],
-                    shadeClose: true,
-                    end:        function(index, layero) { },
-                    content:    self.content(data)
-                })
-            },
-            function(message) {
-                showError(message);
-            }
-        );
+        layer.open({
+            title:   'Edit Note',
+            area:    ['480px', 'auto'],
+            btn:     ['Save', 'Cancel'],
+            yes:     (index, layero) => { self.yes(index, layero) },
+            end:     (index, layero) => { self.end(index, layero) },
+            content: self.content(self.data)
+        })
     }
 }
 
