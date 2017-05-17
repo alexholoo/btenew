@@ -75,19 +75,6 @@ class OverstockController extends ControllerBase
         $this->view->items = $data;
     }
 
-    public function noteAction()
-    {
-        $this->view->disable();
-
-        if ($this->request->isPost()) {
-            $id = $this->request->getPost('id');
-            $note = $this->request->getPost('note', 'striptags');
-            $this->overstockService->update($id, ['note' => $note]);
-            $this->response->setJsonContent(['status' => 'OK', 'data' => $note ]);
-            return $this->response;
-        }
-    }
-
     public function viewLogAction()
     {
         $this->view->pageTitle = 'Overstock Log';

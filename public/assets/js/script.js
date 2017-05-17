@@ -616,7 +616,7 @@ bte.EditOverstockNoteModal = class {
 
         self.data.note = note;
 
-        ajaxCall('/overstock/note', self.data, self.onSuccess, self.onFailure);
+        ajaxCall('/ajax/overstock/note', self.data, self.onSuccess, self.onFailure);
         layer.close(index);
     }
 

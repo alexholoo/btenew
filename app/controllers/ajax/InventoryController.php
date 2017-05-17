@@ -25,11 +25,10 @@ class InventoryController extends ControllerBase
     public function noteAction()
     {
         if ($this->request->isPost()) {
-            $data = $this->request->getPost();
-
             try {
                 $id = $this->request->getPost('id');
                 $note = $this->request->getPost('note', 'striptags');
+
                 $this->inventoryService->update($id, ['notes' => $note]);
                 $this->response->setJsonContent(['status' => 'OK', 'data' => $note]);
             } catch (\Exception $e) {
