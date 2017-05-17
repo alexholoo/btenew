@@ -62,7 +62,7 @@
         <td>{{ row['change'] }}</t>
         <td>{{ row['qty'] }}</td>
         <td>{{ row['title'] }}</td>
-        <td class="upc"><a href="javascript:;">{{ row['upc'] }}</a></td>
+        <td class="upc">{{ row['upc'] }}</td>
       </tr>
     {% endfor %}
     </tbody>
@@ -86,6 +86,8 @@
 
 {% block csscode %}
   #overstocktbl td { vertical-align: middle; }
+  .upc { cursor: pointer; }
+  .upc:hover { text-decoration: underline; }
 {% endblock %}
 
 {% block docready %}

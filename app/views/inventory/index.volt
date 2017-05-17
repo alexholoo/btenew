@@ -65,7 +65,7 @@
         <td>{{ row['qty'] }}</t>
         <td>{{ row['title'] }}</t>
         <td class="mpn">{{ row['mpn'] }}</td>
-        <td class="upc"><a href="javascript:;">{{ row['upc'] }}</a></td>
+        <td class="upc">{{ row['upc'] }}</td>
         <td class="note">{{ row['notes'] }}</td>
         <td>{{ row['type'] }}</td>
         <td>{{ row['fba_allocation'] }}</td>
@@ -93,7 +93,8 @@
 {% block csscode %}
   .main-container { width: 100%; }
   #inventorytbl td { vertical-align: middle; }
-  .mpn, .note { cursor: pointer; }
+  .upc, .mpn, .note { cursor: pointer; }
+  .upc:hover, .mpn:hover, .note:hover { text-decoration: underline; }
 {% endblock %}
 
 {% block jscode %}
