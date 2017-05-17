@@ -95,7 +95,7 @@
     var tr = $(this).closest('tr');
     var index = tr.index();
     tr.remove();
-    ajaxCall('/overstock/delete', { index: index }, function() {
+    ajaxCall('/ajax/overstock/delete', { index: index }, function() {
       $('tbody tr').each(function() {
         $(this).find('.index').text($(this).index() + 1);
       });
@@ -105,19 +105,19 @@
   $('.cost').editable({
     type: 'text',
     name: 'cost',
-    url: '/overstock/update',
+    url: '/ajax/overstock/update',
   });
 
   $('.condition').editable({
     type: 'text',
     name: 'condition',
-    url: '/overstock/update',
+    url: '/ajax/overstock/update',
   });
 
   $('.qty').editable({
     type: 'text',
     name: 'qty',
-    url: '/overstock/update',
+    url: '/ajax/overstock/update',
   });
 
   $('#btn2').click(function() {

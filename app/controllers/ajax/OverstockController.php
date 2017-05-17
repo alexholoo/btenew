@@ -6,6 +6,51 @@ use App\Models\Orders;
 
 class OverstockController extends ControllerBase
 {
+    const SESSKEY = 'overstock-newitems';
+
+    /**
+     * from page /overstock/add
+     */
+    public function updateAction()
+    {
+        if ($this->request->isPost()) {
+
+            $pk = $this->request->getPost('pk');
+            $name = $this->request->getPost('name');
+            $value = $this->request->getPost('value');
+
+            $data = $this->session->get(self::SESSKEY);
+
+            if (isset($data[$pk])) {
+                $data[$pk][$name] = $value;
+                $this->session->set(self::SESSKEY, $data);
+            }
+
+            $this->response->setJsonContent(['status' => 'OK']);
+            return $this->response;
+        }
+    }
+
+    /**
+     * from page /overstock/add
+     */
+    public function deleteAction()
+    {
+        if ($this->request->isPost()) {
+            $index = $this->request->getPost('index');
+
+            $data = $this->session->get(self::SESSKEY);
+            array_splice($data, $index, 1);
+            $this->session->set(self::SESSKEY, $data);
+
+            $this->response->setJsonContent(['status' => 'OK']);
+            return $this->response;
+        }
+    }
+
+    /**
+     * from page /overstock
+     */
     public function noteAction()
     {
         if ($this->request->isPost()) {
