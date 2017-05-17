@@ -1,14 +1,11 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
-<header class="jumbotron subhead" id="overview">
-	<div class="hero-unit">
-		<h1>Welcome!</h1>
-		<p class="lead">This is a awesome website</p>
-
-		<div align="right">
-            {{ link_to('#', '<i class="icon-ok icon-white"></i> Create an Account', 'class': 'btn btn-primary btn-large') }}
-		</div>
-	</div>
+<header class="jumbotron subhead" style="margin-top:40px;">
+  <div class="hero-unit">
+    <h1>Welcome!</h1>
+    <p class="lead">Everything is awesome.</p>
+    <div align="right"></div>
+  </div>
 </header>
 {% endblock %}
