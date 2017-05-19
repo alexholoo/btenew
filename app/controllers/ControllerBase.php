@@ -11,6 +11,12 @@ use Phalcon\Mvc\Dispatcher;
  */
 class ControllerBase extends Controller
 {
+    public function initialize()
+    {
+        $this->assets->addCss("/assets/css/style.css?v=".filemtime(BASE_DIR.'/public/assets/css/style.css'));
+        $this->assets->addJs("/assets/js/script.js?v=".filemtime(BASE_DIR.'/public/assets/js/script.js'));
+    }
+
     /**
      * Execute before the router so we can determine if this is a private controller, 
      * and must be authenticated, or a public controller that is open to all.
