@@ -31,7 +31,7 @@
 <p>2. After file is saved, run <a href="http://192.168.0.12/job/importshippingeasy">this script</a>.</p>
 <b>Tracking Number:</b><br>
 
-<form name="form1" method="POST" action="/chitchat">
+<form name="form1" method="POST" action="/shipment/chitchat">
 <input type="text" id="tracking" name="Tracking" value="" size="40" onkeypress="autoSubmit()" autocomplete="off" autofocus style="font-size:15px; padding: 5px 10px;">
 <input type="submit" name="add" value="Add" />
 <input type="checkbox" id="autosubmit" checked> Auto<br>
