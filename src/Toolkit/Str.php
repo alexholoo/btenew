@@ -403,4 +403,20 @@ class Str
     {
         return preg_replace('/ {2,}|\s/', ' ', $s);
     }
+
+    /**
+     * From http://php.net/manual/en/function.explode.php
+     * multiexplode
+     *
+     * $string = "1-2-3|4-5|6:7-8-9-0|1,2:3-4|5";
+     * $delimiters = array(',', ':', '|', '-');
+     * $exploded = Str::split($delimiters, $string);
+     * print_r($exploded);
+     */
+    public static function split($delimiters, $string)
+    {
+        $ready = str_replace($delimiters, $delimiters[0], $string);
+        $launch = explode($delimiters[0], $ready);
+        return  $launch;
+    }
 }
