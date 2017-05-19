@@ -2,8 +2,6 @@
 
 namespace Ajax\Controllers;
 
-use Phalcon\Mvc\Controller;
-
 use Supplier\Supplier;
 use App\Models\Orders;
 

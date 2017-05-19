@@ -2,8 +2,6 @@
 
 namespace Ajax\Controllers;
 
-use App\Models\Orders;
-
 class InventoryController extends ControllerBase
 {
     public function addAction()

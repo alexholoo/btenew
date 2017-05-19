@@ -2,8 +2,6 @@
 
 namespace Ajax\Controllers;
 
-use Phalcon\Mvc\Controller;
-
 class OrderController extends ControllerBase
 {
     /**
