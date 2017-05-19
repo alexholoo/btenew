@@ -11,7 +11,7 @@ use Phalcon\Mvc\Dispatcher;
  */
 class ControllerBase extends Controller
 {
-    public function initialize()
+    public function onConstruct()
     {
         $this->assets->addCss("/assets/css/style.css?v=".filemtime(BASE_DIR.'/public/assets/css/style.css'));
         $this->assets->addJs("/assets/js/script.js?v=".filemtime(BASE_DIR.'/public/assets/js/script.js'));
