@@ -3,7 +3,7 @@
 #RESULTS_OUTPUT=$(find . -name "*.php" -type f ! -path "test/*" ! -path "*/vendor/*" ! -path "doc/*" -print0 | xargs -0 -n1 -P8 php -l -n)
 #RESULTS_OUTPUT=$(git ls-files -c | grep php$ | xargs -n1 -P8 php -l -n)
 #RESULTS_OUTPUT=$(git mf | grep php$ | xargs -n1 -P8 php -l -n && git f | grep php$ | xargs -n1 -P8 php -l -n)
-RESULTS_OUTPUT=$(git diff HEAD --name-only | grep php$ | xargs -n1 -P8 php -l -n)
+RESULTS_OUTPUT=$(git diff HEAD --name-only --diff-filter=AM | grep php$ | xargs -n1 -P8 php -l -n)
 RESULTS_RETURN=$?
 
 echo "$RESULTS_OUTPUT" | grep -v "No syntax errors detected"
