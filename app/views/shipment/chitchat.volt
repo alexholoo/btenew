@@ -39,7 +39,7 @@
 
 <p>Number of parcels: <b style="font-size: 24px;">{{ list | length }}</b></p>
 
-<form name="form2" method="POST" action='/chitchat'>
+<form name="form2" method="POST" action='/shipment/chitchat'>
   <p>
     <input type="submit" name="Delete" value="Delete Selected">
     <input type="submit" name="Export" value="Export CSV" style="margin-left: 50px;">
