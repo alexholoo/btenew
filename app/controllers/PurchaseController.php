@@ -4,16 +4,6 @@ namespace App\Controllers;
 
 class PurchaseController extends ControllerBase
 {
-    public function initialize()
-    {
-        $this->view->pageTitle = 'Purchase Assistant';
-    }
-
-    public function indexAction()
-    {
-        $this->dispatcher->forward([ 'action' => 'index' ]);
-    }
-
     public function assistAction()
     {
         $params = [
@@ -34,6 +24,7 @@ class PurchaseController extends ControllerBase
             $params['orderId'] = $this->filter->sanitize($this->request->getPost('orderId'), 'trim');
         }
 
+        $this->view->pageTitle = 'Purchase Assistant';
         $this->view->date = $params['date'];
         $this->view->status = $params['status'];
         $this->view->overstock = $params['overstock'];

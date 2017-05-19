@@ -25,4 +25,3 @@ class QueryController extends ControllerBase
         return $this->response;
     }
 }
-
