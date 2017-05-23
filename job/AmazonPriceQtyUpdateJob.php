@@ -11,18 +11,16 @@ class AmazonPriceQtyUpdateJob extends Job
         $today = date('m-d-Y');
         $folder = 'w:/out/amazon_update';
 
-        $type = '_POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA_';
-
         $store = 'bte-amazon-ca';
         $filename = "$folder/amazon_cad_update$today.txt";
-        $this->uploadFeed($store, $filename, $type);
+        $this->uploadFeed($store, $filename);
 
         $store = 'bte-amazon-us';
         $filename = "$folder/amazon_usa_update$today.txt";
-        $this->uploadFeed($store, $filename, $type);
+        $this->uploadFeed($store, $filename);
     }
 
-    private function uploadFeed($store, $file, $type)
+    private function uploadFeed($store, $file)
     {
         if (!IS_PROD) {
             throw new Exception('This script can only run on production server.');
@@ -32,6 +30,8 @@ class AmazonPriceQtyUpdateJob extends Job
             $this->error(__METHOD__." File not found: $file");
             return;
         }
+
+        $type = '_POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA_';
 
         $this->log("Uploading $type: $file");
 

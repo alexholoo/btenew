@@ -9,18 +9,17 @@ class AmazonShippingTemplateJob extends Job
         $this->log('>> '. __CLASS__);
 
         $folder = 'w:/out/amazon_update';
-        $type = '_POST_FLAT_FILE_INVLOADER_DATA_';
 
         $store = 'bte-amazon-ca';
         $filename = "$folder/ca-shipping-template.txt";
-        $this->uploadFeed($store, $filename, $type);
+        $this->uploadFeed($store, $filename);
 
         $store = 'bte-amazon-us';
         $filename = "$folder/us-shipping-template.txt";
-        $this->uploadFeed($store, $filename, $type);
+        $this->uploadFeed($store, $filename);
     }
 
-    private function uploadFeed($store, $file, $type)
+    private function uploadFeed($store, $file)
     {
         if (!IS_PROD) {
             throw new Exception('This script can only run on production server.');
@@ -30,6 +29,8 @@ class AmazonShippingTemplateJob extends Job
             $this->error(__METHOD__." File not found: $file");
             return;
         }
+
+        $type = '_POST_FLAT_FILE_INVLOADER_DATA_';
 
         $this->log("Uploading $type: $file");
 

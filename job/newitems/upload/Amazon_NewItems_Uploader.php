@@ -13,18 +13,16 @@ class Amazon_NewItems_Uploader extends NewItems_Uploader
 
     public function upload()
     {
-        $type = '_POST_FLAT_FILE_INVLOADER_DATA_';
-
         $store = 'bte-amazon-ca';
         $filename = Filenames::get('amazon.ca.newitems');
-        $this->uploadFeed($store, $filename, $type);
+        $this->uploadFeed($store, $filename);
 
         $store = 'bte-amazon-us';
         $filename = Filenames::get('amazon.us.newitems');
-        $this->uploadFeed($store, $filename, $type);
+        $this->uploadFeed($store, $filename);
     }
 
-    private function uploadFeed($store, $file, $type)
+    private function uploadFeed($store, $file)
     {
         if (!IS_PROD) {
             throw new Exception('This script can only run on production server.');
@@ -34,6 +32,8 @@ class Amazon_NewItems_Uploader extends NewItems_Uploader
            #$this->error(__METHOD__." File not found: $file");
             return;
         }
+
+        $type = '_POST_FLAT_FILE_INVLOADER_DATA_';
 
         $feed = file_get_contents($file);
 
