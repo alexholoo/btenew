@@ -1,6 +1,6 @@
 <?php
 
-namespace Toolkit;
+namespace Supplier\BTE;
 
 class DropshipAnalyzer
 {
