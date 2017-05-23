@@ -2,6 +2,8 @@
 
 namespace Supplier\BTE;
 
+use Phalcon\Di;
+
 use Supplier\Client as BaseClient;
 use Supplier\PriceAvailabilityLog;
 use Supplier\PurchaseOrderLog;
@@ -18,24 +20,25 @@ class Client extends BaseClient
      */
     public function getPriceAvailability($sku)
     {
-        $accdb = $this->openAccessDB();
+        $di = Di::getDefault();
 
-        $sql = "SELECT [Selling Cost], QtyOnHand FROM [bte-inventory] WHERE [Part Number]='$sku'";
-        $row = $accdb->query($sql)->fetch();
+        $inventoryService = $di->get('inventoryService');
+
+        $row = $inventoryService->get($sku);
 
         $price = 0;
-        $qtyOnHand = 0;
+        $qty = 0;
 
         if ($row) {
-            $qtyOnHand = $row['QtyOnHand'];
-            $price = $row['Selling Cost'];
+            $qty = $row['qty'];
+            $price = $row['selling_cost'];
         }
 
         $item = new PriceAvailabilityItem($res);
         $item->sku = $sku;
         $item->price = $price;
         $item->avail = [
-            [ 'branch' => 'Markham', 'code' => '01', 'qty' => $qtyOnHand ],
+            [ 'branch' => 'Markham', 'code' => '01', 'qty' => $qty ],
         ];
 
         $result = new PriceAvailabilityResult();
@@ -43,20 +46,6 @@ class Client extends BaseClient
         $result->add($item);
 
         return $result;
-    }
-
-    protected function openAccessDB()
-    {
-        $dbname = "z:/BTE-Price-List/bte-inventory.accdb";
-
-        if (!IS_PROD) {
-            $dbname = "C:/Users/BTE/Desktop/bte-inventory.accdb";
-        }
-
-        $dsn = "odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=$dbname;";
-        $db = new \PDO($dsn);
-
-        return $db;
     }
 
     /**
