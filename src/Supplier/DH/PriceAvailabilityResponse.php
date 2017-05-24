@@ -53,15 +53,13 @@ class PriceAvailabilityResponse extends BaseResponse
             $item->sku   = 'DH-'. strval($xitem->PARTNUM);
             $item->price = strval($xitem->UNITPRICE);
 
-            if ($xitem->BRANCHQTY) {
-                $item->avail = [
-                    [
-                        'branch' => strval($xitem->BRANCHQTY->BRANCH),
-                        'code'   => strval($xitem->BRANCHQTY->BRANCH),
-                        'qty'    => strval($xitem->BRANCHQTY->QTY),
-                    ]
+            foreach ($xitem->BRANCHQTY as $br) {
+                $item->avail[] = [
+                    'branch' => strval($br->BRANCH),
+                    'code'   => strval($br->BRANCH),
+                    'qty'    => strval($br->QTY),
                 ];
-                $item->instockDate = strval($xitem->BRANCHQTY->INSTOCKDATE);
+                $item->instockDate = strval($br->INSTOCKDATE);
             };
 
             if ($xitem->TOTALQTY) {
