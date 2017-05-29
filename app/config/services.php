@@ -17,7 +17,7 @@ use Phalcon\Logger;
 use Phalcon\Events\Manager as EventsManager;
 
 use App\Plugins\NotFoundPlugin;
-use App\Plugins\Plugin\Security as SecurityPlugin;
+use UserPlugin\Plugin\Security as SecurityPlugin;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -157,6 +157,7 @@ $di->set('flash', function () {
     ));
 });
 
+$di->set('auth', function () { return new App\Library\Auth\Auth(); });
 $di->set('mail', function () { return new App\Library\Mail\Mail(); });
 $di->set('acl',  function () { return new App\Library\Acl\Acl(); });
 
