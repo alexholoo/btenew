@@ -20,6 +20,8 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute(Dispatcher $dispatcher)
     {
+        $this->view->userLoggedIn = $this->auth->isUserLoggedIn();
+
         $controllerName = $dispatcher->getControllerName();
 
         // Only check permissions on private controllers

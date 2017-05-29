@@ -45,6 +45,6 @@ class UserController extends ControllerBase
     public function logoutAction()
     {
         $this->auth->userLogout();
-        return $this->response->redirect("/user/login");
+        return $this->response->redirect("/");
     }
 }

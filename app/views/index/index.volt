@@ -6,9 +6,11 @@
 		<h1>Welcome!</h1>
 		<p class="lead">This is a awesome website</p>
 
+        {% if not userLoggedIn %}
 		<div align="right">
-            {{ link_to('#', '<i class="icon-ok icon-white"></i> Create an Account', 'class': 'btn btn-primary btn-large') }}
+          <a href="/user/login" class="btn btn-primary btn-large"><span class="glyphicon glyphicon-user"></span> User Login </a>
 		</div>
+        {% endif %}
 	</div>
 </header>
 {% endblock %}
