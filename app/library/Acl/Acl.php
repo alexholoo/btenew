@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Library\Acl;
 
 use Phalcon\Mvc\User\Component;
@@ -12,7 +13,6 @@ use App\Models\Profiles;
  */
 class Acl extends Component
 {
-
     /**
      * The ACL Object
      *

@@ -8,12 +8,10 @@ use Phalcon\Mvc\Model\Validator\InclusionIn,
 
 class Users extends Model
 {
-    const ROLE_ADMIN = 'admin';
-    const ROLE_USER  = 'user';
-
     public $username;
     public $email;
     public $password;
+    public $role;
     public $active;
     public $createdon;
     public $updatedon;
@@ -32,5 +30,23 @@ class Users extends Model
         ));
 
         return $this->validationHasFailed() != true;
+    }
+
+    public function beforeSave()
+    {
+        // Convert the array into a string
+        $this->role = implode(",", $this->role);
+    }
+
+    public function afterFetch()
+    {
+        // Convert the string to an array
+        $this->role = array_map('trim', explode(',', $this->role));
+    }
+
+    public function afterSave()
+    {
+        // Convert the string to an array
+        $this->role = array_map('trim', explode(',', $this->role));
     }
 }

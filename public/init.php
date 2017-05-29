@@ -19,6 +19,7 @@ try {
     define('IS_PROD',  gethostname() == 'BTELENOVO');
     define('IS_PHP64', PHP_INT_SIZE == 8);
     define('IS_PHP32', PHP_INT_SIZE == 4);
+    define('IS_CLI',   PHP_SAPI == 'cli');
 
     include __DIR__ . '/trace.php';
     include __DIR__ . '/error.php';

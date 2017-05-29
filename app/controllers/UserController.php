@@ -10,21 +10,11 @@ class UserController extends ControllerBase
     {
     }
 
-    private function _registerSession($user)
-    {
-        $this->session->set('auth', array(
-            'id'       => $user->id,
-            'username' => $user->username,
-            'role'     => $user->role
-        ));
-    }
-
     public function loginAction()
     {
         $this->view->pageTitle = 'User Login';
 
-        $auth = $this->session->get('auth');
-        if (is_array($auth)) {
+        if ($this->auth->isUserLoggedIn()) {
             return $this->response->redirect("/");
         }
 
@@ -44,7 +34,7 @@ class UserController extends ControllerBase
             ));
 
             if (!empty($user)) {
-                $this->_registerSession($user);
+                $this->auth->userLogin($user);
                 return $this->response->redirect("/");
             }
 
@@ -54,7 +44,7 @@ class UserController extends ControllerBase
 
     public function logoutAction()
     {
-        $this->session->destroy();
-        return $this->response->redirect("/user/login");
+        $this->auth->userLogout();
+        return $this->response->redirect("/");
     }
 }

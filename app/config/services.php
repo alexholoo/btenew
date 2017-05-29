@@ -16,9 +16,6 @@ use Phalcon\Logger\Formatter\Line as FormatterLine;
 use Phalcon\Logger;
 use Phalcon\Events\Manager as EventsManager;
 
-use App\Plugins\NotFoundPlugin;
-use UserPlugin\Plugin\Security as SecurityPlugin;
-
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
@@ -121,8 +118,8 @@ $di->set('crypt', function () use ($config) {
  * Dispatcher use a default namespace
  */
 $di->set('dispatcher', function () use ($evtMgr) {
-    $evtMgr->attach('dispatch:beforeException', new NotFoundPlugin);
-#   $evtMgr->attach('dispatch:beforeDispatch',  new SecurityPlugin($di));
+    $evtMgr->attach('dispatch:beforeException', new App\Plugins\NotFoundPlugin);
+#   $evtMgr->attach('dispatch:beforeDispatch',  new App\Plugins\SecurityPlugin);
 
     $dispatcher = new Dispatcher();
     $dispatcher->setDefaultNamespace('App\Controllers');

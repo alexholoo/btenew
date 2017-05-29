@@ -11,6 +11,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="/">Home</a></li>
+        {% if userLoggedIn %}
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Purchase <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -55,9 +56,16 @@
         <li><a href="/about">About</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/user/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-        <li><a href="/user/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Profile <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/user/changepassword">Change Password</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/user/logout">Logout</a></li>
+          </ul>
+        </li>
       </ul>
+        {% endif %}
     </div>
   </div>
 </nav>
