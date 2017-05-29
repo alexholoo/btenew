@@ -20,7 +20,7 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute(Dispatcher $dispatcher)
     {
-        $this->view->userLoggedIn = $this->auth->isUserLoggedIn();
+        $this->view->userLoggedIn = true; // TEMP CODE, DELETE THIS IF ACL IS READY
 
         $controllerName = $dispatcher->getControllerName();
 
@@ -28,12 +28,11 @@ class ControllerBase extends Controller
         if ($this->acl->isPrivate($controllerName)) {
 
             // Get the current identity
-            $identity = $this->auth->getIdentity();
+            $user = $this->auth->getUser();
 
             // If there is no identity available the user is redirected to index/index
-            if (!is_array($identity)) {
-
-                $this->flash->notice("You don't have access to this module: private");
+            if (!is_array($user)) {
+                $this->flash->notice("You don't have access, please contact admin.");
 
                 $dispatcher->forward(array(
                     'controller' => 'index',
@@ -42,27 +41,23 @@ class ControllerBase extends Controller
                 return false;
             }
 
+            $this->view->userLoggedIn = true;
+
             // Check if the user have permission to the current option
             $actionName = $dispatcher->getActionName();
-            if (!$this->acl->isAllowed($identity['profile'], $controllerName, $actionName)) {
+            if (!$this->acl->isAllowed($user['role'], $controllerName, $actionName)) {
+                $this->flash->notice("You don't have access, please contact admin.");
 
-                $this->flash->notice("You don't have access to this module: $controllerName:$actionName");
-
-                if ($this->acl->isAllowed($identity['profile'], $controllerName, 'index')) {
-                    $dispatcher->forward(array(
-                        'controller' => $controllerName,
-                        'action' => 'index'
-                    ));
-                } else {
-                    $dispatcher->forward(array(
-                        'controller' => 'user_control',
-                        'action' => 'index'
-                    ));
-                }
+                $dispatcher->forward(array(
+                    'controller' => 'index',
+                    'action' => 'index'
+                ));
 
                 return false;
             }
         }
+
+        return true;
     }
 
     protected function runJob($name, $args = '')

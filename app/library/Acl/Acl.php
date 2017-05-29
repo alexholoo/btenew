@@ -13,7 +13,6 @@ use App\Models\Profiles;
  */
 class Acl extends Component
 {
-
     /**
      * The ACL Object
      *
