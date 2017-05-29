@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Library\Acl;
 
 use Phalcon\Mvc\User\Component;

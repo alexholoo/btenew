@@ -14,8 +14,7 @@ class UserController extends ControllerBase
     {
         $this->view->pageTitle = 'User Login';
 
-        $auth = $this->session->get('auth');
-        if (is_array($auth)) {
+        if ($this->auth->isUserLoggedIn()) {
             return $this->response->redirect("/");
         }
 
@@ -35,7 +34,7 @@ class UserController extends ControllerBase
             ));
 
             if (!empty($user)) {
-                $this->session->set('auth', $user->toArray());
+                $this->auth->userLogin($user);
                 return $this->response->redirect("/");
             }
 
@@ -45,7 +44,7 @@ class UserController extends ControllerBase
 
     public function logoutAction()
     {
-        $this->session->destroy();
+        $this->auth->userLogout();
         return $this->response->redirect("/user/login");
     }
 }
