@@ -10,15 +10,6 @@ class UserController extends ControllerBase
     {
     }
 
-    private function _registerSession($user)
-    {
-        $this->session->set('auth', array(
-            'id'       => $user->id,
-            'username' => $user->username,
-            'role'     => $user->role
-        ));
-    }
-
     public function loginAction()
     {
         $this->view->pageTitle = 'User Login';
@@ -44,7 +35,7 @@ class UserController extends ControllerBase
             ));
 
             if (!empty($user)) {
-                $this->_registerSession($user);
+                $this->session->set('auth', $user->toArray());
                 return $this->response->redirect("/");
             }
 
