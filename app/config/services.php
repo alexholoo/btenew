@@ -54,9 +54,9 @@ $di->set('view', function () use ($config) {
             $volt = new VoltEngine($view, $di);
 
             $volt->setOptions(array(
-                'compiledPath' => $config->application->cacheDir . 'volt/',
+                'compiledPath'      => $config->application->cacheDir . 'volt/',
                 'compiledSeparator' => '_',
-                'compiledPath' => function($templatePath) use ($config) {
+                'compiledPath'      => function($templatePath) use ($config) {
                     return $config->application->cacheDir . 'volt/' . md5($templatePath) . '.php';
                 },
             ));
@@ -75,12 +75,12 @@ $di->set('db', function () use ($config) {
     // db logger deleted, see git log
 
     $connection = new DbAdapter(array(
-        'host' => $config->database->host,
+        'host'     => $config->database->host,
         'username' => $config->database->username,
         'password' => $config->database->password,
-        'dbname' => $config->database->dbname,
-        'options' => [ \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8' ],
-        'charset' =>'utf8'
+        'dbname'   => $config->database->dbname,
+        'options'  => [ \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8' ],
+        'charset'  => 'utf8'
     ));
 
     return $connection;
@@ -141,9 +141,9 @@ $di->set('router', function () {
  */
 $di->set('flash', function () {
     return new FlashSession(array(
-        'error' => 'alert alert-danger',
+        'error'   => 'alert alert-danger',
         'success' => 'alert alert-success',
-        'notice' => 'alert alert-info',
+        'notice'  => 'alert alert-info',
         'warning' => 'alert alert-warning'
     ));
 });
@@ -186,10 +186,7 @@ $di->setShared('jobLogger', function() use ($di) {
 $di->setShared('queue', function () use ($config) {
     if (isset($config->beanstalk->disabled) && $config->beanstalk->disabled) {
         return new class {
-            public function put($job)
-            {
-                return true;
-            }
+            public function put($job) { return true; }
         };
     }
 
