@@ -10,7 +10,8 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Files as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
-use Phalcon\Flash\Direct as Flash;
+use Phalcon\Flash\Direct as FlashDirect;
+use Phalcon\Flash\Session as FlashSession;
 use Phalcon\Logger\Adapter\File as FileLogger;
 use Phalcon\Logger\Formatter\Line as FormatterLine;
 use Phalcon\Logger;
@@ -139,7 +140,7 @@ $di->set('router', function () {
  * Flash service with custom CSS classes
  */
 $di->set('flash', function () {
-    return new Flash(array(
+    return new FlashSession(array(
         'error' => 'alert alert-danger',
         'success' => 'alert alert-success',
         'notice' => 'alert alert-info',

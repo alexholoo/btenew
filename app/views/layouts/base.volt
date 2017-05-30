@@ -29,7 +29,6 @@
   {% block sidebar %}{% endblock %}
 
   <div class="container main-container" style="margin-top:60px;">
-    <?php $this->flashSession->output(); ?>
     {% block main %}{% endblock %}
   </div>
 

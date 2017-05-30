@@ -6,10 +6,6 @@ use App\Models\Users;
 
 class UserController extends ControllerBase
 {
-    public function indexAction()
-    {
-    }
-
     public function loginAction()
     {
         $this->view->pageTitle = 'User Login';

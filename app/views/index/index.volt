@@ -1,6 +1,7 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
+{{ flash.output() }}
 <header class="jumbotron subhead" style="margin-top:40px;">
   <div class="hero-unit">
     <h1>Welcome!</h1>
