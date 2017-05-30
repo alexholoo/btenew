@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Phalcon\Mvc\Model;
-use Phalcon\Mvc\Model\Validator\InclusionIn,
-    Phalcon\Mvc\Model\Validator\Uniqueness;
 
 class Users extends Model
 {
@@ -18,18 +16,6 @@ class Users extends Model
 
     public function initialize()
     {
-    }
-
-    public function validation()
-    {
-        $this->validate(new Uniqueness(
-            array(
-                "field"   => "username",
-                "message" => "The username must be unique"
-            )
-        ));
-
-        return $this->validationHasFailed() != true;
     }
 
     public function beforeSave()

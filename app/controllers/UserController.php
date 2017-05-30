@@ -46,5 +46,33 @@ class UserController extends ControllerBase
 
     public function changePasswordAction()
     {
+       $this->view->pageTitle = 'Change Password';
+
+        if ($this->request->isPost()) {
+            $oldPassword  = $this->request->getPost('oldpass');
+            $newPassword  = $this->request->getPost('newpass');
+            $retypePasswd = $this->request->getPost('newpass2');
+
+            if ($newPassword != $retypePasswd) {
+                $this->flash->error("Two new passwords must be same, please try again.");
+                return; // retry
+            }
+
+            $auth = $this->auth->getUser();
+            $user = Users::findFirst($auth['id']);
+
+            if ($user && $user->password == hash('sha256', $oldPassword)) {
+                try {
+                    $user->password = hash('sha256', $newPassword);
+                    $user->save();
+                    $this->flash->success("Your password changed successfully.");
+                } catch (\Exception $e) {
+                    return; // retry
+                }
+                return $this->response->redirect("/");
+            } else {
+                $this->flash->error("Old password is incorrect, please try again.");
+            }
+        }
     }
 }
