@@ -26,28 +26,26 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute(Dispatcher $dispatcher)
     {
-        $this->view->userLoggedIn = true; // TEMP CODE, DELETE THIS IF ACL IS READY
+        $this->view->userLoggedIn = false;
+
+        // Get the current identity
+        $user = $this->auth->getUser();
+        if (is_array($user)) {
+            $this->view->userLoggedIn = true;
+        }
 
         $controllerName = $dispatcher->getControllerName();
 
         // Only check permissions on private controllers
         if ($this->acl->isPrivate($controllerName)) {
-
-            // Get the current identity
-            $user = $this->auth->getUser();
-
-            // If there is no identity available the user is redirected to index/index
+            // If there is no identity available the user is redirected to user/login
             if (!is_array($user)) {
-                $this->flash->notice("You don't have access, please contact admin.");
-
                 $dispatcher->forward(array(
-                    'controller' => 'index',
-                    'action' => 'index'
+                    'controller' => 'user',
+                    'action' => 'login'
                 ));
                 return false;
             }
-
-            $this->view->userLoggedIn = true;
 
             // Check if the user have permission to the current option
             $actionName = $dispatcher->getActionName();

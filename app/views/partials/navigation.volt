@@ -11,7 +11,6 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="/">Home</a></li>
-        {% if userLoggedIn %}
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Purchase <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -55,6 +54,7 @@
         </li>
         <li><a href="/about">About</a></li>
       </ul>
+      {% if userLoggedIn %}
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Profile <span class="caret"></span></a>
@@ -65,7 +65,7 @@
           </ul>
         </li>
       </ul>
-        {% endif %}
+      {% endif %}
     </div>
   </div>
 </nav>
