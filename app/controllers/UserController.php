@@ -47,4 +47,8 @@ class UserController extends ControllerBase
         $this->auth->userLogout();
         return $this->response->redirect("/");
     }
+
+    public function changePasswordAction()
+    {
+    }
 }
