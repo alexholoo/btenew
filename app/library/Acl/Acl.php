@@ -37,17 +37,27 @@ class Acl extends Component
     private $publicResources = [
         'index/index' => '',
         'about/index' => '',
+        'about/test' => '',
         'user/login' => '',
         'user/logout' => '',
         'search/order' => '',
         'search/sku' => '',
         'search/priceavail' => '',
         'search/shipment' => '',
-        'shipment/search' => '',
         'search/address' => '',
         'invloc/search' => '',
+        'search/invloc' => '',
         'amazon/reports' => '',
         'amazon/fbaitems' => '',
+        'amazon/fbaitemdelete' => '',
+        'job/test' => '',
+        'job/orderimport' => '',
+        'job/amazonupdate' => '',
+        'job/importshippingeasy' => '',
+        'query/shippingeasy' => '',
+        'shipment/search' => '',
+        'shipment/chitchat' => '',
+        'query/shippingeasy' => '',
     ];
 
     /**
