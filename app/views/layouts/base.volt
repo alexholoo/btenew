@@ -28,8 +28,7 @@
   {% include "partials/navigation.volt" %}
   {% block sidebar %}{% endblock %}
 
-  <div class="container main-container">
-    <?php $this->flashSession->output(); ?>
+  <div class="container main-container" style="margin-top:60px;">
     {% block main %}{% endblock %}
   </div>
 

@@ -1,10 +1,11 @@
 {% extends "layouts/base.volt" %}
 
 {% block main %}
-<header class="jumbotron subhead" id="overview">
-	<div class="hero-unit">
-		<h1>Welcome!</h1>
-		<p class="lead">This is a awesome website</p>
+{{ flash.output() }}
+<header class="jumbotron subhead" style="margin-top:40px;">
+  <div class="hero-unit">
+    <h1>Welcome!</h1>
+    <p class="lead">Everything is awesome.</p>
 
         {% if not userLoggedIn %}
 		<div align="right">
