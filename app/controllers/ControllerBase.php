@@ -35,9 +35,11 @@ class ControllerBase extends Controller
         }
 
         $controllerName = $dispatcher->getControllerName();
+        $actionName = $dispatcher->getActionName();
+        $path = strtolower("$controllerName/$actionName");
 
         // Only check permissions on private controllers
-        if ($this->acl->isPrivate($controllerName)) {
+        if ($this->acl->isPrivate($path)) {
             // If there is no identity available the user is redirected to user/login
             if (!is_array($user)) {
                 $dispatcher->forward(array(
@@ -48,8 +50,7 @@ class ControllerBase extends Controller
             }
 
             // Check if the user have permission to the current option
-            $actionName = $dispatcher->getActionName();
-            if (!$this->acl->isAllowed($user['role'], $controllerName, $actionName)) {
+            if (!$this->acl->isAllowed($user['role'], $path)) {
                 $this->flash->error("You don't have access, please contact admin.");
 
                 $dispatcher->forward(array(

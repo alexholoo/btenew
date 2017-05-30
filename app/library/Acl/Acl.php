@@ -30,46 +30,55 @@ class Acl extends Component
     private $filePath = '/cache/acl/data.txt';
 
     /**
-     * Define the resources that are considered "private".
+     * Define the public resources
      *
      * @var array
      */
-    private $privateResources = array(
-        'about' => [
-            'test',
-        ],
-    );
+    private $publicResources = [
+        'index/index' => '',
+        'about/index' => '',
+        'user/login' => '',
+        'user/logout' => '',
+        'search/order' => '',
+        'search/sku' => '',
+        'search/priceavail' => '',
+        'search/shipment' => '',
+        'shipment/search' => '',
+        'search/address' => '',
+        'invloc/search' => '',
+        'amazon/reports' => '',
+        'amazon/fbaitems' => '',
+    ];
 
     /**
-     * Checks if a controller is private or not
+     * Checks if a url is private or not
      *
-     * @param string $controllerName
+     * @param string $url
      * @return boolean
      */
-    public function isPrivate($controllerName)
+    public function isPrivate($url)
     {
-        $controllerName = strtolower($controllerName);
-        return isset($this->privateResources[$controllerName]);
+        return !isset($this->publicResources[$url]);
     }
 
     /**
      * Checks if the current profile is allowed to access a resource
      *
-     * @param string $profile
-     * @param string $controller
-     * @param string $action
+     * @param array  $roles
+     * @param string $url
      * @return boolean
      */
-    public function isAllowed($roles, $controller, $action)
+    public function isAllowed($roles, $url)
     {
-        #if (in_array(Roles::ADMIN, $roles)) {
-        #    return true;
-        #}
+        // Admin can do anything
+        if (in_array(Roles::ADMIN, $roles)) {
+            return true;
+        }
 
         $acl = $this->getAcl();
 
         foreach ($roles as $role) {
-            if ($acl->isAllowed($role, $controller, $action)) {
+            if ($acl->isAllowed($role, $url, '')) {
                 return true;
             }
         }
@@ -113,39 +122,33 @@ class Acl extends Component
 
         $acl->setDefaultAction(\Phalcon\Acl::DENY);
 
+        $changePassword = 'user/changepassword';
+        $acl->addResource(new AclResource($changePassword), []);
+
         // Register roles
         $roles = Roles::find();
 
         foreach ($roles as $role) {
             $acl->addRole(new AclRole($role->id));
+            $acl->allow($role->id, $changePassword, '*');
         }
 
-        // Register resources
-        foreach ($this->privateResources as $resource => $actions) {
-            $acl->addResource(new AclResource($resource), $actions);
-        }
-
-        // Grant access to private area to role Users
+        // Grant access to private area to roles
         $permissions = Permissions::find();
 
         foreach ($permissions as $permission) {
+            // Register resources
             $resource = $permission->resource;
-
-            list($controller, $action) = explode('/', $resource);
+            $acl->addResource(new AclResource($resource), []);
 
             // Grant permissions in "permissions" model
-            $acl->allow($permission->roleId, $controller, $action);
-
-            // Always grant these permissions
-            //$acl->allow($profile->name, 'user', 'changePassword');
+            $acl->allow($permission->roleId, $resource, '*');
         }
 
         if (touch(APP_DIR . $this->filePath) && is_writable(APP_DIR . $this->filePath)) {
             file_put_contents(APP_DIR . $this->filePath, serialize($acl));
         } else {
-            $this->flash->error(
-                'The user does not have write permissions to create the ACL list at ' . APP_DIR . $this->filePath
-            );
+            $this->flash->error('Failed to create the ACL list at ' . APP_DIR . $this->filePath);
         }
 
         return $acl;
