@@ -42,4 +42,31 @@ class Auth extends Component
     {
         return $this->session->get(self::SESSKEY);
     }
+
+    /**
+     * Get username
+     */
+    public function getUsername()
+    {
+        $user = $this->getUser();
+        return $user['username'];
+    }
+
+    /**
+     * Get user id
+     */
+    public function getUserId()
+    {
+        $user = $this->getUser();
+        return $user['id'];
+    }
+
+    /**
+     * Get user roles
+     */
+    public function getUserRoles()
+    {
+        $user = $this->getUser();
+        return $user['role'];
+    }
 }

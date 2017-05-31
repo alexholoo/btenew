@@ -59,6 +59,8 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Profile <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li class="dropdown-header"><big>Username: <b>{{ auth.getUsername() }}</b></big></li>
+            <li role="separator" class="divider"></li>
             <li><a href="/user/changepassword">Change Password</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/user/logout">Logout</a></li>
