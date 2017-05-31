@@ -61,8 +61,11 @@
           <ul class="dropdown-menu">
             <li class="dropdown-header"><big>Username: <b>{{ auth.getUsername() }}</b></big></li>
             <li role="separator" class="divider"></li>
-            <li><a href="/user/changepassword">Change Password</a></li>
+            {% if auth.isAdmin() %}
+            <li class="disabled"><a href="/user/manage">User Management</a></li>
             <li role="separator" class="divider"></li>
+            {% endif %}
+            <li><a href="/user/changepassword">Change Password</a></li>
             <li><a href="/user/logout">Logout</a></li>
           </ul>
         </li>

@@ -69,4 +69,13 @@ class Auth extends Component
         $user = $this->getUser();
         return $user['role'];
     }
+
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin()
+    {
+        $roles = $this->getUserRoles();
+        return in_array(1, $roles);
+    }
 }
