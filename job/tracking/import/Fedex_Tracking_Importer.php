@@ -20,27 +20,30 @@ class Fedex_Tracking_Importer extends Tracking_Importer
             return;
         }
 
-        $lines = file($filename, FILE_IGNORE_NEW_LINES);
+        $fp = fopen($filename, 'r');
 
-       #$pattern = '/Man-Wt/'; // this also works!
-        $pattern = '%\d{2}/\d{2}/\d{4} \d{2}:\d{2} \d{12}%';
+        $columns = fgetcsv($fp);
 
-        $i = 0;
-        while ($i < count($lines)) {
-            $line = trim($lines[$i++]);
-            if (!preg_match($pattern, $line)) {
+        while (($values = fgetcsv($fp)) !== false) {
+            if (count($columns) != count($values)) {
+                unset($values[8]);
+                if (count($columns) != count($values)) {
+                    $this->error(__METHOD__.' '.print_r($values, true));
+                    continue;
+                }
+            }
+
+            $fields = array_combine($columns, $values);
+
+            list($m, $d, $c, $y) = str_split($fields['Shipment Date'], 2);
+            $shipDate = "$c$y-$m-$d";
+
+            $trackingNumber = $fields['Tracking #'];
+            $orderId = $fields['References'];
+
+            if (empty($orderId)) {
                 continue;
             }
-            if (isset($lines[$i]) && !preg_match($pattern, $lines[$i])) {
-                $line .= trim($lines[$i++]);
-            }
-
-            $shipDate = substr($line, 0, 10);
-            list($m, $d, $y) = explode('/', $shipDate);
-            $shipDate = "$y-$m-$d";
-
-            $trackingNumber = substr($line, 17, 12);
-            $orderId = substr($line, strrpos($line, ' ') + 1);
 
             $this->saveToDb([
                 'orderId'        => $orderId,
@@ -52,5 +55,7 @@ class Fedex_Tracking_Importer extends Tracking_Importer
                 'sender'         => 'BTE',
             ]);
         }
+
+        fclose($fp);
     }
 }

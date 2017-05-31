@@ -61,7 +61,7 @@ class SkuService extends Injectable
     {
         $info = $this->getMasterSku($sku);
 
-        return array_filter([
+        $skus = array_filter([
             $info['syn_pn'],
             $info['td_pn'],
             $info['ing_pn'],
@@ -71,6 +71,19 @@ class SkuService extends Injectable
             $info['ep_pn'],
             $info['BTE_PN'],
         ]);
+
+        if (count($skus) > 1) {
+            return $skus;
+        }
+
+        $upc = $this->getUpc($sku);
+        if ($upc) {
+            $sql = "SELECT sku FROM sku_upc_map WHERE upc='$upc'";
+            $rows = $this->db->fetchAll($sql);
+            $skus = array_merge($skus, array_column($rows, 'sku', null));
+        }
+
+        return array_unique($skus);
     }
 
     public function getUpc($sku)
