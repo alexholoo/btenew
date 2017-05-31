@@ -102,6 +102,7 @@ $di->set('modelsMetadata', function () use ($config) {
  */
 $di->set('session', function () {
     $session = new SessionAdapter();
+    session_set_cookie_params(3600*24*365);
     $session->start();
     return $session;
 });
