@@ -78,9 +78,8 @@ class SkuService extends Injectable
 
         $upc = $this->getUpc($sku);
         if ($upc) {
-            $sql = "SELECT sku FROM sku_upc_map WHERE upc='$upc'";
-            $rows = $this->db->fetchAll($sql);
-            $skus = array_merge($skus, array_column($rows, 'sku', null));
+            $list = $this->getSkuListByUPC($upc);
+            $skus = array_merge($skus, $list);
         }
 
         return array_unique($skus);
