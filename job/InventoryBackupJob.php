@@ -8,10 +8,10 @@ class InventoryBackupJob extends Job
     {
         $this->log('>> '. __CLASS__);
 
-        $this->backupInveotory();
+        $this->backupInventory();
     }
 
-    public function backupInveotory()
+    public function backupInventory()
     {
         $now = date('Ymd-His');
         $filename = "E:/BTE/data/backup/inventory/inventory-$now.csv";
