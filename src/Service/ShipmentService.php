@@ -46,6 +46,45 @@ class ShipmentService extends Injectable
         return $info;
     }
 
+    public function addShipment($trackingNum, $site = '')
+    {
+        $sql = "SELECT * FROM master_order_tracking WHERE tracking_number='$trackingNum'";
+        $info = $this->db->fetchOne($sql);
+
+        if (!$info) {
+            $info['order_id']        = '';
+            $info['carrier_code']    = '';
+            $info['tracking_number'] = $trackingNum;
+        }
+
+        try {
+            $sql = "SELECT * FROM master_shipment WHERE tracking_number='$trackingNum'";
+            $found = $this->db->fetchOne($sql);
+
+            if ($found) {
+                $this->db->updateAsDict('master_shipment',
+                    [
+                        'order_id' => $info['order_id'],
+                        'carrier'  => $info['carrier_code'],
+                        'site'     => $site,
+                    ],
+                    "tracking_number='$trackingNum'"
+                );
+            } else {
+                $this->db->insertAsDict('master_shipment', [
+                    'order_id'        => $info['order_id'],
+                    'carrier'         => $info['carrier_code'],
+                    'tracking_number' => $info['tracking_number'],
+                    'site'            => $site,
+                ]);
+            }
+        } catch (\Exception $e) {
+            //echo $e->getMessage();
+        }
+
+        return true;
+    }
+
     /**
      * Order SHIPPED means the tracking number of the order has been uploaded
      */
