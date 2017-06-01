@@ -16,6 +16,19 @@ class ShipmentService extends Injectable
             $info = $this->db->fetchAll($sql);
         }
 
+        // check if the order shipped by BTE (tracking number scanned)
+        foreach ($info as $key => $row) {
+            $info[$key]['shipped'] = false;
+
+            $trackingNum = $row['tracking_number'];
+            $sql = "SELECT * FROM master_shipment WHERE tracking_number='$trackingNum'";
+            $found = $this->db->fetchOne($sql);
+
+            if ($found) {
+                $info[$key]['shipped'] = true;
+            }
+        }
+
         return $info;
     }
 
