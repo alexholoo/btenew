@@ -16,6 +16,19 @@ class ShipmentService extends Injectable
             $info = $this->db->fetchAll($sql);
         }
 
+        // check if the order shipped by BTE (tracking number scanned)
+        foreach ($info as $key => $row) {
+            $info[$key]['shipped'] = false;
+
+            $trackingNum = $row['tracking_number'];
+            $sql = "SELECT * FROM master_shipment WHERE tracking_number='$trackingNum'";
+            $found = $this->db->fetchOne($sql);
+
+            if ($found) {
+                $info[$key]['shipped'] = true;
+            }
+        }
+
         return $info;
     }
 
@@ -41,6 +54,47 @@ class ShipmentService extends Injectable
                 'trackingNumber' => $info['tracking_number'],
                 'shipMethod'     => $info['ship_method'],
             ];
+        }
+
+        return $info;
+    }
+
+    public function addShipment($trackingNum, $site = '')
+    {
+        $sql = "SELECT * FROM master_order_tracking WHERE tracking_number='$trackingNum'";
+        $info = $this->db->fetchOne($sql);
+
+        if (!$info) {
+            $info['order_id']        = '';
+            $info['carrier_code']    = '';
+            $info['tracking_number'] = $trackingNum;
+        }
+
+        $info['site'] = $site;
+
+        try {
+            $sql = "SELECT * FROM master_shipment WHERE tracking_number='$trackingNum'";
+            $found = $this->db->fetchOne($sql);
+
+            if ($found) {
+                $this->db->updateAsDict('master_shipment',
+                    [
+                        'order_id' => $info['order_id'],
+                        'carrier'  => $info['carrier_code'],
+                        'site'     => $info['site'],
+                    ],
+                    "tracking_number='$trackingNum'"
+                );
+            } else {
+                $this->db->insertAsDict('master_shipment', [
+                    'order_id'        => $info['order_id'],
+                    'carrier'         => $info['carrier_code'],
+                    'tracking_number' => $info['tracking_number'],
+                    'site'            => $info['site'],
+                ]);
+            }
+        } catch (\Exception $e) {
+            //echo $e->getMessage();
         }
 
         return $info;

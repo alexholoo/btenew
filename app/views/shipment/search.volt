@@ -34,7 +34,7 @@
       <td class="order-id"><a href="javascript:void(0)" data-order-id="{{ tracking['order_id'] }}">{{ tracking['order_id'] }}</a></td>
       <td>{{ tracking['ship_date'] }}</td>
       <td>{{ tracking['carrier_code'] }}</td>
-      <td>{{ tracking['tracking_number'] }}</td>
+      <td{% if tracking['shipped'] %} class="success"{% endif %}>{{ tracking['tracking_number'] }}</td>
       <td>{{ tracking['ship_method'] }}</td>
       <td>{{ tracking['sender'] }}</td>
     </tr>

@@ -72,9 +72,9 @@ class SkuService extends Injectable
             $info['BTE_PN'],
         ]);
 
-        if (count($skus) > 1) {
-            return $skus;
-        }
+        #if (count($skus) > 1) {
+        #    return $skus;
+        #}
 
         $upc = $this->getUpc($sku);
         if ($upc) {
