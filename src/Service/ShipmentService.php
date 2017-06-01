@@ -57,6 +57,8 @@ class ShipmentService extends Injectable
             $info['tracking_number'] = $trackingNum;
         }
 
+        $info['site'] = $site;
+
         try {
             $sql = "SELECT * FROM master_shipment WHERE tracking_number='$trackingNum'";
             $found = $this->db->fetchOne($sql);
@@ -66,7 +68,7 @@ class ShipmentService extends Injectable
                     [
                         'order_id' => $info['order_id'],
                         'carrier'  => $info['carrier_code'],
-                        'site'     => $site,
+                        'site'     => $info['site'],
                     ],
                     "tracking_number='$trackingNum'"
                 );
@@ -75,14 +77,14 @@ class ShipmentService extends Injectable
                     'order_id'        => $info['order_id'],
                     'carrier'         => $info['carrier_code'],
                     'tracking_number' => $info['tracking_number'],
-                    'site'            => $site,
+                    'site'            => $info['site'],
                 ]);
             }
         } catch (\Exception $e) {
             //echo $e->getMessage();
         }
 
-        return true;
+        return $info;
     }
 
     /**
