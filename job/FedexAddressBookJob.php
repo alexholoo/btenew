@@ -67,7 +67,7 @@ class FedexAddressBookJob extends Job
             }
 
             $data = [
-                $info['Weight'],
+                '1',
                 $order['order_id'],
                 '',
                 $order['buyer'],
