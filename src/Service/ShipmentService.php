@@ -100,6 +100,16 @@ class ShipmentService extends Injectable
         return $info;
     }
 
+    public function getShipmentReport($date = '')
+    {
+        $date = $date ? $date : date('Y-m-d');
+
+        $sql = "SELECT * FROM master_shipment WHERE date(createdon)='$date'";
+        $rows = $this->db->fetchAll($sql);
+
+        return $rows;
+    }
+
     /**
      * Order SHIPPED means the tracking number of the order has been uploaded
      */

@@ -45,4 +45,12 @@ class ShipmentController extends ControllerBase
         $this->view->saved = $saved;
         $this->view->list  = $this->chitchatService->list();
     }
+
+    public function reportAction()
+    {
+        $this->view->pageTitle = 'Shipment Report';
+
+        $shipment = $this->shipmentService->getShipmentReport();
+        $this->view->data = $shipment;
+    }
 }
