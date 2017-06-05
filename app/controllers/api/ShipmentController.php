@@ -11,10 +11,17 @@ class ShipmentController extends ControllerBase
         $this->view->disable();
     }
 
-    public function newAction($trackingNum = '')
+    public function newAction()
     {
-        $info = $this->shipmentService->addShipment($trackingNum);
-        $this->response->setJsonContent(['status' => 'OK', 'data' => $info]);
+        $trackingNum = $this->request->getQuery('trackingnum');
+        $user = $this->request->getQuery('user');
+
+        if ($trackingNum && $user) {
+            $info = $this->shipmentService->addShipment($trackingNum, $user);
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $info]);
+        } else {
+            $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Bad Request']);
+        }
 
         return $this->response;
     }

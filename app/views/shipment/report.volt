@@ -11,7 +11,7 @@
         <th>Order ID</th>
         <th>Tracking #</th>
         <th>Carrier</th>
-        <th>Source</th>
+        <th>User</th>
         <th>Ship Date</th>
       </tr>
     </thead>
@@ -23,7 +23,7 @@
       <td class="order-id">{{ shipment['order_id'] }}</td>
       <td>{{ shipment['tracking_number'] }}</td>
       <td>{{ shipment['carrier'] }}</td>
-      <td>{{ shipment['site'] }}</td>
+      <td>{{ shipment['user'] }}</td>
       <td>{{ shipment['createdon'] }}</td>
     </tr>
     {% endfor %}
