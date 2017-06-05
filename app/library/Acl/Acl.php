@@ -57,6 +57,7 @@ class Acl extends Component
         'query/shippingeasy' => '',
         'shipment/search' => '',
         'shipment/chitchat' => '',
+        'shipment/report' => '',
         'query/shippingeasy' => '',
     ];
 
