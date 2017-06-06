@@ -20,6 +20,13 @@ class OverstockService extends Injectable
         return $result;
     }
 
+    public function getById($id)
+    {
+        $sql = "SELECT * FROM overstock WHERE id='$id'";
+        $result = $this->db->fetchOne($sql);
+        return $result;
+    }
+
     public function isOverstocked($sku)
     {
         $result = $this->get($sku);
