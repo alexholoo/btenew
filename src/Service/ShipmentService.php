@@ -108,7 +108,7 @@ class ShipmentService extends Injectable
             $where = "WHERE date(createdon)='$date'";
         }
 
-        $sql = "SELECT * FROM master_shipment $where";
+        $sql = "SELECT * FROM master_shipment $where ORDER BY createdon";
         $rows = $this->db->fetchAll($sql);
 
         return $rows;
