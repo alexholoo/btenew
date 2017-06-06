@@ -59,7 +59,7 @@ class ShipmentService extends Injectable
         return $info;
     }
 
-    public function addShipment($trackingNum, $site = '')
+    public function addShipment($trackingNum, $user)
     {
         $sql = "SELECT * FROM master_order_tracking WHERE tracking_number='$trackingNum'";
         $info = $this->db->fetchOne($sql);
@@ -70,7 +70,7 @@ class ShipmentService extends Injectable
             $info['tracking_number'] = $trackingNum;
         }
 
-        $info['site'] = $site;
+        $info['user'] = $user;
 
         try {
             $sql = "SELECT * FROM master_shipment WHERE tracking_number='$trackingNum'";
@@ -81,7 +81,7 @@ class ShipmentService extends Injectable
                     [
                         'order_id' => $info['order_id'],
                         'carrier'  => $info['carrier_code'],
-                        'site'     => $info['site'],
+                        'user'     => $info['user'],
                     ],
                     "tracking_number='$trackingNum'"
                 );
@@ -90,7 +90,7 @@ class ShipmentService extends Injectable
                     'order_id'        => $info['order_id'],
                     'carrier'         => $info['carrier_code'],
                     'tracking_number' => $info['tracking_number'],
-                    'site'            => $info['site'],
+                    'user'            => $info['user'],
                 ]);
             }
         } catch (\Exception $e) {
@@ -102,9 +102,13 @@ class ShipmentService extends Injectable
 
     public function getShipmentReport($date = '')
     {
-        $date = $date ? $date : date('Y-m-d');
+        $where = '';
 
-        $sql = "SELECT * FROM master_shipment WHERE date(createdon)='$date'";
+        if ($date) {
+            $where = "WHERE date(createdon)='$date'";
+        }
+
+        $sql = "SELECT * FROM master_shipment $where";
         $rows = $this->db->fetchAll($sql);
 
         return $rows;

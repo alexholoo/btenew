@@ -11,11 +11,23 @@ class ShipmentController extends ControllerBase
         $this->view->disable();
     }
 
-    public function newAction($trackingNum = '')
+    public function newAction()
     {
-        $info = $this->shipmentService->addShipment($trackingNum);
-        $this->response->setJsonContent(['status' => 'OK', 'data' => $info]);
+        //$userAgent = $this->request->getUserAgent();
+        //if ($userAgent != 'BTE Barcode Scanner')
 
-        return $this->response;
+        if ($this->request->isPost()) {
+            $trackingNum = $this->request->getPost('trackingnum');
+            $user = $this->request->getPost('user');
+
+            if ($trackingNum && $user) {
+                $info = $this->shipmentService->addShipment($trackingNum, $user);
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $info]);
+            } else {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Bad Request']);
+            }
+
+            return $this->response;
+        }
     }
 }
