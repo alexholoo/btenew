@@ -634,6 +634,62 @@ bte.EditOverstockNoteModal = class {
     }
 }
 
+bte.EditOverstockModal = class {
+    constructor(data) {
+        this.data = data;
+        this.onSuccess = function() {};
+        this.onFailure = function() {};
+        this.onClose = function() {};
+    }
+
+    set success(val) {
+        this.onSuccess = val;
+    }
+
+    set failure(val) {
+        this.onFailure = val;
+    }
+
+    set done(val) {
+        this.onClose = val;
+    }
+
+    content(data) {
+        var note = data.note;
+        return `<div style="padding: 20px;">
+           <label for="note">Note</label> (Max 200 chars)<br />
+           <textarea id="note" maxlength="200" style="width: 440px; height: 100px; resize: none;">${note}</textarea>
+         </div>`;
+    }
+
+    end(index, layero) {
+    }
+
+    yes(index, layero) {
+        var self = this;
+
+        var note = layero.find('#note').val();
+
+        self.data.note = note;
+
+        ajaxCall('/ajax/overstock/note', self.data, self.onSuccess, self.onFailure);
+        layer.close(index);
+    }
+
+    show() {
+        var self = this;
+
+        layer.open({
+            title:   'Edit Note',
+            area:    ['480px', 'auto'],
+            btn:     ['Save', 'Cancel'],
+            yes:     (index, layero) => { self.yes(index, layero) },
+            end:     (index, layero) => { self.end(index, layero) },
+            content: self.content(self.data)
+        })
+    }
+}
+
 bte.EditInventoryNoteModal = class {
     constructor(data) {
         this.data = data;

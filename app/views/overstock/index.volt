@@ -62,7 +62,7 @@
         <td>{{ row['condition'] }}</td>
         <td>{{ row['cost'] }}</td>
         <td>{{ row['qty'] }}</t>
-        <td>{{ row['title'] }}</t>
+        <td class="title">{{ row['title'] }}</t>
         <td class="mpn">{{ row['mpn'] }}</td>
         <td class="upc">{{ row['upc'] }}</td>
         <td class="note">{{ row['note'] }}</td>
@@ -91,8 +91,8 @@
 {% block csscode %}
   .main-container { width: 100%; }
   #overstocktbl td { vertical-align: middle; }
-  .upc, .mpn, .note { cursor: pointer; }
-  .upc:hover, .mpn:hover, .note:hover { text-decoration: underline; }
+  .upc, .mpn, .note, .title { cursor: pointer; }
+  .upc:hover, .mpn:hover, .note:hover, .title:hover { text-decoration: underline; }
 {% endblock %}
 
 {% block jscode %}
@@ -156,6 +156,30 @@
     };
     modal.show();
   });
+
+  // click title to edit overstock item
+  $('.title').click(function() {
+    $('tr').removeClass('info');
+
+    var self = $(this);
+    var tr = self.closest('tr');
+
+    var id = tr.data('id');
+
+    tr.addClass('info');
+
+    var modal = new bte.EditOverstockModal(id);
+    modal.success = function(data) {
+        showToast('Your change has benn saved', 1000);
+        note.text(data);
+    };
+    modal.failure = function(message) {
+        showError(message);
+        tr.addClass('danger');
+    };
+    modal.show();
+  });
+
 /*
   // click sku to display change log
   $('.sku').click(function() {
