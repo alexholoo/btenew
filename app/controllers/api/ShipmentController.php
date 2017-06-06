@@ -13,6 +13,9 @@ class ShipmentController extends ControllerBase
 
     public function newAction()
     {
+        //$userAgent = $this->request->getUserAgent();
+        //if ($userAgent != 'BTE Barcode Scanner')
+
         if ($this->request->isPost()) {
             $trackingNum = $this->request->getPost('trackingnum');
             $user = $this->request->getPost('user');
