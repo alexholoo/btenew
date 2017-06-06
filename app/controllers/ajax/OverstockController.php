@@ -82,4 +82,24 @@ class OverstockController extends ControllerBase
 
         return $this->response;
     }
+
+    /**
+     * from page /overstock
+     */
+    public function saveAction()
+    {
+        if ($this->request->isPost()) {
+            try {
+                $id = $this->request->getPost('id');
+                $data = $this->request->getPost();
+
+                $this->overstockService->update($id, $data);
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
+            } catch (\Exception $e) {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => $e->getMessage()]);
+            }
+
+            return $this->response;
+        }
+    }
 }

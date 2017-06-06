@@ -59,9 +59,9 @@
     {% for row in page.items %}
       <tr data-id="{{ row['id'] }}">
         <td class="sku{% if row['updatedon'] == today %} warning{% endif %}" nowrap><a href="/overstock/viewchange/{{ row['id'] }}">{{ row['sku'] }}</a></td>
-        <td>{{ row['condition'] }}</td>
-        <td>{{ row['cost'] }}</td>
-        <td>{{ row['qty'] }}</t>
+        <td class="condition">{{ row['condition'] }}</td>
+        <td class="cost">{{ row['cost'] }}</td>
+        <td class="qty">{{ row['qty'] }}</t>
         <td class="title">{{ row['title'] }}</t>
         <td class="mpn">{{ row['mpn'] }}</td>
         <td class="upc">{{ row['upc'] }}</td>
@@ -171,7 +171,14 @@
     var modal = new bte.EditOverstockModal(id);
     modal.success = function(data) {
         showToast('Your change has benn saved', 1000);
-        note.text(data);
+        tr.find('.sku').text(data.sku);
+        tr.find('.condition').text(data.condition);
+        tr.find('.cost').text(data.cost);
+        tr.find('.qty').text(data.qty);
+        tr.find('.title').text(data.title);
+        tr.find('.mpn').text(data.mpn);
+        tr.find('.upc').text(data.upc);
+        tr.find('.note').text(data.note);
     };
     modal.failure = function(message) {
         showError(message);

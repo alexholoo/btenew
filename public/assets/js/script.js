@@ -635,8 +635,8 @@ bte.EditOverstockNoteModal = class {
 }
 
 bte.EditOverstockModal = class {
-    constructor(data) {
-        this.data = data;
+    constructor(id) {
+        this.id = id;
         this.onSuccess = function() {};
         this.onFailure = function() {};
         this.onClose = function() {};
@@ -655,10 +655,52 @@ bte.EditOverstockModal = class {
     }
 
     content(data) {
-        var note = data.note;
-        return `<div style="padding: 20px;">
-           <label for="note">Note</label> (Max 200 chars)<br />
-           <textarea id="note" maxlength="200" style="width: 440px; height: 100px; resize: none;">${note}</textarea>
+        return `
+         <style>
+            label { width: 6em; }
+            input { width: 335px; }
+         </style>
+         <div style="padding: 20px;">
+           <div>
+             <label>SKU</label>
+             <input type="text" id="sku" readonly value="${data.sku}">
+           </div>
+           <div>
+             <label>Title</label>
+             <input type="text" id="title" value="${data.title}">
+           </div>
+           <div>
+             <label>Condition</label>
+             <input type="text" id="condition" value="${data.condition}">
+           </div>
+           <div>
+             <label>Qty</label>
+             <input type="text" id="qty" value="${data.qty}">
+           </div>
+           <div>
+             <label>Cost</label>
+             <input type="text" id="cost" value="${data.cost}">
+           </div>
+           <div>
+             <label>MPN</label>
+             <input type="text" id="mpn" value="${data.mpn}">
+           </div>
+           <div>
+             <label>UPC</label>
+             <input type="text" id="upc" value="${data.upc}">
+           </div>
+           <div>
+             <label>Weight</label>
+             <input type="text" id="weight" value="${data.weight}">
+           </div>
+           <div>
+             <label>FBA Alloc</label>
+             <input type="text" id="fba_alloc" value="${data.allocation}">
+           </div>
+           <div>
+             <label for="note">Note</label> (Max 200 chars)<br />
+             <textarea id="note" maxlength="200" style="width: 430px; height: 100px; resize: none;">${data.note}</textarea>
+           </div>
          </div>`;
     }
 
@@ -668,25 +710,42 @@ bte.EditOverstockModal = class {
     yes(index, layero) {
         var self = this;
 
-        var note = layero.find('#note').val();
+        var data = {};
 
-        self.data.note = note;
+        data.id = self.id;
+        data.sku = layero.find('#sku').val();
+        data.title = layero.find('#title').val();
+        data.condition = layero.find('#condition').val();
+        data.qty = layero.find('#qty').val();
+        data.cost = layero.find('#cost').val();
+        data.mpn = layero.find('#mpn').val();
+        data.upc = layero.find('#upc').val();
+        data.weight = layero.find('#weight').val();
+        data.allocation = layero.find('#fba_alloc').val();
+        data.note = layero.find('#note').val();
 
-        ajaxCall('/ajax/overstock/note', self.data, self.onSuccess, self.onFailure);
+        ajaxCall('/ajax/overstock/save', data, self.onSuccess, self.onFailure);
         layer.close(index);
     }
 
     show() {
         var self = this;
 
-        layer.open({
-            title:   'Edit Note',
-            area:    ['480px', 'auto'],
-            btn:     ['Save', 'Cancel'],
-            yes:     (index, layero) => { self.yes(index, layero) },
-            end:     (index, layero) => { self.end(index, layero) },
-            content: self.content(self.data)
-        })
+        ajaxCall('/ajax/overstock/get/' + self.id, { },
+            function(data) {
+                layer.open({
+                    title:   'Edit Overstock Item',
+                    area:    ['480px', 'auto'],
+                    btn:     ['Save', 'Cancel'],
+                    yes:     (index, layero) => { self.yes(index, layero) },
+                    end:     (index, layero) => { self.end(index, layero) },
+                    content: self.content(data)
+                })
+            },
+            function(message) {
+                showError(message);
+            }
+        );
     }
 }
 
@@ -773,7 +832,7 @@ bte.InventoryAddModal = class {
              <input type="text" id="title" placeholder="">
            </div>
            <div>
-             <label>Condtion</label>
+             <label>Condition</label>
              <input type="text" id="condition" placeholder="New/Used/Refur/Open...">
            </div>
            <div>
