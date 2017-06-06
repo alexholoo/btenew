@@ -102,9 +102,13 @@ class ShipmentService extends Injectable
 
     public function getShipmentReport($date = '')
     {
-        $date = $date ? $date : date('Y-m-d');
+        $where = '';
 
-        $sql = "SELECT * FROM master_shipment WHERE date(createdon)='$date'";
+        if ($date) {
+            $where = "WHERE date(createdon)='$date'";
+        }
+
+        $sql = "SELECT * FROM master_shipment $where";
         $rows = $this->db->fetchAll($sql);
 
         return $rows;
