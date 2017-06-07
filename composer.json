@@ -19,6 +19,8 @@
         "phalcon/devtools": "dev-master",
         "chrisboulton/php-resque": "1.2.x",
         "cpigroup/php-amazon-mws": "1.3.0",
+        "jeremy-dunn/php-fedex-api-wrapper": "dev-master",
+        "gabrielbull/ups-api": "dev-master",
         "pda/pheanstalk": "^3.1",
         "ShippingEasy/shipping_easy-php": "1.x",
         "aws/aws-sdk-php": "^3.20",
