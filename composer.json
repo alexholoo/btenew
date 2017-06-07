@@ -24,7 +24,8 @@
         "pda/pheanstalk": "^3.1",
         "ShippingEasy/shipping_easy-php": "1.x",
         "aws/aws-sdk-php": "^3.20",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "vinceg/usps-php-api": "^1.0"
     },
     "autoload": {
         "psr-4": {
