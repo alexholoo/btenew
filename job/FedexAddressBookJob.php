@@ -52,6 +52,10 @@ class FedexAddressBookJob extends Job
             $value = $price * $qty;
             $info  = $this->getMasterSku($sku);
 
+            // To avoid fedex bug on tracking csv exporting
+            $buyer   = str_replace(',', '', $order['buyer']);
+            $address = str_replace(',', '', trim($order['address']));
+
             // convert country and province/state to code
             $province = $order['province'];
             $country = $order['country'];
@@ -70,12 +74,12 @@ class FedexAddressBookJob extends Job
                 '1',
                 $order['order_id'],
                 '',
-                $order['buyer'],
-                $order['buyer'],
+                $buyer,
+                $buyer,
                 '',
                 '',
                 '',
-                trim($order['address']),
+                $address,
                 '', // $address2,
                 $order['city'],
                 $province,
