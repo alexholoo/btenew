@@ -37,4 +37,30 @@ class UpsService extends Injectable
 
         return $rate;
     }
+
+    protected function getServiceCode($service = 'GND')
+    {
+        $defaultServiceCode = '03';
+
+        $map = [
+            '1DM'    => '14',
+            '1DA'    => '01',
+            '1DAPI'  => '01',
+            '1DP'    => '13',
+            '2DM'    => '59',
+            '2DA'    => '02',
+            '3DS'    => '12',
+            'GND'    => '03',
+            'GNDRES' => '03',
+            'GNDCOM' => '03',
+            'STD'    => '11',
+            'XPR'    => '07',
+            'XDM'    => '54',
+            'XPD'    => '08',
+        ];
+
+        $service = strtoupper($service);
+
+        return isset($map[$service]) ? $map[$service] : $defaultServiceCode;
+    }
 }
