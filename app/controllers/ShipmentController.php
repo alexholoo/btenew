@@ -53,4 +53,16 @@ class ShipmentController extends ControllerBase
         $shipment = $this->shipmentService->getShipmentReport();
         $this->view->data = $shipment;
     }
+
+    public function rateAction()
+    {
+        $this->view->pageTitle = 'Shipping Rate';
+
+        if ($this->request->isPost()) {
+            $orderId = $this->request->getPost('order_id', 'trim');
+
+            $rates = $this->shipmentService->getRates($orderId);
+            $this->view->data = $rates;
+        }
+    }
 }
