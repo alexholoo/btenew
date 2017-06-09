@@ -26,7 +26,7 @@ class Fedex_Tracking_Importer extends Tracking_Importer
 
         while (($values = fgetcsv($fp)) !== false) {
             if (count($columns) != count($values)) {
-                $this->error(__METHOD__.' '.print_r($values, true));
+                $this->error(__METHOD__."\n\t".implode(',', $values));
                 continue;
             }
 
