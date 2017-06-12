@@ -13,8 +13,11 @@ class ControllerBase extends Controller
 {
     public function onConstruct()
     {
-        $this->assets->addCss("/assets/css/style.css?v=".filemtime(BASE_DIR.'/public/assets/css/style.css'));
-        $this->assets->addJs("/assets/js/script.js?v=".filemtime(BASE_DIR.'/public/assets/js/script.js'));
+        $ftime = filemtime(BASE_DIR.'/public/assets/css/style.css');
+        $this->assets->addCss("/assets/css/style.$ftime.css");
+
+        $ftime = filemtime(BASE_DIR.'/public/assets/js/script.js');
+        $this->assets->addJs("/assets/js/script.$ftime.js");
     }
 
     /**

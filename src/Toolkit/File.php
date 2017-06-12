@@ -108,4 +108,28 @@ class File // FileUtils
 
         rename($filename, $newfile);
     }
+
+    /**
+     * Rename the file by suffixing filename with timestamp, it's useful for
+     * web assets versioning.
+     *
+     * $filename = File::asset('/assets/css/style.css', BASE_DIR.'/public');
+     */
+    public static function asset($filename, $webroot)
+    {
+        if (!file_exists($webroot.$filename)) {
+            return '';
+        }
+
+        $path = pathinfo($filename);
+
+        $dir   = $path['dirname'];
+        $fname = $path['filename'];
+        $ftime = filemtime($webroot.$filename);
+        $ext   = isset($path['extension']) ? $path['extension'] : '';
+
+        $newfile = "$dir/$fname.$ftime.$ext";
+
+        return $newfile;
+    }
 }
