@@ -138,4 +138,21 @@ class ShipmentService extends Injectable
             // echo $e->getMessage;
         }
     }
+
+    public function getRates($orderId)
+    {
+        $order = $this->orderService->getOrder($orderId);
+        if (!$order) {
+            return false;
+        }
+
+        $order['items']   = $this->orderService->getOrderItems($orderId);
+        $order['address'] = $this->orderService->getShippingAddress($orderId);
+
+        $rates = [];
+        $rates['fedex'] = $this->fedexService->getRate($order);
+        $rates['ups']   = $this->upsService->getRate($order);
+
+        return $rates;
+    }
 }
