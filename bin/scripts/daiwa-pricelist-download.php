@@ -18,21 +18,16 @@ $url="http://daiwa.net/";
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_VERBOSE, true);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiejar);
 curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
 $html = curl_exec($ch);
-
-//file_put_contents('daiwa-homepage.html', $html);
-//$html = file_get_contents('daiwa-homepage.html');
 
 preg_match('/name="sesscheck" value="([a-z0-9]*)"/', $html, $matches);
 $sesskey = $matches[1];
 echo "Session Key: $sesskey\n";
 
 $postinfo = sprintf("username=$username&password=$password&ref=loginstatus&sesscheck=%s", $sesskey);
-//echo $postinfo;
 
 //
 // step 2: send login request to the website
@@ -49,7 +44,6 @@ curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $postinfo);
 $html = curl_exec($ch);
-//file_put_contents('daiwa-loggedin.html', $html);
 
 //
 // step 3: download the pricelist we want
