@@ -113,12 +113,12 @@ class File // FileUtils
      * Rename the file by suffixing filename with timestamp, it's useful for
      * web assets versioning.
      *
-     * $filename = File::asset('/assets/css/style.css', BASE_DIR.'/public');
+     * $filename = File::asset('/assets/css/style.css');
      */
-    public static function asset($filename, $webroot)
+    public static function asset($filename, $webroot = BASE_DIR.'/public')
     {
         if (!file_exists($webroot.$filename)) {
-            return '';
+            return $filename;
         }
 
         $path = pathinfo($filename);
