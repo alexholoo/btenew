@@ -42,12 +42,18 @@ class OverstockService extends Injectable
 
     public function getAvail($sku)
     {
-        $result = $this->get($sku);
-
         $qty = 0;
 
-        if ($result) {
-            $qty = $result['Actual Quantity'];
+        $list = $this->di->get('skuService')->getAltSkus($sku);
+
+        $accdb = $this->openAccessDB();
+
+        foreach ($list as $pn) {
+            $sql = "SELECT * FROM [overstock] WHERE [SKU Number]='$pn'";
+            $row = $accdb->query($sql)->fetch();
+            if ($row) {
+                $qty += $row['Actual Quantity'];
+            }
         }
 
         return $qty;
