@@ -55,6 +55,7 @@ class FedexAddressBookJob extends Job
             // To avoid fedex bug on tracking csv exporting
             $buyer   = str_replace(',', '', $order['buyer']);
             $address = str_replace(',', '', trim($order['address']));
+            $city    = str_replace(',', '', trim($order['city']));
 
             // convert country and province/state to code
             $province = $order['province'];
@@ -81,7 +82,7 @@ class FedexAddressBookJob extends Job
                 '',
                 $address,
                 '', // $address2,
-                $order['city'],
+                $city,
                 $province,
                 $order['postalcode'],
                 $country,
