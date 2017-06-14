@@ -23,6 +23,56 @@ class UpsService extends Injectable
         $weight = $info['Weight'];
 
         //
+        $accessKey = '';
+        $userId = '';
+        $password = '';
+
+        $rate = new \Ups\Rate($accessKey, $userId, $password);
+
+        try {
+            $shipment = new \Ups\Entity\Shipment();
+
+            $shipperAddress = $shipment->getShipper()->getAddress();
+            $shipperAddress->setPostalCode('L3R 1H3');
+
+            $address = new \Ups\Entity\Address();
+            $address->setPostalCode('L3R 1H3');
+            $shipFrom = new \Ups\Entity\ShipFrom();
+            $shipFrom->setAddress($address);
+
+            $shipment->setShipFrom($shipFrom);
+
+            $shipTo = $shipment->getShipTo();
+            $shipTo->setCompanyName('BTE Customer');
+            $shipToAddress = $shipTo->getAddress();
+            $shipToAddress->setPostalCode($postalcode);
+
+            $package = new \Ups\Entity\Package();
+            $package->getPackagingType()->setCode(\Ups\Entity\PackagingType::PT_PACKAGE);
+            $package->getPackageWeight()->setWeight($weight);
+
+            // if you need this (depends of the shipper country)
+            $weightUnit = new \Ups\Entity\UnitOfMeasurement;
+            $weightUnit->setCode(\Ups\Entity\UnitOfMeasurement::UOM_KGS);
+            $package->getPackageWeight()->setUnitOfMeasurement($weightUnit);
+
+            $dimensions = new \Ups\Entity\Dimensions();
+            $dimensions->setHeight($depth);
+            $dimensions->setWidth($width);
+            $dimensions->setLength($length);
+
+            $unit = new \Ups\Entity\UnitOfMeasurement;
+            $unit->setCode(\Ups\Entity\UnitOfMeasurement::UOM_IN);
+
+            $dimensions->setUnitOfMeasurement($unit);
+            $package->setDimensions($dimensions);
+
+            $shipment->addPackage($package);
+
+            print_r($rate->getRate($shipment));
+        } catch (Exception $e) {
+            print_r($e);
+        }
 
         $rate = [];
 
