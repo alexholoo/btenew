@@ -236,6 +236,8 @@ $di->setShared('rmaService',          function() { return new \Service\RmaServic
 
 $di->setShared('fedexService',        function() { return new \Service\FedexService(); });
 $di->setShared('upsService',          function() { return new \Service\UpsService(); });
+$di->setShared('canadaPostService',   function() { return new \Service\CanadaPostService(); });
+$di->setShared('uspsService',         function() { return new \Service\UspsService(); });
 
 $di->setShared('inventoryLocationService',    function() { return new \Service\InventoryLocationService(); });
 
