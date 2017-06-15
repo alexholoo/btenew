@@ -25,7 +25,8 @@
         "ShippingEasy/shipping_easy-php": "1.x",
         "aws/aws-sdk-php": "^3.20",
         "guzzlehttp/guzzle": "~6.0",
-        "vinceg/usps-php-api": "^1.0"
+        "vinceg/usps-php-api": "^1.0",
+        "hybridauth/hybridauth": "3.0.x-dev"
     },
     "autoload": {
         "psr-4": {
