@@ -1,40 +1,41 @@
 <?php
 
 use Phalcon\DI\FactoryDefault;
-use Phalcon\Mvc\Model;
-use Phalcon\Mvc\View;
-use Phalcon\Crypt;
-use Phalcon\Mvc\Dispatcher;
-use Phalcon\Mvc\Url as UrlResolver;
-use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Files as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as FlashDirect;
 use Phalcon\Flash\Session as FlashSession;
-use Phalcon\Logger\Adapter\File as FileLogger;
 use Phalcon\Logger\Formatter\Line as FormatterLine;
-use Phalcon\Logger;
-use Phalcon\Events\Manager as EventsManager;
+
+$di = new Phalcon\Di();
 
 /**
- * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
- */
-$di = new FactoryDefault();
-
-/**
- * Register the global configuration as config
+ * Register the global config
  */
 $di->set('config', $config);
 
-$evtMgr = new EventsManager();
+$di->set("response",           "Phalcon\\Http\\Response", true);
+$di->set("cookies",            "Phalcon\\Http\\Response\\Cookies", true);
+$di->set("request",            "Phalcon\\Http\\Request", true);
+$di->set("filter",             "Phalcon\\Filter", true);
+$di->set("escaper",            "Phalcon\\Escaper", true);
+$di->set("security",           "Phalcon\\Security", true);
+$di->set("annotations",        "Phalcon\\Annotations\\Adapter\\Memory", true);
+$di->set("flashSession",       "Phalcon\\Flash\\Session", true);
+$di->set("tag",                "Phalcon\\Tag", true);
+$di->set("sessionBag",         "Phalcon\\Session\\Bag");
+$di->set("eventsManager",      "Phalcon\\Events\\Manager", true);
+$di->set("transactionManager", "Phalcon\\Mvc\\Model\\Transaction\\Manager", true);
+$di->set("assets",             "Phalcon\\Assets\\Manager", true);
+
+$evtMgr = new Phalcon\Events\Manager();
 $evtMgr->enablePriorities(true);
 
 /**
  * The URL component is used to generate all kind of urls in the application
  */
 $di->set('url', function () use ($config) {
-    $url = new UrlResolver();
+    $url = new Phalcon\Mvc\Url();
     $url->setBaseUri($config->application->baseUri);
     return $url;
 }, true);
@@ -44,19 +45,19 @@ $di->set('url', function () use ($config) {
  */
 $di->set('view', function () use ($config) {
 
-    $view = new View();
+    $view = new Phalcon\Mvc\View();
 
     $view->setViewsDir($config->application->viewsDir);
 
     $view->registerEngines(array(
         '.volt' => function ($view, $di) use ($config) {
 
-            $volt = new VoltEngine($view, $di);
+            $volt = new Phalcon\Mvc\View\Engine\Volt($view, $di);
 
             $volt->setOptions(array(
-                'compiledPath' => $config->application->cacheDir . 'volt/',
+                'compiledPath'      => $config->application->cacheDir . 'volt/',
                 'compiledSeparator' => '_',
-                'compiledPath' => function($templatePath) use ($config) {
+                'compiledPath'      => function($templatePath) use ($config) {
                     return $config->application->cacheDir . 'volt/' . md5($templatePath) . '.php';
                 },
             ));
@@ -81,28 +82,29 @@ $di->get('assets')->addJs("/assets/js/script.js?v=".filemtime(BASE_DIR.'/public/
 $di->set('db', function () use ($config) {
     // db logger deleted, see git log
 
-    $connection = new DbAdapter(array(
-        'host' => $config->database->host,
+    $connection = new Phalcon\Db\Adapter\Pdo\Mysql(array(
+        'host'     => $config->database->host,
         'username' => $config->database->username,
         'password' => $config->database->password,
-        'dbname' => $config->database->dbname,
-        'options' => [ \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8' ],
-        'charset' =>'utf8'
+        'dbname'   => $config->database->dbname,
+        'options'  => [ \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8' ],
+        'charset'  => 'utf8'
     ));
 
     return $connection;
-});
+}, true);
 
-Model::setup(['notNullValidations' => false]);
+Phalcon\Mvc\Model::setup(['notNullValidations' => false]);
 
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
+$di->set("modelsManager",  "Phalcon\\Mvc\\Model\\Manager", true);
 $di->set('modelsMetadata', function () use ($config) {
     return new MetaDataAdapter(array(
         'metaDataDir' => $config->application->cacheDir . 'metaData/'
     ));
-});
+}, true);
 
 /**
  * Start the session the first time some component request the session service
@@ -111,16 +113,16 @@ $di->set('session', function () {
     $session = new SessionAdapter();
     $session->start();
     return $session;
-});
+}, true);
 
 /**
  * Crypt service
  */
 $di->set('crypt', function () use ($config) {
-    $crypt = new Crypt();
+    $crypt = new Phalcon\Crypt();
     $crypt->setKey($config->application->cryptSalt);
     return $crypt;
-});
+}, true);
 
 /**
  * Dispatcher use a default namespace
@@ -129,35 +131,35 @@ $di->set('dispatcher', function () use ($evtMgr) {
     $evtMgr->attach('dispatch:beforeException', new App\Plugins\NotFoundPlugin);
 #   $evtMgr->attach('dispatch:beforeDispatch',  new App\Plugins\SecurityPlugin);
 
-    $dispatcher = new Dispatcher();
+    $dispatcher = new Phalcon\Mvc\Dispatcher();
     $dispatcher->setDefaultNamespace('App\Controllers');
     $dispatcher->setEventsManager($evtMgr);
 
     return $dispatcher;
-});
+}, true);
 
 /**
  * Loading routes from the routes.php file
  */
 $di->set('router', function () {
     return require __DIR__ . '/routes.php';
-});
+}, true);
 
 /**
  * Flash service with custom CSS classes
  */
 $di->set('flash', function () {
     return new FlashSession(array(
-        'error' => 'alert alert-danger',
+        'error'   => 'alert alert-danger',
         'success' => 'alert alert-success',
-        'notice' => 'alert alert-info',
+        'notice'  => 'alert alert-info',
         'warning' => 'alert alert-warning'
     ));
-});
+}, true);
 
-$di->set('auth', function () { return new App\Library\Auth\Auth(); });
-$di->set('mail', function () { return new App\Library\Mail\Mail(); });
-$di->set('acl',  function () { return new App\Library\Acl\Acl(); });
+$di->set('auth', function () { return new App\Library\Auth\Auth(); }, true);
+$di->set('mail', function () { return new App\Library\Mail\Mail(); }, true);
+$di->set('acl',  function () { return new App\Library\Acl\Acl(); }, true);
 
 /**
  * Logger service
@@ -170,7 +172,7 @@ $di->set('logger', function ($filename = null, $format = null) use ($config) {
     $path     = rtrim($config->get('logger')->path, '\\/') . DIRECTORY_SEPARATOR;
 
     $formatter = new FormatterLine($format, $config->get('logger')->date);
-    $logger    = new FileLogger($path . $filename);
+    $logger    = new Phalcon\Logger\Adapter\File($path . $filename);
 
     $logger->setFormatter($formatter);
     $logger->setLogLevel($config->get('logger')->logLevel);
