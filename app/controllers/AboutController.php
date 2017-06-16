@@ -17,4 +17,8 @@ class AboutController extends ControllerBase
     {
         $this->view->pageTitle = 'Test';
     }
+
+    public function infoAction()
+    {
+    }
 }
