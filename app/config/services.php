@@ -236,6 +236,8 @@ $di->setShared('overstockService',    function() { return new \Service\Overstock
 $di->setShared('skuService',          function() { return new \Service\SkuService(); });
 $di->setShared('rmaService',          function() { return new \Service\RmaService(); });
 
+$di->setShared('pdfService',          function() { return new \Service\PdfService(); });
+
 $di->setShared('fedexService',        function() { return new \Service\FedexService(); });
 $di->setShared('upsService',          function() { return new \Service\UpsService(); });
 $di->setShared('canadaPostService',   function() { return new \Service\CanadaPostService(); });
