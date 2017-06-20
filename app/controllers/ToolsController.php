@@ -6,10 +6,29 @@ class ToolsController extends ControllerBase
 {
     public function barcodeAction()
     {
-        $filename = 'E:/Orders.pdf';
-        $output   = 'E:/Orders-Barcode.pdf';
-        if (file_exists($filename)) {
-            $this->pdfService->addBarCode($filename, $output);
+        $filenames = [
+            'E:/Orders',
+            'E:/Orders-AmazonCA',
+        ];
+
+        if ($this->request->isPost()) {
+            foreach ($filenames as $filename) {
+                if (file_exists("$filename.pdf")) {
+                    $this->pdfService->addBarCode("$filename.pdf", "$filename-Barcode.pdf");
+                }
+            }
         }
+
+        $fileinfo = [];
+        foreach ($filenames as $filename) {
+            $info = [];
+            $info['filename'] = "$filename.pdf";
+            $info['output']   = "$filename-Barcode.pdf";
+            $info['exists']   = file_exists($info['filename']);
+            $info['created']  = file_exists($info['output']);
+            $fileinfo[] = $info;
+        }
+
+        $this->view->fileinfo = $fileinfo;
     }
 }
