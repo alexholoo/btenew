@@ -60,8 +60,8 @@ class FedexService extends Injectable
         //recipient
         $rateRequest->RequestedShipment->Recipient->Address->StreetLines = [ $address ];
         $rateRequest->RequestedShipment->Recipient->Address->City = $city;
-        $rateRequest->RequestedShipment->Recipient->Address->StateOrProvinceCode = province;
-        $rateRequest->RequestedShipment->Recipient->Address->PostalCode = postalcode;
+        $rateRequest->RequestedShipment->Recipient->Address->StateOrProvinceCode = $province;
+        $rateRequest->RequestedShipment->Recipient->Address->PostalCode = $postalcode;
         $rateRequest->RequestedShipment->Recipient->Address->CountryCode = $country;
 
         //shipping charges payment
@@ -87,7 +87,7 @@ class FedexService extends Injectable
         $rateRequest->RequestedShipment->RequestedPackageLineItems[0]->Weight->Units = SimpleType\WeightUnits::_LB;
         $rateRequest->RequestedShipment->RequestedPackageLineItems[0]->Dimensions->Length = $length;
         $rateRequest->RequestedShipment->RequestedPackageLineItems[0]->Dimensions->Width = $width;
-        $rateRequest->RequestedShipment->RequestedPackageLineItems[0]->Dimensions->Height = $height;
+        $rateRequest->RequestedShipment->RequestedPackageLineItems[0]->Dimensions->Height = $depth;
         $rateRequest->RequestedShipment->RequestedPackageLineItems[0]->Dimensions->Units = SimpleType\LinearUnits::_IN;
         $rateRequest->RequestedShipment->RequestedPackageLineItems[0]->GroupPackageCount = 1;
 
