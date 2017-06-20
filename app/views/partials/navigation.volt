@@ -52,6 +52,12 @@
             <li><a href="/amazon/fbaitems">Generate FBA lines</a></li>
           </ul>
         </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tools<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/tools/barcode">Add Barcodes</a></li>
+          </ul>
+        </li>
         <li><a href="/about">About</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
