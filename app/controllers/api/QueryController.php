@@ -26,4 +26,17 @@ class QueryController extends ControllerBase
 
         return $this->response;
     }
+
+    public function orderSkuAction($orderId)
+    {
+        if (strlen($orderId) == 17) { // Amazon Order Number without -
+            $orderId = substr($orderId, 0, 3).'-'.substr($orderId, 3, 7).'-'.substr($orderId, 10);
+        }
+
+        $items = $this->orderService->getOrderItems($orderId);
+        $skus = array_column($items, 'sku');
+        $this->response->setJsonContent(['status' => 'OK', 'data' => $skus ]);
+
+        return $this->response;
+    }
 }
