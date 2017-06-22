@@ -10,28 +10,32 @@
       <strong>Error!</strong> {{ error }}
     </div>
   {% endif %}
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
   <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">#</th>
-        <th>Filename</th>
-        <th>Output</th>
-        <th style="text-align: center;">Status</th>
-      </tr>
-    </thead>
     <tbody>
-    {% for info in fileinfo %}
       <tr>
-        <td class="text-center"><input type="checkbox" checked></input></td>
-        <td{% if not info['exists'] %} class="danger"{% endif %}>{{ info['filename'] }}</td>
-        <td>{{ info['output'] }}</td>
-        <td class="text-center">{% if info['created'] %}<span class="label label-success"><span class="glyphicon glyphicon-ok"></span></span>{% endif %}</td>
+        <th>Amazon Order File: </th>
+        <td><input type="file" name="amazonOrderFile"></td>
       </tr>
-    {% endfor %}
+      <tr>
+        <th>Newegg Order File: </th>
+        <td><input type="file" name="neweggOrderFile"></td>
+      </tr>
+      <tr>
+        <th>eBay Order File: </th>
+        <td><input type="file" name="ebayOrderFile"></td>
+      </tr>
+      <tr>
+        <th>Rakuten Order File: </th>
+        <td><input type="file" name="rakutenOrderFile"></td>
+      </tr>
+      <tr>
+        <th>Bestbuy Order File: </th>
+        <td><input type="file" name="bestbuyOrderFile"></td>
+      </tr>
     </tbody>
   </table>
-  <button type="submit" class="btn btn-primary">Add Barcodes</button>
+  <input type="submit" class="btn btn-primary" value="Add Barcodes">
   </form>
 </div>
 {% endblock %}

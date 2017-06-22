@@ -2,33 +2,41 @@
 
 namespace App\Controllers;
 
+use Toolkit\File;
+
 class ToolsController extends ControllerBase
 {
     public function barcodeAction()
     {
-        $filenames = [
-            'E:/Orders',
-            'E:/Orders-AmazonCA',
-        ];
+        if ($this->request->isPost() && $this->request->hasFiles()) {
+            $uploadDir = 'E:/BTE/uploads/';
 
-        if ($this->request->isPost()) {
-            foreach ($filenames as $filename) {
-                if (file_exists("$filename.pdf")) {
-                    $this->pdfService->addBarCode("$filename.pdf", "$filename-Barcode.pdf");
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755);
+                mkdir($uploadDir.'/archive', 0755);
+            }
+
+            foreach ($this->request->getUploadedFiles() as $file) {
+                if ($file->getName() == '') {
+                    continue;
+                }
+
+                $filename = $uploadDir . $file->getName();
+
+                if (file_exists($filename)) {
+                    File::archive($filename);
+                }
+                $file->moveTo($filename);
+
+                $newfile = File::suffix($filename, 'Barcode');
+                if (file_exists($filename)) {
+                    File::archive($newfile);
+                }
+
+                if ($file->getKey() == 'amazonOrderFile') {
+                    $this->pdfService->addBarCode($filename, $newfile);
                 }
             }
         }
-
-        $fileinfo = [];
-        foreach ($filenames as $filename) {
-            $info = [];
-            $info['filename'] = "$filename.pdf";
-            $info['output']   = "$filename-Barcode.pdf";
-            $info['exists']   = file_exists($info['filename']);
-            $info['created']  = file_exists($info['output']);
-            $fileinfo[] = $info;
-        }
-
-        $this->view->fileinfo = $fileinfo;
     }
 }
