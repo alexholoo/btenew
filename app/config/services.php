@@ -1,32 +1,11 @@
 <?php
 
-use Phalcon\DI\FactoryDefault;
-use Phalcon\Mvc\Model\Metadata\Files as MetaDataAdapter;
-use Phalcon\Session\Adapter\Files as SessionAdapter;
-use Phalcon\Flash\Direct as FlashDirect;
-use Phalcon\Flash\Session as FlashSession;
-use Phalcon\Logger\Formatter\Line as FormatterLine;
-
-$di = new Phalcon\Di();
+$di = new Phalcon\DI\FactoryDefault();
 
 /**
  * Register the global config
  */
 $di->set('config', $config);
-
-$di->set("response",           "Phalcon\\Http\\Response", true);
-$di->set("cookies",            "Phalcon\\Http\\Response\\Cookies", true);
-$di->set("request",            "Phalcon\\Http\\Request", true);
-$di->set("filter",             "Phalcon\\Filter", true);
-$di->set("escaper",            "Phalcon\\Escaper", true);
-$di->set("security",           "Phalcon\\Security", true);
-$di->set("annotations",        "Phalcon\\Annotations\\Adapter\\Memory", true);
-$di->set("flashSession",       "Phalcon\\Flash\\Session", true);
-$di->set("tag",                "Phalcon\\Tag", true);
-$di->set("sessionBag",         "Phalcon\\Session\\Bag");
-$di->set("eventsManager",      "Phalcon\\Events\\Manager", true);
-$di->set("transactionManager", "Phalcon\\Mvc\\Model\\Transaction\\Manager", true);
-$di->set("assets",             "Phalcon\\Assets\\Manager", true);
 
 $evtMgr = new Phalcon\Events\Manager();
 $evtMgr->enablePriorities(true);
@@ -92,9 +71,8 @@ Phalcon\Mvc\Model::setup(['notNullValidations' => false]);
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
-$di->set("modelsManager",  "Phalcon\\Mvc\\Model\\Manager", true);
 $di->set('modelsMetadata', function () use ($config) {
-    return new MetaDataAdapter(array(
+    return new Phalcon\Mvc\Model\Metadata\Files(array(
         'metaDataDir' => $config->application->cacheDir . 'metaData/'
     ));
 }, true);
@@ -103,7 +81,7 @@ $di->set('modelsMetadata', function () use ($config) {
  * Start the session the first time some component request the session service
  */
 $di->set('session', function () {
-    $session = new SessionAdapter();
+    $session = new Phalcon\Session\Adapter\Files();
     session_set_cookie_params(3600*24*365);
     $session->start();
     return $session;
@@ -143,7 +121,7 @@ $di->set('router', function () {
  * Flash service with custom CSS classes
  */
 $di->set('flash', function () {
-    return new FlashSession(array(
+    return new Phalcon\Flash\Session(array(
         'error'   => 'alert alert-danger',
         'success' => 'alert alert-success',
         'notice'  => 'alert alert-info',
@@ -165,7 +143,7 @@ $di->set('logger', function ($filename = null, $format = null) use ($config) {
     $filename = trim($filename ?: "app-$today.log", '\\/');
     $path     = rtrim($config->get('logger')->path, '\\/') . DIRECTORY_SEPARATOR;
 
-    $formatter = new FormatterLine($format, $config->get('logger')->date);
+    $formatter = new Phalcon\Logger\Formatter\Line($format, $config->get('logger')->date);
     $logger    = new Phalcon\Logger\Adapter\File($path . $filename);
 
     $logger->setFormatter($formatter);

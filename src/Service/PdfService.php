@@ -70,14 +70,15 @@ class PdfService extends Injectable
         foreach ($pages as $index => $page) {
             $lines = explode("\n", $page->getText());
             foreach ($lines as $line) {
-                $line = str_replace([' ', '­'], ['', '-'], $line);
+                // remove dashes, they make barcode too long
+                $line = str_replace([' ', '­'], ['', ''], $line);
                 if (preg_match('/Order ID:/', $line)) {
                     $fpdf->AddPage();
                     $tplIdx = $fpdf->importPage($index + 1);
                     $fpdf->useTemplate($tplIdx);
 
                     $orderId = substr($line, 12);
-                    $fpdf->write1DBarcode($orderId, 'C128', '', '', '', 12, 0.3, $style, 'N');
+                    $fpdf->write1DBarcode($orderId, 'C128', '', '', '', 14, 0.3, $style, 'N');
 
                     break;
                 }

@@ -4,6 +4,12 @@
 <div class="container">
   <h2>Bar Code</h2>
   <p>This page helps adding barcode to order sheets</p>
+  {% if error is not empty %}
+    <div class="alert alert-danger alert-dismissable">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Error!</strong> {{ error }}
+    </div>
+  {% endif %}
   <form method="POST">
   <table class="table table-bordered">
     <thead>
