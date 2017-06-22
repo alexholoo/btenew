@@ -56,6 +56,23 @@ class File // FileUtils
     }
 
     /**
+     * Genrate a new filename by appending a suffix to filename
+     */
+    public static function suffix($filename, $suffix)
+    {
+        $path = pathinfo($filename);
+
+        $dir   = $path['dirname'];
+        $fname = $path['filename'].'-'.$suffix;
+        $ext   = isset($path['extension']) ? $path['extension'] : '';
+       #$ext   = $path['extension'] ?? ''; // php7+ only
+
+        $newfile = "$dir/$fname.$ext";
+
+        return $newfile;
+    }
+
+    /**
      * Rename the file by suffixing filename with timestamp
      *
      * Before:
