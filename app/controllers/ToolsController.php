@@ -34,6 +34,7 @@ class ToolsController extends ControllerBase
 
                 if ($file->getKey() == 'amazonOrderFile') {
                     $this->pdfService->addBarCode($filename, $newfile);
+                    $this->startDownload($newfile);
                 }
             }
         }
