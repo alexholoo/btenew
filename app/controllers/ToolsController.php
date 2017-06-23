@@ -6,9 +6,11 @@ class ToolsController extends ControllerBase
 {
     public function barcodeAction()
     {
+        $date = date('Md,Y', strtotime('-1 day'));
+
         $filenames = [
-            'E:/Orders',
-            'E:/Orders-AmazonCA',
+            "Y:/daily invoice/Amazon CA/Ca$date/Manage Orders",
+            "Y:/daily invoice/Amazon US/Us$date/Manage Orders",
         ];
 
         if ($this->request->isPost()) {
