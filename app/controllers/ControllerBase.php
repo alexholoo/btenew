@@ -77,7 +77,7 @@ class ControllerBase extends Controller
             header('Content-Length: ' . filesize($filename));
             header('Content-Disposition: attachment; filename="'.basename($filename).'"');
             readfile($filename);
-            die();
+            //die();
         }
     }
 }
