@@ -11,7 +11,7 @@ class ToolsController extends ControllerBase
         if ($this->request->isPost() && $this->request->hasFiles()) {
             $uploadDir = 'E:/BTE/uploads/';
 
-            if (!is_dir($uploadDir)) {
+            if (!is_dir($uploadDir.'/archive')) {
                 mkdir($uploadDir.'/archive', 0777, true);
             }
 
