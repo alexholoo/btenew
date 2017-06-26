@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex">
+
+    <title>Dashboard  - Bootsnipp.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <style type="text/css">
+    
+    </style>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        window.alert = function(){};
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css){
+            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />'); 
+            else $('head > link').filter(':first').replaceWith(defaultCSS); 
+        }
+        $( document ).ready(function() {
+          var iframe_height = parseInt($('html').height()); 
+          window.parent.postMessage( iframe_height, 'https://bootsnipp.com');
+        });
+    </script>
+</head>
+<body>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<!--
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+-->
+<style>
+.grafico {
+	min-width: 310px;
+	max-width: 400px;
+	height: 280px;
+	margin: 0 auto
+}
+
+.main-header {
+    font-size: x-large;
+    color : #888;
+    font-family: Verdana;
+    margin-bottom: 20px;
+}
+
+.destaque {
+    color: #f88;
+    font-weight: bolder;
+}
+
+.highcharts-tooltip h3 {
+    margin: 0.3em 0;
+}
+</style>
+
+
+<div class="container">
+	<div class="row">
+	    
+		<div class="main-header">Product <span class="destaque">name</span></div>
+	</div>
+	
+	
+	
+	<div class="col-md-3">
+	    
+	    <div class="panel panel-info">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-6">
+                <i class="fa fa-list-ol fa-5x"></i>
+              </div>
+              <div class="col-xs-6 text-right">
+                <p class="announcement-heading">4</p>
+                <p class="announcement-text">Customers</p>
+              </div>
+            </div>
+          </div>
+          <a href="#">
+            <div class="panel-footer announcement-bottom">
+              <div class="row">
+                <div class="col-xs-6">
+                  View
+                </div>
+                <div class="col-xs-6 text-right">
+                  <i class="fa fa-arrow-circle-right"></i>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+	</div>
+	
+	
+	
+
+	<div class="col-md-3">
+	    
+	    <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-6">
+                <i class="fa fa-usd fa-5x"></i>
+              </div>
+              <div class="col-xs-6 text-right">
+                <p class="announcement-heading"> R$ 950 mil</p>
+                <p class="announcement-text">Revenue</p>
+              </div>
+            </div>
+          </div>
+          <a href="#">
+            <div class="panel-footer announcement-bottom">
+              <div class="row">
+                <div class="col-xs-6">
+                  Details
+                </div>
+                <div class="col-xs-6 text-right">
+                  <i class="fa fa-arrow-circle-right"></i>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+	</div>	
+	
+	
+
+	<div class="col-md-3">
+	    
+	    <div class="panel panel-warning">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-6">
+                <i class="fa fa-line-chart fa-5x"></i>
+              </div>
+              <div class="col-xs-6 text-right">
+                <p class="announcement-heading"> 2,3 months</p>
+                <p class="announcement-text">Average time</p>
+              </div>
+            </div>
+          </div>
+          <a href="#">
+            <div class="panel-footer announcement-bottom">
+              <div class="row">
+                <div class="col-xs-6">
+                  Details
+                </div>
+                <div class="col-xs-6 text-right">
+                  <i class="fa fa-arrow-circle-right"></i>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+	</div>		
+	
+	
+
+
+	<div class="col-md-3">
+	    
+	    <div class="panel panel-success">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-6">
+                <i class="fa fa-money fa-5x"></i>
+              </div>
+              <div class="col-xs-6 text-right">
+                <p class="announcement-heading"> $ 250 k</p>
+                <p class="announcement-text">Recovered <i class=""></i>  </p>
+              </div>
+            </div>
+          </div>
+          <a href="#">
+            <div class="panel-footer announcement-bottom">
+              <div class="row">
+                <div class="col-xs-6">
+                  Details
+                </div>
+                <div class="col-xs-6 text-right">
+                  <i class="fa fa-arrow-circle-right"></i>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+	</div>			
+	
+	
+	
+	
+	<div class="col-md-6">
+	    
+	    <h3>Main customers</h3>
+	    
+	    <table class="table table-condensed table-bordered table-hover small">
+	        <thead>
+	           <tr>
+	               <th style="width:80px;">.</th>
+	               <th>Name</th>
+	               <th>Revenue</th>
+	               <th>Tax</th>
+	               <th>Cap</th>
+	               <th>ROI</th>	               
+	               <th>Interest</th>
+	           </tr>
+	        </thead>
+	        <tbody>
+	            
+	            <tr>
+	                <td>
+	                    <a href="#"> <i class="glyphicon glyphicon-dashboard"></i></a>
+	                    <a href="#"> <i class="glyphicon glyphicon-eye-open"></i></a>
+	                    <a href="#"> <i class="glyphicon glyphicon-warning-sign"></i></a>
+	                </td>
+	                <td>
+	                    Company 1
+	                </td>
+	                <td>
+	                    $ 350 k
+	                </td>
+	                <td>
+	                    4 
+	                </td>
+	                <td>
+	                    $ 291,75
+	                </td>
+	                <td>3,72</td>
+	                <td>
+	                    3,65%
+	                </td>
+	                
+	            </tr>
+	            
+	            <tr class="danger">
+	                <td>
+	                    <a href="#"> <i class="glyphicon glyphicon-dashboard"></i> </a>
+	                    <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> </a>
+	                    <a href="#"> <i class="glyphicon glyphicon-warning-sign"></i></a>
+	                </td>
+	                
+	                <td>
+	                    Customer 2
+	                </td>
+	                <td>$ 270 k</td>
+	                <td>7,8 </td>
+	                <td>$ 1307.32</td>
+	                <td>2,61</td>	                
+	                <td>8,45%</td>
+	            </tr>
+
+	            <tr class="info">
+	                <td>
+	                    <a href="#"> <i class="glyphicon glyphicon-dashboard"></i> </a>
+	                    <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> </a>
+	                    <a href="#"> <i class="glyphicon glyphicon-warning-sign"></i></a>
+	                </td>
+	                
+	                <td>
+	                    Customer 3
+	                </td>
+	                <td>$ 125 k</td>
+	                <td>2,5 </td>
+	                <td>$ 312.45</td>
+	                <td>9,21</td>	                
+	                <td>2,5%</td>
+	            </tr>
+
+	            <tr >
+	                <td>
+	                    <a href="#"> <i class="glyphicon glyphicon-dashboard"></i> </a>
+	                    <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> </a>
+	                    <a href="#"> <i class="glyphicon glyphicon-warning-sign"></i></a>
+	                </td>
+	                
+	                <td>
+	                    Customer 4
+	                </td>
+	                <td>$ 205 k</td>
+	                <td>7,1 </td>
+	                <td>$ 115,75</td>
+	                <td>6,27</td>
+	                <td>(n/d)</td>
+	            </tr>
+
+	            
+	        </tbody>
+	        
+	    </table>
+	    
+    </div>
+	
+	<div class="col-md-6">
+	    <div id='grafico1' class="grafico"></div>
+	</div>
+	
+	<div class="col-md-6">
+	    <div id='grafico2' class="grafico"></div>
+	</div>
+	<div class="col-md-6">
+	    <div id='grafico3' class="grafico"></div>
+	</div>
+
+	
+	
+	
+		<div class="col-md-8">
+	    
+	    <h3>Messages</h3>
+	    
+	    <table class="table table-condensed table-bordered table-hover small">
+	        <thead>
+	           <tr>
+	               <th style="width:30px;">.</th>
+	               <th>From</th>
+	               <th>Subject</th>
+	               <th>Actions</th>
+	           </tr>
+	        </thead>
+	        <tbody>
+	            
+	          
+	            
+	            
+	            <tr class="text-info">
+	                <td>
+	                   <i class="glyphicon glyphicon-info-sign"></i>
+	                </td>
+	                <td>
+	                   John Doe
+	                </td>
+	                <td>
+	                    Complaint
+	                </td>
+	                <td>
+	                    <a href="#"> <i class="glyphicon glyphicon-eye-open"></i></a>
+	                    <a href="#"> <i class="glyphicon glyphicon-arrow-right"></i> </a>
+	                </td>
+
+	            </tr>
+	            
+
+	            <tr class="text-info">
+	                <td>
+	                   <i class="glyphicon glyphicon-user"></i>
+	                </td>
+	                <td>
+	                    Mr Joe
+	                </td>
+	                <td>
+	                    Congrats
+	                </td>
+	                <td>
+	                    <a href="#"> <i class="glyphicon glyphicon-eye-open"></i></a>
+	                    <a href="#"> <i class="glyphicon glyphicon-arrow-right"></i> </a>
+	                </td>
+
+	            </tr>
+	            
+
+	            
+	        </tbody>
+	        
+	    </table>
+	    
+    </div>
+	
+	
+		<div class="col-md-6">
+	    <div id='grafico4' class="grafico" style="height: 400px;"></div>
+	</div>
+
+	
+</div>
+	<script type="text/javascript">
+	
+document.addEventListener("DOMContentLoaded", function(event) { 
+    
+    Highcharts.chart('grafico1', {
+    
+credits: {
+        enabled: false
+    },
+        title: {
+            text: 'Revenue by brand'
+        },
+    
+    
+        yAxis: {
+            title: {
+                text: ' $'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+    
+        plotOptions: {
+            series: {
+                pointStart: 1
+            }
+        },
+    
+        series: [{
+            name: 'Brand 1',
+            data: [23, 27, 32, 26, 25, 27, 22, 19]
+        }, {
+            name: 'Brand 2',
+            data: [45, 49, 43, 41, 42, 41, 38, 34]
+        }, {
+            name: 'Brand 3',
+            data: [43, 58, 51, 52, 51, 60, 62, 65]
+        }, {
+            name: 'Brand 4',
+            data: [null, null, 23, 15, 19, 21, 27, 30]
+        }]
+    
+    });
+       
+       
+       
+       
+       
+       
+       
+       
+    
+    Highcharts.chart('grafico2', {
+    chart: {
+        type: 'areaspline'
+    },
+
+credits: {
+        enabled: false
+    },    
+        title: {
+            text: 'Forecast - ROI'
+        },
+    
+    
+        yAxis: {
+            title: {
+                text: 'Months'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+    
+        plotOptions: {
+            series: {
+                pointStart: 1
+            }
+        },
+    
+        series: [{
+            name: 'Product 1',
+            data: [15, 27, 32, 26, 25, 20]
+        }, {
+            name: 'Product 2',
+            data: [43, 41, 42, 41, 38, 34]
+        }, {
+            name: 'Product 3',
+            data: [51, 52, 51, 60, 62, 65]
+        }, {
+            name: 'Product 4',
+            data: [null, null, 29, 22, 19, 21]
+        }]
+    
+    });    
+    
+    
+    
+    
+    Highcharts.chart('grafico3', {
+    chart: {
+        type: 'column'
+    },
+    
+credits: {
+        enabled: false
+    },
+    title: {
+        text: 'Runway overview'
+    },
+    xAxis: {
+        categories: ['Product 1', 'Product 2', 'Product 3', 'Product 4']
+    },
+    yAxis: {
+        title: {
+            text: 'value (USD)'
+        },
+        stackLabels: {
+            enabled: true,
+            style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+        }
+    },
+    legend: {
+        align: 'center',
+        verticalAlign: 'bottom',
+        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+        borderColor: '#CCC',
+        shadow: false
+    },
+    tooltip: {
+        headerFormat: '<b>{point.x}</b><br/>',
+        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal',
+            dataLabels: {
+                enabled: false,
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+        }
+    },
+    series: [{
+        name: 'Debit',
+        data: [0,0,0,15],
+        color : '#FA5858'
+        
+    }, {
+        name: 'Available',
+        data: [150, 130, 25,  0],
+        color : '#58FA58'
+    }, {
+        name: 'Used',
+        data: [100, 140, 100, 205],
+        color : '#FE9A2E'
+        
+    }]
+});
+    
+    
+    
+   Highcharts.chart('grafico4', {
+
+credits: {
+        enabled: false
+    },
+    chart: {
+        type: 'bubble',
+        plotBorderWidth: 1,
+        zoomType: 'xy'
+    },
+
+    legend: {
+        enabled: true
+    },
+
+    title: {
+        text: 'Business analisys'
+    },
+
+
+    xAxis: {
+    min: 0, max: 100,
+        gridLineWidth: 1,
+        title: {
+            text: 'Revenue'
+        },
+        labels: {
+            format: '{value} %'
+        },
+        plotLines: [{
+            color: 'red',
+            dashStyle: 'dot',
+            width: 1,
+            value: 25,
+            zIndex: 3
+        },{
+            color: 'black',
+            dashStyle: 'dot',
+            width: 2,
+            value: 50,
+            zIndex: 3
+        },{
+            color: 'green',
+            dashStyle: 'dot',
+            width: 1,
+            value: 75,
+            zIndex: 3
+        }
+        ]
+    },
+
+    yAxis: {
+    	 min: 0, max: 100,
+        startOnTick: false,
+        endOnTick: false,
+        title: {
+            text: 'Sales'
+        },
+        labels: {
+            format: '{value} %'
+        },
+        maxPadding: 0.2,
+        plotLines: [{
+            color: 'red',
+            dashStyle: 'dot',
+            width: 1,
+            value: 25,
+            zIndex: 3
+        },{
+            color: 'black',
+            dashStyle: 'dot',
+            width: 2,
+            value: 50,
+            zIndex: 3
+        },{
+            color: 'green',
+            dashStyle: 'dot',
+            width: 1,
+            value: 75,
+            zIndex: 3
+        }]
+    },
+
+    tooltip: {
+        useHTML: true,
+        headerFormat: '<table>',
+        pointFormat: '<tr><th>CAC:</th><td>{point.x}%</td></tr>' +
+            '<tr><th>Vendas:</th><td>{point.y}%</td></tr>' +
+            '<tr><th>Volume:</th><td>R$ {point.z} k</td></tr>',
+        footerFormat: '</table>',
+        followPointer: true
+    },
+
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.code}'
+            }
+        }
+    },
+
+    series: [{
+    	  name : 'Ok',
+        minSize : '10%',
+        maxSize: '20%',
+        color : '#0c0',
+        data: [
+            { x: 80.4, y: 62.5, z: 50, code: 'I4', name: 'Product 4' }
+
+        ]
+    }, 
+    {
+    name : 'Danger',
+        minSize : '10%',
+        maxSize: '20%',
+    color: '#c00',
+    data : [
+                { x: 25, y: 15, z: 16, code: 'I1', name: 'Product 1' }
+    ]
+    },
+    
+    {
+    	name : 'Warning',
+        minSize : '10%',
+        maxSize: '20%',
+      color : '#fa0',
+      data : [
+         { x: 25, y: 65, z: 32, code: 'I5', name: 'Product 5' }, 
+         { x: 86.5, y: 10, z: 17, code: 'I2', name: 'Product 2'}
+      ]
+    },
+    
+    {
+    name : 'Regular',
+        minSize : '10%',
+        maxSize: '20%',
+     color : '#af0',
+    data: [
+    { x: 80.8, y: 48.5, z: 15, code: 'I3', name: 'Product 3' }
+    ]
+    }
+    
+    
+    
+    
+    ]
+
+}); 
+    
+    
+    
+});
+
+	</script>
+</body>
+</html>
