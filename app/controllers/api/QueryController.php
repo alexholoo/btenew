@@ -47,7 +47,8 @@ class QueryController extends ControllerBase
             $orderId = $order['order_id'];
             $items = $this->orderService->getOrderItems($orderId);
             $skus = array_column($items, 'sku');
-            $this->response->setJsonContent(['status' => 'OK', 'data' => $skus ]);
+            $data = [ 'orderNo' => $orderId, 'items' => $skus ];
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
         } else {
             $this->response->setJsonContent(['status' => 'OK', 'data' => [] ]);
         }
