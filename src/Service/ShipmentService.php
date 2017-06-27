@@ -39,6 +39,13 @@ class ShipmentService extends Injectable
         return $info;
     }
 
+    public function getOrderByTracking($trackingNum)
+    {
+        $sql = "SELECT * FROM master_order_tracking WHERE tracking_number='$trackingNum'";
+        $info = $this->db->fetchOne($sql);
+        return $info;
+    }
+
     public function getOrderTracking($orderId)
     {
         $sql = "SELECT * FROM master_order_tracking WHERE order_id='$orderId'";

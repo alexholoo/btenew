@@ -39,4 +39,19 @@ class QueryController extends ControllerBase
 
         return $this->response;
     }
+
+    public function trackingSkuAction($trackingNum)
+    {
+        $order = $this->shipmentService->getOrderByTracking($trackingNum);
+        if ($order) {
+            $orderId = $order['order_id'];
+            $items = $this->orderService->getOrderItems($orderId);
+            $skus = array_column($items, 'sku');
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $skus ]);
+        } else {
+            $this->response->setJsonContent(['status' => 'OK', 'data' => [] ]);
+        }
+
+        return $this->response;
+    }
 }
