@@ -64,7 +64,8 @@ class ControllerBase extends Controller
     {
         // $name looks like 'job/Test'
         // exec('psexec -d c:/xampp/php/php ../job/Test.php');
-        exec("psexec -d c:/xampp/php64/php ../$name.php $args");
+        // exec("psexec -d c:/xampp/php64/php ../$name.php $args");
+        $this->queue->put([ $name => $args ]);
     }
 
     protected function startDownload($filename)
