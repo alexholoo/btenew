@@ -8,7 +8,7 @@ $queue = new Phalcon\Queue\Beanstalk(
     )
 );
 
-$pause = 0;
+#$start = time();
 
 while (1) {
     while (($job = $queue->peekReady()) !== false) {
@@ -28,7 +28,9 @@ while (1) {
         $job->delete();
     }
 
-    $pause = min($pause + 1, 10);
+    sleep(5);
 
-    sleep($pause);
+    #if (time() - $start > 50) {
+    #    break;
+    #}
 }
