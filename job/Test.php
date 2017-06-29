@@ -7,7 +7,7 @@ class TestJob extends Job
     public function run($args = [])
     {
         for ($i=0; $i<10; $i++) {
-            $this->log(__FILE__. ' ' .__METHOD__. ' ' .$i);
+           #$this->log(__FILE__. ' ' .__METHOD__. ' ' .$i);
             $this->error(__FILE__. ' ' .__METHOD__. ' ' .$i);
             sleep(1);
         }
