@@ -58,7 +58,7 @@ class WorldshipAddressBookJob extends Job
             $sku        = $order['sku'];
            #$price      = $order['price'];
            #$qty        = $order['qty'];
-            $product    = $order['product_name'];
+            $product    = $this->skuService->getName($sku); // $order['product_name'] is empty
 
             $province = $order['province'];
             if ($order['country'] == 'US') {
