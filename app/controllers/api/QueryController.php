@@ -46,13 +46,19 @@ class QueryController extends ControllerBase
         if ($order) {
             $orderId = $order['order_id'];
             $items = $this->orderService->getOrderItems($orderId);
-            $skus = array_column($items, 'sku');
+            #$skus = array_column($items, 'sku');
 
+            $skus = [ 'AS-173229', 'TD-173229' ];
+            $upcs = [ '050644694608', '816264014185' ];
             $locations = [];
-            foreach ($skus as $sku) {
-                $upc = $this->skuService->getUpc($sku);
+            foreach ($skus as $index => $sku) {
+               #$upc = $this->skuService->getUpc($sku);
+                $upc = $upcs[$index];
                 $loc = $this->inventoryLocationService->findUpc($upc);
-                $locations[$sku] = array_column($loc, 'location');
+                $locations[] = [
+                    'sku' => $sku,
+                    'loc' => array_column($loc, 'location')
+                ];
             }
             $data = [ 'orderNo' => $orderId, 'items' => $locations ];
             $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
