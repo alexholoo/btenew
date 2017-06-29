@@ -47,6 +47,22 @@ class QueryController extends ControllerBase
             $orderId = $order['order_id'];
             $items = $this->orderService->getOrderItems($orderId);
             $skus = array_column($items, 'sku');
+            $data = [ 'orderNo' => $orderId, 'items' => $skus ];
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
+        } else {
+            $this->response->setJsonContent(['status' => 'OK', 'data' => [] ]);
+        }
+
+        return $this->response;
+    }
+
+    public function trackingSkuLocAction($trackingNum)
+    {
+        $order = $this->shipmentService->getOrderByTracking($trackingNum);
+        if ($order) {
+            $orderId = $order['order_id'];
+            $items = $this->orderService->getOrderItems($orderId);
+            $skus = array_column($items, 'sku');
 
             $locations = [];
             foreach ($skus as $sku) {
