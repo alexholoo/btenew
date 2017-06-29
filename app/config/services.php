@@ -170,23 +170,11 @@ $di->setShared('jobLogger', function() use ($di) {
     return $logger;
 });
 
-$di->setShared('queue', function () use ($config) {
-    if (isset($config->beanstalk->disabled) && $config->beanstalk->disabled) {
-        return new class {
-            public function put($job)
-            {
-                return true;
-            }
-        };
-    }
-
-    $queue = new Phalcon\Queue\Beanstalk(
-        array(
-            'host' => 'localhost',
-            'port' => '11300'
-        )
-    );
-
+$di->setShared('queue', function () {
+    $queue = new Phalcon\Queue\Beanstalk([
+        'host' => 'localhost',
+        'port' => '11300'
+    ]);
     return $queue;
 });
 
