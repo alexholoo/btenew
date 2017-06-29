@@ -52,6 +52,13 @@ class InventoryLocationService extends Injectable
         return $data;
     }
 
+    public function findUpc($upc)
+    {
+        $sql = "SELECT partnum, upc, location, qty FROM inventory_location WHERE upc='$upc' ORDER BY updatedon";
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
+
     public function add($data)
     {
         // TODO: who is doing this? add a new column(userid) to table.
