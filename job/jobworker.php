@@ -8,6 +8,8 @@ $queue = new Phalcon\Queue\Beanstalk(
     )
 );
 
+echo "Job worker is running\n";
+
 prlog("Start");
 
 $pause = 0;
@@ -21,6 +23,8 @@ while (1) {
 
         $name = key($message);
         $params = current($message);
+
+        echo "Run Job: $name\n";
 
         prlog("Run Job: $name");
 
