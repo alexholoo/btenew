@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set("America/Toronto");
+
 // Connect to the queue
 $queue = new Phalcon\Queue\Beanstalk(
     array(
