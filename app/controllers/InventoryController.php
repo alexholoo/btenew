@@ -81,10 +81,14 @@ class InventoryController extends ControllerBase
 
         if ($this->request->isPost()) {
             $data = $this->request->getPost();
-            $data['note'] = strip_tags($data['note']);
-            $data['sn'] = strip_tags($data['sn']);
 
-            if ($this->inventoryLocationService->update($data)) {
+            $data['note'] = strip_tags($data['note']);
+            $data['sn']   = strip_tags($data['sn']);
+
+            $id = $data['id'];
+            unset($data['id']);
+
+            if ($this->inventoryLocationService->update($id, $data)) {
                 $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
             } else {
                 $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Failed to update']);

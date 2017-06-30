@@ -78,16 +78,7 @@ class InventoryLocationService extends Injectable
     {
         // TODO: who is doing this? add a new column(userid) to table.
         try {
-            $this->db->insertAsDict('inventory_location',
-                array(
-                    'partnum'  => $data['partnum'],
-                    'upc'      => $data['upc'],
-                    'location' => $data['location'],
-                    'qty'      => $data['qty'],
-                    'sn'       => $data['sn'],
-                    'note'     => $data['note'],
-                )
-            );
+            $this->db->insertAsDict('inventory_location', $data);
         } catch (\Exception $e) {
             // echo $e->getMessage(), EOL;
             return false;
@@ -96,16 +87,10 @@ class InventoryLocationService extends Injectable
         return $this->db->lastInsertId();
     }
 
-    public function update($data)
+    public function update($id, $data)
     {
         try {
-            $this->db->updateAsDict('inventory_location',
-                [
-                    'note' => $data['note'],
-                    'sn' => $data['sn'],
-                ],
-                'id='. $data['id']
-            );
+            $this->db->updateAsDict('inventory_location', $data, "id=$id");
         } catch (\Exception $e) {
             // echo $e->getMessage(), EOL;
             return false;
