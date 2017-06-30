@@ -53,5 +53,10 @@ prlog("Exit\n");
 function prlog($message)
 {
     $filename = 'app/logs/job-worker.log';
+
+    if (filesize($filename) > 128*1024) {
+        unlink($filename);
+    }
+
     error_log(date('Y-m-d H:i:s').' '.$message. "\n", 3, $filename);
 }
