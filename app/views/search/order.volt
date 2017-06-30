@@ -26,10 +26,10 @@
         <th>Express</th>
       </tr>
       {% for item in items %}
-      <tr>
+      <tr data-order-id="{{ order['order_id'] }}">
         <td>{{ order['date'] }}</td>
         <td>{{ order['channel'] }}</td>
-        <td>{{ order['order_id'] }}</td>
+        <td class="order-id"><a href="javascript:void(0)">{{ order['order_id'] }}</a></td>
         <td><a href="/search/sku?sku={{ item['sku'] }}" target="_blank">{{ item['sku'] }}</a></td>
         <td>{{ item['qty'] }}</td>
         <td>{{ item['price'] }}</td>
@@ -37,15 +37,6 @@
         <td>{{ order['express'] == 0 ? '' : 'Yes' }}</td>
       </tr>
       {% endfor %}
-      <tr><td colspan="8"></td></tr>
-      <tr>
-        <th class="active">Address</th>
-        <td colspan="2">{{ address['address'] }}</td>
-        <td>{{ address['city'] }}</td>
-        <td>{{ address['province'] }}</td>
-        <td>{{ address['postalcode'] }}</td>
-        <td colspan="2">{{ address['country'] }}</td>
-      </tr>
     </tbody>
   </table>
 
@@ -58,4 +49,10 @@
 {% endblock %}
 
 {% block jscode %}
+  $('.order-id a').click(function() {
+    var tr = $(this).closest('tr');
+    var orderId = tr.data('order-id');
+    var modal = new bte.OrderDetailModal(orderId);
+    modal.show();
+  });
 {% endblock %}
