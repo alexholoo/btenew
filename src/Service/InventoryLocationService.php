@@ -59,6 +59,21 @@ class InventoryLocationService extends Injectable
         return $result;
     }
 
+    public function findUpcMpn($upcmpn)
+    {
+        if ($this->skuService->isUPC($upcmpn)) {
+            $upc = $upcmpn;
+            $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE upc='$upc' ORDER BY updatedon";
+        } else {
+            $mpn = $upcmpn;
+            $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE partnum='$mpn' ORDER BY updatedon";
+        }
+
+        $result = $this->db->fetchAll($sql);
+
+        return $result;
+    }
+
     public function add($data)
     {
         // TODO: who is doing this? add a new column(userid) to table.

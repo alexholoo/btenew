@@ -2,8 +2,6 @@
 
 namespace Api\Controllers;
 
-use Phalcon\Mvc\Controller;
-
 class QueryController extends ControllerBase
 {
     public function initialize()
@@ -80,6 +78,13 @@ class QueryController extends ControllerBase
             $this->response->setJsonContent(['status' => 'OK', 'data' => [] ]);
         }
 
+        return $this->response;
+    }
+
+    public function inventoryAction($upcmpn)
+    {
+        $data = $this->inventoryLocationService->findUpcMpn($upcmpn);
+        $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
         return $this->response;
     }
 }
