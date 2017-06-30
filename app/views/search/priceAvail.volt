@@ -2,7 +2,7 @@
 
 {% block main %}
   <h3 style="margin-top:0;">Price & Availability</h3>
-  <div class="well">
+  <div class="well clearfix">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group col-xs-5 col-lg-5">
         <input class="form-control" name="sku" placeholder="Part number" value="{{ sku }}" type="text" autofocus style="width:100%">

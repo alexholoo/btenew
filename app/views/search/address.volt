@@ -2,7 +2,7 @@
 
 {% block main %}
   <h3 style="margin-top:0;">Address Information</h3>
-  <div class="well">
+  <div class="well clearfix">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group col-xs-5 col-lg-5">
         <input class="form-control" name="key" placeholder="Enter Last 4+ Digits of Order ID" pattern=".{4,}" type="text" autofocus required style="width:100%">
