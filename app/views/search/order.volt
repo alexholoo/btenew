@@ -2,12 +2,25 @@
 
 {% block main %}
   <h3 style="margin-top:0;">Order Information</h3>
-  <div class="well">
+  <div class="well clearfix">
     <form class="form-inline" role="form" method="POST">
-      <div class="form-group col-xs-5 col-lg-5">
-        <input class="form-control" name="id" placeholder="Enter Order ID" value="" type="text" autofocus style="width:100%">
+      <div class="col-sm-5">
+        <input class="form-control" name="kwd" placeholder="Enter OrderNO/SKU" value="" type="text" autofocus style="width:100%">
       </div>
-      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search </button>
+
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search </button>
+      </div>
+
+      <div class="col-sm-12">
+        <label class="radio-inline">
+          <input type="radio" name="searchby" value="orderid" {% if searchby == 'orderid' %}checked{% endif %}>Order Number
+        </label>
+
+        <label class="radio-inline">
+          <input type="radio" name="searchby" value="sku" {% if searchby == 'sku' %}checked{% endif %}>SKU
+        </label>
+      </div>
     </form>
   </div>
 
