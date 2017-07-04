@@ -28,7 +28,7 @@
   {% include "partials/navigation.volt" %}
   {% block sidebar %}{% endblock %}
 
-  <div class="container main-container" style="margin-top:60px;">
+  <div class="container main-container">
     {% block main %}{% endblock %}
   </div>
 
