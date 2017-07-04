@@ -124,6 +124,23 @@ class OrderService extends Injectable
         return $orders;
     }
 
+    public function countOrdersBySku($sku)
+    {
+        $start = date('Y-m-d', strtotime('-30 days'));
+
+        $sql = "SELECT COUNT(i.qty) AS qty".
+               "  FROM master_order_item i".
+               "  JOIN master_order o ON o.order_id=i.order_id".
+               " WHERE i.sku='$sku' AND o.date>='$start'";
+
+        $result = $this->db->fetchOne($sql);
+        if ($result) {
+            return $result['qty'];
+        }
+
+        return 0;
+    }
+
     public function isShipped($orderId)
     {
         return $this->shipmentService->isOrderShipped($orderId);
