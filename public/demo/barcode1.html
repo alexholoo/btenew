@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>BarCode</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
+</head>
+<body>
+    <svg id="barcode1"></svg><br>
+    <svg id="barcode2"></svg><br>
+    <svg id="barcode3"></svg><br>
+
+    <script type="text/javascript">
+        JsBarcode("#barcode1", "702-7780414-8206619", {
+          format: "code128",
+          height: 40,
+        });
+
+        JsBarcode("#barcode2", "70277804148206619", {
+          format: "code128",
+          height: 40,
+        });
+
+        JsBarcode("#barcode3", "886227694921", {
+          format: "upc",
+          height: 40,
+        });
+    </script>
+</body>
+</html>
+
+<!-- http://lindell.me/JsBarcode/ -->
