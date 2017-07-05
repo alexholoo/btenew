@@ -73,7 +73,8 @@
       format: "upc",
       width: 2,
       height: 40,
-      fontSize: 12,
+      displayValue: false,
+      flat: true
     });
     window.print();
   {% endif %}
