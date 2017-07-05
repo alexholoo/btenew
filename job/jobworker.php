@@ -33,7 +33,7 @@ while (1) {
         $file = "$name.php";
         if (file_exists($file)) {
            #exec('psexec -d c:/xampp/php64/php.exe ' . $file);
-            exec("c:/xampp/php/php.exe $file $params");
+            exec("c:/xampp/php64/php.exe $file $params");
         } else {
             prlog("Error: $file not found");
         }
