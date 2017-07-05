@@ -2,8 +2,6 @@
 
 namespace Api\Controllers;
 
-use Phalcon\Mvc\Controller;
-
 class ShipmentController extends ControllerBase
 {
     public function initialize()

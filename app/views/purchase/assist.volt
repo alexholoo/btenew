@@ -2,7 +2,7 @@
 
 {% block main %}
   <h2 style="margin-top:0;">Purchase assistant</h2>
-  <div class="well">
+  <div class="well clearfix">
     <form class="form-inline" role="form" method="POST">
       <div class="form-group col-xs">
         <input class="form-control" name="orderId" placeholder="Order number" type="text">

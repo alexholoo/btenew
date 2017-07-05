@@ -2,12 +2,25 @@
 
 {% block main %}
   <h3 style="margin-top:0;">Order Information</h3>
-  <div class="well">
+  <div class="well clearfix">
     <form class="form-inline" role="form" method="POST">
-      <div class="form-group col-xs-5 col-lg-5">
-        <input class="form-control" name="id" placeholder="Enter Order ID" value="" type="text" autofocus style="width:100%">
+      <div class="col-sm-5">
+        <input class="form-control" name="kwd" placeholder="Enter OrderNO/SKU" value="" type="text" autofocus style="width:100%">
       </div>
-      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search </button>
+
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search </button>
+      </div>
+
+      <div class="col-sm-12">
+        <label class="radio-inline">
+          <input type="radio" name="searchby" value="orderid" {% if searchby == 'orderid' %}checked{% endif %}>Order Number
+        </label>
+
+        <label class="radio-inline">
+          <input type="radio" name="searchby" value="sku" {% if searchby == 'sku' %}checked{% endif %}>SKU
+        </label>
+      </div>
     </form>
   </div>
 
@@ -26,10 +39,10 @@
         <th>Express</th>
       </tr>
       {% for item in items %}
-      <tr>
+      <tr data-order-id="{{ order['order_id'] }}">
         <td>{{ order['date'] }}</td>
         <td>{{ order['channel'] }}</td>
-        <td>{{ order['order_id'] }}</td>
+        <td class="order-id"><a href="javascript:void(0)">{{ order['order_id'] }}</a></td>
         <td><a href="/search/sku?sku={{ item['sku'] }}" target="_blank">{{ item['sku'] }}</a></td>
         <td>{{ item['qty'] }}</td>
         <td>{{ item['price'] }}</td>
@@ -37,15 +50,6 @@
         <td>{{ order['express'] == 0 ? '' : 'Yes' }}</td>
       </tr>
       {% endfor %}
-      <tr><td colspan="8"></td></tr>
-      <tr>
-        <th class="active">Address</th>
-        <td colspan="2">{{ address['address'] }}</td>
-        <td>{{ address['city'] }}</td>
-        <td>{{ address['province'] }}</td>
-        <td>{{ address['postalcode'] }}</td>
-        <td colspan="2">{{ address['country'] }}</td>
-      </tr>
     </tbody>
   </table>
 
@@ -58,4 +62,10 @@
 {% endblock %}
 
 {% block jscode %}
+  $('.order-id a').click(function() {
+    var tr = $(this).closest('tr');
+    var orderId = tr.data('order-id');
+    var modal = new bte.OrderDetailModal(orderId);
+    modal.show();
+  });
 {% endblock %}

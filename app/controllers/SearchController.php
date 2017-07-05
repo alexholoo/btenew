@@ -75,15 +75,17 @@ class SearchController extends ControllerBase
     public function orderAction()
     {
         $this->view->pageTitle = 'Order Information';
+        $this->view->searchby = 'orderid';
 
         if ($this->request->isGet()) {
             $orderId = $this->request->getQuery('id', 'trim');
         }
 
         if ($this->request->isPost()) {
-            $orderId = $this->request->getPost('id', 'trim');
+            $orderId = $this->request->getPost('kwd', 'trim');
         }
 
+        // TODO: use orderService->searchOrders($kwd, $searchby);
         $order = $this->orderService->getOrder($orderId);
 
         if ($order) {

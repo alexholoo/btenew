@@ -2,8 +2,6 @@
 
 namespace Api\Controllers;
 
-use Phalcon\Mvc\Controller;
-
 class QueryController extends ControllerBase
 {
     public function initialize()
@@ -37,6 +35,56 @@ class QueryController extends ControllerBase
         $skus = array_column($items, 'sku');
         $this->response->setJsonContent(['status' => 'OK', 'data' => $skus ]);
 
+        return $this->response;
+    }
+
+    public function trackingSkuAction($trackingNum)
+    {
+        $order = $this->shipmentService->getOrderByTracking($trackingNum);
+        if ($order) {
+            $orderId = $order['order_id'];
+            $items = $this->orderService->getOrderItems($orderId);
+            $skus = array_column($items, 'sku');
+            $data = [ 'orderNo' => $orderId, 'items' => $skus ];
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
+        } else {
+            $this->response->setJsonContent(['status' => 'OK', 'data' => [] ]);
+        }
+
+        return $this->response;
+    }
+
+    public function trackingSkuLocAction($trackingNum)
+    {
+        $order = $this->shipmentService->getOrderByTracking($trackingNum);
+        if ($order) {
+            $orderId = $order['order_id'];
+            $items = $this->orderService->getOrderItems($orderId);
+            $skus = array_column($items, 'sku');
+
+            $locations = [];
+            foreach ($skus as $sku) {
+                $upc = $this->skuService->getUpc($sku);
+                $loc = $this->inventoryLocationService->findUpc($upc);
+                $locations[] = [
+                    'sku' => $sku,
+                    'loc' => array_column($loc, 'location')
+                ];
+            }
+
+            $data = [ 'orderNo' => $orderId, 'items' => $locations ];
+            $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
+        } else {
+            $this->response->setJsonContent(['status' => 'OK', 'data' => [] ]);
+        }
+
+        return $this->response;
+    }
+
+    public function inventoryAction($upcmpn)
+    {
+        $data = $this->inventoryLocationService->findUpcMpn($upcmpn);
+        $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
         return $this->response;
     }
 }

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex">
+
+    <title>Send mail - Bootsnipp.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <style type="text/css">
+    #editor {
+     overflow:scroll; 
+     max-height:300px;
+     height: 15em;
+     border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#editor table {
+    width: 100%
+}
+#editor table tr th {
+    font-size: 80%;
+    padding: 0.5em;
+    font-align: center;
+}
+#editor table tr td {
+    padding: 0.3em;
+}
+form .row {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+div.checkbox {
+    margin-left: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.twitter-typeahead {
+    width: 100%;
+}
+.to {
+    padding: 4px;
+    position: relative;
+}
+.to .icon-remove-sign {
+    color: #ccc;
+    cursor: pointer;
+}
+.to-dropdown {
+    display: float;
+    position: absolute;
+    left: -1.9em;
+    top: 0.4em;
+    width: 4em;
+}
+.to .to-dropdown {
+    left: -4.2em;
+}
+.to .to-dropdown > span {
+    float: right;
+}
+.tt-dropdown-menu {
+ background: white;
+ border-radius: 4px;
+ padding: 12px;
+ margin: 1px;
+ border: solid 1px rgb(102, 175, 233);
+ outline: 0px none;
+ box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+}
+    </style>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        window.alert = function(){};
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css){
+            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />'); 
+            else $('head > link').filter(':first').replaceWith(defaultCSS); 
+        }
+        $( document ).ready(function() {
+          var iframe_height = parseInt($('html').height()); 
+          window.parent.postMessage( iframe_height, 'https://bootsnipp.com');
+        });
+    </script>
+</head>
+<body>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<script src="https://rawgithub.com/mindmup/bootstrap-wysiwyg/master/external/jquery.hotkeys.js"></script>
+<script type="text/javascript" src="https://rawgithub.com/mindmup/bootstrap-wysiwyg/master/bootstrap-wysiwyg.js"></script>
+<script type="text/javascript" src="https://rawgit.com/twitter/typeahead.js/master/dist/typeahead.bundle.min.js"></script>
+<script type="text/javascript" src="http://twitter.github.io/typeahead.js/js/handlebars.js"></script>
+
+<!-- Button trigger modal -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="launch">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">Send som mail</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-md-3" class="control-label">Modtagere:</label>
+              <div class="col-md-9">
+              <div class="to-dropdown">
+  <span class="label label-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    to: <span class="caret"></span>
+  </span>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">cc:</a></li>
+    <li><a href="#">bcc:</a></li>
+  </ul>
+</div>
+                <input id="mailadr" name="mailadr" class="typeahead form-control" type="text" placeholder="mail-adresse" data-provide="typeahead"/>
+                <div class="modtagere">
+                    <div class="to">
+                    <div class="to-dropdown">
+  <span class="label label-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    to: <span class="caret"></span>
+  </span>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">cc:</a></li>
+    <li><a href="#">bcc:</a></li>
+  </ul>
+</div>Beta Cykler &lt;beta@cykler.dk&gt; <span class="pull-right icon-remove-sign"></span></div>
+                    <div class="to">
+                    <div class="to-dropdown">
+  <span class="label label-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    bcc: <span class="caret"></span>
+  </span>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">to:</a></li>
+    <li><a href="#">cc:</a></li>
+  </ul>
+</div>Rasmus Lock Fuglsang &lt;rlf@logiva.dk&gt; <span class="pull-right icon-remove-sign"></span></div>
+                </div>
+                </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3" class="control-label">Emne:</label>
+              <div class="col-md-9">
+                <input class="typeahead form-control" type="text" placeholder="Emne" data-provide="typeahead" value="Sprgsml vedr. faktura 55123 p 6.789,-"/>
+               </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3" class="control-label">Besked:</label>
+              <div class="col-md-9">
+              <div class="">
+    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+      <div class="btn-group">
+        <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+        <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+        <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
+        <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+      </div>
+  
+      <div class="btn-group">
+        <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+        <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+      </div>
+    </div>                  
+              <div id="editor">Hej mr. X<br/>
+Der lader til at vre udfordringer ...
+<br/><b><u>Fakturaer:</u></b>
+              <p></p><table>
+                  <thead>
+                      <tr><th>Leverandr</th><th>Belb</th><th>Ansvarlig</th><th>Link</th></tr>
+                  </thead>
+                  <tbody>
+                      <tr><td>Beta Cykler</td><td>6.789,-</td><td>SVS</td><td><a href="#">Detaljer</a></td></tr>
+                  </tbody>
+              </table>
+              </div>
+              </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3" class="control-label">Dokumenter:</label>
+              <div class="col-md-9">
+                <div class="row">
+                    <div class="col-sm-6">
+                      <div class="checkbox">
+                          <input type="checkbox" name="att" value="Original01.pdf" checked> Original01.pdf</input>
+                          </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="checkbox">
+                          <input type="checkbox" name="att" value="regnskab.xls"> regnskab.xls</input>
+                          </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="checkbox">
+                          <input type="checkbox" name="att" value="faktura02.tif"> introduction.docx</input>
+                          </div>
+                    </div>
+                </div>
+               </div>
+            </div>
+        </form>
+        </div>
+
+</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuller</button>
+        <button type="button" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+     $(function(){
+         $('#editor').wysiwyg();
+         $('#launch').click();
+     });
+</script>
+	<script type="text/javascript">
+	$(document).on('click', '.to .icon-remove-sign', function() {
+  $(this).parent().remove();
+})
+function addMail(val) {
+       if (val) {
+           var to = $('<div class="to"><span class="addr"></span><span class="pull-right icon-remove-sign"></span></div>');
+           to.find('.addr').text(val);
+           $('.modtagere').append(to);
+       }
+}
+$('#mailadr').keydown(function(e)  {
+   if (e.keyCode == 13) {
+       var val = $('#mailadr').val();
+       addMail(val);
+   } 
+});
+
+
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substrRegex;
+ 
+    // an array that will be populated with substring matches
+    matches = [];
+ 
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+ 
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        // the typeahead jQuery plugin expects suggestions to a
+        // JavaScript object, refer to typeahead docs for more info
+        var div = $('<div></div>');
+        div.text(str);
+        matches.push({ display: div.text(), value: str});
+      }
+    });
+    cb(matches);
+  };
+};
+ 
+var data = [
+    'Rasmus Fuglsang <rlf@logiva.dk>', 
+    'Stark rhus <aarhus@stark.dk>', 
+    'Jens Wulf <jeww@logiva.dk>', 
+    'mtm@logiva.dk', 
+    'Beta Cykler <beta@cykler.dk>',
+    'Stark Kbh <kbh@stark.dk>',
+    'Marianne Hnesen <mh@logiva.dk>'
+];
+ 
+$('#mailadr').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'mails',
+  displayKey: "value",
+  source: substringMatcher(data),
+  templates: {
+      empty: '<i>Ingen adresser matcher</i>',
+      suggestion: Handlebars.compile('<p>{{display}}</p>')
+  }
+});
+$('#mailadr').on('typeahead:selected', function(e,item) {
+    addMail(item.value);
+    return item;
+});
+	</script>
+</body>
+</html>

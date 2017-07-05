@@ -52,20 +52,33 @@ class InventoryLocationService extends Injectable
         return $data;
     }
 
+    public function findUpc($upc)
+    {
+        $sql = "SELECT partnum, upc, location, qty FROM inventory_location WHERE upc='$upc' ORDER BY updatedon";
+        $result = $this->db->fetchAll($sql);
+        return $result;
+    }
+
+    public function findUpcMpn($upcmpn)
+    {
+        if ($this->skuService->isUPC($upcmpn)) {
+            $upc = $upcmpn;
+            $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE upc='$upc' ORDER BY updatedon";
+        } else {
+            $mpn = $upcmpn;
+            $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE partnum='$mpn' ORDER BY updatedon";
+        }
+
+        $result = $this->db->fetchAll($sql);
+
+        return $result;
+    }
+
     public function add($data)
     {
         // TODO: who is doing this? add a new column(userid) to table.
         try {
-            $this->db->insertAsDict('inventory_location',
-                array(
-                    'partnum'  => $data['partnum'],
-                    'upc'      => $data['upc'],
-                    'location' => $data['location'],
-                    'qty'      => $data['qty'],
-                    'sn'       => $data['sn'],
-                    'note'     => $data['note'],
-                )
-            );
+            $this->db->insertAsDict('inventory_location', $data);
         } catch (\Exception $e) {
             // echo $e->getMessage(), EOL;
             return false;
@@ -74,16 +87,10 @@ class InventoryLocationService extends Injectable
         return $this->db->lastInsertId();
     }
 
-    public function update($data)
+    public function update($id, $data)
     {
         try {
-            $this->db->updateAsDict('inventory_location',
-                [
-                    'note' => $data['note'],
-                    'sn' => $data['sn'],
-                ],
-                'id='. $data['id']
-            );
+            $this->db->updateAsDict('inventory_location', $data, "id=$id");
         } catch (\Exception $e) {
             // echo $e->getMessage(), EOL;
             return false;

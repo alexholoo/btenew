@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
-  <title>{% block title %}{% if pageTitle is defined %}{{ pageTitle }} &bull; {% endif %}BTE Intranet{% endblock %}</title>
+  <title>{% block title %}{% if pageTitle is defined %}{{ pageTitle }} &bull; {% endif %}BTE DataExchange{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   {% block cssfile %}
@@ -28,7 +28,7 @@
   {% include "partials/navigation.volt" %}
   {% block sidebar %}{% endblock %}
 
-  <div class="container main-container" style="margin-top:60px;">
+  <div class="container main-container">
     {% block main %}{% endblock %}
   </div>
 

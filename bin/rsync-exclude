@@ -1,5 +1,6 @@
 .git/
 tmp/
+public/DataExchange/
 tags
 tt.php
 README.md
