@@ -49,6 +49,7 @@
 @media print {
   @page { size:  6in 4in; margin: 0mm; }
   body { margin: 0px; }
+  .main-container { margin: 0px; }
   #label {
     width: 6in;
     height: 4in;
