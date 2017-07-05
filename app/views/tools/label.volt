@@ -5,8 +5,19 @@
 <h2>Print Barcode Label</h2>
 <div class="well clearfix">
   <form class="form-inline" role="form" method="POST">
-    <div class="form-group col-xs-5">
+    <div class="form-group col-xs-3">
       <input class="form-control" type="text" placeholder="Enter SKU" name="sku" style="width:100%">
+    </div>
+    <div class="form-group col-xs-3">
+      <input class="form-control" type="text" name="condition" placeholder="Condition" list="condlist" style="width:100%">
+      <datalist id="condlist">
+        <select>
+          <option value="New">
+          <option value="Open Box">
+          <option value="Used">
+          <option value="Refurb">
+        </select>
+      </datalist>
     </div>
     <div class="form-group col-xs">
       <button type="submit" class="btn btn-primary">
@@ -56,11 +67,13 @@
 {% endblock %}
 
 {% block docready %}
-JsBarcode("#barcode", "{{ data['upc'] }}", {
-  format: "upc",
-  width: 3,
-  height: 40,
-  fontSize: 12,
-});
-window.print();
+  {% if data is not empty %}
+    JsBarcode("#barcode", "{{ data['upc'] }}", {
+      format: "upc",
+      width: 3,
+      height: 40,
+      fontSize: 12,
+    });
+    window.print();
+  {% endif %}
 {% endblock %}

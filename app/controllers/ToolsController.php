@@ -50,13 +50,15 @@ class ToolsController extends ControllerBase
         if ($this->request->isPost()) {
             $sku  = $this->request->getPost('sku');
             $info = $this->skuService->getMasterSku($sku);
+            $condition = $this->request->getPost('condition');
 
             if ($info) {
+               #$condition = $this->skuService->getCondition($sku);
                 $this->view->data = [
                     'sku'       => $sku,
                     'name'      => $info['name'],
                     'upc'       => $info['UPC'],
-                    'condition' => 'New',
+                    'condition' => $condition,
                 ];
             }
         }
