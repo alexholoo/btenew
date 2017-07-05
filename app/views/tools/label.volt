@@ -21,7 +21,7 @@
     </div>
     <div class="form-group col-xs">
       <button type="submit" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus"></span> Make Label
+        <span class="glyphicon glyphicon-barcode"></span> Print Label
       </button>
     </div>
   </form>
@@ -44,7 +44,7 @@
   width: 6in;
   height: 4in;
   border: 1px black solid;
-  padding: 0 20px;
+  padding: 20px;
 }
 @media print {
   @page { size:  6in 4in; margin: 0mm; }
@@ -54,7 +54,7 @@
     width: 6in;
     height: 4in;
     border: none;
-    padding: none;
+    padding-top: 20px;
   }
 }
 {% endblock %}
@@ -71,7 +71,7 @@
   {% if data is not empty %}
     JsBarcode("#barcode", "{{ data['upc'] }}", {
       format: "upc",
-      width: 3,
+      width: 2,
       height: 40,
       fontSize: 12,
     });
