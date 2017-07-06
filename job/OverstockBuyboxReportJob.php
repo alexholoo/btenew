@@ -2,7 +2,7 @@
 
 include __DIR__ . '/../public/init.php';
 
-class OverstockReportJob extends Job
+class OverstockBuyboxReportJob extends Job
 {
     protected $items;
 
@@ -203,5 +203,5 @@ class OverstockReportJob extends Job
     }
 }
 
-$job = new OverstockReportJob();
+$job = new OverstockBuyboxReportJob();
 $job->run($argv);
