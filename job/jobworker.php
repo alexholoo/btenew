@@ -58,6 +58,7 @@ function prlog($message)
 
     if (filesize($filename) > 128*1024) {
         unlink($filename);
+        touch($filename);
     }
 
     error_log(date('Y-m-d H:i:s').' '.$message. "\n", 3, $filename);
