@@ -46,7 +46,8 @@ class OverstockReportJob extends Job
 
             $listing = $neweggService->findSku($sku, 'US');
             if ($listing) {
-                $this->items[$key]['newegg_us'] = '*';
+                // Price is not available in NeweggUS listing
+                $this->items[$key]['newegg_us'] = $this->items[$key]['amazon_us']; // *1.03
             }
 
            #$listing = $rakutenService->findSku($sku);
@@ -59,22 +60,39 @@ class OverstockReportJob extends Job
                 $this->items[$key]['sold'] = $qty;
             }
 
-            $buybox = $this->getBuyBox($sku);
+            $buybox = $this->getBuyBoxPrices($sku);
             if ($buybox) {
-                $this->items[$key]['buybox'] = $buybox;
+                $this->items[$key]['buybox_ca'] = $buybox['ca'];
+                $this->items[$key]['buybox_us'] = $buybox['us'];
             }
         }
     }
 
-    protected function getBuyBox($sku)
+    protected function getBuyBoxPrices($sku)
     {
-        return '';
+        $buyboxPrices = [ 'ca' => '', 'us' => '' ];
+
+        $sql = "SELECT * FROM amazon_ca_buybox_report_selleractive WHERE sku='$sku'";
+        $info = $this->db->fetchOne($sql);
+
+        if ($info) {
+            $buyboxPrices['ca'] = $info['buybox_price'];
+        }
+
+        $sql = "SELECT * FROM amazon_us_buybox_report_selleractive WHERE sku='$sku'";
+        $info = $this->db->fetchOne($sql);
+
+        if ($info) {
+            $buyboxPrices['us'] = $info['buybox_price'];
+        }
+
+        return $buyboxPrices;
     }
 
     protected function outputReport()
     {
-        $filename = 'E:/BTE/overstock-report.csv';
-        $columns = [ 'SKU', 'Title', 'Condition', 'Cost', 'Qty', 'Amazon CA', 'Amazon US', 'Newegg CA', 'Newegg US', 'Buybox', 'QtySoldIn30Days' ];
+        $filename = 'E:/BTE/overstock-buybox-report.csv';
+        $columns = [ 'SKU', 'Title', 'Condition', 'Cost', 'Qty', 'Amazon CA', 'Amazon US', 'Newegg CA', 'Newegg US', 'Buybox CA', 'Buybox US', 'QtySoldIn30Days' ];
 
         $fp = fopen($filename, 'w');
 
@@ -134,7 +152,8 @@ class OverstockReportJob extends Job
                 'newegg_us' => '',
                #'rakuten'   => '',
                #'ebay'      => '',
-                'buybox'    => '',
+                'buybox_ca' => '',
+                'buybox_us' => '',
                 'sold'      => '',
             ];
         }
@@ -174,7 +193,8 @@ class OverstockReportJob extends Job
                 'newegg_us' => '',
                #'rakuten'   => '',
                #'ebay'      => '',
-                'buybox'    => '',
+                'buybox_ca' => '',
+                'buybox_us' => '',
                 'sold'      => '',
             ];
         }
