@@ -61,15 +61,13 @@ class InventoryLocationService extends Injectable
 
     public function findUpcMpn($upcmpn)
     {
-        if ($this->skuService->isUPC($upcmpn)) {
-            $upc = $upcmpn;
-            $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE upc='$upc' ORDER BY updatedon";
-        } else {
-            $mpn = $upcmpn;
-            $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE partnum='$mpn' ORDER BY updatedon";
-        }
-
+        $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE upc='$upcmpn' ORDER BY updatedon";
         $result = $this->db->fetchAll($sql);
+
+        if (!$result) {
+            $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE partnum='$upcmpn' ORDER BY updatedon";
+            $result = $this->db->fetchAll($sql);
+        }
 
         return $result;
     }
