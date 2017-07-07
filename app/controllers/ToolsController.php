@@ -48,7 +48,7 @@ class ToolsController extends ControllerBase
         $this->view->pageTitle = 'Label with Barcode';
 
         if ($this->request->isPost()) {
-            $sku = $this->request->getPost('sku');
+            $sku = $this->request->getPost('sku', null, 'trim');
             $upc = $this->skuService->getUPC($sku);
             $name = $this->skuService->getName($sku);
             $condition = $this->request->getPost('condition');

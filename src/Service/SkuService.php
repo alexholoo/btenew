@@ -143,8 +143,19 @@ class SkuService extends Injectable
             return $info['name'];
         }
 
+        // If it's not a SKU, try to find SKU from MPN
+        if (!$this->isSku($sku)) {
+            $sql = "SELECT * FROM sku_upc_mpn_map WHERE mpn='$sku'";
+            $info = $this->db->fetchOne($sql);
+            if (!$info) {
+                return '';
+            }
+            $sku = $info['sku'];
+        }
+
         $sql = "SELECT * FROM amazon_us_listings WHERE sku='$sku'";
         $info = $this->db->fetchOne($sql);
+
         if ($info) {
             return trim($info['name'], '.');
         }
