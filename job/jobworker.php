@@ -45,7 +45,7 @@ while (1) {
 
     sleep($pause);
 
-    if (time() - $start > 50) {
+    if (time() - $start > 290) { // 5 minutes
         break;
     }
 }
@@ -56,9 +56,8 @@ function prlog($message)
 {
     $filename = 'app/logs/job-worker.log';
 
-    if (filesize($filename) > 128*1024) {
+    if (file_exists($filename) && filesize($filename) > 128*1024) {
         unlink($filename);
-        touch($filename);
     }
 
     error_log(date('Y-m-d H:i:s').' '.$message. "\n", 3, $filename);
