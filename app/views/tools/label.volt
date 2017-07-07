@@ -6,7 +6,7 @@
 <div class="well clearfix">
   <form class="form-inline" role="form" method="POST">
     <div class="form-group col-xs-3">
-      <input class="form-control" type="text" placeholder="Enter SKU" name="sku" style="width:100%">
+      <input class="form-control" type="text" placeholder="Enter SKU/MPN" name="sku" style="width:100%">
     </div>
     <div class="form-group col-xs-3">
       <input class="form-control" type="text" name="condition" placeholder="Condition" list="condlist" style="width:100%">

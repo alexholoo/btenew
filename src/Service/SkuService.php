@@ -95,7 +95,14 @@ class SkuService extends Injectable
         }
 
         // If not found, try to get UPC from database
-        $sql = "SELECT * FROM sku_upc_map WHERE sku='$sku'";
+        if ($this->isSku($sku)) {
+            // try to get UPC from SKU
+            $sql = "SELECT * FROM sku_upc_map WHERE sku='$sku'";
+        } else {
+            // try to get UPC from MPN
+            $sql = "SELECT * FROM sku_upc_mpn_map WHERE mpn='$sku'";
+        }
+
         $row = $this->db->fetchOne($sql);
         if ($row && $this->isUPC($row['upc'])) {
             return $row['upc'];
@@ -132,7 +139,17 @@ class SkuService extends Injectable
     public function getName($sku)
     {
         $info = $this->getMasterSku($sku);
-        return isset($info['name']) ? $info['name'] : '';
+        if ($info) {
+            return $info['name'];
+        }
+
+        $sql = "SELECT * FROM amazon_us_listings WHERE sku='$sku'";
+        $info = $this->db->fetchOne($sql);
+        if ($info) {
+            return trim($info['name'], '.');
+        }
+
+        return '';
     }
 
     public function getBestCost($sku)
