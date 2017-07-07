@@ -83,8 +83,14 @@ class QueryController extends ControllerBase
 
     public function inventoryAction($upcmpn = '')
     {
-        $data = $this->inventoryLocationService->findUpcMpn($upcmpn);
+        $data = [];
+
+        if ($upcmpn) {
+            $data = $this->inventoryLocationService->findUpcMpn($upcmpn);
+        }
+
         $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
+
         return $this->response;
     }
 }
