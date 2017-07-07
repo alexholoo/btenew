@@ -9,7 +9,7 @@ class QueryController extends ControllerBase
         $this->view->disable();
     }
 
-    public function upcAction($upc)
+    public function upcAction($upc = '')
     {
         $skuList = $this->skuService->getSkuListByUPC($upc);
         $this->response->setJsonContent(['status' => 'OK', 'data' => $skuList ]);
@@ -17,7 +17,7 @@ class QueryController extends ControllerBase
         return $this->response;
     }
 
-    public function mpnAction($mpn)
+    public function mpnAction($mpn = '')
     {
         $skuList = $this->skuService->getSkuListByMPN($mpn);
         $this->response->setJsonContent(['status' => 'OK', 'data' => $skuList ]);
@@ -25,7 +25,7 @@ class QueryController extends ControllerBase
         return $this->response;
     }
 
-    public function orderSkuAction($orderId)
+    public function orderSkuAction($orderId = '')
     {
         if (strlen($orderId) == 17) { // Amazon Order Number without -
             $orderId = substr($orderId, 0, 3).'-'.substr($orderId, 3, 7).'-'.substr($orderId, 10);
@@ -38,7 +38,7 @@ class QueryController extends ControllerBase
         return $this->response;
     }
 
-    public function trackingSkuAction($trackingNum)
+    public function trackingSkuAction($trackingNum = '')
     {
         $order = $this->shipmentService->getOrderByTracking($trackingNum);
         if ($order) {
@@ -54,7 +54,7 @@ class QueryController extends ControllerBase
         return $this->response;
     }
 
-    public function trackingSkuLocAction($trackingNum)
+    public function trackingSkuLocAction($trackingNum = '')
     {
         $order = $this->shipmentService->getOrderByTracking($trackingNum);
         if ($order) {
@@ -81,7 +81,7 @@ class QueryController extends ControllerBase
         return $this->response;
     }
 
-    public function inventoryAction($upcmpn)
+    public function inventoryAction($upcmpn = '')
     {
         $data = $this->inventoryLocationService->findUpcMpn($upcmpn);
         $this->response->setJsonContent(['status' => 'OK', 'data' => $data ]);
