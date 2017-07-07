@@ -22,6 +22,7 @@ while (1) {
         $pause = 0;
 
         $message = $job->getBody();
+        $job->delete(); // delete the job from queue ASAP to prevent run it twice
 
         $name = key($message);
         $params = current($message);
@@ -38,7 +39,7 @@ while (1) {
             prlog("Error: $file not found");
         }
 
-        $job->delete();
+        echo "Job End: $name\n\n";
     }
 
     $pause = min($pause + 1, 10);
