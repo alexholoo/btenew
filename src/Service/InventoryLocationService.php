@@ -61,26 +61,43 @@ class InventoryLocationService extends Injectable
 
     public function findUpcMpn($upcmpn)
     {
-        $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE upc='$upcmpn' ORDER BY updatedon";
-        $result = $this->db->fetchAll($sql);
+        if ($this->skuService->isUPC($upcmpn)) {
+            $upc = $upcmpn;
+            $mpn = 'UNKNOWN';
 
-        if (!$result) {
-            $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE partnum='$upcmpn' ORDER BY updatedon";
-            $result = $this->db->fetchAll($sql);
+            $sql = "SELECT * FROM sku_upc_mpn_map WHERE upc='$upc'";
+            $row = $this->db->fetchOne($sql);
 
-            if (!$result) {
-                $sql = "SELECT * FROM sku_upc_mpn_map WHERE mpn='$upcmpn'";
-                $row = $this->db->fetchOne($sql);
+            if ($row) {
+                $mpn = $row['mpn'];
+            }
+        } else {
+            $mpn = $upcmpn;
+            $upc = 'UNKNOWN';
 
-                if ($row) {
-                    $upc = $row['upc'];
-                    $sql = "SELECT id, partnum, upc, location, qty, sn, note FROM inventory_location WHERE upc='$upc' ORDER BY updatedon";
-                    $result = $this->db->fetchAll($sql);
-                }
+            $sql = "SELECT * FROM sku_upc_mpn_map WHERE mpn='$mpn'";
+            $row = $this->db->fetchOne($sql);
+
+            if ($row) {
+                $upc = $row['upc'];
             }
         }
 
-        return $result;
+        $sql = "SELECT id, partnum, upc, location, qty, sn, note".
+               "  FROM inventory_location".
+               " WHERE upc='$upc'".
+               " ORDER BY updatedon";
+        $res1 = $this->db->fetchAll($sql);
+
+        $sql = "SELECT id, partnum, upc, location, qty, sn, note".
+               "  FROM inventory_location".
+               " WHERE partnum='$mpn'".
+               " ORDER BY updatedon";
+        $res2 = $this->db->fetchAll($sql);
+
+        $res = array_column($res1, null, 'id') + array_column($res2, null, 'id');
+
+        return array_values($res);
     }
 
     public function add($data)
