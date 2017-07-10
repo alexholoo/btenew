@@ -66,9 +66,12 @@ class DropshipOrderImportJob extends Job
         #}
 
         try {
-            $sql = $this->genInsertSql($table, $columns, $data);
             $this->db->execute("TRUNCATE TABLE $table");
-            $this->db->execute($sql);
+            $chunks = array_chunk($data, 500);
+            foreach ($chunks as $chunk) {
+                $sql = $this->genInsertSql($table, $columns, $chunk);
+                $this->db->execute($sql);
+            }
         } catch (Exception $e) {
             echo $e->getMessage(), EOL;
         }
@@ -127,8 +130,11 @@ class DropshipOrderImportJob extends Job
         #}
 
         try {
-            $sql = $this->genInsertSql($table, $columns, $data);
-            $this->db->execute($sql);
+            $chunks = array_chunk($data, 500);
+            foreach ($chunks as $chunk) {
+                $sql = $this->genInsertSql($table, $columns, $chunk);
+                $this->db->execute($sql);
+            }
         } catch (Exception $e) {
             echo $e->getMessage(), EOL;
         }
@@ -194,8 +200,11 @@ class DropshipOrderImportJob extends Job
         #}
 
         try {
-            $sql = $this->genInsertSql($table, $columns, $data);
-            $this->db->execute($sql);
+            $chunks = array_chunk($data, 500);
+            foreach ($chunks as $chunk) {
+                $sql = $this->genInsertSql($table, $columns, $chunk);
+                $this->db->execute($sql);
+            }
         } catch (Exception $e) {
             echo $e->getMessage(), EOL;
         }
