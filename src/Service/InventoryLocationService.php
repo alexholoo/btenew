@@ -63,7 +63,7 @@ class InventoryLocationService extends Injectable
     {
         if ($this->skuService->isUPC($upcmpn)) {
             $upc = $upcmpn;
-            $mpn = 'UNKNOWN';
+            $mpn = '_UNKNOWN_';
 
             $sql = "SELECT * FROM sku_upc_mpn_map WHERE upc='$upc'";
             $row = $this->db->fetchOne($sql);
@@ -73,7 +73,7 @@ class InventoryLocationService extends Injectable
             }
         } else {
             $mpn = $upcmpn;
-            $upc = 'UNKNOWN';
+            $upc = '_UNKNOWN_';
 
             $sql = "SELECT * FROM sku_upc_mpn_map WHERE mpn='$mpn'";
             $row = $this->db->fetchOne($sql);
@@ -91,7 +91,7 @@ class InventoryLocationService extends Injectable
 
         $sql = "SELECT id, partnum, upc, location, qty, sn, note".
                "  FROM inventory_location".
-               " WHERE partnum='$mpn'".
+               " WHERE partnum LIKE '%$mpn%'".
                " ORDER BY updatedon";
         $res2 = $this->db->fetchAll($sql);
 
