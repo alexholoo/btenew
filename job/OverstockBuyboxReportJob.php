@@ -203,5 +203,9 @@ class OverstockBuyboxReportJob extends Job
     }
 }
 
+copy('Z:/BTE-Price-List/us-buyboxreport.csv', 'E:/BTE/import/amazon-us-buybox-report-selleractive.csv');
+
 $job = new OverstockBuyboxReportJob();
 $job->run($argv);
+
+copy('E:/BTE/overstock-buybox-report.csv',    'Z:/BTE-Price-List/overstock-buybox-report.csv');
