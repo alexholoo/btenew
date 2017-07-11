@@ -19,14 +19,14 @@ class eBay_PriceQty_Uploader extends PriceQty_Uploader
         if (file_exists($filename)) {
             $client = new Marketplace\eBay\Client('odo');
             $this->updatePriceQty($client, $filename);
-            File::backup($filename);
+            File::archive($filename);
         }
 
         $filename = Filenames::get('ebay.gfs.priceqty');
         if (file_exists($filename)) {
             $client = new Marketplace\eBay\Client('gfs');
             $this->updatePriceQty($client, $filename);
-            File::backup($filename);
+            File::archive($filename);
         }
     }
 

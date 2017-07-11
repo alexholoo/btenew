@@ -19,14 +19,14 @@ class Newegg_PriceQty_Uploader extends PriceQty_Uploader
         if (file_exists($filename)) {
             $client = new Marketplace\Newegg\Client('CA');
             $client->uploadPriceQty($filename);
-            File::backup($filename);
+            File::archive($filename);
         }
 
         $filename = Filenames::get('newegg.us.priceqty');
         if (file_exists($filename)) {
             $client = new Marketplace\Newegg\Client('US');
             $client->uploadPriceQty($filename);
-            File::backup($filename);
+            File::archive($filename);
         }
     }
 }

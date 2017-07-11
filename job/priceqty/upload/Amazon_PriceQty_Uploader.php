@@ -21,14 +21,14 @@ class Amazon_PriceQty_Uploader extends PriceQty_Uploader
         $filename = Filenames::get('amazon.ca.priceqty');
         if (file_exists($filename)) {
             $this->uploadFeed($store, $filename, $type);
-            File::backup($filename);
+            File::archive($filename);
         }
 
         $store = 'bte-amazon-us';
         $filename = Filenames::get('amazon.us.priceqty');
         if (file_exists($filename)) {
             $this->uploadFeed($store, $filename, $type);
-            File::backup($filename);
+            File::archive($filename);
         }
     }
 

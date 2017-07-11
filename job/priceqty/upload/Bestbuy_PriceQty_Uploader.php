@@ -18,7 +18,7 @@ class Bestbuy_PriceQty_Uploader extends PriceQty_Uploader
         $filename = Filenames::get('bestbuy.priceqty');
         if (file_exists($filename)) {
             $this->uploadOffers($filename);
-            File::backup($filename);
+            File::archive($filename);
         }
     }
 
