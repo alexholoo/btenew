@@ -121,6 +121,26 @@ class ShipmentService extends Injectable
         return $rows;
     }
 
+    public function saveOrderSN($orderId, $sn)
+    {
+        $nums = array_filter(explode(',', $sn));
+
+        foreach ($nums as $num) {
+            try {
+                $this->db->insertAsDict('order_sn',
+                    [
+                        'order_id' => $orderId,
+                        'sn'       => $num,
+                    ]
+                );
+            } catch (\Exception $e) {
+                //fpr($e->getMessage());
+            }
+        }
+
+        return $nums;
+    }
+
     /**
      * Order SHIPPED means the tracking number of the order has been uploaded
      */

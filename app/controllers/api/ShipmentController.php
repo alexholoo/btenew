@@ -28,4 +28,21 @@ class ShipmentController extends ControllerBase
             return $this->response;
         }
     }
+
+    public function orderSnAction()
+    {
+        if ($this->request->isPost()) {
+            $orderId = $this->request->getPost('orderno');
+            $sn = $this->request->getPost('sn');
+
+            if ($orderId && $sn) {
+                $info = $this->shipmentService->saveOrderSN($orderId, $sn);
+                $this->response->setJsonContent(['status' => 'OK', 'data' => $info]);
+            } else {
+                $this->response->setJsonContent(['status' => 'ERROR', 'message' => 'Bad Request']);
+            }
+
+            return $this->response;
+        }
+    }
 }
