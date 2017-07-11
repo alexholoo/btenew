@@ -22,7 +22,7 @@ class Newegg_Shipment_Uploader extends Tracking_Uploader
         if (file_exists($filename)) {
             $client->uploadTracking($filename);
             $this->markOrdersShipped($filename);
-            File::backup($filename);
+            File::archive($filename);
         }
 
         // US
@@ -32,7 +32,7 @@ class Newegg_Shipment_Uploader extends Tracking_Uploader
         if (file_exists($filename)) {
             $client->uploadTracking($filename);
             $this->markOrdersShipped($filename);
-            File::backup($filename);
+            File::archive($filename);
         }
     }
 

@@ -21,7 +21,7 @@ class Ebay_Shipment_Uploader extends Tracking_Uploader
         $filename = Filenames::get('ebay.gfs.shipping');
         if (file_exists($filename)) {
             $this->uploadTracking($client, $filename);
-            File::backup($filename);
+            File::archive($filename);
         }
 
         // ODO
@@ -30,7 +30,7 @@ class Ebay_Shipment_Uploader extends Tracking_Uploader
         $filename = Filenames::get('ebay.odo.shipping');
         if (file_exists($filename)) {
             $this->uploadTracking($client, $filename);
-            File::backup($filename);
+            File::archive($filename);
         }
     }
 

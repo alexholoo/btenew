@@ -51,7 +51,7 @@ class Amazon_Shipment_Uploader extends Tracking_Uploader
 
         $this->markOrdersShipped($file);
 
-        File::backup($file);
+        File::archive($file);
 
        #$this->log(print_r($api->getResponse(), true));
     }

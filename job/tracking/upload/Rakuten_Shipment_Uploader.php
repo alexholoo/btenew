@@ -23,7 +23,7 @@ class Rakuten_Shipment_Uploader extends Tracking_Uploader
             $client->uploadTracking($filename);
             $this->markOrdersShipped($filename);
 
-            File::backup($filename);
+            File::archive($filename);
         }
     }
 

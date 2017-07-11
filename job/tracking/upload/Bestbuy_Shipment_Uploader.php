@@ -21,7 +21,7 @@ class Bestbuy_Shipment_Uploader extends Tracking_Uploader
 
         if (file_exists($filename)) {
             $this->uploadTracking($client, $filename);
-            File::backup($filename);
+            File::archive($filename);
         }
     }
 
