@@ -1,0 +1,13 @@
+USE bte;
+
+CREATE TABLE IF NOT EXISTS `inventory_invoice` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`upc` VARCHAR(20) NOT NULL,
+	`supplier` VARCHAR(20) NOT NULL,
+	`invoice` VARCHAR(40) NOT NULL,
+	`createdon` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`),
+	INDEX `upc` (`upc`)
+)
+ENGINE=InnoDB
+;

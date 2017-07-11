@@ -38,4 +38,18 @@ class InventoryController extends ControllerBase
             return $this->response;
         }
     }
+
+    public function invoiceAction()
+    {
+        if ($this->request->isPost()) {
+
+            $data = $this->request->getPost();
+
+            $this->inventoryLocationService->saveInvoice($data);
+
+            $this->response->setJsonContent(['status' => 'OK']);
+
+            return $this->response;
+        }
+    }
 }

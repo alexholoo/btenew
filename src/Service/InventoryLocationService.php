@@ -131,4 +131,20 @@ class InventoryLocationService extends Injectable
         $this->db->execute($sql);
         return $this->db->affectedRows();
     }
+
+    public function saveInvoice($data)
+    {
+        try {
+            $this->db->insertAsDict('inventory_invoice', [
+                'upc'      => $data['upc'],
+                'supplier' => $data['supplier'],
+                'invoice'  => $data['invoice'],
+            ]);
+        } catch (\Exception $e) {
+            // echo $e->getMessage(), EOL;
+            return false;
+        }
+
+        return true;
+    }
 }
